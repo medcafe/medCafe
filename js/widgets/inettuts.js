@@ -138,9 +138,8 @@ var iNettuts = {
         
     },
     
-    refresh : function () {
+    refresh : function (id) {
        
-        alert('about to refresh');
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings;
@@ -148,8 +147,10 @@ var iNettuts = {
       
             var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
             if (thisWidgetSettings.removable) {
-            
-                $('<a href="#" class="remove">CLOSE</a>').mousedown(function (e) {
+            	var test = $(settings.handleSelector,this);
+            	var closeButton = $(test).find('.remove');
+            	//alert('test close parent ' + $(test).text());
+                $(closeButton).mousedown(function (e) {
                     e.stopPropagation();    
                 }).click(function () {
                     if(confirm('This widget will be removed, ok?')) {
@@ -162,12 +163,16 @@ var iNettuts = {
                         });
                     }
                     return false;
-                }).appendTo($(settings.handleSelector, this));
+                });
             }
             
             if (thisWidgetSettings.editable) {
             	
-                $('<a href="#" class="edit">EDIT</a>').mousedown(function (e) {
+            	//Want to be able to identify the <a> and refresh the method - without readding
+            	var test = $(settings.handleSelector,this);
+            	var editButton = $(test).find('.edit');
+            	
+                $(editButton).mousedown(function (e) {
                     e.stopPropagation();    
                 }).toggle(function () {
                 	var test = $(this).css({backgroundPosition: '-66px 0', width: '55px'})
@@ -182,12 +187,15 @@ var iNettuts = {
                         .parents(settings.widgetSelector)
                             .find('.edit-box').hide();
                     return false;
-                }).appendTo($(settings.handleSelector,this));
+                });
                
             }
             
             if (thisWidgetSettings.collapsible) {
-                $('<a href="#" class="collapse">COLLAPSE</a>').mousedown(function (e) {
+            	var test = $(settings.handleSelector,this);
+            	var collapseButton = $(test).find('.collapse');
+            	
+                $(collapseButton).mousedown(function (e) {
                     e.stopPropagation();    
                 }).toggle(function () {
                     $(this).css({backgroundPosition: '-38px 0'})
@@ -199,7 +207,7 @@ var iNettuts = {
                         .parents(settings.widgetSelector)
                             .find(settings.contentSelector).show();
                     return false;
-                }).prependTo($(settings.handleSelector,this));
+                });
             }
         });
         
