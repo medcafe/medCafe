@@ -30,7 +30,7 @@ var iNettuts = {
     },
 
     init : function () {
-    	alert('attaching stylesheet');
+    	
         this.attachStylesheet('css/inettuts.js.css');
         this.addWidgetControls();
         this.makeSortable();
@@ -71,9 +71,13 @@ var iNettuts = {
             }
             
             if (thisWidgetSettings.editable) {
+            	
                 $('<a href="#" class="edit">EDIT</a>').mousedown(function (e) {
                     e.stopPropagation();    
                 }).toggle(function () {
+                	var test = $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+                        .parents(settings.widgetSelector);
+                	
                     $(this).css({backgroundPosition: '-66px 0', width: '55px'})
                         .parents(settings.widgetSelector)
                             .find('.edit-box').show().find('input').focus();
@@ -95,6 +99,91 @@ var iNettuts = {
                     })())
                     .append('</ul>')
                     .insertAfter($(settings.handleSelector,this));
+            }
+            
+            if (thisWidgetSettings.collapsible) {
+                $('<a href="#" class="collapse">COLLAPSE</a>').mousedown(function (e) {
+                    e.stopPropagation();    
+                }).toggle(function () {
+                    $(this).css({backgroundPosition: '-38px 0'})
+                        .parents(settings.widgetSelector)
+                            .find(settings.contentSelector).hide();
+                    return false;
+                },function () {
+                    $(this).css({backgroundPosition: ''})
+                        .parents(settings.widgetSelector)
+                            .find(settings.contentSelector).show();
+                    return false;
+                }).prependTo($(settings.handleSelector,this));
+            }
+        });
+        
+        $('.edit-box').each(function () {
+            $('input',this).keyup(function () {
+                $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
+            });
+            $('ul.colors li',this).click(function () {
+                
+                var colorStylePattern = /\bcolor-[\w]{1,}\b/,
+                    thisWidgetColorClass = $(this).parents(settings.widgetSelector).attr('class').match(colorStylePattern)
+                if (thisWidgetColorClass) {
+                    $(this).parents(settings.widgetSelector)
+                        .removeClass(thisWidgetColorClass[0])
+                        .addClass($(this).attr('class').match(colorStylePattern)[0]);
+                }
+                return false;
+                
+            });
+        });
+        
+    },
+    
+    refresh : function () {
+       
+        alert('about to refresh');
+        var iNettuts = this,
+            $ = this.jQueryWidgets,
+            settings = this.settings;
+        $(settings.widgetSelector, $(settings.columns)).each(function () {
+      
+            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
+            if (thisWidgetSettings.removable) {
+            
+                $('<a href="#" class="remove">CLOSE</a>').mousedown(function (e) {
+                    e.stopPropagation();    
+                }).click(function () {
+                    if(confirm('This widget will be removed, ok?')) {
+                        $(this).parents(settings.widgetSelector).animate({
+                            opacity: 0    
+                        },function () {
+                            $(this).wrap('<div/>').parent().slideUp(function () {
+                                $(this).remove();
+                            });
+                        });
+                    }
+                    return false;
+                }).appendTo($(settings.handleSelector, this));
+            }
+            
+            if (thisWidgetSettings.editable) {
+            	
+                $('<a href="#" class="edit">EDIT</a>').mousedown(function (e) {
+                    e.stopPropagation();    
+                }).toggle(function () {
+                	var test = $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+                        .parents(settings.widgetSelector);
+                	
+                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+                        .parents(settings.widgetSelector)
+                            .find('.edit-box').show().find('input').focus();
+                    return false;
+                },function () {
+                    $(this).css({backgroundPosition: '', width: ''})
+                        .parents(settings.widgetSelector)
+                            .find('.edit-box').hide();
+                    return false;
+                }).appendTo($(settings.handleSelector,this));
+               
             }
             
             if (thisWidgetSettings.collapsible) {
