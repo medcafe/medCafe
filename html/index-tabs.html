@@ -166,7 +166,7 @@
 		  //accept: "#divDrag",    
 		  drop:			function (ev, ui)
 		   {
-		    
+		    	
 		    	//Set up variables
 		    	var aObj = $(ui.draggable).closest('li').find('a'); 
 			    var href = aObj.attr('href');
@@ -214,7 +214,15 @@
 		  	///accept: ".tabs",    
 		drop:			function (ev, ui)
 		   {
-		   	
+		   		//alert("ui draggable " + $(ui.draggable).html());
+		   		
+		   		//Need to put in functionality for the widgets to be placed within tabs
+				if(!$(ui.draggable).hasClass('.tabHeader'))
+				{
+					alert("this is not a tab header");
+					return false;
+				}
+		   		
 		   		var aObj = $(ui.draggable).closest('li').find('a'); 
 			    var href = aObj.attr('href');
 	  			var id =  $(ui.draggable).attr("id"); 
@@ -253,6 +261,7 @@
 				//newTagObj.attr('id', 'test');
 				$newText.addClass('ui-tabs-hide');    
 				iNettuts.refresh();
+				
 			} 
 		  
 		}); 

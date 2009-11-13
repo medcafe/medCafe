@@ -250,7 +250,7 @@ var iNettuts = {
                         notSortable += '#' + this.id + ',';
                     }
                 });
-                return $('> li:not(' + notSortable + ')', settings.columns);
+                return $('> div:not(' + notSortable + ')', settings.columns);
             })();
         
         $sortableItems.find(settings.handleSelector).css({
