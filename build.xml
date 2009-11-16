@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<project name="mmrc" default="compile" basedir=".">
+
+    <target name="setProps" depends="init" description="sets the various properties - custom ones should be in build.props.">
+        <property file="build.props" />
+        <dirname property="antfile.dir" file="${ant.file}"/>
+        <property name="src" value="src" description="location of source code" />
+        <property name="build" value="build" description="location to build the files to " />
+        <property name="jars" value="lib" description="location of necessary jar files" />
+        <property name="doc" value="doc" description="location of javadocs" />
+        <property name="warfile" value="mmrc.war" description="name of war file to build" />
+        <property name="jarfile" value="mmrc.jar" description="name of jar file to build" />
+        <property name="config" value="config" description="location of WEB-INF " />
+        <property name="html" value="html" description="location of other HTML pages"/>
+    	<property name="perl" value="perl" description="location of Perl code"/>
+        <property name="webxml" value="${config}/web.xml" description="name of file to use as web.xml" />
+        <property name="build.compiler" value="modern" />
+        <property name="appBase" value="tomcat/webapps" />
+        <property name="webApp" value="mmrc" description="name of webapp to deploy as" />
+        <property name="testProps" value="${antfile.dir}/test.properties" />
+        <property name="release" value="v0_00" />
+        <!-- <echoproperties /> -->
+
+        <path id="jarspath">
+            <fileset dir="${jars}">
+                <include name="**/*.jar" />
+            </fileset>
+        </path>
+        <!-- Uncomment this to print the classpath  -->
+        <!--
+            <property name="myclasspath" refid="jarspath"/>
+            <echo message="Classpath = ${myclasspath}"/>
+        -->
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="${jarfile}" basedir="${build}">
+            <include name="*/**" />
+            <exclude name="**/test/**" />
+        	<manifest>
+                <attribute name="Main-Class" value="firstSteps.mmrcMain" />
+                <attribute name="Class-Path" value="${jarspath}" />
+            </manifest>
+        </jar>
+
+    </target>
+
+    <target name="release" depends="clean, zipSource, jar, zipJavadoc, clean">
+        <move file="${jarfile}" overwrite="true" tofile="mmrc_jar_${release}.jar" />
+        <!-- <move file="${warfile}" overwrite="true" tofile="mmrc_war_${release}.war" /> -->
+    </target>
+
+    <target name="zipSource" depends="setProps, clean">
+        <zip basedir="${antfile.dir}" compress="true" defaultexcludes="true" zipfile="mmrc_src_${release}.zip">
+            <exclude name="tomcat"/>
+        </zip>
+    </target>
+
+    <target name="zipJavadoc" depends="doc">
+        <zip basedir="${doc}" compress="true" defaultexcludes="true" zipfile="mmrc_api_${release}.zip"></zip>
+    </target>
+
+    <target name="init">
+        <tstamp />
+        <echo message="Build file: ${DSTAMP}, ${TSTAMP}" />
+        <available property="junit.present" classname="junit.framework.Test"/>
+    </target>
+
+    <target name="compile" depends="setProps">
+        <mkdir dir="${build}" />
+        <javac srcdir="${src}" destdir="${build}" deprecation="on" debug="on" source="1.5" target="1.5" >
+            <classpath>
+                <path refid="jarspath" />
+            </classpath>
+            <include name="**/*.java" />
+        </javac>
+    </target>
+
+    <target name="clean" depends="setProps">
+        <delete dir="${doc}" />
+        <delete dir="${build}" />
+        <delete>
+            <fileset dir="." includes="mmrc*.zip" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="mmrc*.war" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="mmrc*.jar" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="*.aar" />
+        </delete>    </target>
+
+    <target name="doc" depends="setProps">
+        <mkdir dir="${doc}" />
+        <javadoc packagenames="org.mitre.*" sourcepath="${src}" destdir="${doc}" author="true" version="true" windowtitle="MRALD API">
+            <classpath>
+                <path refid="jarspath" />
+            </classpath>
+        </javadoc>
+    </target>
+    <target name="war" depends="jar">
+        <!-- create a release file -->
+        <echo file="html/release.txt" message="Release: ${release} " />
+        <echo file="html/release.txt" append="true" message="Build date, time: ${DSTAMP}, ${TSTAMP}" />
+        <war warfile="${warfile}" webxml="${webxml}">
+            <fileset dir="${html}" />
+            <lib dir="${jars}">
+                <!-- provided by Tomcat -->
+                <exclude name="servlet-api.jar" />
+                <exclude name="javax.servlet.jar" />
+                <exclude name="jsp-api.jar" />
+                <exclude name="commons-logging*" />
+                <!-- flatten out the lib directory -->
+                <exclude name="**/restlet/**"/>
+            </lib>
+            <lib file="${jarfile}"/>
+            <lib dir="${jars}/restlet" />
+            <webinf dir="${config}">
+                <exclude name="context.xml"/>
+                <exclude name="web.xml"/>
+            </webinf>
+            <metainf dir="${config}">
+                <include name="context.xml"/>
+            </metainf>
+        </war>
+    </target>
+
+</project>
