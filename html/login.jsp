@@ -1,4 +1,4 @@
-<%@ page import="org.mitre.mmrc.util.*" %><%
+<%@ page import="org.mitre.medcafe.util.*" %><%
 String message = WebUtils.getOptionalParameter(request, "message", null);
 %><html>
 <head>

@@ -1,37 +1,29 @@
 package firstSteps;
 
-import org.restlet.Context;
-import org.restlet.data.MediaType;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
-import org.restlet.resource.Representation;
-import org.restlet.resource.Resource;
-import org.restlet.resource.ResourceException;
-import org.restlet.resource.StringRepresentation;
-import org.restlet.resource.Variant;
+import org.restlet.resource.*;
+import org.restlet.representation.*;
+
 
 /**
-* Resource which has only one representation.
-*
-*/
-public class HelloWorldResource extends Resource {
+ * Resource which has only one representation.
+ *
+ */
+public class HelloWorldResource extends ServerResource {
 
- public HelloWorldResource(Context context, Request request,
-         Response response) {
-     super(context, request, response);
+    @Override
+    protected void doInit() throws ResourceException {
+        System.out.println("found HelloWorldResource");
+        for(Variant v : getVariants())
+        {
+            System.out.println(String.valueOf(v));
+        }
 
-     // This representation has only one type of representation.
-     getVariants().add(new Variant(MediaType.TEXT_PLAIN));
- }
+        //setExisting(this.item != null);
+    }
 
- /**
-  * Returns a full representation for a given variant.
-  */
- @Override
- public Representation represent(Variant variant) throws ResourceException {
-     Representation representation = new StringRepresentation(
-             "hello, world", MediaType.TEXT_PLAIN);
-     return representation;
- }
+    @Get("html")
+    public Representation represent() {
+        return new StringRepresentation("hello, world");
+    }
+
 }
-

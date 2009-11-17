@@ -1,4 +1,4 @@
-<Context path="/" docBase="ROOT"  crossContext="true" reloadable="true" debug="1">
+<Context path="/" docBase="medcafe"  crossContext="true" reloadable="true" debug="1">
    <Resource name="jdbc/mmrc" auth="Container"
           type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
           url="jdbc:postgresql://127.0.0.1:5432/mmrc"

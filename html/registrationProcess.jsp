@@ -1,4 +1,4 @@
-<%@ page import="org.mitre.mmrc.util.*" %><%
+<%@ page import="org.mitre.medcafe.util.*" %><%
 
 String loginResult = AuthenticationUtils.registerUser( request );
 if( loginResult.equals( AuthenticationUtils.OK ))
