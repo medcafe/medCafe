@@ -143,75 +143,104 @@ var iNettuts = {
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings;
+            
         $(settings.widgetSelector, $(settings.columns)).each(function () {
       
-            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
-            if (thisWidgetSettings.removable) {
-            	var test = $(settings.handleSelector,this);
-            	var closeButton = $(test).find('.remove');
-            	//alert('test close parent ' + $(test).text());
-                $(closeButton).mousedown(function (e) {
-                    e.stopPropagation();    
-                }).click(function () {
-                    if(confirm('This widget will be removed, ok?')) {
-                        $(this).parents(settings.widgetSelector).animate({
-                            opacity: 0    
-                        },function () {
-                            $(this).wrap('<div/>').parent().slideUp(function () {
-                                $(this).remove();
-                            });
-                        });
-                    }
-                    return false;
-                });
-            }
+	      	//alert("this id " + this.id);
+	      	//Only refresh for the recently moved tab
+	      	if (this.id === id)
+	      	{
+	            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
+	      
+	        	if (thisWidgetSettings.editable) {
+	            	
+	            	//Want to be able to identify the <a> and refresh the method - without readding
+	            	var test = $(settings.handleSelector,this);
+	            
+	            	var widgetId = $(test).attr('id');
+	      		
+	            	var editButton = $(test).find('.edit');
+	            	
+	                /*$(editButton).click().toggle(function () {
+	                	        
+	                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+	                        .parents(settings.widgetSelector)
+	                            .find('.edit-box').show().find('input').focus();
+	                    return false;
+	                },function () {
+	                    $(this).css({backgroundPosition: '', width: ''})
+	                        .parents(settings.widgetSelector)
+	                            .find('.edit-box').hide();
+	                    return false;
+	                });*/
+	                
+	                var events = $(editButton).data("events");
+	                
+	                $(editButton).mousedown().toggle(function(){
+		                //$(this).toggle(function () {
+		                	//alert('toggle open');        
+		                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+		                        .parents(settings.widgetSelector)
+		                            .find('.edit-box').show().find('input').focus();
+		                    return true;
+		                },function () {
+		                	//alert('toggle close');  
+		                    $(this).css({backgroundPosition: '', width: ''})
+		                        .parents(settings.widgetSelector)
+		                            .find('.edit-box').hide();
+		                    return false;
+		                });
+	                //});
+	            }
+	      
+	            if (thisWidgetSettings.removable) {
+	            	var test = $(settings.handleSelector,this);
+	            	var closeButton = $(test).find('.remove');
+	            	//alert('test close parent ' + $(test).text());
+	                $(closeButton).mousedown(function (e) {
+	                	alert('close -stop propagation');
+	                    e.stopPropagation();    
+	                }).click(function () {
+	                    if(confirm('This widget will be removed, ok?')) {
+	                        $(this).parents(settings.widgetSelector).animate({
+	                            opacity: 0    
+	                        },function () {
+	                            $(this).wrap('<div/>').parent().slideUp(function () {
+	                                $(this).remove();
+	                            });
+	                        });
+	                    }
+	                    return false;
+	                });
+	            }
+	            
+	          
+	            
+	            if (thisWidgetSettings.collapsible) {
+	            	var test = $(settings.handleSelector,this);
+	            	var collapseButton = $(test).find('.collapse');
+	            	
+	                $(collapseButton).mousedown(function (e) {
+	                	alert('collapse -stop propagation');
+	                    e.stopPropagation();    
+	                     alert('is propagated stopped ' + e.isPropagationStopped());
+	                }).toggle(function () {
+	                    $(this).css({backgroundPosition: '-38px 0'})
+	                        .parents(settings.widgetSelector)
+	                            .find(settings.contentSelector).hide();
+	                    return false;
+	                },function () {
+	                    $(this).css({backgroundPosition: ''})
+	                        .parents(settings.widgetSelector)
+	                            .find(settings.contentSelector).show();
+	                    return false;
+	                });
+	            }
             
-            if (thisWidgetSettings.editable) {
-            	
-            	//Want to be able to identify the <a> and refresh the method - without readding
-            	var test = $(settings.handleSelector,this);
-            	var editButton = $(test).find('.edit');
-            	
-                $(editButton).mousedown(function (e) {
-                    e.stopPropagation();    
-                }).toggle(function () {
-                	var test = $(this).css({backgroundPosition: '-66px 0', width: '55px'})
-                        .parents(settings.widgetSelector);
-                	
-                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
-                        .parents(settings.widgetSelector)
-                            .find('.edit-box').show().find('input').focus();
-                    return false;
-                },function () {
-                    $(this).css({backgroundPosition: '', width: ''})
-                        .parents(settings.widgetSelector)
-                            .find('.edit-box').hide();
-                    return false;
-                });
-               
-            }
-            
-            if (thisWidgetSettings.collapsible) {
-            	var test = $(settings.handleSelector,this);
-            	var collapseButton = $(test).find('.collapse');
-            	
-                $(collapseButton).mousedown(function (e) {
-                    e.stopPropagation();    
-                }).toggle(function () {
-                    $(this).css({backgroundPosition: '-38px 0'})
-                        .parents(settings.widgetSelector)
-                            .find(settings.contentSelector).hide();
-                    return false;
-                },function () {
-                    $(this).css({backgroundPosition: ''})
-                        .parents(settings.widgetSelector)
-                            .find(settings.contentSelector).show();
-                    return false;
-                });
             }
         });
         
-        $('.edit-box').each(function () {
+        /*$('.edit-box').each(function () {
             $('input',this).keyup(function () {
                 $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
             });
@@ -227,7 +256,7 @@ var iNettuts = {
                 return false;
                 
             });
-        });
+        });*/
         
     },
     
