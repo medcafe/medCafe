@@ -5,18 +5,20 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
 	<title>Droppable Between Panes</title>
-
+  
 	<link type="text/css" href="css/ui.tabs.css" rel="stylesheet" />
   	<link type="text/css" href="css/ui.theme.css" rel="stylesheet" />
  	<link type="text/css" href="css/droppable-tabs.css" rel="stylesheet" />
-
-
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="js/jquery.layout.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-
+  	<link type="text/css" href="css/custom.css" rel="stylesheet" />
+  
+  
+	<script type="text/javascript" src="../js/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="../js/jquery.layout.js"></script>
+	<script type="text/javascript" src="../js/custom.js"></script>
+	<script type="text/javascript" src="../js/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="../js/custom.js"></script>
+	<script type="text/javascript" src="../js/jquery.highlight.js"></script>
+	    
 
 	<script>
 	var outerLayout;
@@ -27,7 +29,7 @@
 	*		 ON PAGE LOAD
 	*#######################
 	*/
-
+	
 	</script>
 
 </head>
@@ -42,15 +44,15 @@
 	        <li custom:index="1" id="tabs-2-link" name="tabs-2" class="tabHeader"><a href="#tabs-2">Tab 2</a></li>
 	        <li custom:index="2" id="tabs-3-link" name="tabs-3" class="tabHeader"><a href="#tabs-3">Tab 3</a></li>
 	  		<li custom:index="3" id="tabs-4-link" name="tabs-4" class="tabHeader"><a href="#tabs-4">Tab 4</a></li>
-
+	 
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		    <div class="ui-layout-content" id="tabs-layout">
-
-		        <div id="tabs-1" >
+		        
+		        <div id="tabs-1" class="tabContent" >
 		        	<p>
 
 					<div id="columns">
-
+					        
 					        <div id="column1" class="column">
 					            <div class="widget color-green" id="intro">
 					                <div class="widget-head">
@@ -59,18 +61,18 @@
 					                <div class="widget-content">
 					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
 					                </div>
-					            </div>
+					            </div>					           
 					        </div>
-
+				        
 					    </div>
 
 					</p>
 		        </div>
-		        <div id="tabs-2" >
+		        <div id="tabs-2" class="tabContent" >
 		        	<p>
 		        	<div id="columns">
 			        	<div id="column2" class="column">
-					        <div class="widget color-red" id="red-widget">
+					        <div class="widget color-red" id="red-widget">  
 				                <div class="widget-head">
 				                    <h3>Widget title</h3>
 				                </div>
@@ -79,16 +81,16 @@
 				                </div>
 		            		</div>
 	            		 </div>
-
+				        
 					</div>
 		        	</p>
 		        </div>
-		        <div id="tabs-3" >
+		        <div id="tabs-3" class="tabContent">
 		        <p>
 
 				<div id="columns">
 					<div id="column3" class="column">
-			            <div class="widget color-blue" id="blue-widget">
+			            <div class="widget color-blue" id="blue-widget">  
 			                <div class="widget-head">
 			                    <h3>Widget title</h3>
 			                </div>
@@ -101,12 +103,12 @@
 
 				</p>
 		        </div>
-		          <div id="tabs-4" >
+		          <div id="tabs-4" class="tabContent" >
 			        <p>
-
+	
 						<div id="columns">
 							<div id="column4" class="column">
-					            <div class="widget color-yellow" id="yellow-widget">
+					            <div class="widget color-yellow" id="yellow-widget">  
 					                <div class="widget-head">
 					                    <h3>Yellow Widget</h3>
 					                </div>
@@ -116,36 +118,36 @@
 					            </div>
 				            </div>
 			        	</div>
-
+	
 					</p>
 		        </div>
-
+		        
 		    </div>
     	</ul>
     </div>
-
-
+    
+    
 </div>
 
 
 
 <div class="ui-layout-east">
 <h3>East Pane</h3>
-
+	
 	<div id="tabs1">
 	    <ul class="tabs">
-
+	      
 			<li custom:index="0" id="tabs-4-link" name="tabs-4"><a href="#tabs-4">Tab 4</a></li>
 	        <li custom:index="1" id="tabs-5-link" name="tabs-5"><a href="#tabs-5">Tab 5</a></li>
 	        <li custom:index="2" id="tabs-6-link" name="tabs-6"><a href="#tabs-6">Tab 6</a></li>
-
+	 
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		    <div class="ui-layout-content" id="tabs-layout1">
-
+		     
 		     <div id="tabs-4" >
 		       <p>Proin elit arcu, rutrum commodo, vehicula tempus,</p>
 		       		 </div>
-
+		        
 		     <div id="tabs-5" >
 		        	<p>Morbi tincidunt, dui sit amet facilisis feugiat, </p>
 		        </div>
@@ -160,7 +162,7 @@
 
 <div class="ui-layout-west">
  					<div id="columns">
-
+					        
 					        <div id="column1" class="column">
 					            <div class="widget color-red" id="intro">
 					                <div class="widget-head">
@@ -169,9 +171,9 @@
 					                <div class="widget-content">
 					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
 					                </div>
-					            </div>
+					            </div>					           
 					        </div>
-
+				        
 					    </div>
 </div>
 </div>
@@ -181,7 +183,7 @@
 
 
 <div class="ui-layout-south">South</div>
-
+ 
 </body>
 		<script type="text/javascript" src="../js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />

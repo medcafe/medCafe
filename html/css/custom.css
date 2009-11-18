@@ -1,0 +1,53 @@
+
+	.highlight{
+		background-color:#245678;
+		background-image:url(images/cover1.jpg);
+		}
+	
+ #divDrop
+
+{
+
+margin-left:auto;
+
+width:250px;
+
+height:250px;
+
+background-color:powderBlue;
+
+}
+
+#divDrag
+
+{
+
+width:100px;
+
+height:100px;
+
+position:absolute;
+
+top:0px;
+
+left:0px;
+
+background-color:yellow;
+
+}
+
+.droppable-active {
+
+     opacity: 1.0;
+
+     background-color:yellow;
+
+}
+
+.droppable-hover {
+
+     outline: 1px dotted black;
+
+     background-color:white;
+
+} 
