@@ -241,7 +241,7 @@ $(document).ready( function() {
 				$(this).tabs("add","#" + hrefBase,label);
 				 
 				var widgetId = $('#' + hrefBase).find("*[class^=widget]").attr('id');
-				//alert('widget id ' + widgetId);
+				alert('widget id ' + widgetId);
 				iNettuts.refresh(widgetId);
 				iNettuts.makeSortable();
 				
