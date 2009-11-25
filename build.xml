@@ -90,7 +90,8 @@
         </delete>
         <delete>
             <fileset dir="." includes="*.aar" />
-        </delete>    </target>
+        </delete>
+    </target>
 
     <target name="doc" depends="setProps">
         <mkdir dir="${doc}" />
@@ -112,13 +113,15 @@
                 <exclude name="javax.servlet.jar" />
                 <exclude name="jsp-api.jar" />
                 <exclude name="commons-logging*" />
-                <!-- flatten out the lib directory -->
+                <!-- flatten out the lib directory - they are added below -->
                 <exclude name="**/restlet/**"/>
                 <exclude name="**/vista/**"/>
+                <exclude name="**/jboss/**"/>
             </lib>
             <lib file="${jarfile}"/>
             <lib dir="${jars}/restlet" />
             <lib dir="${jars}/vista" />
+            <lib dir="${jars}/jboss" />
             <webinf dir="${config}">
                 <exclude name="context.xml"/>
                 <exclude name="web.xml"/>
