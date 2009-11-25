@@ -14,7 +14,7 @@ public class DatabaseUtility {
 
     public final static String KEY = DatabaseUtility.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    static{log.setLevel(Level.WARNING);}
 
 
     public static void close(PreparedStatement pStmt) {

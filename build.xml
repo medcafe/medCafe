@@ -114,9 +114,11 @@
                 <exclude name="commons-logging*" />
                 <!-- flatten out the lib directory -->
                 <exclude name="**/restlet/**"/>
+                <exclude name="**/vista/**"/>
             </lib>
             <lib file="${jarfile}"/>
             <lib dir="${jars}/restlet" />
+            <lib dir="${jars}/vista" />
             <webinf dir="${config}">
                 <exclude name="context.xml"/>
                 <exclude name="web.xml"/>
@@ -124,6 +126,7 @@
             <metainf dir="${config}">
                 <include name="context.xml"/>
             </metainf>
+            <classes file="logging.properties"/>
         </war>
     </target>
 

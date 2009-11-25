@@ -1,12 +1,17 @@
 <%@ page import="org.mitre.medcafe.util.*" %><%
-
-String loginResult = AuthenticationUtils.registerUser( request );
+String loginResult = null;
+try {
+    loginResult = AuthenticationUtils.registerUser( request );
+}
+catch ( NullPointerException e) {
+    loginResult = e.getMessage();
+}
 if( loginResult.equals( AuthenticationUtils.OK ))
 {
-    response.sendRedirect( "" );
+    response.sendRedirect( "/index.jsp" );
     return;
 }
 %>
-<jsp:forward page="/" >
+<jsp:forward page="login.jsp" >
     <jsp:param name="message" value="<%=loginResult%>" />
 </jsp:forward>

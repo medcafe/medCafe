@@ -19,7 +19,7 @@ public class AuthenticationUtils {
 
     public final static String KEY = AuthenticationUtils.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    static{log.setLevel(Level.WARNING);}
     /**
      *  source of random bytes for the cyptography
      */
@@ -32,10 +32,7 @@ public class AuthenticationUtils {
     public static String registerUser(HttpServletRequest request)
     throws NoSuchAlgorithmException,  java.io.IOException,
              java.io.UnsupportedEncodingException {
-        //
-        // Retrieve the necessary values from the MsgObject.
-        // (These are important no matter the operation)
-        //
+        log.entering(KEY, "registerUser");
         String username = WebUtils.getRequiredParameter(request, "name");
         String password = WebUtils.getRequiredParameter(request, "passwd");
         String email = WebUtils.getRequiredParameter(request, "email");
@@ -68,15 +65,17 @@ public class AuthenticationUtils {
             DatabaseUtility.close(rs);
             DatabaseUtility.close(ps);
 
+            log.finer("about to encode password");
             String md5Passwd = encodePassword(password, "SHA");
 
             query = "insert into Users (username, password, emailaddress) values (?, ?, ?)";
             ps = conn.prepareStatement(query);
+            log.finer( "PreparedStatement prepared.  About to set variables: " + query + " with params " + username + md5Passwd + email );
             ps.setString(1, username);
             ps.setString(2, md5Passwd);
             ps.setString(3, email);
             ps.execute();
-
+            log.fine( "Query exectued: " + query + " with params " + username + md5Passwd + email );
         }
         catch (SQLException e)
         {
@@ -89,7 +88,7 @@ public class AuthenticationUtils {
             DatabaseUtility.close(ps);
             conn.close();
         }
-
+        log.exiting(KEY, "registerUser");
         return OK;
     }
 

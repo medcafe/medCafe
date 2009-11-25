@@ -20,8 +20,14 @@
           org.restlet.ext.servlet.ServerServlet
        </servlet-class>
     </servlet>
+    <!-- Init Servlet -->
+    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>org.mitre.medcafe.servlets.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-    <!-- Catch all requests -->
+    <!-- Catch all requests from /c/* as a Restlet-->
     <servlet-mapping>
        <servlet-name>RestletServlet</servlet-name>
        <url-pattern>/c/*</url-pattern>
@@ -38,6 +44,7 @@
     </login-config>
 
     <!-- Who can see what -->
+    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdminPages</web-resource-name>
@@ -55,16 +62,35 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Everything</web-resource-name>
-            <description> accessible by authorised users </description>
-            <url-pattern>/index.jsp</url-pattern>
-            <url-pattern>/index.html</url-pattern>
+            <description> accessible by authorized users </description>
+            <url-pattern>/*</url-pattern>
+            <url-pattern>/browse/*</url-pattern>
+            <url-pattern>/c/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description>These are the roles who have access</description>
             <role-name>User</role-name>
         </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <description> accessible by everyone </description>
+            <url-pattern>/js/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <url-pattern>/registrationProcess.jsp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+            <comment this out>leaving out the auth-constraint so everyone can see it</comment this out>
     </security-constraint>
 
     <security-role>
@@ -80,13 +106,12 @@
         </description>
         <role-name>Admin</role-name>
     </security-role>
-
+-->
 
     <!-- Handling stuff -->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
         <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.htm</welcome-file>
     </welcome-file-list>
 
     <error-page>

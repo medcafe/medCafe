@@ -15,10 +15,10 @@ public class MedcafeApplication extends Application {
         // new instance of HelloWorldResource.
         Router router = new Router(getContext());
 
-        // Defines only one route
-        router.attach("/hello", firstSteps.HelloWorldResource.class);
-        //router.attach("/patients/", PatientListResource.class);
+        // register the Restlets
         router.attach("/patient/{id}", org.mitre.medcafe.restlet.PatientResource.class);
+        router.attach("/repositories", org.mitre.medcafe.restlet.RepositoryListResource.class);
+        router.attach("/repositories/{repository}/patients", org.mitre.medcafe.restlet.PatientListResource.class);
         return router;
     }
 

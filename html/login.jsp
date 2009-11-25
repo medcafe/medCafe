@@ -2,7 +2,7 @@
 String message = WebUtils.getOptionalParameter(request, "message", null);
 %><html>
 <head>
-    <link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
@@ -46,7 +46,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
     </script>
 </head>
 <body>
-    <center><img style="margin-bottom:1.5em" alt="logo" src="images/banner.jpg"/></center>
+    <center><img style="margin-bottom:1.5em" alt="logo" src="${images}/banner.jpg"/></center>
     <div style="float:left;">
         <% if(message!=null)
         {%>
@@ -80,7 +80,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
 
         <!-- login -->
         <div id="login" style="width:400px">
-         <form class="cmxform" id="loginForm" method="post" action="j_security_check" >
+         <form class="cmxform" id="loginForm" method="post" action="${base}/j_security_check" >
          <fieldset>
            <legend>User Login</legend>
            <p>
@@ -99,7 +99,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
          </fieldset>
          </form>
          </div>
-        <img alt="tired doc" src="images/doctired.jpg"/>
+        <img alt="tired doc" src="${images}/doctired.jpg"/>
     </div>
 
     <div style="margin-left:420px;padding:1.5em;border:1px solid black;">
