@@ -3,6 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
 	<title>Droppable Between Panes</title>
@@ -10,12 +11,30 @@
 	<link type="text/css" href="${css}/ui.tabs.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/ui.theme.css" rel="stylesheet" />
  	<link type="text/css" href="${css}/droppable-tabs.css" rel="stylesheet" />
-
+  	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
+  
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
-	<script type="text/javascript" src="${js}/custom.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="${js}/custom.js"></script>
+	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
+	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 
+
+	<script>
+	var outerLayout;
+
+    var tabID;
+	/*
+	*#######################
+	*		 ON PAGE LOAD
+	*#######################
+	*/
+	</script>
+	
 </head>
 <body>
 <div id="head">
@@ -27,78 +46,88 @@
 			<li custom:index="0" id="tabs-1-link" name="tabs-1" class="tabHeader"><a href="#tabs-1">Tab 1</a></li>
 	        <li custom:index="1" id="tabs-2-link" name="tabs-2" class="tabHeader"><a href="#tabs-2">Tab 2</a></li>
 	        <li custom:index="2" id="tabs-3-link" name="tabs-3" class="tabHeader"><a href="#tabs-3">Tab 3</a></li>
+	  		<li custom:index="3" id="tabs-4-link" name="tabs-4" class="tabHeader"><a href="#tabs-4">Tab 4</a></li>
 
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		    <div class="ui-layout-content" id="tabs-layout">
 
-		        <div id="tabs-1" >
+		        <div id="tabs-1" class="tabContent" >
 		        	<p>
 
 					<div id="columns">
 
-					        <div id="column1" class="column">
-					            <div class="widget color-green" id="intro">
+					      <div id="column1" class="column">
+					            <div class="widget color-green" id="green-widget">
 					                <div class="widget-head">
-					                    <h3>Introduction Widget</h3>
+					                    <h3>Coverflow Widget</h3>
 					                </div>
 					                <div class="widget-content">
-					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
-					                </div>
+					                    <p>
+					                    <iframe height="400" width="680" name="framename" id="myframe" src="coverflow/coverflow.html"></iframe>
+					                    </p> 
+					                    </div>
 					            </div>
 					        </div>
-					        Should be a frame here
-					        <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/patient/1"/> --%>
-					        <div id="aaa"></div>
-					        <script type="text/javascript">
-					            $("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
-					        </script>
-					        <%--
-					        <c:catch var="exception">
-                              <c:import url="ftp://ftp.example.com/package/README"/>
-                            </c:catch>
-                            <c:if test="${not empty exception}">
-                              Sorry, the remote content is not currently available.
-                            </c:if>
-                            --%>
+
 					    </div>
 
 					</p>
 		        </div>
-		        <div id="tabs-2" >
+		        <div id="tabs-2" class="tabContent" >
 		        	<p>
 		        	<div id="columns">
 			        	<div id="column2" class="column">
-					        <div class="widget color-red">
+					        <div class="widget color-red" id="red-widget">
 				                <div class="widget-head">
 				                    <h3>Widget title</h3>
 				                </div>
 				                <div class="widget-content">
-				                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
-				                </div>
+				                     <iframe height="400" width="680" name="framename" id="myframe" src="tables.html"></iframe>
+					            </div>
 		            		</div>
 	            		 </div>
 
 					</div>
 		        	</p>
 		        </div>
-		        <div id="tabs-3" >
+		        <div id="tabs-3" class="tabContent">
 		        <p>
 
 				<div id="columns">
 					<div id="column3" class="column">
-			            <div class="widget color-blue">
+			            <div class="widget color-blue" id="blue-widget">
 			                <div class="widget-head">
 			                    <h3>Widget title</h3>
 			                </div>
 			                <div class="widget-content">
-			                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
-			                </div>
+						       <div id="aaa"></div>
+									        	        
+							</div>
 			            </div>
 		            </div>
 	        	</div>
 
 				</p>
 		        </div>
+		          <div id="tabs-4" class="tabContent" >
+			        <p>
+
+						<div id="columns">
+							<div id="column4" class="column">
+					            <div class="widget color-yellow" id="yellow-widget">
+					                <div class="widget-head">
+					                    <h3>Yellow Widget</h3>
+					                </div>
+					                <div class="widget-content">
+					                    <p>Morbi tincidunt, dui sit amet facilisis feugiat</p>
+					                </div>
+					            </div>
+				            </div>
+			        	</div>
+
+					</p>
+		        </div>
+
 		    </div>
     	</ul>
     </div>
@@ -161,7 +190,27 @@
 
 <div class="ui-layout-south">South</div>
 
+<script type="text/javascript">
+						//alert('in here');
+						//Need some way to pause between these
+						
+						$(window).bind("load",{},
+						
+						function(e){
+
+								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
+					
+								$(this).delay(80,function()
+								{
+									$("#example").dataTable( {
+										"aaSorting": [[ 1, "desc" ]]
+									} );
+								} );
+						} );
+		</script>
 </body>
-		<script type="text/javascript" src="../js/widgets/inettuts.js"></script>
+		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
+     	
+     	
 </html>

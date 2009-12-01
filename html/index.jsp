@@ -10,16 +10,21 @@
 	<link type="text/css" href="${css}/ui.tabs.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/ui.theme.css" rel="stylesheet" />
  	<link type="text/css" href="${css}/droppable-tabs.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
 
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/custom.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="${js}/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jquery.delay.js"></script>
 
 </head>
 <body>
 <div id="head">
-    </div>
+</div>
+
 <div class="ui-layout-center">
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
@@ -36,22 +41,25 @@
 
 					<div id="columns">
 
-					        <div id="column1" class="column">
-					            <div class="widget color-green" id="intro">
-					                <div class="widget-head">
-					                    <h3>Introduction Widget</h3>
-					                </div>
-					                <div class="widget-content">
-					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
-					                </div>
-					            </div>
-					        </div>
+					       
 					        Should be a frame here
 					        <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/patient/1"/> --%>
-					        <div id="aaa"></div>
-					        <script type="text/javascript">
-					            $("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
-					        </script>
+					        
+						        <div id="column2" class="column">
+						        
+							       <div class="widget color-red">
+						                <div class="widget-head">
+						                    <h3>Patient Data</h3>
+						                </div>
+						                 <div class="widget-content">
+						                 	<div id="aaa"></div>
+									        <script type="text/javascript">
+									            $("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
+									        </script>
+									        
+							     		</div>
+			            		   </div>
+			            	    </div>
 					        <%--
 					        <c:catch var="exception">
                               <c:import url="ftp://ftp.example.com/package/README"/>
@@ -138,30 +146,47 @@
 
 
 <div class="ui-layout-west">
- 					<div id="columns">
-
-					        <div id="column1" class="column">
-					            <div class="widget color-red" id="intro">
-					                <div class="widget-head">
-					                    <h3>Introduction Widget</h3>
-					                </div>
-					                <div class="widget-content">
-					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
-					                </div>
-					            </div>
-					        </div>
-
-					    </div>
+	<div id="columns">
+	
+						        <div id="column1" class="column">
+						            <div class="widget color-red" id="intro">
+						                <div class="widget-head">
+						                    <h3>Introduction Widget</h3>
+						                </div>
+						                <div class="widget-content">
+						                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
+						                </div>
+						            </div>
+						        </div>
+	
+	</div>
 </div>
-</div>
 
 
-<div class="ui-layout-north">
+<div class="ui-layout-north"></div>
 
 
 <div class="ui-layout-south">South</div>
 
 </body>
+		<script type="text/javascript">
+						//alert('in here');
+						//Need some way to pause between these
+						
+						$(window).bind("load",{},
+						
+						function(e){
+
+								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
+					
+								$(this).delay(80,function()
+								{
+									$("#example").dataTable( {
+										"aaSorting": [[ 1, "desc" ]]
+									} );
+								} );
+						} );
+		</script>
 		<script type="text/javascript" src="../js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 </html>

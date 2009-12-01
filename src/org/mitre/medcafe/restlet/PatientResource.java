@@ -83,30 +83,59 @@ public class PatientResource extends ServerResource {
 
     @Get("html")
     public Representation toHtml(){
-        return new StringRepresentation( "<li style=\"position: static; clear: none; z-index: auto; opacity: 1; left: auto; top: auto;\" class=\"widget color-yellow\">" +
+    	
+    	StringBuffer buf = new StringBuffer();
+    	StringBuffer endBuf = new StringBuffer();
+    	//endBuf.append("</div></li>");
+    	
+    	/*buf.append("<li style=\"position: static; clear: none; z-index: auto; opacity: 1; left: auto; top: auto;\" class=\"widget color-yellow\">" +
             "<div style=\"cursor: move;\" class=\"widget-head\"><a style=\"\" href=\"#\" class=\"collapse\">COLLAPSE</a>" +
                 "<h3>Patient Data</h3>" +
                 "<a href=\"#\" class=\"remove\">CLOSE</a><a href=\"#\" class=\"edit\">EDIT</a>" +
             "</div>" +
             "<div class=\"edit-box\" style=\"display: none;\">" +
                 "<ul><li class=\"item\"><label>Change the title?</label><input value=\"Widget title\"></li></ul><li class=\"item\"><label>Available colors:</label><ul class=\"colors\"><li class=\"color-yellow\"></li><li class=\"color-red\"></li><li class=\"color-blue\"></li><li class=\"color-white\"></li><li class=\"color-orange\"></li><li class=\"color-green\"></li></ul></li>" +
-            "</div>" +
-            "<div style=\"display: block;\" class=\"widget-content\">" +
-                "<p>" +
-                    "Patient ID: "+this.id+"<br/>" +
-                    "Name: <br/>" +
-                    "Address: <br/>" +
-                    "Phone numbers: <br/>" +
-                    "Gender: <br/>" +
-                    "Languages: <br/>" +
-                    "Birthdate: <br/>" +
-                    "Maritial Status: <br/>" +
-                    "Race: <br/>" +
-                    "Guardian: <br/>" +
-                    "Birth place: <br/>" +
-                "</p>" +
-            "</div>" +
-        "</li>" );
+            "</div>");
+    	buf.append("<div style=\"display: block;\" class=\"widget-content\">");*/
+        
+    	buf.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example\">");
+    	buf.append("");
+    	
+    	String[] titles = new String[]{"Patient ID","Name", "Address", "Phone numbers", "Gender",
+    									"Languages", "Birthdate", "Maritial Status","Race","Guardian", "Birth place" };
+    	
+    	String[] values = new String[]{this.id,"", "", " ", "",
+				"", "", " ","","", "" };
+
+    	StringBuffer patientData = new StringBuffer();
+    	patientData.append("<thead><tr><th></th><th></th></tr></thead>");
+    	patientData.append("<tbody>");
+    	int i=0;
+    	for (String title:titles)
+    	{
+    		patientData.append("<tr class=\"gradeX\"><td>" + title + "</td><td>" + values[i]+ "</td></tr>" );
+    		i++;
+    	}
+    	
+    	endBuf.append("</tbody></table>");
+    	
+    	/*patientData.append("<p>" +
+                "Patient ID: "+this.id+"<br/>" +
+                "Name: <br/>" +
+                "Address: <br/>" +
+                "Phone numbers: <br/>" +
+                "Gender: <br/>" +
+                "Languages: <br/>" +
+                "Birthdate: <br/>" +
+                "Maritial Status: <br/>" +
+                "Race: <br/>" +
+                "Guardian: <br/>" +
+                "Birth place: <br/>" +
+            "</p>" );*/
+    	
+    	return new StringRepresentation( buf.toString() + patientData.toString() 
+                 + endBuf.toString()); 
+             
     }
 
     @Get("xml")
