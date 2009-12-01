@@ -2,6 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+<%
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+%>
 <head>
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -193,12 +198,15 @@
 <script type="text/javascript">
 						//alert('in here');
 						//Need some way to pause between these
-						
+						var patientId= <%= patientId %>
+						alert("patientid " + patientId);
 						$(window).bind("load",{},
 						
 						function(e){
 
-								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/1");
+								//var patientId=1;
+								
+								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
 					
 								$(this).delay(80,function()
 								{
