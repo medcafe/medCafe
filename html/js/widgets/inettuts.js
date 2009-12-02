@@ -51,6 +51,7 @@ var iNettuts = {
             settings = this.settings;
         $(settings.widgetSelector, $(settings.columns)).each(function () {
       
+      		//alert('widget id ' + this.id);
             var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
             if (thisWidgetSettings.removable) {
             

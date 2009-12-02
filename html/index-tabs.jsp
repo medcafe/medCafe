@@ -38,6 +38,7 @@
 	*		 ON PAGE LOAD
 	*#######################
 	*/
+	
 	</script>
 	
 </head>
@@ -78,7 +79,7 @@
 
 					</p>
 		        </div>
-		        <div id="tabs-2" class="tabContent" >
+		        <!--  div id="tabs-2" class="tabContent" >
 		        	<p>
 		        	<div id="columns">
 			        	<div id="column2" class="column">
@@ -94,7 +95,11 @@
 
 					</div>
 		        	</p>
+		        </div-->
+		        
+		        <div id="tabs-2" class="tabContent">
 		        </div>
+		        
 		        <div id="tabs-3" class="tabContent">
 		        <p>
 
@@ -114,7 +119,7 @@
 
 				</p>
 		        </div>
-		          <div id="tabs-4" class="tabContent" >
+		          <!--  div id="tabs-4" class="tabContent" >
 			        <p>
 
 						<div id="columns">
@@ -131,13 +136,14 @@
 			        	</div>
 
 					</p>
-		        </div>
+		        </div-->
+		      
 
 		    </div>
     	</ul>
     </div>
 
-
+ 	
 </div>
 
 
@@ -156,8 +162,8 @@
 		    <div class="ui-layout-content" id="tabs-layout1">
 
 		     <div id="tabs-4" >
-		       <p>Proin elit arcu, rutrum commodo, vehicula tempus,</p>
-		       		 </div>
+		      <button id="addButton">Click to add a tab</button>
+		      </div>
 
 		     <div id="tabs-5" >
 		        	<p>Morbi tincidunt, dui sit amet facilisis feugiat, </p>
@@ -199,7 +205,7 @@
 						//alert('in here');
 						//Need some way to pause between these
 						var patientId= <%= patientId %>
-						alert("patientid " + patientId);
+						
 						$(window).bind("load",{},
 						
 						function(e){
@@ -220,5 +226,23 @@
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
      	
+     	<script type="text/javascript">
+	     	$(document).ready( function() {
+				
+			});
+			
+			$('#addButton').bind("click",{},
+				
+				function(e){
+					$('#tabs-2').load("tabs-template.jsp?");
+					$(this).delay(80,function()
+					{
+						iNettuts.refresh("yellow-widget2");
+					} );
+				} );
+			
+			
+			//iNettuts.addWidgetControls();
+     	</script>
      	
 </html>
