@@ -222,19 +222,26 @@
 					var tab_num = 15;
 					var hrefBase = "tabs-" + tab_num;
 					var label = "Tab " + tab_num;
+					var patientId = 2;
+					//Add a new Tab
 					$('#tabs').tabs("add","#" + hrefBase,label);
 					
+					//Load the widget template
 					$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+					
+					//Delay to let the DOM refresh
 					$(this).delay(500,function()
 					{
 						iNettuts.refresh("yellow-widget" + tab_num);
-	
 					
+						//Add the patient data
 						$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
 						
-						$(this).delay(80,function()
+						//Delay to let DOM refresh before adding table styling
+						$(this).delay(500,function()
 						{
-							$("#example").dataTable( {
+							alert( $("#example" + patientId).text());
+							$("#example" + patientId).dataTable( {
 								"aaSorting": [[ 1, "desc" ]]
 							} );
 						} );

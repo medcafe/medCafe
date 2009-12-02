@@ -98,7 +98,7 @@ public class PatientResource extends ServerResource {
             "</div>");
     	buf.append("<div style=\"display: block;\" class=\"widget-content\">");*/
         
-    	buf.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example\">");
+    	buf.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example" + this.id +"\">");
     	buf.append("");
     	
     	String[] titles = new String[]{"Patient ID","Name", "Address", "Phone numbers", "Gender",
