@@ -79,26 +79,10 @@
 
 					</p>
 		        </div>
-		        <!--  div id="tabs-2" class="tabContent" >
-		        	<p>
-		        	<div id="columns">
-			        	<div id="column2" class="column">
-					        <div class="widget color-red" id="red-widget">
-				                <div class="widget-head">
-				                    <h3>Widget title</h3>
-				                </div>
-				                <div class="widget-content">
-				                     <iframe height="400" width="680" name="framename" id="myframe" src="tables.html"></iframe>
-					            </div>
-		            		</div>
-	            		 </div>
-
-					</div>
-		        	</p>
-		        </div-->
 		        
-		        <div id="tabs-2" class="tabContent">
-		        </div>
+		        
+		        <!-- div id="tabs-2" class="tabContent">
+		        </div-->
 		        
 		        <div id="tabs-3" class="tabContent">
 		        <p>
@@ -214,12 +198,12 @@
 								
 								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
 					
-								$(this).delay(80,function()
+								/*$(this).delay(80,function()
 								{
 									$("#example").dataTable( {
 										"aaSorting": [[ 1, "desc" ]]
 									} );
-								} );
+								} );*/
 						} );
 		</script>
 </body>
@@ -233,11 +217,28 @@
 			
 			$('#addButton').bind("click",{},
 				
-				function(e){
-					$('#tabs-2').load("tabs-template.jsp?");
-					$(this).delay(80,function()
+				function(e)
+				{
+					var tab_num = 15;
+					var hrefBase = "tabs-" + tab_num;
+					var label = "Tab " + tab_num;
+					$('#tabs').tabs("add","#" + hrefBase,label);
+					
+					$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+					$(this).delay(500,function()
 					{
-						iNettuts.refresh("yellow-widget2");
+						iNettuts.refresh("yellow-widget" + tab_num);
+	
+					
+						$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
+						
+						$(this).delay(80,function()
+						{
+							$("#example").dataTable( {
+								"aaSorting": [[ 1, "desc" ]]
+							} );
+						} );
+						
 					} );
 				} );
 			

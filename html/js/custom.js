@@ -20,13 +20,35 @@ $(document).ready( function() {
 
 		        if (ui.panel === undefined)
 		        {
-		        	alert("ui panel is undefined");
+		        	//alert("ui panel is undefined");
 		        	if (ui.tab === undefined)
 		        	{
-		        		alert("ui tab is also undefined");
-
+		        		alert("ui panel and tab is undefined");
+						return false;
 		        	}
-
+					else
+					{
+						
+						 count= 0;
+						 $(this).find("li:has(a)").each(function(i)
+						 {
+						 	count = count + 1;
+						 	if (!$(this).attr('id'))
+						 	{
+						 		//Temporary hard code this value
+						 		var aObj = $(this).find('a');
+			    				var href = aObj.attr('href');
+			    				
+			    				var hrefBase = href.split('#')[1], baseEl;
+						 		$(this).attr('id',hrefBase + "-link");
+						 		$(this).attr('custom:index', count);
+						    }			    
+		
+			   			});
+						
+						return true;
+					}
+					alert("ui panel is undefined");
 		        	return false;
 		        }
 
