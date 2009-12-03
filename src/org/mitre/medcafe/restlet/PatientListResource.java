@@ -44,7 +44,7 @@ public class PatientListResource extends ServerResource {
         }
         for( String patid : patids)
         {
-            ret.append( "<li>" );
+            ret.append( "<li class='summaryData'>" );
             ret.append( "<a href=\"browsePatient.jsp?id=" + patid + "\">" + patid + "</a>" );
             ret.append( "</li>\n" );
         }

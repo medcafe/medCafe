@@ -274,6 +274,101 @@ $(document).ready( function() {
 
 		});
 
-
+		var medCafe = {
+			add : function () {
+			 	//Method to cycle through all summary classes and allow for clicking to get details
+			 	$('.summary').each(function ()
+			 	{
+			 		var patientId = $(this).text();
+		 			alert("in add here html " + $(this).text());
+		 			var detailButton = $(this).find('.details');
+		 			$(detailButton).bind("click",{},
+					
+						function(e)
+						{
+							alert('in the click');
+							var tab_num = 15;
+							var hrefBase = "tabs-" + tab_num;
+							var label = "Tab " + tab_num;
+							//var patientId = 2;
+							alert("patient id " + patientId);
+							//Add a new Tab
+							$('#tabs').tabs("add","#" + hrefBase,label);
+							
+							//Load the widget template
+							$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+							
+							//Delay to let the DOM refresh
+							$(this).delay(500,function()
+							{
+								iNettuts.refresh("yellow-widget" + tab_num);
+							
+								//Add the patient data
+								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
+								
+								//Delay to let DOM refresh before adding table styling
+								$(this).delay(500,function()
+								{
+									alert( $("#example" + patientId).text());
+									$("#example" + patientId).dataTable( {
+										"aaSorting": [[ 1, "desc" ]]
+									} );
+								} );
+								
+							} );
+						} );
+				
+	    	    });
+			}
+	
+		}
+		
+		
+		$('#addButton').bind("click",{},
+				
+				function(e)
+				{
+					medCafe.add();
+				}
+		 );
+		
+				
+					
+		//Button that will dynamically add a new tab with patient data
+		$('#addButton1').bind("click",{},
+				
+				function(e)
+				{
+					var tab_num = 15;
+					var hrefBase = "tabs-" + tab_num;
+					var label = "Tab " + tab_num;
+					var patientId = 2;
+					//Add a new Tab
+					$('#tabs').tabs("add","#" + hrefBase,label);
+					
+					//Load the widget template
+					$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+					
+					//Delay to let the DOM refresh
+					$(this).delay(500,function()
+					{
+						iNettuts.refresh("yellow-widget" + tab_num);
+					
+						//Add the patient data
+						$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
+						
+						//Delay to let DOM refresh before adding table styling
+						$(this).delay(500,function()
+						{
+							alert( $("#example" + patientId).text());
+							$("#example" + patientId).dataTable( {
+								"aaSorting": [[ 1, "desc" ]]
+							} );
+						} );
+						
+					} );
+					medCafe.add();
+				} );
+			
 
 	});

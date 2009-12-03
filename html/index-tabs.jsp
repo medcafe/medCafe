@@ -170,7 +170,8 @@
 					                    <h3>Introduction Widget</h3>
 					                </div>
 					                <div class="widget-content">
-					                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.</p>
+						                
+					                    <div class="summary"><a href="#" class="details">11</a></div>
 					                </div>
 					            </div>
 					        </div>
@@ -210,47 +211,5 @@
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
      	
-     	<script type="text/javascript">
-	     	$(document).ready( function() {
-				
-			});
-			
-			$('#addButton').bind("click",{},
-				
-				function(e)
-				{
-					var tab_num = 15;
-					var hrefBase = "tabs-" + tab_num;
-					var label = "Tab " + tab_num;
-					var patientId = 2;
-					//Add a new Tab
-					$('#tabs').tabs("add","#" + hrefBase,label);
-					
-					//Load the widget template
-					$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
-					
-					//Delay to let the DOM refresh
-					$(this).delay(500,function()
-					{
-						iNettuts.refresh("yellow-widget" + tab_num);
-					
-						//Add the patient data
-						$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
-						
-						//Delay to let DOM refresh before adding table styling
-						$(this).delay(500,function()
-						{
-							alert( $("#example" + patientId).text());
-							$("#example" + patientId).dataTable( {
-								"aaSorting": [[ 1, "desc" ]]
-							} );
-						} );
-						
-					} );
-				} );
-			
-			
-			//iNettuts.addWidgetControls();
-     	</script>
      	
 </html>
