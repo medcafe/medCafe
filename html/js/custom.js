@@ -280,20 +280,26 @@ $(document).ready( function() {
 			 	$('.summary').each(function ()
 			 	{
 			 		var patientId = $(this).text();
-		 			alert("in add here html " + $(this).text());
 		 			var detailButton = $(this).find('.details');
 		 			$(detailButton).bind("click",{},
 					
 						function(e)
 						{
-							alert('in the click');
-							var tab_num = 15;
+							var tab_num = 1;							
+							
+						 	$('.tabs').parent().find(".tabContent").each(function(i)
+						 	{
+						 		tab_num = tab_num + 1;
+						 	});
+						 	
+						 	alert('tab num ' + tab_num);
+						 	
 							var hrefBase = "tabs-" + tab_num;
 							var label = "Tab " + tab_num;
-							//var patientId = 2;
-							alert("patient id " + patientId);
+							
 							//Add a new Tab
 							$('#tabs').tabs("add","#" + hrefBase,label);
+							$("#tabs-" + tab_num).addClass('tabContent');
 							
 							//Load the widget template
 							$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
@@ -309,7 +315,7 @@ $(document).ready( function() {
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
 								{
-									alert( $("#example" + patientId).text());
+									//alert( $("#example" + patientId).text());
 									$("#example" + patientId).dataTable( {
 										"aaSorting": [[ 1, "desc" ]]
 									} );
@@ -332,7 +338,7 @@ $(document).ready( function() {
 				}
 		 );
 		
-				
+		medCafe.add();		
 					
 		//Button that will dynamically add a new tab with patient data
 		$('#addButton1').bind("click",{},

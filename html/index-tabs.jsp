@@ -52,8 +52,7 @@
 			<li custom:index="0" id="tabs-1-link" name="tabs-1" class="tabHeader"><a href="#tabs-1">Tab 1</a></li>
 	        <li custom:index="1" id="tabs-2-link" name="tabs-2" class="tabHeader"><a href="#tabs-2">Tab 2</a></li>
 	        <li custom:index="2" id="tabs-3-link" name="tabs-3" class="tabHeader"><a href="#tabs-3">Tab 3</a></li>
-	  		<li custom:index="3" id="tabs-4-link" name="tabs-4" class="tabHeader"><a href="#tabs-4">Tab 4</a></li>
-
+	  		
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		    <div class="ui-layout-content" id="tabs-layout">
 
@@ -81,8 +80,25 @@
 		        </div>
 		        
 		        
-		        <!-- div id="tabs-2" class="tabContent">
-		        </div-->
+		        <div id="tabs-2" class="tabContent">
+			        <div id="columns">
+						<div id="column2" class="column">
+				            <div class="widget color-blue" id="blue-widget">
+				                <div class="widget-head">
+				                    <h3>Patient Summary</h3>
+				                </div>
+				                <div class="widget-content">
+							       	<div class="summary"><a href="#" class="details">11</a></div>
+									<div class="summary"><a href="#" class="details">12</a></div>
+									<div class="summary"><a href="#" class="details">13</a></div>
+									<div class="summary"><a href="#" class="details">14</a></div>
+									<div class="summary"><a href="#" class="details">15</a></div>
+										        	        
+								</div>
+				            </div>
+			            </div>
+		        	</div>
+		        </div>
 		        
 		        <div id="tabs-3" class="tabContent">
 		        <p>
@@ -103,25 +119,7 @@
 
 				</p>
 		        </div>
-		          <!--  div id="tabs-4" class="tabContent" >
-			        <p>
-
-						<div id="columns">
-							<div id="column4" class="column">
-					            <div class="widget color-yellow" id="yellow-widget">
-					                <div class="widget-head">
-					                    <h3>Yellow Widget</h3>
-					                </div>
-					                <div class="widget-content">
-					                    <p>Morbi tincidunt, dui sit amet facilisis feugiat</p>
-					                </div>
-					            </div>
-				            </div>
-			        	</div>
-
-					</p>
-		        </div-->
-		      
+		         
 
 		    </div>
     	</ul>
