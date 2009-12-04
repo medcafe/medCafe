@@ -161,31 +161,17 @@ var iNettuts = {
 	            	var widgetId = $(test).attr('id');
 	      		
 	            	var editButton = $(test).find('.edit');
-	            	
-	                /*$(editButton).click().toggle(function () {
-	                	        
-	                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
-	                        .parents(settings.widgetSelector)
-	                            .find('.edit-box').show().find('input').focus();
-	                    return false;
-	                },function () {
-	                    $(this).css({backgroundPosition: '', width: ''})
-	                        .parents(settings.widgetSelector)
-	                            .find('.edit-box').hide();
-	                    return false;
-	                });*/
-	                
+	           
 	                var events = $(editButton).data("events");
 	                
 	                $(editButton).mousedown().toggle(function(){
-		                //$(this).toggle(function () {
-		                	//alert('toggle open');        
+		                     
 		                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
 		                        .parents(settings.widgetSelector)
 		                            .find('.edit-box').show().find('input').focus();
 		                    return true;
 		                },function () {
-		                	//alert('toggle close');  
+		                  
 		                    $(this).css({backgroundPosition: '', width: ''})
 		                        .parents(settings.widgetSelector)
 		                            .find('.edit-box').hide();
