@@ -163,7 +163,16 @@
 
 
 <div class="ui-layout-west">
- 					<div id="columns">
+
+	<!-- div id="tabs2">
+	    <ul class="tabs">
+
+			<li custom:index="0" id="tabs-9-link" name="tabs-9"><a href="#tabs-9">Tab 9</a></li>
+	        
+	        <div class="ui-layout-content" id="tabs-layout1">
+
+		     	<div id="tabs-9" class="tabContent"-->   
+		      <div id="columns">
 
 					        <div id="column10" class="column">
 					            <div class="widget color-blue" id="intro">
@@ -226,10 +235,19 @@
 
 					    </div>
 </div>
+		     <!--	</div>
+			</div>
+		     
+	  </ul>
+    </div>
+</div-->
+
+<div class="ui-layout-north">
+ 					
 </div>
 
 
-<div class="ui-layout-north"></div>
+
 
 
 <div class="ui-layout-south"></div>
