@@ -19,7 +19,9 @@
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
-  
+  	<link type="text/css" rel="stylesheet" href="css/treeview/jquery.treeview.css" />
+	<link type="text/css" rel="stylesheet" href="css/treeview/screen.css" />
+	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
@@ -27,7 +29,8 @@
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
-
+	<script src="js/treeview/jquery.treeview.js" type="text/javascript"></script>
+	
 
 	<script>
 	var outerLayout;
@@ -162,14 +165,61 @@
 <div class="ui-layout-west">
  					<div id="columns">
 
-					        <div id="column1" class="column">
-					            <div class="widget color-red" id="intro">
+					        <div id="column10" class="column">
+					            <div class="widget color-blue" id="intro">
 					                <div class="widget-head">
-					                    <h3>Introduction Widget</h3>
+					                    <h3>Repositories</h3>
 					                </div>
 					                <div class="widget-content">
-						                
-					                    <div class="summary"><a href="#" class="details">11</a></div>
+						                 <p>
+			                    
+											<div id="main">										
+											<a href=".">Main Demo</a>
+												
+											<ul id="browser" class="filetree treeview-famfamfam">
+												<li><span class="folder">Repositories</span>
+													<ul>
+														<li><span class="folder">MedsphereVista</span>
+															<ul>
+																<li><span class="file">Patient 
+																	<span class="summary"><a href="#" class="details">11</a></span>
+																	</span>
+																</li>
+															</ul>
+														</li>
+														<li><span class="folder">medCafe</span>
+															<ul>
+																	<li><span class="file">Patient 
+																	<span class="summary"><a href="#" class="details">12</a></span>
+																	</span></li>
+																	<li><span class="file">
+																	Patient
+																	<span class="summary"><a href="#" class="details">13</a></span>
+																	
+																	</span></li>		
+															</ul>
+														</li>
+														<li class="closed"><span class="folder">JeffVista</span>
+															<ul>
+																<li><span class="file">Patient
+																<span class="summary"><a href="#" class="details">15</a></span>
+																	
+																
+																</span></li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+											
+											<button id="add">Add!</button>
+											
+											<p>+/- Icons from <a href="http://www.famfamfam.com/lab/icons/">famfamfam</a></p>
+											
+										</div>
+					                    </p> 
+					                    
+					                    
 					                </div>
 					            </div>
 					        </div>
@@ -179,10 +229,10 @@
 </div>
 
 
-<div class="ui-layout-north">
+<div class="ui-layout-north"></div>
 
 
-<div class="ui-layout-south">South</div>
+<div class="ui-layout-south"></div>
 
 <script type="text/javascript">
 						//alert('in here');

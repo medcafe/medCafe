@@ -292,8 +292,7 @@ $(document).ready( function() {
 						 		tab_num = tab_num + 1;
 						 	});
 						 	
-						 	alert('tab num ' + tab_num);
-						 	
+						 
 							var hrefBase = "tabs-" + tab_num;
 							var label = "Tab " + tab_num;
 							
