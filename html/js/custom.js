@@ -341,7 +341,8 @@ var $tabs = $('#tabs2').tabs({
 		});
 
 		var medCafe = {
-			add : function () {
+			
+				add : function () {
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 	$('.summary').each(function ()
 			 	{
@@ -389,9 +390,110 @@ var $tabs = $('#tabs2').tabs({
 							} );
 						} );
 				
+				
+					var patientId = $(this).text();
+		 			var imageButton = $(this).find('.images');
+		 			$(imageButton).bind("click",{},
+					
+						function(e)
+						{
+							var tab_num = 1;							
+							
+						 	$('.tabs').parent().find(".tabContent").each(function(i)
+						 	{
+						 		tab_num = tab_num + 1;
+						 	});
+						 	
+						 
+							var hrefBase = "tabs-" + tab_num;
+							var label = "Tab " + tab_num;
+							
+							//Add a new Tab
+							$('#tabs').tabs("add","#" + hrefBase,label);
+							$("#tabs-" + tab_num).addClass('tabContent');
+							
+							//Load the widget template
+							$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+							
+							//Delay to let the DOM refresh
+							$(this).delay(500,function()
+							{
+								iNettuts.refresh("yellow-widget" + tab_num);
+							
+								//Add the patient data
+								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
+								
+								//Delay to let DOM refresh before adding table styling
+								$(this).delay(500,function()
+								{
+									alert("images");
+								} );
+								
+							} );
+						} );
+						
+						
 	    	    });
+	    
 			}
 	
+			    ,
+			    addRep : function () 
+		    	{
+		    		$('.repository').each(function ()
+				 	{
+				 		var repId = "OurVista";
+		 				alert("this repository " + repId);
+				 		
+		 				var repButton = $(this).find('.repList');
+		 				$(repButton).bind("click",{},
+				 			function(e)
+							{
+				 				var tab_num = 1;							
+							
+							 	$('.tabs').parent().find(".tabContent").each(function(i)
+							 	{
+							 		tab_num = tab_num + 1;
+							 	});
+							 	
+							 
+								var hrefBase = "tabs-" + tab_num;
+								var label = "Tab " + tab_num;
+								
+								//Add a new Tab
+								$('#tabs').tabs("add","#" + hrefBase,label);
+								$("#tabs-" + tab_num).addClass('tabContent');
+								
+								//Load the widget template
+								$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+								
+								//Delay to let the DOM refresh
+								$(this).delay(500,function()
+								{
+									iNettuts.refresh("yellow-widget" + tab_num);
+								
+								    var serverLink = "http://127.0.0.1:8080/medcafe/c/repositories/" + repId + "/patients";
+								    alert("server link " + serverLink);
+									//Add the patient data
+									$(this).delay(100,function()
+									{
+										$("#aaa" + tab_num).load(serverLink);
+										
+										//Delay to let server get the results back
+										$(this).delay(5000,function()
+										{
+											//alert( $("#example" + patientId).text());
+											$("#example" + repId).dataTable( {
+												"aaSorting": [[ 1, "desc" ]]
+											} );
+										} );
+									} );
+								} );
+				 			
+				 			} );
+						
+				 	} );
+				}
 		}
 		
 		
@@ -403,44 +505,10 @@ var $tabs = $('#tabs2').tabs({
 				}
 		 );
 		
-		medCafe.add();		
+		medCafe.add();
+		medCafe.addRep();		
 					
-		//Button that will dynamically add a new tab with patient data
-		$('#addButton1').bind("click",{},
-				
-				function(e)
-				{
-					var tab_num = 15;
-					var hrefBase = "tabs-" + tab_num;
-					var label = "Tab " + tab_num;
-					var patientId = 2;
-					//Add a new Tab
-					$('#tabs').tabs("add","#" + hrefBase,label);
-					
-					//Load the widget template
-					$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
-					
-					//Delay to let the DOM refresh
-					$(this).delay(500,function()
-					{
-						iNettuts.refresh("yellow-widget" + tab_num);
-					
-						//Add the patient data
-						$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
-						
-						//Delay to let DOM refresh before adding table styling
-						$(this).delay(500,function()
-						{
-							alert( $("#example" + patientId).text());
-							$("#example" + patientId).dataTable( {
-								"aaSorting": [[ 1, "desc" ]]
-							} );
-						} );
-						
-					} );
-					medCafe.add();
-				} );
-			
+		
 			//Code for Treeview
 			$("#browser").treeview({
 				toggle: function() {

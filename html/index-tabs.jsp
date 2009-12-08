@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
-	<script src="js/treeview/jquery.treeview.js" type="text/javascript"></script>
+	<script src="${js}/treeview/jquery.treeview.js" type="text/javascript"></script>
 	
 
 	<script>
@@ -186,12 +186,30 @@
 											<a href=".">Main Demo</a>
 												
 											<ul id="browser" class="filetree treeview-famfamfam">
-												<li><span class="folder">Repositories</span>
+												<li>
+													
+													<span class="folder">Repositories</span>
 													<ul>
+														<li>
+															<span class="folder">OurVista</span>
+															
+																<ul>
+																<span class="repository">
+																<a href="#" class="repList">OurVista</a>
+																
+																<li><span class="file">Patient 
+																	<span class="summary"><a href="#" class="details">11</a><a href="#" class="images">11</a></span>
+																	</span>
+																</li>
+																</span>
+															</ul>
+															
+														</li>
+													
 														<li><span class="folder">MedsphereVista</span>
 															<ul>
 																<li><span class="file">Patient 
-																	<span class="summary"><a href="#" class="details">11</a></span>
+																	<span class="summary"><a href="#" class="details">11</a><a href="#" class="images">11</a></span>
 																	</span>
 																</li>
 															</ul>

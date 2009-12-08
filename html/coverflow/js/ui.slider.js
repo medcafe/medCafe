@@ -20,6 +20,7 @@
 	
 	$.ui.slider = function(element, options) {
 
+		//alert('in here');
 		//Initialize needed constants
 		var self = this;
 		this.element = $(element);

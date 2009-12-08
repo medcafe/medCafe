@@ -28,15 +28,29 @@ public class PatientListResource extends ServerResource {
      *  Html representation - this will likely have to changes once full integration is done
      */
     @Get("html")
-    public Representation toHtml(){
-        StringBuilder ret = new StringBuilder( "Available Patients:<br/>\n<ul>" );
+    public Representation toHtml()
+    {
+    	
+		
+		
+    	StringBuilder ret = new StringBuilder( "Available Patients:<br/>\n<ul>" );
         Repository repo = Repositories.getRepository(repository);
         if( repo == null )
         {
             ret.append("<li>That repository does not exist.</li></ul>");
             return new StringRepresentation( ret.toString() );
         }
+        StringBuilder repStart = new StringBuilder();
+        StringBuilder repEnd = new StringBuilder();
+		repStart.append("<li><span class=\"folder\">Repositories</span>\n<ul>\n");
+		repStart.append("<li><span class=\"folder\">" + repo.getName() + "</span>\n");
+		
+		repEnd.append("</li></ul></li>");
+		
+		StringBuilder patients = new StringBuilder();
+		        
         List<String> patids = repo.getPatients();
+                
         if( patids == null )
         {
             ret.append("<li>No patients returned.  Contact with the server was likely interrupted.</li></ul>");
@@ -44,11 +58,13 @@ public class PatientListResource extends ServerResource {
         }
         for( String patid : patids)
         {
-            ret.append( "<li class='summaryData'>" );
-            ret.append( "<a href=\"browsePatient.jsp?id=" + patid + "\">" + patid + "</a>" );
-            ret.append( "</li>\n" );
+        	patients.append("<li><span class=\"file\">");
+        	patients.append("<span class=\"summary\"><a href=\"#\" class=\"details\">" + patid + "</a>");
+        	patients.append("<a href=\"#\" class=\"images\">" + patid + "</a></span>");
+        	patients.append("</span>\n</li>");
+        	
         }
         ret.append( "</ul>" );
-        return new StringRepresentation( ret.toString() );
+        return new StringRepresentation( repStart.toString()  + patients.toString() + repEnd.toString());
     }
 }
