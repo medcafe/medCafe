@@ -347,6 +347,8 @@ var $tabs = $('#tabs2').tabs({
 			 	$('.summary').each(function ()
 			 	{
 			 		var patientId = $(this).text();
+			 		
+			 		var rep = "OurVista";
 		 			var detailButton = $(this).find('.details');
 		 			$(detailButton).bind("click",{},
 					
@@ -376,15 +378,19 @@ var $tabs = $('#tabs2').tabs({
 								iNettuts.refresh("yellow-widget" + tab_num);
 							
 								//Add the patient data
-								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
+								var server = "http://127.0.0.1:8080/medcafe/c/repositories/" + rep  +"/patients/" + patientId;
+								//alert("server " + server);
+								$("#aaa" + tab_num).load(server);
 								
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
 								{
-									//alert( $("#example" + patientId).text());
+									alert( $("#example" + patientId).text());
+									
 									$("#example" + patientId).dataTable( {
-										"aaSorting": [[ 1, "desc" ]]
+										"aaSorting": [[ 0, "desc" ]]
 									} );
+									
 								} );
 								
 							} );
@@ -442,9 +448,8 @@ var $tabs = $('#tabs2').tabs({
 		    	{
 		    		$('.repository').each(function ()
 				 	{
-				 		var repId = "OurVista";
-		 				alert("this repository " + repId);
-				 		
+				 		var repId = $(this).find('.repList').text();
+		 				
 		 				var repButton = $(this).find('.repList');
 		 				$(repButton).bind("click",{},
 				 			function(e)
@@ -473,21 +478,27 @@ var $tabs = $('#tabs2').tabs({
 									iNettuts.refresh("yellow-widget" + tab_num);
 								
 								    var serverLink = "http://127.0.0.1:8080/medcafe/c/repositories/" + repId + "/patients";
-								    alert("server link " + serverLink);
+								    //alert("server link " + serverLink);
 									//Add the patient data
-									$(this).delay(100,function()
-									{
+									
 										$("#aaa" + tab_num).load(serverLink);
-										
+										//alert("example" + repId);
 										//Delay to let server get the results back
-										$(this).delay(5000,function()
+										$(this).delay(10000,function()
 										{
-											//alert( $("#example" + patientId).text());
+											
+											//alert( $("#example" + repId).text());
 											$("#example" + repId).dataTable( {
-												"aaSorting": [[ 1, "desc" ]]
+												"aaSorting": [[ 0, "desc" ]]
+											} );
+											//$("#example" + patientId).dataTable();
+									
+											$(this).delay(1000,function()
+											{
+												medCafe.add();
 											} );
 										} );
-									} );
+									
 								} );
 				 			
 				 			} );

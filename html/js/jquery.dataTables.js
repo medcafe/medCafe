@@ -3408,7 +3408,9 @@
 				 */
 				for ( i=0 ; i<aaSort.length ; i++ )
 				{
+					
 					var iColumn = aaSort[i][0];
+					
 					var sDataType = oSettings.aoColumns[ iColumn ].sSortDataType;
 					if ( typeof _oExt.afnSortData[sDataType] != 'undefined' )
 					{

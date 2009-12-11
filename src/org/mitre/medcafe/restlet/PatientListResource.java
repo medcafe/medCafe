@@ -32,22 +32,25 @@ public class PatientListResource extends ServerResource {
     {
     	
 		
-		
+    	StringBuffer buf = new StringBuffer();
+    	StringBuffer endBuf = new StringBuffer();
+    	endBuf.append("</tbody></table>");
+    	
     	StringBuilder ret = new StringBuilder( "Available Patients:<br/>\n<ul>" );
         Repository repo = Repositories.getRepository(repository);
+        
         if( repo == null )
         {
             ret.append("<li>That repository does not exist.</li></ul>");
             return new StringRepresentation( ret.toString() );
         }
-        StringBuilder repStart = new StringBuilder();
-        StringBuilder repEnd = new StringBuilder();
-		repStart.append("<li><span class=\"folder\">Repositories</span>\n<ul>\n");
-		repStart.append("<li><span class=\"folder\">" + repo.getName() + "</span>\n");
+        buf.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example" + repo.getName()+"\">");
+    	buf.append("");
+    	
+        StringBuilder patients = new StringBuilder();
 		
-		repEnd.append("</li></ul></li>");
-		
-		StringBuilder patients = new StringBuilder();
+        patients.append("<thead><tr><th></th></tr></thead>");
+        patients.append("<tbody>");
 		        
         List<String> patids = repo.getPatients();
                 
@@ -58,13 +61,12 @@ public class PatientListResource extends ServerResource {
         }
         for( String patid : patids)
         {
-        	patients.append("<li><span class=\"file\">");
-        	patients.append("<span class=\"summary\"><a href=\"#\" class=\"details\">" + patid + "</a>");
-        	patients.append("<a href=\"#\" class=\"images\">" + patid + "</a></span>");
-        	patients.append("</span>\n</li>");
+        	//patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td></tr>" );
+        	patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );
         	
         }
-        ret.append( "</ul>" );
-        return new StringRepresentation( repStart.toString()  + patients.toString() + repEnd.toString());
+        
+        return new StringRepresentation( buf.toString() + patients.toString() 
+                + endBuf.toString()); 
     }
 }

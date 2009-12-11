@@ -195,11 +195,8 @@
 															
 																<ul>
 																<span class="repository">
-																<a href="#" class="repList">OurVista</a>
-																
-																<li><span class="file">Patient 
-																	<span class="summary"><a href="#" class="details">11</a><a href="#" class="images">11</a></span>
-																	</span>
+																<a href="#" class="repList">OurVista</a>			
+																<li>
 																</li>
 																</span>
 															</ul>
