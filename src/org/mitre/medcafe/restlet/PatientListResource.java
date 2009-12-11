@@ -61,8 +61,10 @@ public class PatientListResource extends ServerResource {
         }
         for( String patid : patids)
         {
-        	//patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td></tr>" );
-        	patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );
+        	System.out.println("PatientListResource: toHtml : paient id " + patid);
+        	
+        	patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td></tr>" );
+        	//patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );
         	
         }
         
