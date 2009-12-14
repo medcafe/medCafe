@@ -42,6 +42,7 @@ $(document).ready( function() {
 			    				var hrefBase = href.split('#')[1], baseEl;
 						 		$(this).attr('id',hrefBase + "-link");
 						 		$(this).attr('custom:index', count);
+						 		
 						    }			    
 		
 			   			});
@@ -59,8 +60,12 @@ $(document).ready( function() {
 		    	var li_obj = $(tagObj).parent().closest('li');
 
 		    	$(li_obj).attr('id',id + "-link");
+		    	$(li_obj).addClass("tabHeader");
+				$(li_obj).prepend("<div class='close'></div>");
+				
+		    	medCafe.initClose();
+		    	
 		    	var count = -1;
-
 		    	//Reset the indexes of all the new tabs
 		    	 $(this).find("li:has(a)").each(function(i)
 				 {
@@ -69,7 +74,8 @@ $(document).ready( function() {
 
 	     			var newLi = $("#" + tempId );
 	     			$(newLi).attr('custom:index', count);
-
+					
+					
 	   			});
 
 	   			//
@@ -293,7 +299,8 @@ var $tabs = $('#tabs2').tabs({
 		  	 hoverClass: 'droppable-hover'
 		});
 
-
+		
+						
 		//Remove the tab content from parent and add to new parent
 		$('#tabs').droppable(
 		{
@@ -342,6 +349,32 @@ var $tabs = $('#tabs2').tabs({
 
 		var medCafe = {
 			
+			initClose : function() {
+			
+				$('.tabHeader').find('.close').bind("click",{},
+			
+						function(e){
+							
+							var index = $(this).parent().attr('custom:index');
+							$("#tabs").tabs("remove",index);
+							
+							//Cycle through the other tabs and reindex based on new order
+							var count = 0;
+							$("#tabs").find("li:has(a)").each(function(i)
+						 	{
+						 		
+							 	var aObj = $(this).find('a');
+				    			var href = aObj.attr('href');
+				    				
+				    			var hrefBase = href.split('#')[1], baseEl;
+							 	$(this).attr('id',hrefBase + "-link");
+							 	$(this).attr('custom:index', count);
+							    	
+							    count = count + 1;	    
+		
+			   				});
+				} );},
+		
 				add : function () {
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 	$('.summary').each(function ()
@@ -518,7 +551,7 @@ var $tabs = $('#tabs2').tabs({
 		
 		medCafe.add();
 		medCafe.addRep();		
-					
+		medCafe.initClose();			
 		
 			//Code for Treeview
 			$("#browser").treeview({

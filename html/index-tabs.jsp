@@ -52,9 +52,9 @@
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
-			<li custom:index="0" id="tabs-1-link" name="tabs-1" class="tabHeader"><a href="#tabs-1">Tab 1</a></li>
-	        <li custom:index="1" id="tabs-2-link" name="tabs-2" class="tabHeader"><a href="#tabs-2">Tab 2</a></li>
-	        <li custom:index="2" id="tabs-3-link" name="tabs-3" class="tabHeader"><a href="#tabs-3">Tab 3</a></li>
+			<li custom:index="0" id="tabs-1-link" name="tabs-1" class="tabHeader"><a href="#tabs-1">Tab 1</a><div class="close">close</div></li>
+	        <li custom:index="1" id="tabs-2-link" name="tabs-2" class="tabHeader"><a href="#tabs-2">Tab 2</a><div class="close">close</div></li>
+	        <li custom:index="2" id="tabs-3-link" name="tabs-3" class="tabHeader"><a href="#tabs-3">Tab 3</a><div class="close">close</div></li>
 	  		
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		    <div class="ui-layout-content" id="tabs-layout">

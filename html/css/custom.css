@@ -51,3 +51,23 @@ background-color:yellow;
      background-color:white;
 
 } 
+
+.ui-tabs .ui-tabs-nav li .close {
+     float: right;
+    display: inline;
+	background: url(../images/window-close.png) no-repeat;
+  	width: 16px;
+    height: 16px;
+    outline: none;
+    text-indent: -9999em;
+    margin: 0px 0px 0px 0px;
+}
+.ui-tabs .ui-tabs-nav li span a .close {
+ 
+	background: url(../images/window-close.png) no-repeat;
+  	width: 16px;
+    height: 16px;
+    outline: none;
+    text-indent: -9999em;
+    margin: 0px 0px 0px -20px;
+}
