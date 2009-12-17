@@ -1,0 +1,8 @@
+# This properties file contains a list of relative urls and the string to use to format that string
+# urls are regular expressions, not globs, so if you want something to match anything that starts with repository use "/repository/.*" instead of "/repository/*"
+# urls need to be listed in order from more specific to less specific - the first matching url will be used and the rest ignored
+# formatting strings use <:field:> notation to show where to put JSON instance values.  Field names are .trim()'d before calling for the values in the JSON object
+#   arrays are automatically detected and one line will be produced for each member in the array
+
+/repositories=<li id="treeme"><span class="folder"><:names:></span></li>\n
+

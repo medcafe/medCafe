@@ -29,8 +29,6 @@ import javax.servlet.jsp.PageContext;
  */
 public class WebUtils
 {
-    public static final String EMPTY_STR = "";
-
     /**
      *  Retrieves a parameter from a passed request. If the parameter is not
      *  found, an NPE is thrown.
@@ -134,7 +132,7 @@ public class WebUtils
 
         if ( values == null )
         {
-		return EMPTY_STR;
+		return Config.EMPTY_STR;
 	}
 
         StringBuffer  ret     = new StringBuffer();
@@ -161,7 +159,7 @@ public class WebUtils
     public static String getOptionalParameter( ServletRequest req, String name )
         throws NullPointerException
     {
-        return getOptionalParameter( req, name, EMPTY_STR );
+        return getOptionalParameter( req, name, Config.EMPTY_STR );
     }
 
 

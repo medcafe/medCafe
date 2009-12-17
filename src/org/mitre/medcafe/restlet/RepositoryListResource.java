@@ -2,6 +2,7 @@ package org.mitre.medcafe.restlet;
 
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -19,5 +20,25 @@ public class RepositoryListResource extends ServerResource {
         }
         ret.append( "</ul>" );
         return new StringRepresentation( ret.toString() );
+    }
+
+    @Get("json")
+    public JsonRepresentation toJson(){
+        StringBuilder ret = new StringBuilder( "{ \"names\" : [ " );
+        boolean first = true;
+        for( String name : Repositories.getRepositoryNames())
+        {
+            if( first )
+            {
+                ret.append( "\"" + name + "\"");
+                first = false;
+            }
+            else
+            ret.append( ", \"" + name + "\"");
+        }
+        ret.append( " ] }" );
+        // String object = "{ \"names\" : [  \"One\",  \"Two\", \"Three\" ] }";
+
+        return new JsonRepresentation( ret.toString() );
     }
 }

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import org.mitre.medcafe.restlet.*;
+import org.mitre.medcafe.util.*;
 
 /**
  *  This allows for initial MedCafe setup, inlcuding
@@ -68,6 +69,14 @@ public class InitServlet extends HttpServlet
          */
         super.init( config );
         /*
+         *  load up Config.java
+         */
+        String base_path = config.getServletContext().getRealPath( "/" );
+        String config_dir = base_path + "WEB-INF/";
+
+        Config.init( config_dir );
+        // Config.setProperty( "BasePath", base_path );
+        /*
          *  Grab the name for the currently deployed webapp.  It's possible this could be in error if the webapp is deployed
          *  as a subdirectory (i.e., The docbase is http://localhost:8080/first/sub).  If this ever gets deployed that way it will
          *  have to be fixed.
@@ -79,6 +88,7 @@ public class InitServlet extends HttpServlet
             webapp = "";
         }
         else webapp = "/" + webapp;
+        Config.setWebapp( webapp );
         getServletContext().setAttribute("base",  webapp );
         getServletContext().setAttribute("images",  webapp + "/images");
         getServletContext().setAttribute("js",  webapp + "/js");

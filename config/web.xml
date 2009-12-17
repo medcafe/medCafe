@@ -13,6 +13,13 @@
        </param-value>
     </context-param>
 
+    <!-- List of supported client protocols -->
+    <context-param>
+         <param-name>org.restlet.clients</param-name>
+         <param-value>HTTP HTTPS FILE</param-value>
+    </context-param>
+
+
     <!-- Restlet adapter -->
     <servlet>
        <servlet-name>RestletServlet</servlet-name>
