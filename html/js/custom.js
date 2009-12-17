@@ -379,7 +379,7 @@ var $tabs = $('#tabs2').tabs({
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 	$('.summary').each(function ()
 			 	{
-			 		var patientId = $(this).text();
+			 		var detailId = $(this).text();
 			 		
 			 		var rep = "OurVista";
 		 			var detailButton = $(this).find('.details');
@@ -387,16 +387,29 @@ var $tabs = $('#tabs2').tabs({
 					
 						function(e)
 						{
+							//First check if the current detail tab exists
+							//Then put focus on this tab
+							if ($("#example" + detailId).attr('id') )
+							{
+								//Find closest tab
+								
+								var test = $("#example" + detailId).parent().parent().closest('.tabContent');
+								var tabId = test.attr('id');
+								
+								$('#tabs').tabs('select', '#' + tabId);
+								return false;
+							}
 							var tab_num = 1;							
-							
+							var tab_id;
 						 	$('.tabs').parent().find(".tabContent").each(function(i)
 						 	{
-						 		tab_num = tab_num + 1;
+						 		tab_id = $(this).attr('id');
+						 		
 						 	});
-						 	
-						 
+						 	var curr_num = tab_id.split("-")[1];
+						 	tab_num = curr_num*1 + 1;
 							var hrefBase = "tabs-" + tab_num;
-							var label = "Tab " + tab_num;
+							var label = detailId;
 							
 							//Add a new Tab
 							$('#tabs').tabs("add","#" + hrefBase,label);
@@ -418,9 +431,9 @@ var $tabs = $('#tabs2').tabs({
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
 								{
-									alert( $("#example" + patientId).text());
+									//alert( $("#example" + patientId).text());
 									
-									$("#example" + patientId).dataTable( {
+									$("#example" + detailId).dataTable( {
 										"aaSorting": [[ 0, "desc" ]]
 									} );
 									
