@@ -4,5 +4,8 @@
 # formatting strings use <:field:> notation to show where to put JSON instance values.  Field names are .trim()'d before calling for the values in the JSON object
 #   arrays are automatically detected and one line will be produced for each member in the array
 
-/repositories=<li id="treeme"><span class="folder"><:names:></span></li>\n
+/repositories/[^/]+/patients/[^/]+/images = Not done yet
+/repositories/[^/]+/patients/.+ = Not done yet
+/repositories/[^/]+/patients = <li id="treeme"><span class="folder"><:patients.id:></span></li>\n
+/repositories = <li id="treeme"><span class="folder"><:repositories.name:>(<:repositories.type:>)</span></li>\n
 

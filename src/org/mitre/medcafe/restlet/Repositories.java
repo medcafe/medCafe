@@ -18,6 +18,11 @@ public class Repositories
 
     }
 
+    public static Map<String, Repository> getRepositories()
+    {
+        return Collections.unmodifiableMap(repos);
+    }
+
     /**
      *  Repositories for testing - until an external representation is arrived at, anyway
      */

@@ -1,5 +1,10 @@
 package org.mitre.medcafe.restlet;
 
+import org.mitre.medcafe.util.Repository;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.*;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.ext.json.JsonRepresentation;
@@ -8,6 +13,10 @@ import org.restlet.resource.ServerResource;
 
 
 public class RepositoryListResource extends ServerResource {
+
+    public final static String KEY = RepositoryListResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}
 
     @Get("html")
     public Representation toHtml(){
@@ -24,21 +33,22 @@ public class RepositoryListResource extends ServerResource {
 
     @Get("json")
     public JsonRepresentation toJson(){
-        StringBuilder ret = new StringBuilder( "{ \"names\" : [ " );
-        boolean first = true;
-        for( String name : Repositories.getRepositoryNames())
+        try
         {
-            if( first )
+            JSONObject obj = new JSONObject();
+            for(Repository r: Repositories.getRepositories().values() )
             {
-                ret.append( "\"" + name + "\"");
-                first = false;
+                JSONObject inner_obj = new JSONObject ();
+                inner_obj.put("name", r.getName());
+                inner_obj.put("type", r.getType());
+                obj.append("repositories", inner_obj);  //append creates an array for you
             }
-            else
-            ret.append( ", \"" + name + "\"");
+            return new JsonRepresentation(obj);
         }
-        ret.append( " ] }" );
-        // String object = "{ \"names\" : [  \"One\",  \"Two\", \"Three\" ] }";
-
-        return new JsonRepresentation( ret.toString() );
+        catch(Exception e)
+        {
+            log.throwing(KEY, "toJson()", e);
+            return null;
+        }
     }
 }

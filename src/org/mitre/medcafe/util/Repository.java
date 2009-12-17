@@ -100,6 +100,4 @@ public abstract class Repository
     public void setName(String name) {
     	this.name = name;
     }
-
-
 }
