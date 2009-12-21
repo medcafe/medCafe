@@ -23,6 +23,7 @@
 	    return element;
 	}
 	function CoverFlow(elem, options) {
+		
 		var _this = this;
 		this.options = options;
 		this.useCaptions = this.options.captions;
@@ -30,8 +31,7 @@
 		$(this.elem).css({overflow: 'hidden', position: 'relative'});
 		
 		this.stack = $(this.elem).children().get();
-		
-	
+
 		
 		if(this.options.captions != false) {
 			this.captions = [];
@@ -59,7 +59,10 @@
 		this.currPos = this.options.startIndex - 1;
 		this.currIndex = this.currPos;
 		/* slider */
+		
 		if(this.options.slider) {
+			
+			//alert('adding slider');
 			this.sliderContainer = $('<div/>').css({
 				width: '200px',
 				height: '10px',

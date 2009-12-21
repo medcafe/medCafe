@@ -449,8 +449,7 @@ var $tabs = $('#tabs2').tabs({
 					
 						function(e)
 						{
-							var tab_num = 1;							
-							
+							var tab_num = 1;	
 						 	$('.tabs').parent().find(".tabContent").each(function(i)
 						 	{
 						 		tab_num = tab_num + 1;
@@ -466,23 +465,26 @@ var $tabs = $('#tabs2').tabs({
 							
 							//Load the widget template
 							$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
-							
+							//$("#tabs-" + tab_num).
+							$('#tabs').tabs('select', "#tabs-" + tab_num);
 							//Delay to let the DOM refresh
-							$(this).delay(500,function()
-							{
-								iNettuts.refresh("yellow-widget" + tab_num);
-							
-								//Add the patient data
-								//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
-								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow-template.jsp");
-								
-								//Delay to let DOM refresh before adding table styling
-								$(this).delay(500,function()
+								$(this).delay(100,function()
 								{
-									//alert("images");
+									iNettuts.refresh("yellow-widget" + tab_num);
+									var server = "http://127.0.0.1:8080/medcafe/coverflow/coverflow.jsp";
+									//Add the patient data
+									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
+									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
+									$("#aaa" + tab_num).append('<iframe id="imagesiframe" width="600" height="400"/>');
+									$('#imagesiframe').attr('src', server); 
+									
+									//Delay to let DOM refresh before adding table styling
+									$(this).delay(500,function()
+									{
+										//alert("images");
+									} );
+									
 								} );
-								
-							} );
 						} );
 						
 						
