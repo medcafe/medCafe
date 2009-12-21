@@ -188,8 +188,14 @@
 											<ul id="browser" class="filetree treeview-famfamfam">
 												<li>
 													
-													<span class="folder">Repositories</span>
-													<ul>
+													<span class="folder repository">Repositories</span>
+													<div id="listRepository"></div>
+													
+													<span class="file summary">Add Coverflow
+														<div class="images">Images</div>
+													</span>
+													
+													<!--  ul>
 														<li>
 															<span class="folder">OurVista</span>
 															
@@ -232,7 +238,7 @@
 																</span></li>
 															</ul>
 														</li>
-													</ul>
+													</ul-->
 												</li>
 											</ul>
 											
@@ -267,27 +273,7 @@
 
 <div class="ui-layout-south"></div>
 
-<script type="text/javascript">
-						//alert('in here');
-						//Need some way to pause between these
-						var patientId= <%= patientId %>
-						
-						$(window).bind("load",{},
-						
-						function(e){
 
-								//var patientId=1;
-								
-								$("#aaa").load("http://127.0.0.1:8080/medcafe/c/patient/" + patientId);
-					
-								/*$(this).delay(80,function()
-								{
-									$("#example").dataTable( {
-										"aaSorting": [[ 1, "desc" ]]
-									} );
-								} );*/
-						} );
-		</script>
 </body>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />

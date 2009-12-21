@@ -80,7 +80,7 @@ public class TreeNodeResource extends ServerResource {
         throws JSONException
     {
         StringBuilder ret = new StringBuilder();
-        JSONArray a = representation.getJsonObject().getJSONArray( "names" );
+        JSONArray a = representation.getJsonObject().getJSONArray( "repositories" );
         for(int i = 0; i < a.length(); i++)
         {
             ret.append( "<li id=\"treeme\"><span class=\"folder\">" + String.valueOf(a.get(i))  + "</span></li>\n" );

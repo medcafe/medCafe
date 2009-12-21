@@ -473,12 +473,13 @@ var $tabs = $('#tabs2').tabs({
 								iNettuts.refresh("yellow-widget" + tab_num);
 							
 								//Add the patient data
-								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
+								//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
+								$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow-template.jsp");
 								
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
 								{
-									alert("images");
+									//alert("images");
 								} );
 								
 							} );
@@ -490,6 +491,27 @@ var $tabs = $('#tabs2').tabs({
 			}
 	
 			    ,
+			    
+			    clickRep : function () 
+		    	{
+		    		
+		    		$('.repository').each(function ()
+				 	{
+				 		$(this).bind("click",{},
+				 			function(e)
+							{
+								
+								var server = "http://127.0.0.1:8080/medcafe/c/treenode?relurl=/repositories&type=link";
+								$("#listRepository").load(server);
+								$(this).delay(1000,function()
+								{
+									medCafe.addRep();
+								});
+							});
+							
+				 	});
+				 }
+				 ,
 			    addRep : function () 
 		    	{
 		    		$('.repository').each(function ()
@@ -563,7 +585,8 @@ var $tabs = $('#tabs2').tabs({
 		 );
 		
 		medCafe.add();
-		medCafe.addRep();		
+		//medCafe.addRep();		
+		medCafe.clickRep();		
 		medCafe.initClose();			
 		
 			//Code for Treeview
