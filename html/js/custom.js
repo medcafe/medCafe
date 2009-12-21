@@ -84,110 +84,6 @@ $(document).ready( function() {
 		});
 
 
-var $tabs = $('#tabs2').tabs({
-		    add: function(event, ui)
-		    {
-		        var self = this;
-		        var selfId = $(this).attr('id');
-
-		        if (ui.panel === undefined)
-		        {
-		        	//alert("ui panel is undefined");
-		        	if (ui.tab === undefined)
-		        	{
-		        		alert("ui panel and tab is undefined");
-						return false;
-		        	}
-					else
-					{
-						
-						 count= 0;
-						 $(this).find("li:has(a)").each(function(i)
-						 {
-						 	count = count + 1;
-						 	if (!$(this).attr('id'))
-						 	{
-						 		//Temporary hard code this value
-						 		var aObj = $(this).find('a');
-			    				var href = aObj.attr('href');
-			    				
-			    				var hrefBase = href.split('#')[1], baseEl;
-						 		$(this).attr('id',hrefBase + "-link");
-						 		$(this).attr('custom:index', count);
-						    }			    
-		
-			   			});
-						
-						return true;
-					}
-					alert("ui panel is undefined");
-		        	return false;
-		        }
-
-		        var id = ui.panel.id;
-
-		    	var tagObj = $("#" + selfId + " li:has(a) a[href*='" + id + "']");
-
-		    	var li_obj = $(tagObj).parent().closest('li');
-
-		    	$(li_obj).attr('id',id + "-link");
-		    	var count = -1;
-
-		    	//Reset the indexes of all the new tabs
-		    	 $(this).find("li:has(a)").each(function(i)
-				 {
-				    var tempId = $(this).attr('id');
-				    count = count + 1;
-
-	     			var newLi = $("#" + tempId );
-	     			$(newLi).attr('custom:index', count);
-
-	   			});
-
-	   			//
-
-		    }
-		});
-
-		var $tabs = $('#tabs1').tabs({
-		    add: function(event, ui)
-		    {
-		        var self = this;
-		        var selfId = $(this).attr('id');
-
-		        if (ui.panel === undefined)
-		        {
-		        	alert("ui panel is undefined");
-		        	if (ui.tab === undefined)
-		        	{
-		        		alert("ui tab is also undefined");
-
-		        	}
-
-		        	return false;
-		        }
-
-		        var id = ui.panel.id;
-
-		    	var tagObj = $("#" + selfId + " li:has(a) a[href*='" + id + "']");
-
-		    	var li_obj = $(tagObj).parent().closest('li');
-
-		    	$(li_obj).attr('id',id + "-link");
-		    	var count = -1;
-
-		    	//Reset the indexes of all the new tabs
-		    	 $(this).find("li:has(a)").each(function(i)
-				 {
-				    var tempId = $(this).attr('id');
-				    count = count + 1;
-
-	     			var newLi = $("#" + tempId );
-	     			$(newLi).attr('custom:index', count);
-
-	   			});
-		    }
-		});
 
   		var draggedId;
 		// init the Sortables
@@ -233,56 +129,7 @@ var $tabs = $('#tabs2').tabs({
 				.sortable({})
 			;
 
-		//Remove the tab content from parent and add to new parent
-		$('#tabs1').droppable(
-		{
-		  //accept: "#divDrag",
-		  drop:			function (ev, ui)
-		   {
-		    	//Set up variables
-		    	var aObj = $(ui.draggable).closest('li').find('a');
-			    var href = aObj.attr('href');
-	  			var label = $(aObj).text();
-
-	  			//Get the parent of the draggable item
-	  			var parentDrag = $(ui.draggable).parent().parent();
-
-	  			//Get the id of the tabs
-			 	var divId = $(this).tabs().attr('id');
-
-			 	//Get the current index of the tab in the panel
-				var selected = $(ui.draggable).attr('custom:index');
-
-				//Split the href value
-				var hrefBase = href.split('#')[1], baseEl;
-				//Create link to old text
-				var $old = $("#" + hrefBase);
-				//end set up variables
-
-		  		//Remove the tab item, only after creating a link to old  text item
-		  		parentDrag.tabs('remove',selected);
-
-				//Get id of the place where text item shoudl be added
-				var layoutId = $('#' + divId +' ul div').attr('id');
-			 //alert("layout id " + layoutId);
-			 	//Append the text item in new location
-				var $newText = $old.appendTo('#' + layoutId);
-
-				//Append the new tab
-				$(this).tabs("add","#" + hrefBase,label);
-
-
-				//$newText.addClass('ui-tabs-hide');
-
-
-		  },
-		  activate: 		function (ev, ui)
-		  {
-
-		  },
-
-		});
-
+		
 		//Remove the tab content from parent and add to new parent
 		$('.tabHeader').droppable(
 		{
@@ -361,7 +208,9 @@ var $tabs = $('#tabs2').tabs({
 							
 							var index = $(this).parent().attr('custom:index');
 							$("#tabs").tabs("remove",index);
-							
+							var newIndex = index -1;
+							if (newIndex < 0)
+								newIndex = 0;
 							//Cycle through the other tabs and reindex based on new order
 							var count = 0;
 							$("#tabs").find("li:has(a)").each(function(i)
@@ -377,6 +226,8 @@ var $tabs = $('#tabs2').tabs({
 							    count = count + 1;	    
 		
 			   				});
+			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
+			   				$("#tabs").tabs('select', newIndex);
 				} );},
 		
 				add : function () {
