@@ -15,10 +15,10 @@ $(document).ready( function() {
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
+		    	
 		        var self = this;
 		        var selfId = $(this).attr('id');
-
-		        if (ui.panel === undefined)
+				if (ui.panel === undefined)
 		        {
 		        	//alert("ui panel is undefined");
 		        	if (ui.tab === undefined)
@@ -54,7 +54,7 @@ $(document).ready( function() {
 		        }
 
 		        var id = ui.panel.id;
-
+			
 		    	var tagObj = $("#" + selfId + " li:has(a) a[href*='" + id + "']");
 
 		    	var li_obj = $(tagObj).parent().closest('li');
@@ -315,6 +315,7 @@ var $tabs = $('#tabs2').tabs({
 					return false;
 				}
 
+				
 		   		var aObj = $(ui.draggable).closest('li').find('a');
 			    var href = aObj.attr('href');
 	  			var id =  $(ui.draggable).attr("id");
@@ -323,26 +324,29 @@ var $tabs = $('#tabs2').tabs({
 	  			parentDrag = $(ui.draggable).parent().parent();
 			    var parentId = parentDrag.attr('id');
 			 	var divId = $(this).tabs().attr('id');
-
+				
 				var selected = $(ui.draggable).attr('custom:index');
 
 				var hrefBase = href.split('#')[1], baseEl;
-
+				
 				var $old = $("#" + hrefBase);
 
 		  		parentDrag.tabs('remove',selected);
 
-				var layoutId = $('#' + divId +' ul div').attr('id');
-
+				var layoutId = $('#' + divId + ' ul').attr('id');
+				
+				var newId = $('#' + layoutId).find('*[class^=ui-layout-content]').attr('id');
+				
 				var $newText = $old.appendTo('#' + layoutId);
 
 				$(this).tabs("add","#" + hrefBase,label);
-
+	
+				$(this).tabs('select', "#" + hrefBase);
 				var widgetId = $('#' + hrefBase).find("*[class^=widget]").attr('id');
 				//alert('widget id ' + widgetId);
 				iNettuts.refresh(widgetId);
 				iNettuts.makeSortable();
-
+				
 			}
 
 		});
@@ -417,7 +421,7 @@ var $tabs = $('#tabs2').tabs({
 							
 							//Load the widget template
 							$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
-							
+							$('#tabs').tabs('select', "#tabs-" + tab_num);
 							//Delay to let the DOM refresh
 							$(this).delay(500,function()
 							{
@@ -475,14 +479,11 @@ var $tabs = $('#tabs2').tabs({
 									//Add the patient data
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
-									$("#aaa" + tab_num).append('<iframe id="imagesiframe" width="600" height="400"/>');
+									$("#aaa" + tab_num).append('<iframe id="imagesiframe" width="800" height="400"/>');
 									$('#imagesiframe').attr('src', server); 
 									
 									//Delay to let DOM refresh before adding table styling
-									$(this).delay(500,function()
-									{
-										//alert("images");
-									} );
+									
 									
 								} );
 						} );
