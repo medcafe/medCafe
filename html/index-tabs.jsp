@@ -178,7 +178,7 @@
 		      <div id="columns">
 
 					        <div id="column10" class="column">
-					            <div class="widget color-2" id="intro">
+					            <div class="widget color-6" id="intro">
 					                <div class="widget-head">
 					                    <h3>Repositories</h3>
 					                </div>
