@@ -199,14 +199,9 @@ $(document).ready( function() {
 		});
 
 		var medCafe = {
+		
+			closeTab : function(index) {
 			
-			initClose : function() {
-			
-				$('.tabHeader').find('.close').bind("click",{},
-			
-						function(e){
-							
-							var index = $(this).parent().attr('custom:index');
 							$("#tabs").tabs("remove",index);
 							var newIndex = index -1;
 							if (newIndex < 0)
@@ -228,7 +223,37 @@ $(document).ready( function() {
 			   				});
 			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
 			   				$("#tabs").tabs('select', newIndex);
-				} );},
+				},
+				
+			initClose : function() {
+			
+				$('.tabHeader').find('.close').bind("click",{},
+			
+						function(e){
+							 var index = $(this).parent().attr('custom:index');
+							 $("#dialog").dialog({
+					            autoOpen: false,					
+					            modal:true,
+					            resizable: true,
+					            title: "Close Tab",
+					            buttons : {
+					              "Yes" : function() {          
+					              	  //Have to Destroy as otherwise 
+					              	  //the Dialog will not be reinitialized on open    
+					                  $(this).dialog("destroy");
+					                  medCafe.closeTab(index);
+					             },
+					             "No" : function() {
+					                 $(this).dialog("destroy");
+					              }  
+					             }
+					        }); 						
+						    $("#dialog").dialog("open");
+							
+							} );},
+							
+				
+			
 		
 				add : function () {
 			 	//Method to cycle through all summary classes and allow for clicking to get details

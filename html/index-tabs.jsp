@@ -48,6 +48,9 @@
 <body>
 <div id="head">
     </div>
+    <div id="dialog" >Are you sure you want to close?</div>
+     
+    
 <div class="ui-layout-center">
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
