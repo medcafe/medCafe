@@ -17,7 +17,7 @@ var iNettuts = {
             removable: true,
             collapsible: true,
             editable: true,
-            colorClasses : ['color-yellow', 'color-red', 'color-blue', 'color-white', 'color-orange', 'color-green']
+            colorClasses : ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6']
         },
         widgetIndividual : {
             intro : {

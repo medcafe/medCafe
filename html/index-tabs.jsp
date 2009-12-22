@@ -69,7 +69,7 @@
 					<div id="columns">
 
 					      <div id="column1" class="column">
-					            <div class="widget color-green" id="green-widget">
+					            <div class="widget color-1" id="green-widget">
 					                <div class="widget-head">
 					                    <h3>Coverflow Widget</h3>
 					                </div>
@@ -90,7 +90,7 @@
 		        <div id="tabs-2" class="tabContent">
 			        <div id="columns">
 						<div id="column2" class="column">
-				            <div class="widget color-blue" id="blue-widget">
+				            <div class="widget color-2" id="blue-widget">
 				                <div class="widget-head">
 				                    <h3>Patient Summary</h3>
 				                </div>
@@ -112,7 +112,7 @@
 
 				<div id="columns">
 					<div id="column3" class="column">
-			            <div class="widget color-blue" id="blue-widget">
+			            <div class="widget color-3" id="blue-widget">
 			                <div class="widget-head">
 			                    <h3>Widget title</h3>
 			                </div>

@@ -5,19 +5,20 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
 
 
 /* Colors */
-.color-yellow {background:#f2bc00;}
-.color-red    {background:#dd0000;}
-.color-blue   {background:#148ea4;}
-.color-white  {background:#dfdfdf;}
-.color-orange {background:#f66e00;}
-.color-green  {background:#8dc100;}
-.color-yellow h3,
-.color-white h3,
-.color-green h3
+.color-1 {background:#d19405;}
+.color-2 {background:#8e846b;}
+.color-3 {background:#381f00;}
+.color-4 {background:#FDD347;}
+.color-5 {background:#494437;}
+.color-6 {background:#fde5a7;}
+.color-7 {background:#817865;}
+.color-1 h3,
+.color-4 h3,
+.color-6 h3
 	{color:#000;}
-.color-red h3,
-.color-blue h3,
-.color-orange h3
+.color-2 h3,
+.color-3 h3,
+.color-5 h3
 	{color:#FFF;}
 /* End Colors */
 
