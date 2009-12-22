@@ -1,6 +1,6 @@
 $(document).ready( function() {
 
-
+		
 		//$('#example').dataTable( {
 		//	"aaSorting": [[ 2, "desc" ]]
 		//} );
@@ -11,7 +11,9 @@ $(document).ready( function() {
 		});
 
 		//$('li').highlight();
-
+ 		$('#dialog').dialog(); 
+ 		$('#dialog').dialog('destroy'); 
+ 		
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
@@ -212,12 +214,8 @@ $(document).ready( function() {
 						 	{
 						 		
 							 	var aObj = $(this).find('a');
-				    			var href = aObj.attr('href');
-				    				
-				    			var hrefBase = href.split('#')[1], baseEl;
-							 	$(this).attr('id',hrefBase + "-link");
-							 	$(this).attr('custom:index', count);
-							    	
+				    			$(this).attr('custom:index', count);
+							    var id = $(this).attr('id');''	
 							    count = count + 1;	    
 		
 			   				});
@@ -332,9 +330,11 @@ $(document).ready( function() {
 							var tab_num = 1;	
 						 	$('.tabs').parent().find(".tabContent").each(function(i)
 						 	{
-						 		tab_num = tab_num + 1;
+						 		tab_id = $(this).attr('id');
+						 		
 						 	});
-						 	
+						 	var curr_num = tab_id.split("-")[1];
+						 	tab_num = curr_num*1 + 1;
 						 
 							var hrefBase = "tabs-" + tab_num;
 							var label = "Tab " + tab_num;
