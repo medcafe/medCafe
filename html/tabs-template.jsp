@@ -11,7 +11,7 @@
 <div id="columns">
 
 	<div id="column<%=tabNum%>" class="column">
-			<div class="widget color-yellow" id="yellow-widget<%=tabNum%>">
+			<div class="widget color-<%=tabNum%>" id="yellow-widget<%=tabNum%>">
 				<div style="cursor: move;" class="widget-head">
 					   <a href="#" class="collapse">COLLAPSE</a>
 					   <h3><%=title%></h3>
@@ -24,10 +24,10 @@
 					                	<input value="<%=title%>"></li></ul>
 					                	
 					                <li class="item"><label>Available colors:</label>
-					                <ul class="colors"><li class="color-yellow"></li>
-					                <li class="color-red"></li><li class="color-blue"></li>
-					                <li class="color-white"></li><li class="color-orange"></li>
-					                <li class="color-green"></li></ul></li>
+					                <ul class="colors"><li class="color-1></li>
+					                <li class="color-2"></li><li class="color-3"></li>
+					                <li class="color-4"></li><li class="color-5"></li>
+					                <li class="color-6"></li></ul></li>
 				</div>
 					                
 				<div class="widget-content">
