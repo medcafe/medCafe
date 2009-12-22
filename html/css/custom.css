@@ -53,6 +53,30 @@ background-color:yellow;
 } 
 
 .ui-tabs .ui-tabs-nav li .close {
+	position: absolute; 
+	right: .5em;
+    display: block; margin: 1px; 
+    background-image: url(sunny/images/ui-icons_d19405_256x240.png);
+	background-position: -96px -128px;
+    text-indent: -9999em;
+    right: .0em; 
+    top: 50%; 
+    width: 18px; 
+    margin: -10px -6px 0 0; 
+    padding: 1px; 
+    height: 18px;
+}
+.ui-tabs .ui-tabs-nav li span a .close {
+ 
+	background-image: url(sunny/images/ui-icons_d19405_256x240.png);
+	background-position: -96px -128px;
+  	width: 16px;
+    height: 16px;
+    outline: none;
+    text-indent: -9999em;
+    margin: 0px 0px 0px -20px;
+}
+.ui-tabs .ui-tabs-nav li .closeold {
      float: right;
     display: inline;
 	background: url(../images/window-close.png) no-repeat;
@@ -61,13 +85,5 @@ background-color:yellow;
     outline: none;
     text-indent: -9999em;
     margin: 0px 0px 0px 0px;
-}
-.ui-tabs .ui-tabs-nav li span a .close {
- 
-	background: url(../images/window-close.png) no-repeat;
-  	width: 16px;
-    height: 16px;
-    outline: none;
-    text-indent: -9999em;
-    margin: 0px 0px 0px -20px;
+    background-position: 0 0;
 }
