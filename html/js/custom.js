@@ -7,7 +7,12 @@ $(document).ready( function() {
 												
 		// create the OUTER LAYOUT
 		outerLayout = $("body").layout({
+			west__showOverflowOnHover: true
+			,	closable:				true	// pane can open & close
+			,	resizable:				true	// when open, pane can be resized 
+			,	slidable:				true	// when closed, pane can 'slide' open over other panes - closes on mouse-out
 
+			
 		});
 
 		//$('li').highlight();

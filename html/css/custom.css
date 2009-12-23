@@ -33,3 +33,24 @@
 	{color:#FFF;}
 /* End Colors */
 
+	/**
+	 *	To have the slider buttons to open and close frames
+	 */
+
+	.ui-layout-pane { /* all 'panes' */ 
+		background: #FFF; 
+		border: 1px solid #BBB; 
+		padding: 10px; 
+		overflow: auto;
+	} 
+
+	.ui-layout-resizer { /* all 'resizer-bars' */ 
+		background: #fde5a7;
+	} 
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+		background: #494437;
+	} 
+
+	
+
