@@ -52,5 +52,5 @@
 		background: #494437;
 	} 
 
-	
+	.ui-corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px;}
 

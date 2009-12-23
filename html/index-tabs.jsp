@@ -49,7 +49,7 @@
     <div id="dialog" >Are you sure you want to close?</div>
      
     
-<div class="ui-layout-center">
+<div class="ui-layout-center ui-corner-all">
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
@@ -137,7 +137,7 @@
 
 
 
-<div class="ui-layout-east">
+<div class="ui-layout-east  ui-corner-all">
 <h3>East Pane</h3>
 
 	<div id="tabs1">
@@ -166,7 +166,7 @@
 </div>
 
 
-<div class="ui-layout-west">
+<div class="ui-layout-west  ui-corner-all">
 
 	<!-- div id="tabs2">
 	    <ul class="tabs">
