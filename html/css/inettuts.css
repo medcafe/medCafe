@@ -4,26 +4,6 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
 
 
 
-/* Colors */
-
-.color-1 {background:#fde5a7;}
-.color-2 {background:#ffe271;}
-.color-3 {background:#FDD347;}
-.color-4 {background:#d19405;}
-.color-5 {background:#494437;}
-.color-6 {background:#8e846b;}
-.color-7 {background:#381f00;}
-.color-8 {background:#817865;}
-.color-1 h3,
-.color-2 h3,
-.color-4 h3,
-.color-3 h3
-	{color:#000;}
-.color-6 h3,
-.color-5 h3
-	{color:#FFF;}
-/* End Colors */
-
 
 
 /* Columns section */

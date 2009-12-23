@@ -117,8 +117,9 @@
 			                    <h3>Widget title</h3>
 			                </div>
 			                <div class="widget-content">
-						       <div id="aaa"></div>
-									        	        
+						     	   
+						     	   <iframe height="400" width="680" name="tempframe" id="tempFrame" src="temp.html"></iframe>
+					                 	        	        
 							</div>
 			            </div>
 		            </div>
@@ -198,7 +199,7 @@
 														<div class="images">Images</div>
 													</span>
 													
-													<!--  ul>
+													<ul>
 														<li>
 															<span class="folder">OurVista</span>
 															
@@ -241,7 +242,7 @@
 																</span></li>
 															</ul>
 														</li>
-													</ul-->
+													</ul>
 												</li>
 											</ul>
 											

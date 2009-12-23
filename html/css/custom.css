@@ -1,57 +1,3 @@
-
-	.highlight{
-		background-color:#245678;
-		background-image:url(images/cover1.jpg);
-		}
-	
- #divDrop
-
-{
-
-margin-left:auto;
-
-width:250px;
-
-height:250px;
-
-background-color:powderBlue;
-
-}
-
-#divDrag
-
-{
-
-width:100px;
-
-height:100px;
-
-position:absolute;
-
-top:0px;
-
-left:0px;
-
-background-color:yellow;
-
-}
-
-.droppable-active {
-
-     opacity: 1.0;
-
-     background-color:yellow;
-
-}
-
-.droppable-hover {
-
-     outline: 1px dotted black;
-
-     background-color:white;
-
-} 
-
 .ui-tabs .ui-tabs-nav li .close {
 	position: absolute; 
 	right: .5em;
@@ -66,24 +12,24 @@ background-color:yellow;
     padding: 1px; 
     height: 18px;
 }
-.ui-tabs .ui-tabs-nav li span a .close {
- 
-	background-image: url(sunny/images/ui-icons_d19405_256x240.png);
-	background-position: -96px -128px;
-  	width: 16px;
-    height: 16px;
-    outline: none;
-    text-indent: -9999em;
-    margin: 0px 0px 0px -20px;
-}
-.ui-tabs .ui-tabs-nav li .closeold {
-     float: right;
-    display: inline;
-	background: url(../images/window-close.png) no-repeat;
-  	width: 16px;
-    height: 16px;
-    outline: none;
-    text-indent: -9999em;
-    margin: 0px 0px 0px 0px;
-    background-position: 0 0;
-}
+
+
+/* Colors for widget header*/
+.color-1 {background:#fde5a7;}
+.color-2 {background:#ffe271;}
+.color-3 {background:#FDD347;}
+.color-4 {background:#d19405;}
+.color-5 {background:#494437;}
+.color-6 {background:#8e846b;}
+.color-7 {background:#381f00;}
+.color-8 {background:#817865;}
+.color-1 h3,
+.color-2 h3,
+.color-4 h3,
+.color-3 h3
+	{color:#000;}
+.color-6 h3,
+.color-5 h3
+	{color:#FFF;}
+/* End Colors */
+
