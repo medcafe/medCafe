@@ -396,6 +396,56 @@ $(document).ready( function() {
 				 	});
 				 }
 				 ,
+				 clickChart : function () 
+		    	{
+		    		
+		    		$('.chart').each(function ()
+				 	{
+				 		$(this).bind("click",{},
+				 			function(e)
+							{
+								
+								var patientId = $(this).text();
+								
+								var tab_num = 1;	
+							 	$('.tabs').parent().find(".tabContent").each(function(i)
+							 	{
+							 		tab_id = $(this).attr('id');
+							 		
+							 	});
+							 	var curr_num = tab_id.split("-")[1];
+							 	tab_num = curr_num*1 + 1;
+							 
+								var hrefBase = "tabs-" + tab_num;
+								var label = "Tab " + tab_num;
+								
+								//Add a new Tab
+								$('#tabs').tabs("add","#" + hrefBase,label);
+								$("#tabs-" + tab_num).addClass('tabContent');
+								//Load the widget template
+								$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+								//$("#tabs-" + tab_num).
+								$('#tabs').tabs('select', "#tabs-" + tab_num);
+								
+								//Delay to let the DOM refresh
+								$(this).delay(100,function()
+								{
+									iNettuts.refresh("yellow-widget" + tab_num);
+									var server = "http://127.0.0.1:8080/medcafe/temp.html";
+									
+									$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
+									$('#chartsiframe').attr('src', server); 
+								
+								} );
+							});
+							
+				 	});
+				 }
+				 ,initChart : function () 
+		    	{
+		    		
+		    		}
+				 ,
 			    addRep : function () 
 		    	{
 		    		$('.repository').each(function ()
@@ -472,6 +522,7 @@ $(document).ready( function() {
 		//medCafe.addRep();		
 		medCafe.clickRep();		
 		medCafe.initClose();			
+		medCafe.clickChart();
 		
 			//Code for Treeview
 			$("#browser").treeview({

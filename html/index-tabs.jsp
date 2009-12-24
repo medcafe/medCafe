@@ -28,7 +28,9 @@
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<script src="${js}/treeview/jquery.treeview.js" type="text/javascript"></script>
-	
+	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
+ 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
+ 
 
 	<script>
 	var outerLayout;
@@ -233,6 +235,20 @@
 																	</span></li>		
 															</ul>
 														</li>
+														<li><span class="folder">Charts</span>
+															<ul>
+																	<li>
+																		<span class="file">Temp Chart 
+																			<a href="#" class="chart">12</a>
+																		</span>
+																	</li>
+																	<li><span class="file">
+																	Patient
+																	<span class="summary"><a href="#" class="details">13</a></span>
+																	
+																	</span></li>		
+															</ul>
+														</li>
 														<li class="closed"><span class="folder">JeffVista</span>
 															<ul>
 																<li><span class="file">Patient
@@ -268,7 +284,7 @@
 </div-->
 
 <div class="ui-layout-north">
- 					
+ 						
 </div>
 
 
