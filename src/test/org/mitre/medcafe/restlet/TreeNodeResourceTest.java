@@ -19,7 +19,7 @@ public class TreeNodeResourceTest {
 
     public final static String KEY = TreeNodeResourceTest.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     TreeNodeResource treeResource = null;
 
@@ -70,7 +70,7 @@ public class TreeNodeResourceTest {
         StringBuilder ret = new StringBuilder(  );
         String[] fields = treeResource.parseFields( format0 );
         String[] tokens = fields[0].split("\\.");
-        treeResource.process(ret, format0, test0.getJsonObject(), tokens);
+        treeResource.process(ret, format0, test0.getJsonObject(), tokens, new ArrayList<String>(), "");
         String answer = ret.toString();
         assertEquals( "VistA", answer );
 
@@ -80,7 +80,7 @@ public class TreeNodeResourceTest {
         ret = new StringBuilder(  );
         fields = treeResource.parseFields( format0 );
         tokens = fields[0].split("\\.");
-        treeResource.process(ret, format0, test0.getJsonObject(), tokens);
+        treeResource.process(ret, format0, test0.getJsonObject(), tokens, new ArrayList<String>(), "");
         answer = ret.toString();
         assertEquals( "MedsphereVistaVAVista", answer );
 
@@ -90,7 +90,7 @@ public class TreeNodeResourceTest {
         ret = new StringBuilder(  );
         fields = treeResource.parseFields( format1 );
         tokens = fields[0].split("\\.");
-        treeResource.process(ret, format1, test1.getJsonObject(), tokens);
+        treeResource.process(ret, format1, test1.getJsonObject(), tokens, new ArrayList<String>(), "");
         answer = ret.toString();
         assertEquals( "MedsphereVistaOurVista", answer );
 
@@ -107,12 +107,22 @@ public class TreeNodeResourceTest {
             "]" +
           "}" +
         "}}");
-        String format = "menu.popup.menuitem.onclick";
-        tokens = format.split("\\.");
-        treeResource.process(ret, format, test.getJsonObject(), tokens);
+        format1 = "<:menu.popup.menuitem.onclick:>";
+        fields = treeResource.parseFields( format1 );
+        tokens = fields[0].split("\\.");
+        treeResource.process(ret, format1, test.getJsonObject(), tokens, new ArrayList<String>(), "");
         answer = ret.toString();
         assertEquals( "CreateNewDoc()OpenDoc()CloseDoc()", answer );
 
+        //now exercising formats
+        test1 = new JsonRepresentation( "{\"repositories\":[{\"name\":\"MedsphereVista\",\"type\":\"VistA\"}, {\"name\":\"OurVista\",\"type\":\"Other\"}]} ");
+        format1 = "<:repositories.name:> is of type <:repositories.type:>\n";
+        ret = new StringBuilder(  );
+        fields = treeResource.parseFields( format1 );
+        tokens = fields[0].split("\\.");
+        treeResource.process(ret, format1, test1.getJsonObject(), tokens, Arrays.asList("type"), "");
+        answer = ret.toString();
+        assertEquals( "MedsphereVista is of type VistA\nOurVista is of type Other\n", answer );
     }
 }
 

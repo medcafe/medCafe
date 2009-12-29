@@ -16,13 +16,15 @@ public class TreeNodeResource extends ServerResource {
 
     public final static String KEY = TreeNodeResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
 
     protected String view = "plain";
     protected List<String> supportedViews = Arrays.asList( "plain", "link", "array" );
 
     protected String relurl = Config.EMPTY_STR;
+
+    private final String DOT = ".";
 
     @Override
     protected void doInit() throws ResourceException {
@@ -85,22 +87,32 @@ public class TreeNodeResource extends ServerResource {
         StringBuilder ret = new StringBuilder();
         String[] fields = parseFields( format );
         String[] tokens = fields[0].split("\\.");
+        List<String> others = new ArrayList<String>();
+        for(int i = 1; i < fields.length; i++)
+        {
+            int lastDot = fields[i].lastIndexOf('.');
+            others.add( fields[i].substring(lastDot +1) );
+        }
 
-        process( ret, format, representation.getJsonObject(), tokens );
+        process( ret, format, representation.getJsonObject(), tokens, others, "" );
+
 
         return new StringRepresentation( ret.toString() );
     }
 
     /**
      *  recursively processes a field array to build the formatted string
+     *  NOTE:  This is restircted to having all values appear from the same leaf node.
+     *  TODO: work on allowing above restiction
      *  @param ret StringBuilder to be appended to
      *  @param format format the field is to be inserted into
      *  @param parent JSONObject or JSONArray that is the starting point
      *  @param tokens array of field names yet to be processed
+     *  @param otherLeafKeys List of other leaf node keys.  E.g., if I want repositories.name as the main, also pass "type" to get repositories.type as well.  Only works with items of the same depth
      */
-    public void process(StringBuilder ret, String format, Object parent, String[] tokens) throws JSONException
+    public void process(StringBuilder ret, String format, Object parent, String[] tokens, List<String> otherLeafKeys, String pathTaken) throws JSONException
     {
-        log.finer("working on " + String.valueOf(tokens[0]));
+        log.finer( "working on " + String.valueOf(tokens[0]) + " and the path to get here is " + pathTaken );
         if( tokens.length == 1 )
         {
             if( parent instanceof JSONObject )
@@ -110,16 +122,22 @@ public class TreeNodeResource extends ServerResource {
                 JSONArray array = leaf.optJSONArray( tokens[0] );
                 if( array != null )
                 {
-                    // log.finer("It's an array");
+                    log.finer("It's an array");
                     for(int i = 0; i < array.length(); i++)
                     {
-                        // log.finer("adding " + array.getString(i));
-                        ret.append( array.getString(i) );
+                        log.finer("adding " + array.getString(i));
+                        ret.append( format.replaceAll( "<:" + pathTaken + tokens[0] + ":>", array.getString(i) ) );
                     }
                     return;
                 }
-                //if not, it's an object and we need to grab the value out
-                ret.append( leaf.getString(tokens[0]));
+                //if not, it's an object and we need to grab the value out .. also grab any other values at the same level
+                log.finer( "Leaf node is: " + String.valueOf(leaf));
+                String temp = format.replaceAll( "<:" + pathTaken + tokens[0] + ":>", leaf.getString(tokens[0]) );
+                for( String other: otherLeafKeys )
+                {
+                    temp = temp.replaceAll( "<:" + pathTaken + other + ":>", leaf.getString(other) );
+                }
+                ret.append( temp);
                 return;
             }
             else if( parent instanceof JSONArray )
@@ -130,10 +148,15 @@ public class TreeNodeResource extends ServerResource {
                     JSONObject obj = leaf.optJSONObject( i );
                     if( obj != null )
                     {
-                        ret.append( obj.optString( tokens[0] ) );
+                        String temp = format.replaceAll( "<:" + pathTaken + tokens[0] + ":>", obj.optString( tokens[0] ) );
+                        for( String other: otherLeafKeys )
+                        {
+                            temp = temp.replaceAll( "<:" + pathTaken + other + ":>", obj.optString( other ) );
+                        }
+                        ret.append( temp);
                     }
                     else
-                        throw new JSONException("What is this if it's not a JSONObject?  It's a " + obj.getClass().getName());
+                        throw new JSONException("What is this, if it's not a JSONObject?  It's a " + obj.getClass().getName());
                 }
                 return;
             }
@@ -151,11 +174,14 @@ public class TreeNodeResource extends ServerResource {
                     throw new JSONException("No object with the key " + tokens[0] + " exists.");
                 }
                 else
-                    process( ret, format, obj, Arrays.copyOfRange(tokens, 1, tokens.length));
+                {
+                    pathTaken = pathTaken + tokens[0] + DOT;
+                    process( ret, format, obj, Arrays.copyOfRange(tokens, 1, tokens.length), otherLeafKeys, pathTaken);
+                }
             }
             else if( parent instanceof JSONArray )
             {
-                log.finer("It's a JSONArray!!");
+                throw new JSONException("It's a JSONArray!!  What's that doing here?  ToSting is " + String.valueOf(parent));
             }
             else
                 throw new JSONException("Bad datatype passed.  parent needs to be either a JSONArray or JSONObject");
@@ -170,7 +196,7 @@ public class TreeNodeResource extends ServerResource {
      */
     public String[] parseFields( String format )
     {
-        Set<String> ret = new HashSet<String>();
+        List<String> ret = new ArrayList<String>();
         String regex = "<:(.+?):>";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(format);
