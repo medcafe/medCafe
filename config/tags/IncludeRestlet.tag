@@ -21,7 +21,7 @@ else
     out.write("Resource not available");
     System.out.println( "IncludeRestlet.tag was not able to find the resource" );
     System.out.println( "\tFound resource?  " + resource.getStatus().isSuccess() );
-    // System.out.println( "\tIs the entity available?  " + resource.getResponseEntity().isAvailable() );
+    System.out.println( "\tIs the entity available?  " + resource.getResponseEntity().isAvailable() );
 }
 
 %>

@@ -16,7 +16,7 @@ public class TreeNodeResource extends ServerResource {
 
     public final static String KEY = TreeNodeResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    // static{log.setLevel(Level.FINER);}
+    static{log.setLevel(Level.FINER);}
 
 
     protected String view = "plain";
