@@ -356,7 +356,7 @@ $(document).ready( function() {
 								$(this).delay(100,function()
 								{
 									iNettuts.refresh("yellow-widget" + tab_num);
-									var server = "http://127.0.0.1:8080/medcafe/coverflow-old/index.jsp";
+									var server = "http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp";
 									//Add the patient data
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
