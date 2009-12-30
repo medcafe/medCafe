@@ -1,0 +1,35 @@
+	<?xml version="1.0" encoding="utf-8"?>
+<config>	
+	<imageURLprefix><![CDATA[images/]]></imageURLprefix>
+	<feedURLprefix><![CDATA[]]></feedURLprefix>
+	<notFoundImage><![CDATA[default.jpg]]></notFoundImage>
+
+	<frontCDWidth>200</frontCDWidth>
+	<frontCDHeight>200</frontCDHeight>
+	<shelveCDWidth>70</shelveCDWidth>
+	<shelveCDHeight>160</shelveCDHeight>
+	<shelveCDSpacing>80</shelveCDSpacing>
+	<centerDistance>90</centerDistance>
+	<angle>6</angle>
+	
+	<coversOffsetCenter>-50</coversOffsetCenter>
+	<copyOffsetCenter>100</copyOffsetCenter>
+	<controlsOffsetBottom>30</controlsOffsetBottom>
+	  	
+	<current>3</current>
+	<clickDelay>500</clickDelay>
+	
+	<fontColor>0xFFFF00</fontColor>
+	<fontBold>true</fontBold>
+	
+	<fadeDist>50</fadeDist>
+	<fadeSpan>50</fadeSpan>
+	<duration>2</duration>	
+	<easing acceptsValues="Quadratic,Cubic,Elastic,Linear,Exponential">Exponential</easing>
+	
+		
+	<gradientAlpha acceptsValues="0 to 1, float values">.4</gradientAlpha>
+	<gradientHeight acceptsValues="0 - 100 (percentage)">70</gradientHeight>
+	<fadeColor>0x000000</fadeColor>
+	
+</config>
