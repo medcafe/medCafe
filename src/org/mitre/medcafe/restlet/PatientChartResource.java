@@ -1,11 +1,13 @@
 package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Repository;
 import org.restlet.ext.json.JsonRepresentation;
@@ -37,7 +39,7 @@ public class PatientChartResource extends ServerResource {
     	
     	System.out.println("Found PatientResource html ");
         
-    	StringBuffer startBuf = new StringBuffer();
+    	StringBuffer startBuf = new StringBuffer("Test output");
     	StringBuffer patientImages = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer();
     	
@@ -52,9 +54,9 @@ public class PatientChartResource extends ServerResource {
         {
         	System.out.println("PatientChartResource JSON start");
             
-        	String[] xValues = new String[]{"1261380000000","1261385000000","1261425000000" +
+        	String[] xValues = new String[]{"1261380000000","1261385000000","1261425000000", 
 					"1261480000000", "1261485000000","1261490000000","1261584970731"};
-        	String[] yValues = new String[]{"100.1","101.7","101.7" +
+        	String[] yValues = new String[]{"100.1","101.7","101.7",
 					"101.5", "100.2","100.2","98.7"};
         	String[] label = new String[]{"Temperature" };
         	int i=0;
@@ -73,13 +75,79 @@ public class PatientChartResource extends ServerResource {
             }
             
             log.finer( obj.toString());
-            System.out.println("PatientChartResource JSON " +  obj.toString());
-            return new JsonRepresentation(obj);
+            System.out.println("PatientChartResource JSON " + getString( obj));
+            JsonRepresentation rep = new JsonRepresentation(getString( obj));
+            
+            return rep;
         }
         catch(Exception e)
         {
             log.throwing(KEY, "toJson()", e);
             return null;
         }
+    }
+    
+    public String getString(JSONObject jsonObj)
+    {
+    	
+            try {
+                Iterator     keys = jsonObj.keys();
+                StringBuffer sb = new StringBuffer();
+                StringBuffer start = new StringBuffer("{");
+                while (keys.hasNext()) 
+                {
+                    
+                    Object o = keys.next();
+                    if (o.toString().equals("label"))
+                    {
+                    	start.append(JSONObject.quote(o.toString()));
+                    	start.append(':');
+                    	start.append(JSONObject.quote(jsonObj.get((String)o).toString() ));
+                    	
+                    }
+                    else
+                    {
+                    	sb.append(',');
+                        
+                    	sb.append(JSONObject.quote(o.toString()));
+                    	sb.append(':');
+                    	
+                    	//Object jsonValue = jsonObj.get( (String)o );
+                    	
+                    	sb.append(jsonObj.get((String)o));
+                    }
+                }
+                sb.append('}');
+                return start.toString() +  sb.toString();
+                
+                //return "{ \"label\": 'Temperature (Patient 1)', \"data\": [[1261380000000, 100.1], [1261385000000, 101.7],[1261425000000, 101.7],[1261480000000, 101.5], [1261485000000, 100.2], [1261490000000, 100.2], [1261584970731, 98.7]]}";
+                
+            } catch (Exception e) {
+                return null;
+            }
+
+    }
+    
+    private String join(JSONArray jsonArray)
+    {
+    	 StringBuilder sb  = new StringBuilder();
+    	 
+    	 String separator = ",";
+    	 int len = jsonArray.length();
+    	 for (int i = 0; i < len; i += 1) {
+             if (i > 0) {
+                 sb.append(separator);
+             }
+             
+            try {
+				sb.append(jsonArray.get(i));
+				System.out.println("PatientChartResource: join JSON Object " + jsonArray.get(i));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         }
+         return sb.toString();
+
     }
 }
