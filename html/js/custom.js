@@ -431,7 +431,7 @@ $(document).ready( function() {
 								$(this).delay(100,function()
 								{
 									iNettuts.refresh("yellow-widget" + tab_num);
-									var server = "http://127.0.0.1:8080/medcafe/temp.html";
+									var server = "http://127.0.0.1:8080/medcafe/chart.jsp";
 									
 									$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
 									$('#chartsiframe').attr('src', server); 
