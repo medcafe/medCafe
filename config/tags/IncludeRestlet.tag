@@ -1,5 +1,5 @@
 <%@ tag import="org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*" %><%@
-attribute name="relurl" required="true" %><%@
+attribute name="relurl" required="true" rtexprvalue="true" %><%@
 attribute name="mediatype" required="false" %><%
 
 MediaType mtype = null;

@@ -5,4 +5,4 @@
 	if (patientId == null)
 		patientId = "1";
 %>
-<tags:IncludeRestlet relurl="c/repositories/medcafe/patients/1/charts/temperature" mediatype="json"/>
+<tags:IncludeRestlet relurl="c/repositories/medcafe/patients/<%=patientId%>/charts/temperature" mediatype="json"/>

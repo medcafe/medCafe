@@ -446,6 +446,11 @@ $(document).ready( function() {
 		    		
 		    		}
 				 ,
+				 test : function () 
+		    	{
+		    		alert("test this");
+		    	}
+				 ,
 			    addRep : function () 
 		    	{
 		    		$('.repository').each(function ()
@@ -541,3 +546,45 @@ $(document).ready( function() {
 			});
 			//End of code for treeview
 	});
+	
+	
+function displayImage(imageName)
+{
+	var tab_num = 1;	
+	$('.tabs').parent().find(".tabContent").each(function(i)
+	{
+			tab_id = $(this).attr('id');
+						 		
+	});
+	var curr_num = tab_id.split("-")[1];
+	tab_num = curr_num*1 + 1;
+						 
+	var hrefBase = "tabs-" + tab_num;
+	var label = "Tab " + tab_num;
+							
+	//Add a new Tab
+	$('#tabs').tabs("add","#" + hrefBase,label);
+	$("#tabs-" + tab_num).addClass('tabContent');
+							
+	//Load the widget template
+	$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+	//$("#tabs-" + tab_num).
+	$('#tabs').tabs('select', "#tabs-" + tab_num);
+	//Delay to let the DOM refresh
+	$(this).delay(300,function()
+	{
+			iNettuts.refresh("yellow-widget" + tab_num);
+			var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
+			//alert("server " + server);
+			
+			//Add the patient data
+			//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
+			//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
+			//alert("#aaa" + tab_num);
+			$("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
+									
+			//Delay to let DOM refresh before adding table styling
+									
+									
+	} );
+}

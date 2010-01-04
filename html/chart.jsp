@@ -10,10 +10,9 @@
 		
 	String dataUrl = request.getParameter("data");
 	if (dataUrl == null)
-		dataUrl = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/charts/temperature";
-		
-	dataUrl = "data/temperature-1.json";
-%>
+		dataUrl = "c/repositories/medcafe/patients/" + patientId + "/charts/temperature";
+
+	%>
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Flot Examples</title>
@@ -122,23 +121,11 @@ $(function () {
    			  });
          }
         
-        var myJSONObject =<tags:IncludeRestlet relurl="c/repositories/medcafe/patients/1/charts/temperature" mediatype="json"/>;
+        var myJSONObject =<tags:IncludeRestlet relurl="<%=dataUrl%>" mediatype="json"/>;
         //var myJSONObject ={"label":"Temperature","data":[["1261380000000","100.1"],["1261385000000","101.7"],["12614250000001261480000000","101.7101.5"],["1261485000000","100.2"],["1261490000000","100.2"],["1261584970731","98.7"]]};
         //var myJSONObject ={ "label": 'Temperature (Patient 1)', "data": [[1261380000000, 100.1], [1261385000000, 101.7],[1261425000000, 101.7],[1261480000000, 101.5], [1261485000000, 100.2], [1261490000000, 100.2], [1261584970731, 98.7]]};
-        $.ajax({
-            url: dataurl,
-            method: 'GET',
-            dataType: 'json',
-            success:
-            function(msg)
-            {
-   			  alert( "Data : " + msg );
-   			  onDataReceived(myJSONObject);
-   			}
-            
-          }
-        );
-
+        onDataReceived(myJSONObject);
+        
 });
 
 

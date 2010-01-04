@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
-	String coverflowFile = "http://127.0.0.1:8080/medcafe/coverflow-old/coverFeed.jsp";
+	String coverflowFile = "http://127.0.0.1:8080/medcafe/coverflow-flash/coverFeed.jsp";
+	//coverflowFile = "coverFeed.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/treenode?relurl=/repositories/medcafe/patients/1/images&type=link";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -30,13 +31,12 @@ li{ font-size: 14px; line-height: 22px;}
 #footer{margin-left: auto; margin-right: auto; font-size: 10px; text-align:center; width: 100%; padding: 10px;}
 </style>
 <script type="text/javascript" src="swfobject.js"></script>
+<script type="text/javascript" src="custom.js"></script>
 
 <script type="text/javascript">
 	swfobject.registerObject("flashContent", "9.0.0", "expressInstall.swf");
 	
-	function selected(param){
-    alert(param);
-  }
+	
 	
 </script>
 

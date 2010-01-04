@@ -49,6 +49,7 @@ public class PatientImagesResource extends ServerResource {
     									"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
+    	
     	String dir = "patient1";
     		
     	for (String image: images)
@@ -73,6 +74,9 @@ public class PatientImagesResource extends ServerResource {
         	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" +
 					"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
         	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
+        	
+        	String[] params = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" +
+        			"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
         	int i=0;
         	String dir = "patient1";
         	String tempDir = "../../images/patient1/";
@@ -85,6 +89,7 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("id", imageId[i]);
                 inner_obj.put("source", tempDir + image);
                 inner_obj.put("name", imageTitles[i]);
+                inner_obj.put("param", params[i]);
                 obj.append("images", inner_obj);  //append creates an array for you
                 i++;
             }
