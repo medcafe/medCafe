@@ -571,20 +571,22 @@ function displayImage(imageName)
 	//$("#tabs-" + tab_num).
 	$('#tabs').tabs('select', "#tabs-" + tab_num);
 	//Delay to let the DOM refresh
-	$(this).delay(300,function()
-	{
-			iNettuts.refresh("yellow-widget" + tab_num);
-			var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
-			//alert("server " + server);
+	var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
 			
-			//Add the patient data
-			//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
-			//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
-			//alert("#aaa" + tab_num);
-			$("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
-									
-			//Delay to let DOM refresh before adding table styling
-									
-									
-	} );
+	 var html =$.ajax({
+      url: server,
+      global: false,
+      type: "POST",
+      dataType: "html",
+      success: function(msg)
+      {
+      	 
+         iNettuts.refresh("yellow-widget" + tab_num);
+		 $("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
+			
+		}
+      }).responseText;
+   
+	
+	
 }
