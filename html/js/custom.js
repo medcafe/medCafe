@@ -581,7 +581,7 @@ function displayImage(imageName)
       success: function(msg)
       {
       	 var text = "<div id=\"content\">" +
-					"<a href=\"" + server +"\" class=\"jqzoom\" style=\"\" title=\"" + imageName +"\">" +
+					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">" +
 					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"400\" style=\"border: 1px solid #666;\">" +
 					"</a></div>";
       	 
@@ -603,7 +603,7 @@ function displayImage(imageName)
 
             }
 		 	
-			 $(".jqzoom").jqzoom(options);
+			 $(".jqzoom" + tab_num).jqzoom(options);
 		  } );
 		}
       }).responseText;
