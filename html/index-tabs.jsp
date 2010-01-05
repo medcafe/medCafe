@@ -19,6 +19,7 @@
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" >
 	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
@@ -30,6 +31,7 @@
 	<script src="${js}/treeview/jquery.treeview.js" type="text/javascript"></script>
 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
+ 	<script src="js/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
  
 
 	<script>
@@ -120,7 +122,7 @@
 			                </div>
 			                <div class="widget-content">
 						     	   
-						     	   <iframe height="400" width="680" name="tempframe" id="tempFrame" src="temp.html"></iframe>
+						     	   <iframe height="400" width="680" name="tempframe" id="tempFrame" src="zoom.html"></iframe>
 					                 	        	        
 							</div>
 			            </div>

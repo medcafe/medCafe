@@ -12,6 +12,7 @@
  	<link type="text/css" href="${css}/droppable-tabs.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/jqzoom.css" rel="stylesheet" />
 
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
@@ -19,6 +20,7 @@
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="js/jquery.delay.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jqzoom.pack.1.0.1.js"></script>
 
 </head>
 <body>

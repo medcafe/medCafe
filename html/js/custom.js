@@ -580,10 +580,31 @@ function displayImage(imageName)
       dataType: "html",
       success: function(msg)
       {
+      	 var text = "<div id=\"content\">" +
+					"<a href=\"" + server +"\" class=\"jqzoom\" style=\"\" title=\"" + imageName +"\">" +
+					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"400\" style=\"border: 1px solid #666;\">" +
+					"</a></div>";
       	 
          iNettuts.refresh("yellow-widget" + tab_num);
-		 $("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
-			
+		 //$("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
+		 $("#aaa" + tab_num).append(text);
+		
+		 $(this).delay(1000,function()
+		 {
+		 	var options =
+            {
+                zoomWidth: 300,
+                zoomHeight: 200,
+                position : 'right',
+                yOffset :100,
+                xOffset :100,
+                title :false
+
+
+            }
+		 	
+			 $(".jqzoom").jqzoom(options);
+		  } );
 		}
       }).responseText;
    
