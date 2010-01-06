@@ -360,7 +360,7 @@ $(document).ready( function() {
 									//Add the patient data
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/c/repositories/d/patients/" +  patientId+ "/images");
 									//$("#aaa" + tab_num).load("http://127.0.0.1:8080/medcafe/coverflow/coverflow.html");
-									$("#aaa" + tab_num).append('<iframe id="imagesiframe" width="800" height="400"/>');
+									$("#aaa" + tab_num).append('<iframe id="imagesiframe" width="700" height="410"/>');
 									$('#imagesiframe').attr('src', server); 
 									
 									//Delay to let DOM refresh before adding table styling
@@ -582,14 +582,14 @@ function displayImage(imageName)
       {
       	 var text = "<div id=\"content\">" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">" +
-					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"400\" style=\"border: 1px solid #666;\">" +
+					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">" +
 					"</a></div>";
       	 
          iNettuts.refresh("yellow-widget" + tab_num);
 		 //$("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
 		 $("#aaa" + tab_num).append(text);
 		
-		 $(this).delay(1000,function()
+		 $(this).delay(100,function()
 		 {
 		 	var options =
             {
@@ -599,7 +599,6 @@ function displayImage(imageName)
                 yOffset :100,
                 xOffset :100,
                 title :false
-
 
             }
 		 	

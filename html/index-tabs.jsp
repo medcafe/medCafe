@@ -78,9 +78,8 @@
 					                    <h3>Coverflow Widget</h3>
 					                </div>
 					                <div class="widget-content">
-					                    <p>
-					                    <iframe height="400" width="680" name="framename" id="myframe" src="coverflow/coverflow.html"></iframe>
-					                    </p> 
+					                    <iframe height="400" width="680" name="tempframe" id="tempFrame" src="zoom.html"></iframe>
+					               
 					                    </div>
 					            </div>
 					        </div>
@@ -122,8 +121,10 @@
 			                </div>
 			                <div class="widget-content">
 						     	   
-						     	   <iframe height="400" width="680" name="tempframe" id="tempFrame" src="zoom.html"></iframe>
-					                 	        	        
+						     	   <p>
+					                    <iframe height="400" width="680" name="framename" id="myframe" src="http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp"></iframe>
+					               </p> 
+						     	     	        	        
 							</div>
 			            </div>
 		            </div>
@@ -142,31 +143,27 @@
 
 
 <div class="ui-layout-east  ui-corner-all">
-<h3>East Pane</h3>
 
-	<div id="tabs1">
-	    <ul class="tabs">
 
-			<li custom:index="0" id="tabs-4-link" name="tabs-4"><a href="#tabs-4">Tab 4</a></li>
-	        <li custom:index="1" id="tabs-5-link" name="tabs-5"><a href="#tabs-5">Tab 5</a></li>
-	        <li custom:index="2" id="tabs-6-link" name="tabs-6"><a href="#tabs-6">Tab 6</a></li>
+	<div id="columns">
 
-	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
-		    <div class="ui-layout-content" id="tabs-layout1">
-
-		     <div id="tabs-4" >
-		      <button id="addButton">Click to add a tab</button>
-		      </div>
-
-		     <div id="tabs-5" >
-		        	<p>Morbi tincidunt, dui sit amet facilisis feugiat, </p>
-		        </div>
-		        <div id="tabs-6" >
-		        <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. </p>
-		        </div>
-		    </div>
-	  </ul>
-    </div>
+		<div id="column21" class="column">
+					        
+			<div class="widget color-1">
+					<div class="widget-head">
+						   <h3>Menu</h3>
+					</div>
+					<div class="widget-content">
+					
+						 <p>
+						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://127.0.0.1:8080/medcafe/widgets-list.html"></iframe>
+					     </p> 
+					 	             
+												
+					</div>
+				</div>
+			</div>
+	</div>
 </div>
 
 
