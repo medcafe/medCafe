@@ -15,7 +15,7 @@
     </head>
     <body>
         <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/repositories"/> --%>
-        <div class="ui-widget"><tags:IncludeRestlet relurl="c/repositories/medcafe/patients/1/charts/temperature" mediatype="json"/></div>
+        <div class="ui-widget"><tags:IncludeRestlet relurl="c/widgets/" mediatype="json"/></div>
 
     </body>
 </html>

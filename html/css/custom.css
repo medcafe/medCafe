@@ -58,11 +58,17 @@
  	-moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border: groove #8e846b;
+    width: 100%;
 } 
 
 .imageContain img {
- 	width: 110px;
+ 	width: 80px;
+ 	margin-left: auto;
+ 	display: block;
+ 	margin-right: auto;	
+ 	vertical-align: middle ;
 } 
 .imageContain p {
 	text-align: center;
+	font-size: 0.7em;
 }

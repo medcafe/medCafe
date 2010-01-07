@@ -156,7 +156,7 @@
 					<div class="widget-content">
 					
 						 <p>
-						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://127.0.0.1:8080/medcafe/widgets-list.html"></iframe>
+						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://127.0.0.1:8080/medcafe/widgets-list.jsp"></iframe>
 					     </p> 
 					 	             
 												

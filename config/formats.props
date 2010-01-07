@@ -9,4 +9,6 @@
 /repositories/[^/]+/patients/.+ = Not done yet
 /repositories/[^/]+/patients = <li id="treeme"><span class="folder"><:patients.id:></span></li>\n
 /repositories = <li id="treeme"><span class="folder"><:repositories.name:>(<:repositories.type:>)</span></li>\n
+/widgets=<div class="imageContain"><img src="<:widgets.image:>" alt="<:widgets.name:>" custom:url="<:widgets.clickURL:>"></img><p><:widgets.name:></p></div><br/>
+
 
