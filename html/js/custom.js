@@ -258,14 +258,13 @@ $(document).ready( function() {
 				
 			
 		
-				add : function () {
+				add : function (server, rep) {
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 	$('.summary').each(function ()
 			 	{
 			 		var detailId = $(this).text();
 			 		
-			 		var rep = "OurVista";
-		 			var detailButton = $(this).find('.details');
+			 		var detailButton = $(this).find('.details');
 		 			$(detailButton).bind("click",{},
 					
 						function(e)
@@ -282,6 +281,7 @@ $(document).ready( function() {
 								$('#tabs').tabs('select', '#' + tabId);
 								return false;
 							}
+							
 							var tab_num = addTab(detailId);
 							//Delay to let the DOM refresh
 							$(this).delay(500,function()
@@ -289,9 +289,9 @@ $(document).ready( function() {
 								iNettuts.refresh("yellow-widget" + tab_num);
 							
 								//Add the patient data
-								var server = "http://127.0.0.1:8080/medcafe/c/repositories/" + rep  +"/patients/" + patientId;
+								var link = "http://" + server + "/repositories/" + rep  +"/patients/" + patientId;
 								//alert("server " + server);
-								$("#aaa" + tab_num).load(server);
+								$("#aaa" + tab_num).load(link);
 								
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
@@ -316,7 +316,7 @@ $(document).ready( function() {
 						{
 						
 							var patientId = $(this).text();
-							var link = "http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp";
+							var link = $(this).attr("custom:url");
 								
 							var label = "Images ";
 							var type ="images";
@@ -340,9 +340,10 @@ $(document).ready( function() {
 				 		$(this).bind("click",{},
 				 			function(e)
 							{
-								
-								var server = "http://127.0.0.1:8080/medcafe/c/treenode?relurl=/repositories&type=link";
-								$("#listRepository").load(server);
+								var server = $(this).find('.repList').attr("custom:server");
+								var link = "http://" + server + "/treenode?relurl=/repositories&type=link";
+								alert("link " + link);
+								$("#listRepository").load(link);
 								$(this).delay(1000,function()
 								{
 									medCafe.addRep();
@@ -352,7 +353,7 @@ $(document).ready( function() {
 				 	});
 				 }
 				 ,
-				 clickChart : function () 
+				 clickChart : function (server) 
 		    	{
 		    		
 		    		$('.chart').each(function ()
@@ -362,7 +363,8 @@ $(document).ready( function() {
 							{
 								
 								var patientId = $(this).text();
-								var link = "http://127.0.0.1:8080/medcafe/chart.jsp";
+								var server = $(this).attr("custom:url");
+								var link = server + "?patient_id=" + patientId;
 								var label = "Chart " + patientId;
 								var type ="chart";
 								createLink(patientId, link, label, type);
@@ -378,17 +380,13 @@ $(document).ready( function() {
 		    		
 		    		}
 				 ,
-				 test : function () 
-		    	{
-		    		alert("test this");
-		    	}
-				 ,
+				 
 			    addRep : function () 
 		    	{
 		    		$('.repository').each(function ()
 				 	{
 				 		var repId = $(this).find('.repList').text();
-		 				
+		 				var server = $(this).find('.repList').attr("custom:server");
 		 				var repButton = $(this).find('.repList');
 		 				$(repButton).bind("click",{},
 				 			function(e)
@@ -400,7 +398,7 @@ $(document).ready( function() {
 								{
 									iNettuts.refresh("yellow-widget" + tab_num);
 								
-								    var serverLink = "http://127.0.0.1:8080/medcafe/c/repositories/" + repId + "/patients";
+								    var serverLink = "http://" + server + "/repositories/" + repId + "/patients";
 								    //alert("server link " + serverLink);
 									//Add the patient data
 									
@@ -418,7 +416,7 @@ $(document).ready( function() {
 									
 											$(this).delay(1000,function()
 											{
-												medCafe.add();
+												medCafe.add(server, repId );
 											} );
 										} );
 									
@@ -439,7 +437,7 @@ $(document).ready( function() {
 				}
 		 );
 		
-		medCafe.add();
+		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");
 		medCafe.clickRep();		
 		medCafe.initClose();			
 		medCafe.clickChart();
@@ -490,9 +488,15 @@ $(document).ready( function() {
 		   					
 		
 		var tab_num = addTab(label);
-		alert("Tab num is " + tab_num);						
-		addChart(this, link, tab_num);
-							
+		alert("Tab num is " + tab_num);
+		if (type === "chart")	
+		{					
+			addChart(this, link, tab_num);
+		}
+		else
+		{
+			addChart(this, link, tab_num);
+		}					
 	}
 				 	
 	function addChart(callObj, server, tab_num)
