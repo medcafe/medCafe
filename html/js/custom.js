@@ -540,17 +540,24 @@ function displayImage(imageName)
       dataType: "html",
       success: function(msg)
       {
-      	 var text = "<div id=\"content\">" +
-					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">" +
-					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">" +
-					"</a></div>";
+      	 var text = "<div id=\"content\">\n" +
+					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">\n" +
+					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
+					"</a></div>\n" + "<input id=\"viewerButton\" type=\"button\" value=\"Viewer\"/>";
+					
       	 
+        var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
+          
+         var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageName + "\" id=\"frame" + imageName+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
+					               
+         
          iNettuts.refresh("yellow-widget" + tab_num);
-		 //$("#aaa" + tab_num).append("<img src='" + server+ "' alt='"+ imageName+ "' width='400'/>");
-		 $("#aaa" + tab_num).append(text);
+		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
+		 $("#aaa" + tab_num).append( text );
 		
 		 $(this).delay(100,function()
 		 {
+			//Code for zoom
 		 	var options =
             {
                 zoomWidth: 300,
@@ -562,7 +569,17 @@ function displayImage(imageName)
 
             }
 		 	
-			 $(".jqzoom" + tab_num).jqzoom(options);
+			$(".jqzoom" + tab_num).jqzoom(options);
+			
+			$("#viewerButton").bind("click",{},
+			function(e)
+			{
+								
+				var tab_num = addTab(imageName);
+				var obj = $("#viewerButton");
+				var link = "viewer.jsp?image=" + server;
+				addChart(obj, link, tab_num);
+			});
 		  } );
 		}
       }).responseText;

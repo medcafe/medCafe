@@ -20,6 +20,7 @@
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" >
+	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
 	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
@@ -31,7 +32,9 @@
 	<script src="${js}/treeview/jquery.treeview.js" type="text/javascript"></script>
 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
- 	<script src="js/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
+ 	<script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
+ 	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
+ 	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
  
 
 	<script>
