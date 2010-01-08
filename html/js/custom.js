@@ -540,10 +540,10 @@ function displayImage(imageName)
       dataType: "html",
       success: function(msg)
       {
-      	 var text = "<div id=\"content\">\n" +
+      	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">\n" +
 					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
-					"</a></div>\n" + "<input id=\"viewerButton\" type=\"button\" value=\"Viewer\"/>";
+					"</a>" + "</div>\n";
 					
       	 
         var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
@@ -571,14 +571,14 @@ function displayImage(imageName)
 		 	
 			$(".jqzoom" + tab_num).jqzoom(options);
 			
-			$("#viewerButton").bind("click",{},
+			$("#viewerButton" + tab_num).bind("click",{},
 			function(e)
 			{
-								
+				alert("in here");	
 				var tab_num = addTab(imageName);
-				var obj = $("#viewerButton");
+				
 				var link = "viewer.jsp?image=" + server;
-				addChart(obj, link, tab_num);
+				addChart(this, link, tab_num);
 			});
 		  } );
 		}
