@@ -16,7 +16,7 @@
             var $ = jQuery;
             $(document).ready(function(){
             	  var server = "<%=imageName%>";
-            	  alert("image name " + server);
+            	 
                   $("#viewer").iviewer(
                        {
                        src: server

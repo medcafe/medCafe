@@ -574,7 +574,7 @@ function displayImage(imageName)
 			$("#viewerButton" + tab_num).bind("click",{},
 			function(e)
 			{
-				alert("in here");	
+				
 				var tab_num = addTab(imageName);
 				
 				var link = "viewer.jsp?image=" + server;
