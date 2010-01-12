@@ -1,0 +1,31 @@
+<!-- Copyright (c) 2006 Microsoft Corporation.  All rights reserved. -->
+<!-- OwaPage = ASP.forms_basic_basicclientstrings_aspx -->
+var L_BlnkSrch = "To search for someone, you must type at least one character";
+var L_ASndMtUpdt = "You must send an update to this meeting if you change the time or location, or if you modify attendees.";
+var L_Lv2AttWrng = "This type of attachment must be saved to disk. If you have a two-button mouse, right-click the link and save the attachment. If you have a single-button mouse, press the CTRL key and click the link, and then save the attachment.";
+var L_EndBfrSt = "The end date or time that you entered occurs before the start date or time.";
+var L_ErrNoRcp = "There must be at least one name or distribution list in the To, Cc, or Bcc box.";
+var L_ErrNoRcpMtgRqs = "There must be at least one name or distribution list in the Required, Optional, or Resources box.";
+var L_ErrRchMxEmbDpth = "Outlook Web Access has reached the maximum depth for embedded messages. You can access this item by using Microsoft Outlook.";
+var L_ErrAddOneToCnts = "You can only add one person to Contacts at a time.";
+var L_Fnds = "Find Someone";
+var L_ImpHigh = "Importance: High";
+var L_ImpHighSlt = "Importance: High (Selected)";
+var L_ImpLow = "Importance: Low";
+var L_ImpLowSlt = "Importance: Low (Selected)";
+var L_PrNvWOSv = "If you navigate away from this page without saving, you will lose all changes made since your last save. Click Cancel to stay on the current page.";
+var L_RcrPatChg = "Any exceptions associated with this recurring appointment will be lost. If any of the exceptions are meetings, the attendees will not be notified.  Do you want to modify the meeting anyway?";
+var L_PrAddNoItm = "Please select one or more items to add.";
+var L_PrDelNoItm = "Please select one or more items to delete.";
+var L_PrJkNoItm = "Please select one or more items to mark as junk.";
+var L_PrNtJkNoItm = "Please select one or more items to mark as not junk.";
+var L_PrRdNoItm = "Select one or more items to mark as Read.";
+var L_PrUnrdNoItm = "Select one or more items to mark as Unread.";
+var L_PrMvNoItm = "Please select one or more items to move.";
+var L_PrDelPrp = "Do you want to permanently delete the selected items?";
+var L_PrAddAnItm = "Please select an item to add.";
+var L_PrRspDel = "Would you like to send a response to the organizer of this meeting?";
+
+var a_iHW = 555;
+var a_iHH = 570;
+var a_sHWN = "OwaLightHelp";

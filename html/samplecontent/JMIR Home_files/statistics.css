@@ -1,0 +1,21 @@
+.statisticsTable {
+	width: 60%;
+}
+
+.statisticsTable td {
+	border: .25px;
+	border-style: solid;
+	border-color: lightgrey;
+}
+
+.statisticsTable .name {
+	valign: middle;
+	height: 16px;
+	background-color: #FFFFFF;	
+}
+
+.statisticsTable .num {
+	valign: middle;
+	height: 16px;
+	background-color: #E8F1F9;
+}

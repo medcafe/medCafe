@@ -1,0 +1,39 @@
+.universal_header, .footer, #portaldata, #portal-debug-console, .tabPopper, .send_to, .search_extras, .search_bottom, .search_bottom button, .search_top, .clipboard_active, .pagination, .port { display: none; }
+
+.search_bottom, .supplemental, .app_msg { background-color: transparent; border:0; }
+
+body .header { overflow: visible; }
+.app_logo { float: none; }
+.search { margin-left: 1.6em; }
+.print_term{ display: block; font-size: 1.2em; margin-right: 0.2em; margin-bottom: 0.5em;}
+
+.content { margin: 0;}
+.highlight { font-weight: bold;}
+
+.results_settings h4 a { color: black; text-decoration: none; }
+.results_settings.bottom { display: none; }
+.app_logo h1 { position: relative; right: .1em; }
+.header { height: 8em; background: none; }
+
+.container { font-size: 1.1em; line-height:1.5em; }
+
+.app_msg { margin: 0; }
+.app_msg .portlet_settings { display: none; padding: 0;}
+.limits_active p { background-image: none;  padding-left: 0; padding-right: 0; text-align: right;}
+.limits_active p strong {background-image: none;}
+
+.supplemental { position: absolute; top: 4.2em; right: 1em; width: 54%}
+
+
+.filters { text-align: right; }
+.filters p { display: inline; margin-right: .2em; }
+.filters p:after { content: " "; }
+.filters .portlet_list { display: inline; }
+.filters .portlet_list li { display: none; }
+.filters .portlet_list li.filter_selected { display: inline; background-image: none; }
+.filters .portlet_list li.filter_selected a { display: inline; background-color: transparent; margin:0; padding:0;}
+.filters .portlet_list li.filter_selected a.no_back { display: none; }
+
+.pubmed_logo { background: none; text-indent:0; color: black; font-size: 1.6em; }
+.NLMLogo { line-height: 1.2em; position: relative; top: -1em; }
+.status_ra { display: none; }

@@ -1,0 +1,411 @@
+/* typography */
+body { margin: 0; padding: 0; font-size: 62.5%; line-height: 1.8em; min-width:82em;  }
+.header, .supplemental { font-family: "Helvetica Neue", GillSans, helvetica, "lucida sans", arial, sans-serif; }
+.content { font-family: helvetica, arial, sans-serif; }
+/*h1.title { font-family: baskerville, "palatino linotype", times, "times new roman", serif; }*/
+h1 { font-size: 1.5em; line-height: 1.1em;}
+h2 { font-size: 1.8em; }
+/* { font-size: 1.6em; }*/
+h3, .header .inline_list li a { font-size: 1.4em; }
+h4, .container, .supplemental { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 0.9em; }
+h4.content_header {font-size: 1em;}
+
+/*.morecit .ui-ncbitoggler-master-text { font-size: .555em !important;}*/
+
+/* font-weight */
+h1.title, h4.content_header {font-weight: normal; }
+
+/*********** end typography */
+
+
+
+/* general inheritable styles */
+img { border: 0; }
+.inline_list { list-style-type: none; margin:0; padding:0 }
+.inline_list li { display: inline; margin-right: .2em; }
+.column_list { list-style-type: none; margin:0;padding:0; }
+.column_list li { float: left; width: 8em; }
+.offscreen { text-indent: -9999px; }
+.offscreen_noflow { float: left; text-indent: -9999em; margin:0; padding:0; /*safari bugfix:*/ height:0;}
+.left { float: left; }
+.right { float: right; }
+.align_right { text-align: right; }
+.hidden { display: none; }
+.nowrap { white-space: nowrap; }
+
+/* page components */
+
+.header { height: 9em; position: relative; background: #e5e5e5 url(/portal/portalrc.fcgi/38451/img/30557) repeat-x scroll left bottom; }
+.header a {text-decoration: none;}
+.header a:hover{text-decoration: underline;}
+
+/* everything was 25em - May 8  */
+.container { background-color: #f8f8f8; }
+.container{ zoom:1; }
+.content { background-color: white;  padding: .8em 1em 2em 1.333em; }
+.supplemental { background-color: #f7f7f7; width: 23.333em; }
+/* temporary */
+.container { width: 100%; margin-right: -25.35em; float: left;  }
+.content {  margin-right: 23.35em; }
+.supplemental { float: right; }
+
+.title_and_pager { margin: .9em 0 1.3em; }
+
+/* IE6 fixes */
+.results_settings, .title_and_pager, .rprt { zoom: 1; }
+/* end IE6 */
+
+/* Popper CSS */
+.tabPopper{ position:absolute; top: 0; left:0; display: none; background-color:#fff; padding: .2em; margin-top: 3px; *padding-bottom:1em; box-shadow: .4em .4em .5em #999; -webkit-box-shadow: .4em .4em .5em #999; -moz-box-shadow: .4em .4em .5em #999; border: 1px solid #ccc; /* IE hack (6, 7, 8) */ border-bottom: 1px solid #666\0; border-right: 1px solid #666\0; }
+.tabPopperCover{ position:absolute; top:0px; left: 0px; height: 1px; background-color: #FFA600; overflow:hidden; }
+.tabPopper fieldset{border: 0;padding:0;margin:4px 10px;}
+.tabPopper fieldset ul, .tabPopper fieldset dl {border-top: 1px solid #ddd;padding-top:3px;}
+.tabPopper fieldset dl { margin: 0 0 6px 0;}
+.tabPopper fieldset input {position:relative;top:3px;*top:2px;}
+
+/*msges */
+.app_msg { background-color: #fff; border-left: 2px solid #f7f7f7; border-bottom: 1px solid #d7d7d7; padding: .6em 1em; margin-bottom: 1em; }
+.app_msg p { margin: .1em 0; }
+
+
+/* ## for old style ad portlets ## */
+.port.norender h2 { background-image:url(/core/ext.ncbi/1/img/oldentrez/panel/white-top-bottom.gif); border-bottom:1px solid #D0D0D0; color:#333333; padding: .3em; margin:0; }
+body div.supplemental div.norender h2 { _font-size: .85em; _padding: .3em; _margin-top: -7px; _margin-left: -5px; _padding-left: .8em; }
+.norender div.pmtitlesearch, .norender div.related_queries { padding: 1em; padding-top: .5em; }
+div.brieflink { padding-top: 0;}
+div.port.norender, .drugInfo { background-color: white; margin:1em 0; border: 1px solid #D0D0D0; border-top:0; padding-top: 0; }
+.drugInfo {border-top: 1px solid #D0D0D0; padding:0.5em 0.5em 0;}
+.drugInfo ul.drug, .drugInfo div.adSource { margin: 0; padding: .5em 1em; list-style-type: none; }
+div.port div.pmcad1 { padding: 1em; }
+.drugInfo .adSource { font-size: .9em; text-align: right;}
+div.port.norender.viral_resource {border-top: 1px solid #D0D0D0;}
+div.port.norender.viral_resource div {padding: 0 0.5em 0.5em; }
+
+div.norender div {padding: 0 0.5em 0 0.35em;}
+
+.revised { font-size: 1.45em; }
+
+/* to resize fonts assigned from common base portlets */
+div.supplemental div.port {font-size: 1.2em; }
+div.supplemental div.port.section h2 {font-size: 90%; }
+
+body .popper { font-size: 1.2em; }
+
+#HTDisplay { line-height: 1.2em; }
+
+/* added for old-style sensors */
+.database-ad, div#accession-sensor { font-size: 1.2em; }
+
+/* // end added by sharmin */
+
+.container { background-color: transparent; }
+.container{ zoom:1; }
+.content { background-color: white; padding: .8em 1em 2em 1.333em; }
+.supplemental { background-color: transparent; width: 0; }
+/* temporary */
+.container { width: 100%; margin-right: 0; float: none; }
+.content {  margin-right: 0; }
+.supplemental { float: none; }
+/*db logo*/
+.app_logo { width: 16.5em; left:1.6em; padding-top: .5em; position: absolute; } 
+.app_logo h1 { margin: 0; }
+.db_logo { background: #E5E5E5 url(/portal/portalrc.fcgi/38451/img/31362) no-repeat scroll left top; display: block; height: 65px; text-indent: -9999px; }
+
+.header .NLMlogo { font-size: 1.1em; }
+.NLMLogo { line-height: 1.4em; }
+.NLMLogo, .NLMLogo a { color: #6f6f6f;}  
+ 
+.pubmed_logo { background: #e5e5e5 url(/portal/portalrc.fcgi/38451/img/35136) no-repeat scroll left top; display: block; height: 45px; width: 165px; text-indent: -9999px; }
+
+
+
+
+/******************************************/
+/* PubMedWelcome_CSS                      */
+/******************************************/
+
+.homepage { font-family: helvetica, arial, sans-serif; }
+
+.homepage h1, .homepage h2, .homepage h3, .homepage h4, .homepage h5, .homepage h6, .homepage ul, .homepage li {margin:0; padding: 0;}
+
+.homepage p {margin: 0 0 1.25em; line-height: 1.25;}
+
+.homepage h1 {margin-bottom: 0.75em; color: #000}
+.homepage h2 {padding-top: 0.75em; margin-bottom: 0.75em; color: #111} 
+.homepage h3 {margin-bottom: 0.75em; color: #222; }
+
+.content-area ul, .welcome-area ul, .links-area ul {list-style-type: none;}
+.content-area li, .welcome-area li, .links-area li {margin-top: 0.25em; margin-bottom: 0.5em; }
+
+
+.content-area a, .welcome-area a, .links-area a { text-decoration: none; color: #369; border-bottom: 1px dotted #ccc; }
+.content-area a:visited, .welcome-area a:visited, .links-area a:visited { border-bottom: 1px dotted #036; }
+.content-area a:hover, .welcome-area a:hover, .links-area a:hover { color: #930; border-bottom: 1px solid #930; }
+
+.content-area { 
+	background-color: #fbfbfb;
+	text-align: center; 
+	border: 1px solid transparent; 
+	_border: none;
+}
+
+.content-wrapper { 
+	position: relative; 
+	background-color: white;
+	max-width: 100em; 
+	margin: 0 auto;
+	text-align: left; 
+
+}
+
+
+.welcome-area { width: 100%; margin-top: 1em; margin-bottom: 2em; }
+
+.welcome-box { width: 61.25%; margin-left: 3.25%; 
+	border: 1px solid transparent; 
+	_border: none; 
+	background: white url(/portal/portalrc.fcgi/38451/img/37099) no-repeat bottom right;
+	}
+
+.welcome-text { 
+	margin-left: 25%; 
+	background-color: #eef; 
+}
+
+.welcome-box h1 { 
+	font-size: 1.5em; 
+	color: #eee; 
+	background-image: url(/portal/portalrc.fcgi/38451/img/35076);
+	margin-left: 33%; margin-top: 4em; margin-bottom: 0;
+	padding: 0.167em; padding-left: 0.75em;
+	}
+
+.welcome-box p { 
+	line-height: 1.4; 
+	color: #eee; 
+	background-image: url(/portal/portalrc.fcgi/38451/img/35077);
+	_background-image: none;  /* IE 6.0 hack */
+	_background-color: #555; /* IE 6.0 hack */
+	font-size: 1.17em; 
+	font-weight: bold;
+	margin-left: 33%;  
+	margin-right: 0; 
+	margin-top: 0; 
+	margin-bottom: 2em; 
+	padding: 0.5em 0.5em 1.0em 1.0em;
+}
+
+
+.links-area { 
+	width: 100%; 
+	margin-top: 3em; 
+	margin-bottom: 4em; 
+	overflow: hidden; 
+	padding-bottom: 0.5em; 
+}
+
+.links-box { 
+	float: left; 
+	border-top: 2px solid #f7f7f7;
+	width: 28.75%; 
+	margin-left: 3.25%; 
+}
+
+.links-box h2 { 
+	border-bottom: 2px solid #f7f7f7;
+	color: #555; 
+	background-color: #fafafa;  
+	font-size: 1.67em; 
+	margin: 0;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+}
+
+.links-box li { 
+	font-size: 1.17em; 
+	margin: 0;
+	padding-top: 0.25em; 
+	padding-bottom: 0.25em;
+	border-bottom: 1px dotted #ccc;
+}
+
+.links-box li:hover {
+	color: black;
+	background-color: #feffe7;
+	border-bottom: 1px solid #369;
+}
+
+.links-box a { 
+	border: 0;
+}
+
+.links-box a:hover { 
+	color: black;
+}
+
+
+.fluad {  }
+.fluad ul {list-style-type: none;}
+
+
+hr { padding:0; margin: 0; height: 1px; }
+
+.primary-advert { position: absolute; top: 2em; left: 67.5%; width: 30%; padding: 0; }
+.primary-advert img { max-width: 100%; margin-top: 6.5em; }
+.primary-advert a.rrnimg { border:0;}
+
+
+.secondary-advert { position: relative; width:100%; border-top: 1px solid red; background-color: #eee; 
+	margin-top: 5em; margin-bottom: 2em; }
+
+/*
+.flu-widget { position: absolute; top:0; right:70%; width: auto; text-align: right;}
+
+.flu-links { margin-left: 33%; width: 63%; }
+*/
+.fine-print-area { width: 96%; text-align: center; color: #555; font-family: Arial, sans-serif; font-size: 0.9em;
+	margin-top: 5em; margin-bottom: 3em; background-color: white; }
+
+.boxcontent { padding: .7em 1.5em; *padding: .7em 1.2em; margin-bottom: 1em; border: 1px solid #ddd; background: #F8F8F0 url(/core/myncbi/pix/myncbi-block_bg.png) repeat-x scroll left top; width: 64.5%; margin-left: 17.75%; zoom:1; _width: 81%; }
+.boxcontent h2 { font-size: 1.2em; margin: .3em 0; margin-bottom: .5em; margin-left: 0; }
+
+.swineflu {clear:left;}
+.swineflu ul { list-style-position: outside; padding: 0; *padding: 0 1em; margin: 1em 0em; margin-bottom: 0.5em;} 
+.swineflu ul li { font-size: 1.1em; margin-bottom: .3em; } 
+.swineflu .swineflutext { float: left; width: 23em; } 
+.swineflu .swinefluimg { margin-left: 24em; margin-top: 0.8em; } 
+.swineflu .swinefluimg p a { display: none; } 
+
+
+div.success_msg, div.warn_msg, div.error_msg { padding: .4em; margin: .5em; color: black; font-family: helvetica, arial, verdana, sans-serif; }
+
+div.success_msg img, div.warn_msg img, div.error_msg img { position: relative; top: .15em; margin-left: .2em; }
+
+div.success_msg { border: 1px solid #6c6; background-color: #cfc; }
+div.warn_msg { border: 1px solid #e3d21c; background-color: #ffffef; }
+div.error_msg { border: 1px solid #f88; background-color: #fdd; }
+div.messagearea {
+    margin:0; 
+    padding: 0; 
+    border-bottom: solid 1px #888; 
+    clear:both;
+} 
+#messagearea.empty {border: none; clear:both;} 
+ul.messages {
+    font-family: Arial;
+    margin: 0; 
+    padding: 0; 
+    list-style-type:none;
+    list-style-image:none;
+}
+ul.messages li {
+    font-size: 1em;
+    margin:0.22em 0 0.22em;
+    padding: 0.25em 0.25em 0.25em 28px;
+    background-position: 0.5em 0.3em;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+ul.messages li.success {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30252);
+    background-color: #dfd;
+    border: solid 1px #8c8;;
+}
+ul.messages li.error {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30250);
+    background-color: #fcc;
+    border: solid 1px #c88;
+}
+ul.messages li.warn {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30254);
+    background-color:#ffc;
+    border: solid 1px #cc8;
+}
+ul.messages li.info {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30251);
+}
+ul.messages li.suggest {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30255);
+}
+ul.messages li.hi_warn {
+    background-image: url(/portal/portalrc.fcgi/38451/img/30254);
+    background-color:transparent;
+    border: none;
+    font-weight: bold;
+}
+div#messagearea ul.messages li.hi_warn { margin: 2.5em 0; }
+ul.messages li.hi_warn em.detail{
+    font-weight: normal;
+    font-style: normal;
+    padding-left: 0.5em;
+}
+/* typography */
+.search_bottom button { font-family: "Helvetica Neue", GillSans, helvetica, "lucida sans", arial, sans-serif; }
+.search_top label {font-size:1.4em; margin-right: .2em;}
+.search_extras .inline_list li a, rss_menu{ font-size: 1.2em; }
+
+/* similar, unrelated styles */
+.search_extras li { margin-right: 1.2em; }
+
+/* correct height/width issues in browsers by finding the parent that I *didn't* apply the correct font-size to... I applied it too far down in the tree */
+.search { width: 62em; margin:0; left: 20em; position: absolute; top: .9em;}
+.search_top, .search_bottom { background-color: #c0c0c0; border: 2px solid white; padding: 6px; padding-left: 8px; }
+.search_top { width: 25em; border-bottom: 0; border-radius: 6px 6px 0 0; -moz-border-radius: 6px 6px 0 0; -webkit-border-top-left-radius: 6px; -webkit-border-top-right-radius: 6px; z-index: 10; padding-bottom: 0px; position: relative; top: 0px; }
+.search_top select { width: 13em; }
+.search_bottom { width: 60em; border-radius: 0 6px 6px 6px; -moz-border-radius: 0 6px 6px 6px; -webkit-border-top-right-radius: 6px; -webkit-border-bottom-left-radius: 6px; -webkit-border-bottom-right-radius: 6px; position: relative; top: -2px; z-index: 5; *height: 2.5em;}
+.search_bottom input { width: 34em; }
+.search_extras { width: 40em; position: relative; top: -6.2em; left: 28em; *top: -6.7em; *left: 27.5em; *z-index: 4;  }
+
+.search_bottom button{ border: 0 none; cursor: pointer; overflow: visible; width: auto; background-color: #ddd; padding: .2em .4em; *padding: .2em .6em; _padding: .2em .4em; margin: 0 .2em; *margin: 0 .3em; *height: 1.8em; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.search_bottom button:active { background-color: #fcfcfc; }
+.search_bottom button.button_search { background-color: #369; font-weight: bold; color:#fff; *margin-left: .5em;}
+.search_bottom button.button_search:active { background-color: #4c96df; }
+.search_bottom button.button_preview { background-color: #A64D48; font-weight: bold; color: #fff; }
+.search_bottom button.button_preview:active { background-color: #F27069; }
+.print_term { display : none; }
+
+/* on adv search page */
+.search_top label.search_nodropdown{display: block; height: 22px;}
+.search_bottom input.search_short { width: 29.5em; }
+
+.rss_icon { position: relative; top: 3px;margin-right:.3em;}
+
+
+.search_extras .inline_list li { margin-right:1.2em;}
+.header .search_extras .inline_list li a {font-size:1.2em;}
+.search_extras .hidden {display: none;}
+.search_extras .visible {display: inline; }
+
+.rss_menu {top: 19px; left: 0px; z-index: 1001; display: none; font-size: 1.2em;}
+.rss_menu legend {font-weight:bold;margin: 2px 0 0 3px;}
+.rss_menu ul{ margin: 0; padding:0; list-style-type:none; padding-top: 5px}
+.rss_menu ul li { margin-bottom: .4em; }
+.rss_menu span, .rss_menu label {margin-right: 0.5em;}
+.rss_menu ul input {top: 0;}
+.rss_menu dd { margin-left: 0;margin-bottom:1em;}
+.rss_menu #rss_name { width: 15em;}
+.rss_menu button {margin-top: .5em;}
+.rss_menu label { display: block; }
+
+
+/* round corners, ie8, 7, and 6 hacks */
+.search { z-index: 0\0; *z-index: 0; height: 7.1em\0; *height: 7.1em; _width: 60.2em; }
+.search .search_top { z-index: 3\0; *z-index:3; }
+.search .search_bottom { z-index: 2\0; *z-index:2; }
+.search .tr, .search .tl, .search .br, .search .bl, .search .tr2 { display: block\0; *display:block; font-size: 0\0; *font-size:0; height: 6px\0; *height:6px; position: relative\0; *position:relative; background: url(/portal/portalrc.fcgi/38451/img/33315) no-repeat\0; *background:url(/portal/portalrc.fcgi/38451/img/33315) no-repeat; z-index: 5\0; *z-index:5; }
+.search .tr, .search .br, .search .tr2 { position: absolute\0; *position: absolute;}
+.search .tr, .search .tr2 {background-position: 100% 0\0; *background-position: 100% 0;}
+.search .tr {width: 43.2%\0; *width: 43.2%; _width: 41.5%; top: 0px\0; *top:0px;}
+.search .tl { background-position: 0 -12px\0; *background-position: 0 -12px;}
+.search .br { background-position: 100% -6px\0; *background-position: 100% -6px; bottom: 3px\0; *bottom: 2px; _bottom: 20px;}
+.search .bl { background-position: 0 -18px\0; *background-position: 0 -18px; left: 2px\0; *left:2px;}
+.search .tr2 { top: 28px\0; *top: 28px;}
+.search .br, .search .tr2 { width: 100%\0; *width:100%; right: 2px\0; *right:2px;}
+noscript p.nojs {
+	background: #ffb url(/portal/portalrc.fcgi/38451/img/30254) no-repeat 5px center;
+	padding: 4px;
+	padding-left: 28px;
+	margin:0;	
+}

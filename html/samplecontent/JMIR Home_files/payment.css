@@ -1,0 +1,9 @@
+.paymentTable {
+	border: 0px;
+	margin-left:auto; 
+	margin-right:auto;
+}
+
+.paymentTable tbody {
+	background-color: lightgrey;
+}
