@@ -1,28 +1,28 @@
 $(document).ready( function() {
 
-		
+
 		//$('#example').dataTable( {
 		//	"aaSorting": [[ 2, "desc" ]]
 		//} );
-												
+
 		// create the OUTER LAYOUT
 		outerLayout = $("body").layout({
 			west__showOverflowOnHover: true
 			,	closable:				true	// pane can open & close
-			,	resizable:				true	// when open, pane can be resized 
+			,	resizable:				true	// when open, pane can be resized
 			,	slidable:				true	// when closed, pane can 'slide' open over other panes - closes on mouse-out
+			,   south:  {initClosed: true, slideTrigger_open: "mouseover", size: 800 }
 
-			
-		});
+		})
 
 		//$('li').highlight();
- 		$('#dialog').dialog(); 
- 		$('#dialog').dialog('destroy'); 
- 		
+ 		$('#dialog').dialog();
+ 		$('#dialog').dialog('destroy');
+
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
-		    	
+
 		        var self = this;
 		        var selfId = $(this).attr('id');
 				if (ui.panel === undefined)
@@ -35,7 +35,7 @@ $(document).ready( function() {
 		        	}
 					else
 					{
-						
+
 						 count= 0;
 						 $(this).find("li:has(a)").each(function(i)
 						 {
@@ -45,15 +45,15 @@ $(document).ready( function() {
 						 		//Temporary hard code this value
 						 		var aObj = $(this).find('a');
 			    				var href = aObj.attr('href');
-			    				
+
 			    				var hrefBase = href.split('#')[1], baseEl;
 						 		$(this).attr('id',hrefBase + "-link");
 						 		$(this).attr('custom:index', count);
-						 		
-						    }			    
-		
+
+						    }
+
 			   			});
-						
+
 						return true;
 					}
 					alert("ui panel is undefined");
@@ -61,7 +61,7 @@ $(document).ready( function() {
 		        }
 
 		        var id = ui.panel.id;
-			
+
 		    	var tagObj = $("#" + selfId + " li:has(a) a[href*='" + id + "']");
 
 		    	var li_obj = $(tagObj).parent().closest('li');
@@ -69,9 +69,9 @@ $(document).ready( function() {
 		    	$(li_obj).attr('id',id + "-link");
 		    	$(li_obj).addClass("tabHeader");
 				$(li_obj).prepend("<div class='close'></div>");
-				
+
 		    	medCafe.initClose();
-		    	
+
 		    	var count = -1;
 		    	//Reset the indexes of all the new tabs
 		    	 $(this).find("li:has(a)").each(function(i)
@@ -81,8 +81,8 @@ $(document).ready( function() {
 
 	     			var newLi = $("#" + tempId );
 	     			$(newLi).attr('custom:index', count);
-					
-					
+
+
 	   			});
 
 	   			//
@@ -129,6 +129,7 @@ $(document).ready( function() {
 
 		$("#tabs").tabs();
 		$("#tabs1").tabs();
+		$("#south-tabs").tabs();
 
 		$("#body")
 				.tabs({change: function () {}})
@@ -136,7 +137,7 @@ $(document).ready( function() {
 				.sortable({})
 			;
 
-		
+
 		//Remove the tab content from parent and add to new parent
 		$('.tabHeader').droppable(
 		{
@@ -153,8 +154,8 @@ $(document).ready( function() {
 		  	 hoverClass: 'droppable-hover'
 		});
 
-		
-						
+
+
 		//Remove the tab content from parent and add to new parent
 		$('#tabs').droppable(
 		{
@@ -169,7 +170,7 @@ $(document).ready( function() {
 					return false;
 				}
 
-				
+
 		   		var aObj = $(ui.draggable).closest('li').find('a');
 			    var href = aObj.attr('href');
 	  			var id =  $(ui.draggable).attr("id");
@@ -178,37 +179,37 @@ $(document).ready( function() {
 	  			parentDrag = $(ui.draggable).parent().parent();
 			    var parentId = parentDrag.attr('id');
 			 	var divId = $(this).tabs().attr('id');
-				
+
 				var selected = $(ui.draggable).attr('custom:index');
 
 				var hrefBase = href.split('#')[1], baseEl;
-				
+
 				var $old = $("#" + hrefBase);
 
 		  		parentDrag.tabs('remove',selected);
 
 				var layoutId = $('#' + divId + ' ul').attr('id');
-				
+
 				var newId = $('#' + layoutId).find('*[class^=ui-layout-content]').attr('id');
-				
+
 				var $newText = $old.appendTo('#' + layoutId);
 
 				$(this).tabs("add","#" + hrefBase,label);
-	
+
 				$(this).tabs('select', "#" + hrefBase);
 				var widgetId = $('#' + hrefBase).find("*[class^=widget]").attr('id');
 				//alert('widget id ' + widgetId);
 				iNettuts.refresh(widgetId);
 				iNettuts.makeSortable();
-				
+
 			}
 
 		});
 
 		var medCafe = {
-		
+
 			closeTab : function(index) {
-			
+
 							$("#tabs").tabs("remove",index);
 							var newIndex = index -1;
 							if (newIndex < 0)
@@ -217,56 +218,56 @@ $(document).ready( function() {
 							var count = 0;
 							$("#tabs").find("li:has(a)").each(function(i)
 						 	{
-						 		
+
 							 	var aObj = $(this).find('a');
 				    			$(this).attr('custom:index', count);
-							    var id = $(this).attr('id');''	
-							    count = count + 1;	    
-		
+							    var id = $(this).attr('id');''
+							    count = count + 1;
+
 			   				});
 			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
 			   				$("#tabs").tabs('select', newIndex);
 				},
-				
+
 			initClose : function() {
-			
+
 				$('.tabHeader').find('.close').bind("click",{},
-			
+
 						function(e){
 							 var index = $(this).parent().attr('custom:index');
 							 $("#dialog").dialog({
-					            autoOpen: false,					
+					            autoOpen: false,
 					            modal:true,
 					            resizable: true,
 					            title: "Close Tab",
 					            buttons : {
-					              "Yes" : function() {          
-					              	  //Have to Destroy as otherwise 
-					              	  //the Dialog will not be reinitialized on open    
+					              "Yes" : function() {
+					              	  //Have to Destroy as otherwise
+					              	  //the Dialog will not be reinitialized on open
 					                  $(this).dialog("destroy");
 					                  medCafe.closeTab(index);
 					             },
 					             "No" : function() {
 					                 $(this).dialog("destroy");
-					              }  
+					              }
 					             }
-					        }); 						
+					        });
 						    $("#dialog").dialog("open");
-							
+
 							} );},
-							
-				
-			
-		
+
+
+
+
 				add : function (server, rep) {
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 	$('.summary').each(function ()
 			 	{
 			 		var detailId = $(this).text();
-			 		
+
 			 		var detailButton = $(this).find('.details');
 		 			$(detailButton).bind("click",{},
-					
+
 						function(e)
 						{
 							//First check if the current detail tab exists
@@ -274,67 +275,67 @@ $(document).ready( function() {
 							if ($("#example" + detailId).attr('id') )
 							{
 								//Find closest tab
-								
+
 								var test = $("#example" + detailId).parent().parent().closest('.tabContent');
 								var tabId = test.attr('id');
-								
+
 								$('#tabs').tabs('select', '#' + tabId);
 								return false;
 							}
-							
+
 							var tab_num = addTab(detailId);
 							//Delay to let the DOM refresh
 							$(this).delay(500,function()
 							{
 								iNettuts.refresh("yellow-widget" + tab_num);
-							
+
 								//Add the patient data
 								var link = "http://" + server + "/repositories/" + rep  +"/patients/" + patientId;
 								//alert("server " + server);
 								$("#aaa" + tab_num).load(link);
-								
+
 								//Delay to let DOM refresh before adding table styling
 								$(this).delay(500,function()
 								{
 									//alert( $("#example" + patientId).text());
-									
+
 									$("#example" + detailId).dataTable( {
 										"aaSorting": [[ 0, "desc" ]]
 									} );
-									
+
 								} );
-								
+
 							} );
 						} );
-				
-				
+
+
 					var patientId = $(this).text();
 		 			var imageButton = $(this).find('.images');
 		 			$(imageButton).bind("click",{},
-					
+
 						function(e)
 						{
-						
+
 							var patientId = $(this).text();
 							var link = $(this).attr("custom:url");
-								
+
 							var label = "Images ";
 							var type ="images";
 							createLink(patientId, link, label, type);
-								
-							
+
+
 						} );
-						
-						
+
+
 	    	    });
-	    
+
 			}
-	
+
 			    ,
-			    
-			    clickRep : function () 
+
+			    clickRep : function ()
 		    	{
-		    		
+
 		    		$('.repository').each(function ()
 				 	{
 				 		$(this).bind("click",{},
@@ -349,39 +350,39 @@ $(document).ready( function() {
 									medCafe.addRep();
 								});
 							});
-							
+
 				 	});
 				 }
 				 ,
-				 clickChart : function (server) 
+				 clickChart : function (server)
 		    	{
-		    		
+
 		    		$('.chart').each(function ()
 				 	{
 				 		$(this).bind("click",{},
 				 			function(e)
 							{
-								
+
 								var patientId = $(this).text();
 								var server = $(this).attr("custom:url");
 								var link = server + "?patient_id=" + patientId;
 								var label = "Chart " + patientId;
 								var type ="chart";
 								createLink(patientId, link, label, type);
-								
+
 							});
-							
+
 				 	});
 				 }
-				 
-				 
-				 ,initChart : function () 
+
+
+				 ,initChart : function ()
 		    	{
-		    		
+
 		    		}
 				 ,
-				 
-			    addRep : function () 
+
+			    addRep : function ()
 		    	{
 		    		$('.repository').each(function ()
 				 	{
@@ -392,66 +393,66 @@ $(document).ready( function() {
 				 			function(e)
 							{
 				 				var tab_num = addTab(repId);
-				 				
+
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
 									iNettuts.refresh("yellow-widget" + tab_num);
-								
+
 								    var serverLink = "http://" + server + "/repositories/" + repId + "/patients";
 								    //alert("server link " + serverLink);
 									//Add the patient data
-									
+
 										$("#aaa" + tab_num).load(serverLink);
 										//alert("example" + repId);
 										//Delay to let server get the results back
 										$(this).delay(10000,function()
 										{
-											
+
 											//alert( $("#example" + repId).text());
 											$("#example" + repId).dataTable( {
 												"aaSorting": [[ 0, "desc" ]]
 											} );
 											//$("#example" + patientId).dataTable();
-									
+
 											$(this).delay(1000,function()
 											{
 												medCafe.add(server, repId );
 											} );
 										} );
-									
+
 								} );
-				 			
+
 				 			} );
-						
+
 				 	} );
 				}
 		}
-		
-		
+
+
 		$('#addButton').bind("click",{},
-				
+
 				function(e)
 				{
 					medCafe.add();
 				}
 		 );
-		
+
 		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");
-		medCafe.clickRep();		
-		medCafe.initClose();			
+		medCafe.clickRep();
+		medCafe.initClose();
 		medCafe.clickChart();
-		
+
 			//Code for Treeview
 			$("#browser").treeview({
 				toggle: function() {
 					console.log("%s was toggled.", $(this).find(">span").text());
 				}
 				});
-				
+
 				$("#add").click(function() {
-					var branches = $("<li><span class='folder'>New Sublist</span><ul>" + 
-						"<li><span class='file'>Item1</span></li>" + 
+					var branches = $("<li><span class='folder'>New Sublist</span><ul>" +
+						"<li><span class='file'>Item1</span></li>" +
 						"<li><span class='file'>Item2</span></li></ul></li>").appendTo("#browser");
 					$("#browser").treeview({
 						add: branches
@@ -459,20 +460,20 @@ $(document).ready( function() {
 			});
 			//End of code for treeview
 	});
-	
+
 	function addTab(label)
 	{
-		var tab_num = 1;	
+		var tab_num = 1;
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
-							 		
+
 		});
 		var curr_num = tab_id.split("-")[1];
 		tab_num = curr_num*1 + 1;
-							 
+
 		var hrefBase = "tabs-" + tab_num;
-													
+
 		//Add a new Tab
 		$('#tabs').tabs("add","#" + hrefBase,label);
 		$("#tabs-" + tab_num).addClass('tabContent');
@@ -482,23 +483,23 @@ $(document).ready( function() {
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
 	}
-	
-	function createLink(patientId, link, label, type) 
+
+	function createLink(patientId, link, label, type)
 	{
-		   					
-		
+
+
 		var tab_num = addTab(label);
 		alert("Tab num is " + tab_num);
-		if (type === "chart")	
-		{					
+		if (type === "chart")
+		{
 			addChart(this, link, tab_num);
 		}
 		else
 		{
 			addChart(this, link, tab_num);
-		}					
+		}
 	}
-				 	
+
 	function addChart(callObj, server, tab_num)
 	{
 		//alert("callObj " + callObj);
@@ -506,33 +507,33 @@ $(document).ready( function() {
 		$(callObj).delay(500,function()
 		{
 			iNettuts.refresh("yellow-widget" + tab_num);
-									
+
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" width="800" height="400"/>');
-			$('#iframe'+ tab_num).attr('src', server); 
-								
+			$('#iframe'+ tab_num).attr('src', server);
+
 		} );
 	}
-	
+
 	function addCoverflow(callObj, server, tab_num)
 	{
-		
+
 		//Delay to let the DOM refresh
 		$(callObj).delay(100,function()
 		{
 			iNettuts.refresh("yellow-widget" + tab_num);
-									
+
 			$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
-			$('#chartsiframe').attr('src', server); 
-								
+			$('#chartsiframe').attr('src', server);
+
 		} );
-	}	
-			
+	}
+
 function displayImage(imageName)
 {
 	var tab_num = addTab(imageName);
 	//Delay to let the DOM refresh
 	var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
-			
+
 	 var html =$.ajax({
       url: server,
       global: false,
@@ -545,7 +546,7 @@ function displayImage(imageName)
 					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
 					"</a>" + "</div>\n";
 					
-      	 
+
         var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
           
          var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageName + "\" id=\"frame" + imageName+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
@@ -554,7 +555,7 @@ function displayImage(imageName)
          iNettuts.refresh("yellow-widget" + tab_num);
 		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
 		 $("#aaa" + tab_num).append( text );
-		
+
 		 $(this).delay(100,function()
 		 {
 			//Code for zoom
@@ -568,7 +569,7 @@ function displayImage(imageName)
                 title :false
 
             }
-		 	
+
 			$(".jqzoom" + tab_num).jqzoom(options);
 			
 			$("#viewerButton" + tab_num).bind("click",{},
@@ -583,7 +584,7 @@ function displayImage(imageName)
 		  } );
 		}
       }).responseText;
-   
-	
-	
+
+
+
 }
