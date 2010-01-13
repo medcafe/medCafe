@@ -205,6 +205,12 @@ $(document).ready( function() {
 
 		});
 
+		$(document).bind('FILTER_DATE', function() 
+		{	 
+		   		 filterDate();
+		});
+			
+		
 		var medCafe = {
 		
 			closeTab : function(index) {
@@ -481,6 +487,9 @@ $(document).ready( function() {
 					});
 			});
 			//End of code for treeview
+			
+			
+	
 	});
 	
 	function addTab(label)
@@ -550,6 +559,18 @@ $(document).ready( function() {
 		} );
 	}	
 			
+function filterDate() 
+{
+	   alert("Filter Date");
+}			
+			
+function triggerFilter()
+{
+	
+	$(document).trigger('FILTER_DATE');
+}
+
+
 function displayImage(imageName)
 {
 	var tab_num = addTab(imageName);

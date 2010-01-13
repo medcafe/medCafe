@@ -49,16 +49,21 @@
 			$('select#valueAA, select#valueBB').selectToUISlider({
 				labels: 12
 			});
-		
+			
+			$('#slider_button').click(function()
+			 {
+			 	//for some reason cannot call trigger('FILTER_DATE') directly
+			 	
+			    parent.triggerFilter();
+			   
+			});
 		});
 		
 	</script>
-	<!-- jQuery UI theme switcher -->
-	<script type="text/javascript" src="http://ui.jquery.com/applications/themeroller/themeswitchertool/"></script>
-	<script type="text/javascript"> $(function(){ $('<div style="position: absolute; right: 20px; margin-top: -40px" />').appendTo('body').themeswitcher({onSelect: function(){ setTimeout(fixToolTipColor, 800); }}); });</script>
 </head>
 
 <body>
 	<tags:IncludeRestlet relurl="<%=url%>"/>
+	<button value="Filter" id="slider_button">Filter</button>
 </body>
 </html>
