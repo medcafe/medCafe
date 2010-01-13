@@ -24,6 +24,8 @@ public class MedcafeApplication extends Application {
         
         //List the available Widgets
         router.attach("/widgets",org.mitre.medcafe.restlet.ListWidgetResource.class);
+        //List the available Widgets
+        router.attach("/dates",org.mitre.medcafe.restlet.ListDatesResource.class);
         
         // register the view restlets
         router.attach("/treenode", org.mitre.medcafe.restlet.TreeNodeResource.class);

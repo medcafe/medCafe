@@ -71,8 +71,8 @@ public class ListWidgetResource extends ServerResource {
             
         	String[] widgetName = new String[]{"Charts","Images", "Date Picker","Slider"};
         	
-        	String[] images = new String[]{"chart.png","coverflow.png", "date.png", "slider.png"};
-        	String[] clickUrl = new String[]{"http://127.0.0.1:8080/medcafe/chart.jsp","http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp","", ""};
+        	String[] images = new String[]{"chart.png","coverflow.png", "date.png", "slider-small.png"};
+        	String[] clickUrl = new String[]{"http://127.0.0.1:8080/medcafe/chart.jsp","http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp","", "http://127.0.0.1:8080/medcafe/slider.jsp"};
         	
         	int i=0;
         	

@@ -81,9 +81,10 @@
 					                    <h3>Coverflow Widget</h3>
 					                </div>
 					                <div class="widget-content">
-					                    <iframe height="400" width="680" name="tempframe" id="tempFrame" src="zoom.html"></iframe>
-					               
-					                    </div>
+					                    		<br/>
+					                    		<div id="slider-range"></div>
+					                    	
+					                </div>
 					            </div>
 					        </div>
 
@@ -251,6 +252,14 @@
 																	</span></li>		
 															</ul>
 														</li>
+														<li><span class="folder">Slider</span>
+															<ul>
+																<li><span class="file">Date Slider
+																
+																<div class="addslider">Slider</div>
+																</li>
+															</ul>
+														</li>
 														<li class="closed"><span class="folder">JeffVista</span>
 															<ul>
 																<li><span class="file">Patient
@@ -260,6 +269,8 @@
 																</span></li>
 															</ul>
 														</li>
+														
+														
 													</ul>
 												</li>
 											</ul>
