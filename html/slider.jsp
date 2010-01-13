@@ -1,6 +1,32 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-    
+<%
+	String url = "c/dates/";
+	String append = "?";
+	String startDate = request.getParameter("start_date");
+	
+	String endDate = request.getParameter("end_date");
+	
+	String intervalType = request.getParameter("interval_type");
+	
+	if (startDate != null)
+	{
+			url += append + "start_date=" + startDate;
+			append= "&";
+	}
+	
+	if (endDate != null)
+	{
+			url += append + "end_date=" + endDate;
+			append= "&";
+	}
+	
+	if (intervalType != null)
+	{
+			url += append + "interval_type=" + intervalType;
+	}
+	
+%>    
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -33,6 +59,6 @@
 </head>
 
 <body>
-	<tags:IncludeRestlet relurl="c/dates/"/>
+	<tags:IncludeRestlet relurl="<%=url%>"/>
 </body>
 </html>
