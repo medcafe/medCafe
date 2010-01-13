@@ -84,30 +84,97 @@ public class ListDatesResource extends ServerResource {
     	
     	System.out.println("Found ListDatesResource html ");
         
-    	StringBuffer startBuf = new StringBuffer();
+    	StringBuffer startBuf1 = new StringBuffer();
+    	StringBuffer startBuf2 = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer();
-    	
-    	//<img src="imgs/cover1.jpg" alt="The Beatles - Abbey Road"/>
-    	
-    	String[] values = new String[]{this.id,"", "", " ", "",
-				"", "", " ","","", "" };
+    	try
+        {
+        	System.out.println("ListDatesResource JSON start");
+            
+        	
+        	GregorianCalendar start = new GregorianCalendar();
+        	start.setTime(startDate);
+        	GregorianCalendar end = new GregorianCalendar();
+        	end.setTime(endDate);
+        	HashMap<Integer, HashMap<Integer, ArrayList<Integer> > >  dayMonthsYears = getDays(start, end);
+        	
+        	startBuf1.append("<fieldset><label for=\"valueAA\">From:</label><select name=\"valueAA\" id=\"valueAA\">");
+        	startBuf2.append("<label for=\"valueBB\">From:</label><select name=\"valueBB\" id=\"valueBB\">");
+			
+        	if (intervalType.equals(MONTHS))
+        	{
+        		ArrayList<Integer> sortYears = new ArrayList<Integer>( dayMonthsYears.keySet());
+				Collections.sort(sortYears);
 
-    	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" +
-    									"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
-    	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
-    	int i=0;
+				StringBuffer yearBuf = new StringBuffer();
+            	
+                for(Integer year: sortYears)
+                {
+                	
+                	yearBuf.append("<optgroup label=\"" + year  + "\">");
+                    
+                 	
+                    ArrayList<Integer> sortMonths = new ArrayList<Integer>( dayMonthsYears.get(year).keySet());
+    				Collections.sort(sortMonths);
+
+                    for (Integer month: sortMonths)
+                    {
+                    	yearBuf.append("<option value=\"" + month + "/" + year + "\">" + month + "/" + year + "</option>");
+                    	//<option value="01/03">Jan 03</option>
+                    }
+                    
+                    yearBuf.append("</optgroup>");
+                    
+                    
+                }	
+                startBuf1.append(yearBuf.toString() + "</select>");
+                startBuf2.append(yearBuf.toString() + "</select></fieldset>");
+                
+        	}
+        	else if (intervalType.equals(DAYS))
+        	{
+        		ArrayList<Integer> sortYears = new ArrayList<Integer>( dayMonthsYears.keySet());
+				Collections.sort(sortYears);
+
+                for(Integer year: sortYears)
+                {
+                	
+                    
+                    ArrayList<Integer> sortMonths = new ArrayList<Integer>( dayMonthsYears.get(year).keySet());
+    				Collections.sort(sortMonths);
+
+                    for (Integer month: sortMonths)
+                    {
+
+                    	 ArrayList<Integer> sortDays = dayMonthsYears.get(year).get(month);
+                    	 Collections.sort(sortDays);
+
+                    	 for (Integer day: sortDays)
+                         {
+                    		
+                    		 
+                         }
+                    }
+                          
+                }	
+        	}
+        	else if (intervalType.equals(YEARS))
+        	{
+        		
+        	}
+        	
+            
+            //log.finer( obj.toString());
+           
+        }
+        catch(Exception e)
+        {
+            log.throwing(KEY, "toHtml()", e);
+            return null;
+        }
     	
-    	String dir = "patient1";
-    		
-    	for (String image: images)
-    	{
-    	
-    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );	
-    		i++;
-    	}
-    	return new StringRepresentation( startBuf.toString() + patientImages.toString() 
-                 + endBuf.toString()); 
+    	return new StringRepresentation( startBuf1.toString() + startBuf2.toString()); 
              
     }
 
@@ -143,9 +210,8 @@ public class ListDatesResource extends ServerResource {
                     for (Integer month: sortMonths)
                     {
 
-                    	 JSONArray inner_inner_obj = new JSONArray ();
-                    	 inner_inner_obj.put(month);
-                    	 inner_obj.append("months", inner_inner_obj);
+                    	 
+                    	 inner_obj.append("months", month);
                     }
                     
                     obj.append("years", inner_obj);  //append creates an array for you

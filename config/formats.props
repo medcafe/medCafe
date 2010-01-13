@@ -10,5 +10,5 @@
 /repositories/[^/]+/patients = <li id="treeme"><span class="folder"><:patients.id:></span></li>\n
 /repositories = <li id="treeme"><span class="folder"><:repositories.name:>(<:repositories.type:>)</span></li>\n
 /widgets=<div class="imageContain"><img src="<:widgets.image:>" alt="<:widgets.name:>" custom:url="<:widgets.clickURL:>"></img><p><:widgets.name:></p></div><br/>
-
+/dates=<optgroup label="<:years.year:>"><option value="<:years.months:>/<:years.year:>"><:years.months.month:>/<:years.year:></option></optgroup>
 
