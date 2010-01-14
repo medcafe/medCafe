@@ -53,8 +53,15 @@
 			$('#slider_button').click(function()
 			 {
 			 	//for some reason cannot call trigger('FILTER_DATE') directly
+			 	var startDate = "02/02/2008";
+			 	var endDate = "02/02/2009";
+			 	//var values = $('select#valueAA').slider('option','values');
+			 	var valueA = $('select#valueAA').val();
+			 	startDate = "02/" + valueA;
+			 	var valueB = $('select#valueBB').val();
+			 	endDate = "02/" + valueB;
 			 	
-			    parent.triggerFilter();
+			    parent.triggerFilter(startDate, endDate);
 			   
 			});
 		});

@@ -348,7 +348,7 @@ $(document).ready( function() {
 							{
 								var server = $(this).find('.repList').attr("custom:server");
 								var link = "http://" + server + "/treenode?relurl=/repositories&type=link";
-								alert("link " + link);
+								
 								$("#listRepository").load(link);
 								$(this).delay(1000,function()
 								{
@@ -394,7 +394,6 @@ $(document).ready( function() {
 					 		$(this).bind("click",{},
 					 			function(e)
 								{
-									alert("create slider");
 						    		$("#slider-range").slider({
 										range: true,
 										min: 0,
@@ -509,7 +508,7 @@ $(document).ready( function() {
 		$('#tabs').tabs("add","#" + hrefBase,label);
 		$("#tabs-" + tab_num).addClass('tabContent');
 		//Load the widget template
-		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num);
+		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label);
 		//$("#tabs-" + tab_num).
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
@@ -520,7 +519,6 @@ $(document).ready( function() {
 		   					
 		
 		var tab_num = addTab(label);
-		alert("Tab num is " + tab_num);
 		if (type === "chart")	
 		{					
 			addChart(this, link, tab_num);
@@ -555,7 +553,9 @@ $(document).ready( function() {
 									
 			$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
 			$('#chartsiframe').attr('src', server); 
-								
+			
+			  
+							
 		} );
 	}	
 			
@@ -563,11 +563,12 @@ function filterDate()
 {
 	   alert("Filter Date");
 }			
+		
 			
-function triggerFilter()
+function triggerFilter(startDate, endDate)
 {
-	
-	$(document).trigger('FILTER_DATE');
+	alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
+	$(document).trigger('FILTER_DATE', [startDate, endDate]);
 }
 
 
@@ -575,7 +576,7 @@ function displayImage(imageName)
 {
 	var tab_num = addTab(imageName);
 	//Delay to let the DOM refresh
-	var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
+	 var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
 			
 	 var html =$.ajax({
       url: server,

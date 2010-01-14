@@ -19,7 +19,7 @@ $(document).ready( function() {
 		var label = $(this).find('img').attr("src");
 		var link = $(this).find('img').attr("custom:url");
 	
-		alert("Image text " + text + " label " + label + " link " + link); 
+		//alert("Image text " + text + " label " + label + " link " + link); 
 		parent.createLink(1,link, text, "chart" );
 		//function createLink(patientId, link, label, type) 
 		    	

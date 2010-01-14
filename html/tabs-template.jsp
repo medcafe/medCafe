@@ -7,7 +7,29 @@
 	if (title == null)
 		title = "Title";
 %>
-					
+<script>
+
+
+$(function(){
+
+	var srcName = "js/filterDate<%=title%>.js"; 
+	$.getScript(srcName, function(){
+
+		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
+		{	 		
+			var tabNum = "<%=tabNum%>";
+			filterDate<%=title%>(startDate, endDate,tabNum );
+		});	
+		
+	});
+	
+	
+});
+
+
+	
+</script>
+			
 <div id="columns">
 
 	<div id="column<%=tabNum%>" class="column">
