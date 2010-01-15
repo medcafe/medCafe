@@ -1,4 +1,4 @@
 function filterDateSlider()
 {
-	alert("About to filter slider according to dates");
+	//alert("About to filter slider according to dates");
 }
