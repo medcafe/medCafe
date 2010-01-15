@@ -34,7 +34,9 @@
 	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
-
+ 	<script type="text/javascript" src="js/vel2js.js"></script>
+    <script type="text/javascript" src="js/vel2jstools.js"></script>
+    
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
 	<style type="text/css">
@@ -46,31 +48,49 @@
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			$('select#valueAA, select#valueBB').selectToUISlider({
-				labels: 12
-			});
+		
+			$.getJSON("listDates.jsp", function(data)
+			{
+  			
+	  			var html = v2js_listDates( data );  
+	  			
+	  			$("#valueAA").append(html);
+	    		$("#valueBB").append(html);
+				
+				$('select#valueAA, select#valueBB').selectToUISlider({
+					labels: 12
+				});
+				
+				$('#slider_button').click(function()
+				 {
+				 	//for some reason cannot call trigger('FILTER_DATE') directly
+				 	var startDate = "02/0212/2008";
+				 	var endDate = "02/02/2009";
+				 	//var values = $('select#valueAA').slider('option','values');
+				 	var valueA = $('select#valueAA').val();
+				 	startDate = "02/" + valueA;
+				 	var valueB = $('select#valueBB').val();
+				 	endDate = "02/" + valueB;
+				 	
+				    parent.triggerFilter(startDate, endDate);
+				   
+				});
 			
-			$('#slider_button').click(function()
-			 {
-			 	//for some reason cannot call trigger('FILTER_DATE') directly
-			 	var startDate = "02/02/2008";
-			 	var endDate = "02/02/2009";
-			 	//var values = $('select#valueAA').slider('option','values');
-			 	var valueA = $('select#valueAA').val();
-			 	startDate = "02/" + valueA;
-			 	var valueB = $('select#valueBB').val();
-			 	endDate = "02/" + valueB;
-			 	
-			    parent.triggerFilter(startDate, endDate);
-			   
+			
 			});
+		
+			
 		});
 		
 	</script>
 </head>
 
 <body>
-	<tags:IncludeRestlet relurl="<%=url%>"/>
+	
+	<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
+	<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
+
+	
 	<button value="Filter" id="slider_button">Filter</button>
 </body>
 </html>
