@@ -1,0 +1,144 @@
+2010-01-14 13:58:22,430 - Log4JLogChute initialized using file 'velocity.log'
+2010-01-14 13:58:22,430 - Starting Apache Velocity v1.5 (compiled: 2007-02-22 08:52:29)
+2010-01-14 13:58:22,430 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-01-14 13:58:22,430 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-01-14 13:58:22,431 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogChute or necessary supporting classes in classpath.
+java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:247)
+	at org.apache.velocity.util.ClassUtils.getClass(ClassUtils.java:63)
+	at org.apache.velocity.util.ClassUtils.getNewInstance(ClassUtils.java:95)
+	at org.apache.velocity.runtime.log.LogManager.createLogChute(LogManager.java:147)
+	at org.apache.velocity.runtime.log.LogManager.updateLog(LogManager.java:208)
+	at org.apache.velocity.runtime.RuntimeInstance.initializeLog(RuntimeInstance.java:728)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:240)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:534)
+	at org.apache.velocity.runtime.RuntimeSingleton.init(RuntimeSingleton.java:227)
+	at org.apache.velocity.app.Velocity.init(Velocity.java:111)
+	at at.riemers.velocity2js.velocity.Velocity2Js.init(Velocity2Js.java:81)
+	at at.riemers.velocity2js.velocity.Velocity2Js.generateDir(Velocity2Js.java:142)
+	at at.riemers.velocity2js.velocity.Velocity2Js.main(Velocity2Js.java:239)
+Caused by: java.lang.ClassNotFoundException: org.apache.log.format.Formatter
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:320)
+	... 14 more
+2010-01-14 13:58:22,433 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 13:58:22,433 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 13:58:22,434 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2010-01-14 13:58:22,436 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-01-14 13:58:22,437 - Do unicode file recognition:  false
+2010-01-14 13:58:22,437 - FileResourceLoader : adding path '/home/jchoyt/Desktop/velocity2js/example'
+2010-01-14 13:58:22,446 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2010-01-14 13:58:22,447 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-01-14 13:58:22,448 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-01-14 13:58:22,449 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-01-14 13:58:22,450 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-01-14 13:58:22,450 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-01-14 13:58:22,476 - Created '20' parsers.
+2010-01-14 13:58:22,480 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-01-14 13:58:22,480 - Velocimacro : Default library not found.
+2010-01-14 13:58:22,480 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-01-14 13:58:22,480 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-01-14 13:58:22,480 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-01-14 13:58:22,480 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2010-01-14 14:00:20,041 - Log4JLogChute initialized using file 'velocity.log'
+2010-01-14 14:00:20,042 - Starting Apache Velocity v1.5 (compiled: 2007-02-22 08:52:29)
+2010-01-14 14:00:20,042 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-01-14 14:00:20,042 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-01-14 14:00:20,043 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogChute or necessary supporting classes in classpath.
+java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:247)
+	at org.apache.velocity.util.ClassUtils.getClass(ClassUtils.java:63)
+	at org.apache.velocity.util.ClassUtils.getNewInstance(ClassUtils.java:95)
+	at org.apache.velocity.runtime.log.LogManager.createLogChute(LogManager.java:147)
+	at org.apache.velocity.runtime.log.LogManager.updateLog(LogManager.java:208)
+	at org.apache.velocity.runtime.RuntimeInstance.initializeLog(RuntimeInstance.java:728)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:240)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:534)
+	at org.apache.velocity.runtime.RuntimeSingleton.init(RuntimeSingleton.java:227)
+	at org.apache.velocity.app.Velocity.init(Velocity.java:111)
+	at at.riemers.velocity2js.velocity.Velocity2Js.init(Velocity2Js.java:81)
+	at at.riemers.velocity2js.velocity.Velocity2Js.generateDir(Velocity2Js.java:142)
+	at at.riemers.velocity2js.velocity.Velocity2Js.main(Velocity2Js.java:239)
+Caused by: java.lang.ClassNotFoundException: org.apache.log.format.Formatter
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:320)
+	... 14 more
+2010-01-14 14:00:20,044 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 14:00:20,044 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 14:00:20,046 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2010-01-14 14:00:20,048 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-01-14 14:00:20,049 - Do unicode file recognition:  false
+2010-01-14 14:00:20,049 - FileResourceLoader : adding path '/home/jchoyt/Desktop/velocity2js/example'
+2010-01-14 14:00:20,058 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2010-01-14 14:00:20,059 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-01-14 14:00:20,060 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-01-14 14:00:20,061 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-01-14 14:00:20,062 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-01-14 14:00:20,062 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-01-14 14:00:20,088 - Created '20' parsers.
+2010-01-14 14:00:20,092 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-01-14 14:00:20,092 - Velocimacro : Default library not found.
+2010-01-14 14:00:20,092 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-01-14 14:00:20,092 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-01-14 14:00:20,092 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-01-14 14:00:20,092 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2010-01-14 16:14:24,517 - Log4JLogChute initialized using file 'velocity.log'
+2010-01-14 16:14:24,518 - Starting Apache Velocity v1.5 (compiled: 2007-02-22 08:52:29)
+2010-01-14 16:14:24,518 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-01-14 16:14:24,518 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-01-14 16:14:24,519 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogChute or necessary supporting classes in classpath.
+java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:247)
+	at org.apache.velocity.util.ClassUtils.getClass(ClassUtils.java:63)
+	at org.apache.velocity.util.ClassUtils.getNewInstance(ClassUtils.java:95)
+	at org.apache.velocity.runtime.log.LogManager.createLogChute(LogManager.java:147)
+	at org.apache.velocity.runtime.log.LogManager.updateLog(LogManager.java:208)
+	at org.apache.velocity.runtime.RuntimeInstance.initializeLog(RuntimeInstance.java:728)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:240)
+	at org.apache.velocity.runtime.RuntimeInstance.init(RuntimeInstance.java:534)
+	at org.apache.velocity.runtime.RuntimeSingleton.init(RuntimeSingleton.java:227)
+	at org.apache.velocity.app.Velocity.init(Velocity.java:111)
+	at at.riemers.velocity2js.velocity.Velocity2Js.init(Velocity2Js.java:81)
+	at at.riemers.velocity2js.velocity.Velocity2Js.generateDir(Velocity2Js.java:142)
+	at at.riemers.velocity2js.velocity.Velocity2Js.main(Velocity2Js.java:239)
+Caused by: java.lang.ClassNotFoundException: org.apache.log.format.Formatter
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:320)
+	... 14 more
+2010-01-14 16:14:24,520 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 16:14:24,520 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-01-14 16:14:24,522 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2010-01-14 16:14:24,524 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-01-14 16:14:24,525 - Do unicode file recognition:  false
+2010-01-14 16:14:24,525 - FileResourceLoader : adding path '/home/jchoyt/Desktop/velocity2js/example'
+2010-01-14 16:14:24,534 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2010-01-14 16:14:24,535 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-01-14 16:14:24,536 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-01-14 16:14:24,537 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-01-14 16:14:24,538 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-01-14 16:14:24,538 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-01-14 16:14:24,565 - Created '20' parsers.
+2010-01-14 16:14:24,569 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-01-14 16:14:24,569 - Velocimacro : Default library not found.
+2010-01-14 16:14:24,569 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-01-14 16:14:24,569 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-01-14 16:14:24,569 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-01-14 16:14:24,569 - Velocimacro : autoload off : VM system will not automatically reload global library macros
