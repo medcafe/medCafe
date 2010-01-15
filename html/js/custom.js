@@ -537,7 +537,7 @@ $(document).ready( function() {
 		{
 			iNettuts.refresh("yellow-widget" + tab_num);
 									
-			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" width="800" height="400"/>');
+			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$('#iframe'+ tab_num).attr('src', server); 
 								
 		} );
@@ -561,13 +561,13 @@ $(document).ready( function() {
 			
 function filterDate() 
 {
-	   alert("Filter Date");
+	   //alert("Filter Date");
 }			
 		
 			
 function triggerFilter(startDate, endDate)
 {
-	alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
+	//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
 	$(document).trigger('FILTER_DATE', [startDate, endDate]);
 }
 

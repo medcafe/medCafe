@@ -4,6 +4,23 @@
 <html>
 <%
 	String coverflowFile = "http://127.0.0.1:8080/medcafe/coverflow-flash/coverFeed.jsp";
+	String url = coverflowFile;
+	String append = "?";
+	String startDate = request.getParameter("start_date");
+	
+	String endDate = request.getParameter("end_date");
+
+	if (startDate != null)
+	{
+			coverflowFile += append + "start_date=" + startDate;
+			append= "&";
+	}
+	
+	if (endDate != null)
+	{
+			coverflowFile += append + "end_date=" + endDate;
+		
+	}
 	//coverflowFile = "coverFeed.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/treenode?relurl=/repositories/medcafe/patients/1/images&type=link";
 %>
