@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
-	String url = "c/dates/";
+	String url = "listDates.jsp";
 	String append = "?";
 	String startDate = request.getParameter("start_date");
 	
@@ -49,7 +49,7 @@
 	<script type="text/javascript">
 		$(function(){
 		
-			$.getJSON("listDates.jsp", function(data)
+			$.getJSON("<%=url%>", function(data)
 			{
   			
 	  			var html = v2js_listDates( data );  

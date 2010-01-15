@@ -1,0 +1,7 @@
+#foreach( $image in $images )
+    <cover>
+    <img><![CDATA[$image.source]]></img>
+    <desc><![CDATA[$image.id]]></desc>
+    <param><![CDATA[$image.param]]></param>
+    </cover>
+#end

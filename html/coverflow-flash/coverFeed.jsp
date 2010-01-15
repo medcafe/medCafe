@@ -2,8 +2,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 	String coverflowFile = "c/treenode?relurl=/repositories/medcafe/patients/1/images";
-	
-	
+	//String coverflowFile = "c/repositories/medcafe/patients/1/images";	
 	String startDate = request.getParameter("start_date");
 	
 	String endDate =  request.getParameter("end_date");
@@ -27,5 +26,5 @@
 %>
 <?xml version="1.0" encoding="utf-8"?>
 <covers xcurrent="1">
-	<tags:IncludeRestlet relurl="<%=url%>"/>
+	<tags:IncludeRestlet relurl="<%=url%>" />
 </covers>
