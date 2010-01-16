@@ -1,3 +1,4 @@
+<covers xcurrent="1">
 #foreach( $image in $images )
     <cover>
     <img><![CDATA[$image.source]]></img>
@@ -5,3 +6,4 @@
     <param><![CDATA[$image.param]]></param>
     </cover>
 #end
+</covers>
