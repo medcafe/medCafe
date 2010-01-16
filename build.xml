@@ -117,11 +117,13 @@
                 <exclude name="**/restlet/**"/>
                 <exclude name="**/vista/**"/>
                 <exclude name="**/jboss/**"/>
+                <exclude name="**/velocity2js/**"/>
             </lib>
             <lib file="${jarfile}"/>
             <lib dir="${jars}/restlet" />
             <lib dir="${jars}/vista" />
             <lib dir="${jars}/jboss" />
+            <lib dir="${jars}/velocity2js" />
             <webinf dir="${config}">
                 <exclude name="context.xml"/>
                 <exclude name="web.xml"/>

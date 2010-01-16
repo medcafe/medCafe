@@ -76,6 +76,7 @@ public class InitServlet extends HttpServlet
 
         Config.init( config_dir );
         // Config.setProperty( "BasePath", base_path );
+        VelocityUtil.init( config_dir + "templates");
         /*
          *  Grab the name for the currently deployed webapp.  It's possible this could be in error if the webapp is deployed
          *  as a subdirectory (i.e., The docbase is http://localhost:8080/first/sub).  If this ever gets deployed that way it will

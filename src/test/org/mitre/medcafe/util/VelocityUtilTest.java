@@ -46,11 +46,10 @@ public class VelocityUtilTest
     {
         JSONObject obj = new JSONObject( "{\"years\":[{\"months\":[6,7,8,9,10,11,12],\"year\":2008},{\"months\":[1,2,3,4,5,6,7,8],\"year\":2009}]}");
         StringWriter writer = new StringWriter();
-        VelocityUtil.applyTemplate( obj, "templates/hellojson.vm", writer);
+        VelocityUtil.applyTemplate( obj, "test.vm", writer);
         String results = writer.toString();
         assertTrue(results.contains("<optgroup label=\"2009\">"));
         assertTrue(results.contains("<option value=\"8/2009\">8/2009</option>"));
-
     }
 
     /**
@@ -59,6 +58,9 @@ public class VelocityUtilTest
      */
     @Before
     public void setUp() throws Exception {
+        // String tempdir = System.getProperty("java.io.tmpdir") + "/";
+        // File velocity.properties
+        VelocityUtil.init(System.getProperty("antfile.dir") + "/config/templates");
     }
 
 
