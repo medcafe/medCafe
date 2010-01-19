@@ -82,11 +82,13 @@ public class ListWidgetResource extends ServerResource {
             for(String widget: widgetName)
             {
             	
-                JSONObject inner_obj = new JSONObject ();
-                inner_obj.put("name", widget);
-                inner_obj.put("image", tempDir + images[i]);
-                inner_obj.put("clickURL", clickUrl[i]);
-                obj.append("widgets", inner_obj);  //append creates an array for you
+            	 JSONObject inner_obj = new JSONObject ();
+            	 JSONObject inner_inner_obj = new JSONObject ();
+            	 inner_obj.put("name", widget);
+            	 inner_obj.put("image", tempDir + images[i]);
+            	 inner_obj.put("clickURL", clickUrl[i]);
+            	 //inner_obj.append("widget", inner_inner_obj);
+            	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
             }
             log.finer( obj.toString());

@@ -21,8 +21,8 @@
 			coverflowFile += append + "end_date=" + endDate;
 		
 	}
-	coverflowFile = "coverFeedGen.xml";
-	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/treenode?relurl=/repositories/medcafe/patients/1/images&type=link";
+	//coverflowFile = "coverFeedGen.xml";
+	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/images";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 

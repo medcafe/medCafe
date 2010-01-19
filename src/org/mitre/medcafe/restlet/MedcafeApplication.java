@@ -28,7 +28,7 @@ public class MedcafeApplication extends Application {
         router.attach("/dates",org.mitre.medcafe.restlet.ListDatesResource.class);
         
         // register the view restlets
-        router.attach("/treenode", org.mitre.medcafe.restlet.TreeNodeResource.class);
+        //router.attach("/treenode", org.mitre.medcafe.restlet.TreeNodeResource.class);
 
         return router;
     }
