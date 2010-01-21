@@ -264,77 +264,12 @@ $(document).ready( function() {
 				
 			
 		
-				add : function (server, rep) {
+				add : function (server, rep) 
+				{
 			 	//Method to cycle through all summary classes and allow for clicking to get details
-			 	$('.summary').each(function ()
-			 	{
-			 		var detailId = $(this).text();
-			 		
-			 		var detailButton = $(this).find('.details');
-		 			$(detailButton).bind("click",{},
-					
-						function(e)
-						{
-							//First check if the current detail tab exists
-							//Then put focus on this tab
-							if ($("#example" + detailId).attr('id') )
-							{
-								//Find closest tab
-								
-								var test = $("#example" + detailId).parent().parent().closest('.tabContent');
-								var tabId = test.attr('id');
-								
-								$('#tabs').tabs('select', '#' + tabId);
-								return false;
-							}
-							
-							var tab_num = addTab(detailId);
-							//Delay to let the DOM refresh
-							$(this).delay(500,function()
-							{
-								iNettuts.refresh("yellow-widget" + tab_num);
-							
-								//Add the patient data
-								var link = "http://" + server + "/repositories/" + rep  +"/patients/" + patientId;
-								//alert("server " + server);
-								$("#aaa" + tab_num).load(link);
-								
-								//Delay to let DOM refresh before adding table styling
-								$(this).delay(500,function()
-								{
-									//alert( $("#example" + patientId).text());
-									
-									$("#example" + detailId).dataTable( {
-										"aaSorting": [[ 0, "desc" ]]
-									} );
-									
-								} );
-								
-							} );
-						} );
-				
-				
-					var patientId = $(this).text();
-		 			var imageButton = $(this).find('.images');
-		 			$(imageButton).bind("click",{},
-					
-						function(e)
-						{
-						
-							var patientId = $(this).text();
-							var link = $(this).attr("custom:url");
-								
-							var label = "Images ";
-							var type ="images";
-							createLink(patientId, link, label, type);
-								
-							
-						} );
-						
-						
-	    	    });
-	    
-			}
+			 
+			 		listRepository(server, rep);
+				}
 	
 			    ,
 			    
@@ -410,48 +345,49 @@ $(document).ready( function() {
 				,
 			    addRep : function () 
 		    	{
-		    		$('.repository').each(function ()
-				 	{
-				 		var repId = $(this).find('.repList').text();
-		 				var server = $(this).find('.repList').attr("custom:server");
-		 				var repButton = $(this).find('.repList');
-		 				$(repButton).bind("click",{},
-				 			function(e)
-							{
-				 				var tab_num = addTab(repId);
-				 				
+		    		$("#repository").each(function ()
+					{
+						var repId = $(this).find('.repList').text();
+				 		var server = $(this).find('.repList').attr("custom:server");
+				 		var repButton = $(this).find('.repList');
+				 		$(repButton).bind("click",{},
+						 			
+						function(e)
+						{
+						 		var tab_num = addTab(repId);
+						 				
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
-									iNettuts.refresh("yellow-widget" + tab_num);
-								
-								    var serverLink = "http://" + server + "/repositories/" + repId + "/patients";
-								    //alert("server link " + serverLink);
-									//Add the patient data
-									
-										$("#aaa" + tab_num).load(serverLink);
-										//alert("example" + repId);
-										//Delay to let server get the results back
-										$(this).delay(10000,function()
-										{
+										iNettuts.refresh("yellow-widget" + tab_num);
+										
+										 var serverLink = "http://" + server + "/repositories/" + repId + "/patients";
+										 //alert("server link " + serverLink);
+										 //Add the patient data
 											
+										 $("#aaa" + tab_num).load(serverLink);
+										 //alert("example" + repId);
+										 //Delay to let server get the results back
+										 $(this).delay(10000,function()
+										 {
+													
 											//alert( $("#example" + repId).text());
 											$("#example" + repId).dataTable( {
 												"aaSorting": [[ 0, "desc" ]]
 											} );
 											//$("#example" + patientId).dataTable();
-									
+											
 											$(this).delay(1000,function()
 											{
 												medCafe.add(server, repId );
 											} );
-										} );
-									
+								         } );
+											
 								} );
-				 			
-				 			} );
-						
-				 	} );
+						 			
+						 } );
+								
+					} );
 				}
 		}
 		
@@ -556,18 +492,34 @@ $(document).ready( function() {
 	function addRepository(callObj, server, tab_num, label)
 	{
 	
-		var html = "<div class=\"repository\" id=\"\"><a href=\"#\" class=\"repList\" custom:server=\"medcafe:8081/medcafe/c\">" + label + "</a></div>";			
+		var repId = "OurVista";
+			
+		var html = "<div class=\"example" +  repId + "\"></div>"; 
+		
 		$(callObj).delay(200,function()
 		{
-			//alert("image server " + server);
 			
-			iNettuts.refresh("yellow-widget" + tab_num);
-			
-			$("#aaa" + tab_num).append(html);
-			$(callObj).delay(100,function()
-			{
-					alert("want to display repository here");
-			} );	
+				iNettuts.refresh("yellow-widget" + tab_num);
+				
+				var serverLink =  server + "c/repositories/" + repId + "/patients";
+						    
+				$("#aaa" + tab_num).load(serverLink);
+				
+				$(this).delay(10000,function()
+				{
+											
+						//alert( $("#example" + repId).text());
+						$("#example" + repId).dataTable( {
+								"aaSorting": [[ 0, "desc" ]]
+						} );
+											//$("#example" + patientId).dataTable();
+									
+						$(this).delay(1000,function()
+						{
+							listRepository(server, repId );
+						} );
+						
+					} );
 			
 		});
 		
@@ -619,6 +571,78 @@ function triggerFilter(startDate, endDate)
 	$(document).trigger('FILTER_DATE', [startDate, endDate]);
 }
 
+function listRepository(server, rep)
+{
+				$('.summary').each(function ()
+			 	{
+			 		var detailId = $(this).text();
+			 		
+			 		var detailButton = $(this).find('.details');
+		 			$(detailButton).bind("click",{},
+					
+						function(e)
+						{
+						
+							//First check if the current detail tab exists
+							//Then put focus on this tab
+							if ($("#example" + detailId).attr('id') )
+							{
+								//Find closest tab
+								
+								var test = $("#example" + detailId).parent().parent().closest('.tabContent');
+								var tabId = test.attr('id');
+								
+								$('#tabs').tabs('select', '#' + tabId);
+								return false;
+							}
+							
+							var tab_num = addTab(detailId);
+							//Delay to let the DOM refresh
+							$(this).delay(500,function()
+							{
+								iNettuts.refresh("yellow-widget" + tab_num);
+							
+								//Add the patient data
+								var link =  server + "c/repositories/" + rep  +"/patients/" + detailId;
+								//alert("server on clicked link " + link);
+								$("#aaa" + tab_num).load(link);
+								
+								//Delay to let DOM refresh before adding table styling
+								$(this).delay(500,function()
+								{
+									//alert( $("#example" + patientId).text());
+									
+									$("#example" + detailId).dataTable( {
+										"aaSorting": [[ 0, "desc" ]]
+									} );
+									
+								} );
+								
+							} );
+						} );
+				
+				
+					var patientId = $(this).text();
+		 			var imageButton = $(this).find('.images');
+		 			$(imageButton).bind("click",{},
+					
+						function(e)
+						{
+						
+							var patientId = $(this).text();
+							var link = $(this).attr("custom:url");
+								
+							var label = "Images ";
+							var type ="images";
+							createLink(patientId, link, label, type);
+								
+							
+						} );
+						
+						
+	    	    });
+	    
+}
 
 function displayImage(imageName)
 {

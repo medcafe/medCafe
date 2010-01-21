@@ -81,7 +81,7 @@ public class ListWidgetResource extends ServerResource {
         	String[] type = new String[]{"chart","image", "slider", "repository", "date"};
         	
         	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "openvista.gif", "date.png"};
-        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp", "", "" };
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp", server, "" };
         	
         	String[] method = new String[]{"","","", "", "medcafe.clickRep()",""};
             	
