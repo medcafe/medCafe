@@ -19,6 +19,11 @@
          <param-value>HTTP HTTPS FILE</param-value>
     </context-param>
 
+	<context-param>
+	    <description>This is the server name</description>
+    	<param-name>server.host</param-name>
+    	<param-value>127.0.0.1:8080</param-value>
+	</context-param>
 
     <!-- Restlet adapter -->
     <servlet>
@@ -31,6 +36,10 @@
     <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>org.mitre.medcafe.servlets.InitServlet</servlet-class>
+        <init-param>
+        	<param-name>server.host</param-name>
+        	<param-value>127.0.0.1:8080</param-value>
+      	</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

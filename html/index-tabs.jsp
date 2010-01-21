@@ -160,7 +160,7 @@
 					<div class="widget-content">
 					
 						 <p>
-						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://127.0.0.1:8080/medcafe/widgets-list.jsp"></iframe>
+						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://${server}/widgets-list.jsp"></iframe>
 					     </p> 
 					 	             
 												
@@ -201,7 +201,7 @@
 													<div id="listRepository"></div>
 													
 													<span class="file summary">Add Coverflow
-														<div class="images" custom:url="http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp">Images</div>
+														<div class="images" custom:url="http://${server}/coverflow-flash/index.jsp">Images</div>
 													</span>
 													
 													<ul>
@@ -210,7 +210,7 @@
 															
 																<ul>
 																<span class="repository">
-																<a href="#" class="repList" custom:server="127.0.0.1:8080/medcafe/c">OurVista</a>			
+																<a href="#" class="repList" custom:server="${server}/c">OurVista</a>			
 																<li>
 																</li>
 																</span>
@@ -242,7 +242,7 @@
 															<ul>
 																	<li>
 																		<span class="file">Temp Chart 
-																			<a href="#" class="chart" custom:url="http://127.0.0.1:8080/medcafe/chart.jsp"/>12</a>
+																			<a href="#" class="chart" custom:url="http://${server}/chart.jsp"/>12</a>
 																		</span>
 																	</li>
 																	<li><span class="file">

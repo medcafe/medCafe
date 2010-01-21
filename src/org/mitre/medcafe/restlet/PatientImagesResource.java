@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Repository;
 import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
@@ -30,8 +31,10 @@ public class PatientImagesResource extends ServerResource {
     //Patient item;
 
     /** The sequence of characters that identifies the resource. */
-    String id;
+    private String id;
     String repository;
+    
+    private final static String PATIENT_ID = "id";
     public final static String KEY = PatientImagesResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     
@@ -43,6 +46,9 @@ public class PatientImagesResource extends ServerResource {
     protected void doInit() throws ResourceException {
         // Get the "type" attribute value taken from the URI template
         Form form = getRequest().getResourceRef().getQueryAsForm();
+        id = (String)getRequest().getAttributes().get(PATIENT_ID);
+        System.out.println("PatientImageResource JSON init patientId " +  id );
+        
         String startDateStr = form.getFirstValue("start_date");
         if (startDateStr == null)
         	startDateStr = "01/01/1950";
@@ -51,6 +57,7 @@ public class PatientImagesResource extends ServerResource {
         if (endDateStr == null)
         	endDateStr = "01/01/2012";
           	
+        	
         System.out.println("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try {
@@ -84,7 +91,7 @@ public class PatientImagesResource extends ServerResource {
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
     	
-    	String dir = "patient1";
+    	String dir = "patients/" + this.id;
     		
     	for (String image: images)
     	{
@@ -101,6 +108,7 @@ public class PatientImagesResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
+        	String server = Config.getServerUrl() ;
         	System.out.println("PatientImageResource JSON start");
             
         	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" +
@@ -121,8 +129,11 @@ public class PatientImagesResource extends ServerResource {
         	end.setTime(endDate);
         	
         	int i=0;
-        	String dir = "patient1";
-        	String tempDir = "../../images/patient1/";
+        	
+        	String dir = "patients/" + this.id + "/";
+        	String imageDir = "images/" + dir;
+        	String tempDir = "../../" +  imageDir;
+        	
             JSONObject obj = new JSONObject();
             System.out.println("PatientImageResource JSON start 1");
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -158,7 +169,7 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("id", imageId[i]);
                 inner_obj.put("source", tempDir + image);
                 inner_obj.put("name", imageTitles[i]);
-                inner_obj.put("param", params[i]);
+                inner_obj.put("param", server + "/" + imageDir +  params[i]);
                 obj.append("images", inner_obj);  //append creates an array for you
                 i++;
             }

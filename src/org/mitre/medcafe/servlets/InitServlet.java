@@ -83,6 +83,9 @@ public class InitServlet extends HttpServlet
          *  have to be fixed.
          */
         String tempdir = String.valueOf(getServletContext() .getAttribute("javax.servlet.context.tempdir"));
+      
+        String serverName = String.valueOf(getServletContext() .getInitParameter("server.host"));
+        
         String webapp = new File(tempdir).getName();
         if( webapp.equals("ROOT") )
         {
@@ -90,12 +93,17 @@ public class InitServlet extends HttpServlet
         }
         else webapp = "/" + webapp;
         Config.setWebapp( webapp );
+        Config.setWebserver( serverName );
+        System.out.println("Server Name set in InitServlet " + serverName);
         getServletContext().setAttribute("base",  webapp );
         getServletContext().setAttribute("images",  webapp + "/images");
         getServletContext().setAttribute("js",  webapp + "/js");
         getServletContext().setAttribute("css",  webapp + "/css");
+        getServletContext().setAttribute("server",  Config.getServerUrl());
         System.out.println("Attributes set in InitServlet");
 
+        System.out.println("Server Name in Config " + Config.getServerUrl());
+        
         /* set up repositories */
         Repositories.setDefaultRepositories();
     }

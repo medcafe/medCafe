@@ -53,6 +53,8 @@ public class Config
     protected static Map<Pattern, String> formats = new LinkedHashMap<Pattern, String>();
 
     protected static String webapp = "/medcafe";
+    protected static String webserver = "127.0.0.1:8080";
+    protected static String serverUrl = webserver + webapp;
 
     public static final String FORMAT_FILE = "formats.props";
 
@@ -126,11 +128,33 @@ public class Config
     public static void setWebapp(String webapp)
     {
         Config.webapp = webapp;
+        setServerUrl();
     }
 
     public static String getWebapp()
     {
         return webapp;
     }
+
+
+	public static String getWebserver() {
+		return webserver;
+	}
+
+
+	public static void setWebserver(String webserver) {
+		Config.webserver = webserver;
+		setServerUrl();
+	}
+
+
+	public static String getServerUrl() {
+		return serverUrl;
+	}
+
+
+	private static void setServerUrl() {
+		Config.serverUrl = Config.webserver + Config.webapp;
+	}
 
 }

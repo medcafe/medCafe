@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Repository;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
@@ -68,11 +69,11 @@ public class ListWidgetResource extends ServerResource {
         try
         {
         	System.out.println("ListWidgetResource JSON start");
-            
+        	String server = "http://" + Config.getServerUrl() + "/";
         	String[] widgetName = new String[]{"Charts","Images", "Date Picker","Slider"};
         	
         	String[] images = new String[]{"chart.png","coverflow.png", "date.png", "slider-small.png"};
-        	String[] clickUrl = new String[]{"http://127.0.0.1:8080/medcafe/chart.jsp","http://127.0.0.1:8080/medcafe/coverflow-flash/index.jsp","", "http://127.0.0.1:8080/medcafe/slider.jsp"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp","", server +"slider.jsp"};
         	
         	int i=0;
         	

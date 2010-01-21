@@ -1,9 +1,12 @@
+<%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
-	String coverflowFile = "http://127.0.0.1:8080/medcafe/coverflow-flash/coverFeed.jsp";
+	String server = "" ;
+	
+	String coverflowFile = "coverFeed.jsp";
 	String url = coverflowFile;
 	String append = "?";
 	String startDate = request.getParameter("start_date");
@@ -12,15 +15,18 @@
 
 	if (startDate != null)
 	{
-			coverflowFile += append + "start_date=" + startDate;
-			append= "&";
+			coverflowFile += append + "dates=" + startDate;
+			
 	}
 	
 	if (endDate != null)
 	{
-			coverflowFile += append + "end_date=" + endDate;
+			coverflowFile +=  "_" + endDate;
 		
 	}
+	System.out.println("index.jsp startDate " +  startDate + " endDate " + endDate );
+    System.out.println("index.jsp url " +  coverflowFile );
+    
 	//coverflowFile = "coverFeedGen.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/images";
 %>

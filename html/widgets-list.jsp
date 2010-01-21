@@ -1,9 +1,12 @@
+<%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
-	String listWidgets = "http://127.0.0.1:8080/medcafe/widgets-listJSON.jsp";
+	String server = "http://" + Config.getServerUrl() ;
+	String listWidgets = server + "/widgets-listJSON.jsp";
+	System.out.println("listWidgets " + listWidgets);
 %>
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>

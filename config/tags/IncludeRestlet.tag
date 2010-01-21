@@ -1,4 +1,4 @@
-<%@ tag import="org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*" %><%@
+<%@ tag import="org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*" %><%@
 attribute name="relurl" required="true" rtexprvalue="true" %><%@
 attribute name="mediatype" required="false" %><%
 
@@ -8,9 +8,10 @@ if( mediatype == null )
     mtype = MediaType.TEXT_HTML;
 }
 else mtype = MediaType.valueOf(mediatype);
-System.out.println( "http://127.0.0.1:8080/medcafe/" + relurl +" as " + mtype.toString());
+System.out.println( "http://" +  Config.getServerUrl() + "/" + relurl +" as " + mtype.toString());
 
-ClientResource resource = new ClientResource( "http://127.0.0.1:8080/medcafe/" + relurl );
+String server = "http://" + Config.getServerUrl() + "/" ;
+ClientResource resource = new ClientResource( server + relurl );
 // Prints the list of registered items.
 resource.get(mtype);
 if (resource.getStatus().isSuccess() && resource.getResponseEntity().isAvailable()) {

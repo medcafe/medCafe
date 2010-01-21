@@ -64,7 +64,7 @@
 				$('#slider_button').click(function()
 				 {
 				 	//for some reason cannot call trigger('FILTER_DATE') directly
-				 	var startDate = "02/0212/2008";
+				 	var startDate = "02/02/2008";
 				 	var endDate = "02/02/2009";
 				 	//var values = $('select#valueAA').slider('option','values');
 				 	var valueA = $('select#valueAA').val();
@@ -76,7 +76,31 @@
 				   
 				});
 			
+				$('#slider_button').click(function()
+				 {
+				 	//for some reason cannot call trigger('FILTER_DATE') directly
+				 	var startDate = "02/02/2008";
+				 	var endDate = "02/02/2009";
+				 	//var values = $('select#valueAA').slider('option','values');
+				 	var valueA = $('select#valueAA').val();
+				 	startDate = "02/" + valueA;
+				 	var valueB = $('select#valueBB').val();
+				 	endDate = "02/" + valueB;
+				 	
+				    parent.triggerFilter(startDate, endDate);
+				   
+				});
 			
+				
+				$('#slider_button_unfilter').click(function()
+				 {
+				 	//for some reason cannot call trigger('FILTER_DATE') directly
+				 	var startDate = "";
+				 	var endDate = "";
+				 
+				    parent.triggerFilter(startDate, endDate);
+				   
+				});
 			});
 		
 			
@@ -92,5 +116,6 @@
 
 	
 	<button value="Filter" id="slider_button">Filter</button>
+	<button value="Remove Filter" id="slider_button_unfilter">Remove Filter</button>
 </body>
 </html>

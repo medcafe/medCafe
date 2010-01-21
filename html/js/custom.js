@@ -493,7 +493,25 @@ $(document).ready( function() {
 	
 	function addTab(label)
 	{
-		var tab_num = 1;	
+		//First check if tab already exists
+		var tab_num = 0;	
+		$('.tabs').parent().find(".tabContent").each(function(i)
+		{
+			var tabObj = $(this).find(".id");
+			var tabId = $(tabObj).attr("id");
+			if (tabId == label)
+			{
+				var tab_id = $(this).attr('id');
+				tab_num = tab_id.split("-")[1];
+				$('#tabs').tabs('select', "#tabs-" + tab_num);
+				
+			}
+			
+		});
+	
+		//If the tab_number is greater than 0 then it has been found already - just return	
+		if (tab_num != 0) return tab_num;
+	
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
@@ -533,13 +551,17 @@ $(document).ready( function() {
 	{
 		//alert("callObj " + callObj);
 		//Delay to let the DOM refresh
-		$(callObj).delay(500,function()
+		$(callObj).delay(200,function()
 		{
+			//alert("image server " + server);
+			
 			iNettuts.refresh("yellow-widget" + tab_num);
 									
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
-			$('#iframe'+ tab_num).attr('src', server); 
-								
+			$(callObj).delay(100,function()
+			{
+				$('#iframe'+ tab_num).attr('src', server); 
+			} );					
 		} );
 	}
 	
@@ -574,10 +596,19 @@ function triggerFilter(startDate, endDate)
 
 function displayImage(imageName)
 {
-	var tab_num = addTab(imageName);
 	//Delay to let the DOM refresh
-	 var server = "http://127.0.0.1:8080/medcafe/images/patient1/" + imageName ;
-			
+
+	 var server = "http://" + imageName ;
+		
+	 var imageTitle = server;
+	 var pos = server.lastIndexOf("/") + 1;	
+	 if (pos > 0)
+	 {
+	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
+	 
+	 }
+	 var tab_num = addTab(imageTitle);
+	
 	 var html =$.ajax({
       url: server,
       global: false,
@@ -586,14 +617,14 @@ function displayImage(imageName)
       success: function(msg)
       {
       	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
-					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageName +"\">\n" +
-					"<img src=\"" + server + "\"  title=\""+ imageName + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
+					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
+					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
 					"</a>" + "</div>\n";
 					
       	 
         var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
           
-         var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageName + "\" id=\"frame" + imageName+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
+         var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageTitle + "\" id=\"frame" + imageTitle+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
 					               
          
          iNettuts.refresh("yellow-widget" + tab_num);
@@ -620,7 +651,7 @@ function displayImage(imageName)
 			function(e)
 			{
 				
-				var tab_num = addTab(imageName);
+				var tab_num = addTab(imageTitle + "Viewer");
 				
 				var link = "viewer.jsp?image=" + server;
 				addChart(this, link, tab_num);

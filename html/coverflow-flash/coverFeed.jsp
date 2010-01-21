@@ -2,30 +2,56 @@
     taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
-	String coverflowFile = "c/repositories/medcafe/patients/1/images";
+
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+	String coverflowFile = "/c/repositories/medcafe/patients/" +  patientId + "/images";
 	//String coverflowFile = "c/repositories/medcafe/patients/1/images";
-	String startDate = request.getParameter("start_date");
+	String dates = request.getParameter("dates");
 
-	String endDate =  request.getParameter("end_date");
-
+	String startDate ="";
+	String endDate =  "";
+	
+	//As this url is part of a larger url, the '&' cannot be used
+	//Use dates="start_date"_"end_date" format
+	String[] startEndDate = null;
+	if ( (dates != null) && (!dates.equals("_")))
+	{
+		
+		if (dates.contains("_"))
+		{
+			startEndDate = dates.split("_");
+			startDate = startEndDate[0];
+			endDate = startEndDate[1]; 
+		}
+		else
+		{
+			startDate = dates;
+		}
+	}
+	//System.out.println("coverFeed.jsp endDate " + endDate );
 	String url = coverflowFile;
 
 	String append = "?";
-	if (startDate != null)
+	if ( (startDate != null) && (!startDate.equals("")))
 	{
 			url += append + "start_date=" + startDate;
 			append="&";
 	}
 
-	if (endDate != null)
+	if ((endDate != null) && (!endDate.equals("")))
 	{
 			url += append + "end_date=" + endDate;
 
 	}
-	System.out.println("coverFeed.jsp url " + url );
-    url += "&type=link";
+	//System.out.println("coverFeed.jsp url " + url );
+    //url += "&type=link";
 
-    ClientResource resource = new ClientResource( "http://127.0.0.1:8080/medcafe/" + url );
+	String server = "http://" + Config.getServerUrl() +  url;
+    //System.out.println("coverFeed.jsp server " + server );
+   
+    ClientResource resource = new ClientResource( server );
     // Prints the list of registered items.
     resource.get(MediaType.APPLICATION_JSON );
     StringWriter writer = new StringWriter();
