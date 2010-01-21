@@ -40,6 +40,8 @@ t.p('" alt="');
 t.p( widget.name);
 t.p('" custom:url="');
 t.p( widget.clickURL);
+t.p('" custom:type="');
+t.p( widget.type);
 t.p('"></img>    	<p>');
 t.p( widget.name);
 t.p('</p>    </div><br/>  ');

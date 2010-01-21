@@ -68,13 +68,23 @@ public class ListWidgetResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
+        	
+        	/*	var link = $(this).find('img').attr("custom:url");
+				var type = $(this).find('img').attr("custom:type");
+				var html = $(this).find('img').attr("custom:html");
+				var method = $(this).find('img').attr("custom:method");
+				var patientId = $(this).find('img').attr("custom:Id");
+			*/
         	System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
-        	String[] widgetName = new String[]{"Charts","Images", "Date Picker","Slider"};
+        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Repository", "Dates"};
+        	String[] type = new String[]{"chart","image", "slider", "repository", "date"};
         	
-        	String[] images = new String[]{"chart.png","coverflow.png", "date.png", "slider-small.png"};
-        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp","", server +"slider.jsp"};
+        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "openvista.gif", "date.png"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp", "", "" };
         	
+        	String[] method = new String[]{"","","", "", "medcafe.clickRep()",""};
+            	
         	int i=0;
         	
         	String tempDir = "images/";
@@ -84,10 +94,12 @@ public class ListWidgetResource extends ServerResource {
             {
             	
             	 JSONObject inner_obj = new JSONObject ();
-            	 JSONObject inner_inner_obj = new JSONObject ();
+            	 inner_obj.put("id", 1);
             	 inner_obj.put("name", widget);
             	 inner_obj.put("image", tempDir + images[i]);
             	 inner_obj.put("clickURL", clickUrl[i]);
+            	 inner_obj.put("method", method[i]);
+            	 inner_obj.put("type", type[i]);
             	 //inner_obj.append("widget", inner_inner_obj);
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;

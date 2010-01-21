@@ -537,16 +537,42 @@ $(document).ready( function() {
 		   					
 		
 		var tab_num = addTab(label);
+		
 		if (type === "chart")	
 		{					
 			addChart(this, link, tab_num);
+		}
+		else if  (type == "repository")
+		{
+			
+			addRepository(this, link, tab_num, label)
 		}
 		else
 		{
 			addChart(this, link, tab_num);
 		}					
 	}
-				 	
+				 
+	function addRepository(callObj, server, tab_num, label)
+	{
+	
+		var html = "<div class=\"repository\" id=\"\"><a href=\"#\" class=\"repList\" custom:server=\"medcafe:8081/medcafe/c\">" + label + "</a></div>";			
+		$(callObj).delay(200,function()
+		{
+			//alert("image server " + server);
+			
+			iNettuts.refresh("yellow-widget" + tab_num);
+			
+			$("#aaa" + tab_num).append(html);
+			$(callObj).delay(100,function()
+			{
+					alert("want to display repository here");
+			} );	
+			
+		});
+		
+	}
+		
 	function addChart(callObj, server, tab_num)
 	{
 		//alert("callObj " + callObj);

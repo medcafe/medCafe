@@ -36,11 +36,13 @@
 								
 								var label = $(this).find('img').attr("src");
 								var link = $(this).find('img').attr("custom:url");
+								var type = $(this).find('img').attr("custom:type");
+								var html = $(this).find('img').attr("custom:html");
+								var method = $(this).find('img').attr("custom:method");
+								var patientId = $(this).find('img').attr("custom:Id");
 							
-								//alert("Image text " + text + " label " + label + " link " + link); 
-								parent.createLink(1,link, text, "chart" );
-								//function createLink(patientId, link, label, type) 
-							  	
+								parent.createLink(patientId,link, text, type );
+								
 							
 						});	
 				});  		

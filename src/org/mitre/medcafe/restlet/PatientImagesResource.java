@@ -86,7 +86,7 @@ public class PatientImagesResource extends ServerResource {
     	String[] values = new String[]{this.id,"", "", " ", "",
 				"", "", " ","","", "" };
 
-    	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" +
+    	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
     									"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
@@ -111,14 +111,12 @@ public class PatientImagesResource extends ServerResource {
         	String server = Config.getServerUrl() ;
         	System.out.println("PatientImageResource JSON start");
             
-        	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" +
-					"chest-xray", "chest-xray2","mri"};
-        	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" +
+        	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" , "chest-xray", "chest-xray2","mri"};
+        	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
 					"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
         	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
         	
-        	String[] params = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif", 
-        			"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
+        	String[] params = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif", "chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
         	
         	String[] dates = new String[]{"01/01/2008","02/03/2008","05/07/2008",
         			"06/08/2008", "07/08/2008","10/01/2008"};
