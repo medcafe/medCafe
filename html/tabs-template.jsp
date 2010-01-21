@@ -29,7 +29,8 @@ $(function(){
 
 	
 </script>
-			
+		
+<div class="id" id="<%=title%>"></div>	
 <div id="columns">
 
 	<div id="column<%=tabNum%>" class="column">
