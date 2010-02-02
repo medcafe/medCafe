@@ -165,7 +165,7 @@ $(document).ready( function() {
 		   		//Need to put in functionality for the widgets to be placed within tabs
 				if(!$(ui.draggable).hasClass('.tabHeader'))
 				{
-					alert("this is not a tab header");
+					//alert("this is not a tab header");
 					return false;
 				}
 
@@ -558,7 +558,50 @@ $(document).ready( function() {
 							
 		} );
 	}	
+		
+	function imageAnnotate(callObj, server, tab_num)
+	{
+		
+		//Delay to let the DOM refresh
+		$(callObj).delay(100,function()
+		{
+			iNettuts.refresh("yellow-widget" + tab_num);
+									
+			var html = "<img id=\"toAnnotate\" src=\"" + server + "\" alt=\""+  server + "\" width=\"600\" height=\"398\" />";
 			
+			//$("#aaa" + tab_num).append(html);
+			var jspSvr = "annotate.jsp";
+			
+			$("#aaa" + tab_num).append('<iframe id="annotateiframe" width="800" height="400"/>');
+			$('#annotateiframe').attr('src', jspSvr); 
+			
+			
+			/*$(callObj).delay(100,function()
+			{
+				
+				$("#toAnnotate").annotateImage({
+						editable: true,
+						useAjax: false,
+						notes: [ { "top": 286,
+								   "left": 161,
+								   "width": 52,
+								   "height": 37,
+								   "text": "Of Interest",
+								   "id": "e69213d0-2eef-40fa-a04b-0ed998f9f1f5",
+								   "editable": true },
+								 { "top": 134,
+								   "left": 179,
+								   "width": 68,
+								   "height": 74,
+								   "text": "What's here?",
+								   "id": "e7f44ac5-bcf2-412d-b440-6dbb8b19ffbe",
+								   "editable": true } ]
+				});
+			} );*/
+			  
+							
+		} );
+	}		
 function filterDate() 
 {
 	   //alert("Filter Date");
@@ -667,6 +710,7 @@ function displayImage(imageName)
       success: function(msg)
       {
       	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
+					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
 					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
 					"</a>" + "</div>\n";
@@ -705,6 +749,16 @@ function displayImage(imageName)
 				
 				var link = "viewer.jsp?image=" + server;
 				addChart(this, link, tab_num);
+			});
+			
+			$("#editButton" + tab_num).bind("click",{},
+			function(e)
+			{
+				
+				var tab_num = addTab(imageTitle + "Annotate");
+				
+				var link = server;
+				imageAnnotate(this, link, tab_num);
 			});
 		  } );
 		}

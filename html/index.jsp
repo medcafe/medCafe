@@ -21,6 +21,7 @@
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" >
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
 	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
@@ -35,7 +36,7 @@
  	<script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
  	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
  	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
- 
+ 	<script type="text/javascript" src="${js}/jquery.annotate.js"></script>
 
 	<script>
 	var outerLayout;

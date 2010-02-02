@@ -25,11 +25,11 @@
 	
  </head>
     <body>
-    <h1>Temperature Chart 1</h1>
+    <h3>Temperature Chart - Patient ID: <%=patientId%></h3>
 
-    <div id="placeholder" style="width:600px;height:300px;"></div>
+    <div id="placeholder" style="width:600px;height:220px;"></div>
 
-	<div id="miniature" style="float:left;margin-left:20px;margin-top:50px">
+	<div id="miniature" style="float:left;margin-left:20px;margin-top:30px">
     <div id="overview" style="width:166px;height:100px"></div>
 
     <p>Example of loading data dynamically with AJAX. Temperature Graph. Click the buttons below.</p>
