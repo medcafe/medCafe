@@ -38,17 +38,17 @@ var CanvasPainter = CanvasWidget.extend({
 				ex. {x: 10, y: 10}
 	***/
 
-	constructor: function(canvasName, canvasInterfaceName, position) {
+	constructor: function(canvasName, canvasInterfaceName, position, width, height) {
 		this.canvasInterface = document.getElementById(canvasInterfaceName);
 		this.context = this.canvasInterface.getContext("2d");
 		this.inherit(canvasName, position);
+		this.canvas.setAttribute('width', width);
+		this.canvas.setAttribute('height', height);
 		this.canvasHeight = this.canvas.getAttribute('height');
-		this.canvasWidth = this.canvas.getAttribute('width');
+		this.canvasWidth = width;
+		alert("width " + this.canvasWidth);
 		this.drawActions = [this.drawBrush, this.drawPencil, this.drawLine, this.drawRectangle, this.drawCircle, this.clearCanvas];
-		var myImage = new Image;
-
-		myImage.src = "../../images/patients/1/mri.jpg";
-		//this.context.drawImage(myImage,40,40);
+		
 	},
 
 	initMouseListeners: function() {
@@ -187,3 +187,4 @@ var CanvasPainter = CanvasWidget.extend({
 		return Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2));
 	}
 });
+

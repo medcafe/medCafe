@@ -113,8 +113,9 @@
 
 	function doOnLoad() {	
 	
+		var image_name = "http://127.0.0.1:8080/medcafe/images/patients/1/mri.jpg";
 		if(CanvasHelper.canvasExists("canvas")) {
-			canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: 90, y: 10});
+			canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: 90, y: 10}, image_name);
 			//init save objects
 			//saveDrawing = new CPDrawing(canvasPainter);
 			//canvasAnimator = new CPAnimator(canvasPainter);
