@@ -9,6 +9,14 @@
 
 	Additional Contributions by: Morris Johns
 ****************************************************************************************************/
+function shape (x, y, width, height, type, options)
+{
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
+	return this;
+}
 
 var CanvasPainter = CanvasWidget.extend({
 	canvasInterface: "",
@@ -24,8 +32,12 @@ var CanvasPainter = CanvasWidget.extend({
 	drawActions: null,
 	curDrawAction: 0,
 
+	curShape: null,
+	
 	cpMouseDownState: false,
 
+	shapes: null,
+	
 	/***
 		init(String canvasName, String canvasInterfaceName, Array position) 
 				initializes the canvas elements, adds event handlers and 
@@ -46,7 +58,7 @@ var CanvasPainter = CanvasWidget.extend({
 		this.canvas.setAttribute('height', height);
 		this.canvasHeight = this.canvas.getAttribute('height');
 		this.canvasWidth = width;
-		alert("width " + this.canvasWidth);
+		
 		this.drawActions = [this.drawBrush, this.drawPencil, this.drawLine, this.drawRectangle, this.drawCircle, this.clearCanvas];
 		
 	},
@@ -99,6 +111,16 @@ var CanvasPainter = CanvasWidget.extend({
 			this.clearInterface();
 			this.callWidgetListeners();
 		}
+		if (this.shapes == null)
+		{
+			this.shapes = [currShape];
+		}
+		else
+		{
+			this.shapes.push(currShape);
+		}
+		alert("no of shapes " + this.shapes.length);
+		
 		this.mouseMoveTrigger = new Function();
 		this.cpMouseDownState = false;
 	},
@@ -108,6 +130,8 @@ var CanvasPainter = CanvasWidget.extend({
 		context.beginPath();
 		context.fillRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
 		context.closePath();
+		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle" );
+		currShape = rect;
 	},
 	drawCircle: function (pntFrom, pntTo, context) {
 		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x)/2;
@@ -117,6 +141,8 @@ var CanvasPainter = CanvasWidget.extend({
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
 		context.fill();
 		context.closePath();
+		var circle = new shape(centerX, centerY, distance/2, 0,"circle" );
+		currShape = circle;
 	},
 	drawLine: function(pntFrom, pntTo, context) {
 		context.beginPath();
@@ -143,14 +169,20 @@ var CanvasPainter = CanvasWidget.extend({
 		context.closePath();
 	},
 	clearCanvas: function(context) {
+		
 		canvasPainter.context.beginPath();	
 		canvasPainter.context.clearRect(0,0,canvasPainter.canvasWidth,canvasPainter.canvasHeight);
 		canvasPainter.context.closePath();
+		alert("clear canvas");
+		canvasPainter.shapes = null;
 	},
 	clearInterface: function() {
+		alert("clear interface");
 		this.context.beginPath();
 		this.context.clearRect(0,0,this.canvasWidth,this.canvasHeight);
 		this.context.closePath();
+		
+		this.shapes == null;
 	},
 	
 	//Setter Methods
@@ -176,6 +208,7 @@ var CanvasPainter = CanvasWidget.extend({
 			this.callWidgetListeners();
 			this.curDrawAction = lastAction;
 			this.clearCanvas(this.context);
+			this.shapes == null;
 		} else {
 			this.curDrawAction = action;
 			this.context.fillStyle = this.drawColor;

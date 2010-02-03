@@ -110,15 +110,13 @@
             $(document).ready(function(){
             	  var server = "<%=imageName%>";
             	 
-                  $("#viewer").iviewer(
-                       {
-                       src: server
-                  });
+                 
+                  
                   //var pos = $('#viewer').position();
 				  var pos = $("#viewer").offset();  
   				  var width = $("#viewer").width();
   				  var height = $("#viewer").height();
-				 alert("width : " + width);
+				
 				  $("#canvas").width(width); 
                   $("#canvasInterface").width(width);
                   
@@ -127,7 +125,12 @@
                   $("#chooserWidgets").css( { "left": (pos.left + width) + "px", "top":pos.top + "px" } );
                   
                   canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: pos.left , y: pos.top}, width, height);
-				 			 
+				  var viewer = $("#viewer").iviewer(
+                       {
+                       src: server,
+                       canvas: canvasPainter
+                  });
+                  		 
 				 
             });
             

@@ -2,6 +2,7 @@
     
     $.fn.iviewer  = function(o)
     {
+    	
         return this.each(function()
                         {
                             new $iv(this,o);
@@ -9,8 +10,13 @@
     }
     
     var defaults = {
-        /**
-        * start zoom value for image, not used now
+    
+    	/**
+    	 * 
+    	 */
+    	canvas:null,
+    	 
+        /* start zoom value for image, not used now
         * may be equal to "fit" to fit image into container or scale in % 
         **/
         zoom: "fit",
@@ -93,6 +99,7 @@
         
         this.settings = $.extend({}, defaults, o || {});
         this.current_zoom = this.settings.zoom;
+        this.canvas = this.settings.canvas;
         
         if(this.settings.src === null){
             return;
@@ -194,6 +201,8 @@
             }
 
           this.set_zoom(new_zoom);
+          
+
         },
         
         /**
@@ -352,6 +361,7 @@
 
             this.current_zoom = new_zoom;
             this.update_status();
+            
         },
         
         /**
@@ -512,6 +522,15 @@
             appendTo(this.container);
             
             this.update_status(); //initial status update
+        }
+        ,
+         /**
+        *   create canvas object
+        **/
+        setCanvas: function(canvas)
+        {
+        	alert("setting canvas");
+        	
         }
     });
     
