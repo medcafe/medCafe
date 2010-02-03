@@ -173,7 +173,7 @@ var CanvasPainter = CanvasWidget.extend({
 		canvasPainter.context.beginPath();	
 		canvasPainter.context.clearRect(0,0,canvasPainter.canvasWidth,canvasPainter.canvasHeight);
 		canvasPainter.context.closePath();
-		alert("clear canvas");
+		
 		canvasPainter.shapes = null;
 	},
 	clearInterface: function() {
