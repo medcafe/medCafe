@@ -201,10 +201,65 @@
             }
 
           this.set_zoom(new_zoom);
-          
-
+         
         },
-        
+        /**
+        * zoom in the shapes
+        **/
+        zoomShapes: function(old_x, old_y, new_x, new_y, new_zoom)
+        {
+        	x=100; y=100;
+        	var container = this;
+        	var point = this.containerToImage(x, y);
+        	container.canvas.clearCanvas();
+        	new_zoom = new_zoom / 100;
+        	alert("old point " + old_x + ", " + old_y + 
+        		" new point " + new_x + ", " + new_y);
+        	
+            $('.shape').each(function ()
+			{
+			
+				var pntFrom= {x:-1,y:-1};
+        		var pntTo= {x:-1,y:-1};
+				var x = $(this).attr("custom:x");
+				var y = $(this).attr("custom:y");
+				var xImage = x - old_x;
+				var yImage = y - old_y;
+				var xCanvas = (xImage*new_zoom + new_x*1);
+				var yCanvas = (yImage*new_zoom + new_y*1);
+				
+				var type = $(this).attr("custom:type");
+				var width = $(this).attr("custom:width");
+				var height = $(this).attr("custom:height");
+				
+				//ChangeTo container coords
+				pntTo.x = xCanvas;
+				pntTo.y = yCanvas;
+				
+				var newwidth = width * new_zoom;
+				
+				height = height * new_zoom;
+				
+				x = (x*1 + newwidth*1) * 1;
+				y = (y*1 + height*1) * 1;
+				
+				//ChangeTocontainer coords
+				var pntTo = container.containerToImage(x, y);
+				pntFrom = container.imageToContainer(pntTo.x, pntTo.y);
+				if (type == "circle")
+				{
+					container.canvas.drawCircle(pntFrom, pntTo, container.canvas.context);
+					//drawCircle: function (pntFrom, pntTo, context) 
+				}
+				else if (type = "rectangle")
+				{
+					container.canvas.drawRectangle(pntFrom, pntTo, container.canvas.context);
+					//drawRectangle: function(pntFrom, pntTo, context)
+				}				
+			});
+			//var length = container.canvas.shapes.length;
+			//alert("no of shapes "  + length);
+        },
         /**
         * center image in container
         **/
@@ -339,6 +394,9 @@
                 new_zoom = this.settings.zoom_max;
             }
 
+			var old_xorig = -parseInt(this.img_object.object.css("left"),10);
+            var old_yorig = -parseInt(this.img_object.object.css("top"),10);
+            
             var old_x = -parseInt(this.img_object.object.css("left"),10) +
                                         Math.round(this.settings.width/2);
             var old_y = -parseInt(this.img_object.object.css("top"),10) + 
@@ -361,6 +419,7 @@
 
             this.current_zoom = new_zoom;
             this.update_status();
+          	this.zoomShapes(old_xorig, old_yorig, this.img_object.x, this.img_object.y, new_zoom);
             
         },
         

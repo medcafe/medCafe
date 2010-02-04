@@ -15,9 +15,24 @@ function shape (x, y, width, height, type, options)
 	this.y = y;
 	this.width = width;
 	this.height = height;
+	this.type = type;
 	return this;
 }
 
+function createHiddenValues (shape, i) {
+       
+       	
+        return '<div class="shape" name="shape' + i + '" custom:type="' + shape.type +'" custom:x="' + shape.x +
+        			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height +'" />' ;
+    };
+    
+    function createShapeElement (shape, shapeID) 
+    {
+       alert("shapeId " + shapeID);
+       	$("#" + shapeID).attr("type", shape.type);
+       	
+     };
+    
 var CanvasPainter = CanvasWidget.extend({
 	canvasInterface: "",
 
@@ -119,8 +134,11 @@ var CanvasPainter = CanvasWidget.extend({
 		{
 			this.shapes.push(currShape);
 		}
-		alert("no of shapes " + this.shapes.length);
 		
+		//this.form = $('<div class="shape" id="shape' + this.shapes.length +'"></div>');
+		
+		var html = createHiddenValues(currShape, this.shapes.length);
+		$("#canvas").append(html);
 		this.mouseMoveTrigger = new Function();
 		this.cpMouseDownState = false;
 	},
@@ -138,6 +156,7 @@ var CanvasPainter = CanvasWidget.extend({
 		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
 		context.beginPath();
 		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2));
+		
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
 		context.fill();
 		context.closePath();
@@ -177,7 +196,7 @@ var CanvasPainter = CanvasWidget.extend({
 		canvasPainter.shapes = null;
 	},
 	clearInterface: function() {
-		alert("clear interface");
+		
 		this.context.beginPath();
 		this.context.clearRect(0,0,this.canvasWidth,this.canvasHeight);
 		this.context.closePath();
@@ -189,7 +208,7 @@ var CanvasPainter = CanvasWidget.extend({
 	setColor: function(color) {
 		var colorIn = $('#colorSelector2').find('div').css('backgroundColor');
 		
-		this.context.globalAlpha = 0.02;
+		//this.context.globalAlpha = 0.02;
 		this.context.fillStyle = colorIn;
 		this.context.strokeStyle = colorIn;
 		this.drawColor = colorIn;
