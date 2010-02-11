@@ -1,16 +1,23 @@
 package org.mitre.medcafe.restlet;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.mitre.medcafe.util.Repository;
-import org.restlet.resource.ResourceException;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-
 public class PatientListResource extends ServerResource {
+
+    public final static String KEY = PatientListResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}
 
     /** The sequence of characters that identifies the resource. */
     String repository;
@@ -24,21 +31,43 @@ public class PatientListResource extends ServerResource {
         System.out.println("Found Repository: " + this.repository);
     }
 
+    @Get("json")
+    public JsonRepresentation toJson(){
+        Repository r = Repositories.getRepository( repository );
+        List<String> patientList = r.getPatients( );
+        //convert to JSON
+        try
+        {
+            JSONObject obj = new JSONObject();
+            for(String pat : patientList)
+            {
+                obj.append("patients", pat);
+            }
+            return new JsonRepresentation( obj );
+        }
+        catch(org.json.JSONException e)
+        {
+            log.throwing(KEY, "toJson()", e);
+            return new JsonRepresentation("{\"error\": \""+e.getMessage()+"\"}");
+        }
+    }
+
+
     /**
      *  Html representation - this will likely have to changes once full integration is done
      */
     @Get("html")
     public Representation toHtml()
     {
-    	
-		
+
+
     	StringBuffer buf = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer();
     	endBuf.append("</tbody></table>");
-    	
+
     	StringBuilder ret = new StringBuilder( "Available Patients:<br/>\n<ul>" );
         Repository repo = Repositories.getRepository(repository);
-        
+
         if( repo == null )
         {
             ret.append("<li>That repository does not exist.</li></ul>");
@@ -46,14 +75,14 @@ public class PatientListResource extends ServerResource {
         }
         buf.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example" + repo.getName()+"\">");
     	buf.append("");
-    	
+
         StringBuilder patients = new StringBuilder();
-		
+
         patients.append("<thead><tr><th></th></tr></thead>");
         patients.append("<tbody>");
-		        
+
         List<String> patids = repo.getPatients();
-                
+
         if( patids == null )
         {
             ret.append("<li>No patients returned.  Contact with the server was likely interrupted.</li></ul>");
@@ -62,13 +91,13 @@ public class PatientListResource extends ServerResource {
         for( String patid : patids)
         {
         	System.out.println("PatientListResource: toHtml : paient id " + patid);
-        	
+
         	patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td></tr>" );
         	//patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );
-        	
+
         }
-        
-        return new StringRepresentation( buf.toString() + patients.toString() 
-                + endBuf.toString()); 
+
+        return new StringRepresentation( buf.toString() + patients.toString()
+                + endBuf.toString());
     }
 }

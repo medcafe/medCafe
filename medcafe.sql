@@ -41,4 +41,4 @@ ALTER TABLE ONLY roles
 ALTER TABLE ONLY user_roles
     ADD CONSTRAINT user_roles_pkey PRIMARY KEY (username, rolename);
 
-CREATE RULE enable_user AS ON INSERT TO user DO INSERT INTO user_roles (username, rolename) VALUES (new.username, 'User'::character varying);
+CREATE RULE enable_user AS ON INSERT TO users DO INSERT INTO user_roles (username, rolename) VALUES (new.username, 'User'::character varying);

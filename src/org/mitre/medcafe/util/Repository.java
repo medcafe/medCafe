@@ -1,7 +1,8 @@
 package org.mitre.medcafe.util;
 
+import org.json.JSONObject;
 import java.util.*;
-import org.mitre.hdata.hrf.patientinformation.*;
+
 
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
@@ -13,7 +14,8 @@ public abstract class Repository
     /**
      *  Given a patient id, get the patient info
      */
-    public abstract Patient getPatient( String id );
+    // public abstract Patient getPatient( String id );
+    public abstract JSONObject getPatient( String id );
 
     /**
      *  Get a list of patient identifiers

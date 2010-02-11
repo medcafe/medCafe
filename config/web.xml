@@ -60,7 +60,6 @@
     </login-config>
 
     <!-- Who can see what -->
-    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdminPages</web-resource-name>
@@ -80,8 +79,6 @@
             <web-resource-name>Everything</web-resource-name>
             <description> accessible by authorized users </description>
             <url-pattern>/*</url-pattern>
-            <url-pattern>/browse/*</url-pattern>
-            <url-pattern>/c/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
@@ -101,12 +98,14 @@
             <url-pattern>/css/*</url-pattern>
             <url-pattern>/images/*</url-pattern>
             <url-pattern>/registrationProcess.jsp</url-pattern>
+            <url-pattern>/favicon.ico</url-pattern>
+            <url-pattern>/j_security_check</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
         </web-resource-collection>
-            <comment this out>leaving out the auth-constraint so everyone can see it</comment this out>
+        <!-- leaving out the auth-constraint so everyone can see it -->
     </security-constraint>
 
     <security-role>
@@ -122,7 +121,6 @@
         </description>
         <role-name>Admin</role-name>
     </security-role>
--->
 
     <!-- Handling stuff -->
     <welcome-file-list>

@@ -25,7 +25,7 @@ public class AuthenticationUtils {
      */
     private static final SecureRandom secureRandom = new SecureRandom();
 
-    // public static final String COOKIE_TAG = "mmrc_cookie";
+    // public static final String COOKIE_TAG = "medcafe_cookie";
     public static final String OK = "OK";
 
 
