@@ -133,6 +133,7 @@ public class InitServlet extends HttpServlet
      */
     public void doPost( HttpServletRequest req, HttpServletResponse resp )
     {
+    	
     }
 }
 

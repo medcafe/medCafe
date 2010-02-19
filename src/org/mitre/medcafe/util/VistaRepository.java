@@ -1,7 +1,6 @@
 package org.mitre.medcafe.util;
 
 import org.json.*;
-import org.projecthdata.hdata.buildingblocks.core.*;
 import com.medsphere.fileman.*;
 import com.medsphere.fmdomain.FMPatient;
 import com.medsphere.ovid.domain.ov.OvidDomainException;

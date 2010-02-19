@@ -84,9 +84,9 @@ public class PatientResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
-        Patient pat = r.getPatient( id );
+        JSONObject pat = r.getPatient( id );
         //convert to JSON
-        JSONObject obj = new JSONObject( pat );
-        return new JsonRepresentation( obj );
+       // JSONObject obj = new JSONObject( pat );
+        return new JsonRepresentation( pat );
     }
 }

@@ -77,13 +77,13 @@ public class ListWidgetResource extends ServerResource {
 			*/
         	System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
-        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Repository", "Dates","Editor"};
-        	String[] type = new String[]{"chart","image", "slider", "repository", "date","editor"};
+        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Repository", "Dates","Editor","Timeline"};
+        	String[] type = new String[]{"chart","image", "slider", "repository", "date","editor","timeline"};
         	
-        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "openvista.gif", "date.png","pages-icon.png"};
-        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp", server, "","editor.jsp" };
+        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "openvista.gif", "date.png","pages-icon.png","timeline.png"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp", server, "","editor.jsp" ,"timelineJSON.html"};
         	
-        	String[] method = new String[]{"","","", "", "medcafe.clickRep()","",""};
+        	String[] method = new String[]{"","","", "", "medcafe.clickRep()","","",""};
             	
         	int i=0;
         	

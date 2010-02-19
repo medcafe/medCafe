@@ -96,6 +96,7 @@
             <description> accessible by everyone </description>
             <url-pattern>/js/*</url-pattern>
             <url-pattern>/css/*</url-pattern>
+            <url-pattern>/c/*</url-pattern>
             <url-pattern>/images/*</url-pattern>
             <url-pattern>/registrationProcess.jsp</url-pattern>
             <url-pattern>/favicon.ico</url-pattern>
