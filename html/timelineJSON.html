@@ -2,12 +2,22 @@
  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+<link rel='stylesheet' href='js/timeline/styles/styles.css' type='text/css' />
+<script src="js/timeline/examples.js" type="text/javascript"></script>
 <script>
  var tl;
  function onLoad() {
- 
+         
  	var eventSource = new Timeline.DefaultEventSource();
- 	var d = Timeline.DateTime.parseGregorianDateTime("2008")
+ 	var d = Timeline.DateTime.parseGregorianDateTime("2008");
+ 	var theme = Timeline.ClassicTheme.create();
+ 	theme.event.bubble.width = 320;
+            theme.ether.backgroundColors = [
+                "#FDEDA7",
+                "#E7DFD6",
+                "#E8E8F4",
+                "#D0D0E8"
+            ];
    var bandInfos = [
      Timeline.createBandInfo({
      
@@ -15,7 +25,8 @@
          date:         	 d,
          width:          "70%", 
          intervalUnit:   Timeline.DateTime.MONTH, 
-         intervalPixels: 100
+         intervalPixels: 100,
+         theme:          theme
      }),
      Timeline.createBandInfo({
      	 overview:       true,
@@ -23,7 +34,8 @@
          date:         	 d,
          width:          "30%", 
          intervalUnit:   Timeline.DateTime.YEAR, 
-         intervalPixels: 200
+         intervalPixels: 200,
+         theme:          theme
      })
    ];
    bandInfos[1].syncWith = 0;
@@ -33,6 +45,9 @@
    tl.loadJSON("js/timeline/output.js?"+ (new Date().getTime()), function(json, url) {
                 eventSource.loadJSON(json, url);
             });
+            
+   setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
+           
  }
 
  var resizeTimerID = null;
@@ -52,6 +67,7 @@
 </head>
 <body onload="onLoad();" onresize="onResize();">
 <div id="my-timeline" style="height: 150px; border: 1px solid #aaa"></div>
+<div class="controls" id="filter-controls"></div>
 <noscript>
 This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 </noscript>
