@@ -13,7 +13,7 @@
  	var theme = Timeline.ClassicTheme.create();
  	theme.event.bubble.width = 320;
             theme.ether.backgroundColors = [
-                "#FDEDA7",
+                "#FDE5A7",
                 "#E7DFD6",
                 "#E8E8F4",
                 "#D0D0E8"
@@ -40,7 +40,17 @@
    ];
    bandInfos[1].syncWith = 0;
    bandInfos[1].highlight = true;
-   
+   bandInfos[1].decorators = [
+                new Timeline.SpanHighlightDecorator({
+                    startDate:  "Nov 14 2006 00:00:00 GMT",
+                    endDate:    "Dec 05 2010 00:00:00 GMT",
+                    startLabel: "First Visit",
+                    endLabel:   "",
+                    color:      "#FDE5A7",
+                    opacity:    20,
+                    theme:      theme
+                })
+            ];
    tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
    tl.loadJSON("js/timeline/output.js?"+ (new Date().getTime()), function(json, url) {
                 eventSource.loadJSON(json, url);
