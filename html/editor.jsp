@@ -12,14 +12,18 @@
 	TextProcesses processText = new TextProcesses();	
 	HashMap<String,Text> textObjs =  processText.populateTextObjects(user, patientId);
 	String note = "";
-	String title = "";
+	String title = request.getParameter("title");
 	Text textObj = null;
 	System.out.println("Editor.jsp number of textObjects " + textObjs.size() ); 
   	
   	StringBuffer sbuff= new StringBuffer("");
 	for (String titleNew: textObjs.keySet())
 	{
-		  sbuff.append("<option value=\"" + titleNew + "\">" + titleNew + "</option>");
+		
+		  sbuff.append("<option value=\"" + titleNew + "\"");
+		  if (titleNew.equals(title))
+		  	sbuff.append(" \"selected=true\" ");
+		  sbuff.append(">" + titleNew + "</option>");
 	}
 	sbuff.append("");
 	

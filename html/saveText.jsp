@@ -14,7 +14,8 @@
 	String title = request.getParameter("title");
 	System.out.println("saveText.jsp Title : " + title ); 
   	
-	SaveData saveData = new SaveData();	
-	saveData.saveText(user, patientId, title, formData);
+	TextProcesses textProcesses = new TextProcesses();	
+	textProcesses.saveText(user, patientId, title, formData);
 		
+	response.sendRedirect("editor.jsp?patient_id=" + patientId + "&title=" + title);	
 %>
