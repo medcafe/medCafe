@@ -6,6 +6,9 @@
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%
 	String formData = request.getParameter("form[info1]");
+	String action = request.getParameter("action");
+	
+	System.out.println("SaveText.jsp: action " + action);
 	
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
@@ -16,7 +19,10 @@
 	String title = request.getParameter("title");
 		
 	TextProcesses textProcesses = new TextProcesses();	
-	textProcesses.saveText(user, patientId, title, formData);
+	if (action.equals("Save"))
+		textProcesses.saveText(user, patientId, title, formData);
+	else if (action.equals("Delete"))
+		textProcesses.deleteText(user, patientId, title, formData);	
 		
 	title = URLEncoder.encode(title,"UTF-8"); 
 	

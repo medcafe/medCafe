@@ -31,6 +31,7 @@
         <%=note%>
 		</textarea>
     </p>
-    <input type="submit" value="Save"></input>
+    <input type="submit" name="action" value="Save"></input>
+    <input type="submit" name="action" value="Delete"></input>
 </form>
 </div>
