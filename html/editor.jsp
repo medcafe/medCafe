@@ -7,6 +7,7 @@
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 		patientId = "1";
+	String tab_num = request.getParameter("tab_num");
 		
 	String user =  request.getRemoteUser();
   	
@@ -55,15 +56,19 @@ body, textarea {
     
 </form>
 <div id="editNote">Test</div>
-    
+<div id="dialog" >Are you sure you want to delete this Note?</div>    
+
 <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
 <script type="text/javascript" src="js/editor/jquery.rte.js"></script>
 <script type="text/javascript" src="js/editor/jquery.rte.tb.js"></script>
+<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <script type="text/javascript">
 $(document).ready(function() {
 
 	var patientId = '<%=patientId%>';
-	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + $(this).val(),
+	var tab_num = '<%=tab_num%>';
+	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + $(this).val() + '&tab_num=' + tab_num,
     	
     		function() {
     			
@@ -72,12 +77,14 @@ $(document).ready(function() {
 				controls_rte: rte_toolbar,
 				controls_html: html_toolbar
 				});
+				
+				addDeleteClick();
 			});
 		
 	$("select#title").change(function()
 	{
 		var title =$(this).val();
-    	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title,
+    	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
     	
     		function() {
     			
@@ -86,12 +93,45 @@ $(document).ready(function() {
 				controls_rte: rte_toolbar,
 				controls_html: html_toolbar
 				});
+				
+				addDeleteClick();
 			});
 		
     		
     });
-		
+	
+	
 });
+
+function addDeleteClick()
+{
+		$('#deleteButton').bind("click",{},
+			
+			function(e){
+				
+				$("#dialog").dialog({
+					 autoOpen: false,					
+					 modal:true,
+					 resizable: true,
+					 title: "Close Tab",
+					 buttons : {
+					    "Yes" : function() {          
+					     //Have to Destroy as otherwise 
+					     //the Dialog will not be reinitialized on open    
+					     $(this).dialog("destroy");
+					     deleteText();
+					      //Put in code to goto saveText.jsp Delete
+					   },
+					   "No" : function() {
+					      $(this).dialog("destroy");
+					     }  
+					}
+				}); 						
+				$("#dialog").dialog("open");
+							
+		} );
+
+}
 </script>
 
 <hr>

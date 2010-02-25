@@ -538,7 +538,7 @@ $(document).ready( function() {
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ tab_num).attr('src', server); 
+				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num); 
 			} );					
 		} );
 	}

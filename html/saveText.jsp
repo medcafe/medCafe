@@ -25,6 +25,7 @@
 		textProcesses.deleteText(user, patientId, title, formData);	
 		
 	title = URLEncoder.encode(title,"UTF-8"); 
+	System.out.println("SaveText.jsp: action " + action + " patient "  + patientId + " title " + title);
 	
 	response.sendRedirect("editor.jsp?patient_id=" + patientId + "&title=" + title);	
 %>

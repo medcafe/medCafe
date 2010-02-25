@@ -5,6 +5,8 @@
 <%
 	
 	String title = request.getParameter("title");
+	String tab_num = request.getParameter("tab_num");
+	
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 		patientId = "1";
@@ -22,6 +24,17 @@
 	
   	
 %>
+<script>
+function deleteText()
+{
+	var tab_num = "<%=tab_num%>";
+	var content = "saveText.jsp?action=Delete&patientId=<%=patientId%>&title=<%=title%>";
+	
+	var iFrame = $('#iframe'+tab_num , top.document);
+	
+	$(iFrame).attr('src', content); 
+}
+</script>
 <div id="main" style="width:800px;">
 <form action="saveText.jsp">
 	<p>
@@ -32,6 +45,6 @@
 		</textarea>
     </p>
     <input type="submit" name="action" value="Save"></input>
-    <input type="submit" name="action" value="Delete"></input>
+    <input type="button" name="action" id="deleteButton" value="Delete"></input>
 </form>
 </div>
