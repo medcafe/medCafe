@@ -2,6 +2,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
 <%@ page import = "org.mitre.medcafe.util.*"%>
+<%@ page import = "java.net.URLEncoder"%>
 <%
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
@@ -14,21 +15,18 @@
 	String note = "";
 	String title = request.getParameter("title");
 	Text textObj = null;
-	System.out.println("Editor.jsp number of textObjects " + textObjs.size() ); 
-  	
+		
   	StringBuffer sbuff= new StringBuffer("");
 	for (String titleNew: textObjs.keySet())
 	{
-		
-		  sbuff.append("<option value=\"" + titleNew + "\"");
+		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  sbuff.append("<option value=\"" + titleUrl + "\"");
 		  if (titleNew.equals(title))
 		  	sbuff.append(" \"selected=true\" ");
 		  sbuff.append(">" + titleNew + "</option>");
 	}
 	sbuff.append("");
-	
-	System.out.println("Editor.jsp note " + note + " title " + title) ; 
-	
+
   	
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-ch" lang="fr-ch">
@@ -64,7 +62,8 @@ body, textarea {
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$('#editNote').load('editorNotes.jsp?title=' + $(this).val(),
+	var patientId = '<%=patientId%>';
+	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + $(this).val(),
     	
     		function() {
     			
@@ -77,7 +76,8 @@ $(document).ready(function() {
 		
 	$("select#title").change(function()
 	{
-    	$('#editNote').load('editorNotes.jsp?title=' + $(this).val(),
+		var title =$(this).val();
+    	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title,
     	
     		function() {
     			

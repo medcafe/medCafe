@@ -3,17 +3,22 @@
 <%@ page import = "java.util.*"%>
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%
-	System.out.println("EditorNotes.jsp start ") ; 
 	
 	String title = request.getParameter("title");
-	
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+		
+	String user =  request.getRemoteUser();
+  	
 	TextProcesses processText = new TextProcesses();	
 	String note = "";
 	
-	Text textObj =  processText.getTextObject(title);
+	Text textObj =  processText.populateTextObject(user, patientId, title);
 	if (textObj != null)
 		note = textObj.getText();
-	System.out.println("EditorNotes.jsp note " + note + " title " + title) ; 
+	else
+		System.out.println("EditorNotes.jsp no textObj found " ) ; 
 	
   	
 %>
