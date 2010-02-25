@@ -72,6 +72,8 @@ public class InitServlet extends HttpServlet
          *  load up Config.java
          */
         String base_path = config.getServletContext().getRealPath( "/" );
+        Constants.BASE_PATH = base_path;
+         
         String config_dir = base_path + "WEB-INF/";
 
         Config.init( config_dir );

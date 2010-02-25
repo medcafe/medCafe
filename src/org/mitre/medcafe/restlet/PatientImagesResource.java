@@ -1,5 +1,9 @@
 package org.mitre.medcafe.restlet;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,8 +14,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Config;
+import org.mitre.medcafe.util.Constants;
+import org.mitre.medcafe.util.ImageProcesses;
 import org.mitre.medcafe.util.Repository;
 import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
@@ -132,6 +140,7 @@ public class PatientImagesResource extends ServerResource {
         	String imageDir = "images/" + dir;
         	String tempDir = "../../" +  imageDir;
         	
+        	 String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
             JSONObject obj = new JSONObject();
             System.out.println("PatientImageResource JSON start 1");
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -169,6 +178,8 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("name", imageTitles[i]);
                 inner_obj.put("param", server + "/" + imageDir +  params[i]);
                 obj.append("images", inner_obj);  //append creates an array for you
+                System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
+                
                 i++;
             }
             log.finer( obj.toString());
@@ -180,5 +191,33 @@ public class PatientImagesResource extends ServerResource {
             log.throwing(KEY, "toJson()", e);
             return null;
         }
+    }
+    
+    public void createThumbnail(String uri, String fileLabel, String dir)
+    {
+    	try {
+    		System.out.println("ParentImageResource: getThumbnail :uri:  " + uri);
+	    	File file = new File(uri);
+	    	String thumbfileName = fileLabel + "_thumbnail.png";
+	    	
+	    	File newFile = new File(dir + "/" + thumbfileName);
+	    	if (file.exists())
+	    	{
+	    		
+	    		if (!newFile.exists())
+	    		{
+					BufferedImage rtnImage = ImageProcesses.createThumbnail(file);
+					System.out.println("ParentImageResource: getThumbnail : success");
+					ImageIO.write(rtnImage, "png", newFile);
+	    		}
+	    	}
+	    	else
+	    	{
+	    		System.out.println("PatientImagesResource: createThumbnail: File doesn't exist ");
+	    	}
+    	} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

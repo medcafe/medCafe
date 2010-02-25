@@ -5,9 +5,16 @@
 <%
 	String formData = request.getParameter("form[info1]");
 	
-  	System.out.println("Save the following text: " + formData ); 
-  	DbConnection dbConn = new DbConnection();
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
+  	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+		
+	String title = request.getParameter("title");
+	System.out.println("saveText.jsp Title : " + title ); 
   	
+	SaveData saveData = new SaveData();	
+	saveData.saveText(user, patientId, title, formData);
+		
 %>
