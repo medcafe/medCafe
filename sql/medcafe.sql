@@ -49,3 +49,11 @@ CREATE TABLE user_text (
    	note text NULL
    	
 );
+
+CREATE TABLE text_templates (
+	user_template_id SERIAL PRIMARY KEY,
+    username character varying(50) NOT NULL,
+   	subject character varying(250) NULL,
+   	template text NULL
+   	
+);

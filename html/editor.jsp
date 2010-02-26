@@ -28,6 +28,16 @@
 	}
 	sbuff.append("");
 
+ 	HashMap<String,TextTemplate> templateObjs =  processText.populateTemplateObjects(user);
+	StringBuffer sbuffTemplate= new StringBuffer("");
+  	for (String titleNew: templateObjs.keySet())
+	{
+		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  sbuffTemplate.append("<option value=\"" + titleUrl + "\"");
+		  if (titleNew.equals(title))
+		  	sbuffTemplate.append(" \"selected=true\" ");
+		  sbuffTemplate.append(">" + titleNew + "</option>");
+	}
   	
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-ch" lang="fr-ch">
@@ -48,6 +58,11 @@ body, textarea {
     <p>                      
     	Select Title : <select name="title" id="title"><option></option>
     		<%=sbuff.toString() %>
+    	</select>
+    </p>
+    <p>                      
+    	Select Template : <select name="template" id="template"><option></option>
+    		<%=sbuffTemplate.toString() %>
     	</select>
     </p>
      <noscript>
@@ -100,7 +115,24 @@ $(document).ready(function() {
     		
     });
 	
-	
+	$("select#template").change(function()
+	{
+		var title =$(this).val();
+    	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate',
+    	
+    		function() {
+    			
+		       var arr = $('.rte1').rte({
+				css: ['default.css'],
+				controls_rte: rte_toolbar,
+				controls_html: html_toolbar
+				});
+				
+				addDeleteClick();
+			});
+		
+    		
+    });
 });
 
 function addDeleteClick()

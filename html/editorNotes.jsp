@@ -11,17 +11,30 @@
 	if (patientId == null)
 		patientId = "1";
 		
+	String action  = request.getParameter("action");
+	if (action == null)
+		action = Constants.POPULATE_TEXT;
+		
 	String user =  request.getRemoteUser();
   	
 	TextProcesses processText = new TextProcesses();	
 	String note = "";
-	
-	Text textObj =  processText.populateTextObject(user, patientId, title);
-	if (textObj != null)
-		note = textObj.getText();
+	if (action.equals(Constants.COPY_TEMPLATE))
+	{
+		TextTemplate templateObj =  processText.populateTemplateObject(user,  title);
+		if (templateObj != null)
+			note = templateObj.getText();
+		else
+			System.out.println("EditorNotes.jsp no template object found " ) ; 
+	}
 	else
-		System.out.println("EditorNotes.jsp no textObj found " ) ; 
-	
+	{
+		Text textObj =  processText.populateTextObject(user, patientId, title);
+		if (textObj != null)
+			note = textObj.getText();
+		else
+			System.out.println("EditorNotes.jsp no textObj found " ) ; 
+	}
   	
 %>
 <script>
