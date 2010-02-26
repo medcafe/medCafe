@@ -108,7 +108,8 @@ $(document).ready(function() {
 				controls_rte: rte_toolbar,
 				controls_html: html_toolbar
 				});
-				
+				//Make sure that the template is not selected
+				$("select#template").val(0);
 				addDeleteClick();
 			});
 		
@@ -127,7 +128,7 @@ $(document).ready(function() {
 				controls_rte: rte_toolbar,
 				controls_html: html_toolbar
 				});
-				
+				$("select#title").val(0);
 				addDeleteClick();
 			});
 		
