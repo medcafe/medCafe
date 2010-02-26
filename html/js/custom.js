@@ -130,6 +130,8 @@ $(document).ready( function() {
 		$("#tabs").tabs();
 		$("#tabs1").tabs();
 
+		$("#accordion").accordion();
+
 		$("#body")
 				.tabs({change: function () {}})
 				.find(".ui-tabs-nav")

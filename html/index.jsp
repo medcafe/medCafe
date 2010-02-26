@@ -102,25 +102,21 @@
 
 <div class="ui-layout-east  ui-corner-all">
 
-
-	<div id="columns">
-
-		<div id="column21" class="column">
-					        
-			<div class="widget color-1">
-					<div class="widget-head">
-						   <h3>Menu</h3>
-					</div>
-					<div class="widget-content">
+	<div id="accordion">
+    	<h3><a href="#">General Widgets</a></h3>
+    	<div>
+			<p>
+				<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://${server}/widgets-list.jsp"></iframe>
+			</p> 
 					
-						 <p>
-						 	<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://${server}/widgets-list.jsp"></iframe>
-					     </p> 
-					 	             
-												
-					</div>
-				</div>
-			</div>
+		</div>
+		<h3><a href="#">Patient Specific</a></h3>
+    	<div>
+    		<p>
+				<iframe height="400" width="155" name="patientWidgetframe" id="patientWidgetframe" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
+			</p>
+    	</div>
+	
 	</div>
 </div>
 

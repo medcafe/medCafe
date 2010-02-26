@@ -7,6 +7,15 @@
 	String server = "http://" + Config.getServerUrl() ;
 	String listWidgets = server + "/widgets-listJSON.jsp";
 	System.out.println("listWidgets " + listWidgets);
+	String type = request.getParameter("type");
+	
+	if (type == null)
+		type = Constants.GENERAL_WIDGETS;
+		
+	if (type.equals(Constants.PATIENT_WIDGETS))
+		listWidgets = server + "/widgets-listJSON.jsp?type=" + Constants.PATIENT_WIDGETS;
+	
+	
 %>
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>

@@ -19,7 +19,7 @@ import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
 
-public class ListWidgetResource extends ServerResource {
+public class ListPatientWidgetResource extends ServerResource {
 
 	 /** The underlying Item object. */
     //Patient item;
@@ -27,7 +27,7 @@ public class ListWidgetResource extends ServerResource {
     /** The sequence of characters that identifies the resource. */
     String id;
     String repository;
-    public final static String KEY = ListWidgetResource.class.getName();
+    public final static String KEY = ListPatientWidgetResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     static{log.setLevel(Level.FINER);}
     
@@ -77,13 +77,13 @@ public class ListWidgetResource extends ServerResource {
 			*/
         	System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
-        	String[] widgetName = new String[]{"Repository", "Charts", "Slider",  "Dates","Editor"};
-        	String[] type = new String[]{"repository", "chart", "slider", "date","editor"};
+        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Dates","Editor","Timeline"};
+        	String[] type = new String[]{"chart","image", "slider", "date","editor","timeline"};
         	
-        	String[] images = new String[]{"openvista.gif","chart.png", "slider-small.png",  "date.png","pages-icon.png"};
-        	String[] clickUrl = new String[]{server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp" };
+        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "date.png","pages-icon.png","timeline.png"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.html"};
         	
-        	String[] method = new String[]{"medcafe.clickRep()", "","","", ""};
+        	String[] method = new String[]{"","","", "", "",""};
             	
         	int i=0;
         	
