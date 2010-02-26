@@ -72,6 +72,7 @@ body, textarea {
 </form>
 <div id="editNote">Test</div>
 <div id="dialog" >Are you sure you want to delete this Note?</div>    
+<div id="changeTextDialog" >Continuing will result in loss of changes. Do you wish to continue?</div>    
 
 <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
@@ -83,7 +84,65 @@ $(document).ready(function() {
 
 	var patientId = '<%=patientId%>';
 	var tab_num = '<%=tab_num%>';
-	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + $(this).val() + '&tab_num=' + tab_num,
+	var titleNew = $(this).val();
+	loadNotes(titleNew, tab_num, patientId);
+		
+	$("select#title").change(function()
+	{
+		var title =$(this).val(); 
+				
+		$("#changeTextDialog").dialog({
+			autoOpen: false,					
+			modal:true,
+			resizable: true,
+			title: "Change Text",
+			buttons : {
+				"Yes" : function() {          
+				//Have to Destroy as otherwise 
+				//the Dialog will not be reinitialized on open    
+				 $(this).dialog("destroy");
+				 loadNotes(title, tab_num, patientId);
+				 //Put in code to goto saveText.jsp Delete
+			},
+				"No" : function() {
+				 $(this).dialog("destroy");
+				}  
+			}
+	 	}); 						
+	 	$("#changeTextDialog").dialog("open");
+		
+    });
+	
+	$("select#template").change(function()
+	{
+		var title =$(this).val();
+    			
+    	$("#changeTextDialog").dialog({
+			autoOpen: false,					
+			modal:true,
+			resizable: true,
+			title: "Change Text",
+			buttons : {
+				"Yes" : function() {          
+				//Have to Destroy as otherwise 
+				//the Dialog will not be reinitialized on open    
+				 $(this).dialog("destroy");
+				 loadTemplate(title, tab_num);	
+				 //Put in code to goto saveText.jsp Delete
+			},
+				"No" : function() {
+				 $(this).dialog("destroy");
+				}  
+			}
+	 	}); 						
+	 	$("#changeTextDialog").dialog("open");
+    
+    });
+});
+
+function loadTemplate(title, tab_num)
+{
+	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate',
     	
     		function() {
     			
@@ -92,14 +151,15 @@ $(document).ready(function() {
 				controls_rte: rte_toolbar,
 				controls_html: html_toolbar
 				});
-				
+				$("select#title").val(0);
 				addDeleteClick();
 			});
-		
-	$("select#title").change(function()
-	{
-		var title =$(this).val();
-    	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
+
+}
+
+function loadNotes(title, tab_num, patientId)
+{
+	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
     	
     		function() {
     			
@@ -112,30 +172,8 @@ $(document).ready(function() {
 				$("select#template").val(0);
 				addDeleteClick();
 			});
-		
-    		
-    });
-	
-	$("select#template").change(function()
-	{
-		var title =$(this).val();
-    	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate',
-    	
-    		function() {
-    			
-		       var arr = $('.rte1').rte({
-				css: ['default.css'],
-				controls_rte: rte_toolbar,
-				controls_html: html_toolbar
-				});
-				$("select#title").val(0);
-				addDeleteClick();
-			});
-		
-    		
-    });
-});
 
+}
 function addDeleteClick()
 {
 		$('#deleteButton').bind("click",{},
