@@ -33,6 +33,18 @@
     outline: none;
 }
 
+.widget-head a.maximize
+{
+	background:url(../images/widgets/max.png) no-repeat;
+	height:16px;
+	width:16px;
+	float: right;
+    display: inline;
+    margin: 8px 4px 8px 4px;
+    outline: none;
+     text-indent: -9999em;
+}
+ 
 .widget-placeholder { border: 2px dashed #999;}
 #column1 .widget-placeholder { margin: 30px 35px 0 25px; }
 #column2 .widget-placeholder { margin: 30px 20px 0 20px; }
