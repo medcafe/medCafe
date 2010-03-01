@@ -17,6 +17,7 @@ var iNettuts = {
             removable: true,
             collapsible: true,
             editable: true,
+            resizable: true,
             colorClasses : ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6']
         },
         widgetIndividual : {
@@ -24,7 +25,8 @@ var iNettuts = {
                 movable: false,
                 removable: false,
                 collapsible: false,
-                editable: false
+                editable: false,
+                resizable: false
             }
         }
     },
@@ -117,6 +119,25 @@ var iNettuts = {
                     return false;
                 }).prependTo($(settings.handleSelector,this));
             }
+            
+             if (thisWidgetSettings.resizable) {
+            
+                $('<a href="#" class="maximize">MAXIMIZE</a>').mousedown(function (e) {
+                    e.stopPropagation();    
+                }).click(function () {
+                    if(confirm('This widget will be maximized, ok?')) {
+                        $(this).parents(settings.widgetSelector).animate({
+                            opacity: 0    
+                        },function () {
+                            	
+                            	alert("maximize.");
+                            
+                        });
+                    }
+                    return false;
+                }).appendTo($(settings.handleSelector, this));
+            }
+            
         });
         
         $('.edit-box').each(function () {
@@ -163,6 +184,8 @@ var iNettuts = {
 	            	var editButton = $(test).find('.edit');
 	           
 	                var events = $(editButton).data("events");
+	                //
+	                var tabNum = id.substring("yellow-widget".length,id.length);
 	                
 	                $(editButton).mousedown().toggle(function(){
 		                     
@@ -185,7 +208,6 @@ var iNettuts = {
 	            	var closeButton = $(test).find('.remove');
 	            	//alert('test close parent ' + $(test).text());
 	                $(closeButton).mousedown(function (e) {
-	                	alert('close -stop propagation');
 	                    e.stopPropagation();    
 	                }).click(function () {
 	                    if(confirm('This widget will be removed, ok?')) {
@@ -201,6 +223,19 @@ var iNettuts = {
 	                });
 	            }
 	            
+	            if (thisWidgetSettings.resizable) {
+	            	var test = $(settings.handleSelector,this);
+	            	var resizeButton = $(test).find('.maximize');
+	            	//alert('test close parent ' + $(test).text());
+	                $(resizeButton).mousedown(function (e) {
+	                    e.stopPropagation();    
+	                }).click(function () {
+	                    
+						displayDialog(tabNum);
+	                    
+	                    return false;
+	                });
+	            }
 	          
 	            
 	            if (thisWidgetSettings.collapsible) {

@@ -131,7 +131,7 @@ $(document).ready( function() {
 		$("#tabs1").tabs();
 
 		$("#accordion").accordion();
-
+		
 		$("#body")
 				.tabs({change: function () {}})
 				.find(".ui-tabs-nav")
@@ -689,6 +689,64 @@ function listRepository(server, rep)
 	    
 }
 
+function displayDialog( id)
+{
+	var text = $("#aaa" + id).html();
+
+	$("#modalaaa" + id).append(text);
+	
+	var $link = $('#aaa' + id);
+	//Fill the screen
+	var marginHDialog = 25; marginWDialog  = 25;
+	marginHDialog = $(window).height()-marginHDialog;
+	var marginWDialog = $(window.body).width()-marginWDialog;
+	
+	$("#dialog" + id).load($link.attr('href') + ' #content')
+			.dialog({
+					 autoOpen: false,					
+					 modal:true,
+					 resizable: true,
+					 title: "Editor Tab",
+					 height: marginHDialog,
+					 width: marginWDialog,
+					 buttons : {
+					    "Close" : function() {          
+					     //Have to Destroy as otherwise 
+					     //the Dialog will not be reinitialized on open    
+					    
+					     text = $("#modalaaa" + id).html();
+					     $("#aaa" + id).load($link.attr('href') + ' #content');
+					     $("#modalaaa" + id).empty();
+					      //Put in code to goto saveText.jsp Delete
+					      $(this).dialog("destroy");
+					   } 
+					}
+				}); 	
+	/*$("#dialog" + id).dialog({
+					 autoOpen: false,					
+					 modal:true,
+					 resizable: true,
+					 title: "Editor Tab",
+					 buttons : {
+					    "Close" : function() {          
+					     //Have to Destroy as otherwise 
+					     //the Dialog will not be reinitialized on open    
+					    
+					     text = $("#modalaaa" + id).html();
+					     alert("text: id  " + id + " is " + text);
+					     $("#aaa" + id).empty();
+						$("#aaa" + id).append(text);
+					     $("#modalaaa" + id).empty();
+					      //Put in code to goto saveText.jsp Delete
+					      $(this).dialog("destroy");
+					   } 
+					}
+				}); 			*/
+				
+				
+	$("#dialog" + id).dialog("open");
+}
+
 function displayImage(imageName)
 {
 	//Delay to let the DOM refresh
@@ -766,6 +824,6 @@ function displayImage(imageName)
 		}
       }).responseText;
    
-	
+	 
 	
 }

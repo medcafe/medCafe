@@ -82,7 +82,6 @@
 						     	   <p>
 					                    <iframe height="400" width="680" name="framename" id="myframe" src="http://${server}/coverflow-flash/index.jsp"></iframe>
 					               </p> 
-						     	     	        	        
 							</div>
 			            </div>
 		            </div>

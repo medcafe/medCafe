@@ -39,6 +39,7 @@ $(function(){
 					   <a href="#" class="collapse">COLLAPSE</a>
 					   <h3><%=title%></h3>
 					   <a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a>
+					   <a href="#" class="maximize">MAXIMIZE</a>
 				</div>
 				<div class="edit-box" style="display: none;">
 					                
@@ -53,10 +54,16 @@ $(function(){
 					                <li class="color-6"></li></ul></li>
 				</div>
 					                
-				<div class="widget-content">
+				<div class="widget-content" id="widget-content<%=tabNum%>">
 
-					    	<p><div id="aaa<%=tabNum%>"></div></p>
-					                    
+						
+					    	<p><div id="aaa<%=tabNum%>">
+					    		</div>
+					    	</p>
+					    
+					    	<div id="dialog<%=tabNum%>">
+					    		<div id="modalaaa<%=tabNum%>"></div>
+					    	</div>
 				</div>
 	       </div>
     </div>
