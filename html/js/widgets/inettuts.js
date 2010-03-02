@@ -120,24 +120,19 @@ var iNettuts = {
                 }).prependTo($(settings.handleSelector,this));
             }
             
-             if (thisWidgetSettings.resizable) {
-            
-                $('<a href="#" class="maximize">MAXIMIZE</a>').mousedown(function (e) {
-                    e.stopPropagation();    
-                }).click(function () {
-                    if(confirm('This widget will be maximized, ok?')) {
-                        $(this).parents(settings.widgetSelector).animate({
-                            opacity: 0    
-                        },function () {
-                            	
-                            	alert("maximize.");
-                            
-                        });
-                    }
-                    return false;
-                }).appendTo($(settings.handleSelector, this));
-            }
-            
+              if (thisWidgetSettings.resizable) {
+	            	var test = $(settings.handleSelector,this);
+	            	var resizeButton = $(test).find('.maximize');
+	            	//alert('test close parent ' + $(test).text());
+	                $(resizeButton).mousedown(function (e) {
+	                    e.stopPropagation();    
+	                }).click(function () {
+	                    
+						displayDialog(tabNum);
+	                    
+	                    return false;
+	                });
+	            }
         });
         
         $('.edit-box').each(function () {

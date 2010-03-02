@@ -42,6 +42,7 @@
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-ch" lang="fr-ch">
 <head>
+
 <title>A Light weight RTE jQuery Plugin</title>
 <link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
 <style type="text/css">
@@ -78,15 +79,20 @@ body, textarea {
 <script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
 <script type="text/javascript" src="js/editor/jquery.rte.js"></script>
 <script type="text/javascript" src="js/editor/jquery.rte.tb.js"></script>
+
 <link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <script type="text/javascript">
 $(document).ready(function() {
+
+
+	
 
 	var patientId = '<%=patientId%>';
 	var tab_num = '<%=tab_num%>';
 	var titleNew = $(this).val();
 	loadNotes(titleNew, tab_num, patientId);
 		
+	
 	$("select#title").change(function()
 	{
 		var title =$(this).val(); 
@@ -171,6 +177,7 @@ function loadNotes(title, tab_num, patientId)
 				//Make sure that the template is not selected
 				$("select#template").val(0);
 				addDeleteClick();
+				setDroppable();
 			});
 
 }
@@ -202,6 +209,19 @@ function addDeleteClick()
 							
 		} );
 
+}
+
+function setDroppable()
+{
+	$("#enterTitle").draggable({helper: 'clone'});
+	
+	$("#textDrop").droppable(
+	{
+		drop: function(ev, ui)
+		{
+			alert("dragged text " + ui.draggable.text());
+		}
+	});
 }
 </script>
 

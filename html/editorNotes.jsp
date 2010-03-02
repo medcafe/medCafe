@@ -52,8 +52,8 @@ function deleteText()
 <form action="saveText.jsp">
 	<p>
     	<br/>
-    	Title: <input type="text" name="title" value="<%=title%>"></input>
-        <textarea name="form[info1]" cols="100" rows="10"  class="rte1" method="post" action="#">
+    	Title: <input type="text" id="enterTitle" name="title" value="<%=title%>"></input>
+        <textarea name="form[info1]" id="textDrop" cols="100" rows="10"  class="rte1" method="post" action="#">
         <%=note%>
 		</textarea>
     </p>

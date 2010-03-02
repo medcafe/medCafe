@@ -84,7 +84,7 @@ $(document).ready( function() {
 					
 					
 	   			});
-
+			
 	   			//
 
 		    }
@@ -128,7 +128,6 @@ $(document).ready( function() {
 
 
 		$("#tabs").tabs();
-		$("#tabs1").tabs();
 
 		$("#accordion").accordion();
 		
@@ -138,69 +137,27 @@ $(document).ready( function() {
 				.sortable({})
 			;
 
-		
-		//Remove the tab content from parent and add to new parent
-		$('.tabHeader').droppable(
-		{
-			drop:			function (ev, ui)
-		    {
-		    	//Only allow this if this is a widget
-				//if($(ui.draggable).hasClass('.widget-head'))
-				//{
-					alert("dropping ontop of this tab " +$(this).attr('id'));
-				//}
-			}
-			,
-		  	 activeClass: 'droppable-active',
-		  	 hoverClass: 'droppable-hover'
-		});
-
-		
-						
 		//Remove the tab content from parent and add to new parent
 		$('#tabs').droppable(
 		{
 		  	///accept: ".tabs",
-		drop:			function (ev, ui)
+		   drop:			function (ev, ui)
 		   {
 
 		   		//Need to put in functionality for the widgets to be placed within tabs
 				if(!$(ui.draggable).hasClass('.tabHeader'))
 				{
-					//alert("this is not a tab header");
+					//Check if this is a widget
+					
+					var id = $(ui.draggable).attr('id');
+					
+					var divId = $(this).tabs().attr('id');
+					//alert("Draggable item id " + id + " target id " + divId);
+					
+				
 					return false;
 				}
 
-				
-		   		var aObj = $(ui.draggable).closest('li').find('a');
-			    var href = aObj.attr('href');
-	  			var id =  $(ui.draggable).attr("id");
-
-	  			var label = $(aObj).text();
-	  			parentDrag = $(ui.draggable).parent().parent();
-			    var parentId = parentDrag.attr('id');
-			 	var divId = $(this).tabs().attr('id');
-				
-				var selected = $(ui.draggable).attr('custom:index');
-
-				var hrefBase = href.split('#')[1], baseEl;
-				
-				var $old = $("#" + hrefBase);
-
-		  		parentDrag.tabs('remove',selected);
-
-				var layoutId = $('#' + divId + ' ul').attr('id');
-				
-				var newId = $('#' + layoutId).find('*[class^=ui-layout-content]').attr('id');
-				
-				var $newText = $old.appendTo('#' + layoutId);
-
-				$(this).tabs("add","#" + hrefBase,label);
-	
-				$(this).tabs('select', "#" + hrefBase);
-				var widgetId = $('#' + hrefBase).find("*[class^=widget]").attr('id');
-				//alert('widget id ' + widgetId);
-				iNettuts.refresh(widgetId);
 				iNettuts.makeSortable();
 				
 			}
@@ -316,12 +273,6 @@ $(document).ready( function() {
 							
 				 	});
 				 }
-				 
-				 
-				 ,initChart : function () 
-		    	{
-		    		
-		    		}
 				 ,
 				addSlider : function () 
 		    	{
@@ -407,7 +358,8 @@ $(document).ready( function() {
 		medCafe.initClose();			
 		medCafe.clickChart();
 		medCafe.addSlider();
-		
+		iNettuts.makeSortable();
+			
 			//Code for Treeview
 			$("#browser").treeview({
 				toggle: function() {
