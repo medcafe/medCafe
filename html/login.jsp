@@ -55,7 +55,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
             </div></center>
         <%}%>
         <!-- registration -->
-        <div id="registration" class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+        <div id="registration" class="ui-dialog-content ui-widget-content" style="background: none; border: 0;display:none">
              <form class="cmxform" id="registrationForm" method="post" action="registrationProcess.jsp" enctype="x-www-form-urlencoded" >
                  <fieldset>
                    <legend>Register a new user</legend>

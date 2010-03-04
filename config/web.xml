@@ -31,7 +31,8 @@
        <servlet-class>
           org.restlet.ext.servlet.ServerServlet
        </servlet-class>
-    </servlet>
+        <load-on-startup>10</load-on-startup>
+   </servlet>
     <!-- Init Servlet -->
     <servlet>
         <servlet-name>InitServlet</servlet-name>

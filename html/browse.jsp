@@ -14,8 +14,7 @@
         <script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
     </head>
     <body>
-        <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/repositories"/> --%>
-        <div class="ui-widget"><tags:IncludeRestlet relurl="c/repositories"/></div>
+        <div class="ui-widget"><tags:IncludeRestlet relurl="/repositories"/></div>
 
     </body>
 </html>

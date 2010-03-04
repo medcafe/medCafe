@@ -85,10 +85,8 @@ public class InitServlet extends HttpServlet
          *  have to be fixed.
          */
         String tempdir = String.valueOf(getServletContext() .getAttribute("javax.servlet.context.tempdir"));
-
         String serverName = String.valueOf(getServletContext() .getInitParameter("server.host"));
-
-        String webapp = new File(tempdir).getName();
+        String webapp = new File(tempdir).getName();  //could this be replaced by ServletContext.getServletContextName() ???
         if( webapp.equals("ROOT") )
         {
             webapp = "";

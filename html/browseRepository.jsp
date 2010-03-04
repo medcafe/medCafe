@@ -19,6 +19,6 @@
     <body>
         <div class="ui-widget"><a href="browse.jsp">Browse</a></div>
         <h2>Repository: <%=repo%></h2>
-        <div class="ui-widget"><h1>Patients</h1><tags:IncludeRestlet relurl="c/repositories/${repo}/patients"/></div>
+        <div class="ui-widget"><h1>Patients</h1><tags:IncludeRestlet relurl="/repositories/${repo}/patients"/></div>
     </body>
 </html>

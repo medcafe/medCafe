@@ -120,10 +120,10 @@ public class VistaRepository extends Repository
      */
     protected boolean setConnection() throws OvidDomainException
     {
-        if( conn != null )
-        {
-            return true;
-        }
+        // if( conn != null )
+        // {
+        //     return true;
+        // }
         conn = PatientRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
         if (conn==null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
@@ -141,6 +141,7 @@ public class VistaRepository extends Repository
         {
             // conn.returnToPool();
             conn.close();
+            conn = null;
         }
     }
 

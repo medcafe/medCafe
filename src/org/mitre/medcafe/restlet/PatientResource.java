@@ -39,11 +39,11 @@ public class PatientResource extends ServerResource {
         this.repository = (String) getRequest().getAttributes().get("repository");
         // Get the item directly from the "persistence layer".
         //this.item = getItems().get(id);
-        System.out.println("Found PatientResource");
+        /* System.out.println("Found PatientResource");
         for(Variant v : getVariants())
         {
             System.out.println(String.valueOf(v));
-        }
+        } */
 
         //setExisting(this.item != null);
     }
@@ -84,9 +84,12 @@ public class PatientResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
-        JSONObject pat = r.getPatient( id );
+        /*  This needs to be fixed when hData gets fixed
+        Patient pat = r.getPatient( id );
         //convert to JSON
-       // JSONObject obj = new JSONObject( pat );
-        return new JsonRepresentation( pat );
+        JSONObject obj = new JSONObject( pat );
+        */
+        JSONObject obj = r.getPatient( id );
+        return new JsonRepresentation( obj );
     }
 }

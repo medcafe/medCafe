@@ -9,7 +9,7 @@
 		type = Constants.GENERAL_WIDGETS;
 		
 	
-	String listWidgets =   "c/widgets";
+	String listWidgets =   "/widgets";
 	
 	if (type.equals(Constants.PATIENT_WIDGETS))
 		listWidgets = "c/widgets/patients";
