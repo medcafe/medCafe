@@ -26,7 +26,7 @@ var iNettuts = {
                 removable: false,
                 collapsible: false,
                 editable: false,
-                resizable: false
+                resizable: true
             }
         }
     },
@@ -311,14 +311,16 @@ var iNettuts = {
             $(this).parent().css({
                 width: $(this).parent().width() + 'px'
             });
+            
         }).mouseup(function () {
-            if(!$(this).parent().hasClass('dragging')) {
-                $(this).parent().css({width:''});
+        
+            if(!$(this).parent().hasClass('dragIcon')) {
+                $(this).parent().css({height:'', width:''});     
             } else {
                 $(settings.columns).sortable('disable');
             }
         });
-
+       
         $(settings.columns).sortable({
             items: $sortableItems,
             connectWith: $(settings.columns),
@@ -330,10 +332,20 @@ var iNettuts = {
             opacity: 0.8,
             containment: 'document',
             start: function (e,ui) {
-                $(ui.helper).addClass('dragging');
+                $(ui.helper).addClass('dragIcon');
+                //Hide the content for dragging
+                $(this).find(settings.contentSelector).each(function () {
+                           //	$(this).hide();
+                            });
             },
             stop: function (e,ui) {
-                $(ui.item).css({width:''}).removeClass('dragging');
+                $(ui.item).css({width:''}).removeClass('dragIcon');
+                //Show the content when finished dragging
+                $(this).find(settings.contentSelector).each(function () {
+                           	$(this).show();
+                            });
+                            //Make sure that all sizes reset
+                
                 $(settings.columns).sortable('enable');
             }
         });

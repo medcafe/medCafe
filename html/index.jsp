@@ -13,6 +13,7 @@
 
 	<title>Droppable Between Panes</title>
 
+    
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
@@ -22,6 +23,7 @@
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" >
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
 	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
@@ -37,7 +39,9 @@
  	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
  	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
  	<script type="text/javascript" src="${js}/jquery.annotate.js"></script>
-
+	<script type="text/javascript" src="${js}/menu/fg.menu.js"></script>
+	<script type="text/javascript" src="${js}/menus.js"></script>
+	
 	<script>
 	var outerLayout;
 
@@ -48,16 +52,48 @@
 	*#######################
 	*/
 	
+	$(function(){
+    	// BUTTONS
+    	$('.fg-button').hover(
+    		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+    		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+    	);
+    
+		/*$('#hierarchybreadcrumb').menu({
+			content: $('#hierarchybreadcrumb').next().html(),
+			backLink: false
+		});*/
+		
+		$('#flat1').menu({ 
+			content: $('#flat1').next().html(), // grab content from this page
+			showSpeed: 400 
+		});
+		
+		$.get('menuContent.html', function(data){
+			$('#flat').menu({
+				content: data
+			});
+		});
+		
+		
+		
+		
+    });
+	
 	</script>
 	
+    
 </head>
 <body>
+
+
 <div id="head">
     </div>
     <div id="dialog" >Are you sure you want to close?</div>
      
     
 <div class="ui-layout-center ui-corner-all">
+
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
@@ -69,7 +105,7 @@
     	
     	
 		        <div id="tabs-1" class="tabContent">
-		        <p>
+		
 
 				<div id="columns">
 					<div id="column1" class="column">
@@ -85,11 +121,9 @@
 							</div>
 			            </div>
 		            </div>
+		           
 	        	</div>
 
-				</p>
-		        </div>
-		         
 
 		    </div>
     </div>
@@ -100,6 +134,7 @@
 
 
 <div class="ui-layout-east  ui-corner-all">
+
 
 	<div id="accordion">
     	<h3><a href="#">General Widgets</a></h3>
@@ -122,7 +157,8 @@
 
 <div class="ui-layout-west  ui-corner-all">
 
-	
+
+		
 		      <div id="columns">
 
 					        <div id="column10" class="column">
@@ -207,15 +243,32 @@
 </div>
 		   
 <div class="ui-layout-north">
- 						
+ 				
+<span>
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
+<span class="ui-icon ui-icon-triangle-1-s"></span>flat menu</a>
+<div id="search-engines" class="hidden">
+<ul>
+	<li><a href="#">Google</a></li>
+	<li><a href="#">Yahoo</a></li>
+	<li><a href="#">MSN</a></li>
+	<li><a href="#">Ask</a></li>
+	<li><a href="#">AOL</a></li>
+</ul>
 </div>
 
+</span>
+</div>
+ 			
 
 
 
 
-<div class="ui-layout-south"></div>
 
+<div class="ui-layout-south">
+
+</div>
 
 </body>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>

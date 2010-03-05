@@ -1,6 +1,6 @@
 $(document).ready( function() {
 
-		
+		var tabSelectedId;
 		//$('#example').dataTable( {
 		//	"aaSorting": [[ 2, "desc" ]]
 		//} );
@@ -70,6 +70,9 @@ $(document).ready( function() {
 		    	$(li_obj).addClass("tabHeader");
 				$(li_obj).prepend("<div class='close'></div>");
 				
+				
+   				
+				
 		    	medCafe.initClose();
 		    	
 		    	var count = -1;
@@ -84,7 +87,22 @@ $(document).ready( function() {
 					
 					
 	   			});
-			
+					
+				$(".tabHeader").hover(
+				 function(){
+      				tabSelectedId = $(this).attr("id");
+   				});
+   				
+   				$(".tabHeader").droppable(
+				 {
+				 	drop: function()
+				 	{
+      					tabSelectedId = $(this).attr("id");
+   					}
+   				});
+   				
+   				
+   				
 	   			//
 
 		    }
@@ -122,10 +140,12 @@ $(document).ready( function() {
 									;
 									var id = $(ui.item);
 									draggedId = $(ui.item).attr('id');
+									
 							}
 		});
 
 
+		
 
 		$("#tabs").tabs();
 
@@ -137,38 +157,13 @@ $(document).ready( function() {
 				.sortable({})
 			;
 
-		//Remove the tab content from parent and add to new parent
-		$('#tabs').droppable(
-		{
-		  	///accept: ".tabs",
-		   drop:			function (ev, ui)
-		   {
-
-		   		//Need to put in functionality for the widgets to be placed within tabs
-				if(!$(ui.draggable).hasClass('.tabHeader'))
-				{
-					//Check if this is a widget
-					
-					var id = $(ui.draggable).attr('id');
-					
-					var divId = $(this).tabs().attr('id');
-					//alert("Draggable item id " + id + " target id " + divId);
-					
-				
-					return false;
-				}
-
-				iNettuts.makeSortable();
-				
-			}
-
-		});
 
 		$(document).bind('FILTER_DATE', function() 
 		{	 
 		   		 filterDate();
 		});
 			
+		
 		
 		var medCafe = {
 		
@@ -359,7 +354,7 @@ $(document).ready( function() {
 		medCafe.clickChart();
 		medCafe.addSlider();
 		iNettuts.makeSortable();
-			
+		
 			//Code for Treeview
 			$("#browser").treeview({
 				toggle: function() {
@@ -441,6 +436,7 @@ $(document).ready( function() {
 		{
 			addChart(this, link, tab_num);
 		}					
+	
 	}
 				 
 	function addRepository(callObj, server, tab_num, label)
@@ -471,10 +467,13 @@ $(document).ready( function() {
 						$(this).delay(1000,function()
 						{
 							listRepository(server, repId );
+							iNettuts.makeSortable();
 						} );
 						
+						
+						
 					} );
-			
+					
 		});
 		
 	}
@@ -493,7 +492,9 @@ $(document).ready( function() {
 			$(callObj).delay(100,function()
 			{
 				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num); 
-			} );					
+			} );				
+				
+			iNettuts.makeSortable();
 		} );
 	}
 	
@@ -508,7 +509,7 @@ $(document).ready( function() {
 			$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
 			$('#chartsiframe').attr('src', server); 
 			
-			  
+				iNettuts.makeSortable();
 							
 		} );
 	}	
