@@ -57,7 +57,9 @@
 						$(imageButton).bind("click",{},
 						function(e)
 						{
-							
+							    $(this).unbind(event);
+							    
+								parent.clearWidgets();
 								var text = $(this).find('p').text();
 								
 								var label = $(this).find('img').attr("src");
@@ -75,6 +77,15 @@
 						
 						$(imageButton).mousedown(function(event) {
     	
+    						var text = $(this).find('p').text();
+								
+							var label = $(this).find('img').attr("src");
+							var link = $(this).find('img').attr("custom:url");
+							var type = $(this).find('img').attr("custom:type");
+							var html = $(this).find('img').attr("custom:html");
+							var method = $(this).find('img').attr("custom:method");
+							var patientId = $(this).find('img').attr("custom:Id");
+								
   							parent.startWidgetDrag($(this),"<%=frameId%>", event );
   							return false;
 						});	

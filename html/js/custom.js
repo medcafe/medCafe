@@ -455,7 +455,8 @@ $(document).ready( function() {
 		}					
 	
 	}
-				 
+	
+	 
 	function addRepository(callObj, server, tab_num, label)
 	{
 	
@@ -721,6 +722,7 @@ function startWidgetDrag(test, frameId, e)
   {
   	
     var iFramePos = $('#' + frameId).position();
+    //Need to replace this with better way to determine position
   	iFramePos.left = 1300;
   	iFramePos.top = 170;
   	
@@ -739,6 +741,11 @@ function startWidgetDrag(test, frameId, e)
 
   }
   
+  function clearWidgets()
+  {
+  	$('#clone').html("");
+	$('#clone').hide();
+  }
 function displayImage(imageName)
 {
 	//Delay to let the DOM refresh

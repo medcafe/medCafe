@@ -23,6 +23,25 @@ $(function(){
 		
 	});
 	
+	$(".widget-content").droppable({
+      drop: function(event, ui) 
+      {
+      
+      		var dragObj = $(ui.draggable)
+       		var widgetId = $(ui.draggable).html();
+       		
+       		var imgHtml = $(dragObj).find('img').html();
+       		var label = $(dragObj).find('img').attr("src");
+			var link = $(dragObj).find('img').attr("custom:url");
+			var type = $(dragObj).find('img').attr("custom:type");
+			var html = $(dragObj).find('img').attr("custom:html");
+			var method = $(dragObj).find('img').attr("custom:method");
+			var patientId = $(dragObj).find('img').attr("custom:Id");
+			
+			addChart(this, link, "<%=tabNum%>");
+			//alert("object label  " + label);
+      }
+    });
 	
 });
 
