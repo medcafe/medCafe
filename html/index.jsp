@@ -140,14 +140,14 @@
     	<h3><a href="#">General Widgets</a></h3>
     	<div>
 			<p>
-				<iframe height="400" width="155" name="widgetframe" id="widgetFrame" src="http://${server}/widgets-list.jsp"></iframe>
+				<iframe height="400" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
 			</p> 
 					
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
     		<p>
-				<iframe height="400" width="155" name="patientWidgetframe" id="patientWidgetframe" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
+				<iframe height="400" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
 			</p>
     	</div>
 	
@@ -269,7 +269,7 @@
 <div class="ui-layout-south">
 
 </div>
-
+<div id="clone" class="copy"></div>
 </body>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />

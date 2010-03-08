@@ -15,9 +15,12 @@
 	if (type.equals(Constants.PATIENT_WIDGETS))
 		listWidgets = server + "/widgets-listJSON.jsp?type=" + Constants.PATIENT_WIDGETS;
 	
+	String frameId = type + "Frame";
 	
 %>
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="${js}/ui.core.js"></script>
+<script type="text/javascript" src="${js}/ui.draggable.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
 <script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
@@ -36,6 +39,20 @@
     			
     			$(this).delay(500,function()
 				{
+						/*$('.imageContain').draggable({
+									//connectToSortable: '#sortable',
+									containment: 'window',
+									helper: 'clone',
+									iframeFix : true,
+       								start: function(event, ui) 
+       								{
+       									 //alert("start dragging " + $(this).html() );
+       									 var iFrameFix = $(this).draggable('option','iframeFix');
+       									 
+       								}
+    					});*/
+
+						
 		    			var imageButton = $("#test").find('.imageContain');
 						$(imageButton).bind("click",{},
 						function(e)
@@ -54,6 +71,14 @@
 								
 							
 						});	
+						
+						
+						$(imageButton).mousedown(function(event) {
+    	
+  							parent.startWidgetDrag($(this),"<%=frameId%>", event );
+  							return false;
+						});	
+		
 				});  		
 			});
 	});

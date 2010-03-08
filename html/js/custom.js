@@ -19,6 +19,18 @@ $(document).ready( function() {
  		$('#dialog').dialog(); 
  		$('#dialog').dialog('destroy'); 
  		
+ 		//Make sure that any cloned draggable objects disappear when dragging ends
+ 		$("#clone").draggable({				
+				
+			iframeFix : true,
+			stop: function() 
+			{			    
+				$(this).html("");
+				$(this).hide();
+			}
+    								
+    	});
+    	
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
@@ -372,7 +384,12 @@ $(document).ready( function() {
 			});
 			//End of code for treeview
 			
-			
+			$("body").draggable({
+				
+				containment: 'window',
+				iframeFix : true
+       								
+    		});
 	
 	});
 	
@@ -700,6 +717,28 @@ function displayDialog( id)
 	$("#dialog" + id).dialog("open");
 }
 
+function startWidgetDrag(test, frameId, e)
+  {
+  	
+    var iFramePos = $('#' + frameId).position();
+  	iFramePos.left = 1300;
+  	iFramePos.top = 170;
+  	
+  	var cloneLeft = iFramePos.left + $(test).position().left;
+  	var cloneTop = iFramePos.top + $(test).position().top;
+  	$(test).clone().appendTo('#clone');
+  	$(test).clone().remove();
+  	var height = $('#clone').height();
+  	var width = $('#clone').width();
+  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
+  	e.pageX = cloneLeft + width/2;
+   	e.pageY = cloneTop + height/2;
+    //make draggable element draggable
+    $("#clone").draggable().trigger(e);
+    $('#clone').show();
+
+  }
+  
 function displayImage(imageName)
 {
 	//Delay to let the DOM refresh
