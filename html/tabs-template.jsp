@@ -51,6 +51,7 @@ $(function(){
 				
 				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>");
 				$(hasContentObj).attr("custom:hasContent",true);
+				
 				renameTab("<%=tabNum%>",text);
 			}
 			else

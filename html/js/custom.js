@@ -365,6 +365,7 @@ $(document).ready( function() {
 		medCafe.initClose();			
 		medCafe.clickChart();
 		medCafe.addSlider();
+		processMenuClick("Add Tab");
 		iNettuts.makeSortable();
 		
 			//Code for Treeview
@@ -472,9 +473,11 @@ $(document).ready( function() {
 	function setHasContent(tab_num)
 	{
 			
-			var hasContentObj = $("#widget-content" + tab_num);
+			var widgetObj = $("#widget-content" + tab_num);
+			var hasContentObj = widgetObj.find("#hasContent");
       		var hasContent = $(hasContentObj).attr("custom:hasContent");
      		$(hasContentObj).attr("custom:hasContent",true);
+     		
 	}
 	
 	function addRepository(callObj, server, tab_num, label)

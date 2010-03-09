@@ -97,33 +97,13 @@
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
-			<li custom:index="0" id="tabs-1-link" name="tabs-1" class="tabHeader"><a href="#tabs-1">Tab 1</a><div class="close"></div></li>
-	      	
+			
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
 		   
     	</ul>
     	
     	
 		        <div id="tabs-1" class="tabContent">
-		
-
-				<div id="columns">
-					<div id="column1" class="column">
-			            <div class="widget color-1" id="blue-widget">
-			                <div class="widget-head">
-			                    <h3>CoverFlow</h3>
-			                </div>
-			                <div class="widget-content">
-						     	   
-						     	   <p>
-					                    <iframe height="400" width="680" name="framename" id="myframe" src="http://${server}/coverflow-flash/index.jsp"></iframe>
-					               </p> 
-							</div>
-			            </div>
-		            </div>
-		           
-	        	</div>
-
 
 		    </div>
     </div>
