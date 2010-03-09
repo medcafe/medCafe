@@ -9,6 +9,7 @@
 %>
 <script>
 
+var hasContent = false;
 
 $(function(){
 
@@ -27,9 +28,13 @@ $(function(){
       drop: function(event, ui) 
       {
       
+      		var hasContent = $(this).find("#hasContent").attr("custom:hasContent");
+      		
       		var dragObj = $(ui.draggable)
        		var widgetId = $(ui.draggable).html();
        		
+       		var text = $(dragObj).find('p').text();
+								
        		var imgHtml = $(dragObj).find('img').html();
        		var label = $(dragObj).find('img').attr("src");
 			var link = $(dragObj).find('img').attr("custom:url");
@@ -38,8 +43,20 @@ $(function(){
 			var method = $(dragObj).find('img').attr("custom:method");
 			var patientId = $(dragObj).find('img').attr("custom:Id");
 			
-			addChart(this, link, "<%=tabNum%>");
-			//alert("object label  " + label);
+			if (hasContent == "false")
+			{
+				//No content : Use the current Tab
+				//addChart(this, link, "<%=tabNum%>");
+				
+				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>");
+				$("#hasContent").attr("custom:hasContent",true);
+				renameTab("<%=tabNum%>",text);
+			}
+			else
+			{
+				//Tab already has content Create a new Tab
+				createLink(patientId,link, text, type );
+			}
       }
     });
 	
@@ -83,6 +100,8 @@ $(function(){
 					    	<div id="dialog<%=tabNum%>">
 					    		<div id="modalaaa<%=tabNum%>"></div>
 					    	</div>
+					    	<div id="hasContent" custom:hasContent="false"></div>
+					    	
 				</div>
 	       </div>
     </div>

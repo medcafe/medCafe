@@ -392,9 +392,19 @@ $(document).ready( function() {
     		});
 	
 	});
+	function renameTab(tab_num, label)
+	{
+		var tabObjLink = $("#tabs-" + tab_num + "-link");
+		var tabObj = $("#tabs-" + tab_num);
+		var aObj = $(tabObjLink).find("a");
+		$(aObj).html(label);
+		var idObj = $(tabObj).find(".id");
+		$(idObj).attr("id", label);
+	}
 	
 	function addTab(label)
 	{
+		
 		//First check if tab already exists
 		var tab_num = 0;	
 		$('.tabs').parent().find(".tabContent").each(function(i)
@@ -434,12 +444,8 @@ $(document).ready( function() {
 		return tab_num;
 	}
 	
-	function createLink(patientId, link, label, type) 
+	function createWidgetContent(patientId,link, label, type ,tab_num)
 	{
-		   					
-		
-		var tab_num = addTab(label);
-		
 		if (type === "chart")	
 		{					
 			addChart(this, link, tab_num);
@@ -453,7 +459,13 @@ $(document).ready( function() {
 		{
 			addChart(this, link, tab_num);
 		}					
+	}
 	
+	function createLink(patientId, link, label, type) 
+	{
+		   					
+		var tab_num = addTab(label);		
+		createWidgetContent(patientId,link, label, type ,tab_num);
 	}
 	
 	 
