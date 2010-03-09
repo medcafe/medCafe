@@ -4,21 +4,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.google.gson.*;
 import com.medsphere.fileman.*;
-import com.medsphere.fmdomain.FMPatient;
-import com.medsphere.ovid.domain.ov.OvidDomainException;
-import com.medsphere.ovid.domain.ov.PatientRepository;
+import com.medsphere.fmdomain.*;
+import com.medsphere.ovid.domain.ov.*;
+import com.medsphere.ovid.model.domain.patient.*;
 import com.medsphere.vistalink.*;
 import gov.va.med.vistalink.adapter.cci.VistaLinkConnection;
+import java.net.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 import org.junit.*;
-import org.mitre.hdata.hrf.patientinformation.*;
 import org.mitre.medcafe.restlet.*;
 import org.mitre.medcafe.util.*;
-import java.net.*;
-import org.json.JSONObject;
+import org.projecthdata.hdata.schemas._2009._06.core.*;
+import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 
 
 public class VistaRepositoryTest extends VistaRepository {
@@ -40,6 +42,7 @@ public class VistaRepositoryTest extends VistaRepository {
         {
             setName("JeffVista");
             setCredentials( host, "8002", "OV1234", "OV1234!!" );
+            // setCredentials( host, "8002", "PU1234", "PU5678!!" );
             gotOne = true;
         }
         else
@@ -55,10 +58,11 @@ public class VistaRepositoryTest extends VistaRepository {
         log.finer( "Using " + getName() );
 
         assertTrue( gotOne );
-        long start = System.currentTimeMillis();
-        boolean success = setConnection();
-        log.finer( "Setting connection took: " + (System.currentTimeMillis() - start)/1000 + " seconds.  Successful? " + success);
-        assertTrue( success );
+        // long start = System.currentTimeMillis();
+        // boolean success = setConnection();
+        // log.finer( "Setting connection took: " + (System.currentTimeMillis() - start)/1000 + " seconds.  Successful? " + success);
+        // assertTrue( success );
+        // closeConnection();
     }
 
 
@@ -73,23 +77,41 @@ public class VistaRepositoryTest extends VistaRepository {
 
 
     @Test
-    public void testConnection() throws Exception
+    public void testGetPatients() throws Exception
     {
         List<String> pats = getPatients();
         assertTrue( pats != null );
         assertTrue( "Supposed to have >6 patients.  Received " + pats.size(), pats.size() >= 6);
+        assertTrue( pats.contains("7"));
     }
-
 
     @Test
     public void testGetPatient() throws Exception
     {
-        JSONObject p = getPatient("TST900000101");
+        Patient pat = getPatient("7");
+        assertFalse( "Patient was not found.", pat == null );
+        // JSONObject p = new JSONObject(pat);
+        Gson gson = new Gson();
+        String p = gson.toJson(pat);
         log.finer(p.toString());
         assertFalse( p == null );
-        assertTrue( p.toString().contains("TST900000101") );
-        assertTrue( p.toString().contains("1955") );
-        assertTrue( p.toString().contains("gender") );
+        assertTrue( p.toString().contains("\"id\":\"7\"") );
+        assertTrue( p.toString().contains("1975") );
+        assertTrue( p.toString().contains("FEMALE") );
+    }
+
+    @Test
+    public void testGetAllergies() throws Exception
+    {
+        Collection<IsAPatientItem> list = getAllergies("7");
+        assertFalse( "Nothing returned from getAllergies()" , list == null );
+        assertTrue( "need some allergies in there", list.size() > 0 );
+        Gson gson = new Gson();
+        for( IsAPatientItem item : list )
+        {
+            assertTrue( item instanceof PatientAllergy );
+            log.finer(gson.toJson(item));
+        }
     }
 
 }

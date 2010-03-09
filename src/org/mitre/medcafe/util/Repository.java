@@ -2,6 +2,7 @@ package org.mitre.medcafe.util;
 
 import org.json.JSONObject;
 import java.util.*;
+import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 
 
 /**
@@ -14,8 +15,8 @@ public abstract class Repository
     /**
      *  Given a patient id, get the patient info
      */
-    // public abstract Patient getPatient( String id );
-    public abstract JSONObject getPatient( String id );
+    public abstract Patient getPatient( String id );
+    // public abstract JSONObject getPatient( String id );
 
     /**
      *  Get a list of patient identifiers

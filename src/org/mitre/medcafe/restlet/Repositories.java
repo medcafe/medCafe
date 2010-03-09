@@ -1,5 +1,6 @@
 package org.mitre.medcafe.restlet;
 
+import com.medsphere.ovid.model.domain.patient.*;
 import java.util.*;
 import org.mitre.medcafe.util.*;
 import java.net.*;
@@ -32,7 +33,8 @@ public class Repositories
         Repository r = new VistaRepository();
         r.setName("JeffVista");
         String host = "192.168.56.101";
-        r.setCredentials( host, "8002", "OV1234", "OV1234!!" );
+        // r.setCredentials( host, "8002", "OV1234", "OV1234!!" );
+        r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
         try
         {
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )

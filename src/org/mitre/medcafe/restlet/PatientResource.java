@@ -1,6 +1,6 @@
 package org.mitre.medcafe.restlet;
 
-import org.mitre.hdata.hrf.patientinformation.*;
+import org.projecthdata.hdata.schemas._2009._06.patient_information.Patient;
 import org.json.JSONObject ;
 
 import org.mitre.medcafe.util.*;
@@ -84,12 +84,10 @@ public class PatientResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
-        /*  This needs to be fixed when hData gets fixed
         Patient pat = r.getPatient( id );
         //convert to JSON
         JSONObject obj = new JSONObject( pat );
-        */
-        JSONObject obj = r.getPatient( id );
+        // JSONObject obj = r.getPatient( id );
         return new JsonRepresentation( obj );
     }
 }
