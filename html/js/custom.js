@@ -466,9 +466,17 @@ $(document).ready( function() {
 		   					
 		var tab_num = addTab(label);		
 		createWidgetContent(patientId,link, label, type ,tab_num);
+		
 	}
 	
-	 
+	function setHasContent(tab_num)
+	{
+			
+			var hasContentObj = $("#widget-content" + tab_num);
+      		var hasContent = $(hasContentObj).attr("custom:hasContent");
+     		$(hasContentObj).attr("custom:hasContent",true);
+	}
+	
 	function addRepository(callObj, server, tab_num, label)
 	{
 	
@@ -498,12 +506,13 @@ $(document).ready( function() {
 						{
 							listRepository(server, repId );
 							iNettuts.makeSortable();
+							
 						} );
 						
-						
+						setHasContent(tab_num);
 						
 					} );
-					
+					setHasContent(tab_num);
 		});
 		
 	}
@@ -525,6 +534,8 @@ $(document).ready( function() {
 			} );				
 				
 			iNettuts.makeSortable();
+			
+			setHasContent(tab_num);
 		} );
 	}
 	

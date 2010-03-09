@@ -28,7 +28,8 @@ $(function(){
       drop: function(event, ui) 
       {
       
-      		var hasContent = $(this).find("#hasContent").attr("custom:hasContent");
+      		var hasContentObj = $(this).find("#hasContent");
+      		var hasContent = $(hasContentObj).attr("custom:hasContent");
       		
       		var dragObj = $(ui.draggable)
        		var widgetId = $(ui.draggable).html();
@@ -49,7 +50,7 @@ $(function(){
 				//addChart(this, link, "<%=tabNum%>");
 				
 				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>");
-				$("#hasContent").attr("custom:hasContent",true);
+				$(hasContentObj).attr("custom:hasContent",true);
 				renameTab("<%=tabNum%>",text);
 			}
 			else
