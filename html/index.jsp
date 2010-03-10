@@ -29,6 +29,7 @@
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" src="${js}/custom.js"></script>
+	<script type="text/javascript" src="${js}/medCafeTabs.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
