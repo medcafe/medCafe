@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
-	String url = "c/dates/";
+	String url = "/dates/";
 	String append = "?";
 	String startDate = request.getParameter("start_date");
 	

@@ -50,7 +50,7 @@ public class PatientListEventResource extends ServerResource {
        if (endDateStr == null)
        	endDateStr = "2012,2,15";
     	
-       System.out.println("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
+       System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
       
     }
 

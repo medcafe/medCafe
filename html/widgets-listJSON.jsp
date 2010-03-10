@@ -12,7 +12,7 @@
 	String listWidgets =   "/widgets";
 	
 	if (type.equals(Constants.PATIENT_WIDGETS))
-		listWidgets = "c/widgets/patients";
+		listWidgets = "/widgets/patients";
 			
 %>
 

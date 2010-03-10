@@ -31,6 +31,12 @@ $(document).ready( function() {
     								
     	});
     	
+    	$("#accordion").accordion({
+       		active: 1,
+       		collapsible: true,
+       		autoHeight: false
+   		});
+   
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
@@ -161,7 +167,6 @@ $(document).ready( function() {
 
 		$("#tabs").tabs();
 
-		$("#accordion").accordion();
 		
 		$("#body")
 				.tabs({change: function () {}})
