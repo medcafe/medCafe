@@ -76,6 +76,7 @@
 						
 						
 						$(imageButton).mousedown(function(event) {
+							
 							parent.clearWidgets();		
   							parent.startWidgetDrag($(this),"<%=frameId%>", event );
   							return false;

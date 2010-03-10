@@ -422,8 +422,8 @@ $(document).ready( function() {
 			
 		});
 	
-		//If the tab_number is greater than 0 then it has been found already - just return	
-		if (tab_num != 0) return tab_num;
+		//If the tab_number is greater than 0 then it has been found already - just return	-1
+		if (tab_num != 0) return -1;
 	
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
@@ -466,6 +466,8 @@ $(document).ready( function() {
 	{
 		   					
 		var tab_num = addTab(label);		
+		if (tab_num < 0)
+			return;
 		createWidgetContent(patientId,link, label, type ,tab_num);
 		
 	}

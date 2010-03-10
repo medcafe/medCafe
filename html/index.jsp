@@ -227,15 +227,9 @@
 <span>
 
 <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
-<span class="ui-icon ui-icon-triangle-1-s"></span>flat menu</a>
+<span class="ui-icon ui-icon-triangle-1-s"></span>Tabs</a>
 <div id="search-engines" class="hidden">
-<ul>
-	<li><a href="#">Google</a></li>
-	<li><a href="#">Yahoo</a></li>
-	<li><a href="#">MSN</a></li>
-	<li><a href="#">Ask</a></li>
-	<li><a href="#">AOL</a></li>
-</ul>
+
 </div>
 
 </span>
