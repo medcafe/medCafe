@@ -3,6 +3,7 @@ package org.mitre.medcafe.restlet;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.Patient;
 import org.json.JSONObject ;
 
+import com.google.gson.*;
 import org.mitre.medcafe.util.*;
 import java.io.IOException;
 import org.restlet.data.Form;
@@ -86,8 +87,8 @@ public class PatientResource extends ServerResource {
         Repository r = Repositories.getRepository( repository );
         Patient pat = r.getPatient( id );
         //convert to JSON
-        JSONObject obj = new JSONObject( pat );
+        Gson gson = new Gson();
         // JSONObject obj = r.getPatient( id );
-        return new JsonRepresentation( obj );
+        return new JsonRepresentation(  gson.toJson(pat) );
     }
 }
