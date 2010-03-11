@@ -185,7 +185,7 @@ $(document).ready( function() {
 		}
 	
 		medCafeTabs.initClose();
-		
+		processMenuClick("Add Tab");
 	
 	});
 	

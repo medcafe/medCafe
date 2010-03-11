@@ -1,9 +1,6 @@
 $(document).ready( function() {
 
 		var tabSelectedId;
-		//$('#example').dataTable( {
-		//	"aaSorting": [[ 2, "desc" ]]
-		//} );
 												
 		// create the OUTER LAYOUT
 		outerLayout = $("body").layout({
@@ -15,7 +12,7 @@ $(document).ready( function() {
 			
 		});
 
-		//$('li').highlight();
+		//Initialize dialogs for pop ups
  		$('#dialog').dialog(); 
  		$('#dialog').dialog('destroy'); 
  		
@@ -31,25 +28,21 @@ $(document).ready( function() {
     								
     	});
     	
+    	//Initialize Accordion with second accordion open
     	$("#accordion").accordion({
        		active: 1,
        		collapsible: true,
        		autoHeight: false
    		});
-   
-		
-
+ 
   		var draggedId;
-		
-
-
+  		
+		//Set up listener for Filter Date
 		$(document).bind('FILTER_DATE', function() 
 		{	 
 		   		 filterDate();
 		});
-			
-		
-		
+
 		var medCafe = {
 		
 				add : function (server, rep) 
@@ -57,118 +50,41 @@ $(document).ready( function() {
 			 	//Method to cycle through all summary classes and allow for clicking to get details
 			 
 			 		listRepository(server, rep);
-				},
-			    clickRep : function () 
-		    	{
-		    		
-		    		$('.repository').each(function ()
-				 	{
-				 		$(this).bind("click",{},
-				 			function(e)
-							{
-								var server = $(this).find('.repList').attr("custom:server");
-								var link = "http://" + server + "/treenode?relurl=/repositories&type=link";
-								
-								$("#listRepository").load(link);
-								$(this).delay(1000,function()
-								{
-									medCafe.addRep();
-								});
-							});
-							
-				 	});
-				 }
-				 ,
-			    addRep : function () 
-		    	{
-		    		$("#repository").each(function ()
-					{
-						var repId = $(this).find('.repList').text();
-				 		var server = $(this).find('.repList').attr("custom:server");
-				 		var repButton = $(this).find('.repList');
-				 		$(repButton).bind("click",{},
-						 			
-						function(e)
-						{
-						 		var tab_num = addTab(repId);
-						 				
-								//Delay to let the DOM refresh
-								$(this).delay(500,function()
-								{
-										iNettuts.refresh("yellow-widget" + tab_num);
-										
-										 var serverLink = "http://" + server + "/repositories/" + repId + "/patients";
-										 //alert("server link " + serverLink);
-										 //Add the patient data
-											
-										 $("#aaa" + tab_num).load(serverLink);
-										 //alert("example" + repId);
-										 //Delay to let server get the results back
-										 $(this).delay(10000,function()
-										 {
-													
-											//alert( $("#example" + repId).text());
-											$("#example" + repId).dataTable( {
-												"aaSorting": [[ 0, "desc" ]]
-											} );
-											//$("#example" + patientId).dataTable();
-											
-											$(this).delay(1000,function()
-											{
-												medCafe.add(server, repId );
-											} );
-								         } );
-											
-								} );
-						 			
-						 } );
-								
-					} );
-				}
+				}			
 		}
 		
-		
-		$('#addButton').bind("click",{},
-				
-				function(e)
-				{
-					medCafe.add();
-				}
-		 );
-		
-		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");
-		medCafe.clickRep();	
-		processMenuClick("Add Tab");
+		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");		
 		iNettuts.makeSortable();
 		
-			//Code for Treeview
+		//Code for Treeview
+		$("#browser").treeview({
+			toggle: function() {
+				console.log("%s was toggled.", $(this).find(">span").text());
+			}
+		});
+				
+		//Add on treeview		
+		$("#add").click(function() {
+			var branches = $("<li><span class='folder'>New Sublist</span><ul>" + 
+				"<li><span class='file'>Item1</span></li>" + 
+				"<li><span class='file'>Item2</span></li></ul></li>").appendTo("#browser");
 			$("#browser").treeview({
-				toggle: function() {
-					console.log("%s was toggled.", $(this).find(">span").text());
-				}
+					add: branches
 				});
-				
-				$("#add").click(function() {
-					var branches = $("<li><span class='folder'>New Sublist</span><ul>" + 
-						"<li><span class='file'>Item1</span></li>" + 
-						"<li><span class='file'>Item2</span></li></ul></li>").appendTo("#browser");
-					$("#browser").treeview({
-						add: branches
-					});
-			});
-			//End of code for treeview
+		});
+		//End of code for treeview
 			
-			$("body").draggable({
+		$("body").draggable({
 				
-				containment: 'window',
-				iframeFix : true
+			containment: 'window',
+			iframeFix : true
        								
-    		});
+    	});
 	
 	});
+	//End of code to initialize page
 	
-	
-	
+	//Code to create widgets content
 	function createWidgetContent(patientId,link, label, type ,tab_num)
 	{
 		if (type === "chart")	
@@ -283,132 +199,132 @@ $(document).ready( function() {
 							
 		} );
 	}		
-function filterDate() 
-{
-	   //alert("Filter Date");
-}			
-		
+	function filterDate() 
+	{
+		   //alert("Filter Date");
+	}			
 			
-function triggerFilter(startDate, endDate)
-{
-	//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
-	$(document).trigger('FILTER_DATE', [startDate, endDate]);
-}
-
-function listRepository(server, rep)
-{
-				$('.summary').each(function ()
-			 	{
-			 		var detailId = $(this).text();
-			 		
-			 		var detailButton = $(this).find('.details');
-		 			$(detailButton).bind("click",{},
-					
-						function(e)
-						{
+				
+	function triggerFilter(startDate, endDate)
+	{
+		//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
+		$(document).trigger('FILTER_DATE', [startDate, endDate]);
+	}
+	
+	function listRepository(server, rep)
+	{
+					$('.summary').each(function ()
+				 	{
+				 		var detailId = $(this).text();
+				 		
+				 		var detailButton = $(this).find('.details');
+			 			$(detailButton).bind("click",{},
 						
-							//First check if the current detail tab exists
-							//Then put focus on this tab
-							if ($("#example" + detailId).attr('id') )
+							function(e)
 							{
-								//Find closest tab
-								
-								var test = $("#example" + detailId).parent().parent().closest('.tabContent');
-								var tabId = test.attr('id');
-								
-								$('#tabs').tabs('select', '#' + tabId);
-								return false;
-							}
 							
-							var tab_num = addTab(detailId);
-							//Delay to let the DOM refresh
-							$(this).delay(500,function()
-							{
-								iNettuts.refresh("yellow-widget" + tab_num);
-							
-								//Add the patient data
-								var link =  server + "c/repositories/" + rep  +"/patients/" + detailId;
-								//alert("server on clicked link " + link);
-								$("#aaa" + tab_num).load(link);
+								//First check if the current detail tab exists
+								//Then put focus on this tab
+								if ($("#example" + detailId).attr('id') )
+								{
+									//Find closest tab
+									
+									var test = $("#example" + detailId).parent().parent().closest('.tabContent');
+									var tabId = test.attr('id');
+									
+									$('#tabs').tabs('select', '#' + tabId);
+									return false;
+								}
 								
-								//Delay to let DOM refresh before adding table styling
+								var tab_num = addTab(detailId);
+								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
-									//alert( $("#example" + patientId).text());
-									
-									$("#example" + detailId).dataTable( {
-										"aaSorting": [[ 0, "desc" ]]
-									} );
-									setHasContent(tab_num);
-								} );
+									iNettuts.refresh("yellow-widget" + tab_num);
 								
+									//Add the patient data
+									var link =  server + "c/repositories/" + rep  +"/patients/" + detailId;
+									//alert("server on clicked link " + link);
+									$("#aaa" + tab_num).load(link);
+									
+									//Delay to let DOM refresh before adding table styling
+									$(this).delay(500,function()
+									{
+										//alert( $("#example" + patientId).text());
+										
+										$("#example" + detailId).dataTable( {
+											"aaSorting": [[ 0, "desc" ]]
+										} );
+										setHasContent(tab_num);
+									} );
+									
+								} );
 							} );
-						} );
-							
-	    	    });
-	    
-}
-
-function displayDialog( id)
-{
-	var text = $("#aaa" + id).html();
-
-	$("#modalaaa" + id).append(text);
+								
+		    	    });
+		    
+	}
 	
-	var $link = $('#aaa' + id);
-	//Fill the screen
-	var marginHDialog = 25; marginWDialog  = 25;
-	marginHDialog = $(window).height()-marginHDialog;
-	var marginWDialog = $(window.body).width()-marginWDialog;
+	function displayDialog( id)
+	{
+		var text = $("#aaa" + id).html();
 	
-	$("#dialog" + id).load($link.attr('href') + ' #content')
-			.dialog({
-					 autoOpen: false,					
-					 modal:true,
-					 resizable: true,
-					 title: "Editor Tab",
-					 height: marginHDialog,
-					 width: marginWDialog,
-					 buttons : {
-					    "Close" : function() {          
-					     //Have to Destroy as otherwise 
-					     //the Dialog will not be reinitialized on open    
-					    
-					     text = $("#modalaaa" + id).html();
-					     $("#aaa" + id).load($link.attr('href') + ' #content');
-					     $("#modalaaa" + id).empty();
-					      //Put in code to goto saveText.jsp Delete
-					      $(this).dialog("destroy");
-					   } 
-					}
-				}); 	
+		$("#modalaaa" + id).append(text);
+		
+		var $link = $('#aaa' + id);
+		//Fill the screen
+		var marginHDialog = 25; marginWDialog  = 25;
+		marginHDialog = $(window).height()-marginHDialog;
+		var marginWDialog = $(window.body).width()-marginWDialog;
+		
+		$("#dialog" + id).load($link.attr('href') + ' #content')
+				.dialog({
+						 autoOpen: false,					
+						 modal:true,
+						 resizable: true,
+						 title: "Editor Tab",
+						 height: marginHDialog,
+						 width: marginWDialog,
+						 buttons : {
+						    "Close" : function() {          
+						     //Have to Destroy as otherwise 
+						     //the Dialog will not be reinitialized on open    
+						    
+						     text = $("#modalaaa" + id).html();
+						     $("#aaa" + id).load($link.attr('href') + ' #content');
+						     $("#modalaaa" + id).empty();
+						      //Put in code to goto saveText.jsp Delete
+						      $(this).dialog("destroy");
+						   } 
+						}
+					}); 	
+		
+		$("#dialog" + id).dialog("open");
+	}
 	
-	$("#dialog" + id).dialog("open");
-}
-
-function startWidgetDrag(test, frameId, e)
-  {
-  	
-    var iFramePos = $('#' + frameId).position();
-    //Need to replace this with better way to determine position
-  	iFramePos.left = 1300;
-  	iFramePos.top = 170;
-  	
-  	var cloneLeft = iFramePos.left + $(test).position().left;
-  	var cloneTop = iFramePos.top + $(test).position().top;
-  	$(test).clone().appendTo('#clone');
-  	$(test).clone().remove();
-  	var height = $('#clone').height();
-  	var width = $('#clone').width();
-  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
-  	e.pageX = cloneLeft + width/2;
-   	e.pageY = cloneTop + height/2;
-    //make draggable element draggable
-    $("#clone").draggable().trigger(e);
-    $('#clone').show();
-
-  }
-  
+	function startWidgetDrag(test, frameId, e)
+	{
+	  	
+	    var iFramePos = $('#' + frameId).position();
+	    //Need to replace this with better way to determine position
+	  	iFramePos.left = 1300;
+	  	iFramePos.top = 170;
+	  	
+	  	var cloneLeft = iFramePos.left + $(test).position().left;
+	  	var cloneTop = iFramePos.top + $(test).position().top;
+	  	$(test).clone().appendTo('#clone');
+	  	$(test).clone().remove();
+	  	var height = $('#clone').height();
+	  	var width = $('#clone').width();
+	  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
+	  	e.pageX = cloneLeft + width/2;
+	   	e.pageY = cloneTop + height/2;
+	    //make draggable element draggable
+	    $("#clone").draggable().trigger(e);
+	    $('#clone').show();
+	
+	}
+	  
   function clearWidgets()
   {
   	$('#clone').html("");
