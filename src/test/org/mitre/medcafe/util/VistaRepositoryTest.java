@@ -5,11 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.*;
-import com.medsphere.fileman.*;
-import com.medsphere.fmdomain.*;
-import com.medsphere.ovid.domain.ov.*;
-import com.medsphere.ovid.model.domain.patient.*;
-import com.medsphere.vistalink.*;
 import gov.va.med.vistalink.adapter.cci.VistaLinkConnection;
 import java.net.*;
 import java.util.*;
@@ -19,6 +14,7 @@ import org.json.JSONObject;
 import org.junit.*;
 import org.mitre.medcafe.restlet.*;
 import org.mitre.medcafe.util.*;
+import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 
@@ -75,14 +71,13 @@ public class VistaRepositoryTest extends VistaRepository {
 
     }
 
-
     @Test
     public void testGetPatients() throws Exception
     {
-        List<String> pats = getPatients();
+        Map<String, String> pats = getPatients();
         assertTrue( pats != null );
         assertTrue( "Supposed to have >6 patients.  Received " + pats.size(), pats.size() >= 6);
-        assertTrue( pats.contains("7"));
+        assertTrue( pats.keySet().contains("7"));
     }
 
     @Test
@@ -103,13 +98,12 @@ public class VistaRepositoryTest extends VistaRepository {
     @Test
     public void testGetAllergies() throws Exception
     {
-        Collection<IsAPatientItem> list = getAllergies("7");
+        List<Allergy> list = getAllergies("7");
         assertFalse( "Nothing returned from getAllergies()" , list == null );
         assertTrue( "need some allergies in there", list.size() > 0 );
         Gson gson = new Gson();
-        for( IsAPatientItem item : list )
+        for( Allergy item : list )
         {
-            assertTrue( item instanceof PatientAllergy );
             log.finer(gson.toJson(item));
         }
     }

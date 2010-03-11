@@ -2,7 +2,7 @@ package org.mitre.medcafe.restlet;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.List;
+import java.util.*;
 
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Repository;
@@ -34,16 +34,14 @@ public class PatientListResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
-        List<String> patientList = r.getPatients( );
+        Map<String, String> patients = r.getPatients( );
         //convert to JSON
+        JSONObject ret = new JSONObject();
         try
         {
-            JSONObject obj = new JSONObject();
-            for(String pat : patientList)
-            {
-                obj.append("patients", pat);
-            }
-            return new JsonRepresentation( obj );
+            ret.put("repository", repository );
+            ret.append("patients", new JSONObject(patients));
+            return new JsonRepresentation( ret );
         }
         catch(org.json.JSONException e)
         {
@@ -81,18 +79,18 @@ public class PatientListResource extends ServerResource {
         patients.append("<thead><tr><th></th></tr></thead>");
         patients.append("<tbody>");
 
-        List<String> patids = repo.getPatients();
+        Map<String,String> patids = repo.getPatients();
 
         if( patids == null )
         {
             ret.append("<li>No patients returned.  Contact with the server was likely interrupted.</li></ul>");
             return new StringRepresentation( ret.toString() );
         }
-        for( String patid : patids)
+        for( String patid : patids.keySet())
         {
         	System.out.println("PatientListResource: toHtml : paient id " + patid);
 
-        	patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td></tr>" );
+        	patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td><td>"+patids.get(patid) + "</td></tr>" );
         	//patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );
 
         }

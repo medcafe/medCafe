@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.*;
 import org.json.*;
+import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 
@@ -77,6 +78,7 @@ public class VistaRepository extends Repository
             g.setDisplayName( filemanPat.getSex() );
             ret.setGender( g );
             log.finer(String.valueOf(filemanPat.getDob()));
+            //set DOB
             GregorianCalendar cal = new GregorianCalendar();
             cal.setTime( filemanPat.getDob() );
             DatatypeFactory factory = DatatypeFactory.newInstance();
@@ -101,15 +103,15 @@ public class VistaRepository extends Repository
     /**
      *  Get a list of patient identifiers
      */
-    public List<String> getPatients(){
-        List<String> ret = new ArrayList<String>();
+    public Map<String, String> getPatients(){
+        Map<String, String> ret = new HashMap<String,String>();
         try {
             if( setConnection( ) )
             {
                 for (FMPatient lpatient : new PatientRepository(conn).getAllPatients()) {
                     // ret.add( lpatient.getEnterprisePatientIdentifier() );
                     log.finer(lpatient.getIEN());
-                    ret.add( lpatient.getIEN() );
+                    ret.put( lpatient.getIEN(), lpatient.getName() );
                 }
             }
             else
@@ -163,23 +165,44 @@ public class VistaRepository extends Repository
     public void setCredentials(String... credentials) {
         if( credentials.length < 4 )
         {
-            throw new NullPointerException("Invalid number of credentials.  You must proivide <host> <port> <ovid-access-code> <ovid-verify-code>" );
+            throw new RuntimeException("Invalid number of credentials.  You must proivide <host> <port> <ovid-access-code> <ovid-verify-code>" );
         }
     	this.credentials = credentials;
     }
 
 
-    protected Collection<IsAPatientItem> getAllergies( String id )
+    public List<Allergy> getAllergies( String id )
     {
-        Collection<IsAPatientItem> list = null;
+        List<Allergy> list = new ArrayList<Allergy>();
         try {
             if( setConnection( ) )
             {
                 log.finer("Connection made...");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 log.finer("HERE!! " + r.toString());
-                list = r.getAllergies(id);
-                // an ArrayList of PatientAllergies objects is returned
+                Collection<IsAPatientItem> vista_list = r.getAllergies(id);
+                // an ArrayList of PatientAllergies objects is returned -  converty to hData Allergy type
+                for( IsAPatientItem a : vista_list )
+                {
+                    Allergy allergy = new Allergy();  //hData type
+                    PatientAllergy pa = (PatientAllergy) a;  //vista (ovid) type
+                    //populate
+                    //message -> narrative
+                    allergy.setNarrative( pa.getMessage() );
+                    //set time for adverse reaction
+                    if( pa.getDateTime() != null )
+                    {
+                        GregorianCalendar cal = new GregorianCalendar();
+                        cal.setTime( pa.getDateTime() );
+                        DatatypeFactory factory = DatatypeFactory.newInstance();
+                        DateRange d = new DateRange();
+                        d.setLow(factory.newXMLGregorianCalendar(cal));
+                        allergy.setAdverseEventDate( d );
+                    }
+                    System.out.println(pa.toString());
+                    //add to the list
+                    list.add(allergy);
+                }
             }
             else log.warning("BAD CONNECTION");
 
