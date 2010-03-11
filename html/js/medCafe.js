@@ -108,19 +108,19 @@ $(document).ready( function() {
 		var repId = "OurVista";
 			
 		var html = "<div class=\"example" +  repId + "\"></div>"; 
-		
 		$(callObj).delay(200,function()
 		{
 			
 				iNettuts.refresh("yellow-widget" + tab_num);
 				
-				var serverLink =  server + "c/repositories/" + repId + "/patients";
-						    
-				$("#aaa" + tab_num).load(serverLink);
+				var serverLink =  server + "repository-listJSON.jsp?repository=" + repId;
 				
-				$(this).delay(10000,function()
+				$.getJSON(serverLink, function(data)
 				{
-											
+						var html = v2js_listPatientsTable( data );  	  					
+										
+						$("#aaa" + tab_num).append(html);
+	  										
 						//alert( $("#example" + repId).text());
 						$("#example" + repId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]

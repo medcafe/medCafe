@@ -1,0 +1,8 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="exampleOurVista">
+<thead><tr><th></th></tr></thead><tbody>
+#foreach( $patient in $patients )
+    <tr class="gradeX"><td value="$patient"><span class="summary"><a href="#" class="details">$patient</a></span></td></tr>
+#end
+</tbody>
+</table>
+

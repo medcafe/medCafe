@@ -237,11 +237,6 @@
 
 </span>
 </div>
- 			
-
-
-
-
 
 <div class="ui-layout-south">
 
