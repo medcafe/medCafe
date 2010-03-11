@@ -28,7 +28,7 @@
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
-	<script type="text/javascript" src="${js}/custom.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.js"></script>
 	<script type="text/javascript" src="${js}/medCafeTabs.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
