@@ -10,10 +10,9 @@
 	if (repository == null)
 		repository = "OurVista";
 	
-	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/events";
-	//c/repositories/OurVista/patients/1/events
-
-	
+	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/bookmarks";
+	String user =  request.getRemoteUser();
+	jspUrl = jspUrl + "?user=" + user;
 %>
 
 <tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>

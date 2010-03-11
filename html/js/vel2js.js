@@ -72,6 +72,32 @@ t.p( context.birthtime.minute);
 t.p('</td></tr></tbody><table>');
 return t.toString();
 }
+function v2js_listPatientsBookmarksTable(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th></th></tr></thead><tbody>');
+for (var i1=0;  i1<context.bookmarks.length; i1++) {
+var bookmark = context.bookmarks[i1];
+velocityCount = i1;
+t.p('    <tr class="gradeX"><td name="name" value="');
+t.p( bookmark.name);
+t.p('">');
+t.p( bookmark.name);
+t.p('</td>    <td name="url" value="');
+t.p( bookmark.url);
+t.p('">');
+t.p( bookmark.url);
+t.p('</td>    <td name="description" value="');
+t.p( bookmark.description);
+t.p('">');
+t.p( bookmark.description);
+t.p('</td></tr>');
+}
+velocityCount = 0;
+t.p('</tbody></table>');
+return t.toString();
+}
 function v2js_listPatientsTable(context) { 
 var t = new StringCat();
 var velocityCount = 0;

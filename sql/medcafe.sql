@@ -50,6 +50,17 @@ CREATE TABLE user_text (
    	
 );
 
+
+CREATE TABLE user_bookmark (
+	user_bookmark_id SERIAL PRIMARY KEY,
+    username character varying(50) NOT NULL,
+   	patientId character varying(50) NOT NULL,
+   	name character varying(250) NULL,
+   	description character varying(250) NULL,
+   	url character varying(500) NULL,
+   	note text NULL
+);
+
 CREATE TABLE text_templates (
 	user_template_id SERIAL PRIMARY KEY,
     username character varying(50) NOT NULL,
