@@ -27,6 +27,69 @@ t.p('    </optgroup>');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listPatientTable(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
+t.p( context.id);
+t.p('"><thead><tr><th></th><th></th></tr></thead><tbody><tr class="gradeX"><td>Patient ID</td><td value="');
+t.p( context.id);
+t.p('">');
+t.p( context.id);
+t.p('</td></tr><tr class="gradeX"><td>Patient Name</td><td value="');
+t.p( context.name.given);
+t.p(' ');
+t.p( context.name.lastname);
+t.p('">');
+t.p( context.name.given);
+t.p(' ');
+t.p( context.name.lastname);
+t.p('</td></tr><tr class="gradeX"><td>Gender</td><td value="');
+t.p( context.gender.displayName);
+t.p('">');
+t.p( context.gender.displayName);
+t.p('</td></tr><tr class="gradeX"><td>Birth Date</td><td value="');
+t.p( context.birthtime.month);
+t.p('/');
+t.p( context.birthtime.day);
+t.p('/');
+t.p( context.birthtime.year);
+t.p(' ');
+t.p( context.birthtime.hour);
+t.p(':');
+t.p( context.birthtime.minute);
+t.p('">');
+t.p( context.birthtime.month);
+t.p('/');
+t.p( context.birthtime.day);
+t.p('/');
+t.p( context.birthtime.year);
+t.p(' ');
+t.p( context.birthtime.hour);
+t.p(':');
+t.p( context.birthtime.minute);
+t.p('</td></tr></tbody><table>');
+return t.toString();
+}
+function v2js_listPatientsTable(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table>');
+for (var i1=0;  i1<context.patients.length; i1++) {
+var patient = context.patients[i1];
+velocityCount = i1;
+t.p('    <td value="');
+t.p( patient);
+t.p('">');
+t.p( patient);
+t.p('</td>');
+}
+velocityCount = 0;
+t.p('</table>');
+return t.toString();
+}
 function v2js_listWidgets(context) { 
 var t = new StringCat();
 var velocityCount = 0;

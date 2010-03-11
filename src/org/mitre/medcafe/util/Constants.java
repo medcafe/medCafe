@@ -29,4 +29,5 @@ public class Constants {
 	public static final String GENERAL_WIDGETS = "general_widgets";
 	public static final String PATIENT_WIDGETS = "patient_widgets";
 	
+	
 }

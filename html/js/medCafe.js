@@ -243,20 +243,24 @@ $(document).ready( function() {
 									iNettuts.refresh("yellow-widget" + tab_num);
 								
 									//Add the patient data
-									var link =  server + "c/repositories/" + rep  +"/patients/" + detailId;
-									//alert("server on clicked link " + link);
-									$("#aaa" + tab_num).load(link);
-									
-									//Delay to let DOM refresh before adding table styling
-									$(this).delay(500,function()
-									{
-										//alert( $("#example" + patientId).text());
+									var link =  server + "repository-listJSON.jsp?repository=" + rep  +"&patient_id="  + detailId;
 										
-										$("#example" + detailId).dataTable( {
-											"aaSorting": [[ 0, "desc" ]]
+									$.getJSON(link, function(data)
+									{
+										var html = v2js_listPatientTable( data );  	  			
+	  									$("#aaa" + tab_num).append(html);
+	  									
+										//Delay to let DOM refresh before adding table styling
+										$(this).delay(500,function()
+										{
+											//alert( $("#example" + patientId).text());
+											
+											$("#example" + detailId).dataTable( {
+												"aaSorting": [[ 0, "desc" ]]
+											} );
+											setHasContent(tab_num);
 										} );
-										setHasContent(tab_num);
-									} );
+									});
 									
 								} );
 							} );

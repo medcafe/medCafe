@@ -42,6 +42,8 @@
  	<script type="text/javascript" src="${js}/jquery.annotate.js"></script>
 	<script type="text/javascript" src="${js}/menu/fg.menu.js"></script>
 	<script type="text/javascript" src="${js}/menus.js"></script>
+	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
+	<script type="text/javascript" src="${js}/vel2js.js"></script>
 	
 	<script>
 	var outerLayout;
