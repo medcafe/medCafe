@@ -50,7 +50,7 @@ public class PatientBookmarkResource extends ServerResource {
     	ArrayList<Bookmark> bookmarks = Bookmark.getBookmarks( user, id);
         
     	StringBuffer startBuf = new StringBuffer("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"tableBookmarks" + id + "\">" +
-    											"<thead><tr><th></th></tr></thead><tbody>");
+    											"<thead><tr><th></th><th></th><th></th></tr></thead><tbody>");
     	StringBuffer patientBookmarks = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer("</tbody></table>");
     	 for(Bookmark bookmark: bookmarks)

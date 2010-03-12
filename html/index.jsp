@@ -44,6 +44,7 @@
 	<script type="text/javascript" src="${js}/menus.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
+	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
 	
 	<script>
 	var outerLayout;

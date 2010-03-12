@@ -81,7 +81,7 @@ public class ListPatientWidgetResource extends ServerResource {
         	String[] type = new String[]{"chart","image", "slider", "date","editor","timeline","bookmarks"};
         	
         	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "date.png","pages-icon.png","timeline.png","bookmark.png"};
-        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.jsp","bookmark.jsp"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp"};
         	
         	String[] method = new String[]{"","","", "", "","",""};
             	
