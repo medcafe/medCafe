@@ -17,7 +17,7 @@ import org.mitre.medcafe.util.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
-
+import org.projecthdata.hdata.schemas._2009._06.medication.*;
 
 public class VistaRepositoryTest extends VistaRepository {
 
@@ -108,4 +108,17 @@ public class VistaRepositoryTest extends VistaRepository {
         }
     }
 
+    @Test
+    public void testGetMedications() throws Exception
+    {
+        List<Medication> list = getMedications("7");
+        assertFalse( "Nothing returned from getMedications()" , list == null );
+        assertTrue( "need some medications in there", list.size() > 0 );
+        Gson gson = new Gson();
+        for( Medication item : list )
+        {
+            log.finer(gson.toJson(item));
+        }
+    }
 }
+

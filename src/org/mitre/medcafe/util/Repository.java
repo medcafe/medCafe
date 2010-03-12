@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import java.util.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
+import org.projecthdata.hdata.schemas._2009._06.medication.*;
 
 
 /**
@@ -27,6 +28,11 @@ public abstract class Repository
      *  Get a set of allergies specific to a patient
      */
     public abstract List<Allergy> getAllergies( String patientId );
+
+    /**
+     *  Get a set of medications specific to a patient
+     */
+    public abstract List<Medication> getMedications( String patientId );
 
     /**
      * Type property.

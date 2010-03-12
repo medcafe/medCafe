@@ -40,7 +40,13 @@ public class PatientListResource extends ServerResource {
         try
         {
             ret.put("repository", repository );
-            ret.append("patients", new JSONObject(patients));
+            for( String key : patients.keySet() )
+            {
+                JSONObject o = new JSONObject();
+                o.put("id", key);
+                o.put("name", patients.get(key));
+                ret.append("patients", o);
+            }
             return new JsonRepresentation( ret );
         }
         catch(org.json.JSONException e)

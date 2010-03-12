@@ -15,6 +15,7 @@ import org.json.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
+import org.projecthdata.hdata.schemas._2009._06.medication.*;
 
 /**
  *  This class implements an interface to a back-end Vista repostory.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
@@ -128,7 +129,6 @@ public class VistaRepository extends Repository
         }
     }
 
-
     /**
      *  sets the passed VistaLinkPooledConnection
      *  @return true if conneciton worked.  False otherwise.
@@ -170,7 +170,6 @@ public class VistaRepository extends Repository
     	this.credentials = credentials;
     }
 
-
     public List<Allergy> getAllergies( String id )
     {
         List<Allergy> list = new ArrayList<Allergy>();
@@ -203,6 +202,47 @@ public class VistaRepository extends Repository
                     //add to the list
                     list.add(allergy);
                 }
+            }
+            else log.warning("BAD CONNECTION");
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving PatientItems", e );
+        }
+        finally {
+            if (conn != null) conn.close();
+            return list;
+        }
+    }
+
+    public List<Medication> getMedications( String id )
+    {
+        List<Medication> list = new ArrayList<Medication>();
+        try {
+            if( setConnection( ) )
+            {
+                PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
+                Collection<IsAPatientItem> vista_list = r.getMedications(id);
+                // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
+                for( IsAPatientItem a : vista_list )
+                {
+                    Medication medication = new Medication();  //hData type
+                    PatientMedication pa = (PatientMedication) a;  //vista (ovid) type
+                    //populate
+                    //message -> narrative
+                    medication.setNarrative( pa.getMessage() );
+                    //set time for adverse reaction
+                    if( pa.getDateTime() != null )
+                    {
+                        GregorianCalendar cal = new GregorianCalendar();
+                        cal.setTime( pa.getDateTime() );
+                        DatatypeFactory factory = DatatypeFactory.newInstance();
+                        medication.getEffectiveTime().add(factory.newXMLGregorianCalendar(cal));
+                    }
+                    log.finer(pa.toString());
+                    //add to the list
+                    list.add(medication);
+                }
+                log.finer("Number of medications for patient " + id + " is " + list.size() );
             }
             else log.warning("BAD CONNECTION");
 
