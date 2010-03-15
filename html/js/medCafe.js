@@ -122,13 +122,16 @@ $(document).ready( function() {
 				
 				$.getJSON(serverLink, function(data)
 				{
+							
 						var html = v2js_listPatientsTable( data );  	  					
-										
+								
+						
 						$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
 						$("#example" + repId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
+								,"bJQueryUI": true
 						} );
 											//$("#example" + patientId).dataTable();
 									
@@ -156,6 +159,17 @@ $(document).ready( function() {
 	}
 	function fnClickDeleteRow(tableObj) {
 	
+		var aTrs = tableObj.fnGetNodes();
+	
+		alert("no of rows " + aTrs.length);
+		for ( var i=0 ; i<aTrs.length ; i++ )
+		{
+			if ( $(aTrs[i]).hasClass('row_selected') )
+			{
+				alert("want to delete row " + i);
+				tableObj.fnDeleteRow(i);
+			}
+		}
 		
 	}
 
@@ -182,10 +196,11 @@ $(document).ready( function() {
 						//alert( $("#example" + repId).text());
 						 	tableObj = $("#bookmarks" + patient_id).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
+								,"bJQueryUI": true
 						} );
 					
 						//Add a button to add a new Row
-						var buttonText = '<p><button type="button" id="addRowButton">Add Row</button></p>';
+						var buttonText = '<p><button type="button" id="addRowButton">Add Row</button><button type="button" id="deleteRowButton">Delete Row</button></p>';
 						
 						$("#bookmarks" + patient_id).append(buttonText);
 						
@@ -208,6 +223,13 @@ $(document).ready( function() {
 									fnClickAddRow(tableObj);
 								
 								});
+								
+						$("#deleteRowButton").bind("click",{table:tableObj},
+								function(e)
+								{
+									fnClickDeleteRow(tableObj);	
+								});
+										
 						//Put in code to call saveData		
 						$('#bookmarkForm' + patient_id).submit( function() {
 							var sData = $('input', tableObj.fnGetNodes()).serialize();
@@ -338,6 +360,7 @@ $(document).ready( function() {
 											
 											$("#example" + detailId).dataTable( {
 												"aaSorting": [[ 0, "desc" ]]
+												,"bJQueryUI": true
 											} );
 											setHasContent(tab_num);
 										} );
