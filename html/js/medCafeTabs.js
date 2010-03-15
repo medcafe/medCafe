@@ -243,13 +243,13 @@ $(document).ready( function() {
 	}
 	
 	
-	function createLink(patientId, link, label, type) 
+	function createLink(patientId, link, label, type, params) 
 	{
 		   					
 		var tab_num = addTab(label);		
 		if (tab_num < 0)
 			return;
-		createWidgetContent(patientId,link, label, type ,tab_num);
+		createWidgetContent(patientId,link, label, type ,tab_num, params);
 		
 	}
 	

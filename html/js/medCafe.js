@@ -85,7 +85,7 @@ $(document).ready( function() {
 	//End of code to initialize page
 	
 	//Code to create widgets content
-	function createWidgetContent(patientId,link, label, type ,tab_num)
+	function createWidgetContent(patientId,link, label, type ,tab_num, params)
 	{
 		if (type === "chart")	
 		{					
@@ -94,7 +94,13 @@ $(document).ready( function() {
 		else if  (type == "repository")
 		{
 			
-			addRepository(this, link, tab_num, label)
+			var repId = params.split(":")[1];
+			
+			if (repId == null)
+			{
+				repId = "OurVista";
+			}
+			addRepository(this, link, tab_num, label, repId)
 		}
 		else if  (type == "bookmarks")
 		{
@@ -107,11 +113,9 @@ $(document).ready( function() {
 		}					
 	}
 	
-	function addRepository(callObj, server, tab_num, label)
+	function addRepository(callObj, server, tab_num, label, repId)
 	{
 	
-		var repId = "OurVista";
-			
 		var html = "<div class=\"example" +  repId + "\"></div>"; 
 		$(callObj).delay(200,function()
 		{

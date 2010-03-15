@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Config;
+import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.Repository;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
@@ -83,13 +84,14 @@ public class ListWidgetResource extends ServerResource {
         	String[] images = new String[]{"openvista.gif","chart.png", "slider-small.png",  "date.png","pages-icon.png"};
         	String[] clickUrl = new String[]{server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp" };
         	
-        	String[] method = new String[]{"medcafe.clickRep()", "","","", ""};
-            	
+        	String[] method = new String[]{"medcafe.add('"+ server+ "','"+ Constants.OUR_VISTA+ "')", "","","", ""};
+        	String[] params = new String[]{"repository:OurVista","", "","","", ""};
+             	
         	int i=0;
         	
         	String tempDir = "images/";
             JSONObject obj = new JSONObject();
-            System.out.println("ListWidgetResource JSON start 1");
+            //System.out.println("ListWidgetResource JSON start 1");
             for(String widget: widgetName)
             {
             	
@@ -100,12 +102,13 @@ public class ListWidgetResource extends ServerResource {
             	 inner_obj.put("clickURL", clickUrl[i]);
             	 inner_obj.put("method", method[i]);
             	 inner_obj.put("type", type[i]);
-            	 //inner_obj.append("widget", inner_inner_obj);
+            	 inner_obj.put("params", params[i]);
+            	 
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
             }
             log.finer( obj.toString());
-            System.out.println("ListWidgetResource JSON " +  obj.toString());
+            //System.out.println("ListWidgetResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)

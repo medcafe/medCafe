@@ -138,6 +138,8 @@ t.p('" custom:type="');
 t.p( widget.type);
 t.p('" custom:Id="');
 t.p( widget.id);
+t.p('" custom:params="');
+t.p( widget.params);
 t.p('"></img>    	<p>');
 t.p( widget.name);
 t.p('</p>    </div><br/>  ');

@@ -112,7 +112,8 @@ public class VistaRepository extends Repository
                 for (FMPatient lpatient : new PatientRepository(conn).getAllPatients()) {
                     // ret.add( lpatient.getEnterprisePatientIdentifier() );
                     log.finer(lpatient.getIEN());
-                    ret.put( lpatient.getIEN(), lpatient.getName() );
+                    //ret.put( new String[]{"id",lpatient.getIEN()}, new String[]{"name", lpatient.getName()} );
+                    ret.put( lpatient.getIEN(),  lpatient.getName() );
                 }
             }
             else

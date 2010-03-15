@@ -1,6 +1,6 @@
 #foreach( $widget in $widgets )
     <div class="imageContain">
-    	<img src="$widget.image" alt="$widget.name" custom:url="$widget.clickURL" custom:type="$widget.type" custom:Id="$widget.id"></img>
+    	<img src="$widget.image" alt="$widget.name" custom:url="$widget.clickURL" custom:type="$widget.type" custom:Id="$widget.id" custom:params="$widget.params"></img>
     	<p>$widget.name</p>
     </div><br/>  
 #end
