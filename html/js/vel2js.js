@@ -76,7 +76,11 @@ function v2js_listPatientsBookmarksTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<form id="bookmarkForm1"><input type="submit" value="save"></input><form><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
+t.p('<form id="bookmarkForm');
+t.p( context.patient);
+t.p('" name="bookmarkForm');
+t.p( context.patient);
+t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
 var bookmark = context.bookmarks[i1];
 velocityCount = i1;
@@ -95,7 +99,7 @@ t.p( bookmark.description);
 t.p('</td></tr>');
 }
 velocityCount = 0;
-t.p('</tbody></table>');
+t.p('</tbody></table></form>');
 return t.toString();
 }
 function v2js_listPatientsTable(context) { 

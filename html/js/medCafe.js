@@ -104,7 +104,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "bookmarks")
 		{
-			$.getScript('js/medcafe.bookmarks.js', function()
+			$.getScript('js/medCafe.bookmarks.js', function()
 			{
 				addBookmarks(this, link, tab_num, label, patientId)
 			});

@@ -109,9 +109,14 @@ public class Bookmark
 		try 
 		{
 		   dbConn= new DbConnection();
+		   System.out.println("BookmarK: getBookmarks : got connection " );
+           
 		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK);
 		   prep.setString(1, userid);
 		   prep.setString(2, patientId);
+		   
+		   System.out.println("BookmarK: getBookmarks : query " + prep.toString());
+           
 		   ResultSet rs = prep.executeQuery();
 		   Bookmark bookmark = new Bookmark();
 		   

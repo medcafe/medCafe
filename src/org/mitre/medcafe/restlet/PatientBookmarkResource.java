@@ -81,6 +81,7 @@ public class PatientBookmarkResource extends ServerResource {
         
             ArrayList<Bookmark> bookmarks = Bookmark.getBookmarks( user, id);
             
+            obj.put("patient", id);
             for(Bookmark bookmark: bookmarks)
             {
 
@@ -89,7 +90,6 @@ public class PatientBookmarkResource extends ServerResource {
                 inner_obj.put("url", bookmark.getUrl());
                 inner_obj.put("description", bookmark.getDescription());
                 obj.append("bookmarks", inner_obj);  //append creates an array for you
-                System.out.println("PatientBookmarkResource: toJSON : name " + bookmark.getName());
                
             }
             log.finer( obj.toString());
