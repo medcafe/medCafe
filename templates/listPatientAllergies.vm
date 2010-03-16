@@ -1,0 +1,6 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="allergies1">
+<thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>
+<tr class="gradeX"><td>Product</td><td value="$product">$product</td></tr>
+<tr class="gradeX"><td>Reaction</td><td value="$reaction">$product</td></tr>
+</tbody>
+<table>

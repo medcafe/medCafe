@@ -1,0 +1,10 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="medications1">
+<thead><tr><th></th><th></th></tr></thead><tbody>
+<tr class="gradeX"><td>Manufacturer Info</td><td value="$medicationInformation.manufacturedMaterial.freeTextBrandName">$medicationInformation.manufacturedMaterial.freeTextBrandName</td></tr>
+<tr class="gradeX"><td>Patient Information</td><td value="$medicationInformation.patientInstructions">$medicationInformation.patientInstructions</td></tr>
+<tr class="gradeX"><td>Effective Time</td><td value="$effectiveTime">$effectiveTime</td></tr>
+<tr class="gradeX"><td>Dose</td><td value="$dose.value">$dose.value</td></tr>
+<tr class="gradeX"><td>Delivery Method</td><td value="$deliveryMethod.value">$deliveryMethod.value</td></tr>
+<tr class="gradeX"><td>Narrative</td><td value="$medicationInformation.narrative">$medicationInformation.narrative</td></tr>
+</tbody>
+<table>
