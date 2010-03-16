@@ -9,8 +9,8 @@ $.fn.dataTableExt.oApi.fnDataUpdate = function  ( oSettings, nRowObject, iRowInd
 
 function fnClickAddRow(tableObj) {
 	
-		var aData = tableObj.fnGetData();		
-		var rowNum = aData.length;
+		var aRows = tableObj.fnGetNodes();	
+		var rowNum = aRows.length;
 		tableObj.fnAddData( ['<input type="text" value="name" name="name' + rowNum + '" id="bookmarkName'+ rowNum+ '"></input>','<input type="text" value="url" name="url' + rowNum + '" id="bookmarkurl'+ rowNum+ '"></input>','<input type="text" name="desc' + rowNum + '" value="description" id="bookmarkDesc'+ rowNum+ '"></input>']);
 
 }
@@ -18,33 +18,44 @@ function fnClickAddRow(tableObj) {
 function fnClickDeleteRow(tableObj, selectedRow) 
 {
 		
-		tableObj.fnDeleteRow(selectedRow, '',true);
-		var aTrs = tableObj.fnGetNodes();	
-		//var oSettings = tableObj.fnSettings();
-		//alert( "data " + oSettings.aoData[0] );
+		var aData  = tableObj.fnDeleteRow(selectedRow, '',true);
+		var oSettings = tableObj.fnSettings();
+		
+		
+		//try to delete actual row
+		//oSettings.aoData[selectedRow] = null;
+		//var aTrs = tableObj.fnGetNodes();	
+		//alert( "no of rows  " + aTrs.length);
+		
 		//return true;
 }
 //Cycle through each row and save the data
 function gatherData(tableObj, patient_id) 
 {
-		var aTrs = tableObj.fnGetNodes();
 
-		for ( var i=0 ; i<aTrs.length ; i++ )
+		var aData = tableObj.fnGetData();
+		
+		for ( var i=0 ; i<aData.length ; i++ )
 		{
-			var aData = tableObj.fnGetData( i );
-			//new rows will be dealt with seperately
-			if (aData[0].indexOf("<input") > -1)
+			
+			var rowData = aData[i];
+			//If row was deleted then skip
+			if (aData[i] == null)
 			{
-			  paramStr = paramStr + processInput(aData, i);
+				continue;
+			}
+			//new rows will be dealt with seperately
+			if (aData[i][0].indexOf("<input") > -1)
+			{
+			  paramStr = paramStr + processInput(rowData, i);
 			}
 			else
 			{
-				paramStr = paramStr + "&name" + i + "=" +  aData[0] + "&url"+  i+ "=" + aData[1] + "&desc"+  i+ "=" + aData[2] ;
+				paramStr = paramStr + "&name" + i + "=" +  aData[i][0] + "&url"+  i+ "=" + aData[i][1] + "&desc"+  i+ "=" + aData[i][2] ;
 			}
 		}
 		
 		var action = "saveBookmarks.jsp?action=Save&patient=" + patient_id;
-		
 		action = action + paramStr;
 		 
 		$.post(action, function(){
