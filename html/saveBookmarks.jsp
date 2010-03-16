@@ -1,0 +1,44 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
+    taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ page import = "java.util.*"%>
+<%@ page import = "java.net.URLEncoder"%>
+<%@ page import = "java.io.UnsupportedEncodingException"%>
+<%@ page import = "org.mitre.medcafe.util.*"%>
+<%
+	//String formData = request.getParameter("form[info1]");
+	String action = request.getParameter("action");
+	
+	System.out.println("SaveBookmarks.jsp: action " + action);
+	
+  	String user =  request.getRemoteUser();
+  	//Use the user login to save the text
+  	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+		
+	ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
+	Bookmark bookmark = null;
+	for (int i=0; i < 100; i++)
+	{
+		System.out.println("SaveBookmarks.jsp: IN LOOP  " + i);
+		
+		String name = request.getParameter("name" + i);
+		if (name == null)
+		{
+			break;			
+		}
+		String url = request.getParameter("url" + i);
+		String desc = request.getParameter("desc" + i);
+		bookmark = new Bookmark(name, url, desc);
+		bookmarks.add(bookmark);
+		
+		System.out.println("saveBookmarks.jsp values : name " + name + " url " + url + " desc " + desc); 
+		
+	}
+	
+	Bookmark.updateBookmarks(user, patientId, bookmarks);
+	
+	System.out.println("saveBookmarks.jsp done "); 
+		
+	
+%>

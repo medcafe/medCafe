@@ -40,7 +40,12 @@ public class Bookmark
 	private String description = "";
 	private String notes = "";
 	private String url = "";
-	public static final String SELECT_BOOKMARK = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? ";
+	public static final String SELECT_BOOKMARK_ALL = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? ";
+	public static final String SELECT_BOOKMARK = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? and name = ?";
+	public static final String UPDATE_BOOKMARK = "UPDATE user_bookmark SET ( name=?, url=?, description=?) where username = ? and patientId = ? and name = ? ";
+	public static final String INSERT_BOOKMARK = "INSERT INTO user_bookmark ( username, patientId, name, url, description, note ) values (?,?, ?,?,?,?) ";
+	public static final String DELETE_BOOKMARK = "delete from user_bookmark where username = ? and patientId = ? ";
+	
 	public Bookmark(String name, String url, String description, String notes)	
 	{
 		this(name, url, description);		
@@ -111,7 +116,7 @@ public class Bookmark
 		   dbConn= new DbConnection();
 		   System.out.println("BookmarK: getBookmarks : got connection " );
            
-		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK);
+		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK_ALL);
 		   prep.setString(1, userid);
 		   prep.setString(2, patientId);
 		   
@@ -137,6 +142,77 @@ public class Bookmark
 			dbConn.close();
 		}
 		return bookmarks;
+		
+	}
+	
+	public static boolean deleteBookmarks(DbConnection dbConn, String userid, String patientId) throws SQLException
+	{
+		 System.out.println("Bookmark: deleteBookmarks : got connection " );
+		  
+		 PreparedStatement prep = dbConn.prepareStatement(Bookmark.DELETE_BOOKMARK);
+		 prep.setString(1, userid);
+		 prep.setString(2, patientId);
+		 int rtnVal = prep.executeUpdate();
+		 if (rtnVal > -1)
+			 return true;
+		 else
+			 return false;
+	}
+	public static boolean updateBookmarks(String userid, String patientId, ArrayList<Bookmark> bookmarks)
+	{
+		DbConnection dbConn = null;
+		try 
+		{
+		   dbConn= new DbConnection();
+		   System.out.println("Bookmark: updateBookmarks : got connection " );
+		   boolean deleteSuccess = deleteBookmarks(dbConn, userid, patientId);
+		   if (!deleteSuccess)
+		   {
+			   dbConn.close();
+			   return false;
+		   }
+		   //public static final String INSERT_BOOKMARK = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? ";
+			
+		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.INSERT_BOOKMARK);  
+		   
+		   for (Bookmark bookmark: bookmarks)
+		   {
+			   prep.clearParameters();
+			   prep.setString(1, userid);
+			   prep.setString(2, patientId);
+			   
+			   String name = bookmark.getName();
+			   if (name == null)
+				   name = "";
+			   String url = bookmark.getUrl();
+			   if (url == null)
+				   url = "";
+			   String desc = bookmark.getDescription();
+			   if (desc == null)
+				   desc = "";
+			   
+			   String note = bookmark.getNotes();
+			   if (note == null)
+				   note = "";
+			  
+			   prep.setString(3, name);
+			   prep.setString(4, url);
+			   prep.setString(5, desc);
+			   prep.setString(6, note);
+				 
+			   prep.addBatch();
+		   }
+		   int[] res = prep.executeBatch();
+		   	
+		   System.out.println("Bookmark: update Bookmarks - Results for update " + res.toString()); 
+			 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			dbConn.close();
+			return false;
+		}
+		return true;
 		
 	}
 }
