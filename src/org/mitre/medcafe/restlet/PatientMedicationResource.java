@@ -24,6 +24,7 @@ public class PatientMedicationResource extends ServerResource {
         this.repository = (String) getRequest().getAttributes().get("repository");
     }
 
+    //Output example : {"effectiveTime":[{}],"dose":{"value":"40MG"},"deliveryMethod":{"value":"ORAL"},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"QUINAPRIL TAB"}},"patientInstructions":"BID","narrative":"QUINAPRIL TAB ..."}
 
     @Get("json")
     public JsonRepresentation toJson(){
@@ -34,4 +35,6 @@ public class PatientMedicationResource extends ServerResource {
         // JSONObject obj = r.getPatient( id );
         return new JsonRepresentation(  gson.toJson(medications) );
     }
+    //output
+    //
 }
