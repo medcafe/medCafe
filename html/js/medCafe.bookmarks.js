@@ -1,4 +1,12 @@
 var paramStr="";
+$.fn.dataTableExt.oApi.fnDataUpdate = function  ( oSettings, nRowObject, iRowIndex )
+{
+	var dataRow = oSettings.aoData[iRowIndex]._aData;
+        $(nRowObject).find("TD").each( function(i) {
+      dataRow[i] = $(this).html();
+    } );
+}
+
 function fnClickAddRow(tableObj) {
 	
 		var aData = tableObj.fnGetData();		
@@ -9,20 +17,12 @@ function fnClickAddRow(tableObj) {
 	
 function fnClickDeleteRow(tableObj, selectedRow) 
 {
-	
-		tableObj.fnDeleteRow(selectedRow);
-		/*var aTrs = tableObj.fnGetNodes();
-	
-		alert("no of rows " + aTrs.length);
-		for ( var i=0 ; i<aTrs.length ; i++ )
-		{
-			if ( $(aTrs[i]).hasClass('row_selected') )
-			{
-				alert("want to delete row " + i);
-				tableObj.fnDeleteRow(i);
-			}
-		}*/
-		return false;
+		
+		tableObj.fnDeleteRow(selectedRow, '',true);
+		var aTrs = tableObj.fnGetNodes();	
+		//var oSettings = tableObj.fnSettings();
+		//alert( "data " + oSettings.aoData[0] );
+		//return true;
 }
 //Cycle through each row and save the data
 function gatherData(tableObj, patient_id) 
@@ -92,33 +92,35 @@ function addBookmarks(callObj, server, tab_num, label, patient_id)
 					
 						var html = v2js_listPatientsBookmarksTable( data );  	  					
 						var tableObj;
-						var selectedRow;		
+						var selectedRow=0;		
 						$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
 						 	tableObj = $("#bookmarks" + patient_id).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 								,"bJQueryUI": true
+								,"fnDrawCallback": function() {
+						           
+						        }
 						} );
 					
 						//Add a button to add a new Row
 						var buttonText = '<p><button type="button" id="addRowButton">Add Row</button><button type="button" id="deleteRowButton">Delete Row</button></p>';
 						$("#bookmarks" + patient_id).append(buttonText);
+
+						//Make sure that values are updated in the tableObj
+						$("#bookmarks" + patient_id + " tbody td").editable( 
+							 function(value, settings)
+							 { 
+							     var aPos = tableObj.fnGetPosition( this );
+								 tableObj.fnUpdate( value, aPos[0], aPos[1] );
+							 },
+							 {
+							 	"height": "14px",
+							 	 submit: 'enter'
+							 });
 						
-						//$("#bookmarks" + patient_id).append(saveButtonText);
 						
-						//Make all the cells editable
-						$("#bookmarks" + patient_id + " tbody td").editable( '', {
-								"callback": function( sValue, y ) {
-									var aPos = tableObj.fnGetPosition( this );
-									tableObj.fnUpdate( sValue, aPos[0], aPos[1] );
-								},
-								"submitdata": function ( value, settings ) {
-									return { "row_id": this.parentNode.getAttribute('id') };
-								},
-								"height": "14px"
-							} );
-	
 						//Get the selected row if user clicks on <tr> object	 
 						$("#bookmarks" + patient_id + " tbody tr").click( function() {
 						

@@ -80,7 +80,7 @@ t.p('<form id="bookmarkForm');
 t.p( context.patient);
 t.p('" name="bookmarkForm');
 t.p( context.patient);
-t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
+t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th></tr></thead><tbody>');
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
 var bookmark = context.bookmarks[i1];
 velocityCount = i1;
