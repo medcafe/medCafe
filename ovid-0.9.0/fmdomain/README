@@ -1,0 +1,66 @@
+
+Medsphere OVID
+
+Copyright (c) 2004-2009 Medsphere Systems Corporation
+
+----
+
+OVID is an OpenVista Interface Domain layer.  Its purpose is to make it
+easier to take advantage of the rich data available in the OpenVista server.
+
+This package, FMDomain, is a collection of classes that are outlined to
+represent the data in specific Fileman files.  As new Fileman files are needed
+and implemented, they should end up here.
+
+Architecture
+------------
+
+
+
+Licensing
+---------
+
+Various pieces of Medsphere OVID are licensed differently.  The details of all 
+the pieces are laid out in the LICENSES file.
+
+Collaboration
+-------------
+
+Medsphere OVID is part of a larger open source project. Aspects of the design, 
+requirements definition, development, and testing are done in the community.
+Medsphere.org is the central location for this collaborative development
+process.
+
+Medsphere.org provides all participants access to the solution development 
+process and a voice in how the system evolves.  You can download open source 
+software, start discussions, host projects, build clinical content/best 
+practices, ask questions, make suggestions and blog about progress.
+
+ * Collaborate 24 x 7
+ * Share in the improvement of healthcare
+ * Influence the OpenVista roadmap
+ * Get answers to your questions from experts, peers, colleagues and others
+
+For a tour of the community or to register go here: http://medsphere.org/tour/
+
+Requirements
+------------
+
+
+
+Building & Running
+------------------
+
+Please review the INSTALL document for information on building and running the 
+application.
+
+
+Release Notes
+-------------
+
+The accompanying NEWS file lists defect corrections and enhancements included in 
+each release.
+
+
+
+

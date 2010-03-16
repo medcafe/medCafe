@@ -44,14 +44,6 @@ public class VistaRepository extends Repository
             if( setConnection( ) )
             {
                 PatientRepository patientRepository = new PatientRepository(conn);
-                // for (FMPatient lpatient : patientRepository.getAllPatients()) {
-                //     if( lpatient.getId().equals(id) )
-                //     {
-                //         filemanPat = lpatient;
-                //         log.finer( "Last DUZ: " + patientRepository.getDUZForLastConnection() );
-                //         break;
-                //     }
-                // }
                 filemanPat = patientRepository.getPatientByIEN(id);
                 log.finer("\t" + filemanPat.getIENS());
                 for (FMField field : filemanPat.getFields()) {
@@ -111,7 +103,7 @@ public class VistaRepository extends Repository
             {
                 for (FMPatient lpatient : new PatientRepository(conn).getAllPatients()) {
                     // ret.add( lpatient.getEnterprisePatientIdentifier() );
-                    log.finer(lpatient.getIEN());
+                    // log.finer(lpatient.getIEN());
                     //ret.put( new String[]{"id",lpatient.getIEN()}, new String[]{"name", lpatient.getName()} );
                     ret.put( lpatient.getIEN(),  lpatient.getName() );
                 }
@@ -187,8 +179,10 @@ public class VistaRepository extends Repository
                     Allergy allergy = new Allergy();  //hData type
                     PatientAllergy pa = (PatientAllergy) a;  //vista (ovid) type
                     //populate
-                    //message -> narrative
-                    allergy.setNarrative( pa.getMessage() );
+
+                    Product c = new Product();
+                    c.setValue( pa.getMessage() );
+                    allergy.setProduct( c );
                     //set time for adverse reaction
                     if( pa.getDateTime() != null )
                     {
@@ -199,7 +193,12 @@ public class VistaRepository extends Repository
                         d.setLow(factory.newXMLGregorianCalendar(cal));
                         allergy.setAdverseEventDate( d );
                     }
-                    System.out.println(pa.toString());
+
+                    Reaction re = new Reaction();
+                    re.setValue( pa.getReaction() );
+                    allergy.setReaction( re );
+
+                    // System.out.println(pa.toString());
                     //add to the list
                     list.add(allergy);
                 }
@@ -239,7 +238,23 @@ public class VistaRepository extends Repository
                         DatatypeFactory factory = DatatypeFactory.newInstance();
                         medication.getEffectiveTime().add(factory.newXMLGregorianCalendar(cal));
                     }
-                    log.finer(pa.toString());
+
+                    String medname = pa.getMedName();
+                    MedicationInformation m = new MedicationInformation();
+                    MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
+                    m.setManufacturedMaterial(mm);
+                    mm.setFreeTextBrandName(medname);
+                    medication.setMedicationInformation( m );
+
+                    Dose d = new Dose();
+                    d.setValue( pa.getDose() );
+                    medication.setDose( d );
+
+                    CodedValue c = new CodedValue();
+                    c.setValue( pa.getDelivery() );
+                    medication.setDeliveryMethod( c );
+
+                    medication.setPatientInstructions( pa.getFrequency() );
                     //add to the list
                     list.add(medication);
                 }

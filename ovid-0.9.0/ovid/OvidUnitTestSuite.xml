@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="OvidUnitTestSuite" verbose="1">
+    <test name="FullUnitTest">
+        <groups>
+            <run>
+                <exclude name="acceptance">
+                </exclude>
+            </run>
+        </groups>
+        
+        <packages>
+            <package name="com.medsphere.ovid.*"/>
+        </packages>
+    </test>
+</suite>
