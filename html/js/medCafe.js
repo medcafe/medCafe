@@ -85,8 +85,9 @@ $(document).ready( function() {
 	//End of code to initialize page
 	
 	//Code to create widgets content
-	function createWidgetContent(patientId,link, label, type ,tab_num, params)
+	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId)
 	{
+		
 		if (type === "chart")	
 		{					
 			addChart(this, link, tab_num);
@@ -94,19 +95,21 @@ $(document).ready( function() {
 		else if  (type == "repository")
 		{
 			
-			var repId = params.split(":")[1];
-			
-			if (repId == null)
-			{
-				repId = "OurVista";
-			}
-			addRepository(this, link, tab_num, label, repId)
+			addRepository(this, link, tab_num, label, repId);
 		}
 		else if  (type == "bookmarks")
 		{
 			$.getScript('js/medCafe.bookmarks.js', function()
 			{
-				addBookmarks(this, link, tab_num, label, patientId)
+				addBookmarks(this, link, tab_num, label, patientId, repId);
+			});
+		}
+		else if  (type == "medications")
+		{
+			
+			$.getScript('js/medCafe.medications.js', function()
+			{
+				addMedications(this, link, tab_num, label, patientId, repId);
 			});
 		}
 		else

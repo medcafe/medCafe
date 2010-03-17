@@ -44,13 +44,14 @@ $(function(){
 			var method = $(dragObj).find('img').attr("custom:method");
 			var patientId = $(dragObj).find('img').attr("custom:Id");
 			var params = $(dragObj).find('img').attr("custom:params");
+			var repository = $(dragObj).find('img').attr("custom:repository");
 			
 			if (hasContent == "false")
 			{
 				//No content : Use the current Tab
 				//addChart(this, link, "<%=tabNum%>");
 				
-				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params);
+				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository);
 				$(hasContentObj).attr("custom:hasContent",true);
 				
 				renameTab("<%=tabNum%>",text);
@@ -58,7 +59,7 @@ $(function(){
 			else
 			{
 				//Tab already has content Create a new Tab
-				createLink(patientId,link, text, type ,params);
+				createLink(patientId,link, text, type ,params, repository);
 			}
       }
     });

@@ -86,6 +86,7 @@ public class ListWidgetResource extends ServerResource {
         	
         	String[] method = new String[]{"medcafe.add('"+ server+ "','"+ Constants.OUR_VISTA+ "')", "","","", ""};
         	String[] params = new String[]{"repository:OurVista","", "","","", ""};
+        	String[] repository = new String[]{"OurVista","", "","","", ""};
              	
         	int i=0;
         	
@@ -103,6 +104,7 @@ public class ListWidgetResource extends ServerResource {
             	 inner_obj.put("method", method[i]);
             	 inner_obj.put("type", type[i]);
             	 inner_obj.put("params", params[i]);
+            	 inner_obj.put("repository", repository[i]);
             	 
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;

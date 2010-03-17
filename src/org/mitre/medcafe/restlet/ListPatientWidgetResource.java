@@ -85,6 +85,8 @@ public class ListPatientWidgetResource extends ServerResource {
         	
         	String[] method = new String[]{"","","", "", "","","",""};
             	
+        	String[] repository = new String[]{"","", "","","OurVista", "OurVista","OurVista", "OurVista"};
+            
         	int i=0;
         	
         	String tempDir = "images/";
@@ -100,6 +102,7 @@ public class ListPatientWidgetResource extends ServerResource {
             	 inner_obj.put("clickURL", clickUrl[i]);
             	 inner_obj.put("method", method[i]);
             	 inner_obj.put("type", type[i]);
+            	 inner_obj.put("repository", repository[i]);
             	 //inner_obj.append("widget", inner_inner_obj);
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
