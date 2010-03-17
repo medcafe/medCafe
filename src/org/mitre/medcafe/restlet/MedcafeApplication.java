@@ -17,6 +17,7 @@ public class MedcafeApplication extends Application {
 
         // register the data Restlets
         router.attach("/repositories", org.mitre.medcafe.restlet.RepositoryListResource.class);
+        router.attach("/repositories/{repository}", org.mitre.medcafe.restlet.RepositoryResource.class);
         router.attach("/repositories/{repository}/patients", org.mitre.medcafe.restlet.PatientListResource.class);
         router.attach("/repositories/{repository}/patients/{id}", org.mitre.medcafe.restlet.PatientResource.class);
         router.attach("/repositories/{repository}/patients/{id}/images", org.mitre.medcafe.restlet.PatientImagesResource.class);

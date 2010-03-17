@@ -294,5 +294,22 @@ public class WebUtils
         }
     }
 
+    public static JSONObject buildErrorJson(String errorMsg)
+    {
+        JSONObject ret = new JSONObject();
+        try
+        {
+            JSONObject error = new JSONObject();
+            error.put("message", errorMsg);
+            error.put("type", "error");
+            ret.put("announce", error);
+        }
+        catch (JSONException e)
+        {
+            return null;
+        }
+        return ret;
+    }
+
 }
 
