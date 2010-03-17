@@ -141,6 +141,7 @@ $(document).ready( function() {
 						$("#example" + repId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 								,"bJQueryUI": true
+								,"sPaginationType": "full_numbers"
 						} );
 											//$("#example" + patientId).dataTable();
 									
