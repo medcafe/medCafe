@@ -15,7 +15,12 @@
  */
 package org.mitre.medcafe.util;
 
-
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.restlet.ext.json.JsonRepresentation;
+import com.google.gson.*;
+import org.json.*;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
@@ -29,6 +34,10 @@ import javax.servlet.jsp.PageContext;
  */
 public class WebUtils
 {
+
+    public final static String KEY = WebUtils.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}
     /**
      *  Retrieves a parameter from a passed request. If the parameter is not
      *  found, an NPE is thrown.
@@ -253,6 +262,36 @@ public class WebUtils
         {
             return name;
         }//main database configured in config.properties
+    }
+
+
+    public static JsonRepresentation bundleJsonResponse(  String name, Object o, String repository, String patid )
+    {
+        try
+        {
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(o);
+            log.finer(jsonString);
+            JSONObject obj = new JSONObject();
+            obj.put("patient_id", patid);
+            obj.put("repository", repository);
+            if(o instanceof Collection)
+            {
+                JSONArray arr = new JSONArray(jsonString);
+                obj.put(name, arr);
+            }
+            else
+            {
+                JSONObject obj2 = new JSONObject(jsonString);
+                obj.put(name, obj2);
+            }
+            return new JsonRepresentation( obj );
+        }
+        catch(JSONException e)
+        {
+            log.throwing(KEY, "bundleJsonResponse", e);
+            return null;
+        }
     }
 
 }

@@ -31,9 +31,7 @@ public class PatientMedicationResource extends ServerResource {
         Repository r = Repositories.getRepository( repository );
         List<Medication> medications = r.getMedications( id );
         //convert to JSON
-        Gson gson = new Gson();
-        // JSONObject obj = r.getPatient( id );
-        return new JsonRepresentation(  gson.toJson(medications) );
+        return WebUtils.bundleJsonResponse( "medications", medications, repository, id );
     }
     //output
     //

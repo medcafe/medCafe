@@ -1,6 +1,6 @@
 package org.mitre.medcafe.restlet;
 
-import com.google.gson.*;
+
 import java.io.IOException;
 import java.util.*;
 import org.json.JSONObject ;
@@ -26,12 +26,11 @@ public class PatientAllergyResource extends ServerResource {
 
 
     @Get("json")
-    public JsonRepresentation toJson(){
+    public JsonRepresentation toJson()
+    {
         Repository r = Repositories.getRepository( repository );
         List<Allergy> allergies = r.getAllergies( id );
         //convert to JSON
-        Gson gson = new Gson();
-        // JSONObject obj = r.getPatient( id );
-        return new JsonRepresentation(  gson.toJson(allergies) );
+        return WebUtils.bundleJsonResponse( "allergies", allergies, repository, id );
     }
 }

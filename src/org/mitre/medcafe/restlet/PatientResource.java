@@ -87,8 +87,6 @@ public class PatientResource extends ServerResource {
         Repository r = Repositories.getRepository( repository );
         Patient pat = r.getPatient( id );
         //convert to JSON
-        Gson gson = new Gson();
-        // JSONObject obj = r.getPatient( id );
-        return new JsonRepresentation(  gson.toJson(pat) );
+        return WebUtils.bundleJsonResponse( "patient_data", pat, repository, id );
     }
 }
