@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
@@ -34,7 +35,21 @@ public class PatientListResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
+        if( r == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
+        }
+        
         Map<String, String> patients = r.getPatients( );
+        if( patients == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
+        }
+        
+        if( patients.size() == 0)
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "There are no patients currently listed for  " + repository ));
+        }
         //convert to JSON
         JSONObject ret = new JSONObject();
         try

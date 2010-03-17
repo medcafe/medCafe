@@ -2,6 +2,7 @@ package org.mitre.medcafe.restlet;
 
 import org.mitre.medcafe.util.*;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.*;
@@ -35,6 +36,13 @@ public class RepositoryListResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
+     
+            Map<String, Repository> reps = Repositories.getRepositories();
+            if( reps == null )
+            {
+                return new JsonRepresentation(WebUtils.buildErrorJson( "No repositories currently exist."));
+            }
+            
             JSONObject obj = new JSONObject();
             for(Repository r: Repositories.getRepositories().values() )
             {
@@ -44,6 +52,13 @@ public class RepositoryListResource extends ServerResource {
                 obj.append("repositories", inner_obj);  //append creates an array for you
             }
             return new JsonRepresentation(obj);
+            
+        }
+        catch(JSONException e)
+        {
+
+            log.throwing(KEY, "toJson", e);
+            return new JsonRepresentation(WebUtils.buildErrorJson( "The repositories were found, however there was an error constructing the return data."));
         }
         catch(Exception e)
         {

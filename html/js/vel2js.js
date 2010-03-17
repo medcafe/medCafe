@@ -2,16 +2,11 @@ function v2js_announcements(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-for (var i1=0;  i1<context.announce.length; i1++) {
-var a = context.announce[i1];
-velocityCount = i1;
-t.p('    <h3 class="');
-t.p( a.type);
+t.p('<h3 class="');
+t.p( context.announce.type);
 t.p('">');
-t.p( a.message);
+t.p( context.announce.message);
 t.p('</h3>');
-}
-velocityCount = 0;
 return t.toString();
 }
 function v2js_listDates(context) { 

@@ -29,7 +29,23 @@ public class PatientMedicationResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
+        
+        if( r == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
+        }
+        
         List<Medication> medications = r.getMedications( id );
+        
+        if( medications == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
+        }
+        
+        if( medications.size() == 0)
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "There are no medications currently listed for patient " + id + " in repository " + repository ));
+        }
         //convert to JSON
         return WebUtils.bundleJsonResponse( "medications", medications, repository, id );
     }

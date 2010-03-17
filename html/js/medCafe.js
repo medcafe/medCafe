@@ -341,9 +341,14 @@ function displayImage(imageName)
 
 function updateAnnouncements(data)
 {
+	
     if(data.announce)
     {
-        $('#announcements').html(v2js_announcements(data));
+    	/*$.each(data.announce, function(i, item){
+            alert("item " + i + " value " + item);
+        });*/
+    	var html = v2js_announcements(data);
+        $('#announcements').html(html);
     }
     else
     {

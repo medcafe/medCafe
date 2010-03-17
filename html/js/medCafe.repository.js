@@ -1,6 +1,6 @@
 function addRepository(callObj, server, tab_num, label, repId)
 	{
-		
+		repId = "test";
 		var html = "<div class=\"example" +  repId + "\"></div>"; 
 		$(callObj).delay(200,function()
 		{
@@ -11,7 +11,12 @@ function addRepository(callObj, server, tab_num, label, repId)
 				
 				$.getJSON(serverLink, function(data)
 				{
-							
+						//Check to see if there was an error returned	
+						updateAnnouncements(data);
+						if (data.announce)
+						{
+							return;
+						}
 						var html = v2js_listPatientsTable( data );  	  					
 								
 						

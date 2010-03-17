@@ -29,7 +29,22 @@ public class PatientAllergyResource extends ServerResource {
     public JsonRepresentation toJson()
     {
         Repository r = Repositories.getRepository( repository );
+        if( r == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
+        }
+        
         List<Allergy> allergies = r.getAllergies( id );
+        
+        if( allergies == null )
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
+        }
+        
+        if( allergies.size() == 0)
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "There are no allergies currently listed for patient " + id + " in repository " + repository ));
+        }
         //convert to JSON
         return WebUtils.bundleJsonResponse( "allergies", allergies, repository, id );
     }
