@@ -98,6 +98,7 @@
     
 <div class="ui-layout-center ui-corner-all">
 
+	<div id="announcements"></div>
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
