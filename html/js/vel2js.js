@@ -38,6 +38,24 @@ t.p('    </optgroup>');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listInsertStatements(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+for (var i1=0;  i1<context.patients.length; i1++) {
+var patient = context.patients[i1];
+velocityCount = i1;
+t.p('    insert into table patient (id, firstName, lastName, repository) values ( \'');
+t.p( patient.id);
+t.p('\', \'');
+t.p( patient.name);
+t.p('\',null,\'');
+t.p( context.repository);
+t.p('\');    <br/>  ');
+}
+velocityCount = 0;
+return t.toString();
+}
 function v2js_listPatientAllergies(context) { 
 var t = new StringCat();
 var velocityCount = 0;
