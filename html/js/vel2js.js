@@ -144,11 +144,7 @@ t.p('</td><td>Narrative</td><td value="');
 t.p( medication.narrative);
 t.p('">');
 t.p( medication.narrative);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td></td><td></td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td></td><td></td></tr>');
+t.p('</td></tr>');
 }
 velocityCount = 0;
 t.p('</tbody><table>');

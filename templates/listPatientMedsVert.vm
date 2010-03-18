@@ -7,8 +7,6 @@
 <tr class="gradeX"><td>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Dose</td><td value="$medication.dose.value">$medication.dose.value</td></tr>
 <tr class="gradeX"><td>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Delivery Method</td><td value="$medication.deliveryMethod.value">$medication.deliveryMethod.value</td></tr>
 <tr class="gradeX"><td>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Narrative</td><td value="$medication.narrative">$medication.narrative</td></tr>
-<tr class="gradeX"><td>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td></td><td></td></tr>
-<tr class="gradeX"><td>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td></td><td></td></tr>
 #end
 </tbody>
 <table>

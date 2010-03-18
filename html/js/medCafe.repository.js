@@ -1,6 +1,7 @@
 function addRepository(callObj, server, tab_num, label, repId)
 	{
-		repId = "test";
+	
+
 		var html = "<div class=\"example" +  repId + "\"></div>"; 
 		$(callObj).delay(200,function()
 		{
@@ -30,7 +31,7 @@ function addRepository(callObj, server, tab_num, label, repId)
 						} );
 											//$("#example" + patientId).dataTable();
 									
-						$(this).delay(1000,function()
+						$(this).delay(100,function()
 						{
 							listRepository(server, repId );
 							iNettuts.makeSortable();
