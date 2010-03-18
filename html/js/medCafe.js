@@ -117,6 +117,14 @@ $(document).ready( function() {
 				addMedications(this, link, tab_num, label, patientId, repId);
 			});
 		}
+		else if  (type == "allergies")
+		{
+			
+			$.getScript('js/medCafe.allergies.js', function()
+			{
+				addAllergies(this, link, tab_num, label, patientId, repId);
+			});
+		}
 		else
 		{
 			addChart(this, link, tab_num);

@@ -42,15 +42,24 @@ function v2js_listPatientAllergies(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="allergies1"><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody><tr class="gradeX"><td>Product</td><td value="');
-t.p( context.product);
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="allergies');
+t.p( context.patient_id);
+t.p('"><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
+for (var i1=0;  i1<context.allergies.length; i1++) {
+var allergy = context.allergies[i1];
+velocityCount = i1;
+t.p('<tr class="gradeX"><td value="');
+t.p( allergy.product.value);
 t.p('">');
-t.p( context.product);
-t.p('</td></tr><tr class="gradeX"><td>Reaction</td><td value="');
-t.p( context.reaction);
+t.p( allergy.product.value);
+t.p('</td><td value="');
+t.p( allergy.reaction.value);
 t.p('">');
-t.p( context.product);
-t.p('</td></tr></tbody><table>');
+t.p( allergy.reaction.value);
+t.p('</td></tr>');
+}
+velocityCount = 0;
+t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientMeds(context) { 
