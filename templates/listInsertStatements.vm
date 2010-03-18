@@ -1,4 +1,4 @@
 #foreach( $patient in $patients )
-    insert into table patient (id, firstName, lastName, repository) values ( '$patient.id', '$patient.name',null,'$repository');
+    insert into patient (rep_id, first_name, last_name, repository) values ( '$patient.id', '$patient.name',null,'$repository');
     <br/>  
 #end

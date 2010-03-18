@@ -45,7 +45,7 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;
-t.p('    insert into table patient (id, firstName, lastName, repository) values ( \'');
+t.p('    insert into patient (rep_id, first_name, last_name, repository) values ( \'');
 t.p( patient.id);
 t.p('\', \'');
 t.p( patient.name);

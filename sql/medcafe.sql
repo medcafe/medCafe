@@ -68,3 +68,37 @@ CREATE TABLE text_templates (
    	template text NULL
    	
 );
+
+CREATE TABLE patient (
+	id SERIAL PRIMARY KEY,
+    rep_patient_id integer NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+   	repository character varying(250) NULL
+   	
+);
+
+
+CREATE TABLE patient_user_assoc (
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	user_id integer NOT NULL,
+	role character varying(250) NULL
+);
+
+CREATE TABLE schedule (
+	id SERIAL PRIMARY KEY,
+    patient_id integer NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+   	appoint_date date NULL,
+   	appoint_time time NULL
+);
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '3', 'PATIENT','CLINICAL F','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '2', 'PATIENT','DIETARY','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '1', 'ZZTEST','ONE','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '7', 'PATIENT','PHARMACY','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '6', 'PATIENT','LABORATORY','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '5', 'PATIENT','RADIOLOGY','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '4', 'PATIENT','CLINICAL M','OurVista');
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista'); 
