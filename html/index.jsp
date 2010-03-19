@@ -142,89 +142,24 @@
 
 <div class="ui-layout-west  ui-corner-all">
 
+	<div id="columns">
 
+		 <div id="column1" class="column">
+			<div class="widget color-6" id="intro">
+				<div class="widget-head">
+					<h3>Search Patient</h3>
+				</div>
+				<div class="widget-content">
+					<p>
+						<iframe height="300" width="220" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
+	
+					</p>
+				</div>
+					       
+			</div>
+		</div>
+	</div>
 		
-		      <div id="columns">
-
-					        <div id="column10" class="column">
-					            <div class="widget color-6" id="intro">
-					                <div class="widget-head">
-					                    <h3>Repositories</h3>
-					                </div>
-					                <div class="widget-content">
-						                 <p>
-			                    
-											<div id="main">										
-											<a href=".">Main Demo</a>
-												
-											<ul id="browser" class="filetree treeview-famfamfam">
-												<li>
-													
-													<span class="folder repository">Repositories</span>
-													<div id="listRepository"></div>
-													
-													<ul>
-														<li>
-															<span class="folder">OurVista</span>
-															
-																<ul>
-																<span class="repository">
-																<a href="#" class="repList" custom:server="${server}/c">OurVista</a>			
-																<li>
-																</li>
-																</span>
-															</ul>
-															
-														</li>
-													
-														<li><span class="folder">MedsphereVista</span>
-															<ul>
-																<li><span class="file">Patient 
-																	<span class="summary"><a href="#" class="details">11</a><a href="#" class="images">11</a></span>
-																	</span>
-																</li>
-															</ul>
-														</li>
-														<li><span class="folder">medCafe</span>
-															<ul>
-																	<li><span class="file">Patient 
-																	<span class="summary"><a href="#" class="details">12</a></span>
-																	</span></li>
-																	<li><span class="file">
-																	Patient
-																	<span class="summary"><a href="#" class="details">13</a></span>
-																	
-																	</span></li>		
-															</ul>
-														</li>
-														<li class="closed"><span class="folder">JeffVista</span>
-															<ul>
-																<li><span class="file">Patient
-																<span class="summary"><a href="#" class="details">15</a></span>
-																	
-																
-																</span></li>
-															</ul>
-														</li>
-														
-														
-													</ul>
-												</li>
-											</ul>
-											
-											<button id="add">Add!</button>
-											
-											<p>+/- Icons from <a href="http://www.famfamfam.com/lab/icons/">famfamfam</a></p>
-											
-										</div>
-					                    </p> 
-					                    
-					                    
-					                </div>
-					            </div>
-					        </div>
-
-					    </div>
 </div>
 		   
 <div class="ui-layout-north">

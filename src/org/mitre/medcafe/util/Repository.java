@@ -1,6 +1,7 @@
 package org.mitre.medcafe.util;
 
 import org.json.JSONObject;
+
 import java.util.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;

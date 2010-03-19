@@ -84,8 +84,7 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId)
 										null
 									],
 								"aaSortingFixed": [[ 0, 'asc' ]],
-								"aaSorting": [[ 1, 'asc' ]],
-								"sDom": 'lfr<"giveHeight"t>ip'
+								"aaSorting": [[ 1, 'asc' ]]
 								
 								
 						} );
