@@ -3,17 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%	
-	String searchStr = request.getParameter("search_str");
-	if (searchStr == null)
-		searchStr = "";
+	String searchStrFirst = request.getParameter("search_str_first");
+	if (searchStrFirst == null)
+		searchStrFirst = "";
 		
-	String type = request.getParameter("type");
-	if (type == null)
-		type = Patient.LAST_NAME_TYPE;
-		
+	String searchStrLast = request.getParameter("search_str_last");
+	if (searchStrLast == null)
+		searchStrLast = "";
 	
 	Patient patient = new Patient();%>
-	<%=patient.searchJson(searchStr, type).toString()%>
+	<%=patient.searchJson(searchStrFirst, searchStrLast).toString()%>
 
 
 
