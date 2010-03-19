@@ -145,13 +145,13 @@
 	<div id="columns">
 
 		 <div id="column1" class="column">
-			<div class="widget color-6" id="intro">
+			<div class="widget color-6" id="intro" >
 				<div class="widget-head">
 					<h3>Search Patient</h3>
 				</div>
 				<div class="widget-content">
 					<p>
-						<iframe height="300" width="220" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
+						<iframe height="200" width="240" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
 	
 					</p>
 				</div>

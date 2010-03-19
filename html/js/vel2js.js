@@ -279,7 +279,7 @@ function v2js_listSearchPatientsSelect(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<select id="patientsList">');
+t.p('<select id="patientsList"><option value="">--Select--</option>');
 for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;

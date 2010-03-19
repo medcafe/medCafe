@@ -32,7 +32,9 @@
 	$(function(){
     
     	var serverLink =  "searchPatientsJSON.jsp?";
-				
+		setOnSelect();
+		var emptyVal = '';
+		
 		$("#last_name").blur(function(){
 			 serverLink =  "searchPatientsJSON.jsp?";
 			var lastNameVal = $(this).val();
@@ -52,9 +54,8 @@
 					return;
 				  }
 				  var html = v2js_listSearchPatientsSelect( data );  	 
-				
-				 
-			      $("#list_names").html(html);
+
+			      $("#list_names").html(emptyVal + html);
 		      });
 		  });
 		
@@ -76,26 +77,39 @@
 				  }
 				  var html = v2js_listSearchPatientsSelect( data );  	 
 				
-			      $("#list_names").html(html);
+			      $("#list_names").html(emptyVal + html);
 		      });
 		  });
     });
+    
+    function setOnSelect()
+    {
+    	$("#list_names").change(function() {
+    	
+    		var src = $("option:selected", this).val();
+    		//Get details for this patient
+    	});
+    	
+    }
 	</script>
 	
     
 </head>
 <body>
 
-<div id="searchPatients">
+<div id="searchPatients" class="ui-widget-header ui-corner-all">
 <form name="searchPatientForm" action="searchPatientsJSON.jsp" method="POST">
 		<table>
-			<tr><td>Last Name</td><td><input type="text" name="search_str_last" id="last_name"></input></td></tr>
 			<tr><td>First Name</td><td><input type="text" name="search_str_first" id="first_name"></input></td></tr>
-				
+			<tr><td>Last Name</td><td><input type="text" name="search_str_last" id="last_name"></input></td></tr>
+	
 		</table>	
 		<!-- input type="submit" value="Search"></input-->	
 		<br/>
+		<center>
 		<div id="list_names"><select><option value="No names selected">No names selected</option></select></div>
+		</center>
+		<br/>
 </form>
 </div>
 		

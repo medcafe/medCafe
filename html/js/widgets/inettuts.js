@@ -23,9 +23,9 @@ var iNettuts = {
         widgetIndividual : {
             intro : {
                 movable: false,
-                removable: false,
-                collapsible: false,
-                editable: false,
+                removable: true,
+                collapsible: true,
+                editable: true,
                 resizable: true
             }
         }
