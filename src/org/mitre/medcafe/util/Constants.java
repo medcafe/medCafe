@@ -30,5 +30,10 @@ public class Constants {
 	public static final String PATIENT_WIDGETS = "patient_widgets";
 	public static final String OUR_VISTA = "OurVista";
 	
+	public static final String WEST_PANE = "west";
+	public static final String EAST_PANE = "east";
+	public static final String NORTH_PANE = "north";
+	public static final String SOUTH_PANE = "south";
+	public static final String CENTER_PANE = "center";
 	
 }

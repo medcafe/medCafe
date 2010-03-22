@@ -94,6 +94,16 @@ CREATE TABLE schedule (
    	appoint_date date NULL,
    	appoint_time time NULL
 );
+
+CREATE TABLE widget_params (
+	id SERIAL PRIMARY KEY,
+	widget_id integer NOT NULL,
+    patient_id integer NOT NULL,
+    username character varying(50) NOT NULL,
+    param character varying(50) NOT NULL,
+   	value character varying(500) NOT NULL
+);
+
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '3', 'PATIENT','CLINICAL F','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '2', 'PATIENT','DIETARY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '1', 'ZZTEST','ONE','OurVista');
@@ -102,3 +112,14 @@ insert into  patient (rep_patient_id, first_name, last_name, repository) values 
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '5', 'PATIENT','RADIOLOGY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '4', 'PATIENT','CLINICAL M','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista'); 
+
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'tab_order', 1);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'type', 'allergies');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'repository','OurVista');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'location', 'center');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'name', 'Allergies for Patient 7');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'tab_order', 2);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'type', 'medications');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'repository','OurVista');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'location', 'center');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'name', 'Medications for Patient 7');
