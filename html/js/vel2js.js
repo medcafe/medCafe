@@ -284,9 +284,7 @@ for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;
 t.p('    <option value="');
-t.p( patient.first_name);
-t.p(' ');
-t.p( patient.last_name);
+t.p( patient.id);
 t.p('">');
 t.p( patient.first_name);
 t.p(' ');

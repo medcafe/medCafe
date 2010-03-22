@@ -103,9 +103,8 @@ public class Widget
 			HashMap<String, Widget> widgetList = retrieveWidgets(userName, patientId);
 			for (Widget widget: widgetList.values())
 			{
-				JSONObject widgetJSON = widget.toJSON();
-				
-					ret.append("widget", widgetJSON);
+				JSONObject widgetJSON = widget.toJSON();	
+				ret.append("widgets", widgetJSON);
 				
 			}
 		}

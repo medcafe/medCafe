@@ -18,6 +18,7 @@
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.patients.js"></script>
 	
 	<script>
 	var outerLayout;
@@ -29,68 +30,7 @@
 	*#######################
 	*/
 	
-	$(function(){
-    
-    	var serverLink =  "searchPatientsJSON.jsp?";
-		setOnSelect();
-		var emptyVal = '';
-		
-		$("#last_name").blur(function(){
-			 serverLink =  "searchPatientsJSON.jsp?";
-			var lastNameVal = $(this).val();
-			serverLink = serverLink + "search_str_last=" + lastNameVal;
-			var firstNameVal = $('#first_name').val();
-		    serverLink = serverLink +  "&search_str_first=" + firstNameVal;
-		      	  
-		    $.getJSON(serverLink,
-		      function(data)
-		      {
-		      	  
-		      	  //Check to see if any error message
-				  
-				  parent.updateAnnouncements(data);
-				  if (data.announce)
-				  {
-					return;
-				  }
-				  var html = v2js_listSearchPatientsSelect( data );  	 
-
-			      $("#list_names").html(emptyVal + html);
-		      });
-		  });
-		
-		$("#first_name").blur(function(){
-			 serverLink =  "searchPatientsJSON.jsp?";
-			var firstNameVal = $(this).val();
-			serverLink = serverLink + "search_str_first=" + firstNameVal;
-			var lastNameVal = $('#last_name').val();
-		    serverLink = serverLink +  "&search_str_last=" + lastNameVal;
-		      	  
-		    $.getJSON(serverLink,
-		      function(data)
-		      {
-		      	  //Check to see if any error message
-		      	  parent.updateAnnouncements(data);
-				  if (data.announce)
-				  {
-					return;
-				  }
-				  var html = v2js_listSearchPatientsSelect( data );  	 
-				
-			      $("#list_names").html(emptyVal + html);
-		      });
-		  });
-    });
-    
-    function setOnSelect()
-    {
-    	$("#list_names").change(function() {
-    	
-    		var src = $("option:selected", this).val();
-    		//Get details for this patient
-    	});
-    	
-    }
+	
 	</script>
 	
     

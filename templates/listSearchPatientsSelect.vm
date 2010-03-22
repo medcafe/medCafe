@@ -1,7 +1,7 @@
 <select id="patientsList">
 <option value="">--Select--</option>
 #foreach( $patient in $patients )
-    <option value="$patient.first_name $patient.last_name">$patient.first_name $patient.last_name</option>
+    <option value="$patient.id">$patient.first_name $patient.last_name</option>
 #end
 </search>
 
