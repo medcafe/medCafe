@@ -230,7 +230,13 @@ t.p('<form id="bookmarkForm');
 t.p( context.patient);
 t.p('" name="bookmarkForm');
 t.p( context.patient);
-t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks1"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th></tr></thead><tbody>');
+t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks');
+t.p( context.patient);
+t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th></tr></thead><tbody>');
+if (!( context.bookmarks )) {
+t.p('	<tr class="gradeX"><td name="name" value=""></td>    <td name="url" value=""></td>    <td name="description" value=""></td></tr>');
+}
+else {
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
 var bookmark = context.bookmarks[i1];
 velocityCount = i1;
@@ -249,6 +255,7 @@ t.p( bookmark.description);
 t.p('</td></tr>');
 }
 velocityCount = 0;
+}
 t.p('</tbody></table></form>');
 return t.toString();
 }

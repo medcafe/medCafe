@@ -1,20 +1,29 @@
+var retry = true;
 function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 {	
-		//For testing purposes
-		patient_id = "7";
+		
 		var html = "<div class=\"allergies" +  patient_id + "\"></div>"; 
-		$(callObj).delay(200,function()
+		$(callObj).delay(400,function()
 		{
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);
-			
 				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
+				//alert("server link " + serverLink);
 				$.getJSON(serverLink, function(data)
 				{
+						
 						//Check to see if any error message
 						if (data.announce)
 						{
-							updateAnnouncements(data);
+							if (retry)
+							{
+								addAllergies(callObj, server, tab_num, label, patient_id, repId);
+								retry = false;
+							}
+							else
+							{
+								updateAnnouncements(data);
+							}
 							return;
 						}
 						var html = v2js_listPatientAllergies( data );  	 

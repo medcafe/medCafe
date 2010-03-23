@@ -11,15 +11,16 @@
 	String patient_id = request.getParameter("patient_id");
 	
 	if (patient_id == null)
-		patient_id = "1";
+		patient_id = Constants.DEFAULT_PATIENT;
   
 	String listBookmarks = server + "/bookmarksJSON.jsp";
 	
 	String repository = request.getParameter("repository");
 	if (repository == null)
-		repository = "OurVista";
+		repository = Constants.DEFAULT_REPOSITORY;
 	
 	listBookmarks = listBookmarks + "?repository=" + repository + "&patient_id=" + patient_id;
+	System.out.println("bookmark.jsp get link "  + listBookmarks); 
 %>
 
 <script>

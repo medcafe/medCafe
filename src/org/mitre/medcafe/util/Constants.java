@@ -36,4 +36,6 @@ public class Constants {
 	public static final String SOUTH_PANE = "south";
 	public static final String CENTER_PANE = "center";
 	
+	public static final String DEFAULT_PATIENT = "1";
+	public static final String  DEFAULT_REPOSITORY="OurVista";
 }

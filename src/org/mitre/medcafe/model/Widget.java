@@ -57,6 +57,7 @@ public class Widget
 	private String repository = "";
 	private String type ="";
 	private String name ="";
+	private String server ="";
 	 
 	//All the other parameters
 	private  HashMap<String, String > params = new HashMap<String, String >();
@@ -68,6 +69,7 @@ public class Widget
 	public static final String REPOSITORY = "repository";
 	public static final String TYPE = "type";
 	public static final String NAME = "name";
+	public static final String SERVER = "server";
 	
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
 	public static final String SELECT_WIDGETS = "SELECT id, widget_id, param, value from widget_params where username = ? and patient_id = ? ORDER BY widget_id ";
@@ -88,7 +90,8 @@ public class Widget
 		 o.put(Widget.LOCATION, this.getLocation());
 		 o.put(Widget.TAB_ORDER, this.getTabOrder());
 		 o.put(Widget.NAME, this.getName());
-			 
+		 o.put(Widget.SERVER, this.getServer());
+				 
 		 return o;
 		 
 	}
@@ -131,12 +134,10 @@ public class Widget
 		 try 
 		 {
 			dbConn= new DbConnection();
-			System.out.println("Widget: getWidgets : got connection " );
 				
 			PreparedStatement prep= dbConn.prepareStatement(Widget.SELECT_WIDGETS);
 			prep.setString(1, userName);
 			prep.setInt(2, patId);
-			System.out.println("Widget: getWidgets : Prepared statement  " +prep.toString() );
 			
 			ResultSet rs =  prep.executeQuery();
 			int lastId = 0;
@@ -147,13 +148,11 @@ public class Widget
 			{
 				int widgetId = rs.getInt("widget_id");
 				int serial_id = rs.getInt("id");
-				System.out.println("Widget: getWidgets : serial id" + serial_id );
 				
 				if (lastId != widgetId)
 				{
 					//Create new Widget
 					widget = new Widget();
-					System.out.println("Widget: getWidgets : creating new widget " + widgetId );
 					
 					widget.setPatientId(patId);
 					widget.setId(widgetId);
@@ -187,6 +186,10 @@ public class Widget
 				else if (param.equals(Widget.NAME))
 				{
 					widget.setName(value);
+				}
+				else if (param.equals(Widget.SERVER))
+				{
+					widget.setServer(value);
 				}
 				else
 				{
@@ -269,4 +272,14 @@ public class Widget
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	
 }

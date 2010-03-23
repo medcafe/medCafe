@@ -86,9 +86,8 @@ function processInput(aData, row_num)
 	
 	return paramStr;
 }
-function addBookmarks(callObj, server, tab_num, label, patient_id)
+function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 {
-		var repId = "OurVista";
 		//var onSubmit = 'onSubmit="$('#test').load('saveBookmarks.jsp?patient_id=<%=patient_id%>')'';"
 		var html = "<div class=\"bookmarks" +  patient_id + "\"></div>"; 
 		$(callObj).delay(200,function()
@@ -97,11 +96,11 @@ function addBookmarks(callObj, server, tab_num, label, patient_id)
 			 	iNettuts.refresh("yellow-widget" + tab_num);
 				
 				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
-				
 				$.getJSON(serverLink, function(data)
 				{
-					
-						var html = v2js_listPatientsBookmarksTable( data );  	  					
+				
+						var html = v2js_listPatientsBookmarksTable( data );  
+						
 						var tableObj;
 						var selectedRow=0;		
 						$("#aaa" + tab_num).append(html);

@@ -1,9 +1,9 @@
 function addMedications(callObj, server, tab_num, label, patient_id, repId)
 {	
 		//For testing purposes
-		patient_id = "7";
+		
 		var html = "<div class=\"medications" +  patient_id + "\"></div>"; 
-		$(callObj).delay(200,function()
+		$(callObj).delay(100,function()
 		{
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);

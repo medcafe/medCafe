@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.json.JSONObject;
 import org.mitre.medcafe.util.Bookmark;
+import org.mitre.medcafe.util.WebUtils;
 import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
@@ -80,7 +81,10 @@ public class PatientBookmarkResource extends ServerResource {
             JSONObject obj = new JSONObject();
         
             ArrayList<Bookmark> bookmarks = Bookmark.getBookmarks( user, id);
-            
+            /*if (bookmarks.size() == 0)
+            {
+            	 return new JsonRepresentation(WebUtils.buildErrorJson( "There are currently no bookmarks specified"));  
+            }*/
             obj.put("patient", id);
             for(Bookmark bookmark: bookmarks)
             {
