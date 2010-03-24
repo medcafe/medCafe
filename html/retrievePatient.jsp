@@ -10,7 +10,7 @@
 	String user_name =  request.getRemoteUser();
 	//Retrieve Widgets
 	JSONObject widgetList =  Widget.listWidgets(user_name, patientId);
-	
+	session.setAttribute("patient", patientId);
 %>
 <%=widgetList.toString()%>
 

@@ -8,13 +8,17 @@
 	//String formData = request.getParameter("form[info1]");
 	String action = request.getParameter("action");
 	
-	System.out.println("SaveBookmarks.jsp: action " + action);
 	
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
-  	String patientId = request.getParameter("patient_id");
+  	String patientId =null;
+  	Object patientIdObj = session.getAttribute("patient");
+	if (patientIdObj != null)
+		patientId = patientIdObj.toString();
+		
 	if (patientId == null)
 		patientId = "1";
+	System.out.println("SaveBookmarks.jsp: patient id " + patientId);
 		
 	ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	Bookmark bookmark = null;

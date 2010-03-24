@@ -153,6 +153,8 @@ public class Bookmark
 		 prep.setString(1, userid);
 		 prep.setString(2, patientId);
 		 int rtnVal = prep.executeUpdate();
+		 System.out.println("Bookmark: deleteBookmarks : rtnVal " + rtnVal );
+		  
 		 if (rtnVal > -1)
 			 return true;
 		 else
@@ -174,12 +176,13 @@ public class Bookmark
 		   //public static final String INSERT_BOOKMARK = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? ";
 			
 		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.INSERT_BOOKMARK);  
-		   
+		  
 		   for (Bookmark bookmark: bookmarks)
 		   {
 			   prep.clearParameters();
 			   prep.setString(1, userid);
 			   prep.setString(2, patientId);
+			   
 			   
 			   String name = bookmark.getName();
 			   if (name == null)
@@ -200,6 +203,8 @@ public class Bookmark
 			   prep.setString(5, desc);
 			   prep.setString(6, note);
 				 
+			   System.out.println("Bookmark: updateBookmarks : query  " + prep.toString() );
+				
 			   prep.addBatch();
 		   }
 		   int[] res = prep.executeBatch();
