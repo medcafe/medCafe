@@ -87,6 +87,7 @@
 		var m = date.getMonth();
 		var y = date.getFullYear();
 
+
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next',
@@ -99,11 +100,8 @@
 			editable: true,
 			events: "getSchedule.jsp",
             eventDrop: function(event, dayDelta, minuteDelta) {
-				//alert(event.title + ' was moved ' + minuteDelta + ' minutes\n' + '(should probably update your database)');
 				var url = "moveAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
                 $.getJSON(url, function(json){
-                    // $(document).trigger('POLL_COMPLETE', json)
-                    //alert(json);
                     if (json.announce)
                     {
                         updateAnnouncements(json);
@@ -112,6 +110,7 @@
                 });
 			}
 		});
+
 
         $("#west-sections").addClass("ui-accordion ui-widget ui-helper-reset")
             .find("h6")
@@ -126,6 +125,8 @@
                 })
                 .next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").hide();
         $("#patient-search").click();
+
+
     });
 
 
@@ -200,22 +201,22 @@
                 </p>
             </div>
         </div>
-        <h6><a href="#">Schedule</a></h6>
+        <h6><a href="#" onclick="$('#calendar').fullCalendar('refetchEvents' );">Schedule</a></h6>
         <div id="calendar"  class="widget-content"></div>
 	</div>
 </div>
 
 <div class="ui-layout-north">
 
-<span>
+    <span>
 
-<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
-<span class="ui-icon ui-icon-triangle-1-s"></span>Tabs</a>
-<div id="search-engines" class="hidden">
+    <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
+    <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs</a>
+    <div id="search-engines" class="hidden">
 
-</div>
+    </div>
 
-</span>
+    </span>
 </div>
 
 <div class="ui-layout-south">

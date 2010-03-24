@@ -4,6 +4,8 @@
 
     String apptId = WebUtils.getRequiredParameter(request, "id");
     String minuteDelta = WebUtils.getRequiredParameter(request, "minutes");
+    //this is for preventing sql-injection attacks only
+    Integer.parseInt( minuteDelta );
     JSONObject ret = new JSONObject();
     try
     {
