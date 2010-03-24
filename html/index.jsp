@@ -108,7 +108,18 @@
                         return;
                     }
                 });
+			},
+            eventResize: function(event, dayDelta, minuteDelta) {
+				var url = "resizeAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
+                $.getJSON(url, function(json){
+                    if (json.announce)
+                    {
+                        updateAnnouncements(json);
+                        return;
+                    }
+                });
 			}
+
 		});
 
 

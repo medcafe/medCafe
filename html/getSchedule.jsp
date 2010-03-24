@@ -3,7 +3,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
 
     DbConnection conn = new DbConnection();
-    String query = "select id,  last_name || ', ' || first_name as name, appoint_time, appoint_time+interval '30 minutes' as end_time from schedule order by appoint_date, appoint_time";
+    String query = "select id,  last_name || ', ' || first_name as name, appoint_time, end_time from schedule order by appoint_date, appoint_time";
     ResultSet rs = conn.executeQuery( query );
 
     //Cheating to make sure there's always someone scheduled for today

@@ -11,12 +11,12 @@
     {
         int id = Integer.parseInt(apptId);
         DbConnection conn = new DbConnection();
-        String query = "update schedule set appoint_time = appoint_time+interval '" + minuteDelta + " minutes' where id=?";
+        String query = "update schedule set appoint_time = appoint_time+interval '" + minuteDelta + " minutes', end_time = end_time+interval '" + minuteDelta + " minutes' where id=?";
         int count = conn.psExecuteUpdate( query, "", id );
         if( count == -1 )
             ret.put("announce", WebUtils.createErrorAlert("Error whlie saving your change."));
         else
-            ret.put("announce", WebUtils.createInfoAlert("Appointment successfully moved."));
+            ret.put("announce", WebUtils.createInfoAlert("Appointment successfully resized."));
 
     }catch(Exception e)
     {

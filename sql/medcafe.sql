@@ -47,7 +47,7 @@ CREATE TABLE user_text (
    	patientId character varying(50) NOT NULL,
    	subject character varying(250) NULL,
    	note text NULL
-   	
+
 );
 
 
@@ -66,7 +66,7 @@ CREATE TABLE text_templates (
     username character varying(50) NOT NULL,
    	subject character varying(250) NULL,
    	template text NULL
-   	
+
 );
 
 CREATE TABLE patient (
@@ -75,7 +75,7 @@ CREATE TABLE patient (
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
    	repository character varying(250) NULL
-   	
+
 );
 
 
@@ -92,7 +92,8 @@ CREATE TABLE schedule (
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
    	appoint_date date NULL,
-   	appoint_time time NULL
+   	appoint_time time NULL,
+   	end_time time NULL
 );
 
 CREATE TABLE widget_params (
@@ -111,7 +112,7 @@ insert into  patient (rep_patient_id, first_name, last_name, repository) values 
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '6', 'PATIENT','LABORATORY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '5', 'PATIENT','RADIOLOGY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '4', 'PATIENT','CLINICAL M','OurVista');
-insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista'); 
+insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista');
 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'tab_order', 1);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'type', 'allergies');
