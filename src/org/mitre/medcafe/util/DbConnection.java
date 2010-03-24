@@ -3,10 +3,13 @@
  */
 package org.mitre.medcafe.util;
 
+import com.sun.rowset.*;
 import java.sql.*;
 import java.util.*;
-import javax.sql.*;
+import java.util.logging.*;
 import javax.naming.*;
+import javax.sql.*;
+import javax.sql.rowset.*;
 
 /**
  *  The DbConnection class coordinates all SQL calls to the database. It should the only way the
@@ -16,6 +19,10 @@ import javax.naming.*;
  */
 public class DbConnection
 {
+
+    public final static String KEY = DbConnection.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}
     private Connection conn = null;
     private Statement stmt = null;
 
@@ -137,7 +144,129 @@ public class DbConnection
         stmt.executeUpdate(sSQL, returnGenerated);
         return stmt.getGeneratedKeys();
     }
+    /**
+     *  This method executes the Query SQL stmtement (usually a SELECT) that is passed as a parameter and returns a
+     *  CachedResultSet  Do NOT use this when retrieving large amounts of data, as this dumps lots of data into memory.
+     *  Also, for large data pulls, you should be setting the retreival cache size to speed retreival.
+     *
+     * @param  sSQL        Query string suitable for creating a PreparedStatment
+     * @param Object...    Comma delimited list of parameters, in order!
+     * @return             ResultSet of the query
+     * @exception  SQLException  Description of the Exception
+     */
+    public ResultSet psExecuteQuery(String query, String errorMsg, Object... params)
+    {
+        log.entering(KEY, "psExecuteQuery", query);
+        log.entering(KEY, "psExecuteQuery", params);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try
+        {
+            CachedRowSet crs = new CachedRowSetImpl();
+            ps = conn.prepareStatement(query);
+            //set params
+            int i = 1;
+            for(Object param: params)
+            {
+                if( param instanceof String )
+                {
+                    ps.setString(i, (String)param);
+                }
+                else if( param instanceof Integer )
+                {
+                    ps.setInt(i, ((Integer)param).intValue());
+                }
+                else if( param instanceof Float )
+                {
+                    ps.setFloat(i, ((Float)param).floatValue());
+                }
+                else if( param instanceof Double )
+                {
+                    ps.setDouble(i, ((Double)param).doubleValue());
+                }
+                else if( param == null )
+                {
+                    throw new NullPointerException("Parameters passed to psExecuteQuery() cannot be null");
+                }
+                else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
+                i++;
+            }
+            rs = ps.executeQuery();
+            crs.populate(rs);
+            DatabaseUtility.close(rs);
+            DatabaseUtility.close(ps);
+            return crs;
+        }
+        catch(SQLException e)
+        {
+            log.throwing( KEY, errorMsg, e);
+            return null;
+        }
+        finally
+        {
+            DatabaseUtility.close(rs);
+            DatabaseUtility.close(ps);
+        }
+    }
 
 
+    /**
+     *  This method executes the Query SQL stmtement (usually a SELECT) that is passed as a parameter and returns a
+     *  CachedResultSet  Do NOT use this when retrieving large amounts of data, as this dumps lots of data into memory.
+     *  Also, for large data pulls, you should be setting the retreival cache size to speed retreival.
+     *
+     * @param  sSQL        Query string suitable for creating a PreparedStatment
+     * @param Object...    Comma delimited list of parameters, in order!
+     * @return             ResultSet of the query
+     * @exception  SQLException  Description of the Exception
+     */
+    public int psExecuteUpdate(String query, String errorMsg, Object... params)
+    {
+        log.entering(KEY, "psExecuteUpdate", query);
+        log.entering(KEY, "psExecuteUpdate", params);
+
+        PreparedStatement ps = null;
+        try
+        {
+            ps = conn.prepareStatement(query);
+            //set params
+            int i = 1;
+            for(Object param: params)
+            {
+                if( param instanceof String )
+                {
+                    ps.setString(i, (String)param);
+                }
+                else if( param instanceof Integer )
+                {
+                    ps.setInt(i, ((Integer)param).intValue());
+                }
+                else if( param instanceof Float )
+                {
+                    ps.setFloat(i, ((Float)param).floatValue());
+                }
+                else if( param instanceof Double )
+                {
+                    ps.setDouble(i, ((Double)param).doubleValue());
+                }
+                else if( param == null )
+                {
+                    throw new NullPointerException("Parameters passed to psExecuteQuery() cannot be null");
+                }
+                else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
+                i++;
+            }
+            return ps.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            log.throwing( KEY, errorMsg, e);
+            return -1;
+        }
+        finally
+        {
+            DatabaseUtility.close(ps);
+        }
+    }
 }
 

@@ -311,5 +311,35 @@ public class WebUtils
         return ret;
     }
 
+
+    public static JSONObject createErrorAlert( String message )
+    {
+        try
+        {
+            JSONObject ret = new JSONObject();
+            ret.put("type", "error");
+            ret.put("message", message );
+            return ret;
+        }
+        catch (JSONException e)
+        {
+            return null;
+        }
+    }
+
+    public static JSONObject createInfoAlert( String message )
+    {
+        try
+        {
+            JSONObject ret = new JSONObject();
+            ret.put("type", "info");
+            ret.put("message", message );
+            return ret;
+        }
+        catch (JSONException e)
+        {
+            return null;
+        }
+    }
 }
 

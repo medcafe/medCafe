@@ -13,7 +13,7 @@
 
 	<title>Droppable Between Panes</title>
 
-    
+
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
@@ -24,7 +24,8 @@
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
-	
+	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
+
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
@@ -45,7 +46,8 @@
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
 	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
-	
+	<script type="text/javascript" src="${js}/fullcalendar.min.js"></script>
+
 	<script>
 	var outerLayout;
 
@@ -55,38 +57,86 @@
 	*		 ON PAGE LOAD
 	*#######################
 	*/
-	
+
 	$(function(){
     	// BUTTONS
     	$('.fg-button').hover(
     		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
     		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
     	);
-    
+
 		/*$('#hierarchybreadcrumb').menu({
 			content: $('#hierarchybreadcrumb').next().html(),
 			backLink: false
 		});*/
-		
-		$('#flat1').menu({ 
+
+		/* 		$('#flat1').menu({
 			content: $('#flat1').next().html(), // grab content from this page
-			showSpeed: 400 
+			showSpeed: 400
 		});
-		
+
 		$.get('menuContent.html', function(data){
 			$('#flat').menu({
 				content: data
 			});
+		}); */
+
+		///////////////////////////calendar stuff
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next',
+				center: '',
+				right: 'today'
+			},
+            defaultView:'agendaDay',
+            height: 500,
+            theme:true,
+			editable: true,
+			events: "getSchedule.jsp",
+            eventDrop: function(event, dayDelta, minuteDelta) {
+				//alert(event.title + ' was moved ' + minuteDelta + ' minutes\n' + '(should probably update your database)');
+				var url = "moveAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
+                $.getJSON(url, function(json){
+                    // $(document).trigger('POLL_COMPLETE', json)
+                    //alert(json);
+                    if (json.announce)
+                    {
+                        updateAnnouncements(json);
+                        return;
+                    }
+                });
+			}
 		});
-		
-		
-		
-		
+
+        $("#west-sections").addClass("ui-accordion ui-widget ui-helper-reset")
+            .find("h6")
+                .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
+                .prepend('<span class="ui-icon ui-icon-triangle-1-e"/>')
+                .click(function() {
+                    $(this).toggleClass("ui-accordion-header-active").toggleClass("ui-state-active")
+                        .toggleClass("ui-state-default").toggleClass("ui-corner-bottom")
+                    .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e").toggleClass("ui-icon-triangle-1-s")
+                    .end().next().toggleClass("ui-accordion-content-active").toggle();
+                    return false;
+                })
+                .next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").hide();
+        $("#patient-search").click();
     });
-	
+
+
 	</script>
-	
-    
+    <style type='text/css'>
+        /* #calendar {
+            width: 250px;
+            margin: 0 auto;
+            } */
+    </style>
+
 </head>
 <body>
 
@@ -94,26 +144,26 @@
 <div id="head">
     </div>
     <div id="dialog" >Are you sure you want to close?</div>
-     
-    
+
+
 <div class="ui-layout-center ui-corner-all">
 
 	<div id="announcements"></div>
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">
 
-			
+
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
-		   
+
     	</ul>
-    	
-    	
+
+
 		        <div id="tabs-1" class="tabContent">
 
 		    </div>
     </div>
 
- 	
+
 </div>
 
 
@@ -126,8 +176,8 @@
     	<div>
 			<p>
 				<iframe height="400" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
-			</p> 
-					
+			</p>
+
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
@@ -135,35 +185,28 @@
 				<iframe height="400" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
 			</p>
     	</div>
-	
+
 	</div>
 </div>
 
 
 <div class="ui-layout-west  ui-corner-all">
-
-	<div id="columns">
-
-		 <div id="column1" class="column">
-			<div class="widget color-6" id="intro" >
-				<div class="widget-head">
-					<h3>Search Patient</h3>
-				</div>
-				<div class="widget-content">
-					<p>
-						<iframe height="200" width="240" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
-	
-					</p>
-				</div>
-					       
-			</div>
-		</div>
+    <div id="west-sections" class="ui-layout-content">
+        <h6 id="patient-search"><a href="#">Patient Search</a></h6>
+        <div class="widget color-6" id="intro" >
+            <div class="widget-content">
+                <p>
+                    <iframe height="200" width="240" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
+                </p>
+            </div>
+        </div>
+        <h6><a href="#">Schedule</a></h6>
+        <div id="calendar"  class="widget-content"></div>
 	</div>
-		
 </div>
-		   
+
 <div class="ui-layout-north">
- 				
+
 <span>
 
 <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
@@ -182,6 +225,6 @@
 </body>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
-     	
-     	
+
+
 </html>
