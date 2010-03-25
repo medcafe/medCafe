@@ -47,6 +47,8 @@
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
 	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
 	<script type="text/javascript" src="${js}/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
+	
 
 	<script>
 	var outerLayout;

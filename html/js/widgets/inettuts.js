@@ -45,6 +45,12 @@ var iNettuts = {
         return (id&&settings.widgetIndividual[id]) ? $.extend({},settings.widgetDefault,settings.widgetIndividual[id]) : settings.widgetDefault;
     },
     
+    getSettings : function (id) {
+    
+        var $ = this.jQueryWidgets,
+            settings = this.settings;
+        return settings
+            },
     addWidgetControls : function () {
        
         
@@ -53,8 +59,9 @@ var iNettuts = {
             settings = this.settings;
         $(settings.widgetSelector, $(settings.columns)).each(function () {
       
-      		//alert('widget id ' + this.id);
+      		
             var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
+            
             if (thisWidgetSettings.removable) {
             
                 $('<a href="#" class="remove">CLOSE</a>').mousedown(function (e) {

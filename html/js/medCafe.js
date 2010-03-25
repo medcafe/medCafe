@@ -84,6 +84,7 @@ $(document).ready( function() {
        								
     	});
 	
+		extendWidgets();
 	});
 	//End of code to initialize page
 	
@@ -91,8 +92,8 @@ $(document).ready( function() {
 	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId)
 	{
 	
-		//alert("CREATE WIDGET CONTENT medcafe adding the following widget: label " + label + " " + "type " + type  + "tab order " + tab_num + " rep " + repId + " server " + link);
 						
+		
 		if (type === "chart")	
 		{					
 			addChart(this, link, tab_num);
@@ -131,8 +132,17 @@ $(document).ready( function() {
 		{
 			addChart(this, link, tab_num);
 		}					
+		
+		populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
 	}
 
+	function populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId)
+	{
+		//alert("CREATE WIDGET CONTENT medcafe adding the following widget: label " + label + " " + "type " + type  + "tab order " + tab_num + " rep " + repId + " server " + link);
+		
+		medCafeWidget.populateExtWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
+	}
+	
 	function addChart(callObj, server, tab_num)
 	{
 		//alert("callObj " + callObj);

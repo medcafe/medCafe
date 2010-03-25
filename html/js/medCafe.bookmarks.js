@@ -13,7 +13,7 @@ function fnClickAddRow(tableObj, patient_id) {
 		var rowNum = aRows.length;
 		var row = tableObj.fnAddData( ['name','url','description']);
 		makeEditable(tableObj, patient_id);
-		
+		var aData = tableObj.fnGetData( row );
 		
 }
 	

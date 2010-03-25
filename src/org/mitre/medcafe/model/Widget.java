@@ -104,11 +104,17 @@ public class Widget
 		{
 			
 			HashMap<String, Widget> widgetList = retrieveWidgets(userName, patientId);
+			//Sort by the tab_order
+			TreeMap<Integer, Widget> sortedWidgets = new TreeMap<Integer, Widget>();
 			for (Widget widget: widgetList.values())
+			{
+				sortedWidgets.put(widget.getTabOrder(), widget);
+			}
+			
+			for (Widget widget: sortedWidgets.values())
 			{
 				JSONObject widgetJSON = widget.toJSON();	
 				ret.append("widgets", widgetJSON);
-				
 			}
 		}
 		catch (SQLException e) 

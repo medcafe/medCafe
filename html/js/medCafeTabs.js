@@ -171,7 +171,7 @@ $(document).ready( function() {
 					              	  //Have to Destroy as otherwise 
 					              	  //the Dialog will not be reinitialized on open    
 					                  $(this).dialog("destroy");
-					                  medCafe.closeTab(index);
+					                  medCafeTabs.closeTab(index);
 					             },
 					             "No" : function() {
 					                 $(this).dialog("destroy");
