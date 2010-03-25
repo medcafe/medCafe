@@ -62,6 +62,21 @@ var medCafeWidget =
     			
     		}
     		,
+		    getAllIds : function () {
+    
+    			
+		        var $ = this.medcafeWidgets,
+		            extSettings = this.extSettings;
+		        var ids = [];
+		        var i=0;
+		        $.each (extSettings.widgetIndSettings, function(id, val)
+		        {
+		        	ids[i++] = id;
+		        });
+		        return ids;
+    			
+    		}
+    		,
 		    setExtWidgetSettings : function ( id, newSettings) {
 		    
 		        this.extSettings.widgetIndSettings[id] = newSettings;
@@ -70,13 +85,11 @@ var medCafeWidget =
     		}
     		,
     		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId )
-    		{
-    			
+    		{   			
     			var id = "yellow-widget" + tab_num;
-    			
+		
     			newSettings = this.getExtWidgetSettings(id);
-    		
-    			
+		
     			if (!newSettings)
     			{
     				alert("Could not set values ");
@@ -91,8 +104,7 @@ var medCafeWidget =
     			newSettings.server = link;
     			newSettings.patient_id = patientId;
     			
-    			this.setExtWidgetSettings(id,newSettings );
-    			
+    			this.setExtWidgetSettings(id,newSettings );   			
     			/*
 							id : 1,
 							tab_num : 1, 
@@ -125,6 +137,26 @@ var medCafeWidget =
             	 });
         
     		},
+    		saveWidget : function (url, id)
+    		{
+    			var widgetSettings = getExtWidgetSettings(id);
+    			$.ajax({
+	                url: url,
+	                type: 'POST',
+	                data: widgetSettings,
+	                dataType: 'json',
+	                contentType: "application/json; charset=utf-8",
+	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	                success: function(result) {
+	                    alert(result.Result);
+	                    $("#saveStatus").html(result.Result).show();
+	                }
+            	});
+    		},
+    		saveAll : function (url)
+    		{
+    			
+    		}
 };
 
 function extendWidgets(id){

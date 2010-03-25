@@ -76,12 +76,12 @@
 			content: $('#flat1').next().html(), // grab content from this page
 			showSpeed: 400
 		});
-
+*/
 		$.get('menuContent.html', function(data){
 			$('#flat').menu({
 				content: data
 			});
-		}); */
+		}); 
 
 		///////////////////////////calendar stuff
 		var date = new Date();
