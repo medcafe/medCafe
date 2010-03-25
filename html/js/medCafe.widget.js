@@ -139,14 +139,14 @@ var medCafeWidget =
     		},
     		saveWidget : function (url, id)
     		{
-    			var widgetSettings = getExtWidgetSettings(id);
+    			var widgetSettings = this.getExtWidgetSettings(id);
     			$.ajax({
 	                url: url,
 	                type: 'POST',
 	                data: widgetSettings,
 	                dataType: 'json',
 	                contentType: "application/json; charset=utf-8",
-	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	                beforeSend: function() { alert("saving");$("#saveStatus").html("Saving").show(); },
 	                success: function(result) {
 	                    alert(result.Result);
 	                    $("#saveStatus").html(result.Result).show();

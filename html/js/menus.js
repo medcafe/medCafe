@@ -18,6 +18,9 @@ function processMenuClick(menuLabel)
 		
 		var ids = medCafeWidget.getAllIds();
 		//Cycle through each to save
-		
+		 $.each (ids, function(i, val)
+		 {
+		     medCafeWidget.saveWidget("saveWidget.jsp", val);
+		 });
 	}
 }
