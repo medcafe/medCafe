@@ -66,6 +66,19 @@ public class Repositories
                 repos.put(r.getName(), r);
             }
         }catch (Exception e) {}
+
+        host = "192.168.56.101";
+        try
+        {
+            if( InetAddress.getByName(host).isReachable(TIMEOUT) )
+            {
+                r = new hDataRepository( );
+                r.setName("JeffhData");
+                r.setCredentials( host + ":8080" );
+                repos.put(r.getName(), r);
+            }
+        }catch (Exception e) {}
+
     }
 
 
