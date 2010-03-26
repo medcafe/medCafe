@@ -71,6 +71,7 @@ var medCafeWidget =
 		        var i=0;
 		        $.each (extSettings.widgetIndSettings, function(id, val)
 		        {
+		        	
 		        	ids[i++] = id;
 		        });
 		        return ids;
@@ -78,17 +79,17 @@ var medCafeWidget =
     		}
     		,
 		    setExtWidgetSettings : function ( id, newSettings) {
-		    
-		        this.extSettings.widgetIndSettings[id] = newSettings;
-    			//alert("got settings tab_num " + this.extSettings.widgetIndSettings[id].tab_num  );
-    		
+    			
+    			//Make sure to extend to add the new values
+    			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
+		        
     		}
     		,
     		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId )
     		{   			
     			var id = "yellow-widget" + tab_num;
 		
-    			newSettings = this.getExtWidgetSettings(id);
+    			var newSettings = this.getExtWidgetSettings(id);
 		
     			if (!newSettings)
     			{
@@ -104,7 +105,9 @@ var medCafeWidget =
     			newSettings.server = link;
     			newSettings.patient_id = patientId;
     			
-    			this.setExtWidgetSettings(id,newSettings );   			
+    			this.setExtWidgetSettings(id,newSettings );   					
+				
+				
     			/*
 							id : 1,
 							tab_num : 1, 
@@ -139,17 +142,17 @@ var medCafeWidget =
     		},
     		saveWidget : function (url, id)
     		{
+    			url = url + "?";
     			var widgetSettings = this.getExtWidgetSettings(id);
+    			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
     			$.ajax({
 	                url: url,
 	                type: 'POST',
 	                data: widgetSettings,
-	                dataType: 'json',
-	                contentType: "application/json; charset=utf-8",
-	                beforeSend: function() { alert("saving");$("#saveStatus").html("Saving").show(); },
+	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
 	                success: function(result) {
-	                    alert(result.Result);
-	                    $("#saveStatus").html(result.Result).show();
+	                    //alert(result.Result);
+	                    //$("#saveStatus").html(result.Result).show();
 	                }
             	});
     		},

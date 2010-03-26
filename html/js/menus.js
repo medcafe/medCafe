@@ -23,4 +23,17 @@ function processMenuClick(menuLabel)
 		     medCafeWidget.saveWidget("saveWidget.jsp", val);
 		 });
 	}
+	else if (menuLabel == "Test")
+	{
+		//Code to cycle through the widgets and save
+		
+		var ids = medCafeWidget.getAllIds();
+		//Cycle through each to save
+		 $.each (ids, function(i, val)
+		 {
+		 	 
+		     var settings = medCafeWidget.getExtWidgetSettings(val);
+		     alert("menus.js settings val " + val  + " tab num " + settings.tab_num);
+		 });
+	}
 }
