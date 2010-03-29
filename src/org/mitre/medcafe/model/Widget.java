@@ -116,6 +116,41 @@ public class Widget
 		 
 	}
 	
+	public static JSONObject deleteWidgets( String patientId, String userName) throws SQLException
+	{
+		JSONObject ret = new JSONObject();
+		setConnection();
+		
+		/**
+		key id value 1
+		patient_id value 1
+		server value http://127.0.0.1
+		clickUrl value http://127.0.0.1:8080
+		repository value OurVista
+		type value images
+		location value center
+		tab_num value 1
+		**/
+		try 
+		{
+			String deleteQuery = Widget.DELETE_WIDGETS;
+			int rtn = 0;
+			int patient_id = Integer.parseInt(patientId);
+			String err_mess = "Could not delete the widgets for patient  " + patient_id;
+			
+			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName);	
+			
+			if (rtn < 0 )
+				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
+			
+		}
+		finally
+		{
+		
+		}
+		return ret;
+	}
+	
 	public static JSONObject saveWidgets( String userName, JSONObject widgetJSON) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
@@ -138,18 +173,13 @@ public class Widget
 			
 			String patient_idStr = widgetJSON.getString(Widget.ID);
 			int patient_id = Integer.parseInt(patient_idStr);
-			String err_mess = "Could not delete the widgets for patient  " + patient_id;
+			String err_mess = "Could not update the widgets for patient  " + patient_id;
 			//public static final String DELETE_WIDGETS = "DELETE FROM widget_params where ( patient_id=?, username=?) ";
 			
-			String deleteQuery = Widget.DELETE_WIDGETS;
-			
-			int rtn = 0;
-			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName);	
-			if (rtn < 0 )
-				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
-			
 			String updateQuery = Widget.INSERT_WIDGETS;
-			err_mess = "Could not update the widgets for patient  " + patient_id;
+			
+			PreparedStatement prep= dbConn.prepareStatement(updateQuery);
+			
 			//INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
 		
 			Iterator iter = widgetJSON.keys();
@@ -161,9 +191,16 @@ public class Widget
 					continue;
 				String value = widgetJSON.getString(key);		
 				//System.out.println("Widget : About to update id " + id + " patient_id " + patient_id + " userName " + userName + " key " + key + " value " + value);
-				dbConn.psExecuteUpdate(updateQuery, err_mess , id, patient_id, userName, key, value);	
+				//dbConn.psExecuteUpdate(updateQuery, err_mess , id, patient_id, userName, key, value);	
+				prep.setInt(1, id);
+				prep.setInt(2, patient_id);
+				prep.setString(3, userName);
+				prep.setString(4, key);
+				prep.setString(5, value);
+				prep.addBatch();
+				
 			}
-
+			prep.executeBatch();
 		}
 		catch (JSONException e) {
 			// TODO Auto-generated catch block

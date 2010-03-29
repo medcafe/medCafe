@@ -89,6 +89,7 @@ function populate(url, patient_id)
 					
 					tab_num = parent.addTab(label);					
 					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId);
+					
 		   }
 
 	});

@@ -145,6 +145,8 @@ $(document).ready( function() {
 	
 	function addChart(callObj, server, tab_num)
 	{
+		//alert("medCafeTabs " +  tab_num + " about to call setHasContent  set to " + true  );
+			
 		//alert("callObj " + callObj);
 		//Delay to let the DOM refresh
 		$(callObj).delay(200,function()
@@ -159,8 +161,7 @@ $(document).ready( function() {
 				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num); 
 			} );				
 				
-			iNettuts.makeSortable();
-			
+			//iNettuts.makeSortable();
 			setHasContent(tab_num);
 		} );
 	}

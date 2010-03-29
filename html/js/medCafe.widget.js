@@ -157,6 +157,20 @@ var medCafeWidget =
 	                }
             	});
     		},
+    		deleteWidgets : function (url)
+    		{
+    			url = url + "?";
+    			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
+    			$.ajax({
+	                url: url,
+	                type: 'POST',
+	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	                success: function(result) {
+	                    //alert(result.Result);
+	                    //$("#saveStatus").html(result.Result).show();
+	                }
+            	});
+    		},
     		saveAll : function (url)
     		{
     			

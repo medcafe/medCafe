@@ -15,7 +15,7 @@ function processMenuClick(menuLabel)
 	else if (menuLabel == "Save")
 	{
 		//Code to cycle through the widgets and save
-		
+		medCafeWidget.deleteWidgets("deleteWidget.jsp");
 		var ids = medCafeWidget.getAllIds();
 		//Cycle through each to save
 		 $.each (ids, function(i, val)

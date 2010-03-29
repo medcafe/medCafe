@@ -6,6 +6,14 @@
 	String title = request.getParameter("title");
 	if (title == null)
 		title = "Title";
+		
+	String patientId ="1";
+	Object patientIdObj = session.getAttribute("patient");
+	if (patientIdObj != null)
+		patientId = patientIdObj.toString();
+		
+	System.out.println("tabs-template.jsp patient id " + patientId );
+	
 %>
 <script>
 
@@ -42,10 +50,9 @@ $(function(){
 			var type = $(dragObj).find('img').attr("custom:type");
 			var html = $(dragObj).find('img').attr("custom:html");
 			var method = $(dragObj).find('img').attr("custom:method");
-			var patientId = $(dragObj).find('img').attr("custom:Id");
+			var patientId = "<%=patientId%>";
 			var params = $(dragObj).find('img').attr("custom:params");
 			var repository = $(dragObj).find('img').attr("custom:repository");
-			
 			if (hasContent == "false")
 			{
 				//No content : Use the current Tab
