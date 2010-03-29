@@ -73,11 +73,31 @@ public class Widget
 	
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
 	public static final String SELECT_WIDGETS = "SELECT id, widget_id, param, value from widget_params where username = ? and patient_id = ? ORDER BY widget_id ";
+	public static final String INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
+	public static final String DELETE_WIDGETS = "DELETE FROM widget_params where ( patient_id=? AND username=?) ";
 	
+	private static DbConnection dbConn = null;
 	public Widget()	
 	{
 		super();
 	
+	}
+	
+	public static DbConnection setConnection() throws SQLException
+	{
+		if (dbConn == null)
+			dbConn= new DbConnection();
+		return dbConn;
+	}
+	
+	public static DbConnection getConnection() throws SQLException
+	{
+		return dbConn;
+	}
+	
+	public static void closeConnection() throws SQLException
+	{
+		dbConn.close();
 	}
 	
 	public JSONObject toJSON() throws JSONException
@@ -96,6 +116,67 @@ public class Widget
 		 
 	}
 	
+	public static JSONObject saveWidgets( String userName, JSONObject widgetJSON) throws SQLException
+	{
+		JSONObject ret = new JSONObject();
+		setConnection();
+		
+		/**
+		key id value 1
+		patient_id value 1
+		server value http://127.0.0.1
+		clickUrl value http://127.0.0.1:8080
+		repository value OurVista
+		type value images
+		location value center
+		tab_num value 1
+		**/
+		try 
+		{
+			String idStr = widgetJSON.getString(Widget.WIDGET_ID);
+			int id = Integer.parseInt(idStr);
+			
+			String patient_idStr = widgetJSON.getString(Widget.ID);
+			int patient_id = Integer.parseInt(patient_idStr);
+			String err_mess = "Could not delete the widgets for patient  " + patient_id;
+			//public static final String DELETE_WIDGETS = "DELETE FROM widget_params where ( patient_id=?, username=?) ";
+			
+			String deleteQuery = Widget.DELETE_WIDGETS;
+			
+			int rtn = 0;
+			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName);	
+			if (rtn < 0 )
+				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
+			
+			String updateQuery = Widget.INSERT_WIDGETS;
+			err_mess = "Could not update the widgets for patient  " + patient_id;
+			//INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
+		
+			Iterator iter = widgetJSON.keys();
+			while (iter.hasNext())
+			{
+				String key = iter.next().toString();
+				//Skip the key values
+				if (key.equals(Widget.WIDGET_ID) || key.equals(Widget.ID) )
+					continue;
+				String value = widgetJSON.getString(key);		
+				//System.out.println("Widget : About to update id " + id + " patient_id " + patient_id + " userName " + userName + " key " + key + " value " + value);
+				dbConn.psExecuteUpdate(updateQuery, err_mess , id, patient_id, userName, key, value);	
+			}
+
+		}
+		catch (JSONException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on updating widget data from database ." + e.getMessage());
+			
+		}
+		finally
+		{
+		
+		}
+		return ret;
+	}
+	
 	public static JSONObject listWidgets(String userName, String patientId) throws SQLException
 	{
 		
@@ -106,8 +187,12 @@ public class Widget
 			HashMap<String, Widget> widgetList = retrieveWidgets(userName, patientId);
 			//Sort by the tab_order
 			TreeMap<Integer, Widget> sortedWidgets = new TreeMap<Integer, Widget>();
+			//System.out.println("Widget : listWidgets : number of returned widgets " + widgetList.size());
+			
 			for (Widget widget: widgetList.values())
 			{
+				//System.out.println("Widget : listWidgets : id " + widget.getId() + " tab Order " + widget.getTabOrder());
+				
 				sortedWidgets.put(widget.getTabOrder(), widget);
 			}
 			
@@ -116,6 +201,10 @@ public class Widget
 				JSONObject widgetJSON = widget.toJSON();	
 				ret.append("widgets", widgetJSON);
 			}
+			
+			//System.out.println("Widget : listWidgets : number of returned sorted widgets " + sortedWidgets.size());
+			//System.out.println("Widget : listWidgets : Returned val " + ret.toString());
+			
 		}
 		catch (SQLException e) 
 		{
@@ -127,6 +216,7 @@ public class Widget
 			// TODO Auto-generated catch block
 			return WebUtils.buildErrorJson( "Problem on building JSON Data ." + e.getMessage());
 		}
+		
 		return ret;
 	}
 	
@@ -145,6 +235,8 @@ public class Widget
 			prep.setString(1, userName);
 			prep.setInt(2, patId);
 			
+			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
+			
 			ResultSet rs =  prep.executeQuery();
 			int lastId = 0;
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
@@ -157,6 +249,8 @@ public class Widget
 				
 				if (lastId != widgetId)
 				{
+					//System.out.println("Widget: getWidgets : creating new widget " + widgetId );
+					
 					//Create new Widget
 					widget = new Widget();
 					
@@ -168,14 +262,15 @@ public class Widget
 					widgetList.put(widgetId + "", widget);
 				}
 				String param = rs.getString("param");
+				//System.out.println("Widget: getWidgets : id " + widgetId + " value for param " + param );
+				
 				String value = rs.getString("value");
 				if (param.equals(Widget.TAB_ORDER))
 				{
-					System.out.println("Widget: getWidgets : value for tab order " + value );
 					int tabOrdInt = Integer.parseInt(value);
-					System.out.println("Widget: getWidgets : value for tab order int " + tabOrdInt );
 					
-					widget.setTabOrder( tabOrdInt );	
+					widget.setTabOrder( tabOrdInt );
+					
 				}
 				else if (param.equals(Widget.TYPE))
 				{
@@ -201,15 +296,21 @@ public class Widget
 				{
 					params.put(param, value);
 				}
+				
 				lastId = widgetId;
 			}
 
 		 }
 		 catch (SQLException e) 
 		 {
+			dbConn.close();
+			
 			throw e;
 		 }
-		 
+		 finally
+		 {
+			 dbConn.close();
+		 }
 		 return widgetList;
 		
 	}

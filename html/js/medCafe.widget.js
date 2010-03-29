@@ -11,7 +11,7 @@ var medCafeWidget =
 					widgetDefault : 
 					{
 							id : 1,
-							tab_num : 1, 
+							tab_order : 1, 
 							repository : 'OurVista',
 							type: 'images',
 							location : 'center',
@@ -25,7 +25,7 @@ var medCafeWidget =
 			             intro : 
 			             {
 				            id : 1,
-							tab_num : 1, 
+							tab_order : 1, 
 							repository : 'OurVista',
 							type: 'images',
 							location : 'center',
@@ -95,8 +95,9 @@ var medCafeWidget =
     			{
     				alert("Could not set values ");
     			}
-    			newSettings.id = id;
-    			newSettings.tab_num = tab_num;
+    			//Temporarily set id to the tab_num
+    			newSettings.id = tab_num;
+    			newSettings.tab_order = tab_num;
     			newSettings.repository = repId;
     			newSettings.type = type;
     			//extSettings.location = location;

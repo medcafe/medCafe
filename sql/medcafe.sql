@@ -131,5 +131,4 @@ insert into widget_params(widget_id, patient_id, username, param, value) values 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'repository','OurVista');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'location', 'center');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'name', 'Bookmarks-Patient-7');
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'tab_order', 3);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'server', 'http://127.0.0.1:8080/medcafe/bookmarksJSON.jsp');
