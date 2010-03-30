@@ -200,7 +200,7 @@ $(document).ready( function() {
 		$(idObj).attr("id", label);
 	}
 	
-	function addTab(label)
+	function addTab(label, type)
 	{
 		
 		//First check if tab already exists
@@ -236,7 +236,7 @@ $(document).ready( function() {
 		$('#tabs').tabs("add","#" + hrefBase,label);
 		$("#tabs-" + tab_num).addClass('tabContent');
 		//Load the widget template
-		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label);
+		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
 		//$("#tabs-" + tab_num).
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
@@ -246,7 +246,7 @@ $(document).ready( function() {
 	function createLink(patientId, link, label, type, params, repository) 
 	{
 		   					
-		var tab_num = addTab(label);		
+		var tab_num = addTab(label, type);		
 		if (tab_num < 0)
 			return;
 		createWidgetContent(patientId,link, label, type ,tab_num, params,repository);

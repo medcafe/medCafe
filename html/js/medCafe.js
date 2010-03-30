@@ -94,25 +94,25 @@ $(document).ready( function() {
 	
 						
 		
-		if (type === "chart")	
+		if (type === "Chart")	
 		{					
 			addChart(this, link, tab_num);
 		}
-		else if  (type == "repository")
+		else if  (type == "Repository")
 		{
 			$.getScript('js/medCafe.repository.js', function()
 			{
 				addRepository(this, link, tab_num, label, repId);
 			});
 		}
-		else if  (type == "bookmarks")
+		else if  (type == "Bookmarks")
 		{
 			$.getScript('js/medCafe.bookmarks.js', function()
 			{
 				addBookmarks(this, link, tab_num, label, patientId, repId);
 			});
 		}
-		else if  (type == "medications")
+		else if  (type == "Medications")
 		{
 			
 			$.getScript('js/medCafe.medications.js', function()
@@ -120,7 +120,7 @@ $(document).ready( function() {
 				addMedications(this, link, tab_num, label, patientId, repId);
 			});
 		}
-		else if  (type == "allergies")
+		else if  (type == "Allergies")
 		{
 			
 			$.getScript('js/medCafe.allergies.js', function()
@@ -293,7 +293,7 @@ function displayImage(imageName)
 	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
 	 
 	 }
-	 var tab_num = addTab(imageTitle);
+	 var tab_num = addTab(imageTitle, "Image");
 	
 	 var html =$.ajax({
       url: server,
@@ -339,7 +339,7 @@ function displayImage(imageName)
 			function(e)
 			{
 				
-				var tab_num = addTab(imageTitle + "Viewer");
+				var tab_num = addTab(imageTitle + "Viewer","Viewer");
 				
 				var link = "viewer.jsp?image=" + server;
 				addChart(this, link, tab_num);
@@ -349,7 +349,7 @@ function displayImage(imageName)
 			function(e)
 			{
 				
-				var tab_num = addTab(imageTitle + "Annotate");
+				var tab_num = addTab(imageTitle + "Annotate", "Annotate");
 				
 				var link = server;
 				imageAnnotate(this, link, tab_num);

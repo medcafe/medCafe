@@ -71,7 +71,7 @@ function addRepository(callObj, server, tab_num, label, repId)
 									return false;
 								}
 								
-								var tab_num = addTab(detailId);
+								var tab_num = addTab(detailId, "Repository");
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{

@@ -79,7 +79,7 @@ public class ListWidgetResource extends ServerResource {
         	System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
         	String[] widgetName = new String[]{"Repository", "Charts", "Slider",  "Dates","Editor"};
-        	String[] type = new String[]{"repository", "chart", "slider", "date","editor"};
+        	String[] type = new String[]{"Repository", "Chart", "Slider", "Date","Editor"};
         	
         	String[] images = new String[]{"openvista.gif","chart.png", "slider-small.png",  "date.png","pages-icon.png"};
         	String[] clickUrl = new String[]{server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp" };

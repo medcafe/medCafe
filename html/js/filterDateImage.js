@@ -1,4 +1,4 @@
-function filterDateImages(startDate, endDate, tab_num)
+function filterDateImage(startDate, endDate, tab_num)
 {
 	jQuery.each($("#iframe" + tab_num), function() {
 				

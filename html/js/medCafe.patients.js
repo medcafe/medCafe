@@ -67,6 +67,13 @@ function setOnSelect()
     	
 }
 
+//Function to save and close all open Tabs
+function removeTabs()
+{
+	 //Put in a warning that this will close tabs - Ok, Cancel, Save and Close
+	 
+}
+
 function populate(url, patient_id)
 {
 	 var server = url + "?patient_id=" + patient_id;
@@ -87,7 +94,7 @@ function populate(url, patient_id)
 					var server =  data.widgets[i].server;
 					var params = "";
 					
-					tab_num = parent.addTab(label);					
+					tab_num = parent.addTab(label, type);					
 					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId);
 					
 		   }

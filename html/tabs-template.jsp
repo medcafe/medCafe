@@ -6,13 +6,17 @@
 	String title = request.getParameter("title");
 	if (title == null)
 		title = "Title";
+	
+	String type = request.getParameter("type");
+	if (type == null)
+		type = "Chart";
 		
 	String patientId ="1";
 	Object patientIdObj = session.getAttribute("patient");
 	if (patientIdObj != null)
 		patientId = patientIdObj.toString();
 		
-	System.out.println("tabs-template.jsp patient id " + patientId );
+	System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
 	
 %>
 <script>
@@ -21,16 +25,7 @@ var hasContent = false;
 
 $(function(){
 
-	var srcName = "js/filterDate<%=title%>.js"; 
-	$.getScript(srcName, function(){
-
-		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
-		{	 		
-			var tabNum = "<%=tabNum%>";
-			filterDate<%=title%>(startDate, endDate,tabNum );
-		});	
-		
-	});
+	filterType();
 	
 	$(".widget-content").droppable({
       drop: function(event, ui) 
@@ -73,7 +68,21 @@ $(function(){
 	
 });
 
+function filterType()
+{
+	var srcName = "js/filterDate<%=type%>.js"; 
+	
+	$.getScript(srcName, function(){
 
+		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
+		{	 		
+			var tabNum = "<%=tabNum%>";
+			filterDate<%=type%>(startDate, endDate,tabNum );
+			
+		});	
+		
+	});
+}
 	
 </script>
 		
