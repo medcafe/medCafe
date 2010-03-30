@@ -57,6 +57,8 @@ function initialize(serverLink)
     
 function setOnSelect()
 {
+		parent.closeAllTabs("tabs");
+		
     	$("#list_names").change(function() {
     	
     		var src = $("option:selected", this).val();
@@ -67,17 +69,9 @@ function setOnSelect()
     	
 }
 
-//Function to save and close all open Tabs
-function removeTabs()
-{
-	 //Put in a warning that this will close tabs - Ok, Cancel, Save and Close
-	 
-}
-
 function populate(url, patient_id)
 {
 	 var server = url + "?patient_id=" + patient_id;
-	
 	 $.getJSON(server, function(data)
 	 {
 		   

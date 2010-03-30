@@ -1,5 +1,6 @@
 $(document).ready( function() {
 
+		var medCafeTabs;
 		var tabSelectedId;
    
 		var $tabs = $('#tabs').tabs({
@@ -88,8 +89,6 @@ $(document).ready( function() {
 		    }
 		});
 
-
-
   		var draggedId;
 		// init the Sortables
 		$(".tabs").sortable({
@@ -132,7 +131,7 @@ $(document).ready( function() {
 				.sortable({})
 			;
 		
-		var medCafeTabs = {
+		 medCafeTabs = {
 		
 			closeTab : function(index) {
 			
@@ -153,8 +152,17 @@ $(document).ready( function() {
 			   				});
 			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
 			   				$("#tabs").tabs('select', newIndex);
+				}
+				,
+				closeAllTabs : function(tab_name) {
+			
+							$("#tabs").find("li:has(a)").each(function(i)
+						 	{
+						 		var index = $(this).attr('custom:index');
+								$("#tabs").tabs("remove",index);
+			   				});
+			   				
 				},
-				
 			initClose : function() {
 			
 				$('.tabHeader').find('.close').bind("click",{},
@@ -199,6 +207,7 @@ $(document).ready( function() {
 		var idObj = $(tabObj).find(".id");
 		$(idObj).attr("id", label);
 	}
+	
 	
 	function addTab(label, type)
 	{
@@ -260,5 +269,23 @@ $(document).ready( function() {
 			var hasContentObj = widgetObj.find("#hasContent");
       		var hasContent = $(hasContentObj).attr("custom:hasContent");
      		$(hasContentObj).attr("custom:hasContent",true);
+     		
+	}
+
+	function closeAllTabs(tab_num)
+	{
+		var indexList = new Array();	
+		$("#tabs").find("li:has(a)").each(function(i)
+		{
+			indexList[i] = $(this).attr('custom:index');
+			
+		});
+		
+		//Make sure that the last tab is closed first
+		for (i=indexList.length-1; i > -1 ;i--)
+		{
+			$("#tabs").tabs("remove",indexList[i]);	
+		}
+		
      		
 	}

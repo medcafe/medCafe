@@ -48,7 +48,6 @@
 	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
 	<script type="text/javascript" src="${js}/fullcalendar.min.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
-	
 
 	<script>
 	var outerLayout;
@@ -61,29 +60,18 @@
 	*/
 
 	$(function(){
-    	// BUTTONS
+	
     	$('.fg-button').hover(
     		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
     		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
     	);
 
-		/*$('#hierarchybreadcrumb').menu({
-			content: $('#hierarchybreadcrumb').next().html(),
-			backLink: false
-		});*/
-
-		/* 		$('#flat1').menu({
-			content: $('#flat1').next().html(), // grab content from this page
-			showSpeed: 400
-		});
-*/
 		$.get('menuContent.html', function(data){
 			$('#flat').menu({
 				content: data
 			});
-		}); 
-
-		///////////////////////////calendar stuff
+		});
+		
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();

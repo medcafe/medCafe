@@ -83,7 +83,16 @@ function filterType()
 		
 	});
 }
+
+function bindClose()
+{
 	
+		$(document).bind('CLOSE_TAB', function(event, data) 
+		{	 		
+			
+		});	
+
+}	
 </script>
 		
 <div class="id" id="<%=title%>"></div>	

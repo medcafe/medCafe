@@ -187,3 +187,15 @@ function extendWidgets(id){
 	var allSettings = test.getExtWidgetSettings( id, test.getWidgetSettings(id));
 	
 }
+
+function saveWidgets()
+{
+		//Code to cycle through the widgets and save
+		medCafeWidget.deleteWidgets("deleteWidget.jsp");
+		var ids = medCafeWidget.getAllIds();
+		//Cycle through each to save
+		 $.each (ids, function(i, val)
+		 {
+		     medCafeWidget.saveWidget("saveWidget.jsp", val);
+		 });
+}

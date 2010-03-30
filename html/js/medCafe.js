@@ -91,9 +91,7 @@ $(document).ready( function() {
 	//Code to create widgets content
 	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId)
 	{
-	
-						
-		
+	 
 		if (type === "Chart")	
 		{					
 			addChart(this, link, tab_num);
@@ -358,6 +356,46 @@ function displayImage(imageName)
 		}
       }).responseText;
 
+}
+
+function initClose()
+{
+	 $("#dialog").dialog({
+		autoOpen: false,					
+		modal:true,
+		resizable: true,
+		title: "Close Tab",
+		buttons : {
+			"Yes" : function() {          
+			//Have to Destroy as otherwise 
+			//the Dialog will not be reinitialized on open    
+			$(this).dialog("destroy");
+					closeAllTabs("tabs")
+			},
+			"No" : function() {
+				$(this).dialog("destroy");
+			}  
+		}
+	}); 						
+	$("#dialog").dialog("open");
+							
+}
+function closeAllTabs(tab_num)
+{
+		var indexList = new Array();	
+		$("#tabs").find("li:has(a)").each(function(i)
+		{
+			indexList[i] = $(this).attr('custom:index');
+			
+		});
+		
+		//Make sure that the last tab is closed first
+		for (i=indexList.length-1; i > -1 ;i--)
+		{
+			$("#tabs").tabs("remove",indexList[i]);	
+		}
+		
+     		
 }
 
 function updateAnnouncements(data)
