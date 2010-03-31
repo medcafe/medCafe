@@ -69,26 +69,32 @@ function setOnSelect()
 
 function retrieve(patient)
 {
-		parent.$("#dialog").dialog({
+		parent.$("#saveDialog").dialog({
 				autoOpen: false,					
 				modal:true,
 				resizable: true,
 				title: "Close Tab",
 				buttons : {
 					"Yes" : function() {          
-					//Have to Destroy as otherwise 
-					//the Dialog will not be reinitialized on open    
-					parent.$("#dialog").dialog("destroy");
-							
+							//Have to Destroy as otherwise 
+							//the Dialog will not be reinitialized on open    
+							parent.$("#saveDialog").dialog("destroy");
+							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
 							populate("retrievePatient.jsp", patient);	
 					},
 					"No" : function() {
-						parent.$("#dialog").dialog("destroy");
+						parent.$("#saveDialog").dialog("destroy");
+						parent.closeAllTabs("tabs");
+						populate("retrievePatient.jsp", patient);	
+					}
+					,
+					"Cancel" : function() {
+						parent.$("#saveDialog").dialog("destroy");
 					}  
 				}
 		}); 						
-		parent.$("#dialog").dialog("open");
+		parent.$("#saveDialog").dialog("open");
 }
 
 function populate(url, patient_id)

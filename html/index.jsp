@@ -146,6 +146,7 @@
 <div id="head">
     </div>
     <div id="dialog" >Are you sure you want to close?</div>
+	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
 
 
 <div class="ui-layout-center ui-corner-all">
