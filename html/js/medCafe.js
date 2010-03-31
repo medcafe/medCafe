@@ -128,7 +128,7 @@ $(document).ready( function() {
 		}
 		else
 		{
-			addChart(this, link, tab_num);
+			addChart(this, link, tab_num, patientId);
 		}					
 		
 		populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
@@ -141,7 +141,7 @@ $(document).ready( function() {
 		medCafeWidget.populateExtWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
 	}
 	
-	function addChart(callObj, server, tab_num)
+	function addChart(callObj, server, tab_num, patientId)
 	{
 		//alert("medCafeTabs " +  tab_num + " about to call setHasContent  set to " + true  );
 			
@@ -156,7 +156,7 @@ $(document).ready( function() {
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num); 
+				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId); 
 			} );				
 				
 			//iNettuts.makeSortable();

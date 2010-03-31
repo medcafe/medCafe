@@ -4,7 +4,7 @@
 <%
 
 	System.out.println("prescriptionJSON: url start");
-	String patient_id = request.getParameter("patient_id");
+	String patient_id = request.getParameter(Constants.PATIENT_ID);
 	if (patient_id == null)
 		patient_id = Constants.DEFAULT_PATIENT;
 	//Just for testing purposes

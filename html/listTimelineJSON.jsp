@@ -3,7 +3,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 
-	String patient_id = request.getParameter("patient_id");
+	String patient_id = request.getParameter(Constants.PATIENT_ID);
 	if (patient_id == null)
 		patient_id = "1";
 	String repository = request.getParameter("repository");

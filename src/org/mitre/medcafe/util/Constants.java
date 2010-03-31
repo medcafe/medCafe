@@ -38,4 +38,7 @@ public class Constants {
 	
 	public static final String DEFAULT_PATIENT = "1";
 	public static final String  DEFAULT_REPOSITORY="OurVista";
+	
+	public static final String PATIENT_ID = "patient_id";
+	
 }

@@ -45,7 +45,6 @@ public class TextProcesses
    public void init()
    {
 	   try {
-		   System.out.println("SaveData: init. Start " );
 			if (dbConn == null)
 				dbConn= new DbConnection();
 			
@@ -69,7 +68,6 @@ public class TextProcesses
    public Text populateTextObject(String userid,  String patientId, String title) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: populateTextObjects: start "  );
 	 		
 	   Text textObj =  new Text(userid, patientId);
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT);
@@ -77,12 +75,10 @@ public class TextProcesses
 	   prep.setString(1, userid);
 	   prep.setString(2, patientId);
 	   prep.setString(3, title);
-	   System.out.println("SaveData: InsertText: select query  " + prep.toString() );
 		
 	   ResultSet rs = prep.executeQuery();
 	   if (rs.next())
 	   {
-		   System.out.println("SaveData: populateTextObjects: result set "  );
 		 	
 		   String note = rs.getString(1);
 		   textObj =  new Text(userid, patientId, title, note);
@@ -95,19 +91,16 @@ public class TextProcesses
    public TextTemplate populateTemplateObject(String userid,  String title) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: populateTextObjects: start "  );
-	 		
+	  		
 	   TextTemplate templateObj =  new TextTemplate(userid);
 	   PreparedStatement prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATE_SELECT);
 	   
 	   prep.setString(1, userid);
 	   prep.setString(2, title);
-	   System.out.println("TextProcesses: populateTemplateObject: select query  " + prep.toString() );
-		
+	  
 	   ResultSet rs = prep.executeQuery();
 	   if (rs.next())
 	   {
-		   System.out.println("TextProcesses: populateTemplateObject: result set "  );
 		 	
 		   String note = rs.getString(1);
 		   templateObj =  new TextTemplate(userid, title,  note);
@@ -120,20 +113,17 @@ public class TextProcesses
    public HashMap<String,Text> populateTextObjects(String userid,  String patientId) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: populateTextObjects: start "  );
-	 		
+	   	
 	   Text textObj =  new Text(userid, patientId);
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXTS_SELECT);
 	   
 	   prep.setString(1, userid);
 	   prep.setString(2, patientId);
-	   System.out.println("SaveData: InsertText: select query  " + prep.toString() );
 		
 	   ResultSet rs = prep.executeQuery();
 	   while (rs.next())
 	   {
-		   System.out.println("SaveData: populateTextObjects: result set "  );
-		 	
+		   
 		   String title = rs.getString(1);
 		   String note = rs.getString(2);
 		   textObj =  new Text(userid, patientId, title, note);
@@ -148,19 +138,16 @@ public class TextProcesses
 	   HashMap<String,TextTemplate> templateList = new HashMap<String, TextTemplate>();
 	   
 	   init();
-	   System.out.println("TextProcesses: populateTemplateObjects: start "  );
-	 		
+	   		
 	   TextTemplate templateObj =  new TextTemplate(userid);
 	   PreparedStatement prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATES_SELECT);
 	   
 	   prep.setString(1, userid);
-	   System.out.println("TextProcesses: populateTemplateObjects: select query  " + prep.toString() );
-		
+	 	
 	   ResultSet rs = prep.executeQuery();
 	   while (rs.next())
 	   {
-		   System.out.println("TextProcesses: populateTemplateObjects: result set "  );
-		 	
+		   
 		   String title = rs.getString(1);
 		   String note = rs.getString(2);
 		   templateObj =  new TextTemplate(userid,  title, note);
@@ -173,24 +160,20 @@ public class TextProcesses
    public void saveText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: SaveText: start "  );
-	   System.out.println("SaveData: SaveText: title "  + title );
-			
+	   	
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT_CNT);
 	   
 	   prep.setString(1, userid);
 	   prep.setString(2, patientId);
 	   prep.setString(3, title);
 	   int numberOfRecords = 0;
-	   System.out.println("SaveData: InsertText: select query  " + prep.toString() );
-		
+	   
 	   ResultSet rs = prep.executeQuery();
 	   if (rs.next())
 	   {
 		   numberOfRecords = rs.getInt(1);
 	   }
-	   System.out.println("SaveData: InsertText: number of records  " + numberOfRecords );
-		
+	   
 	   if (numberOfRecords == 0)
 		   insertText(userid, patientId, title, text);
 	   else
@@ -201,15 +184,13 @@ public class TextProcesses
    private void insertText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: InsertText: start "  );
-		
+	   
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_INSERT);
 	   prep.setString(1, userid);
 	   prep.setString(2, patientId);
 	   prep.setString(3, title);
 	   prep.setString(4, text);
-	   System.out.println("SaveData: InsertText: insert query  " + prep.toString() );
-		   
+	     
 	   int noUpdated = prep.executeUpdate();
 	   System.out.println("SaveData: InsertText: number updated  " + noUpdated );
    }
@@ -217,16 +198,14 @@ public class TextProcesses
    private void updateText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: UpdateText: start "  );
-		
+	   
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_UPDATE);
 
 	   prep.setString(1, text);
 	   prep.setString(2, userid);
 	   prep.setString(3, patientId);
 	   prep.setString(4, title);
-	   System.out.println("SaveData: UpdateText: update query  " + prep.toString() );
-		   
+	      
 	   int noUpdated = prep.executeUpdate();
 	   System.out.println("SaveData: UpdateText: update: number updated  " + noUpdated );
    }
@@ -234,15 +213,13 @@ public class TextProcesses
    public void deleteText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	   init();
-	   System.out.println("SaveData: DeleteText: start "  );
-		
+	   
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_DELETE);
 
 	   prep.setString(1, userid);
 	   prep.setString(2, patientId);
 	   prep.setString(3, title);
-	   System.out.println("SaveData: DeleteText: delete query  " + prep.toString() );
-		   
+	      
 	   int noUpdated = prep.executeUpdate();
 	   System.out.println("SaveData: DeleteText: delete: number updated  " + noUpdated );
    }

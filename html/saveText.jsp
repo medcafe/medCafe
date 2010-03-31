@@ -8,12 +8,10 @@
 	String formData = request.getParameter("form[info1]");
 	String action = request.getParameter("action");
 	
-	System.out.println("SaveText.jsp: action " + action);
-	
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
-  	String patientId = request.getParameter("patient_id");
-	if (patientId == null)
+  	String patientId = request.getParameter(Constants.PATIENT_ID);
+  	if (patientId == null)
 		patientId = "1";
 		
 	String title = request.getParameter("title");
@@ -25,7 +23,7 @@
 		textProcesses.deleteText(user, patientId, title, formData);	
 		
 	title = URLEncoder.encode(title,"UTF-8"); 
-	System.out.println("SaveText.jsp: action " + action + " patient "  + patientId + " title " + title);
+	//System.out.println("SaveText.jsp: action " + action + " patient "  + patientId + " title " + title);
 	
-	response.sendRedirect("editor.jsp?patient_id=" + patientId + "&title=" + title);	
+	response.sendRedirect("editor.jsp?" +  Constants.PATIENT_ID + "=" + patientId + "&title=" + title);	
 %>

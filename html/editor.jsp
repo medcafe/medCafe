@@ -4,7 +4,7 @@
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%
-	String patientId = request.getParameter("patient_id");
+	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "1";
 	String tab_num = request.getParameter("tab_num");
@@ -55,7 +55,7 @@ body, textarea {
 <body>
 
 <div id="main" style="width:800px;">
- <form action="saveText.jsp">
+ <form action="saveText.jsp?<%=Constants.PATIENT_ID%>=<%=patientId%>">
     <p>                      
     	Select Title : <select name="title" id="title"><option></option>
     		<%=sbuff.toString() %>
@@ -133,7 +133,7 @@ $(document).ready(function() {
 				//Have to Destroy as otherwise 
 				//the Dialog will not be reinitialized on open    
 				 $(this).dialog("destroy");
-				 loadTemplate(title, tab_num);	
+				 loadTemplate(title, tab_num, patientId);	
 				 //Put in code to goto saveText.jsp Delete
 			},
 				"No" : function() {
@@ -146,9 +146,9 @@ $(document).ready(function() {
     });
 });
 
-function loadTemplate(title, tab_num)
+function loadTemplate(title, tab_num, patientId)
 {
-	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate',
+	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate&<%=Constants.PATIENT_ID%>='+ patientId,
     	
     		function() {
     			
@@ -165,7 +165,7 @@ function loadTemplate(title, tab_num)
 
 function loadNotes(title, tab_num, patientId)
 {
-	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
+	$('#editNote').load('editorNotes.jsp?<%=Constants.PATIENT_ID%>=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
     	
     		function() {
     			

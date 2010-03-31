@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%	
-	String patientId = request.getParameter("patient_id");
+	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "7";
 	String user_name =  request.getRemoteUser();
