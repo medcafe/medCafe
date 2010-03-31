@@ -57,10 +57,11 @@ function initialize(serverLink)
     
 function setOnSelect()
 {
-		parent.closeAllTabs("tabs");
 		
     	$("#list_names").change(function() {
     	
+    		parent.closeAllTabs("tabs");
+		
     		var src = $("option:selected", this).val();
     		//Get details for this patient
     		populate("retrievePatient.jsp", src);	
@@ -74,6 +75,11 @@ function populate(url, patient_id)
 	 var server = url + "?patient_id=" + patient_id;
 	 $.getJSON(server, function(data)
 	 {
+	 	   //If no data is retrieved then just return.
+		   if (!data.widgets)
+		   {
+		   		return;
+		   }
 		   
 		   for(i=0; i< data.widgets.length; i++) 
 		   {

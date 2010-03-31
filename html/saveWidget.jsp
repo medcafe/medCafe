@@ -40,7 +40,7 @@
 		  	 	key = keyObj.toString();
 			 	jsonobj.put( key, request.getParameter(key));
 		  }
-		  System.out.println("saveWidget.jsp about to Save Widget" );
+		  System.out.println("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
 	
 		  Widget.saveWidgets(userName, jsonobj);
 	    }

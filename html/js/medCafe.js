@@ -382,6 +382,7 @@ function initClose()
 }
 function closeAllTabs(tab_num)
 {
+		
 		var indexList = new Array();	
 		$("#tabs").find("li:has(a)").each(function(i)
 		{
