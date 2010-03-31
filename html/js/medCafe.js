@@ -370,7 +370,7 @@ function initClose()
 			//Have to Destroy as otherwise 
 			//the Dialog will not be reinitialized on open    
 			$(this).dialog("destroy");
-					closeAllTabs("tabs")
+					closeAllTabs("tabs");
 			},
 			"No" : function() {
 				$(this).dialog("destroy");
@@ -380,6 +380,8 @@ function initClose()
 	$("#dialog").dialog("open");
 							
 }
+
+
 function closeAllTabs(tab_num)
 {
 		

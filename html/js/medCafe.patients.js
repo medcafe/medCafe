@@ -57,17 +57,38 @@ function initialize(serverLink)
     
 function setOnSelect()
 {
-		
-    	$("#list_names").change(function() {
+			
+			$("#list_names").change(function() 
+			{
+	    		var src = $("option:selected", this).val();
+	    		//Get details for this patient
+	    		retrieve( src);	
+    		});
     	
-    		parent.closeAllTabs("tabs");
-		
-    		var src = $("option:selected", this).val();
-    		//Get details for this patient
-    		populate("retrievePatient.jsp", src);	
-    		
-    	});
-    	
+}
+
+function retrieve(patient)
+{
+		parent.$("#dialog").dialog({
+				autoOpen: false,					
+				modal:true,
+				resizable: true,
+				title: "Close Tab",
+				buttons : {
+					"Yes" : function() {          
+					//Have to Destroy as otherwise 
+					//the Dialog will not be reinitialized on open    
+					parent.$("#dialog").dialog("destroy");
+							
+							parent.closeAllTabs("tabs");
+							populate("retrievePatient.jsp", patient);	
+					},
+					"No" : function() {
+						parent.$("#dialog").dialog("destroy");
+					}  
+				}
+		}); 						
+		parent.$("#dialog").dialog("open");
 }
 
 function populate(url, patient_id)
@@ -78,6 +99,7 @@ function populate(url, patient_id)
 	 	   //If no data is retrieved then just return.
 		   if (!data.widgets)
 		   {
+		   		parent.addTab("New Widget", "blank");
 		   		return;
 		   }
 		   
