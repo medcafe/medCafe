@@ -37,36 +37,37 @@
 	{
 		java.util.Date apptDate = Schedule.parseDate(apptDateStr + " " + apptTimeStr, Schedule.DATE_TIME_FORMAT_TYPE);	
 		String endTimeStr = request.getParameter(Schedule.END_TIME);
-		java.util.Date endTime = null;
+		String calcTimeStr  ="";
 		java.sql.Date endTimeSQL = null;
 		String duration = request.getParameter(Schedule.DURATION);
 		if ((duration == null) && (endTimeStr == null))
 		{
 			duration = Schedule.APPT_DURATION;
 			
-			endTime = Schedule.addDuration(apptDate, duration);
-			System.out.println("setSchedule.jsp no end date or duration specified " + endTime.toString());
+			calcTimeStr = Schedule.addDuration(apptDate, duration);
+			System.out.println("setSchedule.jsp no end date or duration specified " + calcTimeStr);
 	   
 		}
 		else if (endTimeStr == null)
 		{
-			endTime = Schedule.addDuration(apptDate, duration);
-			System.out.println("setSchedule.jsp no end date specified " + endTime.toString());
+			calcTimeStr = Schedule.addDuration(apptDate, duration);
+			System.out.println("setSchedule.jsp no end date specified " + calcTimeStr);
 	   
 		}
 		else
 		{
-			endTime = Schedule.convertSQLDate(Schedule.parseDate(endTimeStr, Schedule.TIME_ONLY_FORMAT_TYPE  ));
-			System.out.println("setSchedule.jsp  end date and duration specified " + endTime.toString());
+			//calcTimeStr = Schedule.convertSQLDate(Schedule.parseDate(endTimeStr, Schedule.TIME_ONLY_FORMAT_TYPE  ));
+			calcTimeStr = endTimeStr;
+			System.out.println("setSchedule.jsp  end date and duration specified " + calcTimeStr);
 	   
 		}
-		System.out.println("setSchedule.jsp got end Time " + endTime.toString());
+		System.out.println("setSchedule.jsp got end Time " + calcTimeStr);
 	   
 		String name = "Tester";
 		JSONObject appointTime = new JSONObject();
 	    appointTime.put( "title", name);
 	    appointTime.put( "start", apptDateStr + " " + apptTimeStr );
-	    appointTime.put( "end",  apptDateStr + " "  + endTime );
+	    appointTime.put( "end",  apptDateStr + " "  + calcTimeStr );
 	    appointTime.put( "allDay", false );
 	    //sched.addAppointment(appointTime);
 	    System.out.println("setSchedule.jsp added appointment " + appointTime.toString());

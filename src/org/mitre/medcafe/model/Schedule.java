@@ -307,15 +307,20 @@ public class Schedule
 		return sqlDate;
 	}
 	
-	public static java.util.Date addDuration(Date startTime, String durationStr) throws ParseException
+	public static String addDuration(Date startTime, String durationStr) throws ParseException
 	{
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(startTime);
 		int duration = Integer.parseInt(durationStr);
 		cal.add(Calendar.MINUTE, duration);
-		System.out.println("Schedule addDuration calendar " + cal.toString());
-		   
-		return cal.getTime();
+		SimpleDateFormat format = new SimpleDateFormat(Schedule.TIME_FORMAT);
+		
+		String rtnDateStr = format.format(cal.getTime());
+		
+			//parseDate(format.format(cal.getTime()), TIME_ONLY_FORMAT_TYPE);
+		System.out.println("Schedule addDuration date " + rtnDateStr );
+		
+		return rtnDateStr;
 	}
 	
 	public static Date parseDate(String dateStr, int dateFormat) throws ParseException
