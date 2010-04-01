@@ -8,12 +8,12 @@
 <head>
 <%
 	String server = "http://" + Config.getServerUrl() ;
-	String patient_id = request.getParameter("patient_id");
+	String patient_id = request.getParameter(Constants.PATIENT_ID);
 	
 	if (patient_id == null)
 		patient_id = "1";
   
-	String listEvents = server + "/listTimelineJSON.jsp";
+	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 %>
 <link rel='stylesheet' href='js/timeline/styles/styles.css' type='text/css' />
 <script src="js/timeline/examples.js" type="text/javascript"></script>
