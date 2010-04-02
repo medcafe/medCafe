@@ -52,11 +52,16 @@ public class Patient
 	private String lastName = "";
 	private ArrayList<String> repositories =null;
 	
+	public static final String SEARCH_PATIENTS_BY_ID = "SELECT id, first_name, last_name from patient where id = ? ";
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT id, first_name, last_name from patient where first_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient where last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
+	
+	public static final String FIRST_NAME= "first_name";
+	public static final String LAST_NAME = "last_name";
+	public static final String ID = "id";
 	
 	public Patient(String firstName, String lastName)	
 	{
@@ -96,11 +101,11 @@ public class Patient
 			            JSONObject o = new JSONObject();
 			           
 			            int id = rs.getInt(1);
-			            String fName = rs.getString("first_name");
-			            String lName = rs.getString("last_name");
+			            String fName = rs.getString(Patient.FIRST_NAME);
+			            String lName = rs.getString(Patient.LAST_NAME);
 			            o.put("id", id);
-			            o.put("first_name", fName);
-			            o.put("last_name", lName);
+			            o.put(Patient.FIRST_NAME, fName);
+			            o.put(Patient.LAST_NAME, lName);
 			            ret.append("patients", o);	
 		        }    
 		    }
@@ -164,6 +169,61 @@ public class Patient
 			
 	 }
 
+	 
+	 public static JSONObject getPatient(int id,  DbConnection dbConn) 
+	 {
+			
+		
+		 System.out.println("Patient: getPatients : got connection " );
+		 boolean rtnResults = false;
+		 JSONObject ret = new JSONObject();
+		 	
+		 PreparedStatement prep;
+		 try 
+		 {
+			 if (dbConn == null)
+				 dbConn= new DbConnection();
+
+			 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_ID);
+			
+			 prep.setInt(1,id);
+			 ResultSet rs = prep.executeQuery();
+			 while( rs.next())
+		     {
+			        //convert to JSON		        
+			        rtnResults = true;
+			            
+			           
+			        String fName = rs.getString("first_name");
+			        String lName = rs.getString("last_name");
+			        ret.put("id", id);
+			        ret.put("first_name", fName);
+			        ret.put("last_name", lName);
+		     }    
+			 
+			 if (!rtnResults)
+		      {
+		        	return WebUtils.buildErrorJson( "There are no patients currently listed for patient id " + id );
+		      	  
+		      }
+		 } 
+		 catch (SQLException e) 
+		 {
+				// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+	      	     
+		 } 
+		 catch (JSONException e) 
+		 {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
+			     
+		 }
+	     return ret;
+			
+	 }
+
+	 
 	public String getFirstName() {
 		return firstName;
 	}

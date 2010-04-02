@@ -62,14 +62,37 @@
 	   
 		}
 		System.out.println("setSchedule.jsp got end Time " + calcTimeStr);
-	   
-		String name = "Tester";
+	    int rtn = 0;
+		int patient_id = Integer.parseInt(patientId);
+			
+		JSONObject patientData = Patient.getPatient(patient_id, conn);
+			
+		if (patientData.get(Patient.ID) == null)
+		{
+			System.out.println("Error on settign schedule  " + patientData.toString());	   
+		}
+	    String fname="";
+	    String lname="";
+	    
+		Object fnameObj = patientData.get(Patient.FIRST_NAME);
+		if (fnameObj != null)
+			fname = fnameObj.toString();
+			
+		Object lnameObj = patientData.get(Patient.LAST_NAME);
+		if (lnameObj != null)
+			lname = lnameObj.toString();
+		
 		JSONObject appointTime = new JSONObject();
-	    appointTime.put( "title", name);
-	    appointTime.put( "start", apptDateStr + " " + apptTimeStr );
-	    appointTime.put( "end",  apptDateStr + " "  + calcTimeStr );
+			
+	    appointTime.put( Patient.ID, patient_id);
+	    appointTime.put( Patient.FIRST_NAME, fname);
+	    appointTime.put( Patient.LAST_NAME, fname);
+	    appointTime.put( Schedule.APPT_TIME,  apptTimeStr );
+	    appointTime.put( Schedule.APPT_DATE, apptDateStr );
+	    appointTime.put( Schedule.END_TIME, calcTimeStr );
 	    appointTime.put( "allDay", false );
-	    //sched.addAppointment(appointTime);
+	    JSONObject rtnJson = sched.addAppointment(appointTime);
+	    System.out.println("Returned JSON from insert into database " + rtnJson.toString());
 	    System.out.println("setSchedule.jsp added appointment " + appointTime.toString());
 	   
     }

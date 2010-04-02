@@ -151,28 +151,49 @@ public class Schedule
 	
 	public static JSONObject addAppointment( JSONObject appointment) throws SQLException
 	{
+		System.out.println("Schedule addAppointment start");
 		JSONObject ret = new JSONObject();
 		setConnection();
 		
 		//Get the patient Name
 		try 
 		{
-			String insertQuery = Schedule.INSERT_APPOINTMENT;
-			int rtn = 0;
-			int patient_id = Integer.parseInt(appointment.getString(Constants.PATIENT_ID));
-			String err_mess = "Could not insert appointment for patient  " + patient_id;
+			//"INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,?,?,?) ";
 			
-			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id);	
+			String insertQuery = Schedule.INSERT_APPOINTMENT;
+			System.out.println("Schedule addAppointment insert query " + insertQuery);
+			
+			String patientIdStr= appointment.getString(Patient.ID);
+			int patient_id = Integer.parseInt(patientIdStr);
+			String fname = appointment.getString(Patient.FIRST_NAME);
+			String lname = appointment.getString( Patient.LAST_NAME);
+			String appt_dateStr = appointment.getString( Schedule.APPT_DATE);
+			String appt_timeStr = appointment.getString( Schedule.APPT_TIME);
+			String end_timeStr = appointment.getString( Schedule.END_TIME);
+			
+			java.sql.Date date = convertSQLDate(Schedule.parseDate(appt_dateStr, DATE_ONLY_FORMAT_TYPE));
+			java.sql.Date time = convertSQLDate(Schedule.parseDate(appt_timeStr, TIME_ONLY_FORMAT_TYPE));
+			java.sql.Date end_time = convertSQLDate(Schedule.parseDate(end_timeStr, TIME_ONLY_FORMAT_TYPE));
+			
+			System.out.println("Schedule addAppointment date " + appt_dateStr);
+
+			String err_mess = "Could not insert appointment for patient  " + lname + ", " + fname;
+			
+			int rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, fname, lname, date, time, end_time);	
+			System.out.println("Schedule addAppointment return from insert query " + rtn);
 			
 			if (rtn < 0 )
-				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
+				return WebUtils.buildErrorJson( "Problem on inserting schedule data into the database ." );
 			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Problem on patient id" );
+			return WebUtils.buildErrorJson( "Add Appointment : Problem on patient id " + e.getMessage() );
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return WebUtils.buildErrorJson( "Add Appointment : Problem on building JSON " + e.getMessage() );
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Add Appointment : Problem on patient id " + e.getMessage() );
 		}
 		finally
 		{
@@ -193,11 +214,11 @@ public class Schedule
 			String selectSql = Schedule.SELECT_AVAILABLE_APPOINTMENT;
 			
 			PreparedStatement prep = dbConn.prepareStatement(selectSql);
-	        
-			Date date = new java.util.Date();
-			Date time = new java.util.Date();
-			try 
-			{
+	        try {
+				
+				Date date = new java.util.Date();
+				Date time = new java.util.Date();
+			
 				date = Schedule.parseDate(dateStr, DATE_ONLY_FORMAT_TYPE);
 				time = Schedule.parseDate(timeStr, TIME_ONLY_FORMAT_TYPE);
 				java.sql.Date sqlDate = Schedule.convertSQLDate(date);
@@ -215,8 +236,17 @@ public class Schedule
 				     o.put( "allDay", false );
 				   
 				}
+			
+				int rtn = 0;
+				int patient_id = Integer.parseInt(patientId);
+				String err_mess = "Could not get next available appointment for patient  " + patient_id;
 				
-			} catch (ParseException e) 
+				rtn = dbConn.psExecuteUpdate(selectSql, err_mess , patient_id, date);	
+				if (rtn < 0 )
+					return WebUtils.buildErrorJson( "Problem on getting appointment data from database." );
+				
+			} 
+			catch (ParseException e) 
 			{
 				// TODO Auto-generated catch block
 				return WebUtils.buildErrorJson( "Problem on parsing the date " + dateStr  + " for next available appointment ");
@@ -228,15 +258,7 @@ public class Schedule
 				
 			}
 			
-			int rtn = 0;
-			int patient_id = Integer.parseInt(patientId);
-			String err_mess = "Could not get next available appointment for patient  " + patient_id;
-			
-			rtn = dbConn.psExecuteUpdate(selectSql, err_mess , patient_id, date);	
-			
-			if (rtn < 0 )
-				return WebUtils.buildErrorJson( "Problem on getting appointment data from database." );
-			
+		
 		}
 		finally
 		{
