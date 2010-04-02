@@ -5,6 +5,7 @@ package org.mitre.medcafe.util;
 
 import com.sun.rowset.*;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import java.util.logging.*;
 import javax.naming.*;
@@ -184,6 +185,10 @@ public class DbConnection
                 {
                     ps.setDouble(i, ((Double)param).doubleValue());
                 }
+                else if( param instanceof Date )
+                {
+                    ps.setDate(i, ((Date)param));
+                }
                 else if( param == null )
                 {
                     throw new NullPointerException("Parameters passed to psExecuteQuery() cannot be null");
@@ -191,6 +196,8 @@ public class DbConnection
                 else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
                 i++;
             }
+            System.out.println("DBConnection: psExecuteQuery:  about to execute query : " + ps.toString());
+			
             rs = ps.executeQuery();
             crs.populate(rs);
             DatabaseUtility.close(rs);
@@ -249,6 +256,10 @@ public class DbConnection
                 {
                     ps.setDouble(i, ((Double)param).doubleValue());
                 }
+                else if( param instanceof Date )
+                {
+                    ps.setDate(i, ((Date)param));
+                }
                 else if( param == null )
                 {
                     throw new NullPointerException("Parameters passed to psExecuteQuery() cannot be null");
@@ -256,6 +267,8 @@ public class DbConnection
                 else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
                 i++;
             }
+            System.out.println("DBConnection: psExecuteUpdate:  about to execute update : " + ps.toString());
+			
             return ps.executeUpdate();
         }
         catch(SQLException e)
