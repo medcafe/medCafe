@@ -171,17 +171,10 @@ public class Schedule
 			String appt_dateStr = appointment.getString( Schedule.APPT_DATE);
 			String appt_timeStr = appointment.getString( Schedule.APPT_TIME);
 			String end_timeStr = appointment.getString( Schedule.END_TIME);
-			
-			//java.sql.Date date = convertSQLDate(Schedule.parseDate(appt_dateStr, DATE_ONLY_FORMAT_TYPE));
-			//java.sql.Date time = convertSQLDate(Schedule.parseDate(appt_timeStr, TIME_ONLY_FORMAT_TYPE));
-			//java.sql.Date end_time = convertSQLDate(Schedule.parseDate(end_timeStr, TIME_ONLY_FORMAT_TYPE));
-			
-			System.out.println("Schedule addAppointment date " + appt_dateStr);
 
 			String err_mess = "Could not insert appointment for patient  " + lname + ", " + fname;
 			
 			int rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, fname, lname, appt_dateStr, appt_timeStr, end_timeStr);	
-			System.out.println("Schedule addAppointment return from insert query " + rtn);
 			
 			if (rtn < 0 )
 				return WebUtils.buildErrorJson( "Problem on inserting schedule data into the database ." );
@@ -338,7 +331,6 @@ public class Schedule
 		String rtnDateStr = format.format(cal.getTime());
 		
 			//parseDate(format.format(cal.getTime()), TIME_ONLY_FORMAT_TYPE);
-		System.out.println("Schedule addDuration date " + rtnDateStr );
 		
 		return rtnDateStr;
 	}
