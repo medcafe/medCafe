@@ -82,11 +82,13 @@ function retrieve(patient)
 							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
 							populate("retrievePatient.jsp", patient);	
+							addScheduleButton(patient);
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
 						populate("retrievePatient.jsp", patient);	
+						addScheduleButton(patient);
 					}
 					,
 					"Cancel" : function() {
@@ -127,5 +129,26 @@ function populate(url, patient_id)
 					
 		   }
 
+	});
+}
+
+function addScheduleButton( patient_id)
+{
+	alert("in addschedule button");
+	var buttonTxt = "<button id='addScheduleBtn'>Add Schedule</button>";
+	 $("#addSchedule").html();
+	 $("#addSchedule").append(buttonTxt);
+	 var url="setSchedule.jsp"; 
+	 var server = url + "?patient_id=" + patient_id;
+	 
+	 $("#addScheduleBtn").click(function(event,patient_id){
+	 
+	 	alert("clicked add schedule");
+		 /*$.get(server, function(data)
+		 {
+		 	  
+			
+		 });*/
+	
 	});
 }

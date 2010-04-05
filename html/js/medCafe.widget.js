@@ -188,14 +188,26 @@ function extendWidgets(id){
 	
 }
 
+//Make sure that the delete event happens before all other events
 function saveWidgets()
 {
+		var deleteUrl = "deleteWidget.jsp?";
+    	//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
+    	$.ajax({
+	           url: deleteUrl,
+	           type: 'POST',
+	           beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	           success: function(result) {
+	                   
+					var ids = medCafeWidget.getAllIds();
+					//Cycle through each to save
+					$.each (ids, function(i, val)
+					{
+						medCafeWidget.saveWidget("saveWidget.jsp", val);
+					});
+	            }
+        });
 		//Code to cycle through the widgets and save
-		medCafeWidget.deleteWidgets("deleteWidget.jsp");
-		var ids = medCafeWidget.getAllIds();
-		//Cycle through each to save
-		 $.each (ids, function(i, val)
-		 {
-		     medCafeWidget.saveWidget("saveWidget.jsp", val);
-		 });
+	
+		
 }

@@ -115,19 +115,19 @@ insert into  patient (rep_patient_id, first_name, last_name, repository) values 
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista');
 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'tab_order', 1);
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'type', 'allergies');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'type', 'Allergies');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'repository','OurVista');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'location', 'center');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'name', 'Allergies-Patient-7');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'server', 'http://127.0.0.1:8080/medcafe/allergyJSON.jsp');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'tab_order', 2);
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'type', 'medications');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'type', 'Medications');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'repository','OurVista');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'location', 'center');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'name', 'Medications-Patient-7');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '7', 'gaily', 'server', 'http://127.0.0.1:8080/medcafe/prescriptionJSON.jsp');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'tab_order', 3);
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'type', 'bookmarks');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'type', 'Bookmarks');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'repository','OurVista');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'location', 'center');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'name', 'Bookmarks-Patient-7');

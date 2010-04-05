@@ -50,6 +50,8 @@
 		<div id="list_names"><select><option value="No names selected">No names selected</option></select></div>
 		</center>
 		<br/>
+		<div id="addSchedule"></div>
+		
 </form>
 </div>
 		
