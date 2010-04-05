@@ -70,11 +70,12 @@ public class Schedule
 	public static final String DURATION = "duration";
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	public static final String TIME_FORMAT = "HH:mm:ss";
+	public static final String SQL_TIME_FORMAT = "HH24:MI:SS";
 	public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
 	public static final String DEFAULT_TIME = "08:00:00";
 	public static final String SELECT_AVAILABLE_APPOINTMENT= "select id,  last_name || ', ' || first_name as name, appoint_time, end_time from schedule order by appoint_date, appoint_time where appoint_date = ? ";
-	public static final String INSERT_APPOINTMENT = "INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,?,?,?) ";
+	public static final String INSERT_APPOINTMENT = "INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,to_date(?, '" +  DATE_FORMAT +"'), 	to_timestamp(?,'" +  SQL_TIME_FORMAT +"'),	to_timestamp(?,'" + SQL_TIME_FORMAT + "') ) ";
 	public static final String DELETE_APPOINTMENT= "DELETE FROM schedule where ( patient_id=? AND appoint_date=? AND appoint_time=? ) ";
 	
 	public static final int DATE_ONLY_FORMAT_TYPE = 0;
@@ -171,15 +172,15 @@ public class Schedule
 			String appt_timeStr = appointment.getString( Schedule.APPT_TIME);
 			String end_timeStr = appointment.getString( Schedule.END_TIME);
 			
-			java.sql.Date date = convertSQLDate(Schedule.parseDate(appt_dateStr, DATE_ONLY_FORMAT_TYPE));
-			java.sql.Date time = convertSQLDate(Schedule.parseDate(appt_timeStr, TIME_ONLY_FORMAT_TYPE));
-			java.sql.Date end_time = convertSQLDate(Schedule.parseDate(end_timeStr, TIME_ONLY_FORMAT_TYPE));
+			//java.sql.Date date = convertSQLDate(Schedule.parseDate(appt_dateStr, DATE_ONLY_FORMAT_TYPE));
+			//java.sql.Date time = convertSQLDate(Schedule.parseDate(appt_timeStr, TIME_ONLY_FORMAT_TYPE));
+			//java.sql.Date end_time = convertSQLDate(Schedule.parseDate(end_timeStr, TIME_ONLY_FORMAT_TYPE));
 			
 			System.out.println("Schedule addAppointment date " + appt_dateStr);
 
 			String err_mess = "Could not insert appointment for patient  " + lname + ", " + fname;
 			
-			int rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, fname, lname, date, time, end_time);	
+			int rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, fname, lname, appt_dateStr, appt_timeStr, end_timeStr);	
 			System.out.println("Schedule addAppointment return from insert query " + rtn);
 			
 			if (rtn < 0 )
@@ -191,9 +192,6 @@ public class Schedule
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			return WebUtils.buildErrorJson( "Add Appointment : Problem on building JSON " + e.getMessage() );
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Add Appointment : Problem on patient id " + e.getMessage() );
 		}
 		finally
 		{
