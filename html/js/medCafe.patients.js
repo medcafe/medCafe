@@ -134,21 +134,27 @@ function populate(url, patient_id)
 
 function addScheduleButton( patient_id)
 {
-	alert("in addschedule button");
-	var buttonTxt = "<button id='addScheduleBtn'>Add Schedule</button>";
-	 $("#addSchedule").html();
+	 var buttonTxt = "<button id='addScheduleBtn'>Add To Schedule</button>";
+	 $("#addSchedule").html("");
 	 $("#addSchedule").append(buttonTxt);
 	 var url="setSchedule.jsp"; 
 	 var server = url + "?patient_id=" + patient_id;
-	 
+	
 	 $("#addScheduleBtn").click(function(event,patient_id){
 	 
-	 	alert("clicked add schedule");
-		 /*$.get(server, function(data)
-		 {
+		 $.getJSON(url, function(json){
 		 	  
-			
-		 });*/
+              if (json.announce)
+              {
+              	  //alert("announce");
+                  parent.updateAnnouncements(json);
+                  return;
+              }
+              else
+              {
+				  //alert("no announce");
+              }
+        });
 	
 	});
 }

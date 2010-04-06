@@ -34,12 +34,8 @@ import java.util.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mitre.medcafe.restlet.PatientListResource;
-import org.mitre.medcafe.restlet.Repositories;
-import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.WebUtils;
-import org.restlet.ext.json.JsonRepresentation;
 
 /**
  *  Representation of the text data
@@ -62,7 +58,7 @@ public class Schedule
 	//All the other parameters
 	private  HashMap<String, String > params = new HashMap<String, String >();
 
-	public static final String APPT_DURATION = "30";
+	public static final int APPT_DURATION = 30;
 	public static final String ID = "patient_id";
 	public static final String APPT_TIME = "appoint_time";
 	public static final String APPT_DATE = "appoint_date";
@@ -74,9 +70,12 @@ public class Schedule
 	public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
 	public static final String DEFAULT_TIME = "08:00:00";
-	public static final String SELECT_AVAILABLE_APPOINTMENT= "select id,  last_name || ', ' || first_name as name, appoint_time, end_time from schedule order by appoint_date, appoint_time where appoint_date = ? ";
+	//public static final String SELECT_AVAILABLE_APPOINTMENT= "select id,  last_name || ', ' || first_name as name, appoint_time, end_time from schedule  where appoint_date = ? order by appoint_date, appoint_time ";
+	public static final String SELECT_AVAILABLE_APPOINTMENT= "select id,  last_name , first_name , appoint_time, end_time from schedule  where appoint_date =  ? order by appoint_date, appoint_time ";
 	public static final String INSERT_APPOINTMENT = "INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,to_date(?, '" +  DATE_FORMAT +"'), 	to_timestamp(?,'" +  SQL_TIME_FORMAT +"'),	to_timestamp(?,'" + SQL_TIME_FORMAT + "') ) ";
 	public static final String DELETE_APPOINTMENT= "DELETE FROM schedule where ( patient_id=? AND appoint_date=? AND appoint_time=? ) ";
+	//public static final String ADD_TIME = "update schedule set appoint_time = appoint_time+interval '" + minuteDelta + " minutes', end_time = end_time+interval '" + minuteDelta + " minutes' where id=?";
+    
 	
 	public static final int DATE_ONLY_FORMAT_TYPE = 0;
 	public static final int TIME_ONLY_FORMAT_TYPE = 1;
@@ -194,9 +193,9 @@ public class Schedule
 	}
 	public static JSONObject getNextAvailAppointment( String patientId, String dateStr, String timeStr) throws SQLException
 	{
-		JSONObject o = new JSONObject();
-		setConnection();
 		
+		setConnection();
+		 JSONObject o = new JSONObject();
 		//Get the patient Name
 		try 
 		{
@@ -208,31 +207,101 @@ public class Schedule
 	        try {
 				
 				Date date = new java.util.Date();
-				Date time = new java.util.Date();
 			
-				date = Schedule.parseDate(dateStr, DATE_ONLY_FORMAT_TYPE);
-				time = Schedule.parseDate(timeStr, TIME_ONLY_FORMAT_TYPE);
-				java.sql.Date sqlDate = Schedule.convertSQLDate(date);
-				java.sql.Date sqlTime = Schedule.convertSQLDate(time);
-				prep.setDate(1, sqlDate);
-				prep.setDate(2, sqlTime);
-				ResultSet rs = prep.executeQuery();
+				Date  prevApptEnd, apptTime = null, apptEnd = null, possApptEndTime = null;
 				
+				date = Schedule.parseDate(dateStr, DATE_ONLY_FORMAT_TYPE);
+				prevApptEnd = Schedule.parseDate(dateStr + " " + DEFAULT_TIME, DATE_TIME_FORMAT_TYPE);
+				
+				//System.out.println("Schedule: getNextAvailAppointment : prevAppt initialize  " + prevApptEnd.toString());
+				
+				//time = Schedule.parseDate(timeStr, TIME_ONLY_FORMAT_TYPE);
+				java.sql.Date sqlDate = Schedule.convertSQLDate(date);
+				
+				prep.setDate(1, sqlDate);
+				//prep.setDate(2, sqlTime);
+				//System.out.println("Schedule: getNextAvailAppointment : query " + prep.toString());
+				ResultSet rs = prep.executeQuery();
+				boolean hasAppoint = false;
 				while (rs.next())
 				{
-					 o.put( "id", rs.getString("id") );
-				     o.put( "title", rs.getString("name") );
-				     o.put( "start", date + " "  + rs.getString( "appoint_time" ) );
-				     o.put( "end",  date + " "  + rs.getString("end_time") );
-				     o.put( "allDay", false );
-				   
+					 hasAppoint = true;
+					 Calendar cal = new GregorianCalendar();
+					 //System.out.println("Schedule: getNextAvailAppointment : prevAppt  " + prevApptEnd.toString());
+						
+					 cal.setTime(prevApptEnd);
+					 cal.add(Calendar.MINUTE, Schedule.APPT_DURATION );
+					 possApptEndTime = getFullDate(date, cal.getTime());
+					 //System.out.println("Schedule: getNextAvailAppointment : Appointment end time " + possApptEndTime.toString());
+						
+					 //check to see if the prev end Time + 30 mins is available
+					 apptTime = rs.getTime(Schedule.APPT_TIME);
+					 apptEnd = rs.getTime(Schedule.END_TIME);
+					 
+					 //Get the full date to compare against
+					 Date newAppt = getFullDate(date, apptTime);
+					 cal.setTime(prevApptEnd);
+					 cal.add(Calendar.MINUTE, 1 );
+						
+					 //Take a minute off
+					 Date testDate = getFullDate(date, cal.getTime());
+					
+					// System.out.println("Schedule: getNextAvailAppointment : new Appointment  " + newAppt);
+						
+					 if (possApptEndTime.before(testDate))
+					 {
+						 //System.out.println("Schedule: getNextAvailAppointment : found a time  " + possApptEndTime.toString());
+							
+						 o.put( Patient.ID, patientId );						 
+						 o.put( Schedule.APPT_DATE, dateStr );
+						 String newApptStartStr = Schedule.parseDate(prevApptEnd,TIME_ONLY_FORMAT_TYPE) ;
+						 String newApptEndStr = Schedule.parseDate(possApptEndTime,TIME_ONLY_FORMAT_TYPE) ;			
+						 o.put( Schedule.APPT_TIME,  newApptStartStr );
+						 o.put( Schedule.END_TIME,   newApptEndStr );
+						 
+					     o.put( "allDay", false );
+					     return o;
+					 }
+					 prevApptEnd = apptEnd;
 				}
-			
+				//If there is no scheduled appointments - just use the first one
+				if (!hasAppoint)
+				{
+					//System.out.println("Schedule: getNextAvailAppointment : first appt of the day  ");
+					
+					 o.put( Patient.ID, patientId );
+					 o.put( Schedule.APPT_DATE, dateStr );
+					 o.put( Schedule.APPT_TIME,  DEFAULT_TIME );
+					 Date defaultTime = Schedule.parseDate(DEFAULT_TIME,TIME_ONLY_FORMAT_TYPE);
+					 o.put( Schedule.END_TIME,   addDuration(defaultTime, APPT_DURATION ) );
+				     
+				     o.put( "allDay", false );
+				}
+				else
+				{
+					 String newApptStartStr = Schedule.parseDate(possApptEndTime,TIME_ONLY_FORMAT_TYPE) ;
+
+					 Calendar cal = new GregorianCalendar();
+					 cal.setTime(possApptEndTime);
+					 cal.add(Calendar.MINUTE, Schedule.APPT_DURATION);
+					 Date newApptEndTime = getFullDate(date, cal.getTime());
+					 String newApptEndStr = Schedule.parseDate(newApptEndTime,TIME_ONLY_FORMAT_TYPE) ;
+					 
+					 o.put( Patient.ID, patientId );
+					 o.put( Schedule.APPT_DATE, dateStr );
+					 o.put( Schedule.APPT_TIME,  newApptStartStr );
+					 o.put( Schedule.END_TIME,   newApptEndStr );
+				     
+				     o.put( "allDay", false );
+					
+					
+				}
+				//addAppointment(o);
+			    /*
+			     * 
+			     */
 				int rtn = 0;
-				int patient_id = Integer.parseInt(patientId);
-				String err_mess = "Could not get next available appointment for patient  " + patient_id;
 				
-				rtn = dbConn.psExecuteUpdate(selectSql, err_mess , patient_id, date);	
 				if (rtn < 0 )
 					return WebUtils.buildErrorJson( "Problem on getting appointment data from database." );
 				
@@ -257,6 +326,23 @@ public class Schedule
 		}
 		return o;
 	}
+	
+	private static Date getFullDate(Date date, Date time)
+	{
+		Calendar newDate = new GregorianCalendar();
+		Calendar newTime = new GregorianCalendar();
+	
+		newDate.setTime(date);
+		newTime.setTime(time);
+		
+		newDate.set(Calendar.HOUR, newTime.get(Calendar.HOUR));
+		newDate.set(Calendar.MINUTE, newTime.get(Calendar.MINUTE));
+		newDate.set(Calendar.SECOND, newTime.get(Calendar.SECOND));
+		return newDate.getTime();
+		
+		
+	}
+	
 	public static JSONObject deleteAppointment( String patientId, String dateTime) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
@@ -320,11 +406,11 @@ public class Schedule
 		return sqlDate;
 	}
 	
-	public static String addDuration(Date startTime, String durationStr) throws ParseException
+	public static String addDuration(Date startTime, int duration) throws ParseException
 	{
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(startTime);
-		int duration = Integer.parseInt(durationStr);
+		
 		cal.add(Calendar.MINUTE, duration);
 		SimpleDateFormat format = new SimpleDateFormat(Schedule.TIME_FORMAT);
 		
@@ -333,6 +419,30 @@ public class Schedule
 			//parseDate(format.format(cal.getTime()), TIME_ONLY_FORMAT_TYPE);
 		
 		return rtnDateStr;
+	}
+	
+	public static String parseDate(Date date, int dateFormat) throws ParseException
+	{
+		if (dateFormat == DATE_ONLY_FORMAT_TYPE)
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.DATE_FORMAT);
+			String dateStr = format.format(date);
+			return dateStr;
+		}
+		else if (dateFormat == TIME_ONLY_FORMAT_TYPE)
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.TIME_FORMAT);
+			String dateStr = format.format(date);
+			
+			return dateStr;
+		}
+		else
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.DATE_TIME_FORMAT);
+			String dateStr = format.format(date);
+			//date = format.parse(dateStr);
+			return dateStr;
+		}
 	}
 	
 	public static Date parseDate(String dateStr, int dateFormat) throws ParseException
@@ -353,6 +463,31 @@ public class Schedule
 		{
 			SimpleDateFormat format = new SimpleDateFormat(Schedule.DATE_TIME_FORMAT);
 			Date date = format.parse(dateStr);
+			return date;
+		}
+	}
+	
+	public static Date parseDate(Calendar cal, int dateFormat) throws ParseException
+	{
+		if (dateFormat == DATE_ONLY_FORMAT_TYPE)
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.DATE_FORMAT);
+			format.setCalendar(cal);
+			Date date = format.getCalendar().getTime();
+			return date;
+		}
+		else if (dateFormat == TIME_ONLY_FORMAT_TYPE)
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.TIME_FORMAT);
+			format.setCalendar(cal);
+			Date date = format.getCalendar().getTime();
+			return date;
+		}
+		else
+		{
+			SimpleDateFormat format = new SimpleDateFormat(Schedule.DATE_TIME_FORMAT);
+			format.setCalendar(cal);
+			Date date = format.getCalendar().getTime();
 			return date;
 		}
 	}
