@@ -82,6 +82,7 @@ function retrieve(patient)
 							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
 							populate("retrievePatient.jsp", patient);	
+							
 							addScheduleButton(patient);
 					},
 					"No" : function() {
@@ -102,6 +103,7 @@ function retrieve(patient)
 function populate(url, patient_id)
 {
 	 var server = url + "?patient_id=" + patient_id;
+
 	 $.getJSON(server, function(data)
 	 {
 	 	   //If no data is retrieved then just return.
@@ -134,6 +136,7 @@ function populate(url, patient_id)
 
 function addScheduleButton( patient_id)
 {
+	
 	 var buttonTxt = "<button id='addScheduleBtn'>Add To Schedule</button>";
 	 $("#addSchedule").html("");
 	 $("#addSchedule").append(buttonTxt);
@@ -142,7 +145,7 @@ function addScheduleButton( patient_id)
 	
 	 $("#addScheduleBtn").click(function(event,patient_id){
 	 
-		 $.getJSON(url, function(json){
+		 $.getJSON(server, function(json){
 		 	  
               if (json.announce)
               {

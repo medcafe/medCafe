@@ -7,6 +7,8 @@
     
 	//Get the patient Id
     String patientId = request.getParameter(Constants.PATIENT_ID);
+    System.out.println("setSchedule.jsp patient id " + patientId);
+	
 	if (patientId == null)
 		patientId = "1";
 	
@@ -33,8 +35,7 @@
 					
 		//Use this to set the value
 		 //out.write(String.valueOf(appointTime));
-		 System.out.println("Returned JSON from insert into database for next available appointment " + appointTime.toString());
-	   
+		 
 	}	
 	else
 	{
@@ -49,29 +50,25 @@
 			int duration = Schedule.APPT_DURATION;
 			
 			calcTimeStr = Schedule.addDuration(apptDate, duration);
-			System.out.println("setSchedule.jsp no end date or duration specified " + calcTimeStr);
-	   
+			
 		}
 		else if (endTimeStr == null)
 		{
 			int duration = Integer.parseInt(durationStr);
 			calcTimeStr = Schedule.addDuration(apptDate, duration);
-			System.out.println("setSchedule.jsp no end date specified " + calcTimeStr);
-	   
+			
 		}
 		else
 		{
 			//calcTimeStr = Schedule.convertSQLDate(Schedule.parseDate(endTimeStr, Schedule.TIME_ONLY_FORMAT_TYPE  ));
 			calcTimeStr = endTimeStr;
-			System.out.println("setSchedule.jsp  end date and duration specified " + calcTimeStr);
-	   
+			
 		}
 		appointTime.put( Schedule.APPT_TIME,  apptTimeStr );
 		appointTime.put( Schedule.APPT_DATE, apptDateStr );
 		appointTime.put( Schedule.END_TIME, calcTimeStr );
 		appointTime.put( "allDay", false );
-		System.out.println("setSchedule.jsp got end Time " + calcTimeStr);
-	
+		
 	}
 		
 	int rtn = 0;
@@ -97,7 +94,7 @@
 			
 	appointTime.put( Patient.ID, patient_id);
 	appointTime.put( Patient.FIRST_NAME, fname);
-	appointTime.put( Patient.LAST_NAME, fname);
+	appointTime.put( Patient.LAST_NAME, lname);
 	
 	JSONObject rtnJson = sched.addAppointment(appointTime);
 	System.out.println("Returned JSON from insert into database " + rtnJson.toString());

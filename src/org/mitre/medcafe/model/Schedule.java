@@ -292,9 +292,7 @@ public class Schedule
 					 o.put( Schedule.APPT_TIME,  newApptStartStr );
 					 o.put( Schedule.END_TIME,   newApptEndStr );
 				     
-				     o.put( "allDay", false );
-					
-					
+				     o.put( "allDay", false );			
 				}
 				//addAppointment(o);
 			    /*

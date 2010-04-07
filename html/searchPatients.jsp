@@ -38,7 +38,7 @@
 <body>
 
 <div id="searchPatients" class="ui-widget-header ui-corner-all">
-<form name="searchPatientForm" action="searchPatientsJSON.jsp" method="POST">
+<form name="searchPatientForm"  >
 		<table>
 			<tr><td>First Name</td><td><input type="text" name="search_str_first" id="first_name"></input></td></tr>
 			<tr><td>Last Name</td><td><input type="text" name="search_str_last" id="last_name"></input></td></tr>
