@@ -36,7 +36,21 @@ public class hDataRepository extends Repository
     /**
      *  Given a patient id, get the patient info
      */
-    public Patient getPatient( String patientId ){ return null; }
+    public Patient getPatient( String patientId ){
+        try
+        {
+            JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.patient_information");
+            Unmarshaller u = jc.createUnmarshaller();
+            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/patientinformation/12345.xml" );
+            URLConnection conn = url.openConnection();
+            Patient p = (Patient)u.unmarshal(conn.getInputStream() );
+            return p;
+        }
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Error retrieving patient " + patientId, e);
+            return null;
+        }
+    }
 
     /**
      *  Get a list of patient identifiers
@@ -46,12 +60,30 @@ public class hDataRepository extends Repository
     /**
      *  Get a set of allergies specific to a patient
      */
-    public List<Allergy> getAllergies( String patientId ){ return null; }
+    public List<Allergy> getAllergies( String patientId ){
+        return null;
+    }
 
     /**
      *  Get a set of medications specific to a patient
      */
-    public List<Medication> getMedications( String patientId ){ return null; }
+    public List<Medication> getMedications( String patientId ){
+        try
+        {
+            JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.medication");
+            Unmarshaller u = jc.createUnmarshaller();
+            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/medications/IBU-200-12312.xml" );
+            URLConnection conn = url.openConnection();
+            Medication p = (Medication)u.unmarshal(conn.getInputStream() );
+            List<Medication> ret = new ArrayList<Medication>();
+            ret.add(p);
+            return ret;
+        }
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Error retrieving patient " + patientId, e);
+            return null;
+        }
+    }
 
     /**
      * Type property.

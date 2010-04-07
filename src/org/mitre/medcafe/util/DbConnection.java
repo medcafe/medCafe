@@ -23,7 +23,7 @@ public class DbConnection
 
     public final static String KEY = DbConnection.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
     private Connection conn = null;
     private Statement stmt = null;
 

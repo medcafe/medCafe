@@ -13,7 +13,7 @@ public class VelocityUtil{
 
     public final static String KEY = VelocityUtil.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
     /*  first, get and initialize an engine  */
     private static VelocityEngine ve = new VelocityEngine();
 

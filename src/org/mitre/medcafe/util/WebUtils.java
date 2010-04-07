@@ -37,7 +37,7 @@ public class WebUtils
 
     public final static String KEY = WebUtils.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
     /**
      *  Retrieves a parameter from a passed request. If the parameter is not
      *  found, an NPE is thrown.
