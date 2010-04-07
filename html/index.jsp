@@ -138,7 +138,7 @@
                 </p>
             </div>
         </div>
-        <h6><a href="#" onclick="alert('in here'); $('#calendar').fullCalendar('render' );">Schedule</a></h6>
+        <h6><a href="#" onclick="$('#calendar').fullCalendar('refetchEvents' );">Schedule</a></h6>
         <div id="calendar"  class="widget-content"></div>
 	</div>
 </div>

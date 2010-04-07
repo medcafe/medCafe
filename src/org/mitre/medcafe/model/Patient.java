@@ -56,6 +56,7 @@ public class Patient
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT id, first_name, last_name from patient where first_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient where last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
+	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
 	
@@ -76,6 +77,27 @@ public class Patient
 	{
 		super();
 		repositories = new ArrayList<String>();
+	}
+	
+	
+	public JSONObject associatePatient(DbConnection dbConn, String patientId, String userName, String role)
+	{
+		JSONObject ret = new JSONObject();
+		//INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
+		String insertQuery = INSERT_ASSOCIATION;
+		int rtn = 0;
+		int patient_id = Integer.parseInt(patientId);
+		String err_mess = "Could not insert association for patient  " + patient_id;
+		
+		rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, userName, role);	
+		
+		if (rtn < 0)
+		{
+			return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );	
+		}
+		
+		return ret;
+		
 	}
 	
 	 public JSONObject searchJson(String searchStringFirst, String searchStringLast){

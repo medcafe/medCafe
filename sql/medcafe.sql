@@ -82,7 +82,7 @@ CREATE TABLE patient (
 CREATE TABLE patient_user_assoc (
 	id SERIAL PRIMARY KEY,
 	patient_id integer NOT NULL,
-	user_id integer NOT NULL,
+	username character varying(50) NOT NULL,
 	role character varying(250) NULL
 );
 

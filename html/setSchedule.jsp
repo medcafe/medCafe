@@ -99,5 +99,5 @@
 	JSONObject rtnJson = sched.addAppointment(appointTime);
 	System.out.println("Returned JSON from insert into database " + rtnJson.toString());
 	System.out.println("setSchedule.jsp added appointment " + appointTime.toString());
-	
+	conn.close();
 %>

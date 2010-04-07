@@ -161,3 +161,31 @@ function addScheduleButton( patient_id)
 	
 	});
 }
+
+function addCreateAssocButton( patient_id, role)
+{
+	
+	 var buttonTxt = "<button id='createAssocBtn'>Add To My List</button>";
+	 $("#addPatient").html("");
+	 $("#addPatient").append(buttonTxt);
+	 var url="addPatientAssoc.jsp"; 
+	 var server = url + "?patient_id=" + patient_id + "&role=" +  role;
+	
+	 $("#createAssocBtn").click(function(event,patient_id){
+	 
+		 $.getJSON(server, function(json){
+		 	  
+              if (json.announce)
+              {
+              	  //alert("announce");
+                  parent.updateAnnouncements(json);
+                  return;
+              }
+              else
+              {
+				  //alert("no announce");
+              }
+        });
+	
+	});
+}
