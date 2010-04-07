@@ -1,6 +1,6 @@
 $(function(){
     
-    		$('.fg-button').hover(
+    	$('.fg-button').hover(
     		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
     		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
     	);
@@ -57,10 +57,12 @@ $(function(){
                 .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
                 .prepend('<span class="ui-icon ui-icon-triangle-1-e"/>')
                 .click(function() {
+                	alert("on click in calendar");
                     $(this).toggleClass("ui-accordion-header-active").toggleClass("ui-state-active")
                         .toggleClass("ui-state-default").toggleClass("ui-corner-bottom")
                     .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e").toggleClass("ui-icon-triangle-1-s")
                     .end().next().toggleClass("ui-accordion-content-active").toggle();
+                    $('#calendar').fullCalendar('refetchEvents' );
                     return false;
                 })
                 .next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").hide();
