@@ -79,6 +79,18 @@ public class Repositories
             }
         }catch (Exception e) {}
 
+        host="128.29.109.25";
+        try
+        {
+            if( InetAddress.getByName(host).isReachable(TIMEOUT) )
+            {
+                r = new hDataRepository( );
+                r.setName("OurHdata");
+                r.setCredentials( host + ":8080" );
+                repos.put(r.getName(), r);
+            }
+        }catch (Exception e) {}
+
     }
 
 
