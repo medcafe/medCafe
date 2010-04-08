@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.*;
-import gov.va.med.vistalink.adapter.cci.VistaLinkConnection;
 import java.net.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -19,9 +18,9 @@ import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 
-public class VistaRepositoryTest extends VistaRepository {
+public class hDataRepositoryTest extends hDataRepository {
 
-    public final static String KEY = VistaRepositoryTest.class.getName();
+    public final static String KEY = hDataRepositoryTest.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     static{log.setLevel(Level.FINER);}
 
@@ -33,21 +32,19 @@ public class VistaRepositoryTest extends VistaRepository {
     public void setUp() throws Exception {
         boolean gotOne = false;
         String host = "192.168.56.101";
-
         if( InetAddress.getByName(host).isReachable(3000) )
         {
-            setName("JeffVista");
-            setCredentials( host, "8002", "OV1234", "OV1234!!" );
-            // setCredentials( host, "8002", "PU1234", "PU5678!!" );
+            setName("JeffhData");
+            setCredentials( "http://" + host + ":8080" );
             gotOne = true;
         }
         else
         {
-            host = "128.29.109.7";  //"medcafe.mitre.org";
+            host="128.29.109.25";
             if( InetAddress.getByName(host).isReachable(3000) )
             {
-                setName("OurVista");
-                setCredentials( "128.29.109.7", "8002", "OV1234", "OV1234!!" );
+                setName("OurHdata");
+                setCredentials( "http://" + host + ":8080" );
                 gotOne = true;
             }
         }
@@ -71,20 +68,7 @@ public class VistaRepositoryTest extends VistaRepository {
 
     }
 
-    @Test
-    public void persistantConnectionTest() throws Exception
-    {
-        long start = System.currentTimeMillis();
-        Map<String, String> pats = getPatients();
-        assertFalse(pats == null );
-        log.finer( "first pull: " + (System.currentTimeMillis() - start ) / 1000);
-        pats = getPatients();
-        assertFalse(pats == null );
-        log.finer( "total after 2 pulls: " + (System.currentTimeMillis() - start ) / 1000);
-        Patient pat = getPatient("7");
-        log.finer( "after grabbing patient #7 " + (System.currentTimeMillis() - start ) / 1000);
-    }
-
+    /*
     @Test
     public void testGetPatients() throws Exception
     {
@@ -93,20 +77,20 @@ public class VistaRepositoryTest extends VistaRepository {
         assertTrue( "Supposed to have >6 patients.  Received " + pats.size(), pats.size() >= 6);
         assertTrue( pats.keySet().contains("7"));
     }
-
+    */
     @Test
     public void testGetPatient() throws Exception
     {
-        Patient pat = getPatient("7");
+        Patient pat = getPatient("00000000001");
         assertFalse( "Patient was not found.", pat == null );
         // JSONObject p = new JSONObject(pat);
         Gson gson = new Gson();
         String p = gson.toJson(pat);
         log.finer(p.toString());
         assertFalse( p == null );
-        assertTrue( p.toString().contains("\"id\":\"7\"") );
-        assertTrue( p.toString().contains("1975") );
-        assertTrue( p.toString().contains("FEMALE") );
+        assertTrue( p.toString().contains("\"id\":\"00000000001\"") );
+        assertTrue( p.toString().contains("Edinburgh") );
+        assertTrue( p.toString().contains("male") );
     }
 
     @Test
@@ -134,5 +118,6 @@ public class VistaRepositoryTest extends VistaRepository {
             log.finer(gson.toJson(item));
         }
     }
+
 }
 

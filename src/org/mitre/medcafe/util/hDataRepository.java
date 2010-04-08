@@ -55,13 +55,31 @@ public class hDataRepository extends Repository
     /**
      *  Get a list of patient identifiers
      */
-    public Map<String, String> getPatients(){ return null; }
+    public Map<String, String> getPatients(){
+        Map<String, String> ret = new HashMap<String,String>();
+        ret.put( "000000001",  "Dr. Robert Bruce" );
+        return ret;
+    }
 
     /**
      *  Get a set of allergies specific to a patient
      */
     public List<Allergy> getAllergies( String patientId ){
-        return null;
+        try
+        {
+            JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.allergy");
+            Unmarshaller u = jc.createUnmarshaller();
+            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/adversereactions/allergies/937321.xml" );
+            URLConnection conn = url.openConnection();
+            Allergy p = (Allergy)u.unmarshal(conn.getInputStream() );
+            List<Allergy> ret = new ArrayList<Allergy>();
+            ret.add(p);
+            return ret;
+        }
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Error retrieving patient " + patientId, e);
+            return null;
+        }
     }
 
     /**

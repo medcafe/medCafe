@@ -143,7 +143,7 @@ public class VistaRepository extends Repository
     {
         if( conn != null )
         {
-            log.finer("closing connection");
+            // log.finer("closing connection");
             // conn.returnToPool();
             conn.close();
             conn = null;
