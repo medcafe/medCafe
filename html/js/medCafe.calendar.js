@@ -28,9 +28,12 @@ $(function(){
             theme:true,
 			editable: true,
 			events: "getSchedule.jsp",
+			startParam: "start",
+			endParam: "end",
             eventDrop: function(event, dayDelta, minuteDelta) {
 				var url = "moveAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
                 $.getJSON(url, function(json){
+               
                     if (json.announce)
                     {
                         updateAnnouncements(json);
@@ -57,7 +60,7 @@ $(function(){
                 .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
                 .prepend('<span class="ui-icon ui-icon-triangle-1-e"/>')
                 .click(function() {
-                	alert("on click in calendar");
+                	
                     $(this).toggleClass("ui-accordion-header-active").toggleClass("ui-state-active")
                         .toggleClass("ui-state-default").toggleClass("ui-corner-bottom")
                     .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e").toggleClass("ui-icon-triangle-1-s")

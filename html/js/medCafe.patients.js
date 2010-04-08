@@ -10,6 +10,12 @@ function initialize(serverLink)
     	var emptyVal = '';
 		$("#last_name").blur(function(){
 			serverLink =  "searchPatientsJSON.jsp?";
+			var isChecked = $("#isPatientChecked").attr('checked');
+	    		
+	    	if (isChecked)
+	    	{
+	    		serverLink = serverLink + "isPatient=" + isChecked + "&";
+	    	}
 			var lastNameVal = $(this).val();
 			serverLink = serverLink + "search_str_last=" + lastNameVal;
 			var firstNameVal = $('#first_name').val();
@@ -34,6 +40,13 @@ function initialize(serverLink)
 		
 		$("#first_name").blur(function(){
 			 serverLink =  "searchPatientsJSON.jsp?";
+			 var isChecked = $("#isPatientChecked").attr('checked');
+	    		
+	    	if (isChecked)
+	    	{
+	    		serverLink = serverLink + "isPatient=" + isChecked + "&";
+	    	}	
+	    	
 			var firstNameVal = $(this).val();
 			serverLink = serverLink + "search_str_first=" + firstNameVal;
 			var lastNameVal = $('#last_name').val();
@@ -62,6 +75,7 @@ function setOnSelect()
 			{
 	    		var src = $("option:selected", this).val();
 	    		//Get details for this patient
+	    		
 	    		retrieve( src);	
     		});
     	
@@ -69,6 +83,8 @@ function setOnSelect()
 
 function retrieve(patient)
 {
+		var url = "retrievePatient.jsp";
+		
 		parent.$("#saveDialog").dialog({
 				autoOpen: false,					
 				modal:true,
@@ -81,15 +97,17 @@ function retrieve(patient)
 							parent.$("#saveDialog").dialog("destroy");
 							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
-							populate("retrievePatient.jsp", patient);	
+							populate(url, patient);	
 							
 							addScheduleButton(patient);
+							addCreateAssocButton(patient,"physician");
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
-						populate("retrievePatient.jsp", patient);	
+						populate(url, patient);	
 						addScheduleButton(patient);
+						addCreateAssocButton(patient,"physician");
 					}
 					,
 					"Cancel" : function() {
@@ -164,6 +182,7 @@ function addScheduleButton( patient_id)
 
 function addCreateAssocButton( patient_id, role)
 {
+	
 	
 	 var buttonTxt = "<button id='createAssocBtn'>Add To My List</button>";
 	 $("#addPatient").html("");

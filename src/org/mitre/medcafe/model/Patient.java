@@ -52,17 +52,31 @@ public class Patient
 	private String lastName = "";
 	private ArrayList<String> repositories =null;
 	
+	public static final String SEARCH_USER_PATIENTS_BY_ID = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc " +
+	" where patient_user_assoc.patient_id = patient.id and patient_user_assoc.patient_id = ? and patient_user_assoc.username = ? ";
+
+	public static final String SEARCH_USER_PATIENTS_BY_FIRST_NAME = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc " +
+	" where patient_user_assoc.patient_id = patient.id and patient_user_assoc.username = ? and first_name like ? ";
+	
+	public static final String SEARCH_USER_PATIENTS_BY_LAST_NAME = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc " +
+	" where patient_user_assoc.patient_id = patient.id and patient_user_assoc.username = ? and last_name like ?";
+
+	public static final String SEARCH_USER_PATIENTS_BY_ALL = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc " +
+	" where patient_user_assoc.patient_id = patient.id and patient_user_assoc.username = ? and first_name like ? and first_name like ? ";
+
 	public static final String SEARCH_PATIENTS_BY_ID = "SELECT id, first_name, last_name from patient where id = ? ";
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT id, first_name, last_name from patient where first_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient where last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
-	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
+	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
 	
 	public static final String FIRST_NAME= "first_name";
 	public static final String LAST_NAME = "last_name";
 	public static final String ID = "id";
+	public static final String NO_PATIENT = "No Patient";
+	private static DbConnection dbConn = null;
 	
 	public Patient(String firstName, String lastName)	
 	{
@@ -79,8 +93,30 @@ public class Patient
 		repositories = new ArrayList<String>();
 	}
 	
+	public Patient(DbConnection conn)	
+	{
+		super();
+		dbConn = conn;
 	
-	public JSONObject associatePatient(DbConnection dbConn, String patientId, String userName, String role)
+	}
+	
+	public static DbConnection setConnection() throws SQLException
+	{
+		if (dbConn == null)
+			dbConn= new DbConnection();
+		return dbConn;
+	}
+	
+	public static DbConnection getConnection() throws SQLException
+	{
+		return dbConn;
+	}
+	
+	public static void closeConnection() throws SQLException
+	{
+		dbConn.close();
+	}
+	public JSONObject associatePatient( String userName, String patientId, String role)
 	{
 		JSONObject ret = new JSONObject();
 		//INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
@@ -100,7 +136,46 @@ public class Patient
 		
 	}
 	
-	 public JSONObject searchJson(String searchStringFirst, String searchStringLast){
+	public JSONObject isPatient( String userName, String patientId)
+	{
+		JSONObject ret = new JSONObject();
+		String checkQuery = SEARCH_USER_PATIENTS_BY_ID;
+
+		int patient_id = Integer.parseInt(patientId);
+		String err_mess = "Could not check if there is an existing association for patient  " + patient_id;
+		
+		ResultSet rs = dbConn.psExecuteQuery(checkQuery, err_mess , patient_id, userName);	
+		
+		try {
+			if (rs.next())
+			{
+				  String role = rs.getString("role");
+				  int id = rs.getInt(1);
+		          String fName = rs.getString(Patient.FIRST_NAME);
+		          String lName = rs.getString(Patient.LAST_NAME);
+		          ret.put("id", id);
+		          ret.put(Patient.FIRST_NAME, fName);
+		          ret.put(Patient.LAST_NAME, lName);
+		          ret.put("role", role);
+			}
+			else
+			{
+				 ret.put(ID, NO_PATIENT);
+			}
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );		
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on JSON creation on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );		
+		}
+		
+		
+		return ret;
+		
+	}
+	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName){
 	        
 		 	boolean rtnResults = false;
 		 	JSONObject ret = new JSONObject();
@@ -108,7 +183,7 @@ public class Patient
 	        try
 	        {
 	        	
-	        	ResultSet rs = getPatients( searchStringFirst, searchStringLast);
+	        	ResultSet rs = getPatients( isPatient, searchStringFirst, searchStringLast, userName);
 		        if( rs == null )
 		        {
 		            return WebUtils.buildErrorJson( "Could not establish a connection to the database  at this time.");
@@ -156,34 +231,57 @@ public class Patient
 	        return ret ;
 	    }
 	
-	 private ResultSet getPatients(String searchStringFirst, String searchStringLast) throws SQLException
+	 private ResultSet getPatients(String isPatient, String searchStringFirst, String searchStringLast, String userName) throws SQLException
 	 {
-		 DbConnection dbConn = null;
-			
-		 dbConn= new DbConnection();
-
+		 
+		 setConnection();
+		 
 		 System.out.println("Patient: getPatients : got connection " );
 		 
 		 PreparedStatement prep= null;
 
-		 if (searchStringFirst.length() == 0)
-		 {   
-			 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_LAST_NAME);
-			 prep.setString(1, "%"+searchStringLast+"%");
-		 }
-		 else if (searchStringLast.length() == 0 )
+		 if (isPatient.equals("true"))
 		 {
-			 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_FIRST_NAME);
-			 prep.setString(1, "%"+searchStringFirst+"%");
+			 if (searchStringFirst.length() == 0)
+			 {   
+				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_LAST_NAME);
+				 prep.setString(1, userName);
+				 prep.setString(2, "%"+searchStringLast+"%");
+			 }
+			 else if (searchStringLast.length() == 0 )
+			 {
+				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_FIRST_NAME);
+				 prep.setString(1, userName);
+				 prep.setString(2, "%"+searchStringFirst+"%");
+			 }
+			 else
+			 {
+				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_ALL);
+				 prep.setString(1, userName);
+				 prep.setString(2, "%"+searchStringLast+"%");
+				 prep.setString(3, "%"+searchStringFirst+"%");
+			 }
 		 }
 		 else
 		 {
-			 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_ALL);
-			 prep.setString(1, "%"+searchStringLast+"%");
-			 prep.setString(2, "%"+searchStringFirst+"%");
+			 if (searchStringFirst.length() == 0)
+			 {   
+				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_LAST_NAME);
+				 prep.setString(1, "%"+searchStringLast+"%");
+			 }
+			 else if (searchStringLast.length() == 0 )
+			 {
+				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_FIRST_NAME);
+				 prep.setString(1, "%"+searchStringFirst+"%");
+			 }
+			 else
+			 {
+				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_ALL);
+				 prep.setString(1, "%"+searchStringLast+"%");
+				 prep.setString(2, "%"+searchStringFirst+"%");
+			 }
+		 
 		 }
-		 
-		 
 		 System.out.println("Patient: getPatients : query " + prep.toString());
 	     ResultSet rs = prep.executeQuery();
 			

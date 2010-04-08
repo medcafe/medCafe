@@ -50,7 +50,9 @@
 		<div id="list_names"><select><option value="No names selected">No names selected</option></select></div>
 		</center>
 		<br/>
+		<div id="listPatients"><input id="isPatientChecked" value="isPatient" type="checkbox">Display only my Patients</input></div>
 		<div id="addSchedule"></div>
+		<div id="addPatient"></div>
 		
 </form>
 </div>

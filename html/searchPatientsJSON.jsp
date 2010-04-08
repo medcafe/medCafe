@@ -11,8 +11,13 @@
 	if (searchStrLast == null)
 		searchStrLast = "";
 	
+	String isPatient = request.getParameter("isPatient");
+	if (isPatient == null)
+		isPatient = "false";
+	String userName =  request.getRemoteUser();
+	
 	Patient patient = new Patient();%>
-	<%=patient.searchJson(searchStrFirst, searchStrLast).toString()%>
+	<%=patient.searchJson(isPatient, searchStrFirst, searchStrLast, userName).toString()%>
 
 
 
