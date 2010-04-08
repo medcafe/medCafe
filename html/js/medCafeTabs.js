@@ -253,8 +253,7 @@ $(document).ready( function() {
 	
 	
 	function createLink(patientId, link, label, type, params, repository) 
-	{
-		   					
+	{   					
 		var tab_num = addTab(label, type);		
 		if (tab_num < 0)
 			return;

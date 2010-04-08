@@ -251,7 +251,7 @@ $(document).ready( function() {
 	
 	function startWidgetDrag(test, frameId, e)
 	{
-	  	
+	  
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
 	  	iFramePos.left = 1300;

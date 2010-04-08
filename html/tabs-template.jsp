@@ -33,7 +33,13 @@ $(function(){
       
       		var hasContentObj = $(this).find("#hasContent");
       		var hasContent = $(hasContentObj).attr("custom:hasContent");
+      		var img = $(dragObj).find('img');
       		
+			if (img.length == 0)
+			{
+				//This is not a droppable object
+				return;
+			}
       		var dragObj = $(ui.draggable)
        		var widgetId = $(ui.draggable).html();
        		
