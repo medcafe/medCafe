@@ -1,7 +1,5 @@
 $(function(){
-    
-    	
-		
+	
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
@@ -46,19 +44,16 @@ $(function(){
 			},
 			eventClick: function(calEvent, jsEvent, view) 
 			{
-
 		        // change the border color just for fun
 		        clearPopUp();
 		        $(this).css('border-color', 'red');	
-		        
-		        
+
 			},
 			eventRightClick: function(calEvent, jsEvent, view) 
 			{
 					//view.trigger('eventRightClick', this, event, ev);
 		        	//popUpMenu(evt,this, event);
-		        	popUpMenu(jsEvent,view, calEvent);
-		        
+		        	popUpMenu(jsEvent,view, calEvent);    
 			}
 		});
 
@@ -132,12 +127,25 @@ function popUpMenu(evt, obj, eventObj)
     		);
 		 	
 		 	$(".menuItem").click(
-				 	function(evt, obj, eventObj)
+				 	function()
 				 	{
+				 		
 				 		if (eventObj != null)
 						{
-							alert("click on " + $(this).text() + " for event " + eventObj.title);
-						}
+							if ($(this).text() == "Delete")
+							{
+								var id = eventObj.id;				
+								var url = "deleteAppt.jsp?id=" + event.id ;
+				                $.getJSON(url, function(json){
+				                    if (json.announce)
+				                    {
+				                        updateAnnouncements(json);
+				                        return;
+				                    }
+				                    $("#calendar").fullCalendar( 'removeEvents', id);			
+				                });
+							}
+						}			
 						clearPopUp();
 		    		}	
     		);
@@ -165,7 +173,7 @@ function popUpMenu(evt, obj, eventObj)
 
 function clearPopUp()
 {
-	
+
 	$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
 	$("#popUpMenuWrap").find("li").removeClass("menuItem");
 }
