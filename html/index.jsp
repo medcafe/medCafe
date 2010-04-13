@@ -11,7 +11,7 @@
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-	<title>Droppable Between Panes</title>
+	<title>medCafe</title>
 
 
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
@@ -46,7 +46,7 @@
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
 	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
-	<script type="text/javascript" src="${js}/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="${js}/fullcalendar.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
 

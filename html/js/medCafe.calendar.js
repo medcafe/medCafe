@@ -92,72 +92,58 @@ $(function(){
 					evt.stopPropagation();
 					$(this).mouseup( function(e) 
 					{
-						e.stopPropagation();
-						var srcElement = $(this);
-						$(this).unbind('mouseup');
-						
-						//Put the menu item here
-						if( evt.button == 2 ) {
-							var inSpeed = 150;
-							$('#popUpMenuWrap').html("");
-							
-							 $("#popUpMenuWrap").addClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all")
-					        .prepend('<a tabindex="0" href="#calendar-menu" id="cal-menu"><span class="ui-icon ui-icon-triangle-1-s"></span>Menu</a><div id="calendar-menu" class="hidden"></div>');
-					 		
-					 		$(this).delay(200,function()
-							{
-						 		$.get('menuContent.html', function(data)
-						 		{
-						 			$('#popUpMenuWrap').css("position","absolute");
-									$('#popUpMenuWrap').css("z-index","99");
-									var d = {}, x, y;
-									if( self.innerHeight ) {
-										d.pageYOffset = self.pageYOffset;
-										d.pageXOffset = self.pageXOffset;
-										d.innerHeight = self.innerHeight;
-										d.innerWidth = self.innerWidth;
-									} else if( document.documentElement &&
-										document.documentElement.clientHeight ) {
-										d.pageYOffset = document.documentElement.scrollTop;
-										d.pageXOffset = document.documentElement.scrollLeft;
-										d.innerHeight = document.documentElement.clientHeight;
-										d.innerWidth = document.documentElement.clientWidth;
-									} else if( document.body ) {
-										d.pageYOffset = document.body.scrollTop;
-										d.pageXOffset = document.body.scrollLeft;
-										d.innerHeight = document.body.clientHeight;
-										d.innerWidth = document.body.clientWidth;
-									}
-									
-									
-									(e.pageX) ? x = e.pageX : x = e.clientX + d.scrollLeft;
-									(e.pageY) ? y = e.pageY : x = e.clientY + d.scrollTop;
-									
-									// Show the menu
-									$(document).unbind('click');
-									
-									var offsetX = 50;
-									var offsetY = 100;
-									$('#popUpMenuWrap').css({ top: y-offsetY, left: x-offsetX }).fadeIn(inSpeed);
-									
-									$('#cal-menu').menu({
-										width: 100,
-										content: data
-									});
-									
-								});
-							} );
-						}
-						else
-						{
-						 
-							$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
-						}
+						popUpMenu(e, this);
 					});
 		});
-		
+    	
 		$(document).bind("contextmenu",function(e){  
          return false;  
      	});  
 					
 });
+
+function popUpMenu(evt, obj, eventObj)
+{
+		evt.stopPropagation();
+		var srcElement = $(obj);
+		$(obj).unbind('mouseup');
+						
+		//Put the menu item here
+		if( evt.button == 2 ) {
+			var inSpeed = 150;
+			$('#popUpMenuWrap').html("");
+			$('#popUpMenuWrap').css("position","absolute");
+			$('#popUpMenuWrap').css("z-index","99");
+									
+			$("#popUpMenuWrap").addClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all")
+			.prepend('<a tabindex="0" href="#calendar-menu" id="cal-menu"><span class="ui-icon ui-icon-triangle-1-s"></span>Add Event</a><div id="calendar-menu" class="hidden"></div>');
+		 		
+			$.get('calendarMenuContent.html', function(data)
+			{
+					var d = {}, x, y;
+	
+					(evt.pageX) ? x = evt.pageX : x = evt.clientX + d.scrollLeft;
+					(evt.pageY) ? y = evt.pageY : x = evt.clientY + d.scrollTop;
+									
+					// Show the menu
+					$(document).unbind('click');
+									
+					var offsetX = 50;
+					var offsetY = 100;
+					$('#popUpMenuWrap').css({ top: y-offsetY, left: x-offsetX });
+									
+					$('#cal-menu').menu({
+						width: 100,
+						content: data
+					});
+									
+				});
+					
+			}
+			else //Remove the menu item
+			{
+						 
+				$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
+			}
+		
+}
