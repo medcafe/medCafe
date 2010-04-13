@@ -2777,13 +2777,21 @@ var viewMethods = {
 					view.trigger('eventMouseout', this, event, ev);
 				}
 			).mousedown( function(e) {
-					var evt = e;
-					evt.stopPropagation();
-					$(this).mouseup( function(e) 
+			
+				var evt = e;
+				evt.stopPropagation();
+				
+				$(this).mouseup( function(ev) 
+				{
+					if( evt.button == 2 ) 
 					{
-						//alert("Right click event " +  event);
-						popUpMenu(evt,this, event);
-					});
+						view.trigger('eventRightClick', this, event, ev);
+					}
+					else
+					{
+						$(this).unbind('mouseup');
+					}
+				});
 			});
 	},
 	

@@ -33,6 +33,7 @@ $(function(){
                 });
 			},
             eventResize: function(event, dayDelta, minuteDelta) {
+            	clearPopUp();
 				var url = "resizeAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
                 $.getJSON(url, function(json){
                     if (json.announce)
@@ -46,27 +47,18 @@ $(function(){
 			{
 
 		        // change the border color just for fun
+		        clearPopUp();
 		        $(this).css('border-color', 'red');	
-		        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-		        $("#popUpMenuWrap").addClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all")
-		        .prepend('<a tabindex="0" href="#calendar-menu" id="cal-menu"><span class="ui-icon ui-icon-triangle-1-s"></span>Menu</a><div id="calendar-menu" class="hidden"></div>');
-		 		
-		 		$(this).delay(200,function()
-				{
-			 		$.get('menuContent.html', function(data)
-			 		{
-						$('#cal-menu').menu({
-							width: 100,
-							offsetX: 135,
-							offsetY: 500,
-							content: data
-						});
-					});
-				} );
+		        
+		        
+			},
+			eventRightClick: function(calEvent, jsEvent, view) 
+			{
+					//view.trigger('eventRightClick', this, event, ev);
+		        	//popUpMenu(evt,this, event);
+		        	popUpMenu(jsEvent,view, calEvent);
 		        
 			}
-			
-
 		});
 
 
@@ -92,7 +84,9 @@ $(function(){
 					evt.stopPropagation();
 					$(this).mouseup( function(e) 
 					{
-						popUpMenu(e, this);
+						if( evt.button == 2 ) {
+							popUpMenu(e, this);
+						}
 					});
 		});
     	
@@ -115,35 +109,53 @@ function popUpMenu(evt, obj, eventObj)
 			$('#popUpMenuWrap').css("position","absolute");
 			$('#popUpMenuWrap').css("z-index","99");
 									
+			var html = '<li id="add">Add</li><li id="delete">Delete</li>';
 			$("#popUpMenuWrap").addClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all")
-			.prepend('<a tabindex="0" href="#calendar-menu" id="cal-menu"><span class="ui-icon ui-icon-triangle-1-s"></span>Add Event</a><div id="calendar-menu" class="hidden"></div>');
-		 		
-			$.get('calendarMenuContent.html', function(data)
-			{
-					var d = {}, x, y;
+			.prepend('<a tabindex="0" href="#calendar-menu" id="cal-menu">' + html + '</a><div id="calendar-menu" class="hidden"></div>');
+		 	
+		 	$("#popUpMenuWrap").find("li").addClass("menuItem");
+		 	
+		 	$(".menuItem").hover(
+				 	function()
+				 	{
+						$(this).addClass("ui-state-hover");
+		    		},
+					function () 
+					{
+					    $(this).removeClass("ui-state-hover");
+					}	
+    		);
+		 	
+		 	$(".menuItem").click(
+				 	function()
+				 	{
+						alert("click on " + $(this).text());
+		    		}	
+    		);
+			var d = {}, x, y;
 	
-					(evt.pageX) ? x = evt.pageX : x = evt.clientX + d.scrollLeft;
-					(evt.pageY) ? y = evt.pageY : x = evt.clientY + d.scrollTop;
+			(evt.pageX) ? x = evt.pageX : x = evt.clientX + d.scrollLeft;
+			(evt.pageY) ? y = evt.pageY : x = evt.clientY + d.scrollTop;
 									
-					// Show the menu
-					$(document).unbind('click');
+			// Show the menu
+			$(document).unbind('click');
 									
-					var offsetX = 50;
-					var offsetY = 100;
-					$('#popUpMenuWrap').css({ top: y-offsetY, left: x-offsetX });
-									
-					$('#cal-menu').menu({
-						width: 100,
-						content: data
-					});
-									
-				});
-					
-			}
-			else //Remove the menu item
-			{
+			var offsetX = 50;
+			var offsetY = 100;
+			$('#popUpMenuWrap').css({ top: y-offsetY, left: x-offsetX });
+			
+			
+		}
+		else //Remove the menu item
+		{
 						 
-				$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
-			}
+			clearPopUp();
+		}
 		
+}
+
+function clearPopUp()
+{
+	$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
+	$("#popUpMenuWrap").find("li").removeClass("menuItem");
 }
