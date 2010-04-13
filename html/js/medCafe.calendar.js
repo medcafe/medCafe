@@ -22,6 +22,7 @@ $(function(){
 			startParam: "start",
 			endParam: "end",
             eventDrop: function(event, dayDelta, minuteDelta) {
+            	clearPopUp();
 				var url = "moveAppt.jsp?id=" + event.id + "&minutes=" + minuteDelta;
                 $.getJSON(url, function(json){
                
@@ -87,6 +88,10 @@ $(function(){
 						if( evt.button == 2 ) {
 							popUpMenu(e, this);
 						}
+						else
+						{
+							clearPopUp();
+						}
 					});
 		});
     	
@@ -127,9 +132,13 @@ function popUpMenu(evt, obj, eventObj)
     		);
 		 	
 		 	$(".menuItem").click(
-				 	function()
+				 	function(evt, obj, eventObj)
 				 	{
-						alert("click on " + $(this).text());
+				 		if (eventObj != null)
+						{
+							alert("click on " + $(this).text() + " for event " + eventObj.title);
+						}
+						clearPopUp();
 		    		}	
     		);
 			var d = {}, x, y;
@@ -156,6 +165,7 @@ function popUpMenu(evt, obj, eventObj)
 
 function clearPopUp()
 {
+	
 	$('#popUpMenuWrap').removeClass("fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all").html("");
 	$("#popUpMenuWrap").find("li").removeClass("menuItem");
 }
