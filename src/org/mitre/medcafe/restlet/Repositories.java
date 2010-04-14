@@ -33,8 +33,8 @@ public class Repositories
         Repository r = new VistaRepository();
         r.setName("JeffVista");
         String host = "192.168.56.101";
-        // r.setCredentials( host, "8002", "OV1234", "OV1234!!" );
-        r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
+        r.setCredentials( host, "8002", "OV1234", "OV1234!!" );
+        // r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
         try
         {
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
@@ -67,7 +67,7 @@ public class Repositories
             }
         }catch (Exception e) {}
 
-        host = "192.168.56.101";
+        host = "192.168.56.102";
         try
         {
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
@@ -90,6 +90,15 @@ public class Repositories
                 repos.put(r.getName(), r);
             }
         }catch (Exception e) {}
+
+    }
+
+    public static void onShutdown()
+    {
+        for( Repository r : repos.values() )
+        {
+            r.onShutdown();
+        }
 
     }
 

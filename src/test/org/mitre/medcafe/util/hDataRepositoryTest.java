@@ -22,7 +22,7 @@ public class hDataRepositoryTest extends hDataRepository {
 
     public final static String KEY = hDataRepositoryTest.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     /**
      * Sets up the test fixture.
@@ -31,7 +31,7 @@ public class hDataRepositoryTest extends hDataRepository {
     @Before
     public void setUp() throws Exception {
         boolean gotOne = false;
-        String host = "192.168.56.101";
+        String host = "192.168.56.102";
         if( InetAddress.getByName(host).isReachable(3000) )
         {
             setName("JeffhData");

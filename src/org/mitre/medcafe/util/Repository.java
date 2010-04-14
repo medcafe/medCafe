@@ -82,7 +82,6 @@ public abstract class Repository
     	this.credentials = credentials;
     }
 
-
     /**
      * Set credentials property.
      *
@@ -91,7 +90,6 @@ public abstract class Repository
      public void setCredentialsArray(String[] credentials) {
     	this.credentials = credentials;
     }
-
 
     /**
      * Name property.
@@ -114,5 +112,13 @@ public abstract class Repository
      */
     public void setName(String name) {
     	this.name = name;
+    }
+
+    /**
+     *  Called at web server shutdown to cleanup any hanging resources
+     */
+    public void onShutdown()
+    {
+
     }
 }

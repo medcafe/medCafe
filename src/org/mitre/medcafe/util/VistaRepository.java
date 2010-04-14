@@ -28,6 +28,7 @@ public class VistaRepository extends Repository
     public final static Logger log = Logger.getLogger( KEY );
     static{log.setLevel(Level.FINER);}
 
+    protected static VistaLinkPooledConnectionFactory factory = null;
     protected VistaLinkPooledConnection conn = null;
 
     public VistaRepository()
@@ -122,13 +123,36 @@ public class VistaRepository extends Repository
         }
     }
 
+    public static void factorySetUp( String[] creds ) {
+        try
+        {
+			factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
+		}
+		catch (Exception e)
+		{
+			log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
+		}
+    }
+
+    public void onShutdown() {
+        if (factory != null) {
+            factory.emptyPool();
+        }
+        factory=null;
+    }
+
     /**
      *  sets the passed VistaLinkPooledConnection
      *  @return true if conneciton worked.  False otherwise.
      */
     protected boolean setConnection() throws OvidDomainException
     {
-        conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
+        if( factory == null )
+        {
+            factorySetUp( credentials );
+        }
+        //conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
+        conn = factory.getConnection();
         if (conn==null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
             return false;
@@ -144,8 +168,8 @@ public class VistaRepository extends Repository
         if( conn != null )
         {
             // log.finer("closing connection");
-            // conn.returnToPool();
-            conn.close();
+            conn.returnToPool();
+            // conn.close();
             conn = null;
         }
     }

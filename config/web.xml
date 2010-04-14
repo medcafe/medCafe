@@ -25,6 +25,11 @@
     	<param-value>127.0.0.1:8080</param-value>
 	</context-param>
 
+    <!-- Listener for cleaning up data sources on shutdown -->
+    <listener>
+        <listener-class>org.mitre.medcafe.servlets.RepositoryListener</listener-class>
+    </listener> -->
+
     <!-- Restlet adapter -->
     <servlet>
        <servlet-name>RestletServlet</servlet-name>
