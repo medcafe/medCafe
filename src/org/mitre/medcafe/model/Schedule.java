@@ -74,6 +74,7 @@ public class Schedule
 	public static final String SELECT_AVAILABLE_APPOINTMENT= "select id,  last_name , first_name , appoint_time, end_time from schedule  where appoint_date =  ? order by appoint_date, appoint_time ";
 	public static final String INSERT_APPOINTMENT = "INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,to_date(?, '" +  DATE_FORMAT +"'), 	to_timestamp(?,'" +  SQL_TIME_FORMAT +"'),	to_timestamp(?,'" + SQL_TIME_FORMAT + "') ) ";
 	public static final String DELETE_APPOINTMENT= "DELETE FROM schedule where ( patient_id=? AND appoint_date=? AND appoint_time=? ) ";
+	public static final String DELETE_APPOINTMENT_BY_ID= "DELETE FROM schedule where ( id=? ) ";
 	//public static final String ADD_TIME = "update schedule set appoint_time = appoint_time+interval '" + minuteDelta + " minutes', end_time = end_time+interval '" + minuteDelta + " minutes' where id=?";
     
 	

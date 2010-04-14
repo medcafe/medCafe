@@ -49,6 +49,12 @@ $(function(){
 		        $(this).css('border-color', 'red');	
 
 			},
+			 dayClick: function(date, allDay, jsEvent, view) 
+			{    
+				var d = $('#calendar').fullCalendar('minTime');	
+				//alert("date is " + d);
+				//alert("date is " + date);
+			},
 			eventRightClick: function(calEvent, jsEvent, view) 
 			{
 					//view.trigger('eventRightClick', this, event, ev);
@@ -57,7 +63,8 @@ $(function(){
 			}
 		});
 
-
+		
+			
         $("#west-sections").addClass("ui-accordion ui-widget ui-helper-reset")
             .find("h6")
                 .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
@@ -75,19 +82,23 @@ $(function(){
         $("#patient-search").click();
 		$("#west-sections").prepend('<div id="popUpMenuWrap"></div>');
     	
-    	$("#calendar").mousedown( function(e) {
-					var evt = e;
-					evt.stopPropagation();
-					$(this).mouseup( function(e) 
+    	$("td").mousedown( function(e) 
+    	{
+		
+				var evt = e;
+				evt.stopPropagation();
+				$(this).mouseup( function(e) 
+				{
+					if( evt.button == 2 ) 
 					{
-						if( evt.button == 2 ) {
-							popUpMenu(e, this);
-						}
-						else
-						{
-							clearPopUp();
-						}
-					});
+						//First get the time slot clicked						
+						popUpMenu(e, this);
+					}
+					else
+					{
+						clearPopUp();
+					}
+				});
 		});
     	
 		$(document).bind("contextmenu",function(e){  
@@ -104,6 +115,8 @@ function popUpMenu(evt, obj, eventObj)
 						
 		//Put the menu item here
 		if( evt.button == 2 ) {
+			var d = $('#calendar').fullCalendar('getDate');	
+			alert("date is " + d);
 			var inSpeed = 150;
 			$('#popUpMenuWrap').html("");
 			$('#popUpMenuWrap').css("position","absolute");
@@ -126,6 +139,12 @@ function popUpMenu(evt, obj, eventObj)
 					}	
     		);
 		 	
+			var n = parseInt( $(obj).attr('class').match(/fc\-slot(\d+)/)[1] );
+			if (n > 0)
+			{
+				
+			}
+			
 		 	$(".menuItem").click(
 				 	function()
 				 	{
@@ -135,14 +154,18 @@ function popUpMenu(evt, obj, eventObj)
 							if ($(this).text() == "Delete")
 							{
 								var id = eventObj.id;				
-								var url = "deleteAppt.jsp?id=" + event.id ;
+								alert("medcafeCalendar delete event id "  +id);
+								var url = "deleteAppt.jsp?id=" + id ;
 				                $.getJSON(url, function(json){
 				                    if (json.announce)
 				                    {
 				                        updateAnnouncements(json);
 				                        return;
 				                    }
-				                    $("#calendar").fullCalendar( 'removeEvents', id);			
+				                    else //Only delete of there wasn't an error
+				                    {
+				                    	$("#calendar").fullCalendar( 'removeEvents', id);	
+				                    }		
 				                });
 							}
 						}			
