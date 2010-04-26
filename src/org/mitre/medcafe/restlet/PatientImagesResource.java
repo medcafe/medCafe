@@ -29,6 +29,7 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
@@ -112,6 +113,7 @@ public class PatientImagesResource extends ServerResource {
              
     }
 
+   
     @Get("json")
     public JsonRepresentation toJson(){
         try
@@ -192,6 +194,32 @@ public class PatientImagesResource extends ServerResource {
             return null;
         }
     }
+    
+    @Post("json")
+    public String acceptJson(String value)
+    {
+    	System.out.println("PatientImagesResource: POST: In acceptJson");
+    	return "";
+    }
+    
+    @Put("json")
+    public String storeJson(String value)
+    {
+    	System.out.println("PatientImagesResource: PUT: In storeJson");
+    	return "json";
+    }
+
+    @Delete()
+    public void removeAll(){}
+    
+    @Delete("json")
+    public Representation deleteJson()
+    {
+    	System.out.println("PatientImagesResource: In deleteJSON");
+    	JSONObject obj = new JSONObject();
+    	return new JsonRepresentation(obj);
+    }
+
     
     public void createThumbnail(String uri, String fileLabel, String dir)
     {

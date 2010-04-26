@@ -1,6 +1,7 @@
 <%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*" %><%@
 attribute name="relurl" required="true" rtexprvalue="true" %><%@
-attribute name="mediatype" required="false" %><%
+attribute name="mediatype" required="false" %><%@
+attribute name="restVerb" required="false" %><%
 /*     MediaType mtype = null;
     if( mediatype == null )
     {
@@ -10,6 +11,18 @@ attribute name="mediatype" required="false" %><%
     System.out.println( "http://" +  Config.getServerUrl() + "/" + relurl +" as " + mtype.toString());
  */
 
+	Method method = Method.GET;
+	if( restVerb == null )
+    {
+       method = Method.GET;
+    }
+	else
+	{
+		method = new Method(restVerb);
+	}
+	
+	System.out.println("IncludeRestletTag: Method " + method.getName());
+	
     MedcafeApplication app = (MedcafeApplication)application.getAttribute("org.restlet.ext.servlet.ServerServlet.application");
     if( app == null )
     {
@@ -18,7 +31,7 @@ attribute name="mediatype" required="false" %><%
     }
     System.out.println( relurl +" as " + mediatype);
 
-    Request req = new Request( Method.GET, relurl );
+    Request req = new Request( method, relurl );
     Response resp = new Response( req );
     // request.setEntity(, mtype);
     app.handle(req, resp);
