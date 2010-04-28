@@ -199,7 +199,7 @@ public class PatientImagesResource extends ServerResource {
     public String acceptJson(String value)
     {
     	System.out.println("PatientImagesResource: POST: In acceptJson");
-    	return "";
+    	return "POST finished";
     }
     
     @Put("json")

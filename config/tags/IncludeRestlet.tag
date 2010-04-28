@@ -11,6 +11,7 @@ attribute name="restVerb" required="false" %><%
     System.out.println( "http://" +  Config.getServerUrl() + "/" + relurl +" as " + mtype.toString());
  */
 
+	System.out.println( "IncludeRestletTag: http://" +  Config.getServerUrl() + "/" + relurl +" method " + restVerb);
 	Method method = Method.GET;
 	if( restVerb == null )
     {
@@ -36,17 +37,40 @@ attribute name="restVerb" required="false" %><%
     // request.setEntity(, mtype);
     app.handle(req, resp);
 
-    if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable()) {
-        resp.getEntity().write(out);
-    }
-    else
-    {
-        out.write("Resource not available");
-        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
-        System.out.println( "\tFound resource?  " + resp.getStatus().isSuccess() );
-        System.out.println( "\tIs the entity available?  " + resp.getEntity().isAvailable() );
-    }
-
+	if (method.equals(Method.GET))
+	{
+		//System.out.println( "\tMethod is GET " );
+	  
+	    if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable() ) {
+	        System.out.println( "IncludeRestlet.tag success and entity available" );
+	        
+	        resp.getEntity().write(out);
+	    }
+	    else
+	    {
+	        out.write("Resource not available");
+	        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
+	        System.out.println( "\tFound resource?  " + resp.getStatus().isSuccess() );
+	        System.out.println( "\tIs the entity available?  " + resp.getEntity().isAvailable() );
+	    }
+	}
+	else
+	{
+		//System.out.println( "\tMethod is NOT a GET " );
+	     
+		if (resp.getStatus().isSuccess())
+		{
+			//Put in a representation that signals success
+			
+			
+		}
+		else
+		{
+			out.write("Resource not available");
+	        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
+	        System.out.println( "\tFound resource?  " + resp.getStatus().isSuccess() );
+		}
+	}
 
 
     /*

@@ -104,7 +104,11 @@ $(document).ready( function() {
 	 
 		if (type === "Chart")	
 		{					
-			addChart(this, link, tab_num);
+			addChart(this, link, tab_num, patientId);
+		}
+		else if  (type == "Images")
+		{
+			addCoverflow(this, link, tab_num, patientId);
 		}
 		else if  (type == "Repository")
 		{
@@ -174,7 +178,7 @@ $(document).ready( function() {
 		} );
 	}
 	
-	function addCoverflow(callObj, server, tab_num)
+	function addCoverflow(callObj, server, tab_num, patientId)
 	{
 		
 		//Delay to let the DOM refresh
@@ -182,12 +186,14 @@ $(document).ready( function() {
 		{
 			iNettuts.refresh("yellow-widget" + tab_num);
 									
-			$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
-			$('#chartsiframe').attr('src', server); 
-			
-				iNettuts.makeSortable();
-							
-			    setHasContent(tab_num);
+			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
+			$(callObj).delay(100,function()
+			{
+				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId); 
+			} );				
+				
+			//iNettuts.makeSortable();
+			setHasContent(tab_num);
 		} );
 	}	
 		

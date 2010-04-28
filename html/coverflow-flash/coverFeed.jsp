@@ -3,33 +3,130 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 
+	//url will look like this
+	//?filter=dates:<start_date>_<end_date>~filter:filter1,filter2,....
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 		patientId = "1";
 	// String coverflowFile = "/c/repositories/medcafe/patients/" +  patientId + "/images";
 	//String coverflowFile = "c/repositories/medcafe/patients/1/images";
-	String dates = request.getParameter("dates");
 
+	String filterParam = request.getParameter("filter");
+	
+	String[] params = null;
+	
+	if (filterParam != null)
+		params = filterParam.split("~");
+	
+	String dates = null;
 	String startDate ="";
 	String endDate =  "";
 
 	//As this url is part of a larger url, the '&' cannot be used
 	//Use dates="start_date"_"end_date" format
 	String[] startEndDate = null;
-	if ( (dates != null) && (!dates.equals("_")))
+	
+	String[] filterCats = null;
+	String filterCat = null;
+	
+	if (params != null)
 	{
-
-		if (dates.contains("_"))
+		if ((params.length) > 1 )
 		{
-			startEndDate = dates.split("_");
-			startDate = startEndDate[0];
-			endDate = startEndDate[1];
-		}
+			String param1 = params[0];
+		
+			if (param1.indexOf("dates:") > -1)
+			{
+				dates = param1.split(":")[1];
+				if ( (dates != null) && (!dates.equals("_")))
+				{
+			
+					if (dates.contains("_"))
+					{
+						startEndDate = dates.split("_");
+						startDate = startEndDate[0];
+						endDate = startEndDate[1];
+					}
+					else
+					{
+						startDate = dates;
+					}
+				}
+			}
+			else
+			{
+				String filter = "";
+				if (param1.indexOf("filter:") > -1)
+				{
+					filterCat = param1.split(":")[1];
+					
+				}
+			}
+			
+			String param2 = params[1];
+			if (param2.indexOf("dates:") > -1)
+			{
+				dates = param2.split(":")[1];
+				if ( (dates != null) && (!dates.equals("_")))
+				{
+			
+					if (dates.contains("_"))
+					{
+						startEndDate = dates.split("_");
+						startDate = startEndDate[0];
+						endDate = startEndDate[1];
+					}
+					else
+					{
+						startDate = dates;
+					}
+				}
+			}
+			else
+			{
+				String filter = "";
+				if (param2.indexOf("filter:") > -1)
+				{
+					filterCat = param2.split(":")[1];
+					
+				}
+			}
+		}	
 		else
 		{
-			startDate = dates;
+			String param1 = params[0];
+		
+			if (param1.indexOf("dates:") > -1)
+			{
+				dates = param1.split(":")[1];
+				if ( (dates != null) && (!dates.equals("_")))
+				{
+			
+					if (dates.contains("_"))
+					{
+						startEndDate = dates.split("_");
+						startDate = startEndDate[0];
+						endDate = startEndDate[1];
+					}
+					else
+					{
+						startDate = dates;
+					}
+				}
+				
+			}
+			else
+			{
+				String filter = "";
+				if (param1.indexOf("filter:") > -1)
+				{
+					filterCat = param1.split(":")[1];
+					
+				}
+			}
 		}
 	}
+	
 	//System.out.println("coverFeed.jsp endDate " + endDate );
 	// String url = coverflowFile;
 	String url = "/repositories/medcafe/patients/" +  patientId + "/images";
@@ -44,6 +141,12 @@
 	if ((endDate != null) && (!endDate.equals("")))
 	{
 			url += append + "end_date=" + endDate;
+			append="&";
+	}
+	
+	if ((filterCat != null) && (!filterCat.equals("")))
+	{
+			url += append + "filter=" + filterCat;
 
 	}
 	//System.out.println("coverFeed.jsp url " + url );

@@ -16,4 +16,4 @@
 			
 %>
 
-<tags:IncludeRestlet relurl="<%=listWidgets%>" mediatype="json"/>
+<tags:IncludeRestlet relurl="<%=listWidgets%>" mediatype="json" restVerb="GET"/>

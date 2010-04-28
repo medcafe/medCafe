@@ -5,17 +5,23 @@
 <html>
 <%
 	String server = "" ;
-	
-	String coverflowFile = "coverFeed.jsp";
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+		patientId = "1";
+		
+	//coverFeed.jsp?filter=dates:<start_date>_<end_date>~filter:filter1,filter2
+	String coverflowFile = "coverFeed.jsp?patient_id=" + patientId;
 	String url = coverflowFile;
-	String append = "?";
+	String append = "&";
+	
+	
 	String startDate = request.getParameter("start_date");
 	
 	String endDate = request.getParameter("end_date");
 
 	if (startDate != null)
 	{
-			coverflowFile += append + "dates=" + startDate;
+			coverflowFile += append + "filter=dates:" + startDate;
 			
 	}
 	
@@ -24,8 +30,15 @@
 			coverflowFile +=  "_" + endDate;
 		
 	}
-	System.out.println("index.jsp startDate " +  startDate + " endDate " + endDate );
-    System.out.println("index.jsp url " +  coverflowFile );
+	
+	String filterCat = request.getParameter("filterCat");
+	if (filterCat != null)
+	{
+			coverflowFile +=  "~filter:" + filterCat;
+		
+	}
+	System.out.println("coverflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
+    System.out.println("coverflow flash: index.jsp url " +  coverflowFile );
     
 	//coverflowFile = "coverFeedGen.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/images";
