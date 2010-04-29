@@ -142,13 +142,15 @@ public class PatientImagesResource extends ServerResource {
         	String imageDir = "images/" + dir;
         	String tempDir = "../../" +  imageDir;
         	
-        	 String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
+        	String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
             JSONObject obj = new JSONObject();
-            System.out.println("PatientImageResource JSON start 1");
+            System.out.println("PatientImageResource JSON start images directory " + imageFileDir );
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             
             for(String image: images)
-            {
+            {	
+            	 System.out.println("PatientImageResource JSON start image file " + image );
+                 
             	  try {
           			Date imageDate = df.parse(dates[i]);
           			GregorianCalendar imageCal =  new GregorianCalendar();
@@ -191,6 +193,7 @@ public class PatientImagesResource extends ServerResource {
         catch(Exception e)
         {
             log.throwing(KEY, "toJson()", e);
+            System.out.println("PatientImageResource JSON Exception " +  e.getMessage());
             return null;
         }
     }

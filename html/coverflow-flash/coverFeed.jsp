@@ -5,19 +5,33 @@
 
 	//url will look like this
 	//?filter=dates:<start_date>_<end_date>~filter:filter1,filter2,....
-	String patientId = request.getParameter("patient_id");
-	if (patientId == null)
-		patientId = "1";
+	
 	// String coverflowFile = "/c/repositories/medcafe/patients/" +  patientId + "/images";
 	//String coverflowFile = "c/repositories/medcafe/patients/1/images";
 
-	String filterParam = request.getParameter("filter");
+
+	String delim ="=";
 	
+	String filterParam = request.getParameter("filter");
+	System.out.println("coverFeed.jsp filterParams " + filterParam); 
 	String[] params = null;
+	String patientId = null;
 	
 	if (filterParam != null)
 		params = filterParam.split("~");
 	
+	System.out.println("coverFeed.jsp Number of filterParams " + params.length); 
+	
+	String patientIdStr = params[0];
+	if (patientIdStr.indexOf("patient_id" + delim) > -1)
+	{
+		patientId = patientIdStr.split(delim)[1];
+		System.out.println("coverFeed.jsp Patient Id  " + patientId); 
+	
+	}
+	if (patientId == null)
+		patientId = "1";
+		
 	String dates = null;
 	String startDate ="";
 	String endDate =  "";
@@ -31,13 +45,13 @@
 	
 	if (params != null)
 	{
-		if ((params.length) > 1 )
+		if ((params.length) > 2 )
 		{
-			String param1 = params[0];
+			String param1 = params[1];
 		
-			if (param1.indexOf("dates:") > -1)
+			if (param1.indexOf("dates" + delim) > -1)
 			{
-				dates = param1.split(":")[1];
+				dates = param1.split(delim)[1];
 				if ( (dates != null) && (!dates.equals("_")))
 				{
 			
@@ -56,17 +70,17 @@
 			else
 			{
 				String filter = "";
-				if (param1.indexOf("filter:") > -1)
+				if (param1.indexOf("filterCat" + delim) > -1)
 				{
-					filterCat = param1.split(":")[1];
+					filterCat = param1.split(delim)[1];
 					
 				}
 			}
 			
-			String param2 = params[1];
-			if (param2.indexOf("dates:") > -1)
+			String param2 = params[2];
+			if (param2.indexOf("dates" + delim) > -1)
 			{
-				dates = param2.split(":")[1];
+				dates = param2.split(delim)[1];
 				if ( (dates != null) && (!dates.equals("_")))
 				{
 			
@@ -85,20 +99,20 @@
 			else
 			{
 				String filter = "";
-				if (param2.indexOf("filter:") > -1)
+				if (param2.indexOf("filterCat" + delim) > -1)
 				{
-					filterCat = param2.split(":")[1];
+					filterCat = param2.split(delim)[1];
 					
 				}
 			}
 		}	
-		else
+		else if ((params.length) > 1 )
 		{
-			String param1 = params[0];
+			String param1 = params[1];
 		
-			if (param1.indexOf("dates:") > -1)
+			if (param1.indexOf("dates" + delim) > -1)
 			{
-				dates = param1.split(":")[1];
+				dates = param1.split(delim)[1];
 				if ( (dates != null) && (!dates.equals("_")))
 				{
 			
@@ -118,9 +132,9 @@
 			else
 			{
 				String filter = "";
-				if (param1.indexOf("filter:") > -1)
+				if (param1.indexOf("filter" + delim) > -1)
 				{
-					filterCat = param1.split(":")[1];
+					filterCat = param1.split(delim)[1];
 					
 				}
 			}
@@ -149,7 +163,7 @@
 			url += append + "filter=" + filterCat;
 
 	}
-	//System.out.println("coverFeed.jsp url " + url );
+	System.out.println("coverFeed.jsp url " + url );
     //url += "&type=link";
 
 	String server = "http://" + Config.getServerUrl() +  url;

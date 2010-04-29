@@ -15,7 +15,7 @@
     </head>
     <body>
         <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/repositories"/> --%>
-        <div class="ui-widget"><tags:IncludeRestlet relurl="/repositories/OurVista/patients/7/images" mediatype="json" restVerb="POST"/></div>
+        <div class="ui-widget"><tags:IncludeRestlet relurl="/repositories/medcafe/patients/7/images?start_date=02/7/2008&end_date=02/8/2008" mediatype="json" restVerb="GET"/></div>
 
     </body>
 </html>

@@ -1,5 +1,7 @@
 function filterDateImage(startDate, endDate, tab_num)
 {
+
+	//alert("filterDateImage : About to filter Images according to dates " + startDate + " " + endDate);
 	jQuery.each($("#iframe" + tab_num), function() {
 				
 				var source = $(this).attr("src");

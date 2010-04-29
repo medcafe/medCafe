@@ -8,12 +8,13 @@
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 		patientId = "1";
+	String append = "~";
 		
-	//coverFeed.jsp?filter=dates:<start_date>_<end_date>~filter:filter1,filter2
-	String coverflowFile = "coverFeed.jsp?patient_id=" + patientId;
-	String url = coverflowFile;
-	String append = "&";
+	String delim = "=";
+	//coverFeed.jsp?filter=dates=<start_date>_<end_date>~filter=filter1,filter2
+	String coverflowFile = "coverFeed.jsp?filter=patient_id"  + delim + patientId;
 	
+	String url = coverflowFile;
 	
 	String startDate = request.getParameter("start_date");
 	
@@ -21,7 +22,7 @@
 
 	if (startDate != null)
 	{
-			coverflowFile += append + "filter=dates:" + startDate;
+			coverflowFile += append + "dates" +  delim  + startDate;
 			
 	}
 	
@@ -34,7 +35,7 @@
 	String filterCat = request.getParameter("filterCat");
 	if (filterCat != null)
 	{
-			coverflowFile +=  "~filter:" + filterCat;
+			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 		
 	}
 	System.out.println("coverflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );

@@ -77,9 +77,11 @@ $(function(){
 function filterType()
 {
 	var srcName = "js/filterDate<%=type%>.js"; 
-	
+			
 	$.getScript(srcName, function(){
 
+		//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
+			
 		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
 		{	 		
 			var tabNum = "<%=tabNum%>";
@@ -87,7 +89,18 @@ function filterType()
 			
 		});	
 		
+		
 	});
+	
+	/*srcName = "js/filterCategory<%=type%>.js"; 
+	$.getScript(srcName, function(){
+		$(document).bind('FILTER', function(event, filterCategory) 
+			{	 		
+				var tabNum = "<%=tabNum%>";
+				filterCategory<%=type%>(startDate, filterCategory );
+				
+			});	
+	});*/
 }
 
 function bindClose()

@@ -43,6 +43,11 @@ $(document).ready( function() {
 		   		 filterDate();
 		});
 
+		$(document).bind('FILTER', function() 
+		{	 
+		   		 filterCategory();
+		});
+		
 		var medCafe = {
 		
 				add : function (server, rep) 
@@ -220,13 +225,22 @@ $(document).ready( function() {
 		   //alert("Filter Date");
 	}			
 			
+	function filterCategory() 
+	{
+		   //alert("Filter Date");
+	}			
 				
 	function triggerFilter(startDate, endDate)
 	{
-		//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
+		//alert("medCafe.js triggerFilter - start date is " + startDate + " end Date is " + endDate);
 		$(document).trigger('FILTER_DATE', [startDate, endDate]);
 	}
 	
+	function triggerFilterCategory(filterCat)
+	{
+		//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
+		$(document).trigger('FILTER', [filterCat]);
+	}
 	
 	function displayDialog( id)
 	{
