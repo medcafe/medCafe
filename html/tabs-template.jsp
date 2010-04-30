@@ -92,9 +92,12 @@ function filterType()
 		
 	});
 	
-	/*srcName = "js/filterCategory<%=type%>.js"; 
-	$.getScript(srcName, function(){
-		$(document).bind('FILTER', function(event, filterCategory) 
+	/*var catSrcName = "js/filterCategory<%=type%>.js"; 
+	$.getScript(catSrcName, function(){
+	
+		//alert("tabs_template.jsp : binding the FILTER_CATEGORY filterCategory<%=type%>");
+		
+		$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
 			{	 		
 				var tabNum = "<%=tabNum%>";
 				filterCategory<%=type%>(startDate, filterCategory );

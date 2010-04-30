@@ -5,6 +5,12 @@
 <%
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
+	{
+		Object patientObj = session.getAttribute("patient");
+		if (patientObj != null)
+		 	patientId = patientObj.toString();
+	}	
+	if (patientId == null)
 		patientId = "1";
 %>
 <head>
@@ -49,6 +55,7 @@
 	<script type="text/javascript" src="${js}/fullcalendar.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
+<script type="text/javascript" src="${js}/medCafe.patients.js"></script>
 
 	<script>
 	var outerLayout;
@@ -62,7 +69,7 @@
 
 	$(function(){
 	
-    
+    	refresh("<%=patientId%>");
     });
 
 

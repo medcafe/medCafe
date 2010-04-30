@@ -107,6 +107,9 @@ $(document).ready( function() {
 	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId)
 	{
 	 
+	 $(this).delay(200,function()
+	 {
+	 	//alert("medcafe createWidgetContent: type " + type);
 		if (type === "Chart")	
 		{					
 			addChart(this, link, tab_num, patientId);
@@ -151,6 +154,7 @@ $(document).ready( function() {
 		}					
 		
 		populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
+		});
 	}
 
 	function populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId)
@@ -238,8 +242,8 @@ $(document).ready( function() {
 	
 	function triggerFilterCategory(filterCat)
 	{
-		//alert("custom.js triggerFiler - start date is " + startDate + " end Date is " + endDate);
-		$(document).trigger('FILTER', [filterCat]);
+		alert("custom.js triggerFilter Category - filterCat is " + filterCat);
+		$(document).trigger('FILTER_CATEGORY', [filterCat]);
 	}
 	
 	function displayDialog( id)

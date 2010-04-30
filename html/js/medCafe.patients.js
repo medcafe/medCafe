@@ -81,6 +81,18 @@ function setOnSelect()
     	
 }
 
+function refresh(patient)
+{
+		var url = "retrievePatient.jsp";
+		//parent.saveWidgets();
+		parent.closeAllTabs("tabs");
+		populate(url, patient);	
+							
+		//addScheduleButton(patient);
+		//addCreateAssocButton(patient,"physician");
+		
+}
+
 function retrieve(patient)
 {
 		var url = "retrievePatient.jsp";
@@ -131,6 +143,7 @@ function populate(url, patient_id)
 		   		return;
 		   }
 		   
+		   //alert("medCafe.patients.js : number of widgets " + data.widgets.length);
 		   for(i=0; i< data.widgets.length; i++) 
 		   {
 		    	
