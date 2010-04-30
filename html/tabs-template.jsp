@@ -92,10 +92,9 @@ function filterType()
 		
 	});
 	
-	/*var catSrcName = "js/filterCategory<%=type%>.js"; 
+	var catSrcName = "js/filterCategory<%=type%>.js"; 
 	$.getScript(catSrcName, function(){
 	
-		//alert("tabs_template.jsp : binding the FILTER_CATEGORY filterCategory<%=type%>");
 		
 		$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
 			{	 		
@@ -103,7 +102,7 @@ function filterType()
 				filterCategory<%=type%>(startDate, filterCategory );
 				
 			});	
-	});*/
+	});
 }
 
 function bindClose()

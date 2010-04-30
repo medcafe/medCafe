@@ -105,6 +105,42 @@ CREATE TABLE widget_params (
    	value character varying(500) NOT NULL
 );
 
+CREATE TABLE category (
+	id SERIAL PRIMARY KEY,
+	category character varying(500) NOT NULL,
+    description character varying(1000) NOT NULL
+);
+
+CREATE TABLE file (
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	username character varying(50) NOT NULL,
+	filename character varying(500) NOT NULL,
+	thumbnail character varying(500) NOT NULL
+);
+
+CREATE TABLE file_category (
+	category_id integer NOT NULL,
+	file_id  integer NOT NULL,
+	notes character varying(500) NULL
+);
+
+CREATE TABLE file_annotations 
+(
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	username character varying(50) NOT NULL,
+	file_id  integer NOT NULL,
+	x_1 integer NULL,
+	y_1 integer NULL,
+	x_2 integer NULL,
+	y_2 integer NULL,
+	note character varying(500) NOT NULL
+);
+
+ALTER TABLE ONLY file_category
+    ADD CONSTRAINT file_category_pkey PRIMARY KEY (username, rolename);
+
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '3', 'PATIENT','CLINICAL F','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '2', 'PATIENT','DIETARY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '1', 'ZZTEST','ONE','OurVista');

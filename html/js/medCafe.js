@@ -142,11 +142,14 @@ $(document).ready( function() {
 		}
 		else if  (type == "Allergies")
 		{
-			
-			$.getScript('js/medCafe.allergies.js', function()
+			if (typeof addAllergies == 'undefined') 
 			{
-				addAllergies(this, link, tab_num, label, patientId, repId);
-			});
+				
+				$.getScript('js/medCafe.allergies.js', function()
+				{
+					addAllergies(this, link, tab_num, label, patientId, repId);
+				});
+			}
 		}
 		else
 		{
