@@ -99,7 +99,7 @@ function filterType()
 		$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
 			{	 		
 				var tabNum = "<%=tabNum%>";
-				filterCategory<%=type%>(startDate, filterCategory );
+				filterCategory<%=type%>( filterCategory , tabNum);
 				
 			});	
 	});

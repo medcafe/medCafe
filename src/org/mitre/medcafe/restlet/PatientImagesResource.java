@@ -5,9 +5,12 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import org.json.JSONObject;
+import org.mitre.medcafe.model.MedCafeFile;
 import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.ImageProcesses;
@@ -40,12 +44,15 @@ public class PatientImagesResource extends ServerResource {
     //Patient item;
 
     /** The sequence of characters that identifies the resource. */
-    private String id;
-    String repository;
+    private String patientId;
+    private String repository;
+    private String userName;
+    private String category;
     
     private final static String PATIENT_ID = "id";
     public final static String KEY = PatientImagesResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
+    private final static String USER_ID = "user";
     
     protected Date startDate = new Date();
     protected Date endDate =  new Date();
@@ -55,8 +62,10 @@ public class PatientImagesResource extends ServerResource {
     protected void doInit() throws ResourceException {
         // Get the "type" attribute value taken from the URI template
         Form form = getRequest().getResourceRef().getQueryAsForm();
-        id = (String)getRequest().getAttributes().get(PATIENT_ID);
-        System.out.println("PatientImageResource JSON init patientId " +  id );
+        patientId = (String)getRequest().getAttributes().get(PATIENT_ID);
+        userName = form.getFirstValue(USER_ID);
+        
+        System.out.println("PatientImageResource JSON init patientId " +  patientId );
         
         String startDateStr = form.getFirstValue("start_date");
         if (startDateStr == null)
@@ -92,7 +101,7 @@ public class PatientImagesResource extends ServerResource {
     	
     	//<img src="imgs/cover1.jpg" alt="The Beatles - Abbey Road"/>
     	
-    	String[] values = new String[]{this.id,"", "", " ", "",
+    	String[] values = new String[]{this.patientId,"", "", " ", "",
 				"", "", " ","","", "" };
 
     	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
@@ -100,7 +109,7 @@ public class PatientImagesResource extends ServerResource {
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
     	
-    	String dir = "patients/" + this.id;
+    	String dir = "patients/" + this.patientId;
     		
     	for (String image: images)
     	{
@@ -115,7 +124,7 @@ public class PatientImagesResource extends ServerResource {
 
    
     @Get("json")
-    public JsonRepresentation toJson(){
+    public JsonRepresentation toJsonOld(){
         try
         {
         	String server = Config.getServerUrl() ;
@@ -138,7 +147,7 @@ public class PatientImagesResource extends ServerResource {
         	
         	int i=0;
         	
-        	String dir = "patients/" + this.id + "/";
+        	String dir = "patients/" + this.patientId + "/";
         	String imageDir = "images/" + dir;
         	String tempDir = "../../" +  imageDir;
         	
@@ -196,6 +205,65 @@ public class PatientImagesResource extends ServerResource {
             System.out.println("PatientImageResource JSON Exception " +  e.getMessage());
             return null;
         }
+    }
+    
+    @Get("json")
+    public JsonRepresentation toJson(){
+        try
+        {
+        	String server = Config.getServerUrl() ;
+        	System.out.println("PatientImageResource JSON start");
+        	
+        	int i=0;
+        	
+        	String dir = "patients/" + this.patientId + "/";
+        	String imageDir = "images/" + dir;
+        	
+        	String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
+            JSONObject obj = new JSONObject();
+            System.out.println("PatientImageResource JSON start images directory " + imageFileDir );
+            DateFormat df = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
+            
+            String startDateStr = df.format(startDate);
+            System.out.println("PatientImageResource JSON start date " + startDateStr );
+            
+            String endDateStr = df.format(endDate);
+            System.out.println("PatientImageResource JSON end date " + endDateStr );
+            
+            ArrayList<MedCafeFile> files = getFiles(userName, patientId, startDateStr, endDateStr, category);
+            System.out.println("PatientImageResource JSON Files " + files.size() );
+            
+            for(MedCafeFile file: files)
+            {	
+            	
+                JSONObject inner_obj = new JSONObject ();
+                inner_obj.put("id", file.getTitle());
+                inner_obj.put("source",file.getFileUrl());
+                inner_obj.put("name", file.getTitle());
+                inner_obj.put("param", server + "/" + imageDir +  file.getFileUrl());
+                obj.append("images", inner_obj);  //append creates an array for you
+                System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
+                
+                i++;
+            }
+            log.finer( obj.toString());
+            System.out.println("PatientImageResource JSON " +  obj.toString());
+            return new JsonRepresentation(obj);
+        }
+        catch(Exception e)
+        {
+            log.throwing(KEY, "toJson()", e);
+            System.out.println("PatientImageResource JSON Exception " +  e.getMessage());
+            return null;
+        }
+    }
+    
+    private ArrayList<MedCafeFile> getFiles(String userName, String patientId, String startDate, String endDate, String category) throws SQLException, ParseException
+    {
+    	//public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList) throws SQLException
+    	
+    	ArrayList<MedCafeFile> files = MedCafeFile.retrieveFiles(userName, patientId, startDate, endDate, category);
+    	return files;
     }
     
     @Post("json")

@@ -102,7 +102,8 @@
 				if (param2.indexOf("filterCat" + delim) > -1)
 				{
 					filterCat = param2.split(delim)[1];
-					
+					System.out.println("coverFeed.jsp filterCategory " + filterCat); 
+	
 				}
 			}
 		}	
@@ -132,10 +133,11 @@
 			else
 			{
 				String filter = "";
-				if (param1.indexOf("filter" + delim) > -1)
+				if (param1.indexOf("filterCat" + delim) > -1)
 				{
 					filterCat = param1.split(delim)[1];
-					
+					System.out.println("coverFeed.jsp filterCategory " + filterCat); 
+	
 				}
 			}
 		}
@@ -161,8 +163,12 @@
 	if ((filterCat != null) && (!filterCat.equals("")))
 	{
 			url += append + "filter=" + filterCat;
-
+			append="&";
 	}
+	
+	String user =  request.getRemoteUser();
+	url += append + "user=" + user;
+	
 	System.out.println("coverFeed.jsp url " + url );
     //url += "&type=link";
 

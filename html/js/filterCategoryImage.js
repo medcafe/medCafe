@@ -1,25 +1,27 @@
 function filterCategoryImage(filter, tab_num)
 {
-	jQuery.each($("#iframe" + tab_num), function() {
-				
+
+	jQuery.each($("#iframe" + tab_num), function() {				
 				var source = $(this).attr("src");
+				
 				var pos = source.indexOf("?");
+				var append = "?";
+				
 				if (pos > 0)
 				{
-					source = source.substring(0,pos);
+					append ="&";
 				}
-				source = source + "&filterCat=" + filter;
-				
-				//source = "test.jsp";
-				//$('#tabs').tabs('select', "#tabs-" + tab_num);
-			
-				
-				$(this).attr("src", source);
-				/*$(this).delay(500,function()
+				var posFilter = source.indexOf("filterCat=");
+				if (posFilter > 0)
 				{
-					//document.getElementById("iframe" + tab_num).contentDocument.location.reload(true);
-			
-				});*/
+					source = source + "," + filter;
+				}
+				else
+				{
+					source = source + append + "filterCat=" + filter;	
+				}		
+				$(this).attr("src", source);
+				
 	});
 	
 }

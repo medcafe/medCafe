@@ -245,7 +245,6 @@ $(document).ready( function() {
 	
 	function triggerFilterCategory(filterCat)
 	{
-		alert("custom.js triggerFilter Category - filterCat is " + filterCat);
 		$(document).trigger('FILTER_CATEGORY', [filterCat]);
 	}
 	
