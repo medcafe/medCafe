@@ -171,6 +171,11 @@ insert into widget_params(widget_id, patient_id, username, param, value) values 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'name', 'Bookmarks-Patient-7');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'server', 'http://127.0.0.1:8080/medcafe/bookmarksJSON.jsp');
 
+insert into category (category, description)  values ('NONE','No category specified');
+insert into category (category, description)  values ('Smoker','Is active smoker');
+insert into file_category (category_id, file_id, notes)  values (2,4,'' );
+insert into file_category (category_id, file_id, notes)  values (2,5,'' );
+
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'assessment.png', 'assessment_thumb.png', 'Assessment', '01/01/2008');
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'bloodstat.jpg', 'bloodstat_thumb.png', 'Blood Stats', '02/03/2008');
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'cardioReport.gif', 'cardioReport_thumb.png', 'Cardio Report', '05/07/2008');
