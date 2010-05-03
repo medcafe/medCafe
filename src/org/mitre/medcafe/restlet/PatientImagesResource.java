@@ -75,8 +75,9 @@ public class PatientImagesResource extends ServerResource {
         if (endDateStr == null)
         	endDateStr = "01/01/2012";
           	
-        	
-        System.out.println("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
+        category = form.getFirstValue("filter");
+         	
+        System.out.println("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try {
 			startDate = df.parse(startDateStr);

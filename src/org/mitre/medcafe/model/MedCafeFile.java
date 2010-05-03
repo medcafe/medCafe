@@ -67,7 +67,7 @@ public class MedCafeFile
 	public static final String FILENAME = "filename";
 	
 	public static final String SELECT_FILES = "SELECT id, filename, thumbnail, title, file_date from file where username = ? and patient_id = ?  ";
-	public static final String SELECT_CATEGORY_FILES = "SELECT id, filename, thumbnail, title, file_date, category from file, category, file_category " +
+	public static final String SELECT_CATEGORY_FILES = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
 													  	 " where file.id = file_category.file_id and file_category.category_id = category.id " +
 														" and  username = ? and patient_id = ? and category IN (<%category%>) ";
 	public static final String SORT_BY = " ORDER BY file_date DESC ";
