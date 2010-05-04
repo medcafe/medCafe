@@ -5,7 +5,7 @@
 <html>
 <%
 	String server = "" ;
-	String patientId = request.getParameter("patient_id");
+	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "1";
 	String append = "~";

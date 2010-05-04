@@ -68,9 +68,15 @@
 				 	var endDate = "02/02/2009";
 				 	//var values = $('select#valueAA').slider('option','values');
 				 	var valueA = $('select#valueAA').val();
-				 	startDate = "02/" + valueA;
+				 	//add a day to the date
+				 	
+				 	var pos = valueA.indexOf("/");
+				 	startDate =  valueA.substring(0,pos) + "/01" +  valueA.substring(pos);
+				 	
+				 	
 				 	var valueB = $('select#valueBB').val();
-				 	endDate = "02/" + valueB;
+				 	pos = valueB.indexOf("/");
+				 	endDate =  valueB.substring(0,pos) + "/01" +  valueB.substring(pos);
 				 	
 				    parent.triggerFilter(startDate, endDate);
 				   

@@ -71,9 +71,9 @@ public class TextProcesses
 	 		
 	   Text textObj =  new Text(userid, patientId);
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT);
-	   
+	   int patient_id = Integer.parseInt(patientId);
 	   prep.setString(1, userid);
-	   prep.setString(2, patientId);
+	   prep.setInt(2, patient_id);
 	   prep.setString(3, title);
 		
 	   ResultSet rs = prep.executeQuery();
@@ -116,9 +116,9 @@ public class TextProcesses
 	   	
 	   Text textObj =  new Text(userid, patientId);
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXTS_SELECT);
-	   
+	   int patient_id = Integer.parseInt(patientId);
 	   prep.setString(1, userid);
-	   prep.setString(2, patientId);
+	   prep.setInt(2, patient_id);
 		
 	   ResultSet rs = prep.executeQuery();
 	   while (rs.next())
@@ -164,7 +164,9 @@ public class TextProcesses
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT_CNT);
 	   
 	   prep.setString(1, userid);
-	   prep.setString(2, patientId);
+	   int patient_id = Integer.parseInt(patientId);
+		  
+	   prep.setInt(2, patient_id);
 	   prep.setString(3, title);
 	   int numberOfRecords = 0;
 	   
@@ -187,7 +189,9 @@ public class TextProcesses
 	   
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_INSERT);
 	   prep.setString(1, userid);
-	   prep.setString(2, patientId);
+	   int patient_id = Integer.parseInt(patientId);
+		
+	   prep.setInt(2, patient_id);
 	   prep.setString(3, title);
 	   prep.setString(4, text);
 	     
@@ -203,7 +207,9 @@ public class TextProcesses
 
 	   prep.setString(1, text);
 	   prep.setString(2, userid);
-	   prep.setString(3, patientId);
+	   int patient_id = Integer.parseInt(patientId);
+		
+	   prep.setInt(3, patient_id);
 	   prep.setString(4, title);
 	      
 	   int noUpdated = prep.executeUpdate();
@@ -217,7 +223,9 @@ public class TextProcesses
 	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_DELETE);
 
 	   prep.setString(1, userid);
-	   prep.setString(2, patientId);
+	   int patient_id = Integer.parseInt(patientId);
+		
+	   prep.setInt(2, patient_id);
 	   prep.setString(3, title);
 	      
 	   int noUpdated = prep.executeUpdate();
