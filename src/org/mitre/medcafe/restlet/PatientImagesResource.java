@@ -233,7 +233,6 @@ public class PatientImagesResource extends ServerResource {
             
             ArrayList<MedCafeFile> files = getFiles(userName, patientId, startDateStr, endDateStr, category);
             System.out.println("PatientImageResource JSON Files " + files.size() );
-            
             for(MedCafeFile file: files)
             {	
             	
@@ -263,7 +262,7 @@ public class PatientImagesResource extends ServerResource {
     {
     	//public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList) throws SQLException
     	
-    	ArrayList<MedCafeFile> files = MedCafeFile.retrieveFiles(userName, patientId, startDate, endDate, category);
+    	ArrayList<MedCafeFile> files = MedCafeFile.retrieveFiles(userName, patientId, startDate, endDate, category, true);
     	return files;
     }
     

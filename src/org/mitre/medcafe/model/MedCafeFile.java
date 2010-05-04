@@ -60,6 +60,7 @@ public class MedCafeFile
 	private String fileUrl ="";
 	private Date fileDate =new Date();
 	
+	public static int levenshtienVal = 5;
 	public static final String PATIENT_ID = "patient_id";
 	public static final String TITLE = "title";
 	public static final String THUMBNAIL = "thumbnail";
@@ -70,6 +71,14 @@ public class MedCafeFile
 	public static final String SELECT_CATEGORY_FILES = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
 													  	 " where file.id = file_category.file_id and file_category.category_id = category.id " +
 														" and  username = ? and patient_id = ? and category IN (<%category%>) ";
+	public static final String SELECT_CATEGORY_FILES_SOUNDEX = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
+ 	 														" where file.id = file_category.file_id and file_category.category_id = category.id " +
+ 	 														" and  username = ? and patient_id = ? and SOUNDEX(category) IN (<%category%>) ";
+
+	public static final String SELECT_CATEGORY_FILES_LEVEN = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
+															" where file.id = file_category.file_id and file_category.category_id = category.id " +
+															" and  username = ? and patient_id = ? and (<%category%>) ";
+
 	public static final String SORT_BY = " ORDER BY file_date DESC ";
 	
 	public static final String INSERT_FILES= "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
@@ -99,6 +108,7 @@ public class MedCafeFile
 	public static void closeConnection() throws SQLException
 	{
 		dbConn.close();
+		dbConn = null;
 	}
 	
 	public JSONObject toJSON() throws JSONException
@@ -184,7 +194,7 @@ public class MedCafeFile
 	}
 	
 
-	public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList) throws SQLException, ParseException
+	public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList, boolean levenshtein) throws SQLException, ParseException
 	{
 		ArrayList<MedCafeFile> fileList = new ArrayList<MedCafeFile>();
 		
@@ -203,16 +213,33 @@ public class MedCafeFile
 			
 			if (categoryList != null)
 			{
-				 sqlQuery = MedCafeFile.SELECT_CATEGORY_FILES;
-				 String[] categoryArr = categoryList.split(",");
-				 StringBuffer catBuf = new StringBuffer();
-				 String comma = "";
-				 for (String category: categoryArr)
-				 {
-					 catBuf.append(comma + "'" + category + "'");
-					 comma = ",";
-				 }
-				 sqlQuery = sqlQuery.replaceAll("<%category%>", catBuf.toString());
+				String[] categoryArr = categoryList.split(",");
+				StringBuffer catBuf = new StringBuffer();
+				
+				
+				if (levenshtein)
+				{
+					 sqlQuery = MedCafeFile.SELECT_CATEGORY_FILES_LEVEN;
+					 String OR_STR = "";
+					 for (String category: categoryArr)
+					 {
+						 catBuf.append( OR_STR + " (levenshtein(category, '" + category + "') < " + levenshtienVal + " ) ");
+						 			
+					 }
+					 sqlQuery = sqlQuery.replaceAll("<%category%>", catBuf.toString());
+				}
+				else
+				{	
+					 String comma = "";
+					 sqlQuery = MedCafeFile.SELECT_CATEGORY_FILES;
+					 
+					 for (String category: categoryArr)
+					 {
+						 catBuf.append(comma + "'" + category + "'");
+						 comma = ",";
+					 }
+					 sqlQuery = sqlQuery.replaceAll("<%category%>", catBuf.toString());
+				}
 			} 
 	
 			if (startDateStr != null)
@@ -342,6 +369,14 @@ public class MedCafeFile
 
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
+	}
+
+	public int getLevenshtienVal() {
+		return levenshtienVal;
+	}
+
+	public void setLevenshtienVal(int levenshtienVal) {
+		this.levenshtienVal = levenshtienVal;
 	}
 
 	

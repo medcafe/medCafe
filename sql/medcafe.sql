@@ -44,9 +44,10 @@ ALTER TABLE ONLY user_roles
 CREATE TABLE user_text (
 	user_text_id SERIAL PRIMARY KEY,
     username character varying(50) NOT NULL,
-   	patientId character varying(50) NOT NULL,
+   	patient_id integer NOT NULL,
    	subject character varying(250) NULL,
-   	note text NULL
+   	note text NULL,
+   	note_added DEFAULT CURRENT_DATE
 
 );
 
@@ -91,8 +92,10 @@ CREATE TABLE schedule (
     patient_id integer NOT NULL,
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
+    username character varying(50) NOT NULL,
    	appoint_date date NULL,
    	appoint_time time NULL,
+   	title character varying(50) NOT NULL DEFAULT 'Appointment',
    	end_time time NULL
 );
 

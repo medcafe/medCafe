@@ -12,7 +12,8 @@
 	
 	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/events";
 	//c/repositories/OurVista/patients/1/events
-
+	String user =  request.getRemoteUser();
+	jspUrl = jspUrl + "?user=" + user;
 	
 %>
 

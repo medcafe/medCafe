@@ -38,12 +38,12 @@ public class Text
 	private String title = "";
 	private String text = "";
 	
-	public static final String SAVE_TEXT_INSERT = "INSERT INTO user_text (username, patientID, subject, note) values (?,?,?,?)";
-	public static final String SAVE_TEXT_UPDATE = "UPDATE user_text SET note = ? where  username = ? and patientId = ? and subject = ?";
-	public static final String SAVE_TEXT_SELECT_CNT = "SELECT count(*) from user_text where username = ? and patientId = ? and subject = ?";
-	public static final String SAVE_TEXT_SELECT = "SELECT note from user_text where username = ? and patientId = ? and subject = ?";
-	public static final String SAVE_TEXTS_SELECT = "SELECT subject, note from user_text where username = ? and patientId = ? ";
-	public static final String SAVE_TEXT_DELETE = "DELETE from user_text where username = ? and patientId = ? and subject= ?";
+	public static final String SAVE_TEXT_INSERT = "INSERT INTO user_text (username, patient_id, subject, note) values (?,?,?,?)";
+	public static final String SAVE_TEXT_UPDATE = "UPDATE user_text SET note = ? where  username = ? and patient_id = ? and subject = ?";
+	public static final String SAVE_TEXT_SELECT_CNT = "SELECT count(*) from user_text where username = ? and patient_id = ? and subject = ?";
+	public static final String SAVE_TEXT_SELECT = "SELECT note, note_added from user_text where username = ? and patient_id = ? and subject = ?";
+	public static final String SAVE_TEXTS_SELECT = "SELECT subject, note, note_added from user_text where username = ? and patient_id = ? ";
+	public static final String SAVE_TEXT_DELETE = "DELETE from user_text where username = ? and patient_id = ? and subject= ?";
 	  
 	public Text(String patientId, String userId, String title, String text)	
 	{
