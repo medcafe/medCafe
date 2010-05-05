@@ -78,15 +78,15 @@ public class ListWidgetResource extends ServerResource {
 			*/
         	System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
-        	String[] widgetName = new String[]{"Repository", "Charts", "Slider",  "Dates","Editor","Categories"};
-        	String[] type = new String[]{"Repository", "Chart", "Slider", "Date","Editor","Category"};
+        	String[] widgetName = new String[]{"OpenVISTA", "hData", "Charts", "Slider",  "Dates","Editor","Categories"};
+        	String[] type = new String[]{"Repository","Repository", "Chart", "Slider", "Date","Editor","Category"};
         	
-        	String[] images = new String[]{"openvista.gif","chart.png", "slider-small.png",  "date.png","pages-icon.png","filter.png"};
-        	String[] clickUrl = new String[]{server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp", "listCategory.jsp" };
+        	String[] images = new String[]{"openvista.gif","hData.png", "chart.png", "slider-small.png",  "date.png","pages-icon.png","filter.png"};
+        	String[] clickUrl = new String[]{server,server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp", "listCategory.jsp" };
         	
-        	String[] method = new String[]{"medcafe.add('"+ server+ "','"+ Constants.OUR_VISTA+ "')", "","","", "",""};
-        	String[] params = new String[]{"repository:OurVista","", "","","", ""};
-        	String[] repository = new String[]{"OurVista","", "","","", ""};
+        	String[] method = new String[]{"medcafe.add('"+ server+ "','"+ Constants.OUR_VISTA+ "')","medcafe.add('"+ server+ "','"+ Constants.HDATA + "')", "","","", "",""};
+        	String[] params = new String[]{"repository:OurVista","repository:OurHdata","", "","","", ""};
+        	String[] repository = new String[]{"OurVista","OurHdata", "", "","","", ""};
              	
         	int i=0;
         	

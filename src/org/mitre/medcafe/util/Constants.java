@@ -29,6 +29,7 @@ public class Constants {
 	public static final String GENERAL_WIDGETS = "general_widgets";
 	public static final String PATIENT_WIDGETS = "patient_widgets";
 	public static final String OUR_VISTA = "OurVista";
+	public static final String HDATA = "OurHdata";
 	
 	public static final String WEST_PANE = "west";
 	public static final String EAST_PANE = "east";
