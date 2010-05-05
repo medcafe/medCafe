@@ -79,7 +79,7 @@ public class Repositories
             }
         }catch (Exception e) {}
 
-        host="128.29.109.25";
+        host="medcafe-hdata.mitre.org";
         try
         {
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
