@@ -50,7 +50,7 @@ public class PatientResource extends ServerResource {
         //setExisting(this.item != null);
     }
 
-
+    /*
     @Get("html")
     public Representation toHtml(){
 
@@ -81,7 +81,7 @@ public class PatientResource extends ServerResource {
                  + endBuf.toString());
 
     }
-
+    */
 
     @Get("json")
     public JsonRepresentation toJson(){

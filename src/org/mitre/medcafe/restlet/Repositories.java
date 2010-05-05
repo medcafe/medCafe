@@ -74,7 +74,7 @@ public class Repositories
             {
                 r = new hDataRepository( );
                 r.setName("JeffhData");
-                r.setCredentials( host + ":8080" );
+                r.setCredentials( "http://" + host + ":8080" );
                 repos.put(r.getName(), r);
             }
         }catch (Exception e) {}
@@ -86,7 +86,7 @@ public class Repositories
             {
                 r = new hDataRepository( );
                 r.setName("OurHdata");
-                r.setCredentials( host + ":8080" );
+                r.setCredentials( "http://" + host + ":8080" );
                 repos.put(r.getName(), r);
             }
         }catch (Exception e) {}
