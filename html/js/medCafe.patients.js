@@ -1,27 +1,24 @@
-$(function(){
-    
-    	var serverLink =  "searchPatientsJSON.jsp?";
-		setOnSelect();	
-		initialize(serverLink);
-});
-    
-function initialize(serverLink)
+
+function initialize(server)
 {
+		var origserverLink = server;
+		
     	var emptyVal = '';
 		$("#last_name").blur(function(){
-			serverLink =  "searchPatientsJSON.jsp?";
+			
+			var serverLink = origserverLink;
 			var isChecked = $("#isPatientChecked").attr('checked');
 	    		
 	    	if (isChecked)
 	    	{
-	    		serverLink = serverLink + "isPatient=" + isChecked + "&";
+	    		serverLink = serverLink + "&isPatient=" + isChecked + "&";
 	    	}
 			var lastNameVal = $(this).val();
-			serverLink = serverLink + "search_str_last=" + lastNameVal;
+			serverLink = serverLink + "&search_str_last=" + lastNameVal;
 			var firstNameVal = $('#first_name').val();
 		    serverLink = serverLink +  "&search_str_first=" + firstNameVal;
 		      	  
-		    $.getJSON(serverLink,
+			 $.getJSON(serverLink,
 		      function(data)
 		      {
 		      	  
@@ -39,19 +36,20 @@ function initialize(serverLink)
 		  });
 		
 		$("#first_name").blur(function(){
-			 serverLink =  "searchPatientsJSON.jsp?";
+			 //serverLink =  "searchPatientsJSON.jsp?";
+			 var serverLink = origserverLink;
 			 var isChecked = $("#isPatientChecked").attr('checked');
 	    		
 	    	if (isChecked)
 	    	{
-	    		serverLink = serverLink + "isPatient=" + isChecked + "&";
+	    		serverLink = serverLink + "&isPatient=" + isChecked + "&";
 	    	}	
 	    	
 			var firstNameVal = $(this).val();
-			serverLink = serverLink + "search_str_first=" + firstNameVal;
+			serverLink = serverLink + "&search_str_first=" + firstNameVal;
 			var lastNameVal = $('#last_name').val();
 		    serverLink = serverLink +  "&search_str_last=" + lastNameVal;
-		      	  
+		      	   
 		    $.getJSON(serverLink,
 		      function(data)
 		      {
@@ -68,17 +66,32 @@ function initialize(serverLink)
 		  });
 }
     
-function setOnSelect()
+function setOnSelect(isIntro, server)
 {
 			
-			$("#list_names").change(function() 
+			if (isIntro == "true")
 			{
-	    		var src = $("option:selected", this).val();
-	    		//Get details for this patient
-	    		
-	    		retrieve( src);	
-    		});
-    	
+				//window.location.replace(server);
+				//alert("medCafe.patient.js setOnSelect isIntro true ");
+				$("#list_names").change(function() 
+				{
+		    		var src = $("option:selected", this).val();
+		    		//Get details for this patient
+		    		parent.window.location.replace(server + "/index.jsp?patient_id=" + src);	
+	    		});
+			}
+			else
+			{
+				//alert("medCafe.patient.js setOnSelect isIntro false ");
+				
+				$("#list_names").change(function() 
+				{
+		    		var src = $("option:selected", this).val();
+		    		//Get details for this patient
+		    		
+		    		retrieve( src);	
+	    		});
+    		}
 }
 
 function refresh(patient)

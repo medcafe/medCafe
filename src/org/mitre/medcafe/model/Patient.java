@@ -68,6 +68,9 @@ public class Patient
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT id, first_name, last_name from patient where first_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient where last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
+	
+	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
+	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
@@ -175,7 +178,7 @@ public class Patient
 		return ret;
 		
 	}
-	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName){
+	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server){
 	        
 		 	boolean rtnResults = false;
 		 	JSONObject ret = new JSONObject();
@@ -183,7 +186,7 @@ public class Patient
 	        try
 	        {
 	        	
-	        	ResultSet rs = getPatients( isPatient, searchStringFirst, searchStringLast, userName);
+	        	ResultSet rs = getPatients( isPatient, searchStringFirst, searchStringLast, userName, server);
 		        if( rs == null )
 		        {
 		            return WebUtils.buildErrorJson( "Could not establish a connection to the database  at this time.");
@@ -231,7 +234,7 @@ public class Patient
 	        return ret ;
 	    }
 	
-	 private ResultSet getPatients(String isPatient, String searchStringFirst, String searchStringLast, String userName) throws SQLException
+	 private ResultSet getPatients(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server) throws SQLException
 	 {
 		 
 		 setConnection();
@@ -240,45 +243,119 @@ public class Patient
 		 
 		 PreparedStatement prep= null;
 
+		 boolean hasServer = false;
+		 if (!server.equals("noServer"))
+		 {
+			 hasServer = true;
+		 }
+		 
 		 if (isPatient.equals("true"))
 		 {
 			 if (searchStringFirst.length() == 0)
 			 {   
-				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_LAST_NAME);
+				 String sql = Patient.SEARCH_USER_PATIENTS_BY_LAST_NAME;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 System.out.println("Patient: getPatients : SQL " + sql);
+				 prep = dbConn.prepareStatement(sql);
+				 
 				 prep.setString(1, userName);
 				 prep.setString(2, "%"+searchStringLast+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(3,server);
+				 }
 			 }
 			 else if (searchStringLast.length() == 0 )
 			 {
-				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_FIRST_NAME);
+				 String sql = Patient.SEARCH_USER_PATIENTS_BY_FIRST_NAME;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 System.out.println("Patient: getPatients : SQL " + sql);
+				 prep = dbConn.prepareStatement(sql);
+					
 				 prep.setString(1, userName);
 				 prep.setString(2, "%"+searchStringFirst+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(3,server);
+				 }
 			 }
 			 else
 			 {
-				 prep = dbConn.prepareStatement(Patient.SEARCH_USER_PATIENTS_BY_ALL);
+				 String sql = Patient.SEARCH_USER_PATIENTS_BY_ALL;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 prep = dbConn.prepareStatement(sql);
+				 System.out.println("Patient: getPatients : SQL " + sql);
 				 prep.setString(1, userName);
 				 prep.setString(2, "%"+searchStringLast+"%");
 				 prep.setString(3, "%"+searchStringFirst+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(4,server);
+				 }
 			 }
 		 }
 		 else
 		 {
 			 if (searchStringFirst.length() == 0)
 			 {   
-				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_LAST_NAME);
+				 //prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_LAST_NAME);
+				 String sql = Patient.SEARCH_PATIENTS_BY_LAST_NAME;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 System.out.println("Patient: getPatients : SQL " + sql);
+				 prep = dbConn.prepareStatement(sql);
+				 
 				 prep.setString(1, "%"+searchStringLast+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(2,server);
+				 }
 			 }
 			 else if (searchStringLast.length() == 0 )
 			 {
-				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_FIRST_NAME);
+				 //prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_FIRST_NAME);
+				 String sql = Patient.SEARCH_PATIENTS_BY_FIRST_NAME;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 System.out.println("Patient: getPatients : SQL " + sql);
+				 prep = dbConn.prepareStatement(sql);
+				 
 				 prep.setString(1, "%"+searchStringFirst+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(2,server);
+				 }
 			 }
 			 else
 			 {
-				 prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_ALL);
+				 //prep = dbConn.prepareStatement(Patient.SEARCH_PATIENTS_BY_ALL);
+				 String sql = Patient.SEARCH_PATIENTS_BY_ALL;
+				 if (hasServer)
+				 {
+					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
+				 }
+				 System.out.println("Patient: getPatients : SQL " + sql);
+				 prep = dbConn.prepareStatement(sql);
+				 
 				 prep.setString(1, "%"+searchStringLast+"%");
 				 prep.setString(2, "%"+searchStringFirst+"%");
+				 if (hasServer)
+				 {
+					 prep.setString(3,server);
+				 }
 			 }
 		 
 		 }

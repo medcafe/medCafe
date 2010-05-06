@@ -8,18 +8,39 @@
 <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 <link href="css/inettuts.css" rel="stylesheet" type="text/css" />	
-
+<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="${js}/medCafe.repository.js"></script>
+<script type="text/javascript" src="${js}/vel2jstools.js"></script>
+	<script type="text/javascript" src="${js}/vel2js.js"></script>
 <%
-
+	String repositoryUrl ="/repositories";
 %>
 
 <script>
+$(function(){
+	
+	listRepositories("true");
+});
 
+function updateAnnouncements(data)
+{
+	
+    if(data.announce)
+    {
+    	/*$.each(data.announce, function(i, item){
+            alert("item " + i + " value " + item);
+        });*/
+    	var html = v2js_announcements(data);
+        $('#announcements').html(html);
+    }
+    else
+    {
+        $('#announcements').html("");
+    }
+}
 </script>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="${js}/medCafe.patients.js"></script>
-	<script type="text/javascript" src="${js}/medCafe.js"></script>
+	
 </head>
 <body>
 <div class="ui-corner-all" >
@@ -35,8 +56,8 @@
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
                 	<center>
-                	<p></p>
-                    </center>
+                	<p><div id="listRepositories"></div>
+                	</center>
                 </p>
             </div>
         </div>
@@ -49,7 +70,7 @@
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
                 	<center>
-                    <iframe height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
+                    <iframe height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp?intro=true"></iframe>
                 	</center>
                 </p>
             </div>

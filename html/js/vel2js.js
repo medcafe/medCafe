@@ -284,6 +284,24 @@ velocityCount = 0;
 t.p('</tbody></table>');
 return t.toString();
 }
+function v2js_listRepositorySelect(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<select id="repositorySelect"><option value="">--Select--</option>');
+for (var i1=0;  i1<context.repositories.length; i1++) {
+var repository = context.repositories[i1];
+velocityCount = i1;
+t.p('    <option value="');
+t.p( repository.name);
+t.p('">');
+t.p( repository.name);
+t.p('</option>');
+}
+velocityCount = 0;
+t.p('</search>');
+return t.toString();
+}
 function v2js_listSearchPatientsSelect(context) { 
 var t = new StringCat();
 var velocityCount = 0;

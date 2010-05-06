@@ -108,3 +108,35 @@ function addRepository(callObj, server, tab_num, label, repId)
 		    
 	}
 	
+	function listRepositories(isIntro)
+	{
+		
+		    var link = "c/repositories";
+			$("#listRepositories").html("");
+					
+			$.getJSON(link, function(data)
+			{
+				//alert("data " + data);
+				var html = v2js_listRepositorySelect( data );  	  			
+	  			$("#listRepositories").html(html);
+	  			
+	  			$("#repositorySelect").change(function() 
+				{
+					var source = $('#patient_searchFrame').attr("src");
+		    		var server = $("option:selected", this).val();
+		    		var pos = source.indexOf("?");
+		    		if (pos > 0)
+		    		{
+		    			source = source.substring(0,pos);
+		    		}
+		    		source = source + "?server=" + server + "&intro=" +isIntro;
+		    		
+		    		//Get details for this patient
+		    	
+					$('#patient_searchFrame').attr('src', source); 	
+		    		
+	    		});
+				
+		    });
+	}
+	

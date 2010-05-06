@@ -36,7 +36,7 @@ public class RepositoryListResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-     
+        	System.out.println("RepositoryListResource toJSON start");
             Map<String, Repository> reps = Repositories.getRepositories();
             if( reps == null )
             {

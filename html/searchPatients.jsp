@@ -8,10 +8,17 @@
 	String server = request.getParameter("server");
 	if (server == null)
 	{
-		server = Constants.DEFAULT_REPOSITORY;
+		server = "noServer";
 	}	
-	if (patientId == null)
-		patientId = "1";
+	String isIntroPage = "false";
+	
+	isIntroPage= request.getParameter("intro");
+	if (isIntroPage == null)
+		isIntroPage = "false";
+		
+	System.out.println("searchPatients.jsp isIntro " + isIntroPage);
+	String serverName = "http://127.0.0.1:8080/medcafe";
+	
 %>
 <head>
 
@@ -38,7 +45,13 @@
 	*#######################
 	*/
 	
-	
+	$(function(){
+    
+    	var serverLink =  "searchPatientsJSON.jsp?server=<%=server%>";
+		setOnSelect("<%=isIntroPage%>","<%=serverName%>");	
+		initialize(serverLink);
+	});
+    	
 	</script>
 	
     
