@@ -1,15 +1,14 @@
-<%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*" %><%@
+<%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*,java.util.*" %><%@
 attribute name="relurl" required="true" rtexprvalue="true" %><%@
 attribute name="mediatype" required="false" %><%@
 attribute name="restVerb" required="false" %><%
-/*     MediaType mtype = null;
+
+    MediaType mtype = null;
     if( mediatype == null )
     {
         mtype = MediaType.TEXT_HTML;
     }
     else mtype = MediaType.valueOf(mediatype);
-    System.out.println( "http://" +  Config.getServerUrl() + "/" + relurl +" as " + mtype.toString());
- */
 
 	System.out.println( "IncludeRestletTag: http://" +  Config.getServerUrl() + "/" + relurl +" method " + restVerb);
 	Method method = Method.GET;
@@ -21,29 +20,39 @@ attribute name="restVerb" required="false" %><%
 	{
 		method = new Method(restVerb);
 	}
-	
+
 	System.out.println("IncludeRestletTag: Method " + method.getName());
-	
+
     MedcafeApplication app = (MedcafeApplication)application.getAttribute("org.restlet.ext.servlet.ServerServlet.application");
     if( app == null )
     {
         out.write("Could not connect to data restlets.");
         return;
     }
-    System.out.println( relurl +" as " + mediatype);
+    // System.out.println( relurl +" as " + mediatype);
 
     Request req = new Request( method, relurl );
     Response resp = new Response( req );
-    // request.setEntity(, mtype);
+
+    ClientInfo clientInfo = req.getClientInfo();
+    List<Preference<MediaType>> mediaTypes = clientInfo.getAcceptedMediaTypes();
+    mediaTypes.add( new Preference( mtype, 1.0F) );
+
+    mediaTypes = clientInfo.getAcceptedMediaTypes();
+    for(Preference<MediaType> pref : mediaTypes)
+        System.out.println( String.valueOf(pref) );
+
+    //System.out.println( "Preferred Variant: " + clientInfo.getPreferredVariant() );
+    // req.setClientInfo(new ClientInfo( mtype ) );
     app.handle(req, resp);
 
 	if (method.equals(Method.GET))
 	{
 		//System.out.println( "\tMethod is GET " );
-	  
+
 	    if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable() ) {
 	        System.out.println( "IncludeRestlet.tag success and entity available" );
-	        
+
 	        resp.getEntity().write(out);
 	    }
 	    else
@@ -57,12 +66,12 @@ attribute name="restVerb" required="false" %><%
 	else
 	{
 		//System.out.println( "\tMethod is NOT a GET " );
-	     
+
 		if (resp.getStatus().isSuccess())
 		{
 			//Put in a representation that signals success
-			
-			
+
+
 		}
 		else
 		{
