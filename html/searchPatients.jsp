@@ -1,10 +1,18 @@
+<%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
 	
-	%>
+	String server = request.getParameter("server");
+	if (server == null)
+	{
+		server = Constants.DEFAULT_REPOSITORY;
+	}	
+	if (patientId == null)
+		patientId = "1";
+%>
 <head>
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -39,6 +47,7 @@
 
 <div id="searchPatients" class="ui-widget-header ui-corner-all">
 <form name="searchPatientForm"  >
+		<center>
 		<table>
 			<tr><td>First Name</td><td><input type="text" name="search_str_first" id="first_name"></input></td></tr>
 			<tr><td>Last Name</td><td><input type="text" name="search_str_last" id="last_name"></input></td></tr>
@@ -46,7 +55,7 @@
 		</table>	
 		<!-- input type="submit" value="Search"></input-->	
 		<br/>
-		<center>
+		
 		<div id="list_names"><select><option value="No names selected">No names selected</option></select></div>
 		</center>
 		<br/>

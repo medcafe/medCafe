@@ -120,6 +120,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "Repository")
 		{
+			
 			$.getScript('js/medCafe.repository.js', function()
 			{
 				addRepository(this, link, tab_num, label, repId);

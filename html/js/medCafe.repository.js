@@ -2,6 +2,7 @@ function addRepository(callObj, server, tab_num, label, repId)
 	{
 	
 
+		//alert("medcafe.repository.js repository " + repId);
 		var html = "<div class=\"example" +  repId + "\"></div>"; 
 		$(callObj).delay(200,function()
 		{
@@ -48,10 +49,12 @@ function addRepository(callObj, server, tab_num, label, repId)
 	
 	function listRepository(server, rep)
 	{
-					$('.summary').each(function ()
+		
+					$("#example" + rep + " .summary").each(function ()
 				 	{
 				 		var detailId = $(this).text();
-				 		
+				 		//alert("calling list repository for rep  " + rep + " detail " + detailId);
+	
 				 		var detailButton = $(this).find('.details');
 			 			$(detailButton).bind("click",{},
 						

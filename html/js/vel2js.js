@@ -263,7 +263,9 @@ function v2js_listPatientsTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="exampleOurVista"><thead><tr><th></th><th></th></tr></thead><tbody>');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
+t.p( context.repository);
+t.p('"><thead><tr><th></th><th></th></tr></thead><tbody>');
 for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;
