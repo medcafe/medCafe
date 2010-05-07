@@ -1,15 +1,15 @@
 .ui-tabs .ui-tabs-nav li .close {
-	position: absolute; 
+	position: absolute;
 	right: .5em;
-    display: block; margin: 1px; 
+    display: block; margin: 1px;
     background-image: url(sunny/images/ui-icons_d19405_256x240.png);
 	background-position: -96px -128px;
     text-indent: -9999em;
-    right: .0em; 
-    top: 50%; 
-    width: 18px; 
-    margin: -10px -6px 0 0; 
-    padding: 1px; 
+    right: .0em;
+    top: 50%;
+    width: 18px;
+    margin: -10px -6px 0 0;
+    padding: 1px;
     height: 18px;
 }
 
@@ -37,20 +37,20 @@
 	 *	To have the slider buttons to open and close frames
 	 */
 
-	.ui-layout-pane { /* all 'panes' */ 
-		background: #FFF; 
-		border: 1px solid #BBB; 
-		padding: 10px; 
+	.ui-layout-pane { /* all 'panes' */
+		background: #FFF;
+		border: 1px solid #BBB;
+		padding: 10px;
 		overflow: auto;
-	} 
+	}
 
-	.ui-layout-resizer { /* all 'resizer-bars' */ 
+	.ui-layout-resizer { /* all 'resizer-bars' */
 		background: #fde5a7;
-	} 
+	}
 
-	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+	.ui-layout-toggler { /* all 'toggler-buttons' */
 		background: #494437;
-	} 
+	}
 
 	.ui-corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px;}
 
@@ -59,16 +59,23 @@
     -webkit-border-radius: 2px;
     border: groove #8e846b;
     width: 100%;
-} 
+}
 
 .imageContain img {
  	width: 80px;
  	margin-left: auto;
  	display: block;
- 	margin-right: auto;	
+ 	margin-right: auto;
  	vertical-align: middle ;
-} 
+}
 .imageContain p {
 	text-align: center;
 	font-size: 0.7em;
+}
+
+.top-panel {
+    height:7em;
+    width:15em;
+    float:left;
+    margin-right:0.5em;
 }
