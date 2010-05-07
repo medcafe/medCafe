@@ -20,6 +20,8 @@
 $(function(){
 	
 	listRepositories("true");
+	listRecentPatients();
+	
 });
 
 function updateAnnouncements(data)
@@ -37,6 +39,35 @@ function updateAnnouncements(data)
     {
         $('#announcements').html("");
     }
+}
+
+function listRecentPatients()
+{
+	 
+	 	var serverLink ="recentPatientsJSON.jsp";
+	 	
+	 	$.getJSON(serverLink,
+		      function(data)
+		      {
+		      	  //Check to see if any error message
+				  
+				  updateAnnouncements(data);
+				  if (data.announce)
+				  {
+					return;
+				  }
+				  var html = v2js_listSearchPatientsSelect( data );  	 
+
+			      $("#recent_patients").html( html);
+			      $("#recent_patients").change(function() 
+				  {
+		    		var src = $("option:selected", this).val();
+		    		//Get details for this patient
+		    		window.location.replace("http://${server}/index.jsp?patient_id=" + src);	
+	    		  });
+		      });
+		      
+		      
 }
 </script>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -76,6 +107,21 @@ function updateAnnouncements(data)
             </div>
         </div>
 
+		<div class="widget color-5" id="recent"  >
+        	<div class="ui-widget-header ui-corner-all">
+         	<center><h2>Recent Patients</h6></center>
+         	</h2>
+        	</div>
+        	
+            <div class="ui-widget-content ui-corner-all color-5">
+                <p>
+                	<center>
+                		<p><div id="recent_patients"></div></p>
+                    </center>
+                </p>
+            </div>
+        </div>
+        
 </div>
 
 <noscript>

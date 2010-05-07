@@ -79,6 +79,8 @@ function setOnSelect(isIntro, server)
 		    		//Get details for this patient
 		    		parent.window.location.replace(server + "/index.jsp?patient_id=" + src);	
 	    		});
+	    		
+	    		
 			}
 			else
 			{
@@ -234,3 +236,4 @@ function addCreateAssocButton( patient_id, role)
 	
 	});
 }
+

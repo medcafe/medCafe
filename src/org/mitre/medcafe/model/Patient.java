@@ -69,6 +69,7 @@ public class Patient
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient where last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
 	
+	public static final String SEARCH_RECENT_PATIENTS = "SELECT patient.id, patient_id,first_name,last_name from patient, recent_patients where patient.id = recent_patients.patient_id and recent_patients.username = ?";
 	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
 	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
@@ -420,6 +421,58 @@ public class Patient
 			
 	 }
 
+	 public static JSONObject getRecentPatients(String userName)
+	 {
+		 System.out.println("Patient: getRecentPatients : got connection " );
+		 boolean rtnResults = false;
+		 JSONObject ret = new JSONObject();
+		 	
+		 PreparedStatement prep;
+		 try 
+		 {
+			 if (dbConn == null)
+				 dbConn= new DbConnection();
+
+			 prep = dbConn.prepareStatement(Patient.SEARCH_RECENT_PATIENTS);
+			
+			 prep.setString(1,userName);
+			 ResultSet rs = prep.executeQuery();
+			 while( rs.next())
+		     {
+			        //convert to JSON		        
+			        rtnResults = true;
+			            
+			        JSONObject o = new JSONObject();
+			        String fName = rs.getString("first_name");
+			        String lName = rs.getString("last_name");
+			        int patient_id = rs.getInt("patient_id");
+			        o.put("id", patient_id);
+			        o.put("first_name", fName);
+			        o.put("last_name", lName);
+			        ret.append("patients", o);	
+		     }    
+			 
+			 if (!rtnResults)
+		      {
+		        	return WebUtils.buildErrorJson( "There are no recent patients currently listed for user " + userName );
+		      	  
+		      }
+		 } 
+		 catch (SQLException e) 
+		 {
+				// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+	      	     
+		 } 
+		 catch (JSONException e) 
+		 {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
+			     
+		 }
+	     return ret;
+		 
+	 }
 	 
 	public String getFirstName() {
 		return firstName;

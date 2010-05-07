@@ -47,7 +47,7 @@ CREATE TABLE user_text (
    	patient_id integer NOT NULL,
    	subject character varying(250) NULL,
    	note text NULL,
-   	note_added DEFAULT CURRENT_DATE
+   	note_added date NOT NULL DEFAULT CURRENT_DATE
 
 );
 
@@ -143,6 +143,13 @@ CREATE TABLE file_annotations
 	note character varying(500) NOT NULL
 );
 
+CREATE TABLE recent_patients 
+(
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	username character varying(50) NOT NULL,
+	date_accessed date NOT NULL DEFAULT CURRENT_DATE
+);
 ALTER TABLE ONLY file_category
     ADD CONSTRAINT file_category_pkey PRIMARY KEY (username, rolename);
 
