@@ -28,7 +28,7 @@ public class PatientListEventResource extends ServerResource {
 
     public final static String KEY = PatientListEventResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
     private final static String PATIENT_ID = "id";
     private final static String USER_ID = "user";
     private String id;
@@ -36,7 +36,7 @@ public class PatientListEventResource extends ServerResource {
     protected Date endDate =  new Date();
     private String userName;
     /** The sequence of characters that identifies the resource. */
-    
+
     /**
      *  Grab the information from the url
      */
@@ -47,15 +47,15 @@ public class PatientListEventResource extends ServerResource {
        Form form = getRequest().getResourceRef().getQueryAsForm();
        id = (String)getRequest().getAttributes().get(PATIENT_ID);
        System.out.println("PatientImageResource JSON init patientId " +  id );
-       
+
        String startDateStr = form.getFirstValue("start_date");
        if (startDateStr == null)
        	startDateStr = "2006,2,15";
-       		
+
        String endDateStr = form.getFirstValue("end_date");
        if (endDateStr == null)
        	endDateStr = "2012,2,15";
-    	
+
        System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
        userName = form.getFirstValue(USER_ID);
        
@@ -63,12 +63,12 @@ public class PatientListEventResource extends ServerResource {
 
     @Get("json")
     public JsonRepresentation toJsonOld(){
-       
+
     	/* Required JSON format
     	 * {
 				'wikiURL': "http://simile.mit.edu/shelf/",
 				'wikiSection': "Simile Cubism Timeline",
-				
+
 				'events' : [
 				       {'start':  new Date(2006,2,15),
 				        'title': 'Still Life with a White Dish',
@@ -87,24 +87,24 @@ public class PatientListEventResource extends ServerResource {
             String server = Config.getServerUrl() ;
             obj.put("wikiURL", "Patient data ");
             obj.put("wikiSection", "Patient Data");
-            
+
         	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" , "chest-xray", "chest-xray2","mri","lab-report"};
-        	
+
         	String[] events = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
 					"chest-xray.jpg", "chest-xray2.jpg","mri.jpg","bloodstat.jpg"};
         	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI","Lab Results" };
-        	
-        	
+
+
         	String[] dates = new String[]{"2008,1,01","2008,2,03","2008,5,07",
         			"2008,6,08", "2008,8,07","2008,10,01","2008,10,30"};
         	String[] icons = new String[]{"results.png","results.png","hospital-icon.png",
         			"doctor-icon.png", "doctor-icon.png","doctor-icon.png","results.png"};
-        	
+
         	String dir = "patients/" + this.id + "/";
         	String imageDir = "images/" + dir;
-        	
+
         	int i=0;
-        	
+
         	for(String event: events)
             {
         		JSONObject inner_obj = new JSONObject ();
@@ -112,7 +112,7 @@ public class PatientListEventResource extends ServerResource {
                 inner_obj.put("title", imageTitles[i]);
                 inner_obj.put("image", "http://" + server + "/" + imageDir +  event);
                 inner_obj.put("icon", "http://" + server + "/images/" + icons[i]);
-                 obj.append("events", inner_obj); 
+                 obj.append("events", inner_obj);
                 i++;
             }
         	String jsonStr = obj.toString();
@@ -236,8 +236,8 @@ public class PatientListEventResource extends ServerResource {
     	endBuf.append("</tbody></table>");
 
     	StringBuilder ret = new StringBuilder( "Available Patients:<br/>\n<ul>" );
-      
-        return new StringRepresentation( buf.toString() 
+
+        return new StringRepresentation( buf.toString()
                 + endBuf.toString());
     }
 }

@@ -23,7 +23,7 @@ public class DbConnection
 
     public final static String KEY = DbConnection.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    // static{log.setLevel(Level.FINER);}
+    static{log.setLevel(Level.FINER);}
     private Connection conn = null;
     private Statement stmt = null;
 
@@ -197,7 +197,7 @@ public class DbConnection
                 i++;
             }
             System.out.println("DBConnection: psExecuteQuery:  about to execute query : " + ps.toString());
-			
+
             rs = ps.executeQuery();
             crs.populate(rs);
             DatabaseUtility.close(rs);
@@ -267,8 +267,8 @@ public class DbConnection
                 else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
                 i++;
             }
-            System.out.println("DBConnection: psExecuteUpdate:  about to execute update : " + ps.toString());
-			
+            log.finer("DBConnection: psExecuteUpdate:  about to execute update : " + ps.toString());
+
             return ps.executeUpdate();
         }
         catch(SQLException e)

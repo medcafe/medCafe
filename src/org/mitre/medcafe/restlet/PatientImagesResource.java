@@ -48,7 +48,7 @@ public class PatientImagesResource extends ServerResource {
     private String repository;
     private String userName;
     private String category;
-    
+
     private final static String PATIENT_ID = "id";
     public final static String KEY = PatientImagesResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
@@ -56,9 +56,9 @@ public class PatientImagesResource extends ServerResource {
     
     protected Date startDate = new Date();
     protected Date endDate =  new Date();
-    
+
     static{log.setLevel(Level.FINER);}
-    
+
     protected void doInit() throws ResourceException {
         // Get the "type" attribute value taken from the URI template
         Form form = getRequest().getResourceRef().getQueryAsForm();
@@ -66,11 +66,11 @@ public class PatientImagesResource extends ServerResource {
         userName = form.getFirstValue(USER_ID);
         
         System.out.println("PatientImageResource JSON init patientId " +  patientId );
-        
+
         String startDateStr = form.getFirstValue("start_date");
         if (startDateStr == null)
         	startDateStr = "01/01/1950";
-        		
+
         String endDateStr = form.getFirstValue("end_date");
         if (endDateStr == null)
         	endDateStr = "01/01/2012";
@@ -82,26 +82,26 @@ public class PatientImagesResource extends ServerResource {
         try {
 			startDate = df.parse(startDateStr);
 			endDate = df.parse(endDateStr);
-        } 
-        catch (ParseException e) 
+        }
+        catch (ParseException e)
         {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+
     }
 
     @Get("html")
     public Representation toHtml(){
-    	
+
     	System.out.println("Found PatientResource html ");
-        
+
     	StringBuffer startBuf = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer();
-    	
+
     	//<img src="imgs/cover1.jpg" alt="The Beatles - Abbey Road"/>
-    	
+
     	String[] values = new String[]{this.patientId,"", "", " ", "",
 				"", "", " ","","", "" };
 
@@ -109,18 +109,18 @@ public class PatientImagesResource extends ServerResource {
     									"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
-    	
+
     	String dir = "patients/" + this.patientId;
-    		
+
     	for (String image: images)
     	{
-    	
-    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );	
+
+    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );
     		i++;
     	}
-    	return new StringRepresentation( startBuf.toString() + patientImages.toString() 
-                 + endBuf.toString()); 
-             
+    	return new StringRepresentation( startBuf.toString() + patientImages.toString()
+                 + endBuf.toString());
+
     }
 
    
@@ -130,33 +130,33 @@ public class PatientImagesResource extends ServerResource {
         {
         	String server = Config.getServerUrl() ;
         	System.out.println("PatientImageResource JSON start");
-            
+
         	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" , "chest-xray", "chest-xray2","mri"};
         	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
 					"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
         	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
-        	
+
         	String[] params = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif", "chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
-        	
+
         	String[] dates = new String[]{"01/01/2008","02/03/2008","05/07/2008",
         			"06/08/2008", "07/08/2008","10/01/2008"};
-        	
+
         	GregorianCalendar start = new GregorianCalendar();
         	start.setTime(startDate);
         	GregorianCalendar end = new GregorianCalendar();
         	end.setTime(endDate);
-        	
+
         	int i=0;
-        	
+
         	String dir = "patients/" + this.patientId + "/";
         	String imageDir = "images/" + dir;
         	String tempDir = "../../" +  imageDir;
-        	
+
         	String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
             JSONObject obj = new JSONObject();
             System.out.println("PatientImageResource JSON start images directory " + imageFileDir );
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            
+
             for(String image: images)
             {	
             	 System.out.println("PatientImageResource JSON start image file " + image );
@@ -165,23 +165,23 @@ public class PatientImagesResource extends ServerResource {
           			Date imageDate = df.parse(dates[i]);
           			GregorianCalendar imageCal =  new GregorianCalendar();
           			imageCal.setTime(imageDate);
-          			
+
           			//If this date is before the start time
           			if ((imageCal.compareTo(start) < 0))
           			{
           				i++;
           				continue;
           			}
-          			
+
           			//If this date is after the start time
           			if ((imageCal.compareTo(end) > 0))
           			{
           				i++;
           				continue;
           			}
-          			
-                  } 
-                  catch (ParseException e) 
+
+                  }
+                  catch (ParseException e)
                   {
           			// TODO Auto-generated catch block
           			e.printStackTrace();
@@ -193,7 +193,7 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("param", server + "/" + imageDir +  params[i]);
                 obj.append("images", inner_obj);  //append creates an array for you
                 System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
-                
+
                 i++;
             }
             log.finer( obj.toString());
@@ -207,7 +207,7 @@ public class PatientImagesResource extends ServerResource {
             return null;
         }
     }
-    
+
     @Get("json")
     public JsonRepresentation toJson(){
         try
@@ -298,11 +298,11 @@ public class PatientImagesResource extends ServerResource {
     		System.out.println("ParentImageResource: getThumbnail :uri:  " + uri);
 	    	File file = new File(uri);
 	    	String thumbfileName = fileLabel + "_thumbnail.png";
-	    	
+
 	    	File newFile = new File(dir + "/" + thumbfileName);
 	    	if (file.exists())
 	    	{
-	    		
+
 	    		if (!newFile.exists())
 	    		{
 					BufferedImage rtnImage = ImageProcesses.createThumbnail(file);

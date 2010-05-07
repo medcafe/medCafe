@@ -18,7 +18,7 @@ public class PatientListResource extends ServerResource {
 
     public final static String KEY = PatientListResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     /** The sequence of characters that identifies the resource. */
     String repository;
@@ -39,13 +39,13 @@ public class PatientListResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-        
+
         Map<String, String> patients = r.getPatients( );
         if( patients == null )
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
         }
-        
+
         if( patients.size() == 0)
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "There are no patients currently listed for  " + repository ));

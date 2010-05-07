@@ -30,20 +30,20 @@ public class ListWidgetResource extends ServerResource {
     String repository;
     public final static String KEY = ListWidgetResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
-    
+    // static{log.setLevel(Level.FINER);}
+
 
     @Get("html")
     public Representation toHtml(){
-    	
+
     	System.out.println("Found ListWidgetResource html ");
-        
+
     	StringBuffer startBuf = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
     	StringBuffer endBuf = new StringBuffer();
-    	
+
     	//<img src="imgs/cover1.jpg" alt="The Beatles - Abbey Road"/>
-    	
+
     	String[] values = new String[]{this.id,"", "", " ", "",
 				"", "", " ","","", "" };
 
@@ -51,25 +51,25 @@ public class ListWidgetResource extends ServerResource {
     									"chest-xray.jpg", "chest-xray2.jpg","mri.jpg"};
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
-    	
+
     	String dir = "patient1";
-    		
+
     	for (String image: images)
     	{
-    	
-    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );	
+
+    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );
     		i++;
     	}
-    	return new StringRepresentation( startBuf.toString() + patientImages.toString() 
-                 + endBuf.toString()); 
-             
+    	return new StringRepresentation( startBuf.toString() + patientImages.toString()
+                 + endBuf.toString());
+
     }
 
     @Get("json")
     public JsonRepresentation toJson(){
         try
         {
-        	
+
         	/*	var link = $(this).find('img').attr("custom:url");
 				var type = $(this).find('img').attr("custom:type");
 				var html = $(this).find('img').attr("custom:html");
@@ -80,22 +80,22 @@ public class ListWidgetResource extends ServerResource {
         	String server = "http://" + Config.getServerUrl() + "/";
         	String[] widgetName = new String[]{"OpenVISTA", "hData", "Charts", "Slider",  "Dates","Editor","Categories"};
         	String[] type = new String[]{"Repository","Repository", "Chart", "Slider", "Date","Editor","Category"};
-        	
+
         	String[] images = new String[]{"openvista.gif","hData.png", "chart.png", "slider-small.png",  "date.png","pages-icon.png","filter.png"};
         	String[] clickUrl = new String[]{server,server, server + "chart.jsp",server +"slider.jsp", "","editor.jsp", "listCategory.jsp" };
-        	
+
         	String[] method = new String[]{"medcafe.add('"+ server+ "','"+ Constants.OUR_VISTA+ "')","medcafe.add('"+ server+ "','"+ Constants.HDATA + "')", "","","", "",""};
         	String[] params = new String[]{"repository:OurVista","repository:OurHdata","", "","","", ""};
         	String[] repository = new String[]{"OurVista","OurHdata", "", "","","", ""};
-             	
+
         	int i=0;
-        	
+
         	String tempDir = "images/";
             JSONObject obj = new JSONObject();
             //System.out.println("ListWidgetResource JSON start 1");
             for(String widget: widgetName)
             {
-            	
+
             	 JSONObject inner_obj = new JSONObject ();
             	 inner_obj.put("id", 1);
             	 inner_obj.put("name", widget);
@@ -105,7 +105,7 @@ public class ListWidgetResource extends ServerResource {
             	 inner_obj.put("type", type[i]);
             	 inner_obj.put("params", params[i]);
             	 inner_obj.put("repository", repository[i]);
-            	 
+
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
             }

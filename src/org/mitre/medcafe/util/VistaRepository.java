@@ -26,7 +26,7 @@ public class VistaRepository extends Repository
 
     public final static String KEY = VistaRepository.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     protected static VistaLinkPooledConnectionFactory factory = null;
     protected VistaLinkPooledConnection conn = null;

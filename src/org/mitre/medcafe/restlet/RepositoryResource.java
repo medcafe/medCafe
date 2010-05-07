@@ -13,7 +13,7 @@ public class RepositoryResource extends ServerResource {
 
     public final static String KEY = RepositoryResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     /** The underlying Item object. */
     //Patient item;

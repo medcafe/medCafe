@@ -1,5 +1,7 @@
 package org.mitre.medcafe.restlet;
 
+import org.restlet.data .*;
+import java.util.*;
 import org.mitre.medcafe.util.*;
 
 import java.util.Map;
@@ -17,7 +19,7 @@ public class RepositoryListResource extends ServerResource {
 
     public final static String KEY = RepositoryListResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     @Get("html")
     public Representation toHtml(){
@@ -36,13 +38,13 @@ public class RepositoryListResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-        	System.out.println("RepositoryListResource toJSON start");
+
             Map<String, Repository> reps = Repositories.getRepositories();
             if( reps == null )
             {
                 return new JsonRepresentation(WebUtils.buildErrorJson( "No repositories currently exist."));
             }
-            
+
             JSONObject obj = new JSONObject();
             for(Repository r: Repositories.getRepositories().values() )
             {
@@ -52,7 +54,7 @@ public class RepositoryListResource extends ServerResource {
                 obj.append("repositories", inner_obj);  //append creates an array for you
             }
             return new JsonRepresentation(obj);
-            
+
         }
         catch(JSONException e)
         {
@@ -66,4 +68,15 @@ public class RepositoryListResource extends ServerResource {
             return null;
         }
     }
+
+    //public Representation handle()
+    /*{
+        System.out.println(getClientInfo().getAgent());
+        System.out.println(getClientInfo().getAgentName());
+        List<Preference<MediaType>> mediaTypes = getClientInfo().getAcceptedMediaTypes();
+        for(Preference<MediaType> pref : mediaTypes)
+            System.out.println( String.valueOf(pref) );
+        System.out.println(getPreferredVariant(getVariants()));
+        return super.handle();
+    }*/
 }
