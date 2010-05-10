@@ -26,6 +26,7 @@ var hasContent = false;
 $(function(){
 
 	filterType();
+	bindClose();
 	
 	$(".widget-content").droppable({
       drop: function(event, ui) 
@@ -107,12 +108,17 @@ function filterType()
 
 function bindClose()
 {
-	
-		$(document).bind('CLOSE_TAB', function(event, data) 
-		{	 		
-			
-		});	
 
+			$(document).bind('CLOSE_TAB', function(event, tabSelected) 
+			{	 	
+				
+				var tabNum = "<%=tabNum%>";
+				if (tabNum == tabSelected)
+				{
+					removeWidget(tabNum);
+				}
+			});	
+	
 }	
 </script>
 		

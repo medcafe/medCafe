@@ -133,9 +133,12 @@ $(document).ready( function() {
 		
 		 medCafeTabs = {
 		
-			closeTab : function(index) {
+			closeTab : function(index, tabNum) {
 			
 							$("#tabs").tabs("remove",index);
+							alert("medCafeTabs closetab remove index " + index + " tabNum " + tabNum);
+							triggerCloseTab(tabNum);
+							
 							var newIndex = index -1;
 							if (newIndex < 0)
 								newIndex = 0;
@@ -169,6 +172,9 @@ $(document).ready( function() {
 			
 						function(e){
 							 var index = $(this).parent().attr('custom:index');
+							 var id = $(this).parent().attr('id');
+							 var tab_num = id.substring(5,6);
+							 
 							 $("#dialog").dialog({
 					            autoOpen: false,					
 					            modal:true,
@@ -179,7 +185,7 @@ $(document).ready( function() {
 					              	  //Have to Destroy as otherwise 
 					              	  //the Dialog will not be reinitialized on open    
 					                  $(this).dialog("destroy");
-					                  medCafeTabs.closeTab(index);
+					                  medCafeTabs.closeTab(index, tab_num);
 					             },
 					             "No" : function() {
 					                 $(this).dialog("destroy");

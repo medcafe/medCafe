@@ -245,6 +245,11 @@ $(document).ready( function() {
 		$(document).trigger('FILTER_CATEGORY', [filterCat]);
 	}
 
+	function triggerCloseTab(tabNum)
+	{
+		$(document).trigger('CLOSE_TAB', [tabNum]);
+	}
+
 	function displayDialog( id)
 	{
 		var text = $("#aaa" + id).html();
