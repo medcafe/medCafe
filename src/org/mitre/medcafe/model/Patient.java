@@ -17,6 +17,7 @@ package org.mitre.medcafe.model;
 
 import java.io.*;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,6 +71,9 @@ public class Patient
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient where last_name like ? and first_name like ?";
 	
 	public static final String SEARCH_RECENT_PATIENTS = "SELECT patient.id, patient_id,first_name,last_name from patient, recent_patients where patient.id = recent_patients.patient_id and recent_patients.username = ?";
+	public static final String SELECT_RECENT_PATIENTS = "SELECT patient_id from  recent_patients where username = ? and patient_id = ? ";
+	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
+	public static final String UPDATE_RECENT_PATIENTS = "UPDATE recent_patients SET date_accessed = ? where username = ? and patient_id = ?";
 	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
 	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
@@ -474,42 +478,48 @@ public class Patient
 		 
 	 }
 	 
-	 public static JSONObject addRecentPatients(String userName)
+	 public static JSONObject addRecentPatients(String userName, String patientId )
 	 {
 		 System.out.println("Patient: addRecentPatients : got connection " );
-		 boolean rtnResults = false;
+		 
 		 JSONObject ret = new JSONObject();
 		 	
+		 int patient_id = Integer.parseInt(patientId);
 		 PreparedStatement prep;
+		 String updateSql = Patient.INSERT_RECENT_PATIENTS;
 		 try 
 		 {
 			 if (dbConn == null)
 				 dbConn= new DbConnection();
 
-			 prep = dbConn.prepareStatement(Patient.SEARCH_RECENT_PATIENTS);
+			 prep = dbConn.prepareStatement(Patient.SELECT_RECENT_PATIENTS);
 			
 			 prep.setString(1,userName);
+			 prep.setInt(2,patient_id);
+			 boolean hasValue = false;
 			 ResultSet rs = prep.executeQuery();
-			 while( rs.next())
+			 if( rs.next())
 		     {
-			        //convert to JSON		        
-			        rtnResults = true;
-			            
-			        JSONObject o = new JSONObject();
-			        String fName = rs.getString("first_name");
-			        String lName = rs.getString("last_name");
-			        int patient_id = rs.getInt("patient_id");
-			        o.put("id", patient_id);
-			        o.put("first_name", fName);
-			        o.put("last_name", lName);
-			        ret.append("patients", o);	
+				 updateSql = Patient.UPDATE_RECENT_PATIENTS;
+				 hasValue = true;
 		     }    
 			 
-			 if (!rtnResults)
-		      {
-		        	return WebUtils.buildErrorJson( "There are no recent patients currently listed for user " + userName );
-		      	  
-		      }
+			 prep = dbConn.prepareStatement(updateSql);
+			 //If no current value then insert
+			 if (!hasValue)
+			 {
+				 prep.setString(1,userName);
+				 prep.setInt(2,patient_id);
+			 }
+			 else
+			 {
+				 java.util.Date today_date = new java.util.Date();
+				 prep.setDate(1, new Date (today_date.getTime()));
+				 prep.setString(2,userName);
+				 prep.setInt(3,patient_id);
+			 }
+			 prep.executeUpdate();
+			 
 		 } 
 		 catch (SQLException e) 
 		 {
@@ -517,12 +527,7 @@ public class Patient
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      	     
 		 } 
-		 catch (JSONException e) 
-		 {
-			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
-			     
-		 }
+		
 	     return ret;
 		 
 	 }
