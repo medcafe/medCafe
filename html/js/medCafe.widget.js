@@ -18,7 +18,8 @@ var medCafeWidget =
 							clickUrl :'http://127.0.0.1:8080',
 							name : 'widget name',
 							server : 'http://127.0.0.1',
-							patient_id :1
+							patient_id :1,
+							remove :'false'
 				    },
 	        		widgetIndSettings : 
 					{
@@ -32,7 +33,8 @@ var medCafeWidget =
 							clickUrl :'http://127.0.0.1:8080',
 							name : 'widget name',
 							server : 'http://127.0.0.1',
-							patient_id :1
+							patient_id :1,
+							remove :'false'
 						}
 					}	
 			},
@@ -83,6 +85,19 @@ var medCafeWidget =
     			//Make sure to extend to add the new values
     			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
 		        
+    		}
+    		,
+		    removeWidgetSettings : function ( tab_num) {
+    		
+    			var id = "yellow-widget" + tab_num;
+				var newSettings = this.getExtWidgetSettings(id);
+    			if (!newSettings)
+    			{
+    				alert("medCafe.widget.js removeWidgetSettings Could not set values ");
+    			}    			
+    			newSettings.remove = 'true';
+    			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
+
     		}
     		,
     		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId )
@@ -145,6 +160,8 @@ var medCafeWidget =
     		{
     			url = url + "?";
     			var widgetSettings = this.getExtWidgetSettings(id);
+    			if (widgetSettings == "")
+    				return;
     			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
     			$.ajax({
 	                url: url,
@@ -210,4 +227,9 @@ function saveWidgets()
 		//Code to cycle through the widgets and save
 	
 		
+}
+
+function removeWidget(id)
+{ 			
+	medCafeWidget.removeWidgetSettings(id);
 }

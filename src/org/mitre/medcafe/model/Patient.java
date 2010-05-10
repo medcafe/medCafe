@@ -474,6 +474,58 @@ public class Patient
 		 
 	 }
 	 
+	 public static JSONObject addRecentPatients(String userName)
+	 {
+		 System.out.println("Patient: addRecentPatients : got connection " );
+		 boolean rtnResults = false;
+		 JSONObject ret = new JSONObject();
+		 	
+		 PreparedStatement prep;
+		 try 
+		 {
+			 if (dbConn == null)
+				 dbConn= new DbConnection();
+
+			 prep = dbConn.prepareStatement(Patient.SEARCH_RECENT_PATIENTS);
+			
+			 prep.setString(1,userName);
+			 ResultSet rs = prep.executeQuery();
+			 while( rs.next())
+		     {
+			        //convert to JSON		        
+			        rtnResults = true;
+			            
+			        JSONObject o = new JSONObject();
+			        String fName = rs.getString("first_name");
+			        String lName = rs.getString("last_name");
+			        int patient_id = rs.getInt("patient_id");
+			        o.put("id", patient_id);
+			        o.put("first_name", fName);
+			        o.put("last_name", lName);
+			        ret.append("patients", o);	
+		     }    
+			 
+			 if (!rtnResults)
+		      {
+		        	return WebUtils.buildErrorJson( "There are no recent patients currently listed for user " + userName );
+		      	  
+		      }
+		 } 
+		 catch (SQLException e) 
+		 {
+				// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+	      	     
+		 } 
+		 catch (JSONException e) 
+		 {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
+			     
+		 }
+	     return ret;
+		 
+	 }
 	public String getFirstName() {
 		return firstName;
 	}

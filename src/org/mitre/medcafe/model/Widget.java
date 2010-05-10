@@ -70,6 +70,8 @@ public class Widget
 	public static final String TYPE = "type";
 	public static final String NAME = "name";
 	public static final String SERVER = "server";
+	public static final String REMOVE = "remove";
+	public static final String TRUE = "true";
 
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
 	public static final String SELECT_WIDGETS = "SELECT id, widget_id, param, value from widget_params where username = ? and patient_id = ? ORDER BY widget_id ";
@@ -176,6 +178,12 @@ public class Widget
 			String err_mess = "Could not update the widgets for patient  " + patient_id;
 			//public static final String DELETE_WIDGETS = "DELETE FROM widget_params where ( patient_id=?, username=?) ";
 
+			String remove = widgetJSON.getString(Widget.REMOVE);
+			
+			//This widget has been marked for removal
+			if (remove.equals(Widget.TRUE))
+				return ret;
+			
 			String updateQuery = Widget.INSERT_WIDGETS;
 
 			PreparedStatement prep= dbConn.prepareStatement(updateQuery);

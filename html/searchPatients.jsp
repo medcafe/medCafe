@@ -17,7 +17,6 @@
 		isIntroPage = "false";
 		
 	System.out.println("searchPatients.jsp isIntro " + isIntroPage);
-	String serverName = "http://127.0.0.1:8080/medcafe";
 	
 %>
 <head>
@@ -48,7 +47,7 @@
 	$(function(){
     
     	var serverLink =  "searchPatientsJSON.jsp?server=<%=server%>";
-		setOnSelect("<%=isIntroPage%>","<%=serverName%>");	
+		setOnSelect("<%=isIntroPage%>","http://${server}");	
 		initialize(serverLink);
 	});
     	

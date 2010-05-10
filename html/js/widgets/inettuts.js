@@ -73,6 +73,7 @@ var iNettuts = {
                         },function () {
                             $(this).wrap('<div/>').parent().slideUp(function () {
                                 $(this).remove();
+                                
                             });
                         });
                     }
@@ -213,11 +214,15 @@ var iNettuts = {
 	                    e.stopPropagation();    
 	                }).click(function () {
 	                    if(confirm('This widget will be removed, ok?')) {
+	                    	 removeWidget(tabNum);
 	                        $(this).parents(settings.widgetSelector).animate({
 	                            opacity: 0    
 	                        },function () {
+	                        	
 	                            $(this).wrap('<div/>').parent().slideUp(function () {
 	                                $(this).remove();
+	                               
+                               
 	                            });
 	                        });
 	                    }

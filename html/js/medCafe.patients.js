@@ -68,7 +68,7 @@ function initialize(server)
     
 function setOnSelect(isIntro, server)
 {
-			
+			//alert("medCafe.patient.js server is " + server);
 			if (isIntro == "true")
 			{
 				//window.location.replace(server);
