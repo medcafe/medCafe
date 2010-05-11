@@ -86,9 +86,12 @@ function listRecentPatients()
         	</div>
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
+                	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+                	
                 	<center>
                 	<p><div id="listRepositories"></div>
                 	</center>
+                	</div>
                 </p>
             </div>
         </div>
@@ -100,9 +103,11 @@ function listRecentPatients()
         	</div>
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
+                	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
                 	<center>
-                    <iframe height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp?intro=true"></iframe>
+                    <iframe frameborder="0" height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp?intro=true"></iframe>
                 	</center>
+                	</div>
                 </p>
             </div>
         </div>
@@ -115,9 +120,11 @@ function listRecentPatients()
         	
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
+                	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
                 	<center>
                 		<p><div id="recent_patients"></div></p>
                     </center>
+                    </div>
                 </p>
             </div>
         </div>
