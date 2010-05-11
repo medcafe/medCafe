@@ -153,6 +153,28 @@ CREATE TABLE recent_patients
 ALTER TABLE ONLY file_category
     ADD CONSTRAINT file_category_pkey PRIMARY KEY (username, rolename);
 
+CREATE TABLE medical_history 
+(
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	history character varying(200) NOT NULL,
+	category_id integer NOT NULL DEFAULT 2,
+	history_date date NOT NULL DEFAULT CURRENT DATE,
+	history_notes text NULL,
+	date_accessed date NOT NULL DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE history_category
+(
+	id SERIAL PRIMARY KEY,
+	category character varying(200) NOT NULL,
+	description character varying(500) NOT NULL
+)
+
+insert into history_category (category, description) values ('No category', 'Issues that are not categorized');
+insert into history_category (category, description) values ('Past Medical History', 'List of major medical issues noted by physician');
+insert into history_category (category, description) values ('Family/ Social History', 'List of known issues with family history');
+
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '3', 'PATIENT','CLINICAL F','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '2', 'PATIENT','DIETARY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '1', 'ZZTEST','ONE','OurVista');
@@ -192,4 +214,8 @@ insert into  file(patient_id, username, filename, thumbnail, title, file_date) v
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'chest-xray.jpg', 'chest-xray_thumb.png', 'Chest XRay', '06/08/2008');
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'chest-xray2.jpg', 'chest-xray2_thumb.png', 'Chest XRay2', '07/08/2008');
 insert into  file(patient_id, username, filename, thumbnail, title, file_date) values ( 7, 'gaily', 'mri.jpg', 'mri_thumb.png', 'MRI', '10/01/2008');
+
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Hypertension', 2, '2009-06-06','Noted increase in hypertension');
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Diabetes, Type 2', 2, '2001-03-18','Diagnosed with type 2 diabetes');
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Migraine', 2, '2000-03-18','Experiences migraines every 6 months');
 
