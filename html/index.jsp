@@ -56,7 +56,7 @@
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
     <script type="text/javascript" src="${js}/medCafe.patients.js"></script>
-
+	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
 	<script>
         var outerLayout;
 
@@ -70,6 +70,8 @@
         $(function(){
             refresh("<%=patientId%>");
         });
+        
+        listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -147,7 +149,7 @@
             </p>
         </div>
     </div>
-    <div class="ui-widget top-panel">
+    <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
                 <table border="0"><tr><th colspan="2" style="text-align:left;">Joe Patient</th></tr>
@@ -159,22 +161,25 @@
             </p>
         </div>
     </div>
-    <div class="ui-widget top-panel">
+    <div class="ui-widget top-panel" id="patient_history">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Past Medical History</strong><br/>Hypertension<br/>Diabetes, Type 2<br/>Migrane</p>
+            <p><strong>Past Medical History</strong>
+            <div id="listPatientHistory"></div>
+            </p>
+            <!--p><strong>Past Medical History</strong><br/>Hypertension<br/>Diabetes, Type 2<br/>Migrane</p-->
         </div>
     </div>
-    <div class="ui-widget top-panel">
+    <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong><br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide </p>
         </div>
     </div>
-    <div class="ui-widget top-panel">
+    <div class="ui-widget top-panel" id="family_history">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Family/Social History</strong><br/>Heart Disease<br/>Colon Cancer<br/>Smoking<br/>Alcohol Abuse</p>
         </div>
     </div>
-    <div class="ui-widget top-panel">
+    <div class="ui-widget top-panel" id="allergies_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Allergies/Alerts</strong><br/>Penicillan Allergy</p>
         </div>

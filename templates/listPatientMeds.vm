@@ -1,0 +1,8 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example$id"><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr class="gradeX"><td>Patient ID</td><td value="$id">$id</td></tr>
+<tr class="gradeX"><td>Patient Name</td><td value="$name.given $name.lastname">$name.given $name.lastname</td></tr>
+<tr class="gradeX"><td>Gender</td><td value="$gender.displayName">$gender.displayName</td></tr>
+<tr class="gradeX"><td>Birth Date</td><td value="$birthtime.month/$birthtime.day/$birthtime.year $birthtime.hour:$birthtime.minute">$birthtime.month/$birthtime.day/$birthtime.year $birthtime.hour:$birthtime.minute</td></tr>
+</tbody>
+<table>
+

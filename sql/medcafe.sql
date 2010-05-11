@@ -167,13 +167,14 @@ CREATE TABLE medical_history
 CREATE TABLE history_category
 (
 	id SERIAL PRIMARY KEY,
-	category character varying(200) NOT NULL,
+	category character varying(50) NOT NULL,
+	title character varying(200) NOT NULL,
 	description character varying(500) NOT NULL
-)
+);
 
-insert into history_category (category, description) values ('No category', 'Issues that are not categorized');
-insert into history_category (category, description) values ('Past Medical History', 'List of major medical issues noted by physician');
-insert into history_category (category, description) values ('Family/ Social History', 'List of known issues with family history');
+insert into history_category (category, title, description) values ('NONE', 'No category', 'Issues that are not categorized');
+insert into history_category (category, title, description) values ('Personal', 'Past Medical History', 'List of major medical issues noted by physician');
+insert into history_category (category, title, description) values ('Family', 'Family/ Social History', 'List of known issues with family history');
 
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '3', 'PATIENT','CLINICAL F','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '2', 'PATIENT','DIETARY','OurVista');
@@ -219,3 +220,6 @@ insert into medical_history (patient_id, history, category_id, history_date, his
 insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Diabetes, Type 2', 2, '2001-03-18','Diagnosed with type 2 diabetes');
 insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Migraine', 2, '2000-03-18','Experiences migraines every 6 months');
 
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Heart Disease', 3, '2010-05-11','Father had heart disease age 60');
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Colon Cancer', 3, '2010-05-11','Father had colon cancer age 54');
+insert into medical_history (patient_id, history, category_id, history_date, history_notes) values (7, 'Smoking', 3, '2010-05-11','Mother was smoker');

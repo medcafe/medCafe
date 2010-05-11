@@ -1,0 +1,7 @@
+<select id="repositorySelect">
+<option value="">--Select--</option>
+#foreach( $repository in $repositories )
+    <option value="$repository.name">$repository.name</option>
+#end
+</search>
+

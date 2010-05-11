@@ -1,0 +1,3 @@
+#foreach(  $history in $patient_history )
+   <td>$history.title</td> 
+#end
