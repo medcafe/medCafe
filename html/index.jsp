@@ -57,6 +57,7 @@
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
     <script type="text/javascript" src="${js}/medCafe.patients.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
+	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
         var outerLayout;
 
@@ -72,6 +73,7 @@
         });
         
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
+        listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -176,7 +178,9 @@
     </div>
     <div class="ui-widget top-panel" id="family_history">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Family/Social History</strong><br/>Heart Disease<br/>Colon Cancer<br/>Smoking<br/>Alcohol Abuse</p>
+            <p><strong>Family/Social History</strong>
+            <div id="listFamilyHistory"></div>
+            <!-->br/>Heart Disease<br/>Colon Cancer<br/>Smoking<br/>Alcohol Abuse</p-->
         </div>
     </div>
     <div class="ui-widget top-panel" id="allergies_list">

@@ -611,8 +611,8 @@ public class Patient
 			      if (history_date != null)					    
 			    	  o.put("date", history_date);
 				     
-			      o_new.put("history", o);
-			      ret.append("patient_history", o_new);	
+			      //o_new.put("history", o);
+			      ret.append("patient_history", o);	
 		     }    
 			 
 			 if (!rtnResults)

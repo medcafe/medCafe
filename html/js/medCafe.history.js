@@ -13,7 +13,20 @@
 		//alert("medCafe.history.js listHistory " + html);				
 		
 		$("#" + id).html(html);
-	  						
+	  	
+	  	//var detail_html = v2js_listPatientHistoryDetail( data );  
+  	
+  		$('#' + id + ' td').each( function(){
+  		
+  			var detail = $(this).find('#detail').text();
+  			
+			$(this).qtip({
+				content: detail,
+				show: 'mouseover',
+				hide: 'mouseout'
+			});
+		});
+
 	});
 }
 	
