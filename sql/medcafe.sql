@@ -14,6 +14,8 @@ CREATE TABLE users (
     emailaddress text
 );
 
+CREATE RULE enable_user AS ON INSERT TO users DO INSERT INTO user_roles (username, rolename) VALUES (new.username, 'User'::character varying)
+
 COPY roles (rolename) FROM stdin;
 Admin
 User
@@ -130,7 +132,7 @@ CREATE TABLE file_category (
 	notes character varying(500) NULL
 );
 
-CREATE TABLE file_annotations 
+CREATE TABLE file_annotations
 (
 	id SERIAL PRIMARY KEY,
 	patient_id integer NOT NULL,
@@ -143,7 +145,7 @@ CREATE TABLE file_annotations
 	note character varying(500) NOT NULL
 );
 
-CREATE TABLE recent_patients 
+CREATE TABLE recent_patients
 (
 	id SERIAL PRIMARY KEY,
 	patient_id integer NOT NULL,
@@ -153,7 +155,7 @@ CREATE TABLE recent_patients
 ALTER TABLE ONLY file_category
     ADD CONSTRAINT file_category_pkey PRIMARY KEY (username, rolename);
 
-CREATE TABLE medical_history 
+CREATE TABLE medical_history
 (
 	id SERIAL PRIMARY KEY,
 	patient_id integer NOT NULL,
