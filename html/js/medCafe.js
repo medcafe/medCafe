@@ -137,6 +137,14 @@ $(document).ready( function() {
 				addMedications(this, link, tab_num, label, patientId, repId);
 			});
 		}
+		else if  (type == "History")
+		{
+
+			$.getScript('js/medCafe.history.js', function()
+			{
+				addHistory(this, link, tab_num, label, patientId, repId);
+			});
+		}
 		else if  (type == "Allergies")
 		{
 			if (typeof addAllergies == 'undefined')

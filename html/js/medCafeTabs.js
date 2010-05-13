@@ -136,7 +136,6 @@ $(document).ready( function() {
 			closeTab : function(index, tabNum) {
 			
 							$("#tabs").tabs("remove",index);
-							alert("medCafeTabs closetab remove index " + index + " tabNum " + tabNum);
 							triggerCloseTab(tabNum);
 							
 							var newIndex = index -1;

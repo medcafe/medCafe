@@ -163,7 +163,16 @@ CREATE TABLE medical_history
 	category_id integer NOT NULL DEFAULT 2,
 	history_date date NOT NULL DEFAULT CURRENT DATE,
 	history_notes text NULL,
-	date_accessed date NOT NULL DEFAULT CURRENT_DATE
+	date_accessed date NOT NULL DEFAULT CURRENT_DATE,
+	priority integer NOT NULL DEFAULT 3
+);
+
+CREATE TABLE priority
+(
+	id integer NOT NULL PRIMARY KEY,
+	priority character varying(100) NOT NULL,
+	description character varying(500) NOT NULL,
+	color character varying(100) NULL
 );
 
 CREATE TABLE history_category
@@ -173,6 +182,13 @@ CREATE TABLE history_category
 	title character varying(200) NOT NULL,
 	description character varying(500) NOT NULL
 );
+
+insert into priority (id, priority, description) values (1, 'Very High', 'Very High Priority -immediate attention.');
+insert into priority (id, priority, description) values (2, 'High', 'High Priority - action required in short term');
+insert into priority (id, priority, description) values (3, 'Medium', 'Medium Priority - ongoing monitoring recommended');
+insert into priority (id, priority, description) values (4, 'Low', 'Low Priority - periodic monitoring recommended');
+insert into priority (id, priority, description) values (5, 'Very Low', 'Very Low Priority - no action required');
+
 
 insert into history_category (category, title, description) values ('NONE', 'No category', 'Issues that are not categorized');
 insert into history_category (category, title, description) values ('Personal', 'Past Medical History', 'List of major medical issues noted by physician');

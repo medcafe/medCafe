@@ -96,6 +96,40 @@ t.p('</div></td> ');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listPatientHistoryTable(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+for (var i1=0;  i1<context.patient_history.length; i1++) {
+var history = context.patient_history[i1];
+velocityCount = i1;
+t.p('		');
+if (count == 0) {
+t.p('		<table cellpadding="0" cellspacing="0" border="0" class="display" id="history');
+t.p( history.patient_id);
+t.p('">		<thead><tr><th>History Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>	');
+}
+t.p('	<tr class="gradeX">	<td value="');
+t.p( history.title);
+t.p('">');
+t.p( history.title);
+t.p('</td>	<td value="');
+t.p( history.note);
+t.p('">');
+t.p( history.note);
+t.p('</td>	<td value="');
+t.p( history.priority);
+t.p('">');
+t.p( history.priority);
+t.p('</td>	</tr>	');
+count = ( count + 1 );
+t.p('	');
+}
+velocityCount = 0;
+t.p('</tbody><table>');
+return t.toString();
+}
 function v2js_listPatientMeds(context) { 
 var t = new StringCat();
 var velocityCount = 0;

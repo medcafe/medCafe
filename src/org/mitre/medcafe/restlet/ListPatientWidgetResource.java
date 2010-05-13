@@ -77,15 +77,15 @@ public class ListPatientWidgetResource extends ServerResource {
 			*/
         	// System.out.println("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
-        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Dates","Editor","Timeline","Bookmarks","Medications","Allergies"};
-        	String[] type = new String[]{"Chart","Image", "Slider", "Date","Editor","Timeline","Bookmarks","Medications","Allergies"};
+        	String[] widgetName = new String[]{"Charts","Images", "Slider", "Dates","Editor","Timeline","Bookmarks","Medications","Allergies","History"};
+        	String[] type = new String[]{"Chart","Image", "Slider", "Date","Editor","Timeline","Bookmarks","Medications","Allergies","History"};
 
-        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "date.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg"};
-        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp"};
+        	String[] images = new String[]{"chart.png","coverflow.png",  "slider-small.png", "date.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg","history.png"};
+        	String[] clickUrl = new String[]{server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp",server +"historyJSON.jsp"};
 
-        	String[] method = new String[]{"","","", "", "","","","",""};
+        	String[] method = new String[]{"","","", "", "","","","","",""};
 
-        	String[] repository = new String[]{"","", "","","OurVista", "OurVista","OurVista", "OurVista","OurVista"};
+        	String[] repository = new String[]{"","", "","","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista"};
 
         	int i=0;
 

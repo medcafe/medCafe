@@ -74,7 +74,7 @@ public class Patient
 	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
 	public static final String UPDATE_RECENT_PATIENTS = "UPDATE recent_patients SET date_accessed = ? where username = ? and patient_id = ?";
 	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
-	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes from medical_history, history_category where medical_history.category_id = history_category.id and  patient_id = ? and category = ? ";
+	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority from medical_history, history_category where medical_history.category_id = history_category.id and  patient_id = ? and category = ? ";
 	public static final String SELECT_PATIENT_HISTORY_EXT = " and history_date > ? and history_date < ? ";
 	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
@@ -598,12 +598,14 @@ public class Patient
 			        
 			      String history = rs.getString("history");
 			      String history_note = rs.getString("history_notes");
+			      int priority = rs.getInt("priority");
 			      category = rs.getString("category");
 			      Date history_date = rs.getDate("history_date");
 			      
 			      o.put("patient_id", patient_id);
 			      o.put("title", history);
 			      o.put("category", category);
+			      o.put("priority", priority);
 			      
 			      if (history_note != null)
 			    	  o.put("note", history_note);
