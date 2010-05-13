@@ -74,9 +74,9 @@ public class Patient
 	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
 	public static final String UPDATE_RECENT_PATIENTS = "UPDATE recent_patients SET date_accessed = ? where username = ? and patient_id = ?";
 	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
-	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority from medical_history, history_category where medical_history.category_id = history_category.id and  patient_id = ? and category = ? ";
+	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority.priority, color from medical_history, history_category, priority where medical_history.category_id = history_category.id and priority.id = medical_history.priority and  patient_id = ? and category = ? ";
 	public static final String SELECT_PATIENT_HISTORY_EXT = " and history_date > ? and history_date < ? ";
-	
+	public static final String SELECT_PATIENT_HISTORY_ORDER_BY = " order by priority.priority ASC, history_date DESC";	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
@@ -546,7 +546,7 @@ public class Patient
 			 	
 			 if (startDate != null)
 			 {
-				sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT;
+				sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT + SELECT_PATIENT_HISTORY_ORDER_BY;
 				prep = dbConn.prepareStatement(sql);
 				
 				prep.setInt(1, patient_id);
@@ -563,7 +563,7 @@ public class Patient
 			 }
 			 else if (endDate != null)
 			 {
-				 sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT;
+				 sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT + SELECT_PATIENT_HISTORY_ORDER_BY;
 					
 				 prep = dbConn.prepareStatement(sql);
 				 prep.setInt(1, patient_id);
@@ -577,6 +577,7 @@ public class Patient
 			 }
 			 else
 			 {
+				 sql = sql + SELECT_PATIENT_HISTORY_ORDER_BY;
 				 prep = dbConn.prepareStatement(sql);				
 				 prep.setInt(1, patient_id);
 				 prep.setString(2, category);
@@ -598,7 +599,8 @@ public class Patient
 			        
 			      String history = rs.getString("history");
 			      String history_note = rs.getString("history_notes");
-			      int priority = rs.getInt("priority");
+			      String priority = rs.getString("priority");
+			      String color = rs.getString("color");
 			      category = rs.getString("category");
 			      Date history_date = rs.getDate("history_date");
 			      
@@ -606,6 +608,9 @@ public class Patient
 			      o.put("title", history);
 			      o.put("category", category);
 			      o.put("priority", priority);
+			      
+			      if (color != null)
+			    	  o.put("color", color);
 			      
 			      if (history_note != null)
 			    	  o.put("note", history_note);

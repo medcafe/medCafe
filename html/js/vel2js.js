@@ -87,9 +87,20 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 for (var i1=0;  i1<context.patient_history.length; i1++) {
 var history = context.patient_history[i1];
 velocityCount = i1;
-t.p('   <td>');
+t.p('     	');
+if (history.color) {
+t.p('  		<td style="background-color:');
+t.p( history.color);
+t.p('">');
 t.p( history.title);
-t.p('<div style="display: none;" class="ui-corner-all" id="detail">');
+t.p('  	');
+}
+else {
+t.p('		<td>');
+t.p( history.title);
+t.p('   	');
+}
+t.p('   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( history.note);
 t.p('</div></td> ');
 }

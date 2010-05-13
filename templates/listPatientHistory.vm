@@ -1,3 +1,9 @@
 #foreach(  $history in $patient_history )
-   <td>$history.title<div style="display: none;" class="ui-corner-all" id="detail">$history.note</div></td> 
+   
+  	#if( $history.color )
+  		<td style="background-color:$history.color">$history.title
+  	#else
+		<td>$history.title
+   	#end
+   	<div style="display: none;" class="ui-corner-all" id="detail">$history.note</div></td> 
 #end
