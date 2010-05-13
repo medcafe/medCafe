@@ -237,3 +237,25 @@ function addCreateAssocButton( patient_id, role)
 	});
 }
 
+function addPatientDetail(obj, link, tab_num, label, patientId, repId)
+{
+	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientId;
+									
+	$.getJSON(link, function(data)
+	{
+			var html = v2js_listPatientTable( data );  	  			
+	  		$("#aaa" + tab_num).append(html);
+	  									
+			//Delay to let DOM refresh before adding table styling
+			$(obj).delay(500,function()
+			{
+					//alert( $("#example" + patientId).text());
+											
+				$("#example" + patientId).dataTable( {
+					"aaSorting": [[ 0, "desc" ]]
+					,"bJQueryUI": true
+				} );
+				setHasContent(tab_num);
+			} );
+	});
+}

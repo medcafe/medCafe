@@ -161,7 +161,7 @@ CREATE TABLE medical_history
 	patient_id integer NOT NULL,
 	history character varying(200) NOT NULL,
 	category_id integer NOT NULL DEFAULT 2,
-	history_date date NOT NULL DEFAULT CURRENT DATE,
+	history_date date NOT NULL DEFAULT CURRENT_DATE,
 	history_notes text NULL,
 	date_accessed date NOT NULL DEFAULT CURRENT_DATE,
 	priority integer NOT NULL DEFAULT 3

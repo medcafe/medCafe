@@ -114,6 +114,10 @@ $(document).ready( function() {
 		{
 			addCoverflow(this, link, tab_num, patientId);
 		}
+		else if  (type == "Detail")
+		{
+			addPatientDetail(this, link, tab_num, label, patientId, repId);
+		}
 		else if  (type == "Repository")
 		{
 
