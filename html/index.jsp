@@ -71,7 +71,7 @@
         $(function(){
             refresh("<%=patientId%>");
         });
-        
+
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
         listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
 	</script>
@@ -191,7 +191,28 @@
 </div>
 
 <div class="ui-layout-south">
-
+    <div id="south-tabs">
+        <ul>
+            <li><a href="#south-tabs-1">PubMed</a></li>
+            <li><a href="#south-tabs-2">Email</a></li>
+            <li><a href="#south-tabs-3">Journal of Medical Internet Research</a></li>
+        </ul>
+        <div id="south-tabs-1">
+            <iframe src ="http://www.ncbi.nlm.nih.gov/pubmed/" width="100%" height="700">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        </div>
+        <div id="south-tabs-2">
+            <iframe src ="https://imc.mitre.org" width="100%" height="700">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        </div>
+        <div id="south-tabs-3">
+            <iframe src ="http://www.jmir.org/" width="100%" height="700">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        </div>
+    </div>
 </div>
 <div id="clone" class="copy"></div>
 <jsp:include page="schedulePopup.html"/>
