@@ -5,7 +5,8 @@ $(document).ready( function() {
 		// create the OUTER LAYOUT
         outerLayout = $("body").layout({
             west: { closable: true, resizable: true, slidable: true, showOverflowOnHover: true },
-            north: {size:120, resizable: false }
+            north: { size:120, resizable: false },
+            south: { size: 600, initClosed: true, slideTrigger_open: "click" }
 		});
 
 		//Initialize dialogs for pop ups

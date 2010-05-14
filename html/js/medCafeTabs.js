@@ -2,11 +2,13 @@ $(document).ready( function() {
 
 		var medCafeTabs;
 		var tabSelectedId;
-   
+
+		$('#south-tabs').tabs();
+
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
 		    {
-		    	
+
 		        var self = this;
 		        var selfId = $(this).attr('id');
 				if (ui.panel === undefined)
@@ -19,7 +21,7 @@ $(document).ready( function() {
 		        	}
 					else
 					{
-						
+
 						 count= 0;
 						 $(this).find("li:has(a)").each(function(i)
 						 {
@@ -29,15 +31,15 @@ $(document).ready( function() {
 						 		//Temporary hard code this value
 						 		var aObj = $(this).find('a');
 			    				var href = aObj.attr('href');
-			    				
+
 			    				var hrefBase = href.split('#')[1], baseEl;
 						 		$(this).attr('id',hrefBase + "-link");
 						 		$(this).attr('custom:index', count);
-						 		
-						    }			    
-		
+
+						    }
+
 			   			});
-						
+
 						return true;
 					}
 					alert("ui panel is undefined");
@@ -45,7 +47,7 @@ $(document).ready( function() {
 		        }
 
 		        var id = ui.panel.id;
-			
+
 		    	var tagObj = $("#" + selfId + " li:has(a) a[href*='" + id + "']");
 
 		    	var li_obj = $(tagObj).parent().closest('li');
@@ -53,9 +55,9 @@ $(document).ready( function() {
 		    	$(li_obj).attr('id',id + "-link");
 		    	$(li_obj).addClass("tabHeader");
 				$(li_obj).prepend("<div class='close'></div>");
-						
+
 		    	medCafeTabs.initClose();
-		    	
+
 		    	var count = -1;
 		    	//Reset the indexes of all the new tabs
 		    	 $(this).find("li:has(a)").each(function(i)
@@ -65,15 +67,15 @@ $(document).ready( function() {
 
 	     			var newLi = $("#" + tempId );
 	     			$(newLi).attr('custom:index', count);
-					
-					
+
+
 	   			});
-					
+
 				$(".tabHeader").hover(
 				 function(){
       				tabSelectedId = $(this).attr("id");
    				});
-   				
+
    				$(".tabHeader").droppable(
 				 {
 				 	drop: function()
@@ -81,9 +83,9 @@ $(document).ready( function() {
       					tabSelectedId = $(this).attr("id");
    					}
    				});
-   				
-   				
-   				
+
+
+
 	   			//
 
 		    }
@@ -119,25 +121,25 @@ $(document).ready( function() {
 									;
 									var id = $(ui.item);
 									draggedId = $(ui.item).attr('id');
-									
+
 							}
-		});	
+		});
 
 		$("#tabs").tabs();
-		
+
 		$("#body")
 				.tabs({change: function () {}})
 				.find(".ui-tabs-nav")
 				.sortable({})
 			;
-		
+
 		 medCafeTabs = {
-		
+
 			closeTab : function(index, tabNum) {
-			
+
 							$("#tabs").tabs("remove",index);
 							triggerCloseTab(tabNum);
-							
+
 							var newIndex = index -1;
 							if (newIndex < 0)
 								newIndex = 0;
@@ -145,64 +147,64 @@ $(document).ready( function() {
 							var count = 0;
 							$("#tabs").find("li:has(a)").each(function(i)
 						 	{
-						 		
+
 							 	var aObj = $(this).find('a');
 				    			$(this).attr('custom:index', count);
-							    var id = $(this).attr('id');''	
-							    count = count + 1;	    
-		
+							    var id = $(this).attr('id');''
+							    count = count + 1;
+
 			   				});
 			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
 			   				$("#tabs").tabs('select', newIndex);
 				}
 				,
 				closeAllTabs : function(tab_name) {
-			
+
 							$("#tabs").find("li:has(a)").each(function(i)
 						 	{
 						 		var index = $(this).attr('custom:index');
 								$("#tabs").tabs("remove",index);
 			   				});
-			   				
+
 				},
 			initClose : function() {
-			
+
 				$('.tabHeader').find('.close').bind("click",{},
-			
+
 						function(e){
 							 var index = $(this).parent().attr('custom:index');
 							 var id = $(this).parent().attr('id');
 							 var tab_num = id.substring(5,6);
-							 
+
 							 $("#dialog").dialog({
-					            autoOpen: false,					
+					            autoOpen: false,
 					            modal:true,
 					            resizable: true,
 					            title: "Close Tab",
 					            buttons : {
-					              "Yes" : function() {          
-					              	  //Have to Destroy as otherwise 
-					              	  //the Dialog will not be reinitialized on open    
+					              "Yes" : function() {
+					              	  //Have to Destroy as otherwise
+					              	  //the Dialog will not be reinitialized on open
 					                  $(this).dialog("destroy");
 					                  medCafeTabs.closeTab(index, tab_num);
 					             },
 					             "No" : function() {
 					                 $(this).dialog("destroy");
-					              }  
+					              }
 					             }
-					        }); 						
+					        });
 						    $("#dialog").dialog("open");
-							
+
 							} );}
-	
+
 		}
-	
+
 		medCafeTabs.initClose();
 		processMenuClick("Add Tab");
-	
+
 	});
-	
-	
+
+
 	function renameTab(tab_num, label)
 	{
 		var tabObjLink = $("#tabs-" + tab_num + "-link");
@@ -212,13 +214,13 @@ $(document).ready( function() {
 		var idObj = $(tabObj).find(".id");
 		$(idObj).attr("id", label);
 	}
-	
-	
+
+
 	function addTab(label, type)
 	{
-		
+
 		//First check if tab already exists
-		var tab_num = 0;	
+		var tab_num = 0;
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			var tabObj = $(this).find(".id");
@@ -228,24 +230,24 @@ $(document).ready( function() {
 				var tab_id = $(this).attr('id');
 				tab_num = tab_id.split("-")[1];
 				$('#tabs').tabs('select', "#tabs-" + tab_num);
-				
+
 			}
-			
+
 		});
-	
+
 		//If the tab_number is greater than 0 then it has been found already - just return	-1
 		if (tab_num != 0) return -1;
-	
+
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
-							 		
+
 		});
 		var curr_num = tab_id.split("-")[1];
 		tab_num = curr_num*1 + 1;
-							 
+
 		var hrefBase = "tabs-" + tab_num;
-													
+
 		//Add a new Tab
 		$('#tabs').tabs("add","#" + hrefBase,label);
 		$("#tabs-" + tab_num).addClass('tabContent');
@@ -255,41 +257,41 @@ $(document).ready( function() {
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
 	}
-	
-	
-	function createLink(patientId, link, label, type, params, repository) 
-	{   					
-		var tab_num = addTab(label, type);		
+
+
+	function createLink(patientId, link, label, type, params, repository)
+	{
+		var tab_num = addTab(label, type);
 		if (tab_num < 0)
 			return;
 		createWidgetContent(patientId,link, label, type ,tab_num, params,repository);
-		
+
 	}
-	
+
 	function setHasContent(tab_num)
 	{
-			
+
 			var widgetObj = $("#widget-content" + tab_num);
 			var hasContentObj = widgetObj.find("#hasContent");
       		var hasContent = $(hasContentObj).attr("custom:hasContent");
      		$(hasContentObj).attr("custom:hasContent",true);
-     		
+
 	}
 
 	function closeAllTabs(tab_num)
 	{
-		var indexList = new Array();	
+		var indexList = new Array();
 		$("#tabs").find("li:has(a)").each(function(i)
 		{
 			indexList[i] = $(this).attr('custom:index');
-			
+
 		});
-		
+
 		//Make sure that the last tab is closed first
 		for (i=indexList.length-1; i > -1 ;i--)
 		{
-			$("#tabs").tabs("remove",indexList[i]);	
+			$("#tabs").tabs("remove",indexList[i]);
 		}
-		
-     		
+
+
 	}
