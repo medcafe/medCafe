@@ -14,7 +14,7 @@ CREATE TABLE users (
     emailaddress text
 );
 
-CREATE RULE enable_user AS ON INSERT TO users DO INSERT INTO user_roles (username, rolename) VALUES (new.username, 'User'::character varying)
+CREATE RULE enable_user AS ON INSERT TO users DO INSERT INTO user_roles (username, rolename) VALUES (new.username, 'User'::character varying);
 
 COPY roles (rolename) FROM stdin;
 Admin
@@ -30,7 +30,6 @@ jchoyt	manager
 
 COPY users (username, password, emailaddress) FROM stdin;
 jchoyt	a94a8fe5ccb19ba61c4c0873d391e987982fbbd3	jchoyt@mitre.org
-	da39a3ee5e6b4b0d3255bfef95601890afd80709
 \.
 
 
