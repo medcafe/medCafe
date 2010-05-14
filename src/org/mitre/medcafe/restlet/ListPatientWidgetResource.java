@@ -78,15 +78,15 @@ public class ListPatientWidgetResource extends ServerResource {
         	// System.out.println("ListWidgetResource JSON start");
         	//String server = "http://" + Config.getServerUrl() + "/";
         	String server = "";
-        	String[] widgetName = new String[]{"Details", "Charts","Images", "Slider", "Dates","Editor","Timeline","Bookmarks","Medications","Allergies","History"};
-        	String[] type = new String[]{"Detail","Chart","Image", "Slider", "Date","Editor","Timeline","Bookmarks","Medications","Allergies","History"};
+        	String[] widgetName = new String[]{"Details", "Images", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Charts", "Dates"};
+        	String[] type = new String[]{"Detail","Image", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Chart", "Date"};
 
-        	String[] images = new String[]{"patient.png", "chart.png","coverflow.png",  "slider-small.png", "date.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg","history.png"};
-        	String[] clickUrl = new String[]{server + "repository-listJSON.jsp",  server + "chart.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp",  "","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp",server +"historyJSON.jsp"};
+        	String[] images = new String[]{"patient.png","coverflow.png",  "slider-small.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg","history.png", "chart.png", "date.png"};
+        	String[] clickUrl = new String[]{server + "repository-listJSON.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp",server +"historyJSON.jsp",  server + "chart.jsp",  ""};
 
         	String[] method = new String[]{"", "","","", "", "","","","","",""};
 
-        	String[] repository = new String[]{"OurVista","","", "","","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista"};
+        	String[] repository = new String[]{"OurVista","", "","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista","",""};
 
         	int i=0;
 

@@ -84,10 +84,11 @@ function v2js_listPatientHistory(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="historySummary"><thead></thead><tbody>');
 for (var i1=0;  i1<context.patient_history.length; i1++) {
 var history = context.patient_history[i1];
 velocityCount = i1;
-t.p('     	');
+t.p('   <tr>  	');
 if (history.color) {
 t.p('  		<td style="background-color:');
 t.p( history.color);
@@ -102,9 +103,10 @@ t.p('   	');
 }
 t.p('   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( history.note);
-t.p('</div></td> ');
+t.p('</div></td>    	</tr>');
 }
 velocityCount = 0;
+t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientHistoryTable(context) { 

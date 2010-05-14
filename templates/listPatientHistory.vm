@@ -1,9 +1,14 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="historySummary">
+<thead></thead><tbody>
 #foreach(  $history in $patient_history )
-   
+   <tr>
   	#if( $history.color )
   		<td style="background-color:$history.color">$history.title
   	#else
 		<td>$history.title
    	#end
    	<div style="display: none;" class="ui-corner-all" id="detail">$history.note</div></td> 
+   	</tr>
 #end
+</tbody>
+<table>

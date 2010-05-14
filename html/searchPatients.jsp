@@ -25,8 +25,17 @@
 
 	<title>Droppable Between Panes</title>
 
-    <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+   <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
+  	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
+	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
 	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
@@ -57,7 +66,9 @@
 </head>
 <body>
 
-<div id="searchPatients" class="ui-widget-header ui-corner-all">
+<div id="searchPatients" class="ui-widget ui-corner-all">
+<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+        
 <form name="searchPatientForm"  >
 		<center>
 		<table>
@@ -76,6 +87,7 @@
 		<div id="addPatient"></div>
 		
 </form>
+</div>
 </div>
 		
 </body>     		

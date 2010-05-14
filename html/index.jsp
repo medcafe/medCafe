@@ -124,10 +124,10 @@
 <div class="ui-layout-west  ui-corner-all">
     <div id="west-sections" class="ui-layout-content">
         <h6 id="patient-search"><a href="#">Patient Search</a></h6>
-        <div class="widget color-6" id="intro" >
+        <div class="widget" id="intro" >
             <div class="widget-content">
                 <p>
-                    <iframe height="200" width="240" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
+                    <iframe frameborder="0" height="200" width="240" name="patientSearchframe" id="patient_searchFrame" src="http://${server}/searchPatients.jsp"></iframe>
                 </p>
             </div>
         </div>
