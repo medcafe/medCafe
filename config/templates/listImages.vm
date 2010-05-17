@@ -1,7 +1,7 @@
 <covers xcurrent="1">
 #foreach( $image in $images )
     <cover>
-    <img><![CDATA[$image.source]]></img>
+    <img><![CDATA[$image.thumb]]></img>
     <desc><![CDATA[$image.id]]></desc>
     <param><![CDATA[$image.param]]></param>
     </cover>

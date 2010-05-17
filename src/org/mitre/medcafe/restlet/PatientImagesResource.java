@@ -241,6 +241,8 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("source",file.getFileUrl());
                 inner_obj.put("name", file.getTitle());
                 inner_obj.put("param", server + "/" + imageDir +  file.getFileUrl());
+                inner_obj.put("thumb",  file.getThumbnail());
+                
                 obj.append("images", inner_obj);  //append creates an array for you
                 System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
                 

@@ -182,7 +182,7 @@ public class Event
 					
 					if (types.get(i).equals("file"))
 					{
-						String fileName = rs.getString("filename");
+						String fileName = rs.getString("thumbnail");
 						event.setFileUrl(fileName);
 					}
 					//Set the event values
