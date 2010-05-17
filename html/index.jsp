@@ -57,6 +57,7 @@
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
     <script type="text/javascript" src="${js}/medCafe.patients.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
         var outerLayout;
@@ -74,6 +75,8 @@
 
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
         listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
+        listProblemList("listProblemSummary", "<%=patientId%>", "${server}");
+        
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -138,12 +141,12 @@
 </div>
 
 <div class="ui-layout-north">
-    <span>
+    <!--  span>
         <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
             <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
         </a>
         <div id="search-engines" class="hidden"></div>
-    </span>
+    </span-->
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
@@ -174,6 +177,14 @@
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong><br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide </p>
+        </div>
+    </div>
+     
+     <div class="ui-widget top-panel" id="problem_List">
+        <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+            <p><strong>Problem List</strong>
+            <div id="listProblemSummary"></div>
+            <!-->br/>Heart Disease<br/>Colon Cancer<br/>Smoking<br/>Alcohol Abuse</p-->
         </div>
     </div>
     <div class="ui-widget top-panel" id="family_history">

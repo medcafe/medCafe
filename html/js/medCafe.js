@@ -150,6 +150,13 @@ $(document).ready( function() {
 				addHistory(this, link, tab_num, label, patientId, repId);
 			});
 		}
+		else if  (type == "Problem")
+		{
+			$.getScript('js/medCafe.problemList.js', function()
+			{
+				addProblemList(this, link, tab_num, label, patientId, repId);
+			});
+		}
 		else if  (type == "Allergies")
 		{
 			if (typeof addAllergies == 'undefined')

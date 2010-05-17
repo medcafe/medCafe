@@ -84,7 +84,7 @@ function v2js_listPatientHistory(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="historySummary"><thead></thead><tbody>');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
 for (var i1=0;  i1<context.patient_history.length; i1++) {
 var history = context.patient_history[i1];
 velocityCount = i1;
@@ -345,6 +345,69 @@ t.p('</td></tr>');
 }
 velocityCount = 0;
 t.p('</tbody></table>');
+return t.toString();
+}
+function v2js_listProblemList(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
+for (var i1=0;  i1<context.patientProblem.length; i1++) {
+var problem = context.patientProblem[i1];
+velocityCount = i1;
+t.p('   <tr>  	');
+if (problem.color) {
+t.p('  		<td style="background-color:');
+t.p( problem.color);
+t.p('">');
+t.p( problem.title);
+t.p('  	');
+}
+else {
+t.p('		<td>');
+t.p( problem.title);
+t.p('   	');
+}
+t.p('   	<div style="display: none;" class="ui-corner-all" id="detail">');
+t.p( problem.note);
+t.p('</div></td>    	</tr>');
+}
+velocityCount = 0;
+t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listProblemListTable(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+for (var i1=0;  i1<context.patientProblem.length; i1++) {
+var problem = context.patientProblem[i1];
+velocityCount = i1;
+t.p('		');
+if (count == 0) {
+t.p('		<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">		<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>	');
+}
+t.p('	<tr class="gradeX">	<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>	<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>	<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>	</tr>	');
+count = ( count + 1 );
+t.p('	');
+}
+velocityCount = 0;
+t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 
