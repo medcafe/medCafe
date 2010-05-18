@@ -1,11 +1,11 @@
 /*
- * FullCalendar v1.4.5 Stylesheet
+ * FullCalendar v1.4.3 Stylesheet
  *
  * Feel free to edit this file to customize the look of FullCalendar.
  * When upgrading to newer versions, please upgrade this file as well,
  * porting over any customizations afterwards.
  *
- * Date: Sun Feb 21 20:30:11 2010 -0800
+ * Date: Tue Dec 22 00:41:38 2009 -0800
  *
  */
 
@@ -18,7 +18,6 @@
 	
 .fc {
 	direction: ltr;
-	text-align: left;
 	}
 	
 .fc table {
@@ -50,7 +49,6 @@ table.fc-header {
 	
 .fc-header-center {
 	width: 50%;
-	text-align: center;
 	}
 	
 .fc-header-center table {
@@ -220,9 +218,9 @@ table.fc-header {
 	}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
-	background: #9cf;
-	opacity: .2;
-	filter: alpha(opacity=20); /* for IE */
+	background: #3366CC;
+	opacity: .4;
+	filter: alpha(opacity=40); /* for IE */
 	}
 	
 .fc-view { /* prevents dragging outside of widget */
@@ -240,10 +238,17 @@ table.fc-header {
 .fc-event a {
 	border-style: solid; 
 	border-color: #36c;     /* default BORDER color (probably the same as background-color) */
-	background-color: #36c; /* default BACKGROUND color */
-	color: #fff;            /* default TEXT color */
+	background-color: #36c;  /* default BACKGROUND color */
+	color: #fff ;           /* default TEXT color */
 	}
-	
+.myClass,
+.fc-agenda .myClass .fc-event-time,
+.myClass a {
+	background-color: black;
+	border-color: black;
+	color: red;
+	}
+	 	
 	/* Use the 'className' CalEvent property and the following
 	 * example CSS to change event color on a per-event basis:
 	 *
@@ -262,7 +267,7 @@ table.fc-header {
 	
 .fc-event a {
 	overflow: hidden;
-	font-size: .85em;
+	font-size: 1em;
 	text-decoration: none;
 	cursor: pointer;
 	}
@@ -539,7 +544,7 @@ table.fc-header {
 	_white-space: normal;
 	overflow: hidden;
 	border: 0;
-	font-size: 10px;
+	font-size: 1em;
 	}
 	
 .fc-event-vert span.fc-event-title {

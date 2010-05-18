@@ -134,7 +134,7 @@
                 </p>
             </div>
         </div>
-        <h6><a href="#" onclick="$('#calendar').fullCalendar('refetchEvents' );">Schedule</a></h6>
+        <h6><a href="#" >Schedule</a></h6>
         <div id="calendar"  class="widget-content"></div>
         <a href="logout.jsp">Logout</a>
 	</div>
