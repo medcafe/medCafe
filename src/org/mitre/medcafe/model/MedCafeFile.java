@@ -67,17 +67,17 @@ public class MedCafeFile
 	public static final String DATE = "file_date";
 	public static final String FILENAME = "filename";
 	
-	public static final String SELECT_FILES = "SELECT id, filename, thumbnail, title, file_date from file where username = ? and patient_id = ?  ";
+	public static final String SELECT_FILES = "SELECT id, filename, thumbnail, title, file_date from file where patient_id = ?  ";
 	public static final String SELECT_CATEGORY_FILES = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
 													  	 " where file.id = file_category.file_id and file_category.category_id = category.id " +
-														" and  username = ? and patient_id = ? and category IN (<%category%>) ";
+														" and  patient_id = ? and category IN (<%category%>) ";
 	public static final String SELECT_CATEGORY_FILES_SOUNDEX = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
  	 														" where file.id = file_category.file_id and file_category.category_id = category.id " +
- 	 														" and  username = ? and patient_id = ? and SOUNDEX(category) IN (<%category%>) ";
+ 	 														" and patient_id = ? and SOUNDEX(category) IN (<%category%>) ";
 
 	public static final String SELECT_CATEGORY_FILES_LEVEN = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
 															" where file.id = file_category.file_id and file_category.category_id = category.id " +
-															" and  username = ? and patient_id = ? and (<%category%>) ";
+															" and patient_id = ? and (<%category%>) ";
 
 	public static final String SORT_BY = " ORDER BY file_date DESC ";
 	
@@ -208,7 +208,7 @@ public class MedCafeFile
 			Date startDate = null;
 			Date endDate = null;
 			String sqlQuery = MedCafeFile.SELECT_FILES;
-			int startDatePos = 2, endDatePos = 2;
+			int startDatePos = 1, endDatePos = 1;
 				
 			
 			if (categoryList != null)
@@ -246,7 +246,7 @@ public class MedCafeFile
 			{
 					 sqlQuery = sqlQuery + " AND file_date > ? ";			 
 					 startDate = df.parse(startDateStr);
-					 startDatePos = 3; 
+					 startDatePos = 2; 
 			}
 				 
 			if (endDateStr != null)
@@ -274,8 +274,7 @@ public class MedCafeFile
 					 prep.setDate(endDatePos, sqlEndDate);
 			}
 
-			prep.setString(1, userName);
-			prep.setInt(2, patId);
+			prep.setInt(1, patId);
 			ResultSet rs =  prep.executeQuery();
 
 			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
