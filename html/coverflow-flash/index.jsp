@@ -72,7 +72,6 @@ li{ font-size: 14px; line-height: 22px;}
 
 <script type="text/javascript">
 	swfobject.registerObject("flashContent", "9.0.0", "expressInstall.swf");
-	
 </script>
 
 </head>

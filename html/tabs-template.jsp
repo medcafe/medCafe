@@ -38,17 +38,26 @@ $(function(){
       		
 			if (img.length == 0)
 			{
+				alert("this is not a draggable object");
 				//This is not a droppable object
 				return;
 			}
-      		var dragObj = $(ui.draggable)
+			
+			var dragObj = $(ui.draggable)
        		var widgetId = $(ui.draggable).html();
        		
+       		//Make 
+			var link = $(dragObj).find('img').attr("custom:url")
+			if (typeof(link) == "undefined")
+			{
+				return;
+			}
+			
        		var text = $(dragObj).find('p').text();
 								
        		var imgHtml = $(dragObj).find('img').html();
        		var label = $(dragObj).find('img').attr("src");
-			var link = $(dragObj).find('img').attr("custom:url");
+			//var link = $(dragObj).find('img').attr("custom:url");
 			var type = $(dragObj).find('img').attr("custom:type");
 			var html = $(dragObj).find('img').attr("custom:html");
 			var method = $(dragObj).find('img').attr("custom:method");
