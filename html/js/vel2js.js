@@ -289,13 +289,14 @@ function v2js_listPatientsBookmarksTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
 t.p('<form id="bookmarkForm');
 t.p( context.patient);
 t.p('" name="bookmarkForm');
 t.p( context.patient);
 t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks');
 t.p( context.patient);
-t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th></tr></thead><tbody>');
+t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>');
 if (!( context.bookmarks )) {
 t.p('	<tr class="gradeX"><td name="name" value=""></td>    <td name="url" value=""></td>    <td name="description" value=""></td></tr>');
 }
@@ -303,19 +304,30 @@ else {
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
 var bookmark = context.bookmarks[i1];
 velocityCount = i1;
-t.p('    <tr class="gradeX"><td name="name" value="');
+t.p('    <tr class="gradeX"><td name="name" class="editInput" value="');
 t.p( bookmark.name);
 t.p('">');
 t.p( bookmark.name);
 t.p('</td>    <td name="url" value="');
 t.p( bookmark.url);
-t.p('">');
+t.p('" class="editInput">');
 t.p( bookmark.url);
-t.p('</td>    <td name="description" value="');
+t.p('</td>    <td name="description" class="editInput" value="');
 t.p( bookmark.description);
 t.p('">');
 t.p( bookmark.description);
-t.p('</td></tr>');
+t.p('</td>    <td><div>    <input class="addLink" id="AddLink');
+t.p( count);
+t.p('" value="Add Link" type="button"></input>    <div id="bookmarkName');
+t.p( count);
+t.p('" style="display:none;">');
+t.p( bookmark.name);
+t.p('</div>    <div id="bookmarkUrl');
+t.p( count);
+t.p('" style="display:none;">');
+t.p( bookmark.url);
+t.p('</div>    </div></td>    </tr>    ');
+count = ( count + 1 );
 }
 velocityCount = 0;
 }

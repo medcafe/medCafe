@@ -3,7 +3,7 @@ $(document).ready( function() {
 		var medCafeTabs;
 		var tabSelectedId;
 
-		$('#south-tabs').tabs();
+		//$('#south-tabs').tabs();
 
 		var $tabs = $('#tabs').tabs({
 		    add: function(event, ui)
@@ -125,8 +125,7 @@ $(document).ready( function() {
 							}
 		});
 
-		$("#tabs").tabs();
-
+		
 		$("#body")
 				.tabs({change: function () {}})
 				.find(".ui-tabs-nav")

@@ -38,6 +38,8 @@
 			$("#bookmarks" + patientId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 			} );
+			
+			initButtons();
               
     });
             

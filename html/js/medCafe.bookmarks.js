@@ -17,6 +17,22 @@ function fnClickAddRow(tableObj, patient_id) {
 		
 }
 	
+function initButtons()
+{
+	$(".addLink").click(function()
+	{
+		var id = $(this).attr("id");
+		if (id.indexOf("AddLink") == 0)
+		{
+			var name = $("#bookmarkName" + id.substring(7)).text();
+			var url = $("#bookmarkUrl" + id.substring(7)).text();
+		
+			addSouthTab(name, url);
+		}
+		
+	});
+}
+
 function fnClickDeleteRow(tableObj, selectedRow) 
 {
 		
@@ -132,6 +148,8 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 						//Make sure that values are updated in the tableObj
 						makeEditable(tableObj, patient_id);
 
+						initButtons();
+						
 						//Get the selected row if user clicks on <tr> object	 
 						$("#bookmarks" + patient_id + " tbody tr").click( function() {
 						
@@ -176,7 +194,7 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 
 function makeEditable(tableObj, patient_id)
 {
-	$("#bookmarks" + patient_id + " tbody td").editable( 
+	$("#bookmarks" + patient_id + " tbody .editInput").editable( 
 		function(value, settings)
 		{ 
 			var aPos = tableObj.fnGetPosition( this );
