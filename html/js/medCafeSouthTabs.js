@@ -4,9 +4,12 @@ $(document).ready( function() {
 
 		var tabSelectedId;
 
-		$('#'+tabName ).tabs();
-		initSouthClose();
-
+		$('#south-tabs').load('links.jsp', function(){
+		
+			$('#south-tabs' ).tabs();
+			initSouthClose();
+		});
+			
 });
 
 function initSouthClose() 
@@ -52,9 +55,12 @@ function closeSouthTab(index, tabNum)
 		$("#" + tabName).tabs('select', newIndex);
 }
 
+function addSouthTabs()
+{
+}
+
 function addSouthTab(title, url)
 {
-		        
 		var count = 0;
 		//Reset the indexes of all the new tabs
 		$("#" + tabName).find("li:has(a)").each(function(i)

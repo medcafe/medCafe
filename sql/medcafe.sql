@@ -182,6 +182,15 @@ CREATE TABLE history_category
 	description character varying(500) NOT NULL
 );
 
+CREATE TABLE link
+(
+	id SERIAL PRIMARY KEY,
+	username character varying(50) NOT NULL,
+	title character varying(100) NOT NULL,
+	url character varying(300) NOT NULL,
+	description character varying(500) NULL
+);
+
 insert into priority (id, priority, description) values (1, 'Very High', 'Very High Priority -immediate attention.');
 insert into priority (id, priority, description) values (2, 'High', 'High Priority - action required in short term');
 insert into priority (id, priority, description) values (3, 'Medium', 'Medium Priority - ongoing monitoring recommended');
@@ -323,6 +332,12 @@ insert into file (patient_id, filename, thumbnail, username, title, file_date) v
 insert into file (patient_id, filename, thumbnail, username, title, file_date) values ( 4, '435_NON-SMOKER.pdf', '435_NON-SMOKER_thumb.png', 'jchoyt', 'Discharge Summary', '2010-05-14');
 insert into file (patient_id, filename, thumbnail, username, title, file_date) values ( 4, '476_UNKNOWN.pdf', '476_UNKNOWN_thumb.png', 'jchoyt', 'Discharge Summary', '2010-05-14');
 insert into file (patient_id, filename, thumbnail, username, title, file_date) values ( 4, '484_UNKNOWN.pdf', '484_UNKNOWN_thumb.png', 'jchoyt', 'Discharge Summary', '2010-05-14');
+
+
+insert into link (username, title, url, description) values ( 'gaily', 'PubMed', 'http://www.ncbi.nlm.nih.gov/pubmed/','');
+insert into link (username, title, url, description) values ( 'gaily', 'Email', 'https://imc.mitre.org','');
+insert into link (username, title, url, description) values ( 'gaily', 'Journal of Medical Internet Research', 'http://www.jmir.org/','');
+
 
 --set some randomly to SMOKING category
 insert into file_category (select 2, min(id) from file group by patient_id);
