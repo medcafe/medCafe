@@ -1,14 +1,17 @@
 package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+import org.mitre.medcafe.model.MedCafeComponent;
 import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.representation.Representation;
@@ -65,8 +68,8 @@ public class ListWidgetResource extends ServerResource {
 
     }
 
-    @Get("json")
-    public JsonRepresentation toJson(){
+    //@Get("json")
+    public JsonRepresentation toJsonOld(){
         try
         {
 
@@ -115,8 +118,52 @@ public class ListWidgetResource extends ServerResource {
         }
         catch(Exception e)
         {
-            log.throwing(KEY, "toJson()", e);
-            return null;
+        	log.throwing(KEY, "toJson()", e);
+        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + e.getMessage() ));		
+         
+        }
+    }
+    
+    @Get("json")
+    public JsonRepresentation toJson(){
+        try
+        {
+
+        	/*	var link = $(this).find('img').attr("custom:url");
+				var type = $(this).find('img').attr("custom:type");
+				var html = $(this).find('img').attr("custom:html");
+				var method = $(this).find('img').attr("custom:method");
+				var patientId = $(this).find('img').attr("custom:Id");
+			*/
+        	System.out.println("ListWidgetResource JSON start");
+      
+            
+            String tempDir = "images/";
+        	
+        	ArrayList<MedCafeComponent> compList = MedCafeComponent.retrieveComponents(MedCafeComponent.GENERAL, tempDir);
+        	int i=0;
+   	
+            JSONObject obj = new JSONObject();
+            System.out.println("ListWidgetResource JSON general widgets number of components " + compList.size());
+            for(MedCafeComponent component: compList)
+            {
+            	 
+            	 JSONObject inner_obj = component.toJSON();
+            	 
+            	 //inner_obj.append("widget", inner_inner_obj);
+            	 obj.append("widgets", inner_obj);  //append creates an array for you
+                 i++;
+            }
+            log.finer( obj.toString());
+            // System.out.println("ListWidgetResource JSON " +  obj.toString());
+            return new JsonRepresentation(obj);
+           
+        }
+        catch(Exception e)
+        {
+        	log.throwing(KEY, "toJson()", e);
+        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + e.getMessage() ));		
+         
         }
     }
 }

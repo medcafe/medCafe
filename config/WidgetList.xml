@@ -1,0 +1,174 @@
+<medCafeWidgets>
+<patientSpecific>
+<medCafeWidget>
+	<name>Details</name>
+	<type>Detail</type>
+	<image>patient.png</image>
+	<server></server>
+	<clickUrl>repository-listJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Images</name>
+	<type>Image</type>
+	<image>coverflow.png</image>
+	<server></server>
+	<clickUrl>coverflow-flash/index.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Slider</name>
+	<type>Slider</type>
+	<image>slider-small.png</image>
+	<server></server>
+	<clickUrl>slider.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Editor</name>
+	<type>Editor</type>
+	<image>pages-icon.png</image>
+	<server></server>
+	<clickUrl>editor.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Timeline</name>
+	<type>Timeline</type>
+	<image>timeline.png</image>
+	<server></server>
+	<clickUrl>timelineJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Bookmarks</name>
+	<type>Bookmarks</type>
+	<image>bookmark.png</image>
+	<server></server>
+	<clickUrl>bookmarksJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Medications</name>
+	<type>Medications</type>
+	<image>prescription.png</image>
+	<server></server>
+	<clickUrl>prescriptionJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Allergies</name>
+	<type>Allergies</type>
+	<image>allergy.jpg</image>
+	<server></server>
+	<clickUrl>allergyJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>History</name>
+	<type>History</type>
+	<image>history.png</image>
+	<server></server>
+	<clickUrl>historyJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Problem</name>
+	<type>Problem</type>
+	<image>problem.png</image>
+	<server></server>
+	<clickUrl>problemListJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Charts</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<server></server>
+	<clickUrl>chart.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Dates</name>
+	<type>Date</type>
+	<image>date.png</image>
+	<server></server>
+	<clickUrl></clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
+</patientSpecific>
+<general>
+<medCafeWidget>
+	<name>OpenVISTA</name>
+	<type>Repository</type>
+	<image>openvista.gif</image>
+	<server></server>
+	<clickUrl></clickUrl>
+	<method>medcafe.add('','OurVista')</method>
+	<params>repository:OurVista</params>
+	<repository>OurVista</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>hData</name>
+	<type>Repository</type>
+	<image>hData.png</image>
+	<server></server>
+	<clickUrl></clickUrl>
+	<method>medcafe.add('','OurHdata')</method>
+	<params>repository:OurHdata</params>
+	<repository>OurHdata</repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Charts</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<server>chart.jsp</server>
+	<clickUrl></clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Slider</name>
+	<type>Slider</type>
+	<image>slider-small.png</image>
+	<server>slider.jsp</server>
+	<clickUrl></clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Editor</name>
+	<type>Editor</type>
+	<image>pages-icon.png</image>
+	<server>editor.jsp</server>
+	<clickUrl></clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Categories</name>
+	<type>Category</type>
+	<image>filter.png</image>
+	<server>listCategory.jsp</server>
+	<clickUrl></clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+</general>
+</medCafeWidgets>

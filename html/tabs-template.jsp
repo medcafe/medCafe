@@ -48,6 +48,7 @@ $(function(){
        		
        		//Make 
 			var link = $(dragObj).find('img').attr("custom:url")
+			//alert("tabs-template.jsp drag Obj " + $(dragObj).html());
 			if (typeof(link) == "undefined")
 			{
 				return;

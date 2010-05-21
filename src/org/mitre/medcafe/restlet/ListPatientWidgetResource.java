@@ -1,13 +1,17 @@
 package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.mitre.medcafe.model.MedCafeComponent;
 import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.representation.Representation;
@@ -64,8 +68,15 @@ public class ListPatientWidgetResource extends ServerResource {
 
     }
 
-    @Get("json")
-    public JsonRepresentation toJson(){
+    private ArrayList<MedCafeComponent> getComponentList(String type)
+    {
+    	ArrayList<MedCafeComponent> componentList = new ArrayList<MedCafeComponent>();
+    	
+    	return componentList;
+    }
+    
+    //@Get("json")
+    public JsonRepresentation toJsonOld(){
         try
         {
 
@@ -111,6 +122,48 @@ public class ListPatientWidgetResource extends ServerResource {
             log.finer( obj.toString());
             // System.out.println("ListWidgetResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
+        }
+        catch(Exception e)
+        {
+            log.throwing(KEY, "toJson()", e);
+            return null;
+        }
+    }
+    
+    @Get("json")
+    public JsonRepresentation toJson(){
+        try
+        {
+
+        	// System.out.println("ListWidgetResource JSON start");
+        	//String server = "http://" + Config.getServerUrl() + "/";
+        	String tempDir = "images/";
+        	
+        	ArrayList<MedCafeComponent> compList = MedCafeComponent.retrieveComponents(MedCafeComponent.PATIENT, tempDir);
+        	int i=0;
+   	
+        	System.out.println("ListPatientWidgetResource JSON general widgets number of components " + compList.size());
+            
+            JSONObject obj = new JSONObject();
+            // System.out.println("ListWidgetResource JSON start 1");
+            for(MedCafeComponent component: compList)
+            {
+            	 
+            	 JSONObject inner_obj = component.toJSON();
+            	 
+            	 //inner_obj.append("widget", inner_inner_obj);
+            	 obj.append("widgets", inner_obj);  //append creates an array for you
+                 i++;
+            }
+            log.finer( obj.toString());
+            // System.out.println("ListWidgetResource JSON " +  obj.toString());
+            return new JsonRepresentation(obj);
+        }
+        catch(JSONException je)
+        {
+            log.throwing(KEY, "toJson()", je);
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + je.getMessage() ));		
+        	
         }
         catch(Exception e)
         {

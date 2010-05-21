@@ -208,7 +208,7 @@ public class PatientImagesResource extends ServerResource {
         }
     }
 
-    @Get("json")
+    //@Get("json")
     public JsonRepresentation toJson(){
         try
         {

@@ -472,7 +472,7 @@ t.p( widget.image);
 t.p('" alt="');
 t.p( widget.name);
 t.p('" custom:url="');
-t.p( widget.clickURL);
+t.p( widget.clickUrl);
 t.p('" custom:type="');
 t.p( widget.type);
 t.p('" custom:Id="');

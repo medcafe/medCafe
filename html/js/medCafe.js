@@ -129,6 +129,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "Bookmarks")
 		{
+			
 			$.getScript('js/medCafe.bookmarks.js', function()
 			{
 				addBookmarks(this, link, tab_num, label, patientId, repId);
@@ -170,6 +171,7 @@ $(document).ready( function() {
 		}
 		else
 		{
+			
 			addChart(this, link, tab_num, patientId);
 		}
 
@@ -179,8 +181,8 @@ $(document).ready( function() {
 
 	function populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId)
 	{
-		//alert("CREATE WIDGET CONTENT medcafe adding the following widget: label " + label + " " + "type " + type  + "tab order " + tab_num + " rep " + repId + " server " + link);
-
+		//alert("CREATE WIDGET CONTENT medcafe adding the following widget: label " + label + " " + " type " + type  + " tab order " + tab_num + " rep " + repId + " server " + link);
+		
 		medCafeWidget.populateExtWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
 	}
 
