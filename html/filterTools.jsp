@@ -211,8 +211,6 @@
 		{
 					
 			var catList = categories.split(",");
-			alert("filterTools.jsp setChecked catList  " + categories);
-			
 			
 			for(i = 0; i < catList.length; i++)
 			{
