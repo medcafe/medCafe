@@ -81,10 +81,11 @@ public class MedCafeFilter
 	public String catToString(){
 		
 		StringBuffer strBuf = new StringBuffer();
-		
+		String commaStr = "";
 		for (String cat: this.getCategories())
 		{
-			strBuf.append(cat + ",");
+			strBuf.append(commaStr + cat );
+			commaStr =",";
 		}
 		return strBuf.toString();
 		
@@ -114,7 +115,13 @@ public class MedCafeFilter
 	}
 
 	public void addCategories(String category) {
-		categories.add(category);
+		if (category == null )
+			return;
+		if (category.equals(""))
+			return;
+		
+		if (!categories.contains(category))
+			categories.add(category);
 	}
 
 	public void removeCategories(String category) {

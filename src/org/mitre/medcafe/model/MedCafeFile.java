@@ -224,7 +224,7 @@ public class MedCafeFile
 					 for (String category: categoryArr)
 					 {
 						 catBuf.append( OR_STR + " (levenshtein(category, '" + category + "') < " + levenshtienVal + " ) ");
-						 			
+						 OR_STR = " OR ";
 					 }
 					 sqlQuery = sqlQuery.replaceAll("<%category%>", catBuf.toString());
 				}
@@ -275,10 +275,11 @@ public class MedCafeFile
 			}
 
 			prep.setInt(1, patId);
+			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
+	           
 			ResultSet rs =  prep.executeQuery();
 
-			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
-            
+			 
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
 			MedCafeFile file = new MedCafeFile();
 			while (rs.next())
