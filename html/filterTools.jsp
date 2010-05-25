@@ -44,16 +44,19 @@
 	if (intervalType != null)
 	{
 			url += append + "interval_type=" + intervalType;
+			append= "&";
 	}
 	
 	if (filterStartDate != null)
 	{
 			url += append + "filter_start_date=" + filterStartDate;
+			append= "&";
 	}
 	
 	if (filterEndDate != null)
 	{
 			url += append + "filter_end_date=" + filterEndDate;
+			append= "&";
 	}
 	System.out.println("filterTools url " + url);
 %>  
@@ -83,6 +86,7 @@
 			var startDate="<%=filterStartDate%>";
 			var endDate = "<%=filterEndDate%>";
 			var category = "<%=categories%>";
+			setChecked(category);
 			
 			$.getJSON("<%=url%>", function(data)
 			{
@@ -91,8 +95,7 @@
 	  			
 	  			$("#valueAA").append(startHtml);
 	    		var endHtml = v2js_listEndDates( data );  
-	  			
-	    		$("#valueBB").append(endHtml);
+	  			$("#valueBB").append(endHtml);
 				
 				$('select#valueAA, select#valueBB').selectToUISlider({
 					labels: 12
@@ -204,7 +207,26 @@
 			});
 		});
 
-		
+		function setChecked(categories)
+		{
+					
+			var catList = categories.split(",");
+			alert("filterTools.jsp setChecked catList  " + categories);
+			
+			
+			for(i = 0; i < catList.length; i++)
+			{
+				$('#categoryFilter').find(".filter_checkbox").each(function() {
+			
+					var filterVal = $(this).val();
+					
+					if (filterVal == catList[i])
+					{
+						$(this).attr("checked","true");
+					}
+				});
+			}
+		}		
 	</script>
 </head>
 
@@ -226,7 +248,7 @@
 	<div id="categoryFilter" class="ui-widget ui-corner-all">
 		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 		
-		
+			
 			<input type="checkbox" class="filter_checkbox" value="Smoking" id="smoking">Smoking</input>
 			<br/>
 			<input type="checkbox" class="filter_checkbox" value="NonSmoking" id="nonsmoking">Non Smoking</input>
