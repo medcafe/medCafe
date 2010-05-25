@@ -269,8 +269,7 @@ $(document).ready( function() {
 
 	function triggerFilterAll(startDate, endDate, filterCat)
 	{
-		$(document).trigger('FILTER_DATE', [startDate, endDate]);
-		$(document).trigger('FILTER_CATEGORY', [filterCat]);
+		$(document).trigger('FILTER_ALL', [startDate, endDate, filterCat]);
 	}
 
 	function triggerCloseTab(tabNum)

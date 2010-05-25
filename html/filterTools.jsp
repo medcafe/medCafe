@@ -4,7 +4,6 @@
 <%
 	MedCafeFilter filter = null;
 	Object filterObj = session.getAttribute("filter");
-	System.out.println("filterTools start ");
 		
 	String startDate = request.getParameter("start_date");
 	
@@ -15,17 +14,18 @@
 	
 	String intervalType = request.getParameter("interval_type");
 	
-	ArrayList<String> categories = null;
+	String categories = "";
 	if (filterObj != null)
 	{
 		filter = (MedCafeFilter)filterObj;
 		filterStartDate = filter.getStartDate();
 		filterEndDate = filter.getEndDate();
-		categories = filter.getCategories();
+		categories = filter.catToString();
 		
 		System.out.println("filterTools filter " + filter.toJSON());
 		 
 	}	
+		
 	String url = "listDates.jsp";
 	String append = "?";
 	
@@ -80,8 +80,9 @@
 	<script type="text/javascript">
 		$(function(){
 		
-			var startDate="";
-			var endDate = "";
+			var startDate="<%=filterStartDate%>";
+			var endDate = "<%=filterEndDate%>";
+			var category = "<%=categories%>";
 			
 			$.getJSON("<%=url%>", function(data)
 			{
@@ -108,15 +109,14 @@
 				 	
 				 	var pos = valueA.indexOf("/");
 				 	startDate =  valueA.substring(0,pos) + "/01" +  valueA.substring(pos);
-				 	
-				 	
+
 				 	var valueB = $('select#valueBB').val();
 				 	pos = valueB.indexOf("/");
 				 	endDate =  valueB.substring(0,pos) + "/01" +  valueB.substring(pos);
 				 	
 				    parent.triggerFilter(startDate, endDate);
 				   
-				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate;	
+				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;	
 					//Make a call to setFilter
 					$.get(url, function(data)
 					{						  
@@ -132,6 +132,21 @@
 				 	startDate = "";
 				 	endDate = "";
 				 
+				 	$('select#valueBB').val("02/02/2008");
+				 	$('select#valueAA').val("02/02/2008");
+				 	/*selects.bind('change keyup click', function(){
+					var thisIndex = jQuery(this).get(0).selectedIndex;
+					var thisHandle = jQuery('#handle_'+ jQuery(this).attr('id'));
+					var handleIndex = thisHandle.data('handleNum');
+					thisHandle.parents('.ui-slider:eq(0)').slider("values", handleIndex, thisIndex);
+					});*/
+					
+				 	var defIndex = 0;
+					var startHandleIndex  = $('#handle_valueAA').data('handleNum');
+					var endHandleIndex  = $('#handle_valueBB').data('handleNum');
+					$('#handle_valueAA').parents('.ui-slider:eq(0)').slider("values", startHandleIndex, defIndex);
+					$('#handle_valueBB').parents('.ui-slider:eq(0)').slider("values", endHandleIndex, defIndex);
+					
 				    parent.triggerFilter(startDate, endDate);
 				    
 				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate;	
@@ -140,6 +155,7 @@
 					{						  
 						  //alert('Set Filter Date was run.');
 					});
+					
 				});
 			});
 		
@@ -147,9 +163,8 @@
 			$('#filter_button').click(function()
 			{
  	
- 					var category ="";
  					var comma="";
-						   
+					var category = "";
 				    $('.filter_checkbox').each(
 						  
 						  function() 
@@ -178,7 +193,8 @@
 			{
 				 	//for some reason cannot call trigger('FILTER_DATE') directly
 				 	var category = "";
-				 	parent.triggerFilterCategory(category);
+
+					parent.triggerFilterCategory(category);
 				 	var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
 					
 					$.get(url, function(data)

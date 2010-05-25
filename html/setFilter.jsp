@@ -13,6 +13,8 @@
 	String endDate = request.getParameter("end_date");
 	
 	String categories = request.getParameter("categories");
+	//If the categories were not set
+		
 	System.out.println("setFilter.jsp categories " + categories);
 	
 	MedCafeFilter filter = null;
