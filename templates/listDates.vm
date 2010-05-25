@@ -1,7 +1,13 @@
 #foreach( $year in $years )
     <optgroup label="$year.year">
+    
     #foreach( $month in $year.months )
-        <option value="$month/$year.year">$month/$year.year</option>
+    	#if ($month == $year.startSelected)
+        	<option value="$month/$year.year" selected="true">$month/$year.year</option>
+        #else
+     		<option value="$month/$year.year">$month/$year.year</option>
+        #end
+      	
     #end
     </optgroup>
 #end

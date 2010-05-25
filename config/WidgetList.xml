@@ -161,10 +161,10 @@
 	<repository></repository>
 </medCafeWidget>
 <medCafeWidget>
-	<name>Categories</name>
+	<name>Filter</name>
 	<type>Category</type>
 	<image>filter.png</image>
-	<server>listCategory.jsp</server>
+	<server>filterTools.jsp</server>
 	<clickUrl></clickUrl>
 	<method></method>
 	<params></params>

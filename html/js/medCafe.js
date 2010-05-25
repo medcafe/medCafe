@@ -198,7 +198,7 @@ $(document).ready( function() {
 
 			iNettuts.refresh("yellow-widget" + tab_num);
 
-			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
+			$("#aaa" + tab_num).append('<iframe frameborder="0" id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
 			{
 				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId);
@@ -264,6 +264,12 @@ $(document).ready( function() {
 
 	function triggerFilterCategory(filterCat)
 	{
+		$(document).trigger('FILTER_CATEGORY', [filterCat]);
+	}
+
+	function triggerFilterAll(startDate, endDate, filterCat)
+	{
+		$(document).trigger('FILTER_DATE', [startDate, endDate]);
 		$(document).trigger('FILTER_CATEGORY', [filterCat]);
 	}
 

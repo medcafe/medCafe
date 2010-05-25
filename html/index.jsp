@@ -143,12 +143,12 @@
 </div>
 
 <div class="ui-layout-north">
-    <  span>
+    <!--  span>
         <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
             <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
         </a>
         <div id="search-engines" class="hidden"></div>
-    </span>
+    </span-->
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
