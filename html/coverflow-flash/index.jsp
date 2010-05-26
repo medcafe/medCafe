@@ -1,10 +1,13 @@
-<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
 	String server = "" ;
+	MedCafeFilter filter = null;
+	Object filterObj = session.getAttribute("filter");
+	
 	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "1";
@@ -20,6 +23,21 @@
 	
 	String endDate = request.getParameter("end_date");
 
+	String filterCat = request.getParameter("filterCat");
+	System.out.println("coverflow flash: index.jsp filterCat from params " +  filterCat );
+    
+	
+	if (filterObj != null)
+	{
+		filter = (MedCafeFilter)filterObj;
+		startDate = filter.getStartDate();
+		endDate = filter.getEndDate();
+		filterCat = filter.catToString();
+		
+		System.out.println("coverflow-index.jsp filter " + filter.toJSON());
+		 
+	}	
+	
 	if (startDate != null)
 	{
 			coverflowFile += append + "dates" +  delim  + startDate;
@@ -31,13 +49,13 @@
 			coverflowFile +=  "_" + endDate;
 		
 	}
-	
-	String filterCat = request.getParameter("filterCat");
-	if (filterCat != null)
+	if ( (filterCat != null) && (!filterCat.equals("")) )
 	{
+	
 			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 		
 	}
+	
 	System.out.println("coverflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
     System.out.println("coverflow flash: index.jsp url " +  coverflowFile );
     

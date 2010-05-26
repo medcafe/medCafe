@@ -116,14 +116,14 @@
 				 	var valueB = $('select#valueBB').val();
 				 	pos = valueB.indexOf("/");
 				 	endDate =  valueB.substring(0,pos) + "/01" +  valueB.substring(pos);
-				 	
-				    parent.triggerFilter(startDate, endDate);
-				   
+    
 				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;	
 					//Make a call to setFilter
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
+						  parent.triggerFilter(startDate, endDate);
+				   
 					});
 				});
 			
@@ -149,14 +149,14 @@
 					var endHandleIndex  = $('#handle_valueBB').data('handleNum');
 					$('#handle_valueAA').parents('.ui-slider:eq(0)').slider("values", startHandleIndex, defIndex);
 					$('#handle_valueBB').parents('.ui-slider:eq(0)').slider("values", endHandleIndex, defIndex);
-					
-				    parent.triggerFilter(startDate, endDate);
-				    
+    
 				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate;	
 					//Make a call to setFilter
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
+						  parent.triggerFilter(startDate, endDate);
+				    
 					});
 					
 				});
@@ -181,15 +181,15 @@
 							}
 						  }
 					);
-					//alert("listCategory.jsp: category filter " + category);
-					parent.triggerFilterCategory(category);
+					
 					var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
 					
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
+						  parent.triggerFilterCategory(category);
 					});
-				 
+	 
 			});
 					
 			$('#unfilter_button').click(function()
@@ -197,12 +197,20 @@
 				 	//for some reason cannot call trigger('FILTER_DATE') directly
 				 	var category = "";
 
-					parent.triggerFilterCategory(category);
-				 	var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
+					$('.filter_checkbox').each(
+						  
+						  function() 
+						  {    
+						    $(this).attr('checked',false);
+						  }
+					);
+					var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
 					
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
+						  parent.triggerFilterCategory(category);
+				 	
 					});
 			});
 		});
