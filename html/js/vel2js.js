@@ -97,6 +97,39 @@ t.p('    </optgroup>');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listHistoryTemplate(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+t.p('<div class="ui-widget top-panel" id="patient_history">');
+for (var i1=0;  i1<context.categories.length; i1++) {
+var category = context.categories[i1];
+velocityCount = i1;
+t.p('		<br/>			<div class="ui-state-highlight ui-corner-all" style="padding: .3em;">		<table cellpadding="0" cellspacing="0" border="0">					<tr class="gradeX">			<td value="');
+t.p( category.category);
+t.p('"><b>');
+t.p( category.category);
+t.p('</b></td>						');
+for (var i2=0;  i2<category.symptoms.length; i2++) {
+var symptom = category.symptoms[i2];
+velocityCount = i2;
+t.p('				<tr><td value="');
+t.p( symptom);
+t.p('">');
+t.p( symptom);
+t.p('</td><td><input type=\'checkbox\' value="{');
+t.p( symptom);
+t.p('}');
+t.p('_chkbx"></input></td></tr>			');
+}
+velocityCount = i1;
+t.p('					</tr>		</table>		</div>');
+}
+velocityCount = 0;
+t.p('</tbody></div>');
+return t.toString();
+}
 function v2js_listInsertStatements(context) { 
 var t = new StringCat();
 var velocityCount = 0;

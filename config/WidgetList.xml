@@ -141,6 +141,16 @@
 	<repository></repository>
 </medCafeWidget>
 <medCafeWidget>
+	<name>AddHistory</name>
+	<type>AddHistory</type>
+	<image>clipboard-checkbox.jpg</image>
+	<server></server>
+	<clickUrl>listHistoryTemplate.jsp</clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Slider</name>
 	<type>Slider</type>
 	<image>slider-small.png</image>

@@ -154,6 +154,21 @@ CREATE TABLE recent_patients
 ALTER TABLE ONLY file_category
     ADD CONSTRAINT file_category_pkey PRIMARY KEY (username, rolename);
 
+CREATE TABLE symptom_list
+(
+	id SERIAL PRIMARY KEY,
+	physical_category integer NOT NULL,
+	symptom character varying(200) NOT NULL,
+	description text NULL
+);
+
+CREATE TABLE physical_category
+(
+	id integer PRIMARY KEY NOT NULL,
+	category character varying(200) NOT NULL,
+	description text null
+);
+
 CREATE TABLE medical_history
 (
 	id SERIAL PRIMARY KEY,
@@ -341,3 +356,28 @@ insert into link (username, title, url, description) values ( 'gaily', 'Journal 
 
 --set some randomly to SMOKING category
 insert into file_category (select 2, min(id) from file group by patient_id);
+
+insert into physical_category (id , category,description ) values (1, 'General','General Category');
+insert into physical_category (id , category,description ) values (2, 'Gastrointestinal','Gastrointestinal Category');
+insert into physical_category (id , category,description ) values (3, 'Cardiovascular','Cardiovascular Category');
+insert into physical_category (id , category,description ) values (4, 'Pulmonary/lungs','Pulmonary/lungs Category');
+insert into physical_category (id , category,description ) values (5, 'Neurologic','Neurologic Category');
+insert into physical_category (id , category,description ) values (6, 'Endocrine','Endocrine Category');
+insert into physical_category (id , category,description ) values (7, 'Eyes, ears, nose, throat','Eyes, ears, nose, throat Category');
+
+insert into symptom_list (physical_category, symptom, description) values (1, 'Weight Change','weight gain/loss of  10+ lbs during last 6 months');
+insert into symptom_list (physical_category, symptom, description) values (1, 'Sleep Disturbance','Poor sleep patterns');
+insert into symptom_list (physical_category, symptom, description) values (1, 'Fever','');
+insert into symptom_list (physical_category, symptom, description) values (1, 'Headache','');
+insert into symptom_list (physical_category, symptom, description) values (1, 'Depression','');
+insert into symptom_list (physical_category, symptom, description) values (2, 'Poor Appetite','');
+insert into symptom_list (physical_category, symptom, description) values (2, 'Indigestion','');
+insert into symptom_list (physical_category, symptom, description) values (2, 'Diarrhea','');
+insert into symptom_list (physical_category, symptom, description) values (2, 'Constipation','');
+insert into symptom_list (physical_category, symptom, description) values (2, 'Nausea or Vomiting','');
+insert into symptom_list (physical_category, symptom, description) values (3, 'Chest Pain','');
+insert into symptom_list (physical_category, symptom, description) values (3, 'Angina','');
+insert into symptom_list (physical_category, symptom, description) values (3, 'High Blood Pressure','');
+insert into symptom_list (physical_category, symptom, description) values (3, 'Irregular Heart Beat','');
+insert into symptom_list (physical_category, symptom, description) values (3, 'Poor Circulation','');
+

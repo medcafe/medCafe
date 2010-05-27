@@ -31,6 +31,7 @@ public class MedcafeApplication extends Application {
         //List the available Widgets
         router.attach("/widgets",org.mitre.medcafe.restlet.ListWidgetResource.class);
         router.attach("/widgets/patients",org.mitre.medcafe.restlet.ListPatientWidgetResource.class);
+        router.attach("/history/templates",org.mitre.medcafe.restlet.ListHistoryTemplateResource.class);
         //List the available Widgets
         router.attach("/dates",org.mitre.medcafe.restlet.ListDatesResource.class);
         router.attach("/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
