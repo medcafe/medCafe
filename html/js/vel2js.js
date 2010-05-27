@@ -115,11 +115,11 @@ for (var i2=0;  i2<category.symptoms.length; i2++) {
 var symptom = category.symptoms[i2];
 velocityCount = i2;
 t.p('				<tr><td value="');
-t.p( symptom);
+t.p( symptom.name);
 t.p('">');
-t.p( symptom);
+t.p( symptom.name);
 t.p('</td><td><input type=\'checkbox\' value="{');
-t.p( symptom);
+t.p( symptom.name);
 t.p('}');
 t.p('_chkbx"></input></td></tr>			');
 }

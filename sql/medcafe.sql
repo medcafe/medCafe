@@ -162,6 +162,16 @@ CREATE TABLE symptom_list
 	description text NULL
 );
 
+CREATE TABLE patient_symptom_list
+(
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	symptom_id integer NOT NULL,
+	start_date  date NOT NULL DEFAULT CURRENT_DATE,
+	note text NULL
+);
+
+
 CREATE TABLE physical_category
 (
 	id integer PRIMARY KEY NOT NULL,
@@ -381,3 +391,7 @@ insert into symptom_list (physical_category, symptom, description) values (3, 'H
 insert into symptom_list (physical_category, symptom, description) values (3, 'Irregular Heart Beat','');
 insert into symptom_list (physical_category, symptom, description) values (3, 'Poor Circulation','');
 
+insert into patient_symptom_list (patient_id, symptom_id, note) values (7, 1,'Lost 10lbs in 3 months');
+insert into patient_symptom_list (patient_id, symptom_id, note) values (7, 2,'Problems sleeping');
+insert into patient_symptom_list (patient_id, symptom_id, note) values (7, 4,'Headaches - weekly - sinus');
+insert into patient_symptom_list (patient_id, symptom_id, note) values (7, 2,'Recent loss of appetite screen for depression');

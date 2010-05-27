@@ -31,6 +31,10 @@ public class ListHistoryTemplateResource extends ServerResource {
     private final static String SELECT_TEMPLATE_HISTORY = "select category, symptom from physical_category, symptom_list " + 
     														" where physical_category.id = symptom_list.physical_category order by category";
 
+    private final static String SELECT_PATIENT_HISTORY = "select symptom_id, category, symptom " +
+    													" from physical_category, symptom_list,patient_symptom_list " +
+    													" where physical_category.id = symptom_list.physical_category and patient_symptom_list.symptom_id = symptom_list.id and patient_id =?  order by category";
+    
     @Get("html")
     public Representation toHtml(){
 
@@ -88,11 +92,12 @@ public class ListHistoryTemplateResource extends ServerResource {
 			 JSONObject catObj =null;
 			 
 			 String prevCategory = "";
+			 String category = "";
 			 while (rs.next())
 			 {
 				  rtnResults = true;
 		            
-				  String category = rs.getString("category");
+				  category = rs.getString("category");
 				  //If this is a new category
 				  if (!category.equals(prevCategory))
 				  {
@@ -105,13 +110,16 @@ public class ListHistoryTemplateResource extends ServerResource {
 					  
 				  }
 				  String symptom = rs.getString("symptom");
-				  catObj.append("symptoms", symptom);
+				  JSONObject symptomObj = new JSONObject();
+				  symptomObj.put("name", symptom);
+				  
+				  catObj.append("symptoms", symptomObj);
 			     
 				  prevCategory = category;
 			      
 		     }    
 			 
-			 catObj.put("category", prevCategory);
+			 catObj.put("category", category);
 			 ret.append("categories", catObj);
 			  
 			 if (!rtnResults)

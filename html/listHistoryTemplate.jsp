@@ -18,7 +18,11 @@
     <script type="text/javascript" src="js/vel2jstools.js"></script>
     
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
-	
+	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
+	<style>
+		td {font-size:0.8em};
+	</style>
 	<script type="text/javascript">
 		$(function(){
 		

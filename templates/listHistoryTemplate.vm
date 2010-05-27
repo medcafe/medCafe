@@ -11,7 +11,7 @@
 			<td value="$category.category"><b>$category.category</b></td>
 			
 			#foreach( $symptom in $category.symptoms  )
-				<tr><td value="$symptom">$symptom</td><td><input type='checkbox' value="{$symptom}_chkbx"></input></td></tr>
+				<tr><td value="$symptom.name">$symptom.name</td><td><input type='checkbox' value="{$symptom.name}_chkbx"></input></td></tr>
 			#end
 			
 		</tr>
