@@ -6,7 +6,18 @@
 <%	
 	//Get a list of the Symptoms in a checkbox 
 	String url = "listHistoryTemplateJSON.jsp";
+	String patientId = request.getParameter(Constants.PATIENT_ID);
+	if (patientId == null)
+	{
+		Object patientObj = session.getAttribute("patient");
+		if (patientObj != null)
+		 	patientId = patientObj.toString();
+	}
 	
+	if (patientId != null)
+	{
+		url = url + "?" +  Constants.PATIENT_ID + "=" + patientId;
+	}
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
