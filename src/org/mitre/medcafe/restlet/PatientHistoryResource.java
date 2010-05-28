@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+import org.mitre.medcafe.model.History;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.WebUtils;
 import org.restlet.data.Form;
@@ -86,7 +87,7 @@ public class PatientHistoryResource extends ServerResource {
         try
         {
 
-            JSONObject obj = Patient.getHistory(id, category, startDate, endDate);
+            JSONObject obj = History.getHistory(id, category, startDate, endDate);
             
             log.finer( obj.toString());
             System.out.println("PatientHistoryResource JSON " +  obj.toString());

@@ -1,4 +1,5 @@
-#set( $count=0)
+#set ( $count=0)
+#set ( $trueFlag = "true")
 <div class="ui-widget top-panel" id="patient_history">
 
 #foreach( $category in $categories  )
@@ -11,7 +12,12 @@
 			<td value="$category.category"><b>$category.category</b></td>
 			
 			#foreach( $symptom in $category.symptoms  )
-				<tr><td value="$symptom.name">$symptom.name</td><td><input type='checkbox' value="{$symptom.name}_chkbx"></input></td></tr>
+			
+				#if ($symptom.hasSymptom == $trueFlag)
+					<tr><td value="$symptom.name">$symptom.name</td><td><input type='checkbox' checked="checked"  name="symptom_check" value="$symptom.id"></input></td></tr>
+				#else
+					<tr><td value="$symptom.name">$symptom.name</td><td><input type='checkbox' name="symptom_check" value="$symptom.id"></input></td></tr>
+				#end
 			#end
 			
 		</tr>

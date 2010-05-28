@@ -74,9 +74,6 @@ public class Patient
 	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
 	public static final String UPDATE_RECENT_PATIENTS = "UPDATE recent_patients SET date_accessed = ? where username = ? and patient_id = ?";
 	public static final String SEARCH_BY_REPOSITORY = " and repository = ? ";
-	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority.priority, color from medical_history, history_category, priority where medical_history.category_id = history_category.id and priority.id = medical_history.priority and  patient_id = ? and category = ? ";
-	public static final String SELECT_PATIENT_HISTORY_EXT = " and history_date > ? and history_date < ? ";
-	public static final String SELECT_PATIENT_HISTORY_ORDER_BY = " order by priority.priority ASC, history_date DESC";	
 	public static final String INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, username, role) values (?,?,?) ";
 	public static final String FIRST_NAME_TYPE = "first";
 	public static final String LAST_NAME_TYPE = "last";
@@ -532,114 +529,7 @@ public class Patient
 		 
 	 }
 	 
-	 public static JSONObject getHistory(String patientId, String category,  Date startDate, Date endDate)
-	 {
-		 JSONObject ret = new JSONObject();
-		 PreparedStatement prep;
-		 int patient_id = Integer.parseInt(patientId);
-		
-		 try 
-		 {
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
-			 String sql = Patient.SELECT_PATIENT_HISTORY;
-			 	
-			 if (startDate != null)
-			 {
-				sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT + SELECT_PATIENT_HISTORY_ORDER_BY;
-				prep = dbConn.prepareStatement(sql);
-				
-				prep.setInt(1, patient_id);
-				prep.setString(2, category);
-				 
-				prep.setDate(3, new java.sql.Date (startDate.getTime()));
-				
-				if (endDate == null)
-				{
-					endDate = new java.util.Date();
-					prep.setDate(3, new java.sql.Date (endDate.getTime()));
-					
-				}
-			 }
-			 else if (endDate != null)
-			 {
-				 sql = sql +  Patient.SELECT_PATIENT_HISTORY_EXT + SELECT_PATIENT_HISTORY_ORDER_BY;
-					
-				 prep = dbConn.prepareStatement(sql);
-				 prep.setInt(1, patient_id);
-				 prep.setString(2, category);
-					 
-				 Calendar cal = new GregorianCalendar();
-				 cal.set(1920, 1, 1);
-				 prep.setDate(3, new java.sql.Date (cal.getTime().getTime()));
-				 prep.setDate(4, new java.sql.Date (endDate.getTime()));
-					
-			 }
-			 else
-			 {
-				 sql = sql + SELECT_PATIENT_HISTORY_ORDER_BY;
-				 prep = dbConn.prepareStatement(sql);				
-				 prep.setInt(1, patient_id);
-				 prep.setString(2, category);
-							
-			 }
-			 System.out.println("Patient: getPatientHistory : query " + prep.toString());
-			    
-			 ResultSet rs = prep.executeQuery();
-			 boolean rtnResults = false;
-			 
-			 while (rs.next())
-			 {
-				 //SELECT patient_id, history, category_id, history_date, history_notes
-				 
-				  rtnResults = true;
-		            
-				  JSONObject o = new JSONObject();
-				  JSONObject o_new = new JSONObject();
-			        
-			      String history = rs.getString("history");
-			      String history_note = rs.getString("history_notes");
-			      String priority = rs.getString("priority");
-			      String color = rs.getString("color");
-			      category = rs.getString("category");
-			      Date history_date = rs.getDate("history_date");
-			      
-			      o.put("patient_id", patient_id);
-			      o.put("title", history);
-			      o.put("category", category);
-			      o.put("priority", priority);
-			      
-			      if (color != null)
-			    	  o.put("color", color);
-			      
-			      if (history_note != null)
-			    	  o.put("note", history_note);
-			      
-			      if (history_date != null)					    
-			    	  o.put("date", history_date);
-				     
-			      //o_new.put("history", o);
-			      ret.append("patient_history", o);	
-		     }    
-			 
-			 if (!rtnResults)
-		      {
-		        	return WebUtils.buildErrorJson( "There is no patient history listed for patient " + patient_id );
-		      	  
-		      }
-		 }
-		 catch (SQLException e) 
-		 {
-				// TODO Auto-generated catch block
-			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
-	      	     
-		 } catch (JSONException e) {
-			// TODO Auto-generated catch block
-			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
-		} 
-		
-		 return ret;
-	 }
+	 
 	 
 	public String getFirstName() {
 		return firstName;

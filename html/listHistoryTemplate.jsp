@@ -18,6 +18,10 @@
 	{
 		url = url + "?" +  Constants.PATIENT_ID + "=" + patientId;
 	}
+	else
+	{
+		patientId="";
+	}
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
@@ -51,8 +55,11 @@
 </head>
 
 <body>
-	
-	<div id="templateList"></div>
+	<form action="saveHistory.jsp?patient_id=<%=patientId%>">
+		<input type="submit" value="Save"></input>
+		<div id="templateList"></div>
+		
+	</form>
 	
 </body>
 </html>

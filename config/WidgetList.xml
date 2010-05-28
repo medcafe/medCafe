@@ -73,6 +73,16 @@
 	<repository>OurVista</repository>
 </medCafeWidget>
 <medCafeWidget>
+	<name>Symptoms</name>
+	<type>Symptoms</type>
+	<image>clipboard-checkbox.jpg</image>
+	<server></server>
+	<clickUrl>listHistoryTemplate.jsp</clickUrl>
+	<method></method>
+	<params></params>
+	<repository></repository>
+</medCafeWidget>
+<medCafeWidget>
 	<name>History</name>
 	<type>History</type>
 	<image>history.png</image>
