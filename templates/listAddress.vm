@@ -1,0 +1,35 @@
+<table cellpadding="1.0" cellspacing="1.0" border="0"  >		
+#foreach(  $patient_address in $address )
+
+    #if ($patient_address.street)
+    	<tr class="gradeX"><td>Street: </td><td value="$patient_address.street">$patient_address.street</td></tr>
+	#else
+	   	<tr class="gradeX"><td>Street: </td><td><input name="street_address" type="text">&nbsp</input></td></tr>	
+	#end
+	
+	#if ($patient_address.city)
+		<tr class="gradeX"><td>City: </td><td value="$patient_address.city">$patient_address.city</td></tr>
+	#else
+	   	<tr class="gradeX"><td>City: </td><td><input name="city_address" type="text">&nbsp</input></td></tr>	
+	#end
+	
+	#if ($patient_address.state)
+		<tr class="gradeX"><td>State: </td><td value="$patient_address.state">$patient_address.state</td></tr>
+	#else
+	   	<tr class="gradeX"><td>State: </td><td><input name="state_address" type="text">&nbsp</input></td></tr>
+	#end
+	
+	#if ($patient_address.state)
+		<tr class="gradeX"><td>Zip: </td><td value="$patient_address.zip">$patient_address.zip</td></tr>
+	#else
+	   	<tr class="gradeX"><td>Zip: </td><td><input name="zip_address" type="text">&nbsp</input></td></tr>
+	#end
+	
+	#if ($patient_address.state)
+		<tr class="gradeX"><td>Country: </td><td value="$patient_address.country">$patient_address.country</td></tr>
+   #else
+	   	<tr class="gradeX"><td>Country: </td><td><input name="country_address" type="text">&nbsp</input></td></tr>
+	#end
+	
+#end
+</table>

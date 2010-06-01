@@ -9,6 +9,75 @@ t.p( context.announce.message);
 t.p('</h3>');
 return t.toString();
 }
+function v2js_listAddress(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="1.0" cellspacing="1.0" border="0"  >		');
+for (var i1=0;  i1<context.address.length; i1++) {
+var patient_address = context.address[i1];
+velocityCount = i1;
+t.p('    ');
+if (patient_address.street) {
+t.p('    	<tr class="gradeX"><td>Street: </td><td value="');
+t.p( patient_address.street);
+t.p('">');
+t.p( patient_address.street);
+t.p('</td></tr>	');
+}
+else {
+t.p('	   	<tr class="gradeX"><td>Street: </td><td><input name="street_address" type="text">&nbsp</input></td></tr>		');
+}
+t.p('		');
+if (patient_address.city) {
+t.p('		<tr class="gradeX"><td>City: </td><td value="');
+t.p( patient_address.city);
+t.p('">');
+t.p( patient_address.city);
+t.p('</td></tr>	');
+}
+else {
+t.p('	   	<tr class="gradeX"><td>City: </td><td><input name="city_address" type="text">&nbsp</input></td></tr>		');
+}
+t.p('		');
+if (patient_address.state) {
+t.p('		<tr class="gradeX"><td>State: </td><td value="');
+t.p( patient_address.state);
+t.p('">');
+t.p( patient_address.state);
+t.p('</td></tr>	');
+}
+else {
+t.p('	   	<tr class="gradeX"><td>State: </td><td><input name="state_address" type="text">&nbsp</input></td></tr>	');
+}
+t.p('		');
+if (patient_address.state) {
+t.p('		<tr class="gradeX"><td>Zip: </td><td value="');
+t.p( patient_address.zip);
+t.p('">');
+t.p( patient_address.zip);
+t.p('</td></tr>	');
+}
+else {
+t.p('	   	<tr class="gradeX"><td>Zip: </td><td><input name="zip_address" type="text">&nbsp</input></td></tr>	');
+}
+t.p('		');
+if (patient_address.state) {
+t.p('		<tr class="gradeX"><td>Country: </td><td value="');
+t.p( patient_address.country);
+t.p('">');
+t.p( patient_address.country);
+t.p('</td></tr>   ');
+}
+else {
+t.p('	   	<tr class="gradeX"><td>Country: </td><td><input name="country_address" type="text">&nbsp</input></td></tr>	');
+}
+t.p('	');
+}
+velocityCount = 0;
+t.p('</table>');
+return t.toString();
+}
 function v2js_listDates(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -102,6 +171,7 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
+var trueFlag = "true";
 t.p('<div class="ui-widget top-panel" id="patient_history">');
 for (var i1=0;  i1<context.categories.length; i1++) {
 var category = context.categories[i1];
@@ -114,14 +184,26 @@ t.p('</b></td>						');
 for (var i2=0;  i2<category.symptoms.length; i2++) {
 var symptom = category.symptoms[i2];
 velocityCount = i2;
-t.p('				<tr><td value="');
+t.p('							');
+if (symptom.hasSymptom == trueFlag) {
+t.p('					<tr><td value="');
 t.p( symptom.name);
 t.p('">');
 t.p( symptom.name);
-t.p('</td><td><input type=\'checkbox\' value="{');
+t.p('</td><td><input type=\'checkbox\' checked="checked"  name="symptom_check" value="');
+t.p( symptom.id);
+t.p('"></input></td></tr>				');
+}
+else {
+t.p('					<tr><td value="');
 t.p( symptom.name);
-t.p('}');
-t.p('_chkbx"></input></td></tr>			');
+t.p('">');
+t.p( symptom.name);
+t.p('</td><td><input type=\'checkbox\' name="symptom_check" value="');
+t.p( symptom.id);
+t.p('"></input></td></tr>				');
+}
+t.p('			');
 }
 velocityCount = i1;
 t.p('					</tr>		</table>		</div>');

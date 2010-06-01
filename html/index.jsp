@@ -114,13 +114,13 @@
     	<h3><a href="#">General Widgets</a></h3>
     	<div>
 			<p>
-				<iframe height="400" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
+				<iframe height="400" frameborder="0" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
 			</p>
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
     		<p>
-				<iframe height="400" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
+				<iframe height="400" frameborder="0" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
 			</p>
     	</div>
 	</div>

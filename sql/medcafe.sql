@@ -216,6 +216,20 @@ CREATE TABLE link
 	description character varying(500) NULL
 );
 
+
+CREATE TABLE address
+(
+	id SERIAL PRIMARY KEY,
+	patient_id integer NOT NULL,
+	street character varying(500) NOT NULL,
+	street2 character varying(500) NULL,
+	city character varying(300) NOT NULL,
+	state character varying(20) NOT NULL,
+	zip character varying(10) NOT NULL,
+	country character varying (200) NOT NULL default 'USA'
+	
+);
+
 insert into priority (id, priority, description) values (1, 'Very High', 'Very High Priority -immediate attention.');
 insert into priority (id, priority, description) values (2, 'High', 'High Priority - action required in short term');
 insert into priority (id, priority, description) values (3, 'Medium', 'Medium Priority - ongoing monitoring recommended');
