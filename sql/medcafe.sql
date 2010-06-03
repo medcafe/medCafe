@@ -80,6 +80,13 @@ CREATE TABLE patient (
 
 );
 
+CREATE TABLE patient_repository_assoc (
+	patient_id  integer NOT NULL,
+    rep_patient_id integer NOT NULL,
+   	repository character varying(250) NULL,
+   	PRIMARY KEY (patient_id, rep_patient_id,repository )
+   	
+);
 
 CREATE TABLE patient_user_assoc (
 	id SERIAL PRIMARY KEY,
@@ -249,6 +256,15 @@ insert into  patient (rep_patient_id, first_name, last_name, repository) values 
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '5', 'PATIENT','RADIOLOGY','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '4', 'PATIENT','CLINICAL M','OurVista');
 insert into  patient (rep_patient_id, first_name, last_name, repository) values ( '8', 'PATIENT','PEDIATRIC','OurVista');
+
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('3', '3', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('7', '7', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('1', '1', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('2', '4', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('4', '2', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('5', '5', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('6', '6', 'OurVista');
+insert into  patient_repository_assoc (patient_id, rep_patient_id,repository) values ('8', '8', 'OurVista');
 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'tab_order', 1);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '7', 'gaily', 'type', 'Allergies');

@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.WebUtils;
+import org.projecthdata.hdata.schemas._2009._06.condition.Condition;
 
 /**
  *  Representation of the Problem List Item
@@ -360,4 +361,6 @@ public class Address
 			 return ret;
 			 
 		}
+	 
+	 
 }

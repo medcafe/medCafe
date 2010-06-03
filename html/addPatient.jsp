@@ -74,7 +74,7 @@
     	<h3><a href="#">Add Patient Details</a></h3>
     	<div>
 			<p>
-				<iframe height="400" width="155" frameborder="0" name="addPatientDetailFrame" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
+				<iframe height="400"  frameborder="0" name="associatePatient" id="general_widgetsFrame" src="http://${server}/associatePatient.jsp"></iframe>
 			</p>
 		</div>
 		<h3><a href="#">Address</a></h3>
