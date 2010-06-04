@@ -258,12 +258,12 @@ $(document).ready( function() {
 	}
 
 
-	function createLink(patientId, link, label, type, params, repository)
+	function createLink(patientId, link, label, type, params, repository, repPatientId)
 	{
 		var tab_num = addTab(label, type);
 		if (tab_num < 0)
 			return;
-		createWidgetContent(patientId,link, label, type ,tab_num, params,repository);
+		createWidgetContent(patientId,link, label, type ,tab_num, params,repository,repPatientId);
 
 	}
 

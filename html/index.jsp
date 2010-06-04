@@ -1,3 +1,4 @@
+<%@ page import="java.util.HashMap" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -12,6 +13,14 @@
 	}
 	if (patientId == null)
 		patientId = "1";
+		
+	Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
+	HashMap<String, String> repositoryIds = new HashMap<String, String>();
+	if (repositoryIdObjs instanceof HashMap)
+	{
+		repositoryIds = (HashMap<String,String>)repositoryIdObjs;
+	}
+	
 %>
 <head>
 
@@ -63,7 +72,8 @@
 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
         var outerLayout;
-
+		var repositoryPatientJSON = {};
+		
         var tabID;
         /*
         *#######################
@@ -78,7 +88,47 @@
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
         listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
         listProblemList("listProblemSummary", "<%=patientId%>", "${server}");
-        
+        initializeRepositories();
+      		  	
+
+//Initialize a JSON Object holding all information about patients and the corresponding
+//associated id in the host repository
+function initializeRepositories()
+{	
+	repositoryPatientJSON = { "repositories" : [
+	<%
+				
+	String commaStr ="";
+	for(String repId: repositoryIds.keySet())
+	{
+		String patientRepId = repositoryIds.get(repId);
+					
+		out.print(commaStr + "{\"repository\" : \"" + repId + "\" , \"id\" : \"" + patientRepId + "\"}");
+		commaStr = ",";
+	}
+			  	
+	%>
+	]
+	}
+}  	
+		  	
+//Given a repository name return the associated id within that repository	  	
+function getRepId(rep)
+{
+	var len = repositoryPatientJSON.repositories.length;
+	var x;
+	for (x in repositoryPatientJSON.repositories)
+	{	  		
+		test = repositoryPatientJSON.repositories[x].repository;
+		if (test == rep)
+		{
+			  var id = repositoryPatientJSON.repositories[x].id;
+			  alert("id: " + id);
+			  return id;
+		}
+			  		
+	}
+}
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -143,12 +193,12 @@
 </div>
 
 <div class="ui-layout-north">
-    <!--  span>
+    < span>
         <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
             <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
         </a>
         <div id="search-engines" class="hidden"></div>
-    </span-->
+    </span>
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>

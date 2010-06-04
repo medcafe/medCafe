@@ -16,7 +16,7 @@
 	<server></server>
 	<clickUrl>coverflow-flash/index.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Slider</name>
@@ -25,7 +25,7 @@
 	<server></server>
 	<clickUrl>slider.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
@@ -34,7 +34,7 @@
 	<server></server>
 	<clickUrl>editor.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Timeline</name>
@@ -52,7 +52,7 @@
 	<server></server>
 	<clickUrl>bookmarksJSON.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Medications</name>
@@ -80,7 +80,7 @@
 	<clickUrl>listHistoryTemplate.jsp</clickUrl>
 	<method></method>
 	<params></params>
-	<repository></repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>History</name>
@@ -89,7 +89,7 @@
 	<server></server>
 	<clickUrl>historyJSON.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Problem</name>
@@ -98,7 +98,7 @@
 	<server></server>
 	<clickUrl>problemListJSON.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Charts</name>
@@ -107,7 +107,7 @@
 	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Dates</name>
@@ -116,7 +116,7 @@
 	<server></server>
 	<clickUrl></clickUrl>
 	<method></method>
-	<repository>OurVista</repository>
+	<repository>local</repository>
 </medCafeWidget>
 </patientSpecific>
 <general>
@@ -158,7 +158,7 @@
 	<clickUrl>listHistoryTemplate.jsp</clickUrl>
 	<method></method>
 	<params></params>
-	<repository></repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Slider</name>
@@ -168,7 +168,7 @@
 	<clickUrl></clickUrl>
 	<method></method>
 	<params></params>
-	<repository></repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
@@ -178,7 +178,7 @@
 	<clickUrl></clickUrl>
 	<method></method>
 	<params></params>
-	<repository></repository>
+	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
@@ -188,7 +188,7 @@
 	<clickUrl></clickUrl>
 	<method></method>
 	<params></params>
-	<repository></repository>
+	<repository>local</repository>
 </medCafeWidget>
 </general>
 </medCafeWidgets>

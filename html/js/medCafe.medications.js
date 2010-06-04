@@ -1,4 +1,4 @@
-function addMedications(callObj, server, tab_num, label, patient_id, repId)
+function addMedications(callObj, server, tab_num, label, patient_id, repId, patientRepId)
 {	
 		//For testing purposes
 		
@@ -8,7 +8,7 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId)
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);
 			
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
+				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
 				$.getJSON(serverLink, function(data)
 				{
 						var toggleMinus = 'images/bullet_toggle_minus.png';
@@ -26,7 +26,7 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId)
 						$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#medications" + patient_id).dataTable( {
+						 	tableObj = $("#medications" + patientRepId).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -35,7 +35,7 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId)
 										return;
 									}
 									
-									var nTrs = $('#medications' + patient_id+ ' tbody tr');
+									var nTrs = $('#medications' + patientRepId+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -100,14 +100,14 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId)
 						//Add a button to add a new Row
 						
 						//Get the selected row if user clicks on <tr> object	 
-						$("#medications" + patient_id + " tbody tr").click( function() {
+						$("#medications" + patientRepId + " tbody tr").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 						
 						//Get the selected row if user clicks on <td> object
-						$("#medications" + patient_id + " tbody td").click( function() {
+						$("#medications" + patientRepId + " tbody td").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];

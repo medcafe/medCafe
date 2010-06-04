@@ -1,5 +1,5 @@
 var retry = true;
-function addAllergies(callObj, server, tab_num, label, patient_id, repId)
+function addAllergies(callObj, server, tab_num, label, patient_id, repId, patientRepId)
 {	
 		
 		var html = "<div class=\"allergies" +  patient_id + "\"></div>"; 
@@ -7,7 +7,7 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 		{
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
+				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
 				//alert("server link " + serverLink);
 				$.getJSON(serverLink, function(data)
 				{
@@ -17,7 +17,7 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 						{
 							if (retry)
 							{
-								addAllergies(callObj, server, tab_num, label, patient_id, repId);
+								addAllergies(callObj, server, tab_num, label, patient_id, repId, patientRepId);
 								retry = false;
 							}
 							else
@@ -33,7 +33,7 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 						$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#allergies" + patient_id).dataTable( {
+						 	tableObj = $("#allergies" + patientRepId).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -42,7 +42,7 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 										return;
 									}
 									
-									var nTrs = $('#allergies' + patient_id+ ' tbody tr');
+									var nTrs = $('#allergies' + patientRepId+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -76,14 +76,14 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId)
 						var medUrl = serverLink;
 					
 						//Get the selected row if user clicks on <tr> object	 
-						$("#allergies" + patient_id + " tbody tr").click( function() {
+						$("#allergies" + patientRepId + " tbody tr").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 						
 						//Get the selected row if user clicks on <td> object
-						$("#allergies" + patient_id + " tbody td").click( function() {
+						$("#allergies" + patientRepId + " tbody td").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];

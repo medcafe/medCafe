@@ -28,10 +28,11 @@
 
 <body>
 	<form action="addPatientRepositoryAssoc.jsp">
-		<input type="text" name="patient_rep_id" value="10"></input><br/>
-		<input type="text" name="repository" value="OurVista"></input><br/>
-		<input type="text" name="first_name" value=""></input><br/>
-		<input type="text" name="last_name" value=""></input><br/>
+		Patient Id<input type="text" name="patient_id" value="0"></input><br/>
+		Patient Repository Id<input type="text" name="patient_rep_id" value="10"></input><br/>
+		Repository<input type="text" name="repository" value="OurVista"></input><br/>
+		First Name<input type="text" name="first_name" value=""></input><br/>
+		Last Name<input type="text" name="last_name" value=""></input><br/>
 		
 		<input type="submit" value="Save"></input><br/>
 		

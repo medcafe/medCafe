@@ -25,7 +25,7 @@
 	});
 }
 	
-function addProblemList(callObj, server, tab_num, label, patient_id, repId)
+function addProblemList(callObj, server, tab_num, label, patient_id, repId, patientRepId)
 {	
 		
 		var html = "<div class=\"problemListing" +  patient_id + "\"></div>"; 

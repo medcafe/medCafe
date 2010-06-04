@@ -52,6 +52,8 @@ public class Widget
 	//Parameters that are common to all Widgets
 	private int patientId =0;
 	private int id =0;
+	private String repPatientId = "";
+	
 	private int tabOrder =0;
 	private String location = Constants.CENTER_PANE;
 	private String repository = "";
@@ -63,6 +65,8 @@ public class Widget
 	private  HashMap<String, String > params = new HashMap<String, String >();
 
 	public static final String ID = "patient_id";
+	public static final String REP_PATIENT_ID = "rep_patient_id";
+	
 	public static final String WIDGET_ID = "id";
 	public static final String TAB_ORDER = "tab_order";
 	public static final String LOCATION = "location";
@@ -113,6 +117,7 @@ public class Widget
 		 o.put(Widget.TAB_ORDER, this.getTabOrder());
 		 o.put(Widget.NAME, this.getName());
 		 o.put(Widget.SERVER, this.getServer());
+		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 
 		 return o;
 
@@ -337,6 +342,10 @@ public class Widget
 				{
 					widget.setServer(value);
 				}
+				else if (param.equals(Widget.REP_PATIENT_ID))
+				{
+					widget.setRepPatientId(value);
+				}
 				else
 				{
 					params.put(param, value);
@@ -433,5 +442,11 @@ public class Widget
 		this.server = server;
 	}
 
+	public String getRepPatientId() {
+		return repPatientId;
+	}
 
+	public void setRepPatientId(String repPatientId) {
+		this.repPatientId = repPatientId;
+	}
 }

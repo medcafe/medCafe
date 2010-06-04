@@ -15,7 +15,8 @@
 	Object patientIdObj = session.getAttribute("patient");
 	if (patientIdObj != null)
 		patientId = patientIdObj.toString();
-		
+	
+	
 	System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
 	
 %>
@@ -25,8 +26,10 @@ var hasContent = false;
 
 $(function(){
 
+	initialize();
 	filterType();
 	bindClose();
+	
 	
 	$(".widget-content").droppable({
       drop: function(event, ui) 
@@ -65,12 +68,14 @@ $(function(){
 			var patientId = "<%=patientId%>";
 			var params = $(dragObj).find('img').attr("custom:params");
 			var repository = $(dragObj).find('img').attr("custom:repository");
+			var repPatientId = getRepId(repository);
+			
 			if (hasContent == "false")
 			{
 				//No content : Use the current Tab
 				//addChart(this, link, "<%=tabNum%>");
 				
-				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository);
+				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository, repPatientId);
 				$(hasContentObj).attr("custom:hasContent",true);
 				
 				renameTab("<%=tabNum%>",text);
@@ -78,12 +83,14 @@ $(function(){
 			else
 			{
 				//Tab already has content Create a new Tab
-				createLink(patientId,link, text, type ,params, repository);
+				createLink(patientId,link, text, type ,params, repository, repPatientId);
 			}
       }
     });
 	
 });
+
+//Take the Hashmap of the repositories and the associated patient rep id and put into JSON object
 
 function filterType()
 {

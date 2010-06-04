@@ -19,6 +19,7 @@ var medCafeWidget =
 							name : 'widget name',
 							server : 'http://127.0.0.1',
 							patient_id :1,
+							rep_patient_id :1,
 							remove :'false'
 				    },
 	        		widgetIndSettings : 
@@ -34,6 +35,7 @@ var medCafeWidget =
 							name : 'widget name',
 							server : 'http://127.0.0.1',
 							patient_id :1,
+							rep_patient_id :1,
 							remove :'false'
 						}
 					}	
@@ -100,7 +102,7 @@ var medCafeWidget =
 
     		}
     		,
-    		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId )
+    		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId, patientRepId )
     		{   			
     			var id = "yellow-widget" + tab_num;
 		
@@ -120,6 +122,7 @@ var medCafeWidget =
     			newSettings.name = label;
     			newSettings.server = link;
     			newSettings.patient_id = patientId;
+    			newSettings.rep_patient_id = patientRepId;
     			
     			this.setExtWidgetSettings(id,newSettings );   					
 				

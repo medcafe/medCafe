@@ -101,7 +101,7 @@ $(document).ready( function() {
 	//End of code to initialize page
 
 	//Code to create widgets content
-	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId)
+	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
 	{
 
 	 $(this).delay(200,function()
@@ -109,15 +109,15 @@ $(document).ready( function() {
 	 	//alert("medcafe createWidgetContent: type " + type);
 		if (type === "Chart")
 		{
-			addChart(this, link, tab_num, patientId);
+			addChart(this, link, tab_num, patientId, patientRepId);
 		}
 		else if  (type == "Images")
 		{
-			addCoverflow(this, link, tab_num, patientId);
+			addCoverflow(this, link, tab_num, patientId, patientRepId);
 		}
 		else if  (type == "Detail")
 		{
-			addPatientDetail(this, link, tab_num, label, patientId, repId);
+			addPatientDetail(this, link, tab_num, label, patientRepId, repId);
 		}
 		else if  (type == "Repository")
 		{
@@ -140,7 +140,7 @@ $(document).ready( function() {
 
 			$.getScript('js/medCafe.medications.js', function()
 			{
-				addMedications(this, link, tab_num, label, patientId, repId);
+				addMedications(this, link, tab_num, label, patientId, repId, patientRepId);
 			});
 		}
 		else if  (type == "History")
@@ -148,14 +148,14 @@ $(document).ready( function() {
 
 			$.getScript('js/medCafe.history.js', function()
 			{
-				addHistory(this, link, tab_num, label, patientId, repId);
+				addHistory(this, link, tab_num, label, patientId, repId, patientRepId);
 			});
 		}
 		else if  (type == "Problem")
 		{
 			$.getScript('js/medCafe.problemList.js', function()
 			{
-				addProblemList(this, link, tab_num, label, patientId, repId);
+				addProblemList(this, link, tab_num, label, patientId, repId, patientRepId);
 			});
 		}
 		else if  (type == "Allergies")
@@ -165,28 +165,28 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.allergies.js', function()
 				{
-					addAllergies(this, link, tab_num, label, patientId, repId);
+					addAllergies(this, link, tab_num, label, patientId, repId, patientRepId);
 				});
 			}
 		}
 		else
 		{
 			
-			addChart(this, link, tab_num, patientId);
+			addChart(this, link, tab_num, patientId, patientRepId);
 		}
 
-		populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
+		populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId, patientRepId);
 		});
 	}
 
-	function populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId)
+	function populateWidgetSettings(patientId,link, label, type ,tab_num, params, repId, patientRepId)
 	{
 		//alert("CREATE WIDGET CONTENT medcafe adding the following widget: label " + label + " " + " type " + type  + " tab order " + tab_num + " rep " + repId + " server " + link);
 		
-		medCafeWidget.populateExtWidgetSettings(patientId,link, label, type ,tab_num, params, repId);
+		medCafeWidget.populateExtWidgetSettings(patientId,link, label, type ,tab_num, params, repId, patientRepId);
 	}
 
-	function addChart(callObj, server, tab_num, patientId)
+	function addChart(callObj, server, tab_num, patientId, patientRepId)
 	{
 		//alert("medCafeTabs " +  tab_num + " about to call setHasContent  set to " + true  );
 
@@ -201,7 +201,8 @@ $(document).ready( function() {
 			$("#aaa" + tab_num).append('<iframe frameborder="0" id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId);
+				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId + "&rep_patient_id="  + patientRepId);
+				
 			} );
 
 			//iNettuts.makeSortable();
@@ -209,7 +210,7 @@ $(document).ready( function() {
 		} );
 	}
 
-	function addCoverflow(callObj, server, tab_num, patientId)
+	function addCoverflow(callObj, server, tab_num, patientId, patientRepId)
 	{
 
 		//Delay to let the DOM refresh
@@ -220,7 +221,7 @@ $(document).ready( function() {
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientId);
+				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientRepId);
 			} );
 
 			//iNettuts.makeSortable();
@@ -482,3 +483,5 @@ function updateAnnouncements(data)
         $('#announcements').html("");
     }
 }
+
+//Given a JSON Object with all the listings of 

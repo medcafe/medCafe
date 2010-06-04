@@ -22,21 +22,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex .*;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mitre.medcafe.restlet.PatientListResource;
-import org.mitre.medcafe.restlet.Repositories;
 import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.WebUtils;
-import org.restlet.ext.json.JsonRepresentation;
 
 /**
  *  Representation of the text data
@@ -74,11 +66,13 @@ public class Patient
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient,patient_repository_assoc  where patient_repository_assoc.patient_id = patient.id and last_name like ? and first_name like ?";
 	
-	public static final String SEARCH_PATIENTS_REP_ASSOC_BY_ID = "SELECT id, first_name, last_name, repository from patient, patient_repository_assoc where " +
-																" patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient_repository_assoc.rep_patient_id = ? and repository = ? ";
+	public static final String SEARCH_PATIENTS_REP_ASSOC_BY_ID = "SELECT id, first_name, last_name, patient_repository_assoc.repository from patient, patient_repository_assoc where " +
+																" patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient_repository_assoc.rep_patient_id = ? and patient_repository_assoc.repository = ? ";
 
 	public static final String SEARCH_PATIENTS_REP_ASSOC_BY_REP_ID = "SELECT id, first_name, last_name, patient_repository_assoc.repository from patient, patient_repository_assoc where " +
 																" patient_repository_assoc.patient_id = patient.id and patient_repository_assoc.rep_patient_id = ? and patient_repository_assoc.repository = ? ";
+
+	public static final String LIST_REP_ASSOC_BY_PATIENT_ID = "SELECT patient_id, rep_patient_id, repository from  patient_repository_assoc where patient_id = ? ";
 
 	public static final String SEARCH_RECENT_PATIENTS = "SELECT patient.id, patient_id,first_name,last_name from patient, recent_patients where patient.id = recent_patients.patient_id and recent_patients.username = ?";
 	public static final String SELECT_RECENT_PATIENTS = "SELECT patient_id from  recent_patients where username = ? and patient_id = ? ";
@@ -176,11 +170,17 @@ public class Patient
 				patientId = ret.getString(Patient.ID);
 				
 			}
-						
+			else
+			{
+				
+			}
+			
+			System.out.print("Patient: associatePatientRepository patient exists so about to insert association " );
+					
 			int patient_id = Integer.parseInt(patientId);
 			int patientRepId = Integer.parseInt(patient_rep_id);
 			
-			associatePatient(userName, patientId, "physician");
+			ret = associatePatient(userName, patientId, "physician");
 
 			//INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
 			String insertQuery = INSERT_REPOSITORY_ASSOCIATION;
@@ -195,6 +195,8 @@ public class Patient
 			{
 				return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );	
 			}
+			ret = checkExists(patient_rep_id, repository);
+			
 			
 		} 
 		catch (JSONException e) {
@@ -253,6 +255,7 @@ public class Patient
 		} 
 		return ret;
 	}
+	
 	
 	public JSONObject insertPatient(  String patientRepId)
 	{
@@ -391,6 +394,38 @@ public class Patient
 		
 	}
 	
+	public HashMap<String,String> listRepositories(String patientId)
+	{
+		HashMap<String,String> ret = new HashMap<String,String>();
+		
+		//SELECT patient_id, rep_patient_id, repository from  patient_repository_assoc where patient_id = ? ";
+
+		String listQuery = LIST_REP_ASSOC_BY_PATIENT_ID;
+
+		int patient_id = Integer.parseInt(patientId);
+		
+		String err_mess = "Could not check the list of repositories for patient " + patient_id;
+		
+		ResultSet rs = dbConn.psExecuteQuery(listQuery, err_mess , patient_id );	
+		boolean results = false;
+		try {
+			while (rs.next())
+			{
+				  patient_id = rs.getInt(1);
+				  String rep = rs.getString("repository");
+				  int repId = rs.getInt("rep_patient_id");
+		          ret.put(rep, repId +"");
+		          results = true;
+			}
+			
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} 
+		return ret;
+		
+	}
 	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server){
 	        
 		 	boolean rtnResults = false;

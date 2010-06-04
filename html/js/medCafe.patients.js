@@ -170,10 +170,11 @@ function populate(url, patient_id)
 					var tab_num =  data.widgets[i].tab_order;
 					var location =  data.widgets[i].location;
 					var server =  data.widgets[i].server;
+					var repPatientId =  data.widgets[i].rep_patient_id;
 					var params = "";
 					
 					tab_num = parent.addTab(label, type);					
-					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId);
+					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId, repPatientId);
 					
 		   }
 

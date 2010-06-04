@@ -22,24 +22,34 @@
 	
 	//No patient specified - so this is new
 	if (patientId == null)
-	{
-		
+	{	
 		rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);			
 	}
 	else
 	{
 	    rtnObj = patient.isPatient( patientId, patientRepId, repository); 
-		Object id = rtnObj.get("rep_patient_id");
+		boolean hasVal = rtnObj.has("rep_patient_id");
+		Object id =null;
+		if (hasVal)
+		{
+		 id = rtnObj.get("rep_patient_id");
+		}
 		
 		if (id != null)
 		{
 			if (Patient.NO_PATIENT.equals(id))
 			{
 				rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
-				out.write(rtnObj.toString());
+				System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
 			}	
+		}
+		else
+		{
+				rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
+				System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
+			
 		}
 	}
 	patient.closeConnection();
-	
+	response.sendRedirect("associatePatient.jsp");
 %>
