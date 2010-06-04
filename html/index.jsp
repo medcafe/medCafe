@@ -123,7 +123,7 @@ function getRepId(rep)
 		if (test == rep)
 		{
 			  var id = repositoryPatientJSON.repositories[x].id;
-			  alert("id: " + id);
+			  //alert("id: " + id);
 			  return id;
 		}
 			  		
