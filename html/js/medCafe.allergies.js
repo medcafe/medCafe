@@ -3,7 +3,7 @@ function addAllergies(callObj, server, tab_num, label, patient_id, repId, patien
 {	
 		
 		var html = "<div class=\"allergies" +  patient_id + "\"></div>"; 
-		$(callObj).delay(400,function()
+		$(callObj).delay(100,function()
 		{
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);

@@ -168,6 +168,11 @@ $(document).ready( function() {
 					addAllergies(this, link, tab_num, label, patientId, repId, patientRepId);
 				});
 			}
+			else
+			{
+				addAllergies(this, link, tab_num, label, patientId, repId, patientRepId);
+			
+			}
 		}
 		else
 		{
