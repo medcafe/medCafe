@@ -59,6 +59,10 @@ public class PatientListEventResource extends ServerResource {
        System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
        userName = form.getFirstValue(USER_ID);
        
+       String[] events = form.getValuesArray("event");
+       System.out.println("PatientListEventResource JSON init events " + events.length);
+       
+       
     }
 
     @Get("json")

@@ -154,8 +154,12 @@ function populate(url, patient_id)
 	 	   //If no data is retrieved then just return.
 		   if (!data.widgets)
 		   {
-		   		parent.addTab("New Widget", "blank");
+		   		var tab_num = parent.addTab("New", "chart");
 		   		parent.initializeRepositories();
+		   		parent.iNettuts.refresh("yellow-widget" + tab_num);
+				parent.iNettuts.makeSortable();
+				
+		   		
 		   		return;
 		   }
 		   

@@ -277,6 +277,15 @@ $(document).ready( function() {
 
 	}
 
+	function setNoContent(tab_num)
+	{
+
+			var widgetObj = $("#widget-content" + tab_num);
+			var hasContentObj = widgetObj.find("#hasContent");
+      		var hasContent = $(hasContentObj).attr("custom:hasContent");
+     		$(hasContentObj).attr("custom:hasContent",false);
+
+	}
 	function closeAllTabs(tab_num)
 	{
 		var indexList = new Array();

@@ -15,6 +15,14 @@
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;
 	
+	String[] events  = request.getParameterValues("event");
+	if (events == null)
+		events=new String[]{};
+		
+	for (String eventVal: events)
+	{
+		jspUrl += "&event=" + eventVal;
+	}
 %>
 
 <tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>

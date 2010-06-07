@@ -1,4 +1,4 @@
-<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="java.util.Arrays" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import="org.mitre.medcafe.util.*" %>
@@ -8,6 +8,8 @@
 <html>
 <head>
 <%
+	String[] eventList =  new String[]{"Symptoms","Problems","Visits","Hospital","Images","Records"};
+	
 	String server = "http://" + Config.getServerUrl() ;
 	String patient_id = request.getParameter(Constants.PATIENT_ID);
 	
@@ -15,7 +17,15 @@
 		patient_id = "1";
   
 	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
-	
+	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
+	String[] events  = request.getParameterValues("event");
+	if (events == null)
+		events=new String[]{};
+		
+	for (String eventVal: events)
+	{
+		listEvents += "&event=" + eventVal;
+	}
 %>
 <link rel='stylesheet' href='js/timeline/styles/styles.css' type='text/css' />
 <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
@@ -84,7 +94,13 @@
    });
             
    setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
-           
+     
+   //Submit the form on changes to checkbox     
+   $(".eventChkBox").change(function ()
+	{	
+		$("#eventForm").submit();	
+	});
+				 	 
  }
 
  var resizeTimerID = null;
@@ -110,6 +126,24 @@
   <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
+            	<form name="eventListingForm" id="eventForm" action="<%=refreshUrl%>">
+            		<% for (String eventListVal: eventList) {
+            		%>
+            			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event" 
+            		<%
+            			boolean checked= false;
+            			if (Arrays.asList(events).contains(eventListVal))
+            			{
+            		%>
+            		checked="<%=checked%>"
+            		<%}%>
+            		>
+            		<%=eventListVal%></input>
+            		<% } %>
+            		<br/>
+            		
+         		
+            	</form>
             </p>
          </div>
   </div>
