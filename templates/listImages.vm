@@ -1,0 +1,6 @@
+#foreach( $image in $images )
+    <div class="item">
+        <img class="content" src="<:prefix:>${image.thumb}"/>
+        <div class="caption">${image.name}</div>
+    </div>
+#end

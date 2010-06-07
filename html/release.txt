@@ -1,1 +1,1 @@
-Release: v0_00 Build date, time: 20100514, 1329
+Release: v0_00 Build date, time: 20100607, 1029

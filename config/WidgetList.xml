@@ -14,7 +14,7 @@
 	<type>Image</type>
 	<image>coverflow.png</image>
 	<server></server>
-	<clickUrl>coverflow-flash/index.jsp</clickUrl>
+            <clickUrl>contentflow/index.jsp</clickUrl>
 	<method></method>
 	<repository>local</repository>
 </medCafeWidget>

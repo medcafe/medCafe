@@ -128,6 +128,9 @@
                 <exclude name="context.xml"/>
                 <exclude name="web.xml"/>
             </webinf>
+            <webinf dir=".">
+                <include name="templates/*.vm"/>
+            </webinf>
             <metainf dir="${config}">
                 <include name="context.xml"/>
             </metainf>
