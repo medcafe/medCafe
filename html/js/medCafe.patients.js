@@ -147,14 +147,15 @@ function retrieve(patient)
 
 function populate(url, patient_id)
 {
-	 var server = url + "?patient_id=" + patient_id;
 
+	 var server = url + "?patient_id=" + patient_id;
 	 $.getJSON(server, function(data)
 	 {
 	 	   //If no data is retrieved then just return.
 		   if (!data.widgets)
 		   {
 		   		parent.addTab("New Widget", "blank");
+		   		parent.initializeRepositories();
 		   		return;
 		   }
 		   
@@ -175,7 +176,7 @@ function populate(url, patient_id)
 					
 					tab_num = parent.addTab(label, type);					
 					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId, repPatientId);
-					
+					parent.initializeRepositories();
 		   }
 
 	});
