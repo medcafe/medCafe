@@ -1,7 +1,8 @@
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-
+<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.model.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -17,7 +18,11 @@
 	
 %>
 <link rel='stylesheet' href='js/timeline/styles/styles.css' type='text/css' />
+<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+  	
 <script src="js/timeline/examples.js" type="text/javascript"></script>
+<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>	
 <script>
  var tl;
  function onLoad() {
@@ -67,7 +72,7 @@
             ];
    tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
  	var eventUrl = "<%=listEvents%>";
- 	alert("timelineJSON.jsp event url " + eventUrl);
+ 	//alert("timelineJSON.jsp event url " + eventUrl);
  	$.getJSON(eventUrl, function(data)
  	{
  			//alert("data" + data);
@@ -100,6 +105,16 @@
 <body onload="onLoad();" onresize="onResize();">
 <div id="my-timeline" style="height: 150px; border: 1px solid #aaa"></div>
 <div class="controls" id="filter-controls"></div>
+
+<div id="listTimelineRepositories">
+  <div class="ui-widget top-panel" id="patient_bio">
+        <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+            <p>
+            </p>
+         </div>
+  </div>
+</div>
+
 <noscript>
 This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 </noscript>
