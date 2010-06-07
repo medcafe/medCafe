@@ -60,11 +60,11 @@ public class Patient
 	public static final String SEARCH_BY_REPOSITORY = " and patient_repository_assoc.repository = ? ";
 	
 	public static final String SEARCH_PATIENT = "SELECT id, first_name, last_name from patient where  last_name = ? and first_name = ? and rep_patient_id = ? ";
-	public static final String SEARCH_PATIENTS_BY_ID = "SELECT id, first_name, last_name, repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? ";
+	public static final String SEARCH_PATIENTS_BY_ID = "SELECT DISTINCT id, first_name, last_name, repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? ";
 	
-	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT id, first_name, last_name from patient,patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and first_name like ? ";
-	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT id, first_name, last_name from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and last_name like ? ";
-	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT id, first_name, last_name from patient,patient_repository_assoc  where patient_repository_assoc.patient_id = patient.id and last_name like ? and first_name like ?";
+	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT DISTINCT id, first_name, last_name from patient,patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and first_name like ? ";
+	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT DISTINCT id, first_name, last_name from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and last_name like ? ";
+	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT DISTINCT id, first_name, last_name from patient,patient_repository_assoc  where patient_repository_assoc.patient_id = patient.id and last_name like ? and first_name like ?";
 	
 	public static final String SEARCH_PATIENTS_REP_ASSOC_BY_ID = "SELECT id, first_name, last_name, patient_repository_assoc.repository from patient, patient_repository_assoc where " +
 																" patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient_repository_assoc.rep_patient_id = ? and patient_repository_assoc.repository = ? ";

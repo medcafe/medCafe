@@ -238,9 +238,9 @@ function addCreateAssocButton( patient_id, role)
 	});
 }
 
-function addPatientDetail(obj, link, tab_num, label, patientId, repId)
+function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRepId)
 {
-	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientId;
+	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientRepId;
 									
 	$.getJSON(link, function(data)
 	{
@@ -252,7 +252,7 @@ function addPatientDetail(obj, link, tab_num, label, patientId, repId)
 			{
 					//alert( $("#example" + patientId).text());
 											
-				$("#example" + patientId).dataTable( {
+				$("#example" + patientRepId).dataTable( {
 					"aaSorting": [[ 0, "desc" ]]
 					,"bJQueryUI": true
 				} );

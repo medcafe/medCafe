@@ -50,6 +50,6 @@
 			
 		}
 	}
-	patient.closeConnection();
+	//patient.closeConnection();
 	response.sendRedirect("associatePatient.jsp");
 %>

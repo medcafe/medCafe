@@ -28,6 +28,6 @@
 			out.write(rtnObj.toString());
 			
 	}
-	patient.closeConnection();
+	//patient.closeConnection();
 	
 %>

@@ -117,7 +117,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "Detail")
 		{
-			addPatientDetail(this, link, tab_num, label, patientRepId, repId);
+			addPatientDetail(this, link, tab_num, label, patientId, repId, patientRepId);
 		}
 		else if  (type == "Repository")
 		{

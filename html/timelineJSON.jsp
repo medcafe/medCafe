@@ -67,6 +67,7 @@
             ];
    tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
  	var eventUrl = "<%=listEvents%>";
+ 	alert("timelineJSON.jsp event url " + eventUrl);
  	$.getJSON(eventUrl, function(data)
  	{
  			//alert("data" + data);
