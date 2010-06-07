@@ -1,3 +1,5 @@
+<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.model.*" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -16,11 +18,21 @@
 		
 	Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
 	HashMap<String, String> repositoryIds = new HashMap<String, String>();
-	if (repositoryIdObjs instanceof HashMap)
-	{
-		repositoryIds = (HashMap<String,String>)repositoryIdObjs;
-	}
 	
+	if (repositoryIdObjs == null)
+	{
+		Patient patient = new Patient();
+		patient.setConnection();
+		repositoryIds = patient.listRepositories(patientId);
+		session.setAttribute("repPatientIds", repositoryIds);
+	}
+	else
+	{
+		if (repositoryIdObjs instanceof HashMap)
+		{
+			repositoryIds = (HashMap<String,String>)repositoryIdObjs;
+		}
+	}
 %>
 <head>
 
