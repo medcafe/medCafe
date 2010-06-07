@@ -53,19 +53,19 @@ public class PatientImagesResource extends ServerResource {
     public final static String KEY = PatientImagesResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     private final static String USER_ID = "user";
-    
+
     protected Date startDate = new Date();
     protected Date endDate =  new Date();
 
-    static{log.setLevel(Level.FINER);}
+    // static{log.setLevel(Level.FINER);}
 
     protected void doInit() throws ResourceException {
         // Get the "type" attribute value taken from the URI template
         Form form = getRequest().getResourceRef().getQueryAsForm();
         patientId = (String)getRequest().getAttributes().get(PATIENT_ID);
         userName = form.getFirstValue(USER_ID);
-        
-        System.out.println("PatientImageResource JSON init patientId " +  patientId );
+
+        log.finer("PatientImageResource JSON init patientId " +  patientId );
 
         String startDateStr = form.getFirstValue("start_date");
         if (startDateStr == null)
@@ -74,10 +74,10 @@ public class PatientImagesResource extends ServerResource {
         String endDateStr = form.getFirstValue("end_date");
         if (endDateStr == null)
         	endDateStr = "01/01/2012";
-          	
+
         category = form.getFirstValue("filter");
-         	
-        System.out.println("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
+
+        log.finer("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try {
 			startDate = df.parse(startDateStr);
@@ -94,7 +94,7 @@ public class PatientImagesResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found PatientResource html ");
+    	log.finer("Found PatientResource html ");
 
     	StringBuffer startBuf = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
@@ -123,13 +123,13 @@ public class PatientImagesResource extends ServerResource {
 
     }
 
-   
+
     //@Get("json")
     public JsonRepresentation toJsonOld(){
         try
         {
         	String server = Config.getServerUrl() ;
-        	System.out.println("PatientImageResource JSON start");
+        	log.finer("PatientImageResource JSON start");
 
         	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" , "chest-xray", "chest-xray2","mri"};
         	String[] images = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
@@ -154,13 +154,13 @@ public class PatientImagesResource extends ServerResource {
 
         	String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
             JSONObject obj = new JSONObject();
-            System.out.println("PatientImageResource JSON start images directory " + imageFileDir );
+            log.finer("PatientImageResource JSON start images directory " + imageFileDir );
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
             for(String image: images)
-            {	
-            	 System.out.println("PatientImageResource JSON start image file " + image );
-                 
+            {
+            	 log.finer("PatientImageResource JSON start image file " + image );
+
             	  try {
           			Date imageDate = df.parse(dates[i]);
           			GregorianCalendar imageCal =  new GregorianCalendar();
@@ -192,18 +192,18 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("name", imageTitles[i]);
                 inner_obj.put("param", server + "/" + imageDir +  params[i]);
                 obj.append("images", inner_obj);  //append creates an array for you
-                System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
+                log.finer("PatientImagesResource: toJSON : image directory " + imageFileDir);
 
                 i++;
             }
             log.finer( obj.toString());
-            System.out.println("PatientImageResource JSON " +  obj.toString());
+            log.finer("PatientImageResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)
         {
             log.throwing(KEY, "toJson()", e);
-            System.out.println("PatientImageResource JSON Exception " +  e.getMessage());
+            log.finer("PatientImageResource JSON Exception " +  e.getMessage());
             return null;
         }
     }
@@ -213,91 +213,91 @@ public class PatientImagesResource extends ServerResource {
         try
         {
         	String server = Config.getServerUrl() ;
-        	System.out.println("PatientImageResource JSON start");
-        	
+        	log.finer("PatientImageResource JSON start");
+
         	int i=0;
-        	
+
         	String dir = "patients/" + this.patientId + "/";
         	String imageDir = "images/" + dir;
-        	
+
         	String imageFileDir = Constants.BASE_PATH + "/" + imageDir;
             JSONObject obj = new JSONObject();
-            System.out.println("PatientImageResource JSON start images directory " + imageFileDir );
+            log.finer("PatientImageResource JSON start images directory " + imageFileDir );
             DateFormat df = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
-            
+
             String startDateStr = df.format(startDate);
-            System.out.println("PatientImageResource JSON start date " + startDateStr );
-            
+            log.finer("PatientImageResource JSON start date " + startDateStr );
+
             String endDateStr = df.format(endDate);
-            System.out.println("PatientImageResource JSON end date " + endDateStr );
-            
+            log.finer("PatientImageResource JSON end date " + endDateStr );
+
             ArrayList<MedCafeFile> files = getFiles(userName, patientId, startDateStr, endDateStr, category);
-            System.out.println("PatientImageResource JSON Files " + files.size() );
+            log.finer("PatientImageResource JSON Files " + files.size() );
             for(MedCafeFile file: files)
-            {	
-            	
+            {
+
                 JSONObject inner_obj = new JSONObject ();
                 inner_obj.put("id", file.getTitle());
                 inner_obj.put("source",file.getFileUrl());
                 inner_obj.put("name", file.getTitle());
                 inner_obj.put("param", server + "/" + imageDir +  file.getFileUrl());
                 inner_obj.put("thumb",  file.getThumbnail());
-                
+
                 obj.append("images", inner_obj);  //append creates an array for you
-                System.out.println("PatientImagesResource: toJSON : image directory " + imageFileDir);
-                
+                log.finer("PatientImagesResource: toJSON : image directory " + imageFileDir);
+
                 i++;
             }
             log.finer( obj.toString());
-            System.out.println("PatientImageResource JSON " +  obj.toString());
+            log.finer("PatientImageResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)
         {
             log.throwing(KEY, "toJson()", e);
-            System.out.println("PatientImageResource JSON Exception " +  e.getMessage());
+            log.finer("PatientImageResource JSON Exception " +  e.getMessage());
             return null;
         }
     }
-    
+
     private ArrayList<MedCafeFile> getFiles(String userName, String patientId, String startDate, String endDate, String category) throws SQLException, ParseException
     {
     	//public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList) throws SQLException
-    	
+
     	ArrayList<MedCafeFile> files = MedCafeFile.retrieveFiles(userName, patientId, startDate, endDate, category, true);
     	return files;
     }
-    
+
     @Post("json")
     public String acceptJson(String value)
     {
-    	System.out.println("PatientImagesResource: POST: In acceptJson");
+    	log.finer("PatientImagesResource: POST: In acceptJson");
     	return "POST finished";
     }
-    
+
     @Put("json")
     public String storeJson(String value)
     {
-    	System.out.println("PatientImagesResource: PUT: In storeJson");
+    	log.finer("PatientImagesResource: PUT: In storeJson");
     	return "json";
     }
 
     @Delete()
     public void removeAll(){}
-    
+
     @Delete("json")
     public Representation deleteJson()
     {
-    	System.out.println("PatientImagesResource: In deleteJSON");
+    	log.finer("PatientImagesResource: In deleteJSON");
     	JSONObject obj = new JSONObject();
     	return new JsonRepresentation(obj);
     }
 
-    
+
     public void createThumbnail(String uri, String fileLabel, String dir)
     {
     	try {
-    		System.out.println("ParentImageResource: getThumbnail :uri:  " + uri);
+    		log.finer("ParentImageResource: getThumbnail :uri:  " + uri);
 	    	File file = new File(uri);
 	    	String thumbfileName = fileLabel + "_thumbnail.png";
 
@@ -308,13 +308,13 @@ public class PatientImagesResource extends ServerResource {
 	    		if (!newFile.exists())
 	    		{
 					BufferedImage rtnImage = ImageProcesses.createThumbnail(file);
-					System.out.println("ParentImageResource: getThumbnail : success");
+					log.finer("ParentImageResource: getThumbnail : success");
 					ImageIO.write(rtnImage, "png", newFile);
 	    		}
 	    	}
 	    	else
 	    	{
-	    		System.out.println("PatientImagesResource: createThumbnail: File doesn't exist ");
+	    		log.finer("PatientImagesResource: createThumbnail: File doesn't exist ");
 	    	}
     	} catch (Exception e) {
 			// TODO Auto-generated catch block

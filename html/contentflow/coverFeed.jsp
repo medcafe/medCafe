@@ -199,7 +199,7 @@
         JSONObject obj = new JSONObject( String.valueOf(writer));
         StringWriter imageDivs = new StringWriter();
         VelocityUtil.applyTemplate( obj, "listImages.vm", imageDivs);
-        out.write( imageDivs.toString().replaceAll("<:prefix:>", "http://127.0.0.1:8080/medcafe/images/patients/" + patientId + "/" ) );
+        out.write( imageDivs.toString().replaceAll("<:prefix:>", "http://" + Config.getServerUrl() + "/images/patients/" + patientId + "/" ) );
     }
     catch(org.json.JSONException e)
     {
