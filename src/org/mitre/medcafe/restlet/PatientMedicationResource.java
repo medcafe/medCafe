@@ -47,6 +47,13 @@ public class PatientMedicationResource extends ServerResource {
             return new JsonRepresentation(WebUtils.buildErrorJson( "There are no medications currently listed for patient " + id + " in repository " + repository ));
         }
         //convert to JSON
+     /*   try{
+        System.out.println(WebUtils.bundleJsonResponse("medications",medications,repository,id).getText());
+        }
+        catch (IOException IOe)
+        {
+        	System.out.println("Couldn't print");
+        } */
         return WebUtils.bundleJsonResponse( "medications", medications, repository, id );
     }
     //output

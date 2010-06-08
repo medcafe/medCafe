@@ -212,6 +212,25 @@ velocityCount = 0;
 t.p('</tbody></div>');
 return t.toString();
 }
+function v2js_listImages(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+for (var i1=0;  i1<context.images.length; i1++) {
+var image = context.images[i1];
+velocityCount = i1;
+t.p('    <div class="item">        ');
+t.p('        <img class="content" href="<:prefix:>');
+t.p( image.source);
+t.p('" src="<:prefix:>');
+t.p( image.thumb);
+t.p('"/>        <div class="caption">');
+t.p( image.name);
+t.p('</div>    </div>');
+}
+velocityCount = 0;
+return t.toString();
+}
 function v2js_listInsertStatements(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -567,28 +586,49 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-for (var i1=0;  i1<context.patientProblem.length; i1++) {
-var problem = context.patientProblem[i1];
+for (var i1=0;  i1<context.problem.length; i1++) {
+var problemDetail = context.problem[i1];
 velocityCount = i1;
-t.p('		');
+var ActiveStatus = "Active";
+var InActiveStatus = "Inactive";
+t.p('	');
 if (count == 0) {
 t.p('		<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
-t.p( problem.patient_id);
-t.p('">		<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>	');
+t.p( context.patient_id);
+t.p('">		<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>	');
 }
-t.p('	<tr class="gradeX">	<td value="');
-t.p( problem.title);
+t.p('	<tr class="gradeX"  >	<td  value="');
+t.p( problemDetail.problemName);
 t.p('">');
-t.p( problem.title);
+t.p( problemDetail.problemName);
 t.p('</td>	<td value="');
-t.p( problem.note);
+t.p( problemDetail.problemCode.code);
 t.p('">');
-t.p( problem.note);
+t.p( problemDetail.problemCode.code);
 t.p('</td>	<td value="');
-t.p( problem.priority);
+t.p( problemDetail.problemDate);
 t.p('">');
-t.p( problem.priority);
-t.p('</td>	</tr>	');
+t.p( problemDetail.problemDate.low.month);
+t.p('/	');
+t.p( problemDetail.problemDate.low.day);
+t.p('/');
+t.p( problemDetail.problemDate.low.year);
+t.p('</td>	');
+if (problemDetail.narrative == "A") {
+t.p('		<td  style = "background-color:yellow" value="');
+t.p( problemDetail.narrative);
+t.p('">');
+t.p( ActiveStatus);
+t.p('</td>	');
+}
+else {
+t.p('		<td style = "background-color:gray"value="');
+t.p( problemDetail.narrative);
+t.p('">');
+t.p( InActiveStatus);
+t.p('</td>		');
+}
+t.p('	</tr>	');
 count = ( count + 1 );
 t.p('	');
 }

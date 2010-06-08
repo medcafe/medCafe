@@ -97,7 +97,7 @@ public class ListPatientWidgetResource extends ServerResource {
 
         	String[] method = new String[]{"", "","","", "", "","","","","","",""};
 
-        	String[] repository = new String[]{"OurVista","", "","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista","", "",""};
+        	String[] repository = new String[]{"OurVista","", "","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista","OurVista", "",""};
 
         	int i=0;
 
@@ -120,7 +120,7 @@ public class ListPatientWidgetResource extends ServerResource {
                 i++;
             }
             log.finer( obj.toString());
-            // System.out.println("ListWidgetResource JSON " +  obj.toString());
+        System.out.println("ListWidgetResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)

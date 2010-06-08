@@ -12,7 +12,7 @@ public class Repositories
 {
 
     protected static Map<String, Repository> repos = new HashMap<String, Repository>();
-    protected static final int TIMEOUT = 5000; // I recommend 3 seconds at least
+    protected static final int TIMEOUT = 8000; // I recommend 3 seconds at least
 
     public Repositories()
     {

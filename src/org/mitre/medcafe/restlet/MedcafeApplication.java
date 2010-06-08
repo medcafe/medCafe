@@ -25,6 +25,7 @@ public class MedcafeApplication extends Application {
         router.attach("/repositories/{repository}/patients/{id}/events", org.mitre.medcafe.restlet.PatientListEventResource.class);
         router.attach("/repositories/{repository}/patients/{id}/allergies", org.mitre.medcafe.restlet.PatientAllergyResource.class);
         router.attach("/repositories/{repository}/patients/{id}/medications", org.mitre.medcafe.restlet.PatientMedicationResource.class);
+    router.attach("/repositories/{repository}/patients/{id}/problems", org.mitre.medcafe.restlet.PatientProblemResource.class);
         router.attach("/repositories/{repository}/patients/{id}/bookmarks", org.mitre.medcafe.restlet.PatientBookmarkResource.class);
         //router.attach("/repositories/{repository}/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
 
@@ -38,8 +39,6 @@ public class MedcafeApplication extends Application {
         router.attach("/dates",org.mitre.medcafe.restlet.ListDatesResource.class);
         router.attach("/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
         router.attach("/patients/{id}/address", org.mitre.medcafe.restlet.ListAddressResource.class);
-         
-        router.attach("/patients/{id}/problem", org.mitre.medcafe.restlet.PatientProblemResource.class);
         // register the view restlets
         //router.attach("/treenode", org.mitre.medcafe.restlet.TreeNodeResource.class);
 

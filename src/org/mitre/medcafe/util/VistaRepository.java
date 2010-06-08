@@ -16,6 +16,9 @@ import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
+import org.projecthdata.hdata.schemas._2009._06.condition.*;
+import com.medsphere.vistarpc.RPCConnection;
+import com.medsphere.vistarpc.RPCException;
 
 /**
  *  This class implements an interface to a back-end Vista repostory.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
@@ -29,7 +32,7 @@ public class VistaRepository extends Repository
     // static{log.setLevel(Level.FINER);}
 
     protected static VistaLinkPooledConnectionFactory factory = null;
-    protected VistaLinkPooledConnection conn = null;
+    protected RPCConnection conn = null;
 
     public VistaRepository()
     {
@@ -167,9 +170,14 @@ public class VistaRepository extends Repository
     {
         if( conn != null )
         {
+        	try{
             // log.finer("closing connection");
-            conn.returnToPool();
-            // conn.close();
+           // conn.returnToPool();
+           	conn.close(); }
+           	catch (RPCException e)
+           	{
+           		log.finer("Error closing connection");
+           	}
             conn = null;
         }
     }
@@ -196,7 +204,7 @@ public class VistaRepository extends Repository
                 log.finer("Connection made...");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 log.finer("HERE!! " + r.toString());
-                Collection<IsAPatientItem> vista_list = r.getAllergies(id);
+                Collection<IsAPatientItem> vista_list = r.getAllergies(id, false);
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Allergy type
                 for( IsAPatientItem a : vista_list )
                 {
@@ -218,9 +226,9 @@ public class VistaRepository extends Repository
                         allergy.setAdverseEventDate( d );
                     }
 
-                    Reaction re = new Reaction();
-                    re.setValue( pa.getReaction() );
-                    allergy.setReaction( re );
+                   Reaction re = new Reaction();
+                   re.setValue( pa.getSigns() );
+                   allergy.setReaction( re );
 
                     // System.out.println(pa.toString());
                     //add to the list
@@ -233,7 +241,7 @@ public class VistaRepository extends Repository
             log.throwing(KEY, "Error retreiving PatientItems", e );
         }
         finally {
-            if (conn != null) conn.close();
+            closeConnection();
             return list;
         }
     }
@@ -290,8 +298,57 @@ public class VistaRepository extends Repository
             log.throwing(KEY, "Error retreiving PatientItems", e );
         }
         finally {
-            if (conn != null) conn.close();
+            closeConnection();
             return list;
+        }
+    }
+    public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems( String id )
+    {
+        List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> list = new ArrayList<org.projecthdata.hdata.schemas._2009._06.condition.Condition>();
+        try {
+            if( setConnection( ) )
+            {
+                log.finer("Connection made...");
+                PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
+                log.finer("HERE!! " + r.toString());
+                Collection<PatientProblem> vista_list = r.getProblems(id);
+                // an ArrayList of PatientProblem objects is returned -  converty to hData Condition type
+                for( PatientProblem p : vista_list )
+                {
+                    Condition problem = new Condition();  //hData type
+             
+                    //populate
+
+
+                    if( p.getDateTime() != null )
+                    {
+                        GregorianCalendar cal = new GregorianCalendar();
+                        cal.setTime( p.getDateTime() );
+                        DatatypeFactory factory = DatatypeFactory.newInstance();
+                        DateRange d = new DateRange();
+                        d.setLow(factory.newXMLGregorianCalendar(cal));
+                        problem.setProblemDate( d );
+                    }
+                    ProblemCode pcode = new ProblemCode();
+                    pcode.setCode(p.getIcd());
+                    problem.setProblemCode( pcode);
+                    problem.setProblemName(p.getMessage());
+                    problem.setNarrative(p.getStatus());
+
+                    //System.out.println(problem.toString());
+                    // System.out.println(pa.toString());
+                    //add to the list
+                    list.add(problem);
+                }
+            }
+            else log.warning("BAD CONNECTION");
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving PatientItems", e );
+        }
+        finally {
+        	closeConnection();
+        	return list;
         }
     }
 }

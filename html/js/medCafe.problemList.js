@@ -1,5 +1,5 @@
  
- function listProblemList(id, patient_id, server)
+ /*function listProblemList(id, patient_id, server)
 {
 	///patients/{id}/history/{category}
 	var link = "problemListJSON.jsp?patient_id=" + patient_id;
@@ -24,7 +24,7 @@
 
 	});
 }
-	
+*/	
 function addProblemList(callObj, server, tab_num, label, patient_id, repId, patientRepId)
 {	
 		
@@ -33,7 +33,7 @@ function addProblemList(callObj, server, tab_num, label, patient_id, repId, pati
 		{
 			
 			 	iNettuts.refresh("yellow-widget" + tab_num);
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
+				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
 				//alert("server link " + serverLink);
 				$.getJSON(serverLink, function(data)
 				{
@@ -59,7 +59,7 @@ function addProblemList(callObj, server, tab_num, label, patient_id, repId, pati
 						$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#problemList" + patient_id).dataTable( {
+						 	tableObj = $("#problemList" + patientRepId).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -68,7 +68,7 @@ function addProblemList(callObj, server, tab_num, label, patient_id, repId, pati
 										return;
 									}
 									
-									var nTrs = $('#problemList' + patient_id+ ' tbody tr');
+									var nTrs = $('#problemList' + patientRepId+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -102,14 +102,14 @@ function addProblemList(callObj, server, tab_num, label, patient_id, repId, pati
 						var medUrl = serverLink;
 					
 						//Get the selected row if user clicks on <tr> object	 
-						$("#problemList" + patient_id + " tbody tr").click( function() {
+						$("#problemList" + patientRepId + " tbody tr").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 						
 						//Get the selected row if user clicks on <td> object
-						$("#problemList" + patient_id + " tbody td").click( function() {
+						$("#problemList" + patientRepId + " tbody td").click( function() {
 						
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];

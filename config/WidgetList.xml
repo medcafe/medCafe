@@ -98,7 +98,7 @@
 	<server></server>
 	<clickUrl>problemListJSON.jsp</clickUrl>
 	<method></method>
-	<repository>local</repository>
+	<repository>OurVista</repository>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Charts</name>

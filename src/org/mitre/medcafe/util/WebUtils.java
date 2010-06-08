@@ -272,6 +272,7 @@ public class WebUtils
             Gson gson = new Gson();
             String jsonString = gson.toJson(o);
             log.finer(jsonString);
+
             JSONObject obj = new JSONObject();
             obj.put("patient_id", patid);
             obj.put("repository", repository);

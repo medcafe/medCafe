@@ -9,6 +9,7 @@ import java.util.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
+import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -102,7 +103,13 @@ public class hDataRepository extends Repository
             return null;
         }
     }
-
+    /**
+     *
+     */
+     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId)
+     {
+         return null;
+     }
     /**
      * Type property.
      */
