@@ -8,7 +8,7 @@
 <html>
 <head>
 <%
-	String[] eventList =  new String[]{"Symptoms","Problems","Visits","Hospital","Images","Records"};
+	String[] eventList =  Event.getEventList();
 	
 	String server = "http://" + Config.getServerUrl() ;
 	String patient_id = request.getParameter(Constants.PATIENT_ID);

@@ -59,6 +59,7 @@ public class Event
 	private String icon ="";
 	private String title ="";
 	private String fileUrl ="";
+	private String type ="";
 	private Date eventDate =new Date();
 	
 	public static final String PATIENT_ID = "patient_id";
@@ -66,11 +67,20 @@ public class Event
 	public static final String ICON = "icon";
 	public static final String DATE = "file_date";
 	public static final String FILENAME = "filename";
+	public static final String TYPE = "type";
 	
 	public static final String SORT_BY = " ORDER BY file_date DESC ";
 	
 	public static final String DATE_FORMAT = "yyyy,MM,dd";//2008,6,08
 	public static final String SQL_DATE_FORMAT = "YYYY-MM-DD";
+	
+	public static final String NOTE_TYPE = "Records";
+	public static final String APPT_TYPE = "Visits";
+	public static final String FILE_TYPE = "Images";
+	public static final String SYMPTOMS_TYPE = "Symptoms";
+	public static final String PROBLEMS_TYPE = "Problems";
+	public static final String HOSPITAL_TYPE = "Hospital";
+	
 	
 	private static DbConnection dbConn = null;
 	public Event()	
@@ -100,19 +110,102 @@ public class Event
 	public JSONObject toJSON() throws JSONException
 	{
 		 JSONObject o = new JSONObject();
-		 o.put(Event.PATIENT_ID, this.getPatientId());
-		 		 
+		 o.put(Event.PATIENT_ID, this.getPatientId());	 		 
 		 return o;
 		 
 	}
 	
+	public static String[] getEventList()
+	{
+		return new String[]{Event.SYMPTOMS_TYPE,Event.PROBLEMS_TYPE,Event.APPT_TYPE,Event.HOSPITAL_TYPE,Event.FILE_TYPE,Event.NOTE_TYPE};
+	}
 	
-	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr) throws SQLException, ParseException
+	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes) throws SQLException, ParseException
+	{
+		ArrayList<Event> eventList = new ArrayList<Event>();
+		System.out.println("Event : retrieveEvents: getIcons start " );
+    	
+		try 
+		 {
+			HashMap<String,String> icons = getIcons();
+			System.out.println("Event : retrieveEvents: getIcons " + icons.size());
+        	
+			for (String type: eventTypes)
+			{
+				System.out.println("Event : retrieveEvents: event type " + type);
+	        	
+				String icon = icons.get(type);
+				
+				if (type.equals(Event.FILE_TYPE))
+				{
+					String sql = getImageEventSQL();
+					ArrayList<Event> newEventList = retrieveEventsFromLocal(sql, userName,  patientId,  startDateStr,  endDateStr, eventTypes,  icon,  type) ;	
+					eventList.addAll(newEventList);
+					
+				}
+				else if (type.equals(Event.APPT_TYPE))
+				{
+					String sql = getAppointmentEventSQL();
+					ArrayList<Event> newEventList = retrieveEventsFromLocal(sql, userName,  patientId,  startDateStr,  endDateStr, eventTypes,  icon,  type) ;	
+					eventList.addAll(newEventList);
+					
+				}
+				else if (type.equals(Event.NOTE_TYPE))
+				{
+					String sql = getNoteEventSQL();
+					ArrayList<Event> newEventList = retrieveEventsFromLocal(sql, userName,  patientId,  startDateStr,  endDateStr, eventTypes,  icon,  type) ;	
+					eventList.addAll(newEventList);
+					
+				}
+				else if (type.equals(Event.HOSPITAL_TYPE))
+				{
+					
+				}
+				else if (type.equals(Event.PROBLEMS_TYPE))
+				{
+					
+				}
+				else if (type.equals(Event.SYMPTOMS_TYPE))
+				{
+					
+				}
+			}
+			System.out.println("Event : retrieveEvents: finished ");
+        	
+		 } 
+		 finally
+		 {
+			 
+			 //dbConn.close();
+			 //dbConn = null;
+		 }
+		 return eventList;
+		
+	}
+	
+	private static String getNoteEventSQL()
+	{
+		String select = "SELECT subject as title,  note_added from user_text where username = ? and patient_id = ? ";
+    	return select;
+	}
+	
+	private static String getImageEventSQL()
+	{
+		String select = "SELECT title, file_date, filename, thumbnail  from file where username = ? and patient_id = ?  ";
+    	return select;
+	}
+	
+	private static String getAppointmentEventSQL()
+	{
+		String select = "select  title , appoint_date, appoint_time from schedule  where username = ? and patient_id = ?  ";
+    	return select;
+	}
+	
+	private static ArrayList<Event> retrieveEventsFromLocal(String sql,String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, String icon, String type) throws SQLException, ParseException
 	{
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		
-		try 
-		 {
+		
 			int patId = Integer.valueOf(patientId);
 			if (dbConn == null)
 				dbConn= new DbConnection();
@@ -121,132 +214,68 @@ public class Event
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			Date startDate = null;
 			Date endDate = null;
-			ArrayList<String> sqlQueries =  getQueries();
-			int startDatePos = 2, endDatePos = 2;
 			
-			ArrayList<String> icons = getIcons();
-			ArrayList<String> types = getTypes();
-			int i =0;
-			for (String sqlQuery: sqlQueries)
-			{
-				/*if (startDateStr != null)
-				{
-						 sqlQuery = sqlQuery + " AND file_date > ? ";			 
-						 startDate = df.parse(startDateStr);
-						 startDatePos = 3; 
-				}
-					 
-				if (endDateStr != null)
-				{
-						 endDate = df.parse(endDateStr);
-						 sqlQuery = sqlQuery + " AND file_date < ? ";
-						 endDatePos = startDatePos + 1;
-				}
-					 */
-				
-				System.out.println("Medcafe Event JSON Events retrieveEvents sql " + sqlQuery);
-	            
-				prep= dbConn.prepareStatement(sqlQuery);
+			int startDatePos = 2, endDatePos = 2;
+			     
+			prep= dbConn.prepareStatement(sql);
 						
-				if (startDate != null)
-				{
+			if (startDate != null)
+			{
 						 java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());			 
 						 prep.setDate(startDatePos, sqlStartDate);
-				}
+			}
 					 
-				if (endDate != null)
-				{
+			if (endDate != null)
+			{
 						 java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
 						 prep.setDate(endDatePos, sqlEndDate);
-				}
-	
-				prep.setString(1, userName);
-				prep.setInt(2, patId);
-				ResultSet rs =  prep.executeQuery();
-	
-				System.out.println("Medcafe Event JSON Events retrieveEvents sql" + prep.toString());
-	            
-				//This lists all the paramaters - gather together into a HashMap - keyed on id
-				Event event = new Event();
-				while (rs.next())
-				{	
-					event = new Event();
-				  
-					String title = rs.getString(1);
-					System.out.println("Medcafe Event JSON Events retrieveEvents retrieving values for title " + title);
-			          
-					Date date = rs.getDate(2);
-					event.setTitle(title);
-					event.setEventDate(date);
-					event.setIcon(icons.get(i));
-					
-					if (types.get(i).equals("file"))
-					{
-						String fileName = rs.getString("thumbnail");
-						event.setFileUrl(fileName);
-					}
-					//Set the event values
-					eventList.add( event);
-					
-				}
-				i++;
 			}
-		 }
-		 catch (SQLException e) 
-		 {
-			dbConn.close();
-			 dbConn = null;
-			throw e;
-		 } 
-		 finally
-		 {
-			 
-			 dbConn.close();
-			 dbConn = null;
-		 }
+	
+			prep.setString(1, userName);
+			prep.setInt(2, patId);
+			ResultSet rs =  prep.executeQuery();
+	
+			System.out.println("Medcafe Event JSON Events retrieveEvents sql" + prep.toString());
+	            
+			//This lists all the paramaters - gather together into a HashMap - keyed on id
+			Event event = new Event();
+			while (rs.next())
+			{	
+				event = new Event();
+				  
+				String title = rs.getString(1);
+				System.out.println("Medcafe Event JSON Events retrieveEvents retrieving values for title " + title);
+			          
+				Date date = rs.getDate(2);
+				event.setTitle(title);
+				event.setEventDate(date);
+				event.setIcon(icon);
+					
+				if (type.equals("file"))
+				{
+					String fileName = rs.getString("thumbnail");
+					event.setFileUrl(fileName);
+				}
+				//Set the event values
+				eventList.add( event);
+					
+			}	 
 		 return eventList;
 		
 	}
-
-	public static ArrayList<String> getQueries()
-	{
-	    	ArrayList<String> selects = new ArrayList<String>();
-	    	String select = "SELECT subject as title,  note_added from user_text where username = ? and patient_id = ? ";
-	    	selects.add(select);
-	    	select = "SELECT title, file_date, filename, thumbnail  from file where username = ? and patient_id = ?  ";
-	    	selects.add(select);
-	    	select = "select  title , appoint_date, appoint_time from schedule  where username = ? and patient_id = ?  ";
-	    	selects.add(select);
-	    	
-	    	return selects;
-	}
 	
-	public static ArrayList<String> getIcons()
+	public static HashMap<String,String> getIcons()
 	{
-	    	ArrayList<String> icons = new ArrayList<String>();
+	    	HashMap<String,String> icons = new HashMap<String,String>();
 	    	String icon = "notes.png";
-	    	icons.add(icon);
+	    	icons.put(Event.NOTE_TYPE, icon);
 	    	icon = "results.png";
-	    	icons.add(icon);
+	    	icons.put(Event.FILE_TYPE, icon);
 	    	icon = "doctor-icon.png";
-	    	icons.add(icon);
+	    	icons.put(Event.APPT_TYPE, icon);
 	    
 	    	return icons;
 	}
-	
-	public static ArrayList<String> getTypes()
-	{
-	    	ArrayList<String> icons = new ArrayList<String>();
-	    	String icon = "notes";
-	    	icons.add(icon);
-	    	icon = "file";
-	    	icons.add(icon);
-	    	icon = "schedule";
-	    	icons.add(icon);
-	    
-	    	return icons;
-	}
-	
 	
 	public int getPatientId() {
 		return patientId;
@@ -294,6 +323,14 @@ public class Event
 
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

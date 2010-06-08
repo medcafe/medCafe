@@ -35,6 +35,8 @@ public class PatientListEventResource extends ServerResource {
     protected Date startDate = new Date();
     protected Date endDate =  new Date();
     private String userName;
+    private String[] eventTypes = new String[]{};
+    
     /** The sequence of characters that identifies the resource. */
 
     /**
@@ -59,80 +61,11 @@ public class PatientListEventResource extends ServerResource {
        System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
        userName = form.getFirstValue(USER_ID);
        
-       String[] events = form.getValuesArray("event");
-       System.out.println("PatientListEventResource JSON init events " + events.length);
-       
+       eventTypes = form.getValuesArray("event");
        
     }
 
-    @Get("json")
-    public JsonRepresentation toJsonOld(){
-
-    	/* Required JSON format
-    	 * {
-				'wikiURL': "http://simile.mit.edu/shelf/",
-				'wikiSection': "Simile Cubism Timeline",
-
-				'events' : [
-				       {'start':  new Date(2006,2,15),
-				        'title': 'Still Life with a White Dish',
-				        'description': 'by Gino Severini, Italian Painter, 1883-1966',
-				        'image': 'http://images.allposters.com/images/MCG/FS1254_b.jpg',
-				        'link': 'http://www.allposters.com/-sp/Still-Life-with-a-White-Dish-1916-Posters_i366823_.htm'
-				        }
-				]
-				}
-
-    	 */
-        //convert to JSON
-        try
-        {
-            JSONObject obj = new JSONObject();
-            String server = Config.getServerUrl() ;
-            obj.put("wikiURL", "Patient data ");
-            obj.put("wikiSection", "Patient Data");
-
-        	String[] imageId = new String[]{"assessment","bloodstat","cardioReport" , "chest-xray", "chest-xray2","mri","lab-report"};
-
-        	String[] events = new String[]{"assessment.png","bloodstat.jpg","cardioReport.gif" ,
-					"chest-xray.jpg", "chest-xray2.jpg","mri.jpg","bloodstat.jpg"};
-        	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI","Lab Results" };
-
-
-        	String[] dates = new String[]{"2008,1,01","2008,2,03","2008,5,07",
-        			"2008,6,08", "2008,8,07","2008,10,01","2008,10,30"};
-        	String[] icons = new String[]{"results.png","results.png","hospital-icon.png",
-        			"doctor-icon.png", "doctor-icon.png","doctor-icon.png","results.png"};
-
-        	String dir = "patients/" + this.id + "/";
-        	String imageDir = "images/" + dir;
-
-        	int i=0;
-
-        	for(String event: events)
-            {
-        		JSONObject inner_obj = new JSONObject ();
-                inner_obj.put("start", "<:startDate" + i + ":>");
-                inner_obj.put("title", imageTitles[i]);
-                inner_obj.put("image", "http://" + server + "/" + imageDir +  event);
-                inner_obj.put("icon", "http://" + server + "/images/" + icons[i]);
-                 obj.append("events", inner_obj);
-                i++;
-            }
-        	String jsonStr = obj.toString();
-        	System.out.println("PatientListEventRestlet : toJSON: " + jsonStr);
-        	//jsonStr = putInDates(jsonStr, dates);
-        	JsonRepresentation json = new JsonRepresentation(jsonStr);
-            return json;
-        }
-        catch(org.json.JSONException e)
-        {
-            log.throwing(KEY, "toJson()", e);
-            return new JsonRepresentation("{\"error\": \""+e.getMessage()+"\"}");
-        }
-    }
-
-   
+  
     @Get("json")
     public JsonRepresentation toJson(){
        
@@ -158,15 +91,13 @@ public class PatientListEventResource extends ServerResource {
         	DateFormat df = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
             
             String startDateStr = df.format(startDate);
-            System.out.println("PatientImageResource JSON start date " + startDateStr );
+            System.out.println("PatientImageResource toJSON start date " + startDateStr );
             
             String endDateStr = df.format(endDate);
-            System.out.println("PatientImageResource JSON end date " + endDateStr );
+            System.out.println("PatientImageResource toJSON end date " + endDateStr );
             
-        	ArrayList<Event> events;
-			
-			events = Event.retrieveEvents(userName, id, startDateStr, endDateStr);
-			
+        	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes);
+        	System.out.println("PatientListEventRestlet : toJSON: event list " + events.size());
         	ArrayList<String> dates = new ArrayList<String>();
             JSONObject obj = new JSONObject();
             String server = Config.getServerUrl() ;
