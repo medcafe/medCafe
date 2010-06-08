@@ -1,0 +1,158 @@
+<project name="ovid-domain" default="compile" basedir="." >
+
+
+   
+
+    <property environment="env"/>
+
+    <property file="build.properties" />
+
+    <target name="init">
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${dest.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${dest.dir}"/>
+        <delete dir="${lib.dir}"/>
+        <delete dir="build"/>
+        <delete dir="target"/>
+        <delete dir="${javadoc.dir}"/>
+        <delete dir="docs"/>
+        <delete dir="${dist.dir}"/>
+
+        <delete dir="test-output"/>
+        <delete dir="test-report"/>
+        <delete dir="dist"/>
+        <delete>
+            <fileset dir=".">
+                <include name="**/*.log"/>
+            </fileset>
+        </delete>
+
+    </target>
+
+    <target name="clobber" depends="clean">
+        <delete dir="contrib/lib"/>
+    </target>
+
+    <path id="ovid-domain.path">
+        <fileset dir ="../ovid/lib">
+           <include name="**/*.jar"/>
+           </fileset>
+
+        <fileset dir = "lib">
+           <include name = "**/*.jar"/>
+           </fileset>
+    <fileset dir = "contrib/vistalink">
+           <include name = "**/*.jar"/>
+           </fileset>
+
+    </path>
+
+
+
+    <target name="compile" depends="init">
+        <javac destdir="${dest.dir}" debug="${debug.flag}">
+            <src path="${src.includes}" />
+            <classpath refid="ovid-domain.path"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="${lib.dir}/ovid-domain.jar">
+            <fileset dir="${dest.dir}">
+                <include name="**/*.class"/>
+                <include name="${version.file}" />
+                <exclude name="**/Test*.class"/>
+            </fileset>
+            <fileset dir=".">
+                <include name="resources/*.zip"/>
+                <include name="config/**"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="rebuild" depends="clean">
+    </target>
+
+    <target name="javadoc" depends="compile">
+        <javadoc destdir="${javadoc.dir}" author="true" verbose="false"
+                version="true" classpathref="ovid-domain.path"
+                use="true" additionalparam="-quiet" windowtitle="OVID Domain">
+
+            <fileset dir="${src.includes}" defaultexcludes="yes">
+                <include name="com/medsphere/**" />
+                <exclude name="com/medsphere/test/**" />
+                <exclude name="com/medsphere/**/*.txt" />
+                <exclude name="com/medsphere/**/*.xml" />
+            </fileset>
+
+        </javadoc>
+    </target>
+
+    <!-- to run frome eclipse:
+         Window->Preferences->Ant->Runtime, goto [Classpath] tab
+         Add External Jar in Ant Home Entries and point to contrib/testNG/testng*.jar, [Apply]
+         Goto [Tasks] tab
+         Add a task named testng that references testng*.jar applied above, pointing to:
+         com.beust.testng.TestNGAntTask.class
+    -->
+
+    <target name="create-version-file">
+        <echo append="false" file="${dest.dir}/${version.file}" message="${version.major}.${version.minor}.${version.revision}."/>
+        <exec failifexecutionfails="false" append="false" executable="bzr" output="${dest.dir}/${version.file}">
+            <arg value="revno" />
+        </exec>
+    </target>
+
+    <target name="dist" depends="clean,compile,create-version-file,jar,run-unit-tests">
+        <copy file="lib/ovid-domain.jar" todir="${medsphere.contrib.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+        <zip destfile="${dist.dir}/ovid-domain-src-${version.major}.${version.minor}.${version.revision}.zip">
+            <zipfileset dir="." prefix="ovid-domain">
+                <exclude name="bin/"/>
+                <exclude name="${dist.dir}/"/>
+                <exclude name="${contrib.dir}/lib/"/>
+                <exclude name="test-*/"/>
+                <exclude name=".*/"/>
+            </zipfileset>
+          </zip>
+    </target>
+
+    <path id="unit.test.class.path">
+        <path refid="ovid-domain.path"/>
+        <pathelement location="${testNG.jar}"/>
+        <pathelement location="${dest.dir}"/>
+    </path>
+
+    <target name="prepare-testng">
+        <taskdef
+          name="testng"
+          classname="com.beust.testng.TestNGAntTask"
+           classpathref="unit.test.class.path"
+      />
+    </target>
+
+    <target name="run-unit-tests" depends="prepare-testng">
+        <testng classpathref="unit.test.class.path"
+                outputDir="test-output"
+                sourcedir="${src.includes}"
+                haltOnfailure="true">
+
+            <xmlfileset dir="." includes="**/OvidUnitTestSuite.xml"/>
+        </testng>
+        <delete dir="test-report"/>
+        <mkdir dir="test-report"/>
+        <junitreport todir="test-report">
+            <fileset dir="test-output">
+                <include name="*/*.xml"/>
+            </fileset>
+
+            <report format="noframes"  todir="test-report"/>
+        </junitreport>
+
+    </target>
+
+</project>

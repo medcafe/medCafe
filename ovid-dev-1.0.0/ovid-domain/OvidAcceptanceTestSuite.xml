@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="OvidAcceptanceTestSuite" verbose="1">
+    <parameter name="access-code" value="SQ1234" />
+    <parameter name="verify-code" value="SQ1234!!" />
+    <test name="FullAcceptanceTest">
+        <groups>
+            <run>
+                <include name="acceptance">
+                </include>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.medsphere.ovid.*" />
+        </packages>
+    </test>
+</suite>
