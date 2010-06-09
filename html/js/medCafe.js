@@ -489,4 +489,17 @@ function updateAnnouncements(data)
     }
 }
 
-//Given a JSON Object with all the listings of 
+//Given a JSON Object with all the listings of assoc repositories
+//Initialize a JSON Object holding all information about patients and the corresponding
+//associated id in the host repository
+
+function getAssocPatientRepositories(patientId)
+{	
+	var serverLink = "retrievePatientRepositoryAssoc.jsp?patient_id=" + patientId;
+	var repPatientJSON;
+	$.getJSON(serverLink,function(data)
+	{		      	  	  
+			repPatientJSON = data;	    
+	});
+	return repPatientJSON;
+}  	

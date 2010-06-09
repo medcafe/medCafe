@@ -17,22 +17,7 @@
 		patientId = "1";
 		
 	Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
-	HashMap<String, String> repositoryIds = new HashMap<String, String>();
 	
-	if (repositoryIdObjs == null)
-	{
-		Patient patient = new Patient();
-		patient.setConnection();
-		repositoryIds = patient.listRepositories(patientId);
-		session.setAttribute("repPatientIds", repositoryIds);
-	}
-	else
-	{
-		if (repositoryIdObjs instanceof HashMap)
-		{
-			repositoryIds = (HashMap<String,String>)repositoryIdObjs;
-		}
-	}
 %>
 <head>
 
@@ -100,47 +85,13 @@
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
         listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
         listProblemList("listProblemSummary", "<%=patientId%>", "${server}");
-        initializeRepositories();
-      		  	
-
-//Initialize a JSON Object holding all information about patients and the corresponding
-//associated id in the host repository
-function initializeRepositories()
-{	
-	repositoryPatientJSON = { "repositories" : [
-	<%
-				
-	String commaStr ="";
-	for(String repId: repositoryIds.keySet())
-	{
-		String patientRepId = repositoryIds.get(repId);
-					
-		out.print(commaStr + "{\"repository\" : \"" + repId + "\" , \"id\" : \"" + patientRepId + "\"}");
-		commaStr = ",";
-	}
-			  	
-	%>
-	]
-	}
-}  	
-		  	
-//Given a repository name return the associated id within that repository	  	
-function getRepId(rep)
-{
-	var len = repositoryPatientJSON.repositories.length;
-	var x;
-	for (x in repositoryPatientJSON.repositories)
-	{	  		
-		test = repositoryPatientJSON.repositories[x].repository;
-		if (test == rep)
+	    initialize();
+	  	
+		function initialize(repositoryJSON)
 		{
-			  var id = repositoryPatientJSON.repositories[x].id;
-			  //alert("id: " + id);
-			  return id;
-		}
-			  		
-	}
-}
+			repositoryPatientJSON = getAssocPatientRepositories("<%=patientId%>");
+		}      		
+		  	
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>

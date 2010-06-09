@@ -68,26 +68,45 @@ $(function(){
 			var patientId = "<%=patientId%>";
 			var params = $(dragObj).find('img').attr("custom:params");
 			var repository = $(dragObj).find('img').attr("custom:repository");
-			var repPatientId = getRepId(repository);
-			
-			if (hasContent == "false")
-			{
-				//No content : Use the current Tab
-				//addChart(this, link, "<%=tabNum%>");
-				
-				createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository, repPatientId);
-				$(hasContentObj).attr("custom:hasContent",true);
-				
-				renameTab("<%=tabNum%>",text);
-			}
-			else
-			{
-				//Tab already has content Create a new Tab
-				createLink(patientId,link, text, type ,params, repository, repPatientId);
-			}
-      }
+			var repPatientId ;
+			var serverLink = "retrievePatientRepositoryAssoc.jsp?patient_id=" + patientId;
+			var repPatientJSON;
+			$.getJSON(serverLink,function(data)
+			{		      	  	  
+					repPatientJSON = data;	  
+					var len = repPatientJSON.repositories.length;
+					var x;
+					for (x in repPatientJSON.repositories)
+					{	  		
+						test = repPatientJSON.repositories[x].repository;
+						if (test == repository)
+						{
+							  repPatientId = repPatientJSON.repositories[x].id;
+							  //alert("tabs-template.jsp getRepId rep id: " + repPatientId);
+						}
+							  		
+					}
+					
+					if (hasContent == "false")
+					{
+						//No content : Use the current Tab
+						//addChart(this, link, "<%=tabNum%>");
+						
+						createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository, repPatientId);
+						$(hasContentObj).attr("custom:hasContent",true);
+						
+						renameTab("<%=tabNum%>",text);
+					}
+					else
+					{
+						//Tab already has content Create a new Tab
+						createLink(patientId,link, text, type ,params, repository, repPatientId);
+					}
+		      
+		   });
+		   }
     });
-	
+
 });
 
 //Take the Hashmap of the repositories and the associated patient rep id and put into JSON object

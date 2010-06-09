@@ -16,13 +16,13 @@
 	session.setAttribute("patient", patientId);
 	
 	
-	HashMap<String, String> repositoryIds = new HashMap<String, String>();
+	JSONObject repositoryIds = new JSONObject();
 	Patient patient = new Patient();
 	patient.setConnection();
 	repositoryIds = patient.listRepositories(patientId);
 	
 	session.setAttribute("repPatientIds", repositoryIds);
-	
+
 %>
 <%=widgetList.toString()%>
 

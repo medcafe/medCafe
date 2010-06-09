@@ -147,27 +147,27 @@ function retrieve(patient)
 
 function populate(url, patient_id)
 {
-
+		   
 	 var server = url + "?patient_id=" + patient_id;
+	 //alert("medCafe.patients.js : populate url " + server);
+	
 	 $.getJSON(server, function(data)
 	 {
 	 	   //If no data is retrieved then just return.
 		   if (!data.widgets)
 		   {
 		   		var tab_num = parent.addTab("New", "chart");
-		   		parent.initializeRepositories();
+		   		
 		   		parent.iNettuts.refresh("yellow-widget" + tab_num);
 				parent.iNettuts.makeSortable();
-				
-		   		
+	
 		   		return;
 		   }
 		   
 		   //alert("medCafe.patients.js : number of widgets " + data.widgets.length);
 		   for(i=0; i< data.widgets.length; i++) 
 		   {
-		    	
-		  			var link = "";
+		    		var link = "";
 					var label = data.widgets[i].name;
 					//var label = "Label" + i;
 					var type =  data.widgets[i].type;
@@ -180,7 +180,7 @@ function populate(url, patient_id)
 					
 					tab_num = parent.addTab(label, type);					
 					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId, repPatientId);
-					parent.initializeRepositories();
+					
 		   }
 
 	});
