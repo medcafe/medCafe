@@ -65,6 +65,7 @@
 	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
 	
 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
@@ -156,16 +157,17 @@
 </div>
 
 <div class="ui-layout-north">
-    < span>
+    <span>
         <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
             <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
         </a>
         <div id="search-engines" class="hidden"></div>
+        <button id="addTabBtn">Add Tab</button>
     </span>
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
-                <img alt="Patient photo" src="images/patients/photo_1.jpg" />
+                <img alt="Patient photo" src="images/patients/photo_1.jpg" ></img>
             </p>
         </div>
     </div>
@@ -186,8 +188,7 @@
             <p><strong>Past Medical History</strong>
             <div id="listPatientHistory"></div>
             </p>
-            <!--p><strong>Past Medical History</strong><br/>Hypertension<br/>Diabetes, Type 2<br/>Migrane</p-->
-        </div>
+        	</div>
     </div>
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">

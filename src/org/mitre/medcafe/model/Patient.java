@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 
 import java.util.*;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
@@ -398,10 +399,9 @@ public class Patient
 		
 	}
 	
-	public HashMap<String,String> listRepositories(String patientId)
+	public JSONObject listRepositories(String patientId)
 	{
-		HashMap<String,String> ret = new HashMap<String,String>();
-		
+		JSONObject ret = new JSONObject();
 		//SELECT patient_id, rep_patient_id, repository from  patient_repository_assoc where patient_id = ? ";
 
 		String listQuery = LIST_REP_ASSOC_BY_PATIENT_ID;
@@ -411,22 +411,47 @@ public class Patient
 		String err_mess = "Could not check the list of repositories for patient " + patient_id;
 		
 		ResultSet rs = dbConn.psExecuteQuery(listQuery, err_mess , patient_id );	
+		
+		/*
+		{ "repositories" : [
+				{"repository" : "OurVista" , "id" : "3"},{"repository" : "local" , "id" : "1"}
+				]
+		}
+		*/
 		boolean results = false;
 		try {
+			JSONArray reps = new JSONArray();
 			while (rs.next())
 			{
+				JSONObject innerObj = new JSONObject();
+				
 				  patient_id = rs.getInt(1);
 				  String rep = rs.getString("repository");
 				  int repId = rs.getInt("rep_patient_id");
-		          ret.put(rep, repId +"");
+		       
+				  innerObj.put("repository", rep);
+				  innerObj.put("id", repId);
+				  ret.append("repositories", innerObj);
+					
 		          results = true;
 			}
 			
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return null;
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+
 		} 
+		
+		if (!results)
+        {
+        	return WebUtils.buildErrorJson( "There are no patients currently listed in repositories " );
+
+        }
 		return ret;
 		
 	}

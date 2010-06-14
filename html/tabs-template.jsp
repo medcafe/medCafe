@@ -114,32 +114,36 @@ $(function(){
 function filterType()
 {
 	var srcName = "js/filterDate<%=type%>.js"; 
+	if (typeof filterDate<%=type%> != 'undefined')
+	{		
+		$.getScript(srcName, function(){
+	
+			//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
 			
-	$.getScript(srcName, function(){
-
-		//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
+			$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
+			{	 		
+				var tabNum = "<%=tabNum%>";		
+				filterDate<%=type%>(startDate, endDate,tabNum );
+					
+			});	
 			
-		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
-		{	 		
-			var tabNum = "<%=tabNum%>";
-			filterDate<%=type%>(startDate, endDate,tabNum );
-			
-		});	
-		
-		
-	});
+		});
+	}
 	
 	var catSrcName = "js/filterCategory<%=type%>.js"; 
-	$.getScript(catSrcName, function(){
-	
+	if (typeof filterCategory<%=type%> != 'undefined')
+	{
+		$.getScript(catSrcName, function(){
 		
-		$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
-			{	 		
-				var tabNum = "<%=tabNum%>";
-				filterCategory<%=type%>( filterCategory , tabNum);
-				
-			});	
-	});
+			
+			$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
+				{	 		
+					var tabNum = "<%=tabNum%>";
+					filterCategory<%=type%>( filterCategory , tabNum);
+					
+				});	
+		});
+	}
 }
 
 function bindClose()

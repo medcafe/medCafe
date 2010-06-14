@@ -29,7 +29,9 @@
 
     $(document).ready( function() {
 		    
-		
+			var isiPad = navigator.userAgent.match(/iPad/i) != null;
+			//console.log('Is this an iPad...' + isiPad);
+			
 		    $.getJSON("<%=listWidgets%>", function(data)
 		    {
 		    	
@@ -38,53 +40,54 @@
     			$("#test").append(html);
     			
     			$(this).delay(500,function()
-				{
-						/*$('.imageContain').draggable({
-									//connectToSortable: '#sortable',
-									containment: 'window',
-									helper: 'clone',
-									iframeFix : true,
-       								start: function(event, ui) 
-       								{
-       									 //alert("start dragging " + $(this).html() );
-       									 var iFrameFix = $(this).draggable('option','iframeFix');
-       									 
-       								}
-    					});*/
-
-						
+				{						
 		    			var imageButton = $("#test").find('.imageContain');
-						/*$(imageButton).bind("click",{},
-						function(e)
-						{
-							    
-								parent.clearWidgets();
-								var text = $(this).find('p').text();
-								
-								var label = $(this).find('img').attr("src");
-								var link = $(this).find('img').attr("custom:url");
-								var type = $(this).find('img').attr("custom:type");
-								var html = $(this).find('img').attr("custom:html");
-								var method = $(this).find('img').attr("custom:method");
-								var patientId = $(this).find('img').attr("custom:Id");
-							
-								parent.createLink(patientId,link, text, type );
-								$(this).unbind(e);
-								
-							
-						});	*/
-						
-						
+
 						$(imageButton).mousedown(function(event) {
+								
+								parent.clearWidgets();		
+	  							parent.startWidgetDrag($(this),"<%=frameId%>", isiPad, event );
+	  							return false;
+							});	
 							
-							parent.clearWidgets();		
-  							parent.startWidgetDrag($(this),"<%=frameId%>", event );
-  							return false;
-						});	
-		
+						if (isiPad)
+						{
+							console.log('This is an iPad binding touch start ');
+								$(imageButton).bind( "touchstart", function(event)
+										{
+											//console.log('This is an iPad have binded touch start ');	
+											parent.clearWidgets();		
+  											parent.startWidgetDrag($(this),"<%=frameId%>",isiPad, event );
+  											return false;								
+										}
+								);
+								//$(imageButton).medcafeTouch();
+								//parent.startWidgetDrag($(this),"<%=frameId%>",isiPad, event );
+								
+								//$(imageButton).addEventListener("touchmove", touchMove, false);
+								//$(imageButton).bind( "touchmove", touchMove);
+						}
+						else
+						{
+							
+						}
 				});  		
 			});
 	});
+	function touchMove(event) 
+	{
+			console.log('medCafe touchMove: Touch move..start');
+			event.preventDefault();
+            //console.log('medCafe touchMove: Touch move..start event ' + event.targetTouches.length);
+            
+			var finalCoord = { x: 0, y: 0 };
+           
+            finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
+            finalCoord.y = event.targetTouches[0].pageY
+            console.log('Touch move..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
+            //$("#clone").css( { position: "absolute",  "z-index" : "100", "left": finalCoord.x + "px", "top": finalCoord.y + "px" } );
+	  	
+ 	}
 </script>
 
 <body>

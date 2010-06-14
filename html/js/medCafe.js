@@ -2,6 +2,8 @@ $(document).ready( function() {
 
 		var tabSelectedId;
 
+	    var isiPad = navigator.userAgent.match(/iPad/i) != null;
+	   
 		// create the OUTER LAYOUT
         outerLayout = $("body").layout({
             west: { closable: true, resizable: true, slidable: true, showOverflowOnHover: true },
@@ -45,6 +47,15 @@ $(document).ready( function() {
 		   		 filterCategory();
 		});
 
+		$('#addTabBtn').click(function()
+		{
+			var tab_num = addTab("new","chart");
+			
+			//Make sure that tab is refreshed to add relevant scripts/ events
+			iNettuts.refresh("yellow-widget" + tab_num);
+			iNettuts.makeSortable();
+		});
+		
 		var medCafe = {
 
 				add : function (server, rep)
@@ -60,24 +71,6 @@ $(document).ready( function() {
 
 		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");
 		iNettuts.makeSortable();
-
-		//Code for Treeview
-		$("#browser").treeview({
-			toggle: function() {
-				console.log("%s was toggled.", $(this).find(">span").text());
-			}
-		});
-
-		//Add on treeview
-		$("#add").click(function() {
-			var branches = $("<li><span class='folder'>New Sublist</span><ul>" +
-				"<li><span class='file'>Item1</span></li>" +
-				"<li><span class='file'>Item2</span></li></ul></li>").appendTo("#browser");
-			$("#browser").treeview({
-					add: branches
-				});
-		});
-		//End of code for treeview
 
 		$("body").draggable({
 
@@ -146,17 +139,31 @@ $(document).ready( function() {
 		else if  (type == "History")
 		{
 
-			$.getScript('js/medCafe.history.js', function()
+			if (typeof addHistory == 'undefined')
+			{
+				$.getScript('js/medCafe.history.js', function()
+				{
+					addHistory(this, link, tab_num, label, patientId, repId, patientRepId);
+				});
+			}
+			else
 			{
 				addHistory(this, link, tab_num, label, patientId, repId, patientRepId);
-			});
+			}
 		}
 		else if  (type == "Problem")
 		{
-			$.getScript('js/medCafe.problemList.js', function()
+			if (typeof addProblemList == 'undefined')
+			{
+				$.getScript('js/medCafe.problemList.js', function()
+				{
+					addProblemList(this, link, tab_num, label, patientId, repId, patientRepId);
+				});
+			}
+			else
 			{
 				addProblemList(this, link, tab_num, label, patientId, repId, patientRepId);
-			});
+			}
 		}
 		else if  (type == "Allergies")
 		{
@@ -320,26 +327,51 @@ $(document).ready( function() {
 		$("#dialog" + id).dialog("open");
 	}
 
-	function startWidgetDrag(test, frameId, e)
+	function startWidgetDrag(test, frameId, isiPad, e)
 	{
 
+		//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad);	
+											
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
-	  	iFramePos.left = 1300;
-	  	iFramePos.top = 170;
-
+	  	//console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
+		
+		if (isiPad)
+		{
+			iFramePos.left = 790;
+			iFramePos.top = 200;
+		}
+		else
+		{
+			iFramePos.left = 1300;
+	  		iFramePos.top = 170;
+		}
 	  	var cloneLeft = iFramePos.left + $(test).position().left;
 	  	var cloneTop = iFramePos.top + $(test).position().top;
 	  	$(test).clone().appendTo('#clone');
 	  	$(test).clone().remove();
 	  	var height = $('#clone').height();
 	  	var width = $('#clone').width();
+	  	//console.log('medCafe: startWidgetDrag : in here ' );	
+		
 	  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
 	  	e.pageX = cloneLeft + width/2;
 	   	e.pageY = cloneTop + height/2;
 	    //make draggable element draggable
-	    $("#clone").draggable().trigger(e);
-	    $('#clone').show();
+	    if (isiPad)
+		{
+			//console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
+			//$('#clone').ontouchmove = touchMove;
+			//$('#clone').addEventListener("touchmove", touchMove, false);
+			$('#clone').show();	
+			//$('#clone').bind( "touchmove",touchMove);
+			$('#clone').medcafeTouch();							
+		}
+		else
+		{
+		    $("#clone").draggable().trigger(e);
+		    $('#clone').show();
+	    }
 
 	}
 
@@ -348,6 +380,7 @@ $(document).ready( function() {
   	$('#clone').html("");
 	$('#clone').hide();
   }
+
 
 function displayImage(imageName)
 {
@@ -503,3 +536,16 @@ function getAssocPatientRepositories(patientId)
 	});
 	return repPatientJSON;
 }  	
+
+function touchMove(event) 
+{
+			console.log('medCafe touchMove: Touch move..start');
+            event.preventDefault();
+			var finalCoord = { x: 0, y: 0 };
+           
+            finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
+            finalCoord.y = event.targetTouches[0].pageY
+            console.log('Touch move..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
+            $("#clone").css( { position: "absolute",  "z-index" : "100", "left": finalCoord.x + "px", "top": finalCoord.y + "px" } );
+	  	
+ }
