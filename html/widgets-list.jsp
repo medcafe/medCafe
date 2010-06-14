@@ -16,6 +16,15 @@
 		listWidgets = server + "/widgets-listJSON.jsp?type=" + Constants.PATIENT_WIDGETS;
 	
 	String frameId = type + "Frame";
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+	{
+		Object patientObj = session.getAttribute("patient");
+		if (patientObj != null)
+		 	patientId = patientObj.toString();
+	}
+	if (patientId == null)
+		patientId = "1";
 	
 %>
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
@@ -50,44 +59,11 @@
 	  							return false;
 							});	
 							
-						if (isiPad)
-						{
-							console.log('This is an iPad binding touch start ');
-								$(imageButton).bind( "touchstart", function(event)
-										{
-											//console.log('This is an iPad have binded touch start ');	
-											parent.clearWidgets();		
-  											parent.startWidgetDrag($(this),"<%=frameId%>",isiPad, event );
-  											return false;								
-										}
-								);
-								//$(imageButton).medcafeTouch();
-								//parent.startWidgetDrag($(this),"<%=frameId%>",isiPad, event );
-								
-								//$(imageButton).addEventListener("touchmove", touchMove, false);
-								//$(imageButton).bind( "touchmove", touchMove);
-						}
-						else
-						{
-							
-						}
+						
 				});  		
 			});
 	});
-	function touchMove(event) 
-	{
-			console.log('medCafe touchMove: Touch move..start');
-			event.preventDefault();
-            //console.log('medCafe touchMove: Touch move..start event ' + event.targetTouches.length);
-            
-			var finalCoord = { x: 0, y: 0 };
-           
-            finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
-            finalCoord.y = event.targetTouches[0].pageY
-            console.log('Touch move..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
-            //$("#clone").css( { position: "absolute",  "z-index" : "100", "left": finalCoord.x + "px", "top": finalCoord.y + "px" } );
-	  	
- 	}
+	
 </script>
 
 <body>

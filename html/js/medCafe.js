@@ -330,11 +330,11 @@ $(document).ready( function() {
 	function startWidgetDrag(test, frameId, isiPad, e)
 	{
 
-		//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad);	
+		console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad);	
 											
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
-	  	//console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
+	  	console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
 		
 		if (isiPad)
 		{
@@ -352,7 +352,7 @@ $(document).ready( function() {
 	  	$(test).clone().remove();
 	  	var height = $('#clone').height();
 	  	var width = $('#clone').width();
-	  	//console.log('medCafe: startWidgetDrag : in here ' );	
+	  	console.log('medCafe: startWidgetDrag : in here ' );	
 		
 	  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
 	  	e.pageX = cloneLeft + width/2;
@@ -360,7 +360,7 @@ $(document).ready( function() {
 	    //make draggable element draggable
 	    if (isiPad)
 		{
-			//console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
+			console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
 			//$('#clone').ontouchmove = touchMove;
 			//$('#clone').addEventListener("touchmove", touchMove, false);
 			$('#clone').show();	
@@ -537,15 +537,3 @@ function getAssocPatientRepositories(patientId)
 	return repPatientJSON;
 }  	
 
-function touchMove(event) 
-{
-			console.log('medCafe touchMove: Touch move..start');
-            event.preventDefault();
-			var finalCoord = { x: 0, y: 0 };
-           
-            finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
-            finalCoord.y = event.targetTouches[0].pageY
-            console.log('Touch move..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
-            $("#clone").css( { position: "absolute",  "z-index" : "100", "left": finalCoord.x + "px", "top": finalCoord.y + "px" } );
-	  	
- }
