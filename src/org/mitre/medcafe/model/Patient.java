@@ -51,7 +51,7 @@ public class Patient
 
 	public static final String SEARCH_USER_PATIENTS_BY_FIRST_NAME = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc, patient_repository_assoc  " +
 	" where patient_user_assoc.patient_id = patient.id and patient_repository_assoc.patient_id = patient.id and patient_user_assoc.username = ? and first_name like ? ";
-	
+
 	public static final String SEARCH_USER_PATIENTS_BY_LAST_NAME = "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc , patient_repository_assoc " +
 	" where patient_user_assoc.patient_id = patient.id and patient_repository_assoc.patient_id = patient.id and patient_user_assoc.username = ? and last_name like ?";
 
@@ -61,12 +61,12 @@ public class Patient
 	public static final String SEARCH_BY_REPOSITORY = " and patient_repository_assoc.repository = ? ";
 
 	public static final String SEARCH_PATIENT = "SELECT id, first_name, last_name from patient where  last_name = ? and first_name = ? and rep_patient_id = ? ";
-	public static final String SEARCH_PATIENTS_BY_ID = "SELECT DISTINCT id, first_name, last_name, repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? ";
-	
+	public static final String SEARCH_PATIENTS_BY_ID = "SELECT DISTINCT id, first_name, last_name, patient.repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient.repository=patient_repository_assoc.repository";
+
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT DISTINCT id, first_name, last_name from patient,patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and first_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT DISTINCT id, first_name, last_name from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and last_name like ? ";
 	public static final String SEARCH_PATIENTS_BY_ALL = "SELECT DISTINCT id, first_name, last_name from patient,patient_repository_assoc  where patient_repository_assoc.patient_id = patient.id and last_name like ? and first_name like ?";
-	
+
 	public static final String SEARCH_PATIENTS_REP_ASSOC_BY_ID = "SELECT id, first_name, last_name, patient_repository_assoc.repository from patient, patient_repository_assoc where " +
 																" patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient_repository_assoc.rep_patient_id = ? and patient_repository_assoc.repository = ? ";
 
@@ -79,7 +79,7 @@ public class Patient
 	public static final String SELECT_RECENT_PATIENTS = "SELECT patient_id from  recent_patients where username = ? and patient_id = ? ";
 	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
 	public static final String UPDATE_RECENT_PATIENTS = "UPDATE recent_patients SET date_accessed = ? where username = ? and patient_id = ?";
-	
+
 	public static final String INSERT_PATIENT = "INSERT INTO patient (first_name, last_name, rep_patient_id) values (?,?,?) ";
 	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority.priority, color from medical_history, history_category, priority where medical_history.category_id = history_category.id and priority.id = medical_history.priority and  patient_id = ? and category = ? ";
 	public static final String SELECT_PATIENT_HISTORY_EXT = " and history_date > ? and history_date < ? ";
@@ -146,8 +146,8 @@ public class Patient
 		if (role == null)
 			role="physician";
 
-		rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, userName, role);	
-			
+		rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, userName, role);
+
 		if (rtn < 0)
 		{
 			return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );
@@ -160,77 +160,77 @@ public class Patient
 	public JSONObject associatePatientRepository( String patientId, String patient_rep_id, String repository, String userName)
 	{
 		JSONObject ret = new JSONObject();
-		
+
 		try {
 			if (patientId == null)
 			{
 				ret = checkExists(patient_rep_id, repository);
-				
+
 				if (ret.get("exists").equals("true"))
 					return ret;
-				
+
 				//First create a new patient
 				ret = insertPatient(patient_rep_id);
 				System.out.print("Patient: associatePatientRepository got JSON Object " + ret.toString());
 				patientId = ret.getString(Patient.ID);
-				
+
 			}
 			else
 			{
-				
+
 			}
-			
+
 			System.out.print("Patient: associatePatientRepository patient exists so about to insert association " );
-					
+
 			int patient_id = Integer.parseInt(patientId);
 			int patientRepId = Integer.parseInt(patient_rep_id);
-			
+
 			ret = associatePatient(userName, patientId, "physician");
 
 			//INSERT_ASSOCIATION = "INSERT INTO patient_user_assoc (patient_id, user_id, role) values (?,?,?) ";
 			String insertQuery = INSERT_REPOSITORY_ASSOCIATION;
 			int rtn = 0;
 			String err_mess = "Could not insert repository association for patient  " + patient_id;
-			
+
 			//public static final String INSERT_REPOSITORY_ASSOCIATION = "INSERT INTO patient_repository_assoc (patient_id, rep_patient_id,repository) values (?,?,?) ";
-			
-			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, patientRepId, repository );	
-				
+
+			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, patientRepId, repository );
+
 			if (rtn < 0)
 			{
-				return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );	
+				return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );
 			}
 			ret = checkExists(patient_rep_id, repository);
-			
-			
-		} 
+
+
+		}
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return WebUtils.buildErrorJson( "Error on retrieving patient JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());	
-			
+			return WebUtils.buildErrorJson( "Error on retrieving patient JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());
+
 		}
 		return ret;
-		
+
 	}
-	
+
 	public JSONObject checkExists(String patientRepId, String repository)
 	{
 		JSONObject ret = new JSONObject();
 		int patient_rep_id = 0;
-		
+
 		if (patientRepId != null)
 		{
 			//First create a new patient
 			patient_rep_id = Integer.parseInt(patientRepId);
 		}
-		
+
 		String err_mess = "Could not check for existence of patient  " + firstName + " " + lastName;
-		
+
 		//First check that this patient has not already been added
 		String checkPatient = SEARCH_PATIENTS_REP_ASSOC_BY_REP_ID;
-		ResultSet rs = dbConn.psExecuteQuery(checkPatient, err_mess , patient_rep_id, repository);	
-		try 
+		ResultSet rs = dbConn.psExecuteQuery(checkPatient, err_mess , patient_rep_id, repository);
+		try
 		{
 			//This patient already exists
 			if (rs.next())
@@ -251,45 +251,45 @@ public class Patient
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return WebUtils.buildErrorJson( "Error on retrieving patient data "  + firstName + " " + lastName   + " " +  e.getMessage());	
-			
+			return WebUtils.buildErrorJson( "Error on retrieving patient data "  + firstName + " " + lastName   + " " +  e.getMessage());
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Error on generating JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());	
-			
-		} 
+			return WebUtils.buildErrorJson( "Error on generating JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());
+
+		}
 		return ret;
 	}
-	
-	
+
+
 	public JSONObject insertPatient(  String patientRepId)
 	{
 		JSONObject ret = new JSONObject();
 		int patient_rep_id = 0;
-		
+
 		if (patientRepId != null)
 		{
 			//First create a new patient
 			patient_rep_id = Integer.parseInt(patientRepId);
 		}
 		int rtn = 0;
-		try 
+		try
 		{
-				
-			String insertQuery = INSERT_PATIENT;	
+
+			String insertQuery = INSERT_PATIENT;
 			String err_mess = "Could not insert patient  " + firstName + " " + lastName;
-			
-			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , firstName, lastName, patient_rep_id);	
-			
+
+			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , firstName, lastName, patient_rep_id);
+
 			if (rtn < 0)
 			{
-				return WebUtils.buildErrorJson( "Problem on inserting patient."  + firstName + " " + lastName  );	
+				return WebUtils.buildErrorJson( "Problem on inserting patient."  + firstName + " " + lastName  );
 			}
-			
+
 			ResultSet rs = dbConn.psExecuteQuery(SEARCH_PATIENT, err_mess, lastName, firstName, patient_rep_id );
-		
+
 			//Now get the newly inserted patient
-		
+
 			if (rs.next())
 			{
 				int patient_id = rs.getInt("id");
@@ -301,22 +301,22 @@ public class Patient
 			}
 			else
 			{
-				return WebUtils.buildErrorJson( "Could not find patient with name  :"  + firstName + " " + lastName  );	
-				
+				return WebUtils.buildErrorJson( "Could not find patient with name  :"  + firstName + " " + lastName  );
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return WebUtils.buildErrorJson( "Error on retrieving patient data "  + firstName + " " + lastName   + " " +  e.getMessage());	
-			
+			return WebUtils.buildErrorJson( "Error on retrieving patient data "  + firstName + " " + lastName   + " " +  e.getMessage());
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return WebUtils.buildErrorJson( "Error on retrieving patient JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());	
-			
+			return WebUtils.buildErrorJson( "Error on retrieving patient JSON data "  + firstName + " " + lastName   + " " +  e.getMessage());
+
 		}
 		return ret;
-		
+
 	}
 	public JSONObject isPatient( String userName, String patientId)
 	{
@@ -346,17 +346,17 @@ public class Patient
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Problem on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );		
+			return WebUtils.buildErrorJson( "Problem on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			return WebUtils.buildErrorJson( "Problem on JSON creation on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );		
+			return WebUtils.buildErrorJson( "Problem on JSON creation on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );
 		}
-		
-		
+
+
 		return ret;
-		
+
 	}
-	
+
 	public JSONObject isPatient(String patientId, String patientRepId, String repository)
 	{
 		JSONObject ret = new JSONObject();
@@ -364,11 +364,11 @@ public class Patient
 
 		int patient_id = Integer.parseInt(patientId);
 		int patient_rep_id = Integer.parseInt(patientRepId);
-		
+
 		String err_mess = "Could not check if there is an existing repository association for patient  " + patient_id;
-		
-		ResultSet rs = dbConn.psExecuteQuery(checkQuery, err_mess , patient_id, patient_rep_id,repository );	
-		
+
+		ResultSet rs = dbConn.psExecuteQuery(checkQuery, err_mess , patient_id, patient_rep_id,repository );
+
 		try {
 			if (rs.next())
 			{
@@ -393,12 +393,12 @@ public class Patient
 			// TODO Auto-generated catch block
 			return WebUtils.buildErrorJson( "Problem on JSON creation on checking if patient currently is in list. "  + patient_id  + " Error " + e.getMessage() );
 		}
-		
-		
+
+
 		return ret;
-		
+
 	}
-	
+
 	public JSONObject listRepositories(String patientId)
 	{
 		JSONObject ret = new JSONObject();
@@ -407,10 +407,10 @@ public class Patient
 		String listQuery = LIST_REP_ASSOC_BY_PATIENT_ID;
 
 		int patient_id = Integer.parseInt(patientId);
-		
+
 		String err_mess = "Could not check the list of repositories for patient " + patient_id;
-		
-		ResultSet rs = dbConn.psExecuteQuery(listQuery, err_mess , patient_id );	
+
+		ResultSet rs = dbConn.psExecuteQuery(listQuery, err_mess , patient_id );
 		
 		/*
 		{ "repositories" : [
@@ -435,7 +435,7 @@ public class Patient
 					
 		          results = true;
 			}
-			
+
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -445,7 +445,7 @@ public class Patient
 			// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 
-		} 
+		}
 		
 		if (!results)
         {
@@ -453,7 +453,7 @@ public class Patient
 
         }
 		return ret;
-		
+
 	}
 	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server){
 
@@ -677,19 +677,21 @@ public class Patient
 
 			 if (!rtnResults)
 		      {
-		        	return WebUtils.buildErrorJson( "There are no patients currently listed for patient id " + id );
-
+		          log.warning( "There are no patients currently listed for patient id " + id );
+		          return WebUtils.buildErrorJson( "There are no patients currently listed for patient id " + id );
 		      }
 		 }
 		 catch (SQLException e)
 		 {
-				// TODO Auto-generated catch block
+		     // TODO Auto-generated catch block
+		     log.warning("Problem on selecting data from database ." + e.getMessage());
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 
 		 }
 		 catch (JSONException e)
 		 {
 			// TODO Auto-generated catch block
+			log.warning("Problem on generating JSON error." + e.getMessage());
 			return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
 
 		 }
@@ -938,26 +940,26 @@ public class Patient
 	public void setRepositories(ArrayList<String> repositories) {
 		this.repositories = repositories;
 	}
-	
+
 	public JSONObject toJSON(int newid, String first_name, String last_name) throws JSONException
 	{
 		JSONObject ret = new JSONObject();
-		
+
 		ret.put(Patient.ID, newid);
         ret.put(Patient.FIRST_NAME, first_name);
         ret.put(Patient.LAST_NAME, last_name);
         return ret;
-        
+
 	}
-	
+
 	public JSONObject toJSON() throws JSONException
 	{
 		JSONObject ret = new JSONObject();
-		
+
 		ret.put(Patient.ID, id);
         ret.put(Patient.FIRST_NAME, firstName);
         ret.put(Patient.LAST_NAME, lastName);
         return ret;
-        
+
 	}
 }

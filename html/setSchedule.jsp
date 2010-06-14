@@ -78,7 +78,7 @@
 
 	if (patientData.get(Patient.ID) == null)
 	{
-			System.out.println("Error on settign schedule  " + patientData.toString());
+			System.out.println("Error on setting schedule  " + patientData.toString());
 	}
 	String fname="";
 	String lname="";
