@@ -278,27 +278,30 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-for (var i1=0;  i1<context.patient_history.length; i1++) {
-var history = context.patient_history[i1];
-velocityCount = i1;
-t.p('   <tr>  	');
+if (context.patient_history) {
+t.p('	');
+for (var i2=0;  i2<context.patient_history.length; i2++) {
+var history = context.patient_history[i2];
+velocityCount = i2;
+t.p('	   <tr>	  	');
 if (history.color) {
-t.p('  		<td style="background-color:');
+t.p('	  		<td style="background-color:');
 t.p( history.color);
 t.p('">');
 t.p( history.title);
-t.p('  	');
+t.p('	  	');
 }
 else {
-t.p('		<td>');
+t.p('			<td>');
 t.p( history.title);
-t.p('   	');
+t.p('	   	');
 }
-t.p('   	<div style="display: none;" class="ui-corner-all" id="detail">');
+t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( history.note);
-t.p('</div></td>    	</tr>');
+t.p('</div></td> 	   	</tr>	');
 }
-velocityCount = 0;
+velocityCount = i1;
+}
 t.p('</tbody><table>');
 return t.toString();
 }
@@ -307,32 +310,35 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-for (var i1=0;  i1<context.patient_history.length; i1++) {
-var history = context.patient_history[i1];
-velocityCount = i1;
-t.p('		');
-if (count == 0) {
-t.p('		<table cellpadding="0" cellspacing="0" border="0" class="display" id="history');
-t.p( history.patient_id);
-t.p('">		<thead><tr><th>History Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>	');
-}
-t.p('	<tr class="gradeX">	<td value="');
-t.p( history.title);
-t.p('">');
-t.p( history.title);
-t.p('</td>	<td value="');
-t.p( history.note);
-t.p('">');
-t.p( history.note);
-t.p('</td>	<td value="');
-t.p( history.priority);
-t.p('">');
-t.p( history.priority);
-t.p('</td>	</tr>	');
-count = ( count + 1 );
+if (context.patient_history) {
 t.p('	');
+for (var i2=0;  i2<context.patient_history.length; i2++) {
+var history = context.patient_history[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="history');
+t.p( history.patient_id);
+t.p('">			<thead><tr><th>History Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
 }
-velocityCount = 0;
+t.p('		<tr class="gradeX">		<td value="');
+t.p( history.title);
+t.p('">');
+t.p( history.title);
+t.p('</td>		<td value="');
+t.p( history.note);
+t.p('">');
+t.p( history.note);
+t.p('</td>		<td value="');
+t.p( history.priority);
+t.p('">');
+t.p( history.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+velocityCount = i1;
+}
 t.p('</tbody><table>');
 return t.toString();
 }
@@ -557,27 +563,30 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-for (var i1=0;  i1<context.patientProblem.length; i1++) {
-var problem = context.patientProblem[i1];
-velocityCount = i1;
-t.p('   <tr>  	');
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('	   <tr>	  	');
 if (problem.color) {
-t.p('  		<td style="background-color:');
+t.p('	  		<td style="background-color:');
 t.p( problem.color);
 t.p('">');
 t.p( problem.title);
-t.p('  	');
+t.p('	  	');
 }
 else {
-t.p('		<td>');
+t.p('			<td>');
 t.p( problem.title);
-t.p('   	');
+t.p('	   	');
 }
-t.p('   	<div style="display: none;" class="ui-corner-all" id="detail">');
+t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( problem.note);
-t.p('</div></td>    	</tr>');
+t.p('</div></td> 	   	</tr>	');
 }
-velocityCount = 0;
+velocityCount = i1;
+}
 t.p('</tbody><table>');
 return t.toString();
 }
@@ -586,53 +595,93 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-for (var i1=0;  i1<context.problem.length; i1++) {
-var problemDetail = context.problem[i1];
-velocityCount = i1;
+if (context.problem) {
+t.p('	');
+for (var i2=0;  i2<context.problem.length; i2++) {
+var problemDetail = context.problem[i2];
+velocityCount = i2;
 var ActiveStatus = "Active";
 var InActiveStatus = "Inactive";
-t.p('	');
+t.p('		');
 if (count == 0) {
-t.p('		<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
 t.p( context.patient_id);
-t.p('">		<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>	');
+t.p('">			<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>		');
 }
-t.p('	<tr class="gradeX"  >	<td  value="');
+t.p('			<tr class="gradeX"  >			<td  value="');
 t.p( problemDetail.problemName);
 t.p('">');
 t.p( problemDetail.problemName);
-t.p('</td>	<td value="');
+t.p('</td>		<td value="');
 t.p( problemDetail.problemCode.code);
 t.p('">');
 t.p( problemDetail.problemCode.code);
-t.p('</td>	<td value="');
+t.p('</td>		<td value="');
 t.p( problemDetail.problemDate);
 t.p('">');
 t.p( problemDetail.problemDate.low.month);
-t.p('/	');
+t.p('/		');
 t.p( problemDetail.problemDate.low.day);
 t.p('/');
 t.p( problemDetail.problemDate.low.year);
-t.p('</td>	');
+t.p('</td>		');
 if (problemDetail.narrative == "A") {
-t.p('		<td  style = "background-color:yellow" value="');
+t.p('			<td  style = "background-color:yellow" value="');
 t.p( problemDetail.narrative);
 t.p('">');
 t.p( ActiveStatus);
-t.p('</td>	');
+t.p('</td>		');
 }
 else {
-t.p('		<td style = "background-color:gray"value="');
+t.p('			<td style = "background-color:gray"value="');
 t.p( problemDetail.narrative);
 t.p('">');
 t.p( InActiveStatus);
-t.p('</td>		');
+t.p('</td>			');
 }
-t.p('	</tr>	');
+t.p('		</tr>		');
 count = ( count + 1 );
-t.p('	');
+t.p('			');
 }
-velocityCount = 0;
+velocityCount = i1;
+}
+t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listProblemListTableLocal(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
+}
+t.p('		<tr class="gradeX">		<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>		<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>		<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+velocityCount = i1;
+}
 t.p('</tbody><table>');
 return t.toString();
 }
