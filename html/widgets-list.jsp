@@ -27,6 +27,16 @@
 		patientId = "1";
 	
 %>
+<head>
+<meta name = "viewport" content = "user-scalable = no, width =device-width">
+<style>
+.scroll {
+  height:600px;
+  width:120px;
+  overflow:auto;
+}
+</style>
+</head>
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="${js}/ui.core.js"></script>
 <script type="text/javascript" src="${js}/ui.draggable.js"></script>
@@ -55,7 +65,7 @@
 						$(imageButton).mousedown(function(event) {
 								
 								parent.clearWidgets();		
-	  							parent.startWidgetDrag($(this),"<%=frameId%>", isiPad, event );
+	  							parent.startWidgetDrag($(this),"<%=frameId%>", "<%=patientId%>", isiPad, event );
 	  							return false;
 							});	
 							
@@ -69,6 +79,6 @@
 <body>
 <link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <link type="text/css" href="css/custom.css" rel="stylesheet" />
-<div id="test"></div>
+<div id="test" class="scroll"></div>
 </body>
 </html>

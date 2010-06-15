@@ -327,14 +327,20 @@ $(document).ready( function() {
 		$("#dialog" + id).dialog("open");
 	}
 
-	function startWidgetDrag(test, frameId, isiPad, e)
+	function startWidgetDrag(test, frameId, patient_id, isiPad, e)
 	{
 
-		console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad);	
-											
+		if (isiPad)
+		{
+			console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;	
+		}	
+										 
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
-	  	console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
+	  	if (isiPad)
+		{
+	  		console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
+		}
 		
 		if (isiPad)
 		{
@@ -352,7 +358,7 @@ $(document).ready( function() {
 	  	$(test).clone().remove();
 	  	var height = $('#clone').height();
 	  	var width = $('#clone').width();
-	  	console.log('medCafe: startWidgetDrag : in here ' );	
+	  	//console.log('medCafe: startWidgetDrag : in here ' );	
 		
 	  	$('#clone').css( { position: "absolute",  "z-index" : "100", "left": cloneLeft + "px", "top": cloneTop + "px" } );
 	  	e.pageX = cloneLeft + width/2;
@@ -360,12 +366,9 @@ $(document).ready( function() {
 	    //make draggable element draggable
 	    if (isiPad)
 		{
-			console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
-			//$('#clone').ontouchmove = touchMove;
-			//$('#clone').addEventListener("touchmove", touchMove, false);
+			//console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
 			$('#clone').show();	
-			//$('#clone').bind( "touchmove",touchMove);
-			$('#clone').medcafeTouch();							
+			$('#clone').medcafeTouch({patientId: patient_id});							
 		}
 		else
 		{

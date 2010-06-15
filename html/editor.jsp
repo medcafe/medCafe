@@ -46,15 +46,22 @@
 <title>A Light weight RTE jQuery Plugin</title>
 <link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
 <style type="text/css">
-body, textarea {
-    font-family:sans-serif;
-    font-size:12px;
-}
+	body, textarea {
+	    font-family:sans-serif;
+	    font-size:12px;
+	}
+
+	.scroll {
+	  height:400px;
+	  width:600px;
+	  overflow:auto;
+	}
+
 </style>
 </head>
 <body>
 
-<div id="main" style="width:800px;">
+<div id="main" style="width:800px;" class="scroll">
  <form action="saveText.jsp?<%=Constants.PATIENT_ID%>=<%=patientId%>">
     <p>                      
     	Select Title : <select name="title" id="title"><option></option>
@@ -71,7 +78,7 @@ body, textarea {
   	</noscript>
     
 </form>
-<div id="editNote">Test</div>
+<div class="scroll" id="editNote">Test</div>
 <div id="dialog" >Are you sure you want to delete this Note?</div>    
 <div id="changeTextDialog" >Continuing will result in loss of changes. Do you wish to continue?</div>    
 

@@ -29,13 +29,21 @@
 %>    
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-type"  name = "viewport" content = "user-scalable = no, width =device-width"/>
+	<style>
+	.scroll {
+	  height:400px;
+	  width:1000px;
+	  overflow:auto;
+	}
+	</style>
 	<title>Demo Page: Using Progressive Enhancement to Convert a Select Box Into an Accessible jQuery UI Slider</title>
 	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
  	<script type="text/javascript" src="js/vel2js.js"></script>
     <script type="text/javascript" src="js/vel2jstools.js"></script>
+    <link type="text/css" href="css/custom.css" rel="stylesheet" />
     
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
@@ -102,12 +110,13 @@
 </head>
 
 <body>
+	<div id="container" class="scroll">
+		<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
+		<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
 	
-	<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
-	<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
-
-	
-	<button value="Filter" id="slider_button">Filter</button>
-	<button value="Remove Filter" id="slider_button_unfilter">Remove Filter</button>
+		
+		<button value="Filter" id="slider_button">Filter</button>
+		<button value="Remove Filter" id="slider_button_unfilter">Remove Filter</button>
+	</div>
 </body>
 </html>

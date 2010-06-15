@@ -9,6 +9,7 @@ $.fn.medcafeTouch = function(options) {
         swipeLeft: function() {  },
         swipeRight: function() {  },
         preventDefaultEvents: true
+        
     };
 
     var options = $.extend(defaults, options);
@@ -52,20 +53,22 @@ $.fn.medcafeTouch = function(options) {
         // Calculate if the swipe was left or right
         function touchEnd(event) {
             //console.log('Ending swipe gesture...')
-            var changeY = originalCoord.y - finalCoord.y
+            //var changeY = originalCoord.y - finalCoord.y
             
-            console.log('Ending swipe gesture..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
+            //console.log('Ending swipe gesture..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
             addTab(event);
         }
 
         // Swipe was canceled
         function touchCancel(event) { 
             console.log('Canceling swipe gesture...')
+           
         }
 
 		function addTab(event) {
         
         	var img = $(dragObj).find('img');
+      		var patientId = options.patientId;
       		
 			if (img.length == 0)
 			{
@@ -84,9 +87,8 @@ $.fn.medcafeTouch = function(options) {
 				var repository = $(dragObj).find('img').attr("custom:repository");
 				var text = $(dragObj).find('p').text();
 				var repPatientId ;
-				var patientId = "4";
 				var link = $(dragObj).find('img').attr("custom:url");
-				console.log("medCafe.touch.js addTab label " + label + " imgHtml " + imgHtml + " type " + type + " html " + html + " method " + method);
+				console.log("medCafe.touch.js addTab label " + label + " imgHtml " + imgHtml + " type " + type + " html " + html + " method " + method + " patient Id " + patientId);
             	var serverLink = "retrievePatientRepositoryAssoc.jsp?patient_id=" + patientId;
 				var repPatientJSON;
 				$.getJSON(serverLink,function(data)
@@ -106,7 +108,7 @@ $.fn.medcafeTouch = function(options) {
 						}
 						//Tab already has content Create a new Tab
 						createLink(patientId,link, text, type ,params, repository, repPatientId);
-      
+      					clearWidgets();
 			   });
 		   
 			}

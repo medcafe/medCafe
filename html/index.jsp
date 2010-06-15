@@ -93,6 +93,12 @@
 			repositoryPatientJSON = getAssocPatientRepositories("<%=patientId%>");
 		}      		
 		  	
+		document.addEventListener('touchmove', function(e){ e.preventDefault(); });
+		  	
+		function BlockMove(event) {
+  			// Tell Safari not to move the window.
+  			event.preventDefault() ;
+ 		}
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -100,10 +106,13 @@
             width: 250px;
             margin: 0 auto;
             } */
+            	.no-copy {
+	  			-webkit-user-select: none;
+	  			}
     </style>
 
 </head>
-<body>
+<body ontouchmove="BlockMove(event);">
 
 
     <div id="head"></div>
@@ -111,7 +120,7 @@
 	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
 
 
-<div class="ui-layout-center ui-corner-all">
+<div class="ui-layout-center ui-corner-all no-copy">
 	<div id="announcements"></div>
 	<div id="tabs" >
 	    <ul class="tabs" id ="test">

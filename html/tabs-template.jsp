@@ -186,10 +186,10 @@ function bindClose()
 					                <li class="color-6"></li></ul></li>
 				</div>
 					                
-				<div class="widget-content" id="widget-content<%=tabNum%>">
+				<div class="widget-content no-copy" id="widget-content<%=tabNum%>">
 
 						
-					    	<p><div id="aaa<%=tabNum%>">
+					    	<p><div id="aaa<%=tabNum%>" class="no-copy">
 					    		</div>
 					    	</p>
 					    
