@@ -31,7 +31,7 @@ $.fn.medcafeTouch = function(options) {
            // console.log('Starting swipe gesture...')
             originalCoord.x = event.targetTouches[0].pageX
             originalCoord.y = event.targetTouches[0].pageY
-            console.log('Touch start..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
+            //console.log('Touch start..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
         }
 
         // Store coordinates as finger is swiping

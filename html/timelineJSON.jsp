@@ -120,6 +120,7 @@
 </head>
 <body onload="onLoad();" onresize="onResize();">
 <div id="my-timeline" style="height: 150px; border: 1px solid #aaa"></div>
+<br/><br/>
 <div class="controls" id="filter-controls"></div>
 
 <div id="listTimelineRepositories">

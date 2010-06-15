@@ -90,6 +90,14 @@ Timeline._Band = function(timeline, bandInfo, index) {
     this._timeline.addDiv(this._div);
     
     SimileAjax.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
+    var isiPad = navigator.userAgent.match(/iPad/i) != null;
+    if (isiPad)
+    {
+    	//console.log('simile band.js: registering touchstart : ');
+    	SimileAjax.DOM.registerEventWithObject(this._div, "touchstart", this, "_onMouseDown");
+    	SimileAjax.DOM.registerEventWithObject(this._div, "touchmove", this, "_onMouseMove");
+    
+    }
     SimileAjax.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
     SimileAjax.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
     SimileAjax.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
@@ -449,22 +457,49 @@ Timeline._Band.prototype.zoom = function(zoomIn, x, y, target) {
 
 Timeline._Band.prototype._onMouseDown = function(innerFrame, evt, target) {
     this.closeBubble();
-    
+    //var isiPad = navigator.userAgent.match(/iPad/i) != null;
     this._dragging = true;
+    
     this._dragX = evt.clientX;
     this._dragY = evt.clientY;
+    
 };
 
 Timeline._Band.prototype._onMouseMove = function(innerFrame, evt, target) {
     if (this._dragging) {
+    	var isiPad = navigator.userAgent.match(/iPad/i) != null;
+    
         var diffX = evt.clientX - this._dragX;
         var diffY = evt.clientY - this._dragY;
         
-        this._dragX = evt.clientX;
-        this._dragY = evt.clientY;
+         if (isiPad)
+		{
+	  		//console.log('simile band.js: _onTouchMove : diff x ' + diffX  + ' y ' + diffY);	
+	  		if(evt.touches.length == 1){ // Only deal with one finger
+				//console.log('simile band.js: _onTouchMove : touches found ');	
+	  		
+			    var touch = evt.touches[0]; // Get the information for finger #1
+			    var node = touch.target; // Find the node the drag started from
+			    node.style.position = "absolute";
+			    node.style.left = touch.pageX + "px";
+			    node.style.top = touch.pageY + "px";
+			    //console.log('simile band.js: _onTouchMove : touches found x ' + touch.pageX + ' y ' + touch.pageY );	
+	  			diffX = touch.pageX - this._dragX;
+        		diffY = touch.pageY - this._dragY;
         
+        		this._dragX = touch.pageX;
+        		this._dragY = touch.pageY;
+			  }
+		}
+		else
+		{
+			this._dragX = evt.clientX;
+        	this._dragY = evt.clientY;
+       }
+       
         this._moveEther(this._timeline.isHorizontal() ? diffX : diffY);
         this._positionHighlight();
+        
     }
 };
 
