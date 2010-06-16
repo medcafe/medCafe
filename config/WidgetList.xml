@@ -19,11 +19,11 @@
 	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
-	<name>Slider</name>
-	<type>Slider</type>
+	<name>Filter</name>
+	<type>Filter</type>
 	<image>slider-small.png</image>
 	<server></server>
-	<clickUrl>slider.jsp</clickUrl>
+	<clickUrl>filterTools.jsp</clickUrl>
 	<method></method>
 	<repository>local</repository>
 </medCafeWidget>

@@ -36,12 +36,13 @@
   overflow:auto;
 }
 </style>
-</head>
+
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="${js}/ui.core.js"></script>
 <script type="text/javascript" src="${js}/ui.draggable.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
+ <script type="text/javascript" src="${js}/jScrollTouch.js"></script>
 <script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 
 <script type="text/javascript">
@@ -57,7 +58,11 @@
   				var html = v2js_listWidgets( data );  			
     	
     			$("#test").append(html);
-    			
+    			$('#test').each(function()
+	        	{
+	            	 this.addEventListener("touchmove", stopTouchMove, false);
+	        	});
+	        	
     			$(this).delay(500,function()
 				{						
 		    			var imageButton = $("#test").find('.imageContain');
@@ -69,16 +74,23 @@
 	  							return false;
 							});	
 							
-						
+						$("#test").jScrollTouch({height:'380',width:'140'});
 				});  		
 			});
 	});
-	
+	function stopTouchMove(event)
+	{
+	   var isiPad = navigator.userAgent.match(/iPad/i) != null;
+	   if (isiPad)
+	   {   
+		  event.preventDefault();
+	   }
+	}
 </script>
-
+</head>
 <body>
 <link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <link type="text/css" href="css/custom.css" rel="stylesheet" />
-<div id="test" class="scroll"></div>
+<div id="test" ></div>
 </body>
 </html>

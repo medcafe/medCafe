@@ -7,6 +7,7 @@
  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+<meta name = "viewport" content = "user-scalable = yes, width =2000, initial-scale = 0.5">
 <%
 	String[] eventList =  Event.getEventList();
 	

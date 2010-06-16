@@ -6,7 +6,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
-	String patientId = request.getParameter("patient_id");
+	String patientId = null;
 	if (patientId == null)
 	{
 		Object patientObj = session.getAttribute("patient");
@@ -66,7 +66,7 @@
 	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
-	
+
 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
         var outerLayout;

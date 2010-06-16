@@ -31,12 +31,19 @@
 	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
  	<script type="text/javascript" src="js/vel2js.js"></script>
     <script type="text/javascript" src="js/vel2jstools.js"></script>
-    
+    <script type="text/javascript" src="js/jScrollTouch.js"></script>
+    <script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
 	<style>
 		td {font-size:0.8em};
+		
+		.scroll {
+		  height:900px;
+		  width:400px;
+		  overflow:auto;
+		}
 	</style>
 	<script type="text/javascript">
 		$(function(){
@@ -46,6 +53,10 @@
   				var html = v2js_listHistoryTemplate( data );  
   				
 				$('#templateList').html(html);
+				$(this).delay(100,function()
+				{
+					$('#templateList').jScrollTouch({height:'380',width:'300'});
+				});
 			});
 		
 			
@@ -57,7 +68,7 @@
 <body>
 	<form action="saveHistory.jsp?patient_id=<%=patientId%>">
 		<input type="submit" value="Save"></input>
-		<div id="templateList"></div>
+		<div id="templateList" ></div>
 		
 	</form>
 	

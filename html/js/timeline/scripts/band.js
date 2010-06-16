@@ -469,6 +469,10 @@ Timeline._Band.prototype._onMouseMove = function(innerFrame, evt, target) {
     if (this._dragging) {
     	var isiPad = navigator.userAgent.match(/iPad/i) != null;
     
+    	if (isiPad)
+    	{
+    		 evt.preventDefault();
+    	}
         var diffX = evt.clientX - this._dragX;
         var diffY = evt.clientY - this._dragY;
         

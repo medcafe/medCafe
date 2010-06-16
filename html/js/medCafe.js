@@ -89,10 +89,28 @@ $(document).ready( function() {
 				content: data
 			});
 		});
+		
+		$('.ui-layout-center').each(function()
+	        {
+	             this.addEventListener("touchmove", stopTouchMove, false);
+	        });
+		$('.ui-layout-east').each(function()
+	        {
+	             this.addEventListener("touchmove", stopTouchMove, false);
+	        });
+		
 		extendWidgets();
 	});
 	//End of code to initialize page
 
+	function stopTouchMove(event)
+	{
+	   var isiPad = navigator.userAgent.match(/iPad/i) != null;
+	   if (isiPad)
+	   {   
+	     event.preventDefault();
+	   }
+	}
 	//Code to create widgets content
 	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
 	{
@@ -181,6 +199,22 @@ $(document).ready( function() {
 			
 			}
 		}
+		else if  (type == "Filter")
+		{
+			if (typeof addFilter == 'undefined')
+			{
+
+				$.getScript('js/medCafe.filter.js', function()
+				{
+					addFilter(this, link, tab_num, patientId, patientRepId);
+				});
+			}
+			else
+			{
+				addFilter(this, link, tab_num, patientId, patientRepId);
+			
+			}
+		}
 		else
 		{
 			
@@ -219,6 +253,9 @@ $(document).ready( function() {
 
 			//iNettuts.makeSortable();
 			setHasContent(tab_num);
+			
+			//Try to add a scroll
+			//$("#aaa" + tab_num).jScrollTouch({height:'380',width:'800'});
 		} );
 	}
 
@@ -332,15 +369,12 @@ $(document).ready( function() {
 
 		if (isiPad)
 		{
-			console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;	
+			//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;	
 		}	
 										 
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
-	  	if (isiPad)
-		{
-	  		console.log('medCafe: startWidgetDrag : iFramePos ' + iFramePos);	
-		}
+	  	
 		
 		if (isiPad)
 		{

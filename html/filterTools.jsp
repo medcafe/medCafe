@@ -69,7 +69,7 @@
 	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
  	<script type="text/javascript" src="js/vel2js.js"></script>
     <script type="text/javascript" src="js/vel2jstools.js"></script>
-    
+	
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
 	<style type="text/css">
@@ -100,6 +100,7 @@
 				$('select#valueAA, select#valueBB').selectToUISlider({
 					labels: 12
 				});
+				
 				
 				$('#slider_button').click(function()
 				 {
@@ -160,9 +161,11 @@
 					});
 					
 				});
+				
+		
 			});
 		
-		
+			
 			$('#filter_button').click(function()
 			{
  	
@@ -237,9 +240,11 @@
 </head>
 
 <body>
+	<div id="holder">
 	<div id="dateFilter" class="ui-widget ui-corner-all">
 		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 	
+			
 			<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
 			<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
 			<button value="Filter" id="slider_button">Filter</button>
@@ -263,6 +268,7 @@
 			<button value="Filter" id="filter_button">Filter</button>
 			<button value="Remove Filter" id="unfilter_button">Remove Filter</button>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
