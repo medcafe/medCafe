@@ -8,7 +8,8 @@ $.fn.medcafeTouch = function(options) {
         },
         swipeLeft: function() {  },
         swipeRight: function() {  },
-        preventDefaultEvents: true
+        preventDefaultEvents: true,
+        addListeners: true
         
     };
 
@@ -57,6 +58,7 @@ $.fn.medcafeTouch = function(options) {
             
             //console.log('Ending swipe gesture..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
             addTab(event);
+            removeEvents(event);
         }
 
         // Swipe was canceled
@@ -65,11 +67,21 @@ $.fn.medcafeTouch = function(options) {
            
         }
 
+		function removeEvents(event) { 
+		//This doesn't seem to actually remove the events
+            console.log('medCafe.touch.js removing events...');
+            this.removeEventListener("touchstart", touchStart, false);
+        	this.removeEventListener("touchmove", touchMove, false);
+        	this.removeEventListener("touchend", touchEnd, false);
+        	this.removeEventListener("touchcancel", touchCancel, false);
+        	console.log('medCafe.touch.js finished removing events...');
+            
+        }
+        
 		function addTab(event) {
         
         	var img = $(dragObj).find('img');
       		var patientId = options.patientId;
-      		
 			if (img.length == 0)
 			{
 				console.log("this is not a draggable object");
@@ -89,7 +101,7 @@ $.fn.medcafeTouch = function(options) {
 				var repPatientId ;
 				var link = $(dragObj).find('img').attr("custom:url");
 				console.log("medCafe.touch.js addTab label " + label + " imgHtml " + imgHtml + " type " + type + " html " + html + " method " + method + " patient Id " + patientId);
-            	var serverLink = "retrievePatientRepositoryAssoc.jsp?patient_id=" + patientId;
+            	var serverLink = "retrievePatientRepositoryAssoc.jsp";
 				var repPatientJSON;
 				$.getJSON(serverLink,function(data)
 				{		      	  	  
@@ -113,12 +125,16 @@ $.fn.medcafeTouch = function(options) {
 		   
 			}
         }
-        // Add gestures to all swipable areas
-        this.addEventListener("touchstart", touchStart, false);
-        this.addEventListener("touchmove", touchMove, false);
-        this.addEventListener("touchend", touchEnd, false);
-        this.addEventListener("touchcancel", touchCancel, false);
-
+        
+        if (options.addListeners)
+        {
+        	 console.log("medCafe.touch.js addingListeners: ");
+	        // Add gestures to all swipable areas
+	        this.addEventListener("touchstart", touchStart, false);
+	        this.addEventListener("touchmove", touchMove, false);
+	        this.addEventListener("touchend", touchEnd, false);
+	        this.addEventListener("touchcancel", touchCancel, false);
+		}
     });
 };
 })(jQuery);

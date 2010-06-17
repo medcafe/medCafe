@@ -1,3 +1,4 @@
+var addListeners = true;
 $(document).ready( function() {
 
 		var tabSelectedId;
@@ -364,9 +365,9 @@ $(document).ready( function() {
 		$("#dialog" + id).dialog("open");
 	}
 
-	function startWidgetDrag(test, frameId, patient_id, isiPad, e)
+	function startWidgetDrag(test, frameId, isiPad, e)
 	{
-
+		
 		if (isiPad)
 		{
 			//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;	
@@ -402,7 +403,8 @@ $(document).ready( function() {
 		{
 			//console.log('medCafe.js startWidgetDrag  This is an iPad about to bind touch move ');	
 			$('#clone').show();	
-			$('#clone').medcafeTouch({patientId: patient_id});							
+			$('#clone').medcafeTouch({addListeners : addListeners});	
+			addListeners = false;						
 		}
 		else
 		{
@@ -573,4 +575,5 @@ function getAssocPatientRepositories(patientId)
 	});
 	return repPatientJSON;
 }  	
+
 

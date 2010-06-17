@@ -70,7 +70,7 @@
 						$(imageButton).mousedown(function(event) {
 								
 								parent.clearWidgets();		
-	  							parent.startWidgetDrag($(this),"<%=frameId%>", "<%=patientId%>", isiPad, event );
+	  							parent.startWidgetDrag($(this),"<%=frameId%>",  isiPad, event );
 	  							return false;
 							});	
 							

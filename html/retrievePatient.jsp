@@ -8,6 +8,9 @@
 	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "7";
+		
+	System.out.println("retrievePatient.jsp getting patient id " + patientId );
+	
 	String user_name =  request.getRemoteUser();
 	//Retrieve Widgets
 	

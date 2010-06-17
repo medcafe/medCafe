@@ -236,3 +236,37 @@ function removeWidget(id)
 { 			
 	medCafeWidget.removeWidgetSettings(id);
 }
+
+function loadWidgetData( divId, type)
+{
+		
+			var isiPad = navigator.userAgent.match(/iPad/i) != null;
+			//console.log('Is this an iPad...' + isiPad);
+			var serverUrl = "widgets-listJSON.jsp?type=" + type;
+			
+		    $.getJSON(serverUrl, function(data)
+		    {
+		    	
+  				var html = v2js_listWidgets( data );  			
+    	
+    			$("#" + divId).append(html);
+    			$('#' + divId).each(function()
+	        	{
+	            	 this.addEventListener("touchmove", stopTouchMove, false);
+	        	});
+	        	
+    			$(this).delay(500,function()
+				{						
+		    			var imageButton = $("#" + divId).find('.imageContain');
+
+						$(imageButton).mousedown(function(event) {
+								
+								clearWidgets();		
+	  							startWidgetDrag($(this),divId,  isiPad, event );
+	  							return false;
+							});	
+							
+						$("#" + divId).jScrollTouch({height:'380',width:'140'});
+				});  		
+			});
+}

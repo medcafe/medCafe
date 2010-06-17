@@ -6,7 +6,8 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%	
 	
-	String patientId = request.getParameter("patient_id");
+	//String patientId = request.getParameter("patient_id");
+	String patientId = null;
 	if (patientId == null)
 	{
 		Object patientObj = session.getAttribute("patient");
@@ -15,6 +16,7 @@
 	}
 	if (patientId == null)
 		patientId = "1";
+	System.out.println("retrievePatientRepositoryAssoc.jsp patient id " + patientId );
 		
 	Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
 	JSONObject repositoryIds = new JSONObject();

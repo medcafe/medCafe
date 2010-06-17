@@ -66,7 +66,8 @@
 	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
-
+ 	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
+ 
 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
 	<script>
         var outerLayout;
@@ -92,13 +93,20 @@
 		{
 			repositoryPatientJSON = getAssocPatientRepositories("<%=patientId%>");
 		}      		
-		  	
-		document.addEventListener('touchmove', function(e){ e.preventDefault(); });
-		  	
+		var isiPad = navigator.userAgent.match(/iPad/i) != null;
+	   
+ 		if (isiPad)
+ 		{  	
+			document.addEventListener('touchmove', function(e){ e.preventDefault(); });
+		 }
 		function BlockMove(event) {
   			// Tell Safari not to move the window.
   			event.preventDefault() ;
  		}
+ 		
+ 		loadWidgetData(  "generalWidgets", "<%=Constants.GENERAL_WIDGETS%>");
+ 		loadWidgetData( "patientWidgets", "<%=Constants.PATIENT_WIDGETS%>");
+ 		
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -137,13 +145,15 @@
     	<h3><a href="#">General Widgets</a></h3>
     	<div>
 			<p>
-				<iframe height="400" frameborder="0" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe>
+				<div id="generalWidgets"></div>
+				<!-- iframe height="400" frameborder="0" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe-->
 			</p>
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
     		<p>
-				<iframe height="400" frameborder="0" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe>
+    			<div id="patientWidgets"></div>
+				<!--iframe height="400" frameborder="0" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe-->
 			</p>
     	</div>
 	</div>

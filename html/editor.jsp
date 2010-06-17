@@ -4,9 +4,12 @@
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%
-	String patientId = request.getParameter(Constants.PATIENT_ID);
-	if (patientId == null)
-		patientId = "1";
+	String patientId = null;
+		
+	Object patientIdObj = session.getAttribute("patient");
+	if (patientIdObj != null)
+		patientId = patientIdObj.toString();
+		
 	String tab_num = request.getParameter("tab_num");
 		
 	String user =  request.getRemoteUser();

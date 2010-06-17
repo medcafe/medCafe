@@ -69,7 +69,7 @@ $(function(){
 			var params = $(dragObj).find('img').attr("custom:params");
 			var repository = $(dragObj).find('img').attr("custom:repository");
 			var repPatientId ;
-			var serverLink = "retrievePatientRepositoryAssoc.jsp?patient_id=" + patientId;
+			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var repPatientJSON;
 			$.getJSON(serverLink,function(data)
 			{		      	  	  
