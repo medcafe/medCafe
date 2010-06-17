@@ -6,6 +6,9 @@
 	System.out.println("listHistoryTemplateJSON: url start");
 	String jspUrl =  "/history/templates";
 
+	String patientRepId = request.getParameter("patient_rep_id");
+	System.out.println("listHistoryTemplateJSON: got patient rep Id " + patientRepId );
+	
 	String patientId = null;
 	
 	Object patientObj = session.getAttribute("patient");
@@ -15,7 +18,7 @@
 		 	patientId = patientObj.toString();
 	
 	if (patientId != null)
-		 jspUrl =  "/history/templates/patients/" + patientId;
+		 jspUrl =  "/history/templates/patients/" + patientRepId;
 	
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;

@@ -301,5 +301,87 @@ $(document).ready( function() {
 			$("#tabs").tabs("remove",indexList[i]);
 		}
 
+	}
+	
+	function addWidgetTab(callObj, server, tab_num, patientId, repId, patientRepId, type)
+	{
 
+			var height = '380';
+			var width ='800';
+			var isiPad = navigator.userAgent.match(/iPad/i) != null;
+			
+			if (isiPad)
+			{
+				height = '380';
+				width = '400';
+			}
+				
+			iNettuts.refresh("yellow-widget" + tab_num);
+
+			var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientId + "&patient_rep_id=" + patientRepId;
+			
+			$.get(serverLink, function(data)
+			{
+						
+				//Check to see if any error message
+				
+				$("#aaa" + tab_num).append(data);
+				//iNettuts.makeSortable();
+				setHasContent(tab_num);
+				//Run any scripts specific to this type
+			 	processScripts(repId, patientId, patientRepId, data, type);
+				
+			    //Try to add a scroll
+				$(callObj).delay(100,function()
+				{
+					if (typeof isScrollable == 'undefined')
+					{
+			
+						$.getScript('js/jScrollTouch.js', function()
+						{
+							$("#aaa" + tab_num).jScrollTouch({height:height,width:width});
+						});
+					}
+					else
+					{
+						if (isiPad)
+						{
+							//console.log("medCafe.filter.js . addFilter script loaded ");
+						}
+						$("#aaa" + tab_num).jScrollTouch({height:height,width:width});
+					}
+						
+				} );
+		});
+	}
+	
+	function callTemplate(type, data, patientId)
+	{
+		if (type == "Symptoms")
+		{
+			var html = v2js_listHistoryTemplate(data);
+			var formHtml = "<form action=\"saveHistory.jsp?patient_id=" + patientId+"\"><input type=\"submit\" value=\"Save\"></input><div id=\"templateList\" >";		
+			html =  formHtml + html +  "</div></form>";
+			return html;
+			
+		}
+	}
+	
+	function processScripts(repId, patientId, patientRepId, data, type)
+	{
+		if (type == "Symptoms")
+		{
+			if (typeof processSymptoms == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.symptoms.js', function()
+				{
+					processSymptoms(repId, patientId, patientRepId, data, type);	
+				});
+			}
+			else
+			{
+				processSymptoms(repId, patientId, patientRepId, data, type);		
+			}
+		}
 	}

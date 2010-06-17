@@ -66,11 +66,10 @@
 </head>
 
 <body>
-	<form action="saveHistory.jsp?patient_id=<%=patientId%>">
-		<input type="submit" value="Save"></input>
+		<button value="Save" id="saveButton">Save</button>
 		<div id="templateList" ></div>
 		
-	</form>
+
 	
 </body>
 </html>

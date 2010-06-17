@@ -216,6 +216,10 @@ $(document).ready( function() {
 			
 			}
 		}
+		else if  (type == "Symptoms")
+		{
+			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+		}
 		else
 		{
 			
