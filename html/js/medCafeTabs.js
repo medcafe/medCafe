@@ -346,7 +346,6 @@ $(document).ready( function() {
 					{
 						if (isiPad)
 						{
-							//console.log("medCafe.filter.js . addFilter script loaded ");
 						}
 						$("#aaa" + tab_num).jScrollTouch({height:height,width:width});
 					}
@@ -384,4 +383,21 @@ $(document).ready( function() {
 				processSymptoms(repId, patientId, patientRepId, data, type);		
 			}
 		}
+		else if ( type == "Filter")
+		{
+		
+			if (typeof processFilter == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.filter.js', function()
+				{
+					processFilter(repId, patientId, patientRepId, data, type);	
+				});
+			}
+			else
+			{
+				processFilter(repId, patientId, patientRepId, data, type);		
+			}
+		}
+		
 	}

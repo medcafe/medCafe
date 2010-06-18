@@ -64,12 +64,8 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Category Filter</title>
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
- 	<script type="text/javascript" src="js/vel2js.js"></script>
-    <script type="text/javascript" src="js/vel2jstools.js"></script>
-	
+ 	
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
 	<style type="text/css">
@@ -81,161 +77,40 @@
 	</style>
 	
 	<script type="text/javascript">
+	
+		var startDate="<%=filterStartDate%>";
+		var endDate = "<%=filterEndDate%>";
+		var category = "<%=categories%>";
+		var url = "<%=url%>";
+		function getFilterStartDate()
+		{
+			return startDate;
+		}	
+		
+		function getFilterEndDate()
+		{
+			return endDate;
+		}
+		
+		function getFilterCategory()
+		{
+			return category;
+		}
+		
+		function getFilterURL()
+		{
+			return url;
+		}
+		
 		$(function(){
 		
 			var startDate="<%=filterStartDate%>";
 			var endDate = "<%=filterEndDate%>";
 			var category = "<%=categories%>";
-			setChecked(category);
-			
-			$.getJSON("<%=url%>", function(data)
-			{
-  			
-	  			var startHtml = v2js_listStartDates( data );  
-	  			
-	  			$("#valueAA").append(startHtml);
-	    		var endHtml = v2js_listEndDates( data );  
-	  			$("#valueBB").append(endHtml);
-				
-				$('select#valueAA, select#valueBB').selectToUISlider({
-					labels: 12
-				});
-				
-				
-				$('#slider_button').click(function()
-				 {
-				 	//for some reason cannot call trigger('FILTER_DATE') directly
-				    startDate = "02/02/2008";
-				 	endDate = "10/02/2010";
-				 	//var values = $('select#valueAA').slider('option','values');
-				 	var valueA = $('select#valueAA').val();
-				 	//add a day to the date
-				 	
-				 	var pos = valueA.indexOf("/");
-				 	startDate =  valueA.substring(0,pos) + "/01" +  valueA.substring(pos);
+			filterInitialize("<%=url%>", startDate, endDate, category);
 
-				 	var valueB = $('select#valueBB').val();
-				 	pos = valueB.indexOf("/");
-				 	endDate =  valueB.substring(0,pos) + "/01" +  valueB.substring(pos);
-    
-				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;	
-					//Make a call to setFilter
-					$.get(url, function(data)
-					{						  
-						  //alert('Set Filter Date was run.');
-						  parent.triggerFilter(startDate, endDate);
-				   
-					});
-				});
-			
-				
-				
-				$('#slider_button_unfilter').click(function()
-				 {
-				 	//for some reason cannot call trigger('FILTER_DATE') directly
-				 	startDate = "";
-				 	endDate = "";
-				 
-				 	$('select#valueBB').val("02/02/2008");
-				 	$('select#valueAA').val("02/02/2008");
-				 	/*selects.bind('change keyup click', function(){
-					var thisIndex = jQuery(this).get(0).selectedIndex;
-					var thisHandle = jQuery('#handle_'+ jQuery(this).attr('id'));
-					var handleIndex = thisHandle.data('handleNum');
-					thisHandle.parents('.ui-slider:eq(0)').slider("values", handleIndex, thisIndex);
-					});*/
-					
-				 	var defIndex = 0;
-					var startHandleIndex  = $('#handle_valueAA').data('handleNum');
-					var endHandleIndex  = $('#handle_valueBB').data('handleNum');
-					$('#handle_valueAA').parents('.ui-slider:eq(0)').slider("values", startHandleIndex, defIndex);
-					$('#handle_valueBB').parents('.ui-slider:eq(0)').slider("values", endHandleIndex, defIndex);
-    
-				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate;	
-					//Make a call to setFilter
-					$.get(url, function(data)
-					{						  
-						  //alert('Set Filter Date was run.');
-						  parent.triggerFilter(startDate, endDate);
-				    
-					});
-					
-				});
-				
-		
-			});
-		
-			
-			$('#filter_button').click(function()
-			{
- 	
- 					var comma="";
-					var category = "";
-				    $('.filter_checkbox').each(
-						  
-						  function() 
-						  {
-						  	
-						  	if ( $(this).attr('checked') )
-						  	{
-						   		var id = $(this).attr('id');
-								category = category + comma +  $('#' + id).val();
-								comma=",";
-							}
-						  }
-					);
-					
-					var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
-					
-					$.get(url, function(data)
-					{						  
-						  //alert('Set Filter Date was run.');
-						  parent.triggerFilterCategory(category);
-					});
-	 
-			});
-					
-			$('#unfilter_button').click(function()
-			{
-				 	//for some reason cannot call trigger('FILTER_DATE') directly
-				 	var category = "";
-
-					$('.filter_checkbox').each(
-						  
-						  function() 
-						  {    
-						    $(this).attr('checked',false);
-						  }
-					);
-					var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
-					
-					$.get(url, function(data)
-					{						  
-						  //alert('Set Filter Date was run.');
-						  parent.triggerFilterCategory(category);
-				 	
-					});
-			});
 		});
 
-		function setChecked(categories)
-		{
-					
-			var catList = categories.split(",");
-			
-			for(i = 0; i < catList.length; i++)
-			{
-				$('#categoryFilter').find(".filter_checkbox").each(function() {
-			
-					var filterVal = $(this).val();
-					
-					if (filterVal == catList[i])
-					{
-						$(this).attr("checked","true");
-					}
-				});
-			}
-		}		
 	</script>
 </head>
 

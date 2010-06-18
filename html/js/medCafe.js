@@ -129,6 +129,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "Detail")
 		{
+			
 			addPatientDetail(this, link, tab_num, label, patientId, repId, patientRepId);
 		}
 		else if  (type == "Repository")
@@ -202,17 +203,17 @@ $(document).ready( function() {
 		}
 		else if  (type == "Filter")
 		{
-			if (typeof addFilter == 'undefined')
+			if (typeof processFilter == 'undefined')
 			{
 
 				$.getScript('js/medCafe.filter.js', function()
 				{
-					addFilter(this, link, tab_num, patientId, patientRepId);
+					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 				});
 			}
 			else
 			{
-				addFilter(this, link, tab_num, patientId, patientRepId);
+				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 			
 			}
 		}

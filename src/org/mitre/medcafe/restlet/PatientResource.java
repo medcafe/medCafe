@@ -86,6 +86,11 @@ public class PatientResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
+        if (r == null)
+        {
+        	 System.out.println("PatientResource : toJSON: Cannot find the repository " + repository);
+        	 return new JsonRepresentation(WebUtils.buildErrorJson( "Could not find the repository " + repository ));
+        }
         Patient pat = r.getPatient( id );
     //convert to JSON
        try{

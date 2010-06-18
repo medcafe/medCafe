@@ -3,7 +3,14 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 
-	String patient_id = request.getParameter("patient_id");	
+	String patientId = request.getParameter("patient_id");	
+	if (patientId == null)
+	{
+		Object patientObj = session.getAttribute("patient");
+		if (patientObj != null)
+		 	patientId = patientObj.toString();
+	}
+	
 	String repository = request.getParameter("repository");	
 			
 	String listRep =  "/repositories";
@@ -11,8 +18,8 @@
 	if (repository != null)
 		listRep = listRep + "/" + repository + "/patients";
 	
-	if (patient_id != null)
-		listRep = listRep + "/" + patient_id;
+	if (patientId != null)
+		listRep = listRep + "/" + patientId;
 	
 	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
 %>

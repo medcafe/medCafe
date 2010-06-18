@@ -77,7 +77,14 @@ function setOnSelect(isIntro, server)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		parent.window.location.replace(server + "/index.jsp?patient_id=" + src);	
+					alert("medCafe.patients.js value selected " + src);
+		    		var server = "retrievePatient.jsp?patient_id=" + src;
+	
+	 				$.getJSON(server, function(data)
+	 				{
+		    			parent.window.location.replace("index.jsp?patient_id=" + src);	
+		    		});
+		    		
 	    		});
 	    		
 	    		
@@ -246,9 +253,15 @@ function addCreateAssocButton( patient_id, role)
 function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRepId)
 {
 	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientRepId;
-									
 	$.getJSON(link, function(data)
 	{
+			if (data.announce)
+            {
+              	  //alert("announce");
+                  updateAnnouncements(data);
+                  return;
+            }
+              
 			var html = v2js_listPatientTable( data );  	  			
 	  		$("#aaa" + tab_num).append(html);
 	  									

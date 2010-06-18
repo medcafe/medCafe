@@ -134,7 +134,7 @@
                     .toggleClass("ui-state-default").toggleClass("ui-corner-bottom")
                 .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e").toggleClass("ui-icon-triangle-1-s")
                 .end().next().toggleClass("ui-accordion-content-active").toggle();
-                $('#calendar').fullCalendar('refetchEvents' );
+                //$('#calendar').fullCalendar('refetchEvents' );
                 return false;
             })
             .next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").hide();

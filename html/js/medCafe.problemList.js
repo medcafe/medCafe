@@ -1,5 +1,5 @@
  
- /*function listProblemList(id, patient_id, server)
+ function listProblemList(id, patient_id, server)
 {
 	///patients/{id}/history/{category}
 	var link = "problemListJSON.jsp?patient_id=" + patient_id;
@@ -24,7 +24,7 @@
 
 	});
 }
-*/	
+
 function addProblemList(callObj, server, tab_num, label, patient_id, repId, patientRepId)
 {	
 		
