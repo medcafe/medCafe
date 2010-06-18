@@ -19,6 +19,7 @@
 package com.medsphere.fmdomain;
 
 import java.lang.reflect.AnnotatedElement;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.medsphere.fileman.FMField;
 import com.medsphere.fileman.FMFile;
 import com.medsphere.fileman.FMRecord;
 import com.medsphere.fileman.FMResultSet;
+
 
 public class FMPatient extends FMRecord {
 
@@ -84,6 +86,11 @@ public class FMPatient extends FMRecord {
     protected String sex;
     @FMAnnotateFieldInfo(name = "DATE OF BIRTH", number = ".03", fieldType = FMField.FIELDTYPE.DATE)
     protected Date dob;
+    @FMAnnotateFieldInfo(name = "PLACE OF BIRTH (CITY)", number = ".092", fieldType = FMField.FIELDTYPE.FREE_TEXT)
+    protected String birthCity;
+    
+    @FMAnnotateFieldInfo(name = "PLACE OF BIRTH (STATE)", number = ".093", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer birthState;
     @FMAnnotateFieldInfo(name = "AGE", number = ".033", fieldType = FMField.FIELDTYPE.NUMERIC)
     protected Double age;
     @FMAnnotateFieldInfo(name = "DISPLAY AGE", number = "21400.033", fieldType = FMField.FIELDTYPE.COMPUTED)
@@ -135,6 +142,17 @@ public class FMPatient extends FMRecord {
         return dob;
     }
 
+    public String getBirthCity() {
+        return birthCity;
+    }
+
+    public Integer getBirthState() {
+        return birthState;
+    }
+
+    public String getBirthStateValue() {
+        return getValue(".093");
+    }
     public Double getAge() {
         return age;
     }
@@ -255,7 +273,8 @@ public class FMPatient extends FMRecord {
         + ((suffix != null) ? " suffix=["+suffix+"]" : "")
         + ((degree != null) ? " degree=["+degree+"]" : "")
         + " sex=["+getSex()+"]"
-        + " dob=["+getDob().toString()+"]"
+       + " dob=["+((dob!= null) ?getDob().toString():"null")
+        +"]"
         + " eid=["+getEnterprisePatientIdentifier()+"]"
         + " id=["+getId()+"]"
         + " age=["+getAge()+"]"
@@ -270,4 +289,83 @@ public class FMPatient extends FMRecord {
         + " admitting diagnosis=["+getAdmittingDiagnosis()+"]";
 
     }
+
+    //added
+   public void setCurrentAdmission(FMPatientMovement movement)
+   {
+     setDomainValue("currentAdmission", movement.getIEN());
+   }
+
+     public boolean setSex(String sex ) {
+         sex = sex.toUpperCase();
+        if (sex.equals("F")||sex.equals("M"))
+        {
+             setDomainValue("sex",  sex);
+            return true;
+        }
+         return false;
+    }
+
+    public void setEnterprisePatientIdentifier(String EPI) {
+         setDomainValue("enterprisePatientIdentifier",  EPI);
+    }
+
+    public void setId(String id) {
+         setDomainValue("id", id);
+    }
+
+    public void setSsn(String ssn) {
+         setDomainValue("ssn",  ssn);
+    }
+
+    public void setAttendingPhysician(FMUser physician) {
+        setDomainValue("attendingPhysician", physician.getIEN());
+    }
+
+    public void setCurrentRoom(FMRoom room) {
+        setDomainValue("currentRoom", room.getIEN());
+    }
+
+  public void setRoomBed(String roomAndBed) {
+         setDomainValue("roomBed", roomAndBed);
+    }
+
+    public void setWardLocation(String location) {
+         setDomainValue("wardLocation", location);
+    }
+
+    public void setCurrentMovement(FMPatientMovement movement) {
+        setDomainValue("currentMovement", movement);
+    }
+
+    public void setProvider(FMUser provide) {
+        setDomainValue("provider", provide);
+    }
+        public void setBirthState(Integer newState) {
+
+        setDomainValue("birthState", newState, ".093");
+    }
+    public void setFMBirthState(FMState fmState)
+    {
+         setDomainValue("birthState", Integer.parseInt(fmState.getIEN()),".093");
+    }
+    public void setBirthCity(String city)
+    {
+        setDomainValue("birthCity", city);
+    }
+
+    public boolean setDob(Date date)
+    {
+        if (date.after(new Date(-30,11,31)))
+        {
+
+         setDomainValue("dob",  date);
+        return true;
+        }
+        else
+            return false;
+
+    }
+   
+
 }

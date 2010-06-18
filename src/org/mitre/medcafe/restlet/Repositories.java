@@ -64,8 +64,9 @@ public class Repositories
                 r.setName("OurVista");
                 r.setCredentials( "128.29.109.7", "8002", "OV1234", "OV1234!!" );
                 repos.put(r.getName(), r);
+		System.out.println("Got ourVista connection");
             }
-        }catch (Exception e) {}
+        }catch (Exception e) {System.out.println(e.getMessage());}
 
         host = "192.168.56.102";
         try
@@ -88,8 +89,9 @@ public class Repositories
                 r.setName("OurHdata");
                 r.setCredentials( "http://" + host + ":8080" );
                 repos.put(r.getName(), r);
+		System.out.println("Got hdata connection");
             }
-        }catch (Exception e) {}
+        }catch (Exception e) { System.out.println(e.getMessage());}
 
     }
 

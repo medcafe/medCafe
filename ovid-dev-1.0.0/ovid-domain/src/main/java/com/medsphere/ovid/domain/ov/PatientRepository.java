@@ -35,12 +35,16 @@ import com.medsphere.fileman.FMScreenField;
 import com.medsphere.fileman.FMScreenIEN;
 import com.medsphere.fileman.FMScreenOr;
 import com.medsphere.fileman.FMScreenValue;
+import com.medsphere.fileman.FMInsert;
+import com.medsphere.fileman.FMUpdate;
+import com.medsphere.fmdomain.FMNameComponents;
 import com.medsphere.fmdomain.FMDemographicPatient;
 import com.medsphere.fmdomain.FMEthnicity;
 import com.medsphere.fmdomain.FMMaritalStatus;
 import com.medsphere.fmdomain.FMPatient;
 import com.medsphere.fmdomain.FMPatientContact;
 import com.medsphere.fmdomain.FMRaceInformation;
+import com.medsphere.fmdomain.FMPatientMovement;
 import com.medsphere.resource.ResAdapter;
 import com.medsphere.resource.ResException;
 import com.medsphere.vistarpc.RPCArray;
@@ -84,6 +88,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("CURRENT ROOM").setInternal(false);
             query.getField("CURRENT MOVEMENT").setInternal(false);
             query.getField("PROVIDER").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -150,6 +155,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("CURRENT ROOM").setInternal(false);
             query.getField("CURRENT MOVEMENT").setInternal(false);
             query.getField("PROVIDER").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -186,6 +192,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("CURRENT ROOM").setInternal(false);
             query.getField("CURRENT MOVEMENT").setInternal(false);
             query.getField("PROVIDER").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -202,6 +209,115 @@ public class PatientRepository extends OvidSecureRepository {
         return list;
 
     }
+     // added
+
+
+    public void addPatient(FMPatientContact patient, FMNameComponents nameComp) throws OvidDomainException {
+
+        try {
+        ResAdapter adapter =  obtainServerRPCAdapter();
+
+        FMInsert insert = new FMInsert(adapter);
+
+        patient.setName(nameComp);
+        insert.setEntry(patient);
+
+        FMResultSet results = insert.execute();
+        if (results == null || results.getError() != null) {
+            logger.error("Error, unable to insert because " + results.getError());
+        } else {
+            System.out.println("added as IEN " + patient.getIEN());
+            nameComp.setIENS(patient.getIEN());
+            insert = new FMInsert(adapter);
+            insert.setEntry(nameComp);
+            results = insert.execute();
+        if (results == null || results.getError() != null) {
+            logger.error("Error, unable to insert because " + results.getError());
+        } else {
+            System.out.println("added as IEN " + nameComp.getIEN());
+
+        }
+        }
+        }
+        catch (OvidDomainException ovidE)
+        {
+            throw ovidE;
+        }
+        catch (ResException resE)
+        {
+            logger.error("Error unable to insert because "+ resE.getMessage());
+        }
+
+    }
+
+        public void updatePatient(FMPatientContact patient, FMNameComponents nameComp) throws OvidDomainException {
+
+        try {
+        ResAdapter adapter =  obtainServerRPCAdapter();
+
+        FMUpdate update = new FMUpdate(adapter);
+        patient.setName(nameComp);
+
+        update.setEntry(patient);
+
+        FMResultSet results = update.execute();
+        if (results == null || results.getError() != null) {
+            logger.error("Error, unable to update because " + results.getError());
+        } else {
+            System.out.println("updated IEN " + patient.getIEN());
+            nameComp.setIENS(patient.getIEN());
+        }
+
+        update = new FMUpdate(adapter);
+
+
+        update.setEntry(nameComp);
+
+        results = update.execute();
+        if (results == null || results.getError() != null) {
+            logger.error("Error, unable to update because " + results.getError());
+        } else {
+            System.out.println("updated name components for " + patient.getIEN());
+        }
+        }
+        catch (OvidDomainException ovidE)
+        {
+            throw ovidE;
+        }
+        catch (ResException resE)
+        {
+            logger.error("Error unable to update because "+ resE.getMessage());
+        }
+
+    }
+/*  not implemented yet   
+     private void admitPatient(FMPatientContact patient, FMPatientMovement admit) throws OvidDomainException {
+
+        try {
+        ResAdapter adapter =  obtainServerRPCAdapter();
+
+        FMInsert insert = new FMInsert(adapter);
+        admit.setPatient(patient);
+        insert.setEntry(admit);
+
+        FMResultSet results = insert.execute();
+        if (results == null || results.getError() != null) {
+            logger.error("Error, unable to insert because " + results.getError());
+        } else {
+            System.out.println("added as IEN " + patient.getIEN());
+        }
+        }
+        catch (OvidDomainException ovidE)
+        {
+            throw ovidE;
+        }
+        catch (ResException resE)
+        {
+            logger.error("Error unable to insert because "+ resE.getMessage());
+        }
+
+    }
+*/
 
     public void fetchNameComponents(FMPatient patient) throws OvidDomainException {
         Collection<FMPatient> collection = new ArrayList<FMPatient>();
@@ -287,6 +403,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("CURRENT MOVEMENT").setInternal(false);
             query.getField("PROVIDER").setInternal(false);
             query.getField("STATE").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -411,6 +528,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("E-STATE").setInternal(false);
             query.getField("E2-STATE").setInternal(false);
             query.getField("D-STATE").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -521,6 +639,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("CURRENT ROOM").setInternal(false);
             query.getField("CURRENT MOVEMENT").setInternal(false);
             query.getField("PROVIDER").setInternal(false);
+            query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {

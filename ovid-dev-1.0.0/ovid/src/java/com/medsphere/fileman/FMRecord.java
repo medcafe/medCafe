@@ -237,7 +237,91 @@ public class FMRecord {
         modifiedFields = new HashSet<String>();
     }
 
-    protected void setDomainValue(String fieldName, Object value, String number)  {
+  protected void setDomainValue(String fieldName, Object value, String number)  {
+        boolean didFieldSet = false;
+        try {
+            Class thisClass = getClass();
+	    Field field = null;
+		Class curClass = thisClass;
+	while(!curClass.equals(FMRecord.class))
+	{
+	    try{
+        	field = curClass.getDeclaredField(fieldName);
+		break;
+		}
+	    catch(NoSuchFieldException e)
+		{
+		}
+	    curClass = curClass.getSuperclass();
+
+	}
+
+         if (field != null)
+         {
+            field.setAccessible( true );
+            Object currentValue = field.get(this);
+            if (valuesChanged(currentValue,value)) {
+                field.set(this, value);
+                addModifiedField(number);
+            }
+            didFieldSet = true;
+         }
+         else
+             throw new NoSuchFieldException();
+        } catch (SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if (!didFieldSet) {
+            acceptField( fieldName, value.toString() );
+        }
+    }
+
+
+    protected void setDomainValue(String fieldName, Object value)  {
+        try {
+            Class thisClass = getClass();
+
+	    Field field = null;
+		Class curClass = thisClass;
+	while(!curClass.equals(FMRecord.class))
+	{
+	    try{
+        	field = curClass.getDeclaredField(fieldName);
+                String number = field.getAnnotation(FMAnnotateFieldInfo.class).number();
+                setDomainValue(fieldName, value, number);
+		break;
+		}
+	    catch(NoSuchFieldException e)
+		{
+		}
+	    curClass = curClass.getSuperclass();
+
+	}
+
+         if (field == null)
+
+             throw new NoSuchFieldException();
+        } catch (NoSuchFieldException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+/*
+
+  protected void setDomainValue(String fieldName, Object value, String number)  {
         boolean didFieldSet = false;
         try {
             Class thisClass = getClass();
@@ -267,17 +351,8 @@ public class FMRecord {
         }
     }
 
+*/
 
-    protected void setDomainValue(String fieldName, Object value)  {
-        try {
-            Class thisClass = getClass();
-            Field field = thisClass.getDeclaredField(fieldName);
-            String number = field.getAnnotation(FMAnnotateFieldInfo.class).number();
-            setDomainValue(fieldName, value, number);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void acceptField(String fieldName, String value) {
         if (fieldName.equals("IEN")) {
