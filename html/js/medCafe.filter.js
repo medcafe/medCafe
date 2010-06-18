@@ -39,7 +39,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  parent.triggerFilter(startDate, endDate);
+						  triggerFilter(startDate, endDate);
 				   
 					});
 				});
@@ -72,7 +72,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  parent.triggerFilter(startDate, endDate);
+						  triggerFilter(startDate, endDate);
 				    
 					});
 					
@@ -106,7 +106,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  parent.triggerFilterCategory(category);
+						  triggerFilterCategory(category);
 					});
 	 
 			});
@@ -128,7 +128,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  parent.triggerFilterCategory(category);
+						  triggerFilterCategory(category);
 				 	
 					});
 			});
@@ -152,7 +152,7 @@ function setChecked(categories)
 				});
 			}
 }		
-
+//Any javascript that needs to be run after page is loaded - though thi smay not be required
 function processFilter(repId, patientId, patientRepId, data, type)
 {
 		var startDate=getFilterStartDate();
