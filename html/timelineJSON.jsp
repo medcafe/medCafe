@@ -7,7 +7,7 @@
  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<meta name = "viewport" content = "user-scalable = yes, width =2000, initial-scale = 0.5">
+<meta name = "viewport" content = "user-scalable = yes, width =device-width">
 <%
 	String[] eventList =  Event.getEventList();
 	
@@ -28,19 +28,18 @@
 		listEvents += "&event=" + eventVal;
 	}
 %>
-<link rel='stylesheet' href='js/timeline/styles/styles.css' type='text/css' />
-<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
-  	
-<script src="js/timeline/examples.js" type="text/javascript"></script>
-<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
-<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>	
+
+<link rel='stylesheet' href='js/timeline/styles/common.css' type='text/css' />
+ 	<script src="js/timeline/examples.js" type="text/javascript"></script>
 <script>
  var tl;
- function onLoad() {
+	$(function(){
               
- 	var eventSource = new Timeline.DefaultEventSource();
+    var eventSource = new Timeline.DefaultEventSource();
  	var d = Timeline.DateTime.parseGregorianDateTime("2008");
+ 	
  	var theme = Timeline.ClassicTheme.create();
+ 	
  	theme.event.bubble.width = 320;
             theme.ether.backgroundColors = [
                 "#FDE5A7",
@@ -81,8 +80,10 @@
                     theme:      theme
                 })
             ];
+            
    tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
  	var eventUrl = "<%=listEvents%>";
+ 	alert("timelineJSON. eventUrl " + eventUrl);
  	//alert("timelineJSON.jsp event url " + eventUrl);
  	$.getJSON(eventUrl, function(data)
  	{
@@ -102,7 +103,6 @@
 		$("#eventForm").submit();	
 	});
 				 	 
- }
 
  var resizeTimerID = null;
  function onResize() {
@@ -113,10 +113,11 @@
          }, 500);
      }
  }
+ 
+ 		});
 </script>
 
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<script src="js/timeline/timeline-api.js" type="text/javascript"></script>
+
 <!-- script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script-->
 </head>
 <body onload="onLoad();" onresize="onResize();">

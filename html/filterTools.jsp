@@ -62,12 +62,9 @@
 %>  
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Category Filter</title>
-	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
- 	
-	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
-	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
+	
+	
 	<style type="text/css">
 		body {font-size: 62.5%; font-family:"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif; }
 		fieldset { border:0; margin: 2em; height: 10em;}	
@@ -82,6 +79,7 @@
 		var endDate = "<%=filterEndDate%>";
 		var category = "<%=categories%>";
 		var url = "<%=url%>";
+		
 		function getFilterStartDate()
 		{
 			return startDate;
@@ -107,7 +105,7 @@
 			var startDate="<%=filterStartDate%>";
 			var endDate = "<%=filterEndDate%>";
 			var category = "<%=categories%>";
-			filterInitialize("<%=url%>", startDate, endDate, category);
+			//filterInitialize("<%=url%>", startDate, endDate, category);
 
 		});
 
@@ -117,11 +115,17 @@
 <body>
 	<div id="holder">
 	<div id="dateFilter" class="ui-widget ui-corner-all">
-		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+		<div style="height:180px;" class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 	
-			
 			<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
 			<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
+			
+			<div id="filterStartDate" style="display:none"><%=filterStartDate%></div>
+			<div id="filterEndDate" style="display:none"><%=filterEndDate%></div>
+		</div>
+		<br/>
+		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+			
 			<button value="Filter" id="slider_button">Filter</button>
 			<button value="Remove Filter" id="slider_button_unfilter">Remove Filter</button>
 			<br/>
@@ -129,8 +133,7 @@
 		</div>
 	</div>
 	<br/>
-	
-	
+
 	<div id="categoryFilter" class="ui-widget ui-corner-all">
 		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 		
@@ -142,6 +145,7 @@
 			<br/>
 			<button value="Filter" id="filter_button">Filter</button>
 			<button value="Remove Filter" id="unfilter_button">Remove Filter</button>
+			<div id="categoryList" style="display:none"><%=categories%></div>
 		</div>
 	</div>
 	</div>

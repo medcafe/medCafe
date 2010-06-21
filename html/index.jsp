@@ -25,7 +25,6 @@
 
 	<title>medCafe</title>
 
-
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
@@ -37,7 +36,8 @@
 	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
-
+	<link rel="Stylesheet" href="${css}/ui.slider.extras.css" type="text/css" />
+	
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
@@ -67,8 +67,10 @@
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
  	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
- 
-	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
+ 	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
+ 	
+ 	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
+	
 	<script>
         var outerLayout;
 		var repositoryPatientJSON = {};
@@ -117,6 +119,9 @@
             	.no-copy {
 	  			-webkit-user-select: none;
 	  			}
+  	
+		fieldset { border:0; margin-top: 1em;}	
+		.ui-slider {clear: both; top: 5em;}
     </style>
 
 </head>
@@ -248,5 +253,5 @@
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 
-
+	
 </html>

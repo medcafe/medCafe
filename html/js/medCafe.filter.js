@@ -13,9 +13,13 @@ function filterInitialize(url, startDate, endDate, category)
 	    		var endHtml = v2js_listEndDates( data );  
 	  			$("#valueBB").append(endHtml);
 				
-				$('select#valueAA, select#valueBB').selectToUISlider({
-					labels: 12
+				$('select#valueAA').delay(1000,function()
+				{
+					$('select#valueAA, select#valueBB').selectToUISlider({
+						labels: 12
+					});
 				});
+				
 				
 				
 				$('#slider_button').click(function()
@@ -78,7 +82,7 @@ function filterInitialize(url, startDate, endDate, category)
 					
 				});
 				
-		
+				//$("#aaa" + tab_num).jScrollTouch({height:"400",width:"400"});
 			});
 		
 			
@@ -155,10 +159,13 @@ function setChecked(categories)
 //Any javascript that needs to be run after page is loaded - though thi smay not be required
 function processFilter(repId, patientId, patientRepId, data, type)
 {
-		var startDate=getFilterStartDate();
-		var endDate = getFilterEndDate();
-		var category =getFilterCategory();
-		var url = getFilterURL();
+		//alert("medCafe.filter.js: processFilter. Start");
+		
+		var startDate =$("#filterStartDate").text();
+		var endDate =$("#filterEndDate").text();
+		var category =$("#categoryList").text();
+		
+		var url = "listDates.jsp?filter_start_date=" + startDate + "&filter_end_date=" + endDate;
 		//alert("medCafe.filter.js processFilter startDate " + startDate + " endDate " + endDate + " category " + category);
-		//filterInitialize(url, startDate, endDate, category);
+		filterInitialize(url, startDate, endDate, category);
 }

@@ -217,6 +217,12 @@ $(document).ready( function() {
 			
 			}
 		}
+		else if  (type == "Timeline")
+		{
+			
+			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);	
+			
+		}
 		else if  (type == "Symptoms")
 		{
 			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
