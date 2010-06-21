@@ -316,6 +316,7 @@ $(document).ready( function() {
 				width = '400';
 			}
 				
+			patientId = "4";
 			iNettuts.refresh("yellow-widget" + tab_num);
 
 			var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientId + "&patient_rep_id=" + patientRepId;
@@ -324,12 +325,11 @@ $(document).ready( function() {
 			{
 						
 				//Check to see if any error message
-				
 				$("#aaa" + tab_num).append(data);
 				//iNettuts.makeSortable();
 				setHasContent(tab_num);
 				//Run any scripts specific to this type
-			 	processScripts(repId, patientId, patientRepId, data, type);
+			 	processScripts(callObj, repId, patientId, patientRepId, data, type);
 				
 			    //Try to add a scroll
 				$(callObj).delay(100,function()
@@ -366,8 +366,9 @@ $(document).ready( function() {
 		}
 	}
 	
-	function processScripts(repId, patientId, patientRepId, data, type)
+	function processScripts(callObj, repId, patientId, patientRepId, data, type)
 	{
+			
 		if (type == "Symptoms")
 		{
 			if (typeof processSymptoms == 'undefined')
@@ -399,7 +400,14 @@ $(document).ready( function() {
 				processFilter(repId, patientId, patientRepId, data, type);		
 			}
 		}
-		
+		else if ( type == "ImageNonIFrame")
+		{
+			
+			$(callObj).delay(2500,function()
+			{
+				processImages(repId, patientId, patientRepId, data, type);		
+			});
+		}
 			
 		
 	}

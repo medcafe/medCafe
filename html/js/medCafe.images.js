@@ -30,3 +30,10 @@ function addImageButton( patient_id)
 	
 	});
 }
+
+function processImages(repId, patientId, patientRepId, data, type)
+{
+		 //alert("medCafe.images.js about to process Images");
+		 var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});
+		 //$("#contentFlow").removeClass("loadIndicator");
+}

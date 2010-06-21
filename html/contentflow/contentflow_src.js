@@ -14,7 +14,7 @@
 var ContentFlowGlobal = {
     Flows: new Array,
     AddOns: {}, 
-    scriptName: 'contentflow.js',
+    scriptName: 'contentflow_src.js',
     scriptElement:  null,
     Browser: new (function () {
         this.Opera = window.opera ? true : false;
@@ -23,7 +23,7 @@ var ContentFlowGlobal = {
         this.IE8 = this.IE && typeof(document.querySelectorAll) != "undefined" ? true : false;
         this.IE7 = this.IE && ! this.IE6 && !this.IE8 ? true : false;
         this.WebKit = /WebKit/i.test(navigator.userAgent) ? true : false, 
-        this.iPhone = /iPhone|iPod/i.test(navigator.userAgent)? true : false;
+        this.iPhone = /iPhone|iPod|iPad/i.test(navigator.userAgent)? true : false;
         this.Chrome = /Chrome/i.test(navigator.userAgent) ? true : false;
         this.Safari = /Safari/i.test(navigator.userAgent) && !this.Chrome ? true : false;
         this.Konqueror = navigator.vendor == "KDE" ? true : false;
@@ -662,13 +662,20 @@ ContentFlowItem.prototype = {
  */
 var ContentFlow = function (container, config) {
 
-    if (container) {
+	 //alert(" contentflow_src.js ContentFlow create ");
+        
+	 if (container) {
         ContentFlowGlobal.Flows.push(this);
         this.Container = container;
         this._userConf = config?config:{};
         this.conf = {};
         this._loadedAddOns = new Array();
+        //gh have to add an additional call to init as it is not being initialized on page load
+       // alert(" contentflow_src.js ContentFlow create have to add init");
+        
+        this.init();
     } else {
+    	//alert("contentflow_src.js creating content flow object error "); 
         throw ('ContentFlow ERROR: No flow container node or id given');
     }
 
@@ -976,6 +983,7 @@ ContentFlow.prototype = {
      * needed if ContentFlow is not automatically initialized on window.load
      */
     init: function () {
+    	   
         if(this.isInit) return;
         this._init();
     },

@@ -19,6 +19,15 @@
 	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
+	<name>ImageNonIFrames</name>
+	<type>ImageNonIFrame</type>
+	<image>coverflow.png</image>
+	<server></server>
+            <clickUrl>contentFlow.jsp</clickUrl>
+	<method></method>
+	<repository>local</repository>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Filter</name>
 	<type>Filter</type>
 	<image>slider-small.png</image>

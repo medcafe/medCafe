@@ -123,9 +123,40 @@ $(document).ready( function() {
 		{
 			addChart(this, link, tab_num, patientId, patientRepId);
 		}
-		else if  (type == "Images")
+		else if  (type == "Image")
 		{
 			addCoverflow(this, link, tab_num, patientId, patientRepId);
+			/*if (typeof processImages == 'undefined')
+			{
+
+				$.getScript('js/medCafe.images.js', function()
+				{
+					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+				});
+			}
+			else
+			{
+				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+			
+			}*/
+		}
+		else if  (type == "ImageNonIFrame")
+		{
+			if (typeof processImages == 'undefined')
+			{
+		
+				$.getScript('js/medCafe.images.js', function()
+				{
+					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+				});
+			}
+			else
+			{
+				//alert("medCafe.js about to process Image type ImageNonIFrame have script");
+			
+				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+			
+			}
 		}
 		else if  (type == "Detail")
 		{
