@@ -89,7 +89,7 @@ public class FMMaritalStatus extends FMRecord {
 
     @Override
     public String toString() {
-        return "name=[" + getName() + "] abbreivation=[" + getAbbreviation() + "] maritalStatusCode=[" + getMaritalStatusCode() + "]";
+        return "name=[" + getName() + "] abbreviation=[" + getAbbreviation() + "] maritalStatusCode=[" + getMaritalStatusCode() + "]";
     }
 
 }

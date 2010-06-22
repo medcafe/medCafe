@@ -76,11 +76,16 @@ public class VistaRepository extends Repository {
             //set  name
             Name name = new Name();
             List<String> given = name.getGiven();
-            given.add(filemanPat.getGivenName());
-            given.add(filemanPat.getMiddleName());
-            name.setSuffix(filemanPat.getSuffix());
-            name.setLastname(filemanPat.getFamilyName());
-            name.setTitle(filemanPat.getPrefix());
+	    if (stringExists(filemanPat.getGivenName()))            
+		given.add(filemanPat.getGivenName());
+	    if (stringExists(filemanPat.getMiddleName()))
+            	given.add(filemanPat.getMiddleName());
+	    if (stringExists(filemanPat.getSuffix()))
+            	name.setSuffix(filemanPat.getSuffix());
+	    if (stringExists(filemanPat.getFamilyName()))            
+		name.setLastname(filemanPat.getFamilyName());
+	    if (stringExists(filemanPat.getPrefix()))
+            	name.setTitle(filemanPat.getPrefix());
             ret.setName(name);
 
             // set address
@@ -124,10 +129,10 @@ public class VistaRepository extends Repository {
             }
 
             // marital status
-            String marStatusDesc = filemanPat.getMaritalStatusValue();
-            if (stringExists(marStatusDesc)) {
+            FMMaritalStatus fmMarStatus = patientRepository.getMaritalStatus(filemanPat);
+            if (fmMarStatus != null) {
                 MaritalStatus marStatus = new MaritalStatus();
-                marStatus.setValue(marStatusDesc);
+                marStatus.setValue(fmMarStatus.getName());
                 ret.setMaritialStatus(marStatus);
             }
 
@@ -147,7 +152,7 @@ public class VistaRepository extends Repository {
 
                 Person guardian = new Person();
 
-                Name guardName = guardian.getName();
+                Name guardName = new Name();
                 String civilGuardName = filemanPat.getGuardianCivil();
                 String vaGuardName = filemanPat.getVaGuardian();
                 if (stringExists(civilGuardName)) {
@@ -203,7 +208,7 @@ public class VistaRepository extends Repository {
                     }
                 }
                         else if (stringExists(vaGuardName)) {
-
+			System.out.println(vaGuardName);
                         String[] nameParts = vaGuardName.split(",");
                         guardName.setLastname(nameParts[0]);
                         given = guardName.getGiven();
