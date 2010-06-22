@@ -1,7 +1,72 @@
-<project name="ovid-domain" default="compile" basedir="." >
+<project name="ovid-domain" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 
-   
+    <!-- begin ivy -->
+    <!-- some variables used -->
+    <property name="ivy.lib.dir" value="${basedir}/contrib/lib" />
+    <property name="build.dir" value="${basedir}/bin" />
+
+
+    <property name="ivy.install.version" value="2.0.0-beta1" />
+    <property name="ivy.jar.dir" value="${basedir}/ivy" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+
+    <property name="ivy.settings.dir" value="." />
+    <!-- <ivy:settings file="${ivy.settings.dir}/ivysettings.xml" /> -->
+    <!-- ivy properties used -->
+    <property name="ivy.settings.dir" value="." />
+
+    <!-- paths used for compilation and run  -->
+    <path id="lib.path.id">
+        <fileset dir="${ivy.lib.dir}" />
+    </path>
+
+
+    <target name="download-ivy" unless="skip.download">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!-- download Ivy from web site so that it can be used even without any special installation -->
+        <echo message="installing ivy..."/>
+        <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+             dest="${ivy.jar.file}" ignoreerrors="true" usetimestamp="true"/>
+    </target>
+
+    <!-- =================================
+          target: install-ivy
+            this target is not necessary if you put ivy.jar in your ant lib directory
+            if you already have ivy in your ant lib, you can simply remove this
+            target and the dependency the 'go' target has on it
+         ================================= -->
+    <target name="install-ivy" depends="download-ivy" description="--> install ivy">
+        <!-- try to load ivy here from local ivy dir, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as local lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the local lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+
+    <!-- =================================
+          target: resolve
+         ================================= -->
+    <target name="resolve" depends="install-ivy" description="--> resolve and retrieve dependencies with ivy">
+        <ivy:retrieve/>
+    </target>
+
+    <target name="clean-cache" description="--> clean the ivy cache">
+        <ivy:cleancache />
+    </target>
+
+    <!-- =================================
+          target: report
+         ================================= -->
+    <target name="report" depends="resolve" description="--> generates a report of dependencies">
+        <ivy:report todir="${build.dir}"/>
+    </target>
+
+    <!-- end ivy -->
 
     <property environment="env"/>
 
@@ -37,20 +102,22 @@
     </target>
 
     <path id="ovid-domain.path">
-        <fileset dir ="../ovid/lib">
-           <include name="**/*.jar"/>
-           </fileset>
-
-        <fileset dir = "lib">
-           <include name = "**/*.jar"/>
-           </fileset>
-    <fileset dir = "contrib/vistalink">
-           <include name = "**/*.jar"/>
-           </fileset>
+        <pathelement location="${ovid.jar}"/>
+        <pathelement location="${log4j.jar}"/>
+        <pathelement location="${vljconnector.jar}"/>
+        <pathelement location="${vljfoundationslib.jar}"/>
+        <pathelement location="${vljsecurity.jar}"/>
+        <pathelement location="${javaee.jar}"/>
+        <pathelement location="${jaxen.jar}"/>
+        <pathelement location="${mysql.connector}"/>
+        <pathelement location="${apache.commons.collections.jar}"/>
+        <pathelement location="${apache.commons.configuration.jar}"/>
+        <pathelement location="${apache.commons.codec.jar}"/>
+        <pathelement location="${testNG.jar}"/>
 
     </path>
 
-
+    <target name="build" depends="resolve,compile,jar"/>
 
     <target name="compile" depends="init">
         <javac destdir="${dest.dir}" debug="${debug.flag}">
@@ -73,7 +140,7 @@
         </jar>
     </target>
 
-    <target name="rebuild" depends="clean">
+    <target name="rebuild" depends="clean,build">
     </target>
 
     <target name="javadoc" depends="compile">
@@ -106,7 +173,7 @@
         </exec>
     </target>
 
-    <target name="dist" depends="clean,compile,create-version-file,jar,run-unit-tests">
+    <target name="dist" depends="clean,resolve,compile,create-version-file,jar,run-unit-tests">
         <copy file="lib/ovid-domain.jar" todir="${medsphere.contrib.dir}"/>
         <delete dir="${dist.dir}"/>
         <mkdir dir="${dist.dir}"/>
