@@ -5,15 +5,18 @@
 <%@ page import = "java.io.UnsupportedEncodingException"%>
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%
+	System.out.println("SaveText.jsp: start");
+	
 	String formData = request.getParameter("form[info1]");
 	String action = request.getParameter("action");
 	
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
-  	String patientId = request.getParameter(Constants.PATIENT_ID);
-  	if (patientId == null)
-		patientId = "1";
-		
+  	String patientId = null;
+  	Object patientObj = session.getAttribute("patient");
+	if (patientObj != null)
+		 patientId = patientObj.toString();
+	
 	String title = request.getParameter("title");
 		
 	TextProcesses textProcesses = new TextProcesses();	
@@ -23,7 +26,7 @@
 		textProcesses.deleteText(user, patientId, title, formData);	
 		
 	title = URLEncoder.encode(title,"UTF-8"); 
-	//System.out.println("SaveText.jsp: action " + action + " patient "  + patientId + " title " + title);
+	System.out.println("SaveText.jsp: action " + action + " patient "  + patientId + " title " + title + " text " + formData);
 	
-	response.sendRedirect("editor.jsp?" +  Constants.PATIENT_ID + "=" + patientId + "&title=" + title);	
+	//response.sendRedirect("editor.jsp?" +  Constants.PATIENT_ID + "=" + patientId + "&title=" + title);	
 %>

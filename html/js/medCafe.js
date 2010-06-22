@@ -258,6 +258,10 @@ $(document).ready( function() {
 		{
 			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 		}
+		else if ( type== "EditorNonIFrame")
+		{
+			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);			
+		}
 		else
 		{
 			

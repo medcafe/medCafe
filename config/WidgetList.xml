@@ -46,6 +46,15 @@
 	<repository>local</repository>
 </medCafeWidget>
 <medCafeWidget>
+	<name>EditorNonIFrame</name>
+	<type>EditorNonIFrame</type>
+	<image>pages-icon.png</image>
+	<server></server>
+	<clickUrl>editor.jsp</clickUrl>
+	<method></method>
+	<repository>local</repository>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Timeline</name>
 	<type>Timeline</type>
 	<image>timeline.png</image>

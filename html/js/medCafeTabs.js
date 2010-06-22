@@ -329,7 +329,7 @@ $(document).ready( function() {
 				//iNettuts.makeSortable();
 				setHasContent(tab_num);
 				//Run any scripts specific to this type
-			 	processScripts(callObj, repId, patientId, patientRepId, data, type);
+			 	processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num);
 				
 			    //Try to add a scroll
 				$(callObj).delay(100,function()
@@ -366,7 +366,7 @@ $(document).ready( function() {
 		}
 	}
 	
-	function processScripts(callObj, repId, patientId, patientRepId, data, type)
+	function processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num)
 	{
 			
 		if (type == "Symptoms")
@@ -402,11 +402,26 @@ $(document).ready( function() {
 		}
 		else if ( type == "ImageNonIFrame")
 		{
-			
+			//Delay to allow for all of the document to be loaded
 			$(callObj).delay(2500,function()
 			{
 				processImages(repId, patientId, patientRepId, data, type);		
 			});
+		}
+		else if ( type == "EditorNonIFrame")
+		{
+			if (typeof processEditor == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.editor.js', function()
+				{
+					processEditor(repId, patientId, patientRepId, data, type, tab_num);	
+				});
+			}
+			else
+			{
+				processEditor(repId, patientId, patientRepId, data, type);		
+			}	
 		}
 			
 		

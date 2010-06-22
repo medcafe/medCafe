@@ -48,7 +48,7 @@ public class TextProcesses
 			if (dbConn == null)
 				dbConn= new DbConnection();
 			
-			System.out.println("SaveData: init. Got connection " );
+			//System.out.println("SaveData: init. Got connection " );
 			
 		} 
 	     catch (SQLException e) {
