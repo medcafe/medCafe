@@ -1,5 +1,4 @@
 #set( $count=0)
-#if ($problem)
 	#foreach(  $problemDetail in $problem )
 		#set($ActiveStatus="Active")
 		#set($InActiveStatus="Inactive")
@@ -21,8 +20,7 @@
 		#end
 		</tr>
 		#set( $count = $count + 1 )
-		
 	#end
-#end
+
 </tbody>
 <table>
