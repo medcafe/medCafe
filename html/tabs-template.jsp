@@ -29,8 +29,7 @@ $(function(){
 	initialize();
 	filterType();
 	bindClose();
-	
-	
+
 	$(".widget-content").droppable({
       drop: function(event, ui) 
       {
@@ -118,7 +117,7 @@ function filterType()
 	{		
 		$.getScript(srcName, function(){
 	
-			//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
+			alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
 			
 			$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
 			{	 		

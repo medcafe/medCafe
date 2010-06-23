@@ -9,6 +9,7 @@ jQuery.fn.rte = function(options, editors) {
 	$(this).each(function(i) {
 		var id = (this.id) ? this.id : editors.length;
 		editors[id] = new lwRTE (this, options || {});
+		
 	});
 	
 	return editors;
@@ -254,7 +255,8 @@ lwRTE.prototype.create_toolbar = function(controls) {
 	
 	for (var key in controls){
 		if(controls[key].separator) {
-			li = $("<li></li>").addClass('separator');
+			//li = $("<li></li>").addClass('separator');
+			li = $("<span></span>").addClass('separator');
 		} else {
 			if(controls[key].init) {
 				try {
@@ -281,7 +283,8 @@ lwRTE.prototype.create_toolbar = function(controls) {
 					})
 			}
 
-			li = $("<li></li>").append(obj.addClass(key));
+			li = $("<span></span>").append(obj.addClass(key));
+			//li = $("<li></li>").append(obj.addClass(key));
 		}
 
 		$("ul",tb).append(li);

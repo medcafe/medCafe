@@ -1,9 +1,9 @@
 $(function(){
 
-		initialize();
+		initializeImages();
 });
     
-function initialize()
+function initializeImages()
 {
     	addImageButton("7");
 }

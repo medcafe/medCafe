@@ -65,7 +65,7 @@
 <body>
 
 <div id="main" style="width:800px;" class="scroll">
- <form action="saveText.jsp?<%=Constants.PATIENT_ID%>=<%=patientId%>">
+ <form>
     <p>                      
     	Select Title : <select name="title" id="title"><option></option>
     		<%=sbuff.toString() %>
@@ -84,16 +84,5 @@
 <div class="scroll" id="editNote">Test</div>
 <div id="editorDialog" style="display:none">Are you sure you want to delete this Note?</div>    
 <div id="changeTextDialog" style="display:none">Continuing will result in loss of changes. Do you wish to continue?</div>    
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-});
-
-
-</script>
-
-<hr>
 </body>
 </html>

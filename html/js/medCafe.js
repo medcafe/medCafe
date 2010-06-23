@@ -115,7 +115,7 @@ $(document).ready( function() {
 	//Code to create widgets content
 	function createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
 	{
-
+		
 	 $(this).delay(200,function()
 	 {
 	 	//alert("medcafe createWidgetContent: type " + type);
@@ -152,8 +152,7 @@ $(document).ready( function() {
 			}
 			else
 			{
-				//alert("medCafe.js about to process Image type ImageNonIFrame have script");
-			
+				
 				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 			
 			}
@@ -173,11 +172,17 @@ $(document).ready( function() {
 		}
 		else if  (type == "Bookmarks")
 		{
-			
-			$.getScript('js/medCafe.bookmarks.js', function()
+			if (typeof addBookmarks == 'undefined')
+			{
+				$.getScript('js/medCafe.bookmarks.js', function()
+				{
+					addBookmarks(this, link, tab_num, label, patientId, repId);
+				});
+			}
+			else
 			{
 				addBookmarks(this, link, tab_num, label, patientId, repId);
-			});
+			}
 		}
 		else if  (type == "Medications")
 		{

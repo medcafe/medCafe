@@ -39,11 +39,8 @@
 	}
   	
 %>
-<script>
 
-</script>
-<div id="main" style="width:800px;">
-<form id="editorNotesForm" name="editorNotesForm">
+<div id="mainNotes" style="width:800px;">
 
     	<br/>
     	
@@ -55,5 +52,5 @@
     
     <input type="button" name="action" id="saveEditsButton" value="Save"></input>
     <input type="button" name="action" id="deleteEditsButton" value="Delete"></input>
-</form>
+
 </div>

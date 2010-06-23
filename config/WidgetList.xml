@@ -38,15 +38,6 @@
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
-	<type>Editor</type>
-	<image>pages-icon.png</image>
-	<server></server>
-	<clickUrl>editor.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
-</medCafeWidget>
-<medCafeWidget>
-	<name>EditorNonIFrame</name>
 	<type>EditorNonIFrame</type>
 	<image>pages-icon.png</image>
 	<server></server>

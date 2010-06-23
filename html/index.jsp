@@ -91,7 +91,8 @@
         $(function(){
             refresh("<%=patientId%>");
         });
-
+		
+		
         listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
         listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
         listProblemList("listProblemSummary", "<%=patientId%>", "${server}");
@@ -99,6 +100,7 @@
 	  	
 		function initialize(repositoryJSON)
 		{
+			//alert("index.jsp calling initialize");
 			repositoryPatientJSON = getAssocPatientRepositories("<%=patientId%>");
 		}      		
 		var isiPad = navigator.userAgent.match(/iPad/i) != null;

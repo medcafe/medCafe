@@ -68,7 +68,7 @@
 
     	var serverLink =  "searchPatientsJSON.jsp?server=<%=server%>";
 		setOnSelect("<%=isIntroPage%>","http://${server}");
-		initialize(serverLink);
+		initializePatient(serverLink);
 	});
 
 	

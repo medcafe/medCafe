@@ -218,6 +218,7 @@ $(document).ready( function() {
 	function addTab(label, type)
 	{
 
+		//alert("medCafeTabs addTab start");
 		//First check if tab already exists
 		var tab_num = 0;
 		$('.tabs').parent().find(".tabContent").each(function(i)
@@ -234,24 +235,31 @@ $(document).ready( function() {
 
 		});
 
+		
 		//If the tab_number is greater than 0 then it has been found already - just return	-1
 		if (tab_num != 0) return -1;
 
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
-
+		
 		});
 		var curr_num = tab_id.split("-")[1];
+		
 		tab_num = curr_num*1 + 1;
 
 		var hrefBase = "tabs-" + tab_num;
 
+		//alert("medCafeTabs addTab current tab num " + tab_num + "  hrefBase " + hrefBase);
+		
 		//Add a new Tab
 		$('#tabs').tabs("add","#" + hrefBase,label);
+		//alert("medCafeTabs addTab current tab num " + tab_num + "  hrefBase " + hrefBase);
+		
 		$("#tabs-" + tab_num).addClass('tabContent');
 		//Load the widget template
 		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
+		//alert("medCafeTabs: addTab tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
 		//$("#tabs-" + tab_num).
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
