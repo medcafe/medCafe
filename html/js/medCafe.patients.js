@@ -271,8 +271,19 @@ function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRe
 					//alert( $("#example" + patientId).text());
 											
 				$("#example" + patientRepId).dataTable( {
-					"aaSorting": [[ 0, "desc" ]]
-					,"bJQueryUI": true
+
+						 						
+
+
+					"bJQueryUI": true,
+					"aaSortingFixed": [[ 0, 'asc' ], [ 1, 'asc'] ],
+					"aoColumns": [
+							{ "bVisible": false },
+						{ "bVisible": false },
+								null,
+								null
+									]
+
 				} );
 				setHasContent(tab_num);
 			} );

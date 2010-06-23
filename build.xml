@@ -156,7 +156,7 @@
         </junit>
     </target>
 
-    <taskdef name="vel2js" classname="at.riemers.velocity2js.velocity.Velocity2JsTask" classpath="lib/velocity2js/Velocity2Js.jar;lib/velocity2js/velocity-1.6.3.jar;lib/velocity2js/commons-collections-3.2.1.jar;lib/velocity2js/commons-lang-2.5.jar; lib/velocity2js/commons-logging-1.1.1.jar; lib/velocity2js/commons-logging-1.1.1.jar; lib/velocity2js/velocity-1.6.3/log4j-1.2.12.jar;"/>
+    <taskdef name="vel2js" classname="at.riemers.velocity2js.velocity.Velocity2JsTask" classpath="lib/velocity2js/Velocity2Js.jar;lib/velocity2js/velocity-1.6.4.jar;lib/velocity2js/commons-collections-3.2.1.jar;lib/velocity2js/commons-lang-2.5.jar; lib/velocity2js/commons-logging-1.1.1.jar; lib/velocity2js/commons-logging-1.1.1.jar; lib/velocity2j/log4j-1.2.13.jar;"/>
 
     <target name="vel2js" depends="" description="Regenerates all templates">
         <vel2js templateDir="templates" javascriptDir="html/js">

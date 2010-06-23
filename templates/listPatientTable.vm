@@ -1,8 +1,172 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example$patient_id"><thead><tr><th></th><th></th></tr></thead><tbody>
-<tr class="gradeX"><td>Patient ID</td><td value="$patient_id">$patient_id</td></tr>
-<tr class="gradeX"><td>Patient Name</td><td value="$patient_data.name.given $patient_data.name.lastname">$patient_data.name.given $patient_data.name.lastname</td></tr>
-<tr class="gradeX"><td>Gender</td><td value="$patient_data.gender.displayName">$patient_data.gender.displayName</td></tr>
-<tr class="gradeX"><td>Birth Date</td><td value="$patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year $patient_data.birthtime.hour:$patient_data.birthtime.minute">$patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year $patient_data.birthtime.hour:$patient_data.birthtime.minute</td></tr>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example$patient_id"><thead><tr><th></th><th></th><th></th><th></th></tr></thead><tbody>
+
+#* The $orderno is used to sort the rows into an order that makes sense for a patient.  $orderno goes in the first column of every row and is the
+   first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order 
+   and then for multiline information that is of variable length the second column is used and it is the second sort criteria.
+   Both of these columns are hidden in the actual display, but this allows the presentation of the data to be in a sensible order.
+*#
+
+#set ($orderno = 1)
+
+#*   Patient name and id  *#
+
+<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Patient ID</td><td value="$patient_id">$patient_id</td></tr>
+#set ($orderno = $orderno + 1)
+<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Patient Name</td>
+
+#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
+
+#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
+<td value =
+#if ($patient_data.name.given)
+	#foreach ($givenNameDetail in $patient_data.name.given)
+		"$givenNameDetail " 		
+	#end
+#end
+"$patient_data.name.lastname">
+#if ($patient_data.name.given)
+	#foreach ($givenNameDetail in $patient_data.name.given)
+		$givenNameDetail$space 
+	#end
+#end
+$patient_data.name.lastname</td></tr>
+
+#*   The patient can have more than one address, and the patient can have more than one street address lines in the street address
+     so iterate through all the addresses, and all the street lines for each address     
+*#
+
+#set ($orderno = $orderno + 1)
+#if ($patient_data.address)
+	#set ($addresscount = 0)	
+	#foreach ($addressDetail in $patient_data.address)
+		#set ($linecount = 0)
+		#if ($addressDetail.streetAddress)
+			#foreach ($streetAdd in $addressDetail.streetAddress)
+				#if ($linecount > 0) <tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td></td><td value = "$streetAdd">$streetAdd</td></tr>
+				#else <tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td>Patient Address</td><td value = "$streetAdd">$streetAdd</td></tr>
+				#end
+				#set ($linecount = $linecount +1)
+				
+			#end
+			
+		#end
+		<tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td></td><td value= "$addressDetail.city", "$addressDetail.stateOrProvince"  "$addressDetail.zip">$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip</td></tr>
+		#set ($addresscount = $addresscount + 1)
+	#end
+
+#end
+
+#*  Iterate through all of the patients telecommunication information; this includes phone, pagers, IM and email.  *#
+
+#set ($orderno = $orderno +1)
+#if ($patient_data.telecom)
+	#set ($telecomCount = 0)	
+	#foreach ($telecomDetail in $patient_data.telecom)
+		<tr class="gradeX"><td value = "$orderno">$orderno</td><td value = "$telecomCount">$telecomCount</td>
+		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
+			<td value = Patient "$telecomDetail.type" address>Patient $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
+		#else			
+			<td value = Patient "$telecomDetail.use" number>Patient $telecomDetail.use number</td><td value = "$telecomDetail.value.substring(0,3)"-"$telecomDetail.value.substring(3,6)"-"$telecomDetail.value.substring(6)">$telecomDetail.value.substring(0,3)-$telecomDetail.value.substring(3,6)-$telecomDetail.value.substring(6)</td></tr>
+		#end		
+		#set ($telecomCount = $telecomCount + 1)		
+		
+	#end
+
+#end
+
+#* Language spoken by patient *#
+
+#set ($orderno = $orderno + 1)
+#if ($patient_data.language)
+	<tr class = "gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Language Spoken</td><td value = $patient_data.language>$patient_data.language</td>
+#end
+
+#* Patient Gender  *#
+
+#set ($orderno = $orderno + 1)
+<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Gender</td><td value="$patient_data.gender.displayName">$patient_data.gender.displayName</td></tr>
+
+#* Patient birthday and birthplace   *#
+
+#set ($orderno = $orderno + 1)
+
+<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Birth Date</td><td value="$patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year $patient_data.birthtime.hour:$patient_data.birthtime.minute">$patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year $patient_data.birthtime.hour:$patient_data.birthtime.minute</td></tr>
+
+#set ($orderno = $orderno + 1)
+
+#if ($patient_data.birthPlace)
+	#if ($patient_data.birthPlace.city && $patient_data.birthPlace.stateOrProvince) 
+		<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Birth Place</td><td value="$patient_data.birthPlace.city", "$patient_data.birthPlace.stateOrProvince">$patient_data.birthPlace.city, $patient_data.birthPlace.stateOrProvince</td></tr>
+	#elseif ($patient_data.birthPlace.stateOrProvince)
+		<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Birth Place</td><td value="$patient_data.birthPlace.stateOrProvince">$patient_data.birthPlace.stateOrProvince</td></tr>
+	#elseif ($patient_data.birthPlace.city)
+		<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Birth Place</td><td value="$patient_data.birthPlace.city">$patient_data.birthPlace.city</td></tr>
+	#end
+#end
+
+#* If patient has a guardian, display that information   *#
+
+#set ($orderno = $orderno + 1)
+#if ($patient_data.guardian && $patient_data.guardian.name)
+
+#* Display guardian name   *#
+
+	<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Guardian</td>
+	<td value =
+	#if ($patient_data.guardian.name.given)
+		#foreach ($givenNameDetail in $patient_data.guardian.name.given)
+			"$givenNameDetail " 		
+		#end
+	#end
+	"$patient_data.guardian.name.lastname">
+	#if ($patient_data.guardian.name.given)
+		#foreach ($givenNameDetail in $patient_data.guardian.name.given)
+			$givenNameDetail$space 
+		#end
+	#end
+	$patient_data.guardian.name.lastname</td></tr>
+
+#*  Display guardian addresses   *#
+
+	#set ($orderno = $orderno + 1)
+	#if ($patient_data.guardian.address)
+		#set ($addresscount = 0)	
+		#foreach ($addressDetail in $patient_data.guardian.address)
+			#set ($linecount = 0)
+			#if ($addressDetail.streetAddress)
+				#foreach ($streetAdd in $addressDetail.streetAddress)
+					#if ($linecount > 0) <tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td></td><td value = "$streetAdd">$streetAdd</td></tr>
+					#else <tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td>Guardian Address</td><td value = "$streetAdd">$streetAdd</td></tr>
+					#end
+					#set ($linecount = $linecount +1)
+				
+				#end
+				
+			#end
+			<tr class="gradeX"><td value = "$orderno"."$addresscount">$orderno.$addresscount</td><td value = "$linecount">$linecount</td><td></td><td value= "$addressDetail.city", "$addressDetail.stateOrProvince"  "$addressDetail.zip">$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip</td></tr>
+			#set ($addresscount = $addresscount + 1)
+		#end
+
+	#end
+
+#* Display guardian telecommunication information      *#
+
+	#set ($orderno = $orderno + 1)
+	#if ($patient_data.guardian.telecom)
+		#set ($telecomCount = 0)	
+		#foreach ($telecomDetail in $patient_data.guardian.telecom)
+			<tr class="gradeX"><td value = "$orderno">$orderno</td><td value = "$telecomCount">$telecomCount</td>
+			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
+				<td value = Guardian "$telecomDetail.type" address>Guardian $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
+			#else			
+				<td value = Guardian "$telecomDetail.use" number>Guardian $telecomDetail.use number</td><td value = "$telecomDetail.value.substring(0,3)"-"$telecomDetail.value.substring(3,6)"-"$telecomDetail.value.substring(6)">$telecomDetail.value.substring(0,3)-$telecomDetail.value.substring(3,6)-$telecomDetail.value.substring(6)</td></tr>
+			#end		
+			#set ($telecomCount = $telecomCount + 1)		
+		
+		#end
+
+	#end
+#end
 </tbody>
 <table>
 
