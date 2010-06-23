@@ -404,7 +404,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("PROVIDER").setInternal(false);
             query.getField("STATE").setInternal(false);
             query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
-	    query.getField("MARITAL STATUS").setInternal(false);
+	 //   query.getField("MARITAL STATUS").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -530,7 +530,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("E2-STATE").setInternal(false);
             query.getField("D-STATE").setInternal(false);
             query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
-	    query.getField("MARITAL STATUS").setInternal(false);
+	   // query.getField("MARITAL STATUS").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {

@@ -300,7 +300,7 @@ t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( history.note);
 t.p('</div></td> 	   	</tr>	');
 }
-velocityCount = i1;
+
 }
 t.p('</tbody><table>');
 return t.toString();
@@ -337,7 +337,7 @@ t.p('</td>		</tr>		');
 count = ( count + 1 );
 t.p('			');
 }
-velocityCount = i1;
+
 }
 t.p('</tbody><table>');
 return t.toString();
@@ -445,23 +445,222 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
 t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th></tr></thead><tbody><tr class="gradeX"><td>Patient ID</td><td value="');
+t.p('"><thead><tr><th></th><th></th><th></th><th></th></tr></thead><tbody>');
+var orderno = 1;
+t.p('<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Patient ID</td><td value="');
 t.p( context.patient_id);
 t.p('">');
 t.p( context.patient_id);
-t.p('</td></tr><tr class="gradeX"><td>Patient Name</td><td value="');
-t.p( context.patient_data.name.given);
-t.p(' ');
+t.p('</td></tr>');
+orderno = ( orderno + 1 );
+t.p('<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Patient Name</td>');
+var space = " ";
+t.p('    ');
+t.p('<td value =');
+if (context.patient_data.name.given) {
+t.p('	');
+for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
+var givenNameDetail = context.patient_data.name.given[i2];
+velocityCount = i2;
+t.p('		"');
+t.p( givenNameDetail);
+t.p(' " 			');
+}
+
+}
+t.p('"');
 t.p( context.patient_data.name.lastname);
 t.p('">');
-t.p( context.patient_data.name.given);
-t.p(' ');
+if (context.patient_data.name.given) {
+t.p('	');
+for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
+var givenNameDetail = context.patient_data.name.given[i2];
+velocityCount = i2;
+t.p('		');
+t.p( givenNameDetail);
+t.p( space);
+t.p(' 	');
+}
+
+}
 t.p( context.patient_data.name.lastname);
-t.p('</td></tr><tr class="gradeX"><td>Gender</td><td value="');
+t.p('</td></tr>');
+orderno = ( orderno + 1 );
+if (context.patient_data.address) {
+var addresscount = 0;
+t.p('	');
+for (var i2=0;  i2<context.patient_data.address.length; i2++) {
+var addressDetail = context.patient_data.address[i2];
+velocityCount = i2;
+var linecount = 0;
+t.p('		');
+if (addressDetail.streetAddress) {
+t.p('			');
+for (var i4=0;  i4<addressDetail.streetAddress.length; i4++) {
+var streetAdd = addressDetail.streetAddress[i4];
+velocityCount = i4;
+t.p('				');
+if (linecount > 0) {
+t.p(' <tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td></td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>				');
+}
+else {
+t.p(' <tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td>Patient Address</td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>				');
+}
+linecount = ( linecount + 1 );
+t.p('							');
+}
+velocityCount = i2;
+t.p('					');
+}
+t.p('		<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td></td><td value= "');
+t.p( addressDetail.city);
+t.p('", "');
+t.p( addressDetail.stateOrProvince);
+t.p('"  "');
+t.p( addressDetail.zip);
+t.p('">');
+t.p( addressDetail.city);
+t.p(', ');
+t.p( addressDetail.stateOrProvince);
+t.p('  ');
+t.p( addressDetail.zip);
+t.p('</td></tr>		');
+addresscount = ( addresscount + 1 );
+t.p('	');
+}
+
+}
+orderno = ( orderno + 1 );
+if (context.patient_data.telecom) {
+var telecomCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
+var telecomDetail = context.patient_data.telecom[i2];
+velocityCount = i2;
+t.p('		<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td value = "');
+t.p( telecomCount);
+t.p('">');
+t.p( telecomCount);
+t.p('</td>		');
+if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+t.p('			<td value = Patient "');
+t.p( telecomDetail.type);
+t.p('" address>Patient ');
+t.p( telecomDetail.type);
+t.p(' address</td><td value = "');
+t.p( telecomDetail.value);
+t.p('">');
+t.p( telecomDetail.value);
+t.p('</td></td>		');
+}
+else {
+t.p('			<td value = Patient "');
+t.p( telecomDetail.use);
+t.p('" number>Patient ');
+t.p( telecomDetail.use);
+t.p(' number</td><td value = "');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('"-"');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('"-"');
+t.p( telecomDetail.value.substring(6));
+t.p('">');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('-');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('-');
+t.p( telecomDetail.value.substring(6));
+t.p('</td></tr>		');
+}
+telecomCount = ( telecomCount + 1 );
+t.p('			');
+}
+
+}
+orderno = ( orderno + 1 );
+if (context.patient_data.language) {
+t.p('	<tr class = "gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Language Spoken</td><td value = ');
+t.p( context.patient_data.language);
+t.p('>');
+t.p( context.patient_data.language);
+t.p('</td>');
+}
+orderno = ( orderno + 1 );
+t.p('<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Gender</td><td value="');
 t.p( context.patient_data.gender.displayName);
 t.p('">');
 t.p( context.patient_data.gender.displayName);
-t.p('</td></tr><tr class="gradeX"><td>Birth Date</td><td value="');
+t.p('</td></tr>');
+orderno = ( orderno + 1 );
+t.p('<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Birth Date</td><td value="');
 t.p( context.patient_data.birthtime.month);
 t.p('/');
 t.p( context.patient_data.birthtime.day);
@@ -481,7 +680,238 @@ t.p(' ');
 t.p( context.patient_data.birthtime.hour);
 t.p(':');
 t.p( context.patient_data.birthtime.minute);
-t.p('</td></tr></tbody><table>');
+t.p('</td></tr>');
+orderno = ( orderno + 1 );
+if (context.patient_data.birthPlace) {
+t.p('	');
+if (context.patient_data.birthPlace.city && context.patient_data.birthPlace.stateOrProvince) {
+t.p('		<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p( context.patient_data.birthPlace.city);
+t.p('", "');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('">');
+t.p( context.patient_data.birthPlace.city);
+t.p(', ');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('</td></tr>	');
+}
+else {
+if (context.patient_data.birthPlace.stateOrProvince) {
+t.p('		<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('">');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('</td></tr>	');
+}
+else {
+if (context.patient_data.birthPlace.city) {
+t.p('		<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p( context.patient_data.birthPlace.city);
+t.p('">');
+t.p( context.patient_data.birthPlace.city);
+t.p('</td></tr>	');
+}
+}
+}
+}
+orderno = ( orderno + 1 );
+if (context.patient_data.guardian && context.patient_data.guardian.name) {
+t.p('	<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Guardian</td>	<td value =	');
+if (context.patient_data.guardian.name.given) {
+t.p('		');
+for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
+var givenNameDetail = context.patient_data.guardian.name.given[i3];
+velocityCount = i3;
+t.p('			"');
+t.p( givenNameDetail);
+t.p(' " 				');
+}
+
+t.p('	');
+}
+t.p('	"');
+t.p( context.patient_data.guardian.name.lastname);
+t.p('">	');
+if (context.patient_data.guardian.name.given) {
+t.p('		');
+for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
+var givenNameDetail = context.patient_data.guardian.name.given[i3];
+velocityCount = i3;
+t.p('			');
+t.p( givenNameDetail);
+t.p( space);
+t.p(' 		');
+}
+
+t.p('	');
+}
+t.p('	');
+t.p( context.patient_data.guardian.name.lastname);
+t.p('</td></tr>');
+t.p('	');
+orderno = ( orderno + 1 );
+t.p('	');
+if (context.patient_data.guardian.address) {
+var addresscount = 0;
+t.p('		');
+for (var i3=0;  i3<context.patient_data.guardian.address.length; i3++) {
+var addressDetail = context.patient_data.guardian.address[i3];
+velocityCount = i3;
+var linecount = 0;
+t.p('			');
+if (addressDetail.streetAddress) {
+t.p('				');
+for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
+var streetAdd = addressDetail.streetAddress[i5];
+velocityCount = i5;
+t.p('					');
+if (linecount > 0) {
+t.p(' <tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td></td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>					');
+}
+else {
+t.p(' <tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td>Guardian Address</td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>					');
+}
+linecount = ( linecount + 1 );
+t.p('								');
+}
+velocityCount = i3;
+t.p('							');
+}
+t.p('			<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('"."');
+t.p( addresscount);
+t.p('">');
+t.p( orderno);
+t.p('.');
+t.p( addresscount);
+t.p('</td><td value = "');
+t.p( linecount);
+t.p('">');
+t.p( linecount);
+t.p('</td><td></td><td value= "');
+t.p( addressDetail.city);
+t.p('", "');
+t.p( addressDetail.stateOrProvince);
+t.p('"  "');
+t.p( addressDetail.zip);
+t.p('">');
+t.p( addressDetail.city);
+t.p(', ');
+t.p( addressDetail.stateOrProvince);
+t.p('  ');
+t.p( addressDetail.zip);
+t.p('</td></tr>			');
+addresscount = ( addresscount + 1 );
+t.p('		');
+}
+
+t.p('	');
+}
+t.p('	');
+orderno = ( orderno + 1 );
+t.p('	');
+if (context.patient_data.guardian.telecom) {
+var telecomCount = 0;
+t.p('		');
+for (var i3=0;  i3<context.patient_data.guardian.telecom.length; i3++) {
+var telecomDetail = context.patient_data.guardian.telecom[i3];
+velocityCount = i3;
+t.p('			<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td value = "');
+t.p( telecomCount);
+t.p('">');
+t.p( telecomCount);
+t.p('</td>			');
+if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+t.p('				<td value = Guardian "');
+t.p( telecomDetail.type);
+t.p('" address>Guardian ');
+t.p( telecomDetail.type);
+t.p(' address</td><td value = "');
+t.p( telecomDetail.value);
+t.p('">');
+t.p( telecomDetail.value);
+t.p('</td></td>			');
+}
+else {
+t.p('				<td value = Guardian "');
+t.p( telecomDetail.use);
+t.p('" number>Guardian ');
+t.p( telecomDetail.use);
+t.p(' number</td><td value = "');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('"-"');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('"-"');
+t.p( telecomDetail.value.substring(6));
+t.p('">');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('-');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('-');
+t.p( telecomDetail.value.substring(6));
+t.p('</td></tr>			');
+}
+telecomCount = ( telecomCount + 1 );
+t.p('				');
+}
+
+t.p('	');
+}
+}
+t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientsBookmarksTable(context) { 
@@ -585,7 +1015,7 @@ t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( problem.note);
 t.p('</div></td> 	   	</tr>	');
 }
-velocityCount = i1;
+
 }
 t.p('</tbody><table>');
 return t.toString();
@@ -595,11 +1025,10 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-if (context.problem) {
 t.p('	');
-for (var i2=0;  i2<context.problem.length; i2++) {
-var problemDetail = context.problem[i2];
-velocityCount = i2;
+for (var i1=0;  i1<context.problem.length; i1++) {
+var problemDetail = context.problem[i1];
+velocityCount = i1;
 var ActiveStatus = "Active";
 var InActiveStatus = "Inactive";
 t.p('		');
@@ -641,47 +1070,9 @@ t.p('</td>			');
 }
 t.p('		</tr>		');
 count = ( count + 1 );
-t.p('			');
-}
-velocityCount = i1;
-}
-t.p('</tbody><table>');
-return t.toString();
-}
-function v2js_listProblemListTableLocal(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
-if (context.patientProblem) {
 t.p('	');
-for (var i2=0;  i2<context.patientProblem.length; i2++) {
-var problem = context.patientProblem[i2];
-velocityCount = i2;
-t.p('				');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
-t.p( problem.patient_id);
-t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
 }
-t.p('		<tr class="gradeX">		<td value="');
-t.p( problem.title);
-t.p('">');
-t.p( problem.title);
-t.p('</td>		<td value="');
-t.p( problem.note);
-t.p('">');
-t.p( problem.note);
-t.p('</td>		<td value="');
-t.p( problem.priority);
-t.p('">');
-t.p( problem.priority);
-t.p('</td>		</tr>		');
-count = ( count + 1 );
-t.p('			');
-}
-velocityCount = i1;
-}
+velocityCount = 0;
 t.p('</tbody><table>');
 return t.toString();
 }

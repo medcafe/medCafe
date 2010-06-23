@@ -2,6 +2,7 @@ package org.mitre.medcafe.util;
 
 // import org.mitre.hdata.hrf.core.*;
 import com.medsphere.fileman.*;
+import com.medsphere.fmdomain.FMMaritalStatus;
 import com.medsphere.fmdomain.*;
 import com.medsphere.ovid.domain.ov.*;
 import com.medsphere.ovid.model.domain.patient.*;
@@ -18,6 +19,7 @@ import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import com.medsphere.vistarpc.RPCConnection;
+import com.medsphere.vistarpc.RPCBrokerConnection;
 import com.medsphere.vistarpc.RPCException;
 
 import java.util.Collection;
@@ -32,7 +34,7 @@ public class VistaRepository extends Repository {
     public final static String KEY = VistaRepository.class.getName();
     public final static Logger log = Logger.getLogger(KEY);
     // static{log.setLevel(Level.FINER);}
-    protected static VistaLinkPooledConnectionFactory factory = null;
+    //protected static VistaLinkPooledConnectionFactory factory = null;
     protected RPCConnection conn = null;
 
     public VistaRepository() {
@@ -76,13 +78,13 @@ public class VistaRepository extends Repository {
             //set  name
             Name name = new Name();
             List<String> given = name.getGiven();
-	    if (stringExists(filemanPat.getGivenName()))            
+	    if (stringExists(filemanPat.getGivenName()))
 		given.add(filemanPat.getGivenName());
 	    if (stringExists(filemanPat.getMiddleName()))
             	given.add(filemanPat.getMiddleName());
 	    if (stringExists(filemanPat.getSuffix()))
             	name.setSuffix(filemanPat.getSuffix());
-	    if (stringExists(filemanPat.getFamilyName()))            
+	    if (stringExists(filemanPat.getFamilyName()))
 		name.setLastname(filemanPat.getFamilyName());
 	    if (stringExists(filemanPat.getPrefix()))
             	name.setTitle(filemanPat.getPrefix());
@@ -129,11 +131,37 @@ public class VistaRepository extends Repository {
             }
 
             // marital status
+	
             FMMaritalStatus fmMarStatus = patientRepository.getMaritalStatus(filemanPat);
             if (fmMarStatus != null) {
+                boolean unknown = false;
                 MaritalStatus marStatus = new MaritalStatus();
-                marStatus.setValue(fmMarStatus.getName());
-                ret.setMaritialStatus(marStatus);
+                marStatus.setCodeSystem("2.16.840.1.113883.5.2");
+                marStatus.setCodeSystemName("HL7 MaritalStatusCode");
+
+                char letter = fmMarStatus.getName().charAt(0);
+                switch (letter) {
+                    case 'D': marStatus.setCode("D");
+                              marStatus.setDisplayName("Divorced");
+                              break;
+                    case 'M': marStatus.setCode("M");
+                              marStatus.setDisplayName("Married");
+                              break;
+                    case 'W': marStatus.setCode("W");
+                              marStatus.setDisplayName("Widowed");
+                              break;
+                    case 'N': marStatus.setCode("S");
+                              marStatus.setDisplayName("Never Married");
+                              break;
+                    case 'S': marStatus.setCode("L");
+                              marStatus.setDisplayName("Legally Separated");
+                              break;
+                    case 'U': unknown = true;
+
+                              break;
+                }
+                if (!unknown)
+                    ret.setMaritialStatus(marStatus);
             }
 
             //Race
@@ -208,7 +236,7 @@ public class VistaRepository extends Repository {
                     }
                 }
                         else if (stringExists(vaGuardName)) {
-			System.out.println(vaGuardName);
+
                         String[] nameParts = vaGuardName.split(",");
                         guardName.setLastname(nameParts[0]);
                         given = guardName.getGiven();
@@ -283,19 +311,21 @@ public class VistaRepository extends Repository {
         }
     }
 
-    public static void factorySetUp(String[] creds) {
+  /*  public static void factorySetUp(String[] creds) {
         try {
             factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
         } catch (Exception e) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
         }
     }
-
+*/
     public void onShutdown() {
-        if (factory != null) {
+   /*     if (factory != null) {
             factory.emptyPool();
         }
-        factory = null;
+        factory = null;  */
+	if (conn!=null)
+		closeConnection();
     }
 
     /**
@@ -303,11 +333,18 @@ public class VistaRepository extends Repository {
      *  @return true if conneciton worked.  False otherwise.
      */
     protected boolean setConnection() throws OvidDomainException {
-        if (factory == null) {
-            factorySetUp(credentials);
-        }
+      //  if (factory == null) {
+      //      factorySetUp(credentials);
+       // }
         //conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
-        conn = factory.getConnection();
+	try{
+	conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);        
+	}
+	catch (RPCException e)
+	{
+		throw new OvidDomainException(e.getMessage());
+	}	
+	//conn = factory.getConnection();
         if (conn == null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
             return false;

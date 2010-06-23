@@ -175,7 +175,7 @@ public class FMDemographicPatient extends FMPatient {
     }
 
     public String getMaritalStatusValue() {
-        return getValue("MARITAL STATUS");
+        return getValue(".05");
     }
 
     public FMRaceInformation getRaceInformation() {

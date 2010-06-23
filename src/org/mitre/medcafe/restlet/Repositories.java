@@ -62,7 +62,7 @@ public class Repositories
             {
                 r = new VistaRepository();
                 r.setName("OurVista");
-                r.setCredentials( "128.29.109.7", "8002", "OV1234", "OV1234!!" );
+                r.setCredentials( "128.29.109.7", "9201", "OV1234", "OV1234!!" );
                 repos.put(r.getName(), r);
 		System.out.println("Got ourVista connection");
             }
