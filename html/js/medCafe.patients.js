@@ -1,5 +1,5 @@
 
-function initialize(server)
+function initializePatient(server)
 {
 		var origserverLink = server;
 		
