@@ -1,0 +1,141 @@
+2010-06-18 09:05:11,936 - Log4JLogChute initialized using file 'velocity.log'
+2010-06-18 09:05:11,937 - Starting Apache Velocity v1.6.3 (compiled: 2009-12-07 15:40:14)
+2010-06-18 09:05:11,937 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-06-18 09:05:11,937 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-06-18 09:05:11,937 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2010-06-18 09:05:11,937 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-18 09:05:11,938 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-18 09:05:11,945 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:11,946 - Do unicode file recognition:  false
+2010-06-18 09:05:11,947 - FileResourceLoader : adding path '/home/mgreer/devel/templates'
+2010-06-18 09:05:11,963 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2010-06-18 09:05:11,965 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2010-06-18 09:05:11,966 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2010-06-18 09:05:11,967 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2010-06-18 09:05:11,968 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-06-18 09:05:11,969 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-06-18 09:05:11,971 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-06-18 09:05:11,973 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-06-18 09:05:11,974 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-06-18 09:05:12,009 - Created '20' parsers.
+2010-06-18 09:05:12,017 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-06-18 09:05:12,017 - Velocimacro : Default library not found.
+2010-06-18 09:05:12,017 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-06-18 09:05:12,017 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-06-18 09:05:12,018 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-06-18 09:05:12,018 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2010-06-18 09:05:12,239 - ResourceManager : found announcements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,255 - ResourceManager : found listAddress.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,266 - ResourceManager : found listDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,278 - ResourceManager : found listEndDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,288 - ResourceManager : found listHistoryTemplate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,309 - ResourceManager : found listImages.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,312 - ResourceManager : found listInsertStatements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,314 - ResourceManager : found listPatientAllergies.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,318 - ResourceManager : found listPatientHistory.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,329 - ResourceManager : found listPatientHistoryTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,337 - ResourceManager : found listPatientMeds.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,354 - ResourceManager : found listPatientMedsVert.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,380 - ResourceManager : found listPatientTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,409 - ResourceManager : found listPatientsBookmarksTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,419 - ResourceManager : found listPatientsTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,423 - ResourceManager : found listProblemList.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,428 - ResourceManager : found listProblemListTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,434 - ResourceManager : found listRepositorySelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,436 - ResourceManager : found listSearchPatientsSelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,439 - ResourceManager : found listStartDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:05:12,443 - ResourceManager : found listWidgets.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,138 - Log4JLogChute initialized using file 'velocity.log'
+2010-06-18 09:52:54,139 - Starting Apache Velocity v1.6.3 (compiled: 2009-12-07 15:40:14)
+2010-06-18 09:52:54,139 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-06-18 09:52:54,139 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-06-18 09:52:54,139 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2010-06-18 09:52:54,139 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-18 09:52:54,139 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-18 09:52:54,146 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,148 - Do unicode file recognition:  false
+2010-06-18 09:52:54,148 - FileResourceLoader : adding path '/home/mgreer/devel/templates'
+2010-06-18 09:52:54,165 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2010-06-18 09:52:54,167 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2010-06-18 09:52:54,168 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2010-06-18 09:52:54,169 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2010-06-18 09:52:54,170 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-06-18 09:52:54,171 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-06-18 09:52:54,173 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-06-18 09:52:54,175 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-06-18 09:52:54,176 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-06-18 09:52:54,211 - Created '20' parsers.
+2010-06-18 09:52:54,219 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-06-18 09:52:54,219 - Velocimacro : Default library not found.
+2010-06-18 09:52:54,219 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-06-18 09:52:54,219 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-06-18 09:52:54,219 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-06-18 09:52:54,220 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2010-06-18 09:52:54,272 - ResourceManager : found announcements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,288 - ResourceManager : found listAddress.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,300 - ResourceManager : found listDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,313 - ResourceManager : found listEndDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,323 - ResourceManager : found listHistoryTemplate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,338 - ResourceManager : found listImages.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,341 - ResourceManager : found listInsertStatements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,344 - ResourceManager : found listPatientAllergies.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,348 - ResourceManager : found listPatientHistory.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,359 - ResourceManager : found listPatientHistoryTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,365 - ResourceManager : found listPatientMeds.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,383 - ResourceManager : found listPatientMedsVert.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,419 - ResourceManager : found listPatientTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,440 - ResourceManager : found listPatientsBookmarksTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,445 - ResourceManager : found listPatientsTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,448 - ResourceManager : found listProblemList.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,456 - ResourceManager : found listProblemListTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,461 - ResourceManager : found listRepositorySelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,463 - ResourceManager : found listSearchPatientsSelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,468 - ResourceManager : found listStartDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-18 09:52:54,472 - ResourceManager : found listWidgets.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,714 - Log4JLogChute initialized using file 'velocity.log'
+2010-06-21 09:41:08,715 - Starting Apache Velocity v1.6.3 (compiled: 2009-12-07 15:40:14)
+2010-06-21 09:41:08,715 - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-06-21 09:41:08,715 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2010-06-21 09:41:08,715 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2010-06-21 09:41:08,715 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-21 09:41:08,715 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2010-06-21 09:41:08,721 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,722 - Do unicode file recognition:  false
+2010-06-21 09:41:08,722 - FileResourceLoader : adding path '/home/mgreer/devel/templates'
+2010-06-21 09:41:08,738 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2010-06-21 09:41:08,740 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2010-06-21 09:41:08,741 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2010-06-21 09:41:08,742 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2010-06-21 09:41:08,742 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-06-21 09:41:08,743 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-06-21 09:41:08,745 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-06-21 09:41:08,746 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-06-21 09:41:08,747 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-06-21 09:41:08,781 - Created '20' parsers.
+2010-06-21 09:41:08,787 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2010-06-21 09:41:08,787 - Velocimacro : Default library not found.
+2010-06-21 09:41:08,787 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-06-21 09:41:08,788 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-06-21 09:41:08,788 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2010-06-21 09:41:08,788 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2010-06-21 09:41:08,819 - ResourceManager : found /listEndDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,832 - ResourceManager : found /listStartDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,840 - ResourceManager : found /listAddress.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,861 - ResourceManager : found /listPatientMedsVert.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,869 - ResourceManager : found /listSearchPatientsSelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,877 - ResourceManager : found /listImages.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,891 - ResourceManager : found /listProblemList.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,903 - ResourceManager : found /listProblemListTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,914 - ResourceManager : found /listHistoryTemplate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,920 - ResourceManager : found /listWidgets.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,931 - ResourceManager : found /listPatientsTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,958 - ResourceManager : found /listPatientTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:08,990 - ResourceManager : found /listPatientMeds.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,002 - ResourceManager : found /listRepositorySelect.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,005 - ResourceManager : found /listPatientAllergies.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,013 - ResourceManager : found /listPatientHistoryTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,025 - ResourceManager : found /listDates.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,038 - ResourceManager : found /listInsertStatements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,045 - ResourceManager : found /listPatientsBookmarksTable.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,060 - ResourceManager : found /announcements.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-06-21 09:41:09,062 - ResourceManager : found /listPatientHistory.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
