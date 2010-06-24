@@ -1,7 +1,7 @@
 function filterDateImage(startDate, endDate, tab_num)
 {
 	
-	alert("filterDateImage : About to filter Images according to dates " + startDate + " " + endDate);
+	//alert("filterDateImage : About to filter Images according to dates " + startDate + " " + endDate);
 	if (typeof filterImages != 'undefined')
 	{
 		filterImages("","","");
