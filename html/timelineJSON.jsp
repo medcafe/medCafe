@@ -36,7 +36,7 @@
 	}
 %>
 
-<script src="js/timeline/examples.js" type="text/javascript"></script>
+
 <script>
  var tl;
 	$(function(){

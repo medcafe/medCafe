@@ -82,7 +82,7 @@
     </script>
     <script src="http://${server}/js/timeline/timeline-api.js?bundle=true" type="text/javascript">
     </script>
-    
+    <script src="js/timeline/examples.js" type="text/javascript"></script>
     <!-- script src="http://127.0.0.1:8080/medcafe/js/timeline/timeline-api.js?bundle=true" type="text/javascript">
     </script>
     <script src="http://127.0.0.1:8080/medcafe/js/timeline/simile-ajax-api.js" type="text/javascript"></script>

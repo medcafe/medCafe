@@ -51,7 +51,6 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
  	var eventUrl ="listTimelineJSON.jsp?patient_id=" + patientId;
  	//"<%=listEvents%>";
- 	//alert("timelineJSON.jsp event url " + eventUrl);
  	
  	//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')
  	var timeLineEvents = getTimelineEvents();
@@ -63,9 +62,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
             });
               
    });
-            
-   setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
-     
+       
    //Submit the form on changes to checkbox     
    $(".eventChkBox").change(function ()
 	{	
@@ -75,6 +72,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		var listJSON = "listTimelineJSON.jsp?";
 		var eventList = getTimelineEvents();
 		listJSON = listJSON + eventList;
+		
 		$.getJSON(listJSON, function(data)
 		{
 			tl.loadJSON(listJSON, function(json, url) {
@@ -82,7 +80,9 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
             });				
 		});
 	});
-				 	
+	        
+   setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
+ 		 	
 }
 
 var resizeTimerID = null;
