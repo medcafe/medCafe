@@ -655,6 +655,61 @@ t.p( context.patient_data.gender.displayName);
 t.p('">');
 t.p( context.patient_data.gender.displayName);
 t.p('</td></tr>');
+if (context.patient_data.maritialStatus) {
+orderno = ( orderno + 1 );
+t.p('	<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Marital Status</td><td value="');
+t.p( context.patient_data.maritialStatus.displayName);
+t.p('">');
+t.p( context.patient_data.maritialStatus.displayName);
+t.p('</td></tr>');
+}
+if (context.patient_data.race) {
+var first = true;
+orderno = ( orderno + 1 );
+t.p('<tr class="gradeX"><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>0</td><td>Race</td><td value =	');
+for (var i2=0;  i2<context.patient_data.race.length; i2++) {
+var raceDetail = context.patient_data.race[i2];
+velocityCount = i2;
+t.p('		');
+if (!( first )) {
+t.p('			", "		');
+}
+t.p('		"');
+t.p( raceDetail.displayName);
+t.p('"		');
+first = false;
+t.p('	');
+}
+
+t.p('>	');
+first = true;
+t.p('	');
+for (var i2=0;  i2<context.patient_data.race.length; i2++) {
+var raceDetail = context.patient_data.race[i2];
+velocityCount = i2;
+t.p('		');
+if (!( first )) {
+t.p('			,');
+t.p( space);
+t.p('		');
+}
+t.p('		');
+t.p( raceDetail.displayName);
+t.p('		');
+first = false;
+t.p('	');
+}
+
+t.p('	</td></tr>');
+}
 orderno = ( orderno + 1 );
 t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);

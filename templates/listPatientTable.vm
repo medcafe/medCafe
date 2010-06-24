@@ -86,6 +86,37 @@ $patient_data.name.lastname</td></tr>
 #set ($orderno = $orderno + 1)
 <tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Gender</td><td value="$patient_data.gender.displayName">$patient_data.gender.displayName</td></tr>
 
+#* Patient Marital Status  *#
+#if ($patient_data.maritialStatus)
+	#set ($orderno = $orderno + 1)
+	<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Marital Status</td><td value="$patient_data.maritialStatus.displayName">$patient_data.maritialStatus.displayName</td></tr>
+#end
+
+#* Patient Race Information  *#
+
+#if ($patient_data.race)
+#set($first = true)
+#set ($orderno = $orderno + 1)
+<tr class="gradeX"><td value = "$orderno">$orderno</td><td>0</td><td>Race</td><td value =
+	#foreach ($raceDetail in $patient_data.race)
+		#if (!$first)
+			", "
+		#end
+		"$raceDetail.displayName"
+		#set ($first = false)
+	#end
+>
+	#set ($first = true)
+	#foreach ($raceDetail in $patient_data.race)
+		#if (!$first)
+			,$space
+		#end
+		$raceDetail.displayName
+		#set ($first = false)
+	#end
+	</td></tr>
+#end
+
 #* Patient birthday and birthplace   *#
 
 #set ($orderno = $orderno + 1)

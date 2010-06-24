@@ -434,6 +434,8 @@ public class PatientRepository extends OvidSecureRepository {
             FMRaceInformation raceInformation = patient.getRaceInformation();
 
             FMQueryList query = new FMQueryList( adapter,  raceInformation.getFile());
+	    query.getField("RACE INFORMATION").setInternal(false);
+            query.getField("METHOD OF COLLECTION").setInternal(false);
             FMResultSet results = query.execute();
             while (results.next()) {
                 FMRaceInformation qRace = new FMRaceInformation(results);

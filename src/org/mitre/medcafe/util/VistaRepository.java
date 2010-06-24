@@ -166,14 +166,29 @@ public class VistaRepository extends Repository {
 
             //Race
             Collection<FMRaceInformation> patRaceList = patientRepository.getRaceInformation(filemanPat);
-
-            List<Race> raceList = ret.getRace();
-            for (FMRaceInformation raceInfo : patRaceList) {
-                Race race = new Race();
-                race.setValue(raceInfo.getRaceInformationValue());
-                raceList.add(race);
-            }
-
+	    if (patRaceList.size()>0)
+	    {
+         	   List<Race> raceList = ret.getRace();
+            	for (FMRaceInformation raceInfo : patRaceList) {
+                	Race race = new Race();
+                	race.setCodeSystem("2.16.840.1.113883.6.238");
+                	race.setCodeSystemName("CDC Race and Ethnicity");
+                	String raceDesc = raceInfo.getRaceInformationValue();
+                	race.setDisplayName(raceDesc);
+                	String twoChars = raceDesc.substring(0,2);
+                	if (twoChars.equalsIgnoreCase("AM"))
+                	    race.setCode("1004-1");
+                	else if (twoChars.equalsIgnoreCase("AS"))
+                	    race.setCode("2028-9)");
+                	else if (twoChars.equalsIgnoreCase("BL"))
+                	    race.setCode("2058-6");
+                	else if (twoChars.equalsIgnoreCase("NA"))
+                	    race.setCode("2076-8");
+                	else if (twoChars.equalsIgnoreCase("WH"))
+                	    race.setCode("2106-3");
+                	raceList.add(race);
+            	}
+	    }
             //Guardian info
             if (filemanPat.getAge() < 18 || filemanPat.getCivilGuardianDateRuledIncompetent() != null
                     || filemanPat.getIncompVADate() != null) {
