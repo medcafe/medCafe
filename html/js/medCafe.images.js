@@ -31,9 +31,47 @@ function addImageButton( patient_id)
 	});
 }
 
+function filterImages( startDate, endDate, categories)
+{
+	var delim = "=";
+	//var fileUrl = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
+	var fileUrl = "contentflow/coverFeed.jsp";
+	/*var append = "~";
+	
+	if (startDate != "null")
+	{
+		fileUrl = fileUrl + append + "dates" +  delim  + startDate;
+	}
+	if (endDate != "null")
+	{
+		fileUrl = fileUrl +  "_" + endDate;
+	}
+	
+	if (! (categories == "") )
+			fileUrl = fileUrl +  "~filterCat"+  delim  + categories;
+	*/
+	 
+	$.get(fileUrl, function(data)
+ 	{	
+ 		$("#flowFile").html("");	
+ 		$("#flowFile").html(data);
+ 		
+ 		$("#flowFile").delay(2500,function()
+		{
+			var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});	
+ 		});
+   });
+}
+
 function processImages(repId, patientId, patientRepId, data, type)
 {
+		alert("medCafe.images.js processImages start");
+		var startDate = $('#cfStartDate').text();
+		var endDate = $('#cfEndDate').text();
+		var categories = $('#cfCategories').text();
+		filterImages(patientId, startDate, endDate, categories);
+		
 		 //alert("medCafe.images.js about to process Images");
-		 var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});
+		 //var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});
 		 //$("#contentFlow").removeClass("loadIndicator");
 }

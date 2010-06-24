@@ -125,23 +125,6 @@ $(document).ready( function() {
 		}
 		else if  (type == "Image")
 		{
-			addCoverflow(this, link, tab_num, patientId, patientRepId);
-			/*if (typeof processImages == 'undefined')
-			{
-
-				$.getScript('js/medCafe.images.js', function()
-				{
-					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
-				});
-			}
-			else
-			{
-				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
-			
-			}*/
-		}
-		else if  (type == "ImageNonIFrame")
-		{
 			if (typeof processImages == 'undefined')
 			{
 		
@@ -255,9 +238,18 @@ $(document).ready( function() {
 		}
 		else if  (type == "Timeline")
 		{
-			
-			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);	
-			
+			if (typeof processTimeline == 'undefined')
+			{
+
+				$.getScript('js/medCafe.timeline.js', function()
+				{
+					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);	
+				});
+			}
+			else
+			{
+				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);	
+			}
 		}
 		else if  (type == "Symptoms")
 		{

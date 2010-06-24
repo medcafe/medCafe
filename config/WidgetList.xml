@@ -14,15 +14,6 @@
 	<type>Image</type>
 	<image>coverflow.png</image>
 	<server></server>
-            <clickUrl>contentflow/index.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
-</medCafeWidget>
-<medCafeWidget>
-	<name>ImageNonIFrames</name>
-	<type>ImageNonIFrame</type>
-	<image>coverflow.png</image>
-	<server></server>
             <clickUrl>contentFlow.jsp</clickUrl>
 	<method></method>
 	<repository>local</repository>

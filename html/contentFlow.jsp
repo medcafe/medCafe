@@ -50,14 +50,18 @@
             <!-- should be place before flow so that contained images will be loaded first -->
             <div class="loadIndicator"><div class="indicator"></div></div>
 
-            <div class="flow">
-                <jsp:include page="<%=coverflowFile%>"/>
+            <div class="flow" id="flowFile">
+               
             </div>
             <div class="globalCaption"></div>
             <div class="scrollbar">
                 <div class="slider"><div class="position"></div></div>
             </div>
 
+			<div style="{display : none;}" id="cfStartDate"><%=startDate%></div>
+			<div style="{display : none;}" id="cfEndDate"><%=endDate%></div>
+			<div style="{display : none;}" id="cfFilterCat"><%=filterCat%></div>
+			 
         </div>
     </body>
 </html>

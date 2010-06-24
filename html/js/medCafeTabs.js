@@ -408,13 +408,13 @@ $(document).ready( function() {
 				processFilter(repId, patientId, patientRepId, data, type);		
 			}
 		}
-		else if ( type == "ImageNonIFrame")
+		else if ( type == "Image")
 		{
 			//Delay to allow for all of the document to be loaded
-			$(callObj).delay(2500,function()
-			{
+			//$(callObj).delay(2500,function()
+			//{
 				processImages(repId, patientId, patientRepId, data, type);		
-			});
+			//});
 		}
 		else if ( type == "EditorNonIFrame")
 		{
