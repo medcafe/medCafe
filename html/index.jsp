@@ -74,9 +74,26 @@
         
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>
-
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
-	
+	<script>
+ 	   Timeline_ajax_url="http://${server}/js/timeline/simile-ajax-api.js";
+	   Timeline_urlPrefix='http://${server}/js/timeline/';       
+       Timeline_parameters='bundle=true';
+    </script>
+    <script src="http://${server}/js/timeline/timeline-api.js?bundle=true" type="text/javascript">
+    </script>
+    
+    <!-- script src="http://127.0.0.1:8080/medcafe/js/timeline/timeline-api.js?bundle=true" type="text/javascript">
+    </script>
+    <script src="http://127.0.0.1:8080/medcafe/js/timeline/simile-ajax-api.js" type="text/javascript"></script>
+    <script src="http://127.0.0.1:8080/medcafe/js/timeline/simile-ajax-bundle.js" onerror="" type="text/javascript"></script>
+    <script src="http://127.0.0.1:8080/medcafe/js/timeline/timeline-bundle.js" onerror="" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/medcafe/js/timeline/timeline-bundle.css" type="text/css">
+    <script src="http://127.0.0.1:8080/medcafe/js/timeline/scripts/l10n/en/timeline.js" onerror="" type="text/javascript"></script>
+    <script src="http://127.0.0.1:8080/medcafe/js/timeline/scripts/l10n/en/labellers.js" onerror="" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/medcafe/js/timeline/styles/graphics.css" type="text/css"-->
+
+    
 	<script>
         var outerLayout;
 		var repositoryPatientJSON = {};

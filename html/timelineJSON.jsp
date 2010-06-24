@@ -29,96 +29,15 @@
 	}
 %>
 
-<link rel='stylesheet' href='js/timeline/styles/common.css' type='text/css' />
- 	<script src="js/timeline/examples.js" type="text/javascript"></script>
+<script src="js/timeline/examples.js" type="text/javascript"></script>
 <script>
  var tl;
 	$(function(){
               
-    var eventSource = new Timeline.DefaultEventSource();
- 	var d = Timeline.DateTime.parseGregorianDateTime("2008");
- 	
- 	var theme = Timeline.ClassicTheme.create();
- 	
- 	theme.event.bubble.width = 320;
-            theme.ether.backgroundColors = [
-                "#FDE5A7",
-                "#E7DFD6",
-                "#E8E8F4",
-                "#D0D0E8"
-            ];
-   var bandInfos = [
-     Timeline.createBandInfo({
-     
-     	 eventSource:    eventSource,
-         date:         	 d,
-         width:          "70%", 
-         intervalUnit:   Timeline.DateTime.MONTH, 
-         intervalPixels: 100,
-         theme:          theme
-     }),
-     Timeline.createBandInfo({
-     	 overview:       true,
-     	 eventSource:    eventSource,
-         date:         	 d,
-         width:          "30%", 
-         intervalUnit:   Timeline.DateTime.YEAR, 
-         intervalPixels: 200,
-         theme:          theme
-     })
-   ];
-   bandInfos[1].syncWith = 0;
-   bandInfos[1].highlight = true;
-   bandInfos[1].decorators = [
-                new Timeline.SpanHighlightDecorator({
-                    startDate:  "Nov 14 2006 00:00:00 GMT",
-                    endDate:    "Dec 05 2010 00:00:00 GMT",
-                    startLabel: "First Visit",
-                    endLabel:   "",
-                    color:      "#FDE5A7",
-                    opacity:    20,
-                    theme:      theme
-                })
-            ];
-            
-   tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
- 	var eventUrl = "<%=listEvents%>";
- 	alert("timelineJSON. eventUrl " + eventUrl);
- 	//alert("timelineJSON.jsp event url " + eventUrl);
- 	$.getJSON(eventUrl, function(data)
- 	{
- 			//alert("data" + data);
- 			//eventSource.loadJSON(data, "");
-   			tl.loadJSON(eventUrl, function(json, url) {
-                eventSource.loadJSON(json, url);
-            });
-              
-   });
-            
-   setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
-     
-   //Submit the form on changes to checkbox     
-   $(".eventChkBox").change(function ()
-	{	
-		$("#eventForm").submit();	
-	});
-				 	 
-
- var resizeTimerID = null;
- function onResize() {
-     if (resizeTimerID == null) {
-         resizeTimerID = window.setTimeout(function() {
-             resizeTimerID = null;
-             tl.layout();
-         }, 500);
-     }
- }
- 
+   
  		});
 </script>
 
-
-<!-- script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script-->
 </head>
 <body onload="onLoad();" onresize="onResize();">
 <div id="my-timeline" style="height: 150px; border: 1px solid #aaa"></div>

@@ -1,5 +1,3 @@
-﻿
-
 /* band.js */
 Timeline._Band=function(F,G,B){if(F.autoWidth&&typeof G.width=="string"){G.width=G.width.indexOf("%")>-1?0:parseInt(G.width);
 }this._timeline=F;

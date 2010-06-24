@@ -428,9 +428,23 @@ $(document).ready( function() {
 			}
 			else
 			{
-				processEditor(repId, patientId, patientRepId, data, type);		
+				processEditor(repId, patientId, patientRepId, data, type, tab_num);		
 			}	
 		}
+		else if ( type == "Timeline")
+		{
+			if (typeof processTimeline == 'undefined')
+			{
 			
+				$.getScript('js/medCafe.timeline.js', function()
+				{
+					processTimeline(repId, patientId, patientRepId, data,type, tab_num);	
+				});
+			}
+			else
+			{
+				processTimeline(repId, patientId, patientRepId, data, type, tab_num);		
+			}	
+		}	
 		
 	}

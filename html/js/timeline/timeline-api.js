@@ -53,7 +53,7 @@
  */
 
 (function() {
-    var useLocalResources = false;
+    var useLocalResources = true;
     if (document.location.search.length > 0) {
         var params = document.location.search.substr(1).split("&");
         for (var i = 0; i < params.length; i++) {
@@ -64,7 +64,10 @@
     };
     
     var loadMe = function() {
+    	
+    	//alert("timeline-api line 68 loadme");
         if ("Timeline" in window) {
+        	
             return;
         }
         
@@ -172,11 +175,13 @@
             var includeCssFiles = function(urlPrefix, filenames) {
                 SimileAjax.includeCssFiles(document, urlPrefix, filenames);
             }
-            
+            //alert("timeline-api.js line 182 is bundled "  + bundle);
+                
             /*
              *  Include non-localized files
              */
             if (bundle) {
+            	//alert("timeline-api.js line 182 is bundled Timeline url " + Timeline.urlPrefix);
                 includeJavascriptFiles(Timeline.urlPrefix, [ "timeline-bundle.js" ]);
                 includeCssFiles(Timeline.urlPrefix, [ "timeline-bundle.css" ]);
             } else {
@@ -252,21 +257,28 @@
     if (typeof SimileAjax == "undefined") {
         window.SimileAjax_onLoad = loadMe;
         
-        var url = useLocalResources ?
+        /*var url = useLocalResources ?
             "http://127.0.0.1:9999/ajax/api/simile-ajax-api.js?bundle=false" :
+            "http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js";*/
+        var url = useLocalResources ?
+            "http://127.0.0.1:8080/medcafe/js/timeline/simile-ajax-api.js?bundle=true" :
             "http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js";
+            
         if (typeof Timeline_ajax_url == "string") {
            url = Timeline_ajax_url;
         }
+        
         var createScriptElement = function() {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.language = "JavaScript";
             script.src = url;
+            //alert("timeline-api.js createScriptElement line 276 url " + url);
             document.getElementsByTagName("head")[0].appendChild(script);
         }
         if (document.body == null) {
             try {
+            	//alert("timeline-api.js createScriptElement line 281 url " + url);
                 document.write("<script src='" + url + "' type='text/javascript'></script>");
             } catch (e) {
                 createScriptElement();
