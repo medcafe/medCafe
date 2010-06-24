@@ -48,25 +48,39 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
                 })
             ];
             
-   tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
- 	/*var eventUrl = "<%=listEvents%>";
+    tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+ 	var eventUrl ="listTimelineJSON.jsp?patient_id=" + patientId;
+ 	//"<%=listEvents%>";
  	//alert("timelineJSON.jsp event url " + eventUrl);
- 	$.getJSON(eventUrl, function(data)
- 	{
- 			//alert("data" + data);
- 			//eventSource.loadJSON(data, "");
-   			tl.loadJSON(eventUrl, function(json, url) {
+ 	
+ 	//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')
+ 	var timeLineEvents = getTimelineEvents();
+  	eventUrl = eventUrl  + timeLineEvents;
+  	$.getJSON(eventUrl, function(data)
+ 	{		
+ 			tl.loadJSON(eventUrl, function(json, url) {
                 eventSource.loadJSON(json, url);
             });
               
-   });*/
+   });
             
    setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
      
    //Submit the form on changes to checkbox     
    $(".eventChkBox").change(function ()
 	{	
-		$("#eventForm").submit();	
+		clearTimelineEvents(tl, [0,1]);
+		//$("#eventForm").submit();
+		//return false;	
+		var listJSON = "listTimelineJSON.jsp?";
+		var eventList = getTimelineEvents();
+		listJSON = listJSON + eventList;
+		$.getJSON(listJSON, function(data)
+		{
+			tl.loadJSON(listJSON, function(json, url) {
+                eventSource.loadJSON(json, url);
+            });				
+		});
 	});
 				 	
 }
@@ -80,3 +94,24 @@ function onResize() {
          }, 500);
      }
  }
+ 
+ function getTimelineEvents()
+ {
+	var events = $("input:checked[name='event']");
+  	var eventUrl = "";
+  	for (i=0; i < events.length; i++)
+  	{
+  		eventUrl = eventUrl + "&event=" + events[i].value;
+  	}
+  	return eventUrl;
+ }
+ 
+ function clearTimelineEvents(timeline, bandIndices) {
+    
+    for (var i = 0; i < bandIndices.length; i++) {
+        var bandIndex = bandIndices[i];
+        timeline.getBand(bandIndex).getEventPainter().setFilterMatcher(null);
+        timeline.getBand(bandIndex).getEventPainter().setHighlightMatcher(null);
+    }
+    timeline.paint();
+}

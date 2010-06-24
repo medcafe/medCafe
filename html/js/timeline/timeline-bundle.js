@@ -33,6 +33,14 @@ this._div.id="timeline-band-"+B;
 this._div.className="timeline-band timeline-band-"+B;
 this._timeline.addDiv(this._div);
 SimileAjax.DOM.registerEventWithObject(this._div,"mousedown",this,"_onMouseDown");
+var isiPad = navigator.userAgent.match(/iPad/i) != null;
+if (isiPad)
+{
+    	//console.log('simile band.js: registering touchstart : ');
+    	SimileAjax.DOM.registerEventWithObject(this._div, "touchstart", this, "_onMouseDown");
+    	SimileAjax.DOM.registerEventWithObject(this._div, "touchmove", this, "_onMouseMove");
+    
+}
 SimileAjax.DOM.registerEventWithObject(this._div,"mousemove",this,"_onMouseMove");
 SimileAjax.DOM.registerEventWithObject(this._div,"mouseup",this,"_onMouseUp");
 SimileAjax.DOM.registerEventWithObject(this._div,"mouseout",this,"_onMouseOut");
@@ -217,11 +225,44 @@ Timeline._Band.prototype._onMouseDown=function(B,A,C){this.closeBubble();
 this._dragging=true;
 this._dragX=A.clientX;
 this._dragY=A.clientY;
+
 };
-Timeline._Band.prototype._onMouseMove=function(D,A,E){if(this._dragging){var C=A.clientX-this._dragX;
+Timeline._Band.prototype._onMouseMove=function(D,A,E){
+if(this._dragging){
+var isiPad = navigator.userAgent.match(/iPad/i) != null;    
+if (isiPad)
+{
+  A.preventDefault();
+}
+var C=A.clientX-this._dragX;
 var B=A.clientY-this._dragY;
+
+if (isiPad)
+{
+	 //console.log('simile band.js: _onTouchMove : diff x ' + diffX  + ' y ' + diffY);	
+	if(A.touches.length == 1)
+	{ // Only deal with one finger
+	  //console.log('simile band.js: _onTouchMove : touches found ');	
+	  		
+	var touch = A.touches[0]; // Get the information for finger #1
+	var node = touch.target; // Find the node the drag started from
+	node.style.position = "absolute";
+	node.style.left = touch.pageX + "px";
+	node.style.top = touch.pageY + "px";
+	//console.log('simile band.js: _onTouchMove : touches found x ' + touch.pageX + ' y ' + touch.pageY );	
+	C = touch.pageX - this._dragX;
+    B = touch.pageY - this._dragY;
+        
+    this._dragX = touch.pageX;
+    this._dragY = touch.pageY;
+	}
+}
+else
+{
 this._dragX=A.clientX;
 this._dragY=A.clientY;
+}
+       
 this._moveEther(this._timeline.isHorizontal()?C:B);
 this._positionHighlight();
 }};

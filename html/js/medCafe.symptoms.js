@@ -17,8 +17,7 @@ function processSymptoms(repId, patientId, patientRepId, data, type)
   							
   						var saveLink = "saveHistory.jsp?patient_id=" + patientId;
   						var checkedVals = $("input:checked");
-						
-						
+		
   						for (i=0; i < checkedVals.length; i++)
   						{
   							saveLink = saveLink + "&symptom_check=" + checkedVals[i].value;

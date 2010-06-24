@@ -23,6 +23,8 @@
 	{
 		jspUrl += "&event=" + eventVal;
 	}
+	session.setAttribute("timelineEvents", events);
+	System.out.println("listTimelineJSON.jsp jspUrl " + jspUrl);
 %>
 
 <tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>

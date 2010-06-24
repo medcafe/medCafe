@@ -21,6 +21,13 @@
 	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String[] events  = request.getParameterValues("event");
 	if (events == null)
+	{
+		Object eventsObj = session.getAttribute("timelineEvents");
+		if (eventsObj != null)
+			events = (String[])eventsObj;
+			
+	}
+	if (events == null)
 		events=new String[]{};
 		
 	for (String eventVal: events)
@@ -48,7 +55,7 @@
   <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
-            	<form name="eventListingForm" id="eventForm" action="<%=refreshUrl%>">
+            	<form name="eventListingForm" id="eventForm" action="#">
             		<% for (String eventListVal: eventList) {
             		%>
             			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event" 
