@@ -65,7 +65,7 @@ function filterImages( startDate, endDate, categories)
 
 function processImages(repId, patientId, patientRepId, data, type)
 {
-		alert("medCafe.images.js processImages start");
+		//alert("medCafe.images.js processImages start");
 		var startDate = $('#cfStartDate').text();
 		var endDate = $('#cfEndDate').text();
 		var categories = $('#cfCategories').text();
