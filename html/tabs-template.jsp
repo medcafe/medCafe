@@ -121,10 +121,10 @@ function filterType()
 	
 			//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
 			
-			$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
+			$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat) 
 			{	 		
 				var tabNum = "<%=tabNum%>";		
-				filterDate<%=type%>(startDate, endDate,tabNum );
+				filterDate<%=type%>(startDate, endDate,filterCat, tabNum );
 					
 			});	
 			
@@ -134,15 +134,16 @@ function filterType()
 	{
 		//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
 			
-		$(document).bind('FILTER_DATE', function(event, startDate, endDate) 
+		$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat) 
 		{	 		
 				var tabNum = "<%=tabNum%>";		
-				filterDate<%=type%>(startDate, endDate,tabNum );
+				filterDate<%=type%>(startDate, endDate, filterCat, tabNum );
 					
 		});	
 	}
 	
-	var catSrcName = "js/filterCategory<%=type%>.js"; 
+	//No longer Needed as FILTER handles all filtering at once
+	/*var catSrcName = "js/filterCategory<%=type%>.js"; 
 	if (typeof filterCategory<%=type%> != 'undefined')
 	{
 		$.getScript(catSrcName, function(){
@@ -155,7 +156,7 @@ function filterType()
 					
 				});	
 		});
-	}
+	}*/
 }
 
 function bindClose()

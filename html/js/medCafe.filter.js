@@ -43,7 +43,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  triggerFilter(startDate, endDate);
+						  triggerFilter(startDate, endDate, category);
 				   
 					});
 				});
@@ -71,12 +71,13 @@ function filterInitialize(url, startDate, endDate, category)
 					$('#handle_valueAA').parents('.ui-slider:eq(0)').slider("values", startHandleIndex, defIndex);
 					$('#handle_valueBB').parents('.ui-slider:eq(0)').slider("values", endHandleIndex, defIndex);
     
-				    var url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate;	
+				    var  url = "setFilter.jsp?start_date=" + startDate + "&end_date=" +endDate + "&categories=" + category;
+					
 					//Make a call to setFilter
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  triggerFilter(startDate, endDate);
+						  triggerFilter(startDate, endDate, category);
 				    
 					});
 					
@@ -90,7 +91,7 @@ function filterInitialize(url, startDate, endDate, category)
 			{
  	
  					var comma="";
-					var category = "";
+					category = "";
 				    $('.filter_checkbox').each(
 						  
 						  function() 
@@ -110,7 +111,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  triggerFilterCategory(category);
+						  triggerFilter(startDate, endDate, category);
 					});
 	 
 			});
@@ -132,7 +133,7 @@ function filterInitialize(url, startDate, endDate, category)
 					$.get(url, function(data)
 					{						  
 						  //alert('Set Filter Date was run.');
-						  triggerFilterCategory(category);
+						  triggerFilter(startDate, endDate, category);
 				 	
 					});
 			});

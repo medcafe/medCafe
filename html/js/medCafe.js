@@ -350,10 +350,10 @@ $(document).ready( function() {
 		   //alert("Filter Date");
 	}
 
-	function triggerFilter(startDate, endDate)
+	function triggerFilter(startDate, endDate, filterCat)
 	{
 		//alert("medCafe.js triggerFilter - start date is " + startDate + " end Date is " + endDate);
-		$(document).trigger('FILTER_DATE', [startDate, endDate]);
+		$(document).trigger('FILTER_DATE', [startDate, endDate, filterCat]);
 	}
 
 	function triggerFilterCategory(filterCat)
