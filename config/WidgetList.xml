@@ -109,15 +109,6 @@
 	<method></method>
 	<repository>local</repository>
 </medCafeWidget>
-<medCafeWidget>
-	<name>Dates</name>
-	<type>Date</type>
-	<image>date.png</image>
-	<server></server>
-	<clickUrl></clickUrl>
-	<method></method>
-	<repository>local</repository>
-</medCafeWidget>
 </patientSpecific>
 <general>
 <medCafeWidget>
@@ -145,7 +136,7 @@
 	<type>Chart</type>
 	<image>chart.png</image>
 	<server>chart.jsp</server>
-	<clickUrl></clickUrl>
+	<clickUrl>chart.jsp</clickUrl>
 	<method></method>
 	<params></params>
 	<repository></repository>
