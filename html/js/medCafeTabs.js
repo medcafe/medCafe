@@ -377,7 +377,7 @@ $(document).ready( function() {
 	function processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num)
 	{
 			
-		if (type == "Symptoms")
+		if (type == "Symptoms" || (type == "AddHistory") )
 		{
 			if (typeof processSymptoms == 'undefined')
 			{

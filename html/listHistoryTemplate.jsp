@@ -41,7 +41,7 @@
 		
 			$.getJSON("<%=url%>", function(data)
 			{
-  				var html = v2js_listHistoryTemplate( data );  
+				var html = v2js_listHistoryTemplate( data );  
   				
 				$('#templateList').html(html);
 				$(this).delay(100,function()

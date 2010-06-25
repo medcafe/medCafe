@@ -175,7 +175,7 @@ $(document).ready( function() {
 				addMedications(this, link, tab_num, label, patientId, repId, patientRepId);
 			});
 		}
-		else if  (type == "History")
+		else if  ((type == "History")  )
 		{
 
 			if (typeof addHistory == 'undefined')
@@ -251,7 +251,7 @@ $(document).ready( function() {
 				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);	
 			}
 		}
-		else if  (type == "Symptoms")
+		else if  (type == "Symptoms" || (type == "AddHistory"))
 		{
 			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 		}
