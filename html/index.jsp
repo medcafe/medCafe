@@ -75,6 +75,9 @@
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
+ 	 
+ 	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+ 	<script language="javascript" type="text/javascript" src="js/jquery.flot.selection.js"></script>
 	<script>
  	   Timeline_ajax_url="http://${server}/js/timeline/simile-ajax-api.js";
 	   Timeline_urlPrefix='http://${server}/js/timeline/';       

@@ -121,7 +121,21 @@ $(document).ready( function() {
 	 	//alert("medcafe createWidgetContent: type " + type);
 		if (type === "Chart")
 		{
-			addChart(this, link, tab_num, patientId, patientRepId);
+			//addChart(this, link, tab_num, patientId, patientRepId);
+			if (typeof processChart == 'undefined')
+			{
+		
+				$.getScript('js/medCafe.chart.js', function()
+				{
+					addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+				});
+			}
+			else
+			{
+				
+				addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+			
+			}
 		}
 		else if  (type == "Image")
 		{

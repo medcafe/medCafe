@@ -408,6 +408,12 @@ $(document).ready( function() {
 				processFilter(repId, patientId, patientRepId, data, type);		
 			}
 		}
+		else if ( type == "Chart")
+		{
+			
+			processChart(repId, patientId, patientRepId, data, type,tab_num);	
+			
+		}
 		else if ( type == "Image")
 		{
 			//Delay to allow for all of the document to be loaded
