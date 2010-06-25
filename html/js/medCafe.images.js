@@ -1,3 +1,4 @@
+var cf;
 $(function(){
 
 		initializeImages();
@@ -31,7 +32,7 @@ function addImageButton( patient_id)
 	});
 }
 
-function filterImages( startDate, endDate, categories)
+function filterImages( startDate, endDate, categories, tab_num)
 {
 	var delim = "=";
 	//var fileUrl = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
@@ -53,23 +54,40 @@ function filterImages( startDate, endDate, categories)
 	 
 	$.get(fileUrl, function(data)
  	{	
+ 	
  		$("#flowFile").html("");	
  		$("#flowFile").html(data);
  		
+ 		//if (cf != undefined)
+ 		//{
+ 			//Set focus to image Tab if these images are already loaded
+ 			//$('#tabs').tabs('select', "#tabs-" + tab_num);
+ 		//}
+ 		
  		$("#flowFile").delay(2500,function()
 		{
-			var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});	
+			if (cf == undefined)
+				cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});	
+			else
+			{
+				//alert("medCafe.images.js filterImages about to refresh through init");
+				$("contentFlow").removeClass("mouseoverCheckElement");
+				//cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});		
+				//cf.resize();
+				cf._init();
+			}
  		});
    });
 }
 
-function processImages(repId, patientId, patientRepId, data, type)
+function processImages(repId, patientId, patientRepId, data, type, tab_num)
 {
+		
 		//alert("medCafe.images.js processImages start");
 		var startDate = $('#cfStartDate').text();
 		var endDate = $('#cfEndDate').text();
 		var categories = $('#cfCategories').text();
-		filterImages(patientId, startDate, endDate, categories);
+		filterImages(patientId, startDate, endDate, categories, tab_num);
 		
 		 //alert("medCafe.images.js about to process Images");
 		 //var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});

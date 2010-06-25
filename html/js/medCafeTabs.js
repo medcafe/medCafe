@@ -413,7 +413,7 @@ $(document).ready( function() {
 			//Delay to allow for all of the document to be loaded
 			//$(callObj).delay(2500,function()
 			//{
-				processImages(repId, patientId, patientRepId, data, type);		
+				processImages(repId, patientId, patientRepId, data, type,tab_num);		
 			//});
 		}
 		else if ( type == "EditorNonIFrame")
