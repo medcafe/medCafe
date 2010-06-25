@@ -67,7 +67,7 @@
             		checked="<%=checked%>"
             		<%}%>
             		>
-            		<%=eventListVal%></input>
+            		<%=eventListVal%></input><br/>
             		<% } %>
             		<br/>
             		

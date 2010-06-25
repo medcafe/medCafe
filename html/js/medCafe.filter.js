@@ -3,7 +3,6 @@ var retry = true;
 function filterInitialize(url, startDate, endDate, category)
 {			
 			setChecked(category);
-			
 			$.getJSON(url, function(data)
 			{
   			
