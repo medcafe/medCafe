@@ -71,7 +71,7 @@
  	<script type="text/javascript" src="${js}/medCafe.images.js"></script>
  	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
  	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
- 	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white"></script>
+ 	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white medCafe"></script>
         
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>

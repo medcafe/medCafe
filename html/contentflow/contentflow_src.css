@@ -75,8 +75,8 @@
     }
 
         .ContentFlow .scrollbar .slider {
-            width: 16px;
-            height: 16px;
+            width: 22px;
+            height: 22px;
             background: url(img/slider_white.png) center center no-repeat;
             cursor: move;
         }

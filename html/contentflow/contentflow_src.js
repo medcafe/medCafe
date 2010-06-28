@@ -294,7 +294,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
             if (!event) var event = window.event;
             if (this.Browser.iPhone)  {
                 window.removeEvent('touchemove', onDrag, false);
-                if (!this.ontochmove) {
+                if (!this.ontouchmove) {
                     var t = event.target;
                     if (t.firstChild) t = t.firstChild;
                     var e = document.createEvent('MouseEvents');
@@ -321,7 +321,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
         }.bind(this);
 
         this.startDrag = function (event) {
-            if (!event) var event = window.event;
+            if (!event) var event = this.event;
 
             var stopDrag = this.stopDrag;
 
@@ -336,8 +336,8 @@ var ContentFlowGUIElement = function (CFobj, element) {
                 window.addEvent('touchend', stopDrag, false);
             }
             else {
-                window.addEvent('mousemove', onDrag, false);
-                window.addEvent('mouseup', stopDrag, false);
+                this.addEvent('mousemove', onDrag, false);
+                this.addEvent('mouseup', stopDrag, false);
             }
             if(event.preventDefault) { event.preventDefault() }
 
@@ -1575,8 +1575,9 @@ ContentFlow.prototype = {
                     this.moveToPosition(t);
             }.bind(this);
 
-
-            this.Flow.makeDraggable(onDrag, beforeDrag, afterDrag);
+			if (this.Browser.iPhone)  {
+            	this.Flow.makeDraggable(onDrag, beforeDrag, afterDrag);
+            }
         }
 
         // Scrollbar Object
@@ -1594,6 +1595,7 @@ ContentFlow.prototype = {
                     this.Scrollbar.clickLocked = false;
             }.bind(this);
             this.Scrollbar.addObserver('click', click);
+            
         }
 
         // Slider Object

@@ -496,7 +496,7 @@ function displayImage(imageName)
 {
 	//Delay to let the DOM refresh
 
-	 var server = "http://" + imageName ;
+	 var server =  imageName ;
 
 	 var imageTitle = server;
 	 var pos = server.lastIndexOf("/") + 1;
@@ -507,69 +507,64 @@ function displayImage(imageName)
 	 }
 	 var tab_num = addTab(imageTitle, "Image");
 
-	 var html =$.ajax({
-      url: server,
-      global: false,
-      type: "POST",
-      dataType: "html",
-      success: function(msg)
-      {
-      	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
+	  	
+     var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
 					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
 					"</a>" + "</div>\n";
 
 
-        var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
-
-         var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageTitle + "\" id=\"frame" + imageTitle+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
-
-
+         var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
+       
          iNettuts.refresh("yellow-widget" + tab_num);
 		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
-		 $("#aaa" + tab_num).append( text );
-
-		 $(this).delay(100,function()
+		 //alert("medCafe.js addTab text to add to aaa" + tab_num + " " + text);
+	
+		  $(this).delay(500,function()
 		 {
-		 	setHasContent(tab_num);
-			//Code for zoom
-		 	var options =
-            {
-                zoomWidth: 300,
-                zoomHeight: 200,
-                position : 'right',
-                yOffset :100,
-                xOffset :100,
-                title :false
-
-            }
-
-			$(".jqzoom" + tab_num).jqzoom(options);
-
-			$("#viewerButton" + tab_num).bind("click",{},
-			function(e)
-			{
-
-				var tab_num = addTab(imageTitle + "Viewer","Viewer");
-
-				var link = "viewer.jsp?image=" + server;
-				addChart(this, link, tab_num);
-			});
-
-			$("#editButton" + tab_num).bind("click",{},
-			function(e)
-			{
-
-				var tab_num = addTab(imageTitle + "Annotate", "Annotate");
-
-				var link = server;
-				imageAnnotate(this, link, tab_num);
-			});
-		  } );
-		}
-      }).responseText;
-
+			 $("#aaa" + tab_num).html( text );
+			 
+			 $(this).delay(100,function()
+			 {
+			 	setHasContent(tab_num);
+				//Code for zoom
+			 	var options =
+	            {
+	                zoomWidth: 300,
+	                zoomHeight: 200,
+	                position : 'right',
+	                yOffset :100,
+	                xOffset :100,
+	                title :false
+	
+	            }
+	
+				$(".jqzoom" + tab_num).jqzoom(options);
+	
+				$("#viewerButton" + tab_num).bind("click",{},
+				function(e)
+				{
+	
+					var tab_num = addTab(imageTitle + "Viewer","Viewer");
+	
+					var link = "viewer.jsp?image=" + server;
+					
+					addChart(this, link, tab_num);
+				});
+	
+				$("#editButton" + tab_num).bind("click",{},
+				function(e)
+				{
+	
+					var tab_num = addTab(imageTitle + "Annotate", "Annotate");
+	
+					var link = server;
+					imageAnnotate(this, link, tab_num);
+				});
+			  } );
+		  
+		  });//2nd delay
 }
 
 function initClose()
