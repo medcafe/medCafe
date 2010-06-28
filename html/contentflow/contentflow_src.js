@@ -291,9 +291,10 @@ var ContentFlowGUIElement = function (CFobj, element) {
     element.makeDraggable = function (onDrag, beforeDrag, afterDrag) {
 
         this.stopDrag = function(event) {
+        	//alert("contentflow_src stop drag start");
             if (!event) var event = window.event;
             if (this.Browser.iPhone)  {
-                window.removeEvent('touchemove', onDrag, false);
+                window.removeEvent('touchmove', onDrag, false);
                 if (!this.ontouchmove) {
                     var t = event.target;
                     if (t.firstChild) t = t.firstChild;
@@ -303,7 +304,8 @@ var ContentFlowGUIElement = function (CFobj, element) {
                 }
             }
             else {
-                window.removeEvent('mousemove', onDrag, false);
+            	//console.log("contentflow_src removing mousemove event");
+                this.removeEvent('mousemove', onDrag, false);
             }
             afterDrag(event); 
         }.bind(this);
@@ -336,8 +338,14 @@ var ContentFlowGUIElement = function (CFobj, element) {
                 window.addEvent('touchend', stopDrag, false);
             }
             else {
+            	//alert("contentflow_src start drag associate events");
                 this.addEvent('mousemove', onDrag, false);
-                this.addEvent('mouseup', stopDrag, false);
+                //window.addEvent('mouseup', stopDrag, false);
+                $(this).mouseup(function(e)
+                {
+                	//alert("contentflow_src mouse up stop drag associate events ")
+                	stopDrag(e);
+                });
             }
             if(event.preventDefault) { event.preventDefault() }
 
@@ -1575,9 +1583,9 @@ ContentFlow.prototype = {
                     this.moveToPosition(t);
             }.bind(this);
 
-			if (this.Browser.iPhone)  {
-            	this.Flow.makeDraggable(onDrag, beforeDrag, afterDrag);
-            }
+			
+            this.Flow.makeDraggable(onDrag, beforeDrag, afterDrag);
+            
         }
 
         // Scrollbar Object
