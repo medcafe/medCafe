@@ -1445,7 +1445,7 @@ public class FMPatientContact extends FMDemographicPatient {
         if (contact.isVAGuardian()) {
             setVaGuardian(contact.getName());
             setVaGuardianStreetAddress1(contact.getStreet1());
-            setVaGuardianStreetAddress2(contact.getStreet1());
+            setVaGuardianStreetAddress2(contact.getStreet2());
             setVaGuardianCity(contact.getCity());
             setVaGuardianPhone(contact.getPhoneNumber());
             setVaGuardianRelationship(contact.getRelationshipToPatient());
@@ -1457,7 +1457,7 @@ public class FMPatientContact extends FMDemographicPatient {
         } else {
             setGuardianCivil(contact.getName());
             setCivilGuardianStreetAddress1(contact.getStreet1());
-            setCivilGuardianStreetAddress2(contact.getStreet1());
+            setCivilGuardianStreetAddress2(contact.getStreet2());
             setCivilGuardianCity(contact.getCity());
             setCivilGuardianPhone(contact.getPhoneNumber());
             setCivilGuardianRelationship(contact.getRelationshipToPatient());
@@ -1470,7 +1470,7 @@ public class FMPatientContact extends FMDemographicPatient {
         if (contact.isPrimary()) {
             setEmergencyName(contact.getName());
             setEmergencyStreetAddressLine1(contact.getStreet1());
-            setEmergencyStreetAddressLine2(contact.getStreet1());
+            setEmergencyStreetAddressLine2(contact.getStreet2());
             setEmergencyCity(contact.getCity());
             setEmergencyPhoneNumber(contact.getPhoneNumber());
             setEmergencyRelationshipToPatient(contact.getRelationshipToPatient());
@@ -1482,7 +1482,7 @@ public class FMPatientContact extends FMDemographicPatient {
         } else {
             setEmergency2NameOfSecondaryContact(contact.getName());
             setEmergency2StreetAddressLine1(contact.getStreet1());
-            setEmergency2StreetAddressLine2(contact.getStreet1());
+            setEmergency2StreetAddressLine2(contact.getStreet2());
             setEmergency2City(contact.getCity());
             setEmergency2PhoneNumber(contact.getPhoneNumber());
             setEmergency2RelationshipToPatient(contact.getRelationshipToPatient());
@@ -1496,7 +1496,7 @@ public class FMPatientContact extends FMDemographicPatient {
         if (contact.isPrimary()) {
             setNokNameOfPrimary(contact.getName());
             setNokStreetAddressLine1(contact.getStreet1());
-            setNokStreetAddressLine2(contact.getStreet1());
+            setNokStreetAddressLine2(contact.getStreet2());
             setNokCity(contact.getCity());
             setNokPhoneNumber(contact.getPhoneNumber());
             setNokRelationshipToPatient(contact.getRelationshipToPatient());
@@ -1508,7 +1508,7 @@ public class FMPatientContact extends FMDemographicPatient {
         } else {
             setNok2NameOfSecondary(contact.getName());
             setNok2StreetAddressLine1(contact.getStreet1());
-            setNok2StreetAddressLine2(contact.getStreet1());
+            setNok2StreetAddressLine2(contact.getStreet2());
             setNok2City(contact.getCity());
             setNok2PhoneNumber(contact.getPhoneNumber());
             setNok2RelationshipToPatient(contact.getRelationshipToPatient());
@@ -1523,7 +1523,7 @@ public class FMPatientContact extends FMDemographicPatient {
 
         setDesigneeName(contact.getName());
         setDesigneeStreetAddressLine1(contact.getStreet1());
-        setDesigneeStreetAddressLine2(contact.getStreet1());
+        setDesigneeStreetAddressLine2(contact.getStreet2());
         setDesigneeCity(contact.getCity());
         setDesigneePhoneNumber(contact.getPhoneNumber());
         setDesigneeRelationshipToPatient(contact.getRelationshipToPatient());
@@ -1538,7 +1538,7 @@ public class FMPatientContact extends FMDemographicPatient {
 
         setEmployerName(contact.getName());
         setEmployerStreetLine1(contact.getStreet1());
-        setEmployerStreetLine2(contact.getStreet1());
+        setEmployerStreetLine2(contact.getStreet2());
         setEmployerCity(contact.getCity());
         setEmployerPhoneNumber(contact.getPhoneNumber());
         setEmployerZipCode(contact.getZip());
@@ -1550,7 +1550,7 @@ public class FMPatientContact extends FMDemographicPatient {
 
         setSpouseEmployerName(contact.getName());
         setSpouseEmployerStreetLine1(contact.getStreet1());
-        setSpouseEmployerStreetLine2(contact.getStreet1());
+        setSpouseEmployerStreetLine2(contact.getStreet2());
         setSpouseEmployerCity(contact.getCity());
         setSpouseEmployerPhoneNumber(contact.getPhoneNumber());
         setSpouseEmployerZipCode(contact.getZip());

@@ -93,13 +93,13 @@ public class PatientResource extends ServerResource {
         }
         Patient pat = r.getPatient( id );
     //convert to JSON
-       try{
+      /* try{
         System.out.println(WebUtils.bundleJsonResponse("patient_data",pat,repository,id).getText());
         }
         catch (IOException IOe)
         {
         	System.out.println("Couldn't print");
-        } 
+        }   */
 
         //convert to JSON
         return WebUtils.bundleJsonResponse( "patient_data", pat, repository, id );

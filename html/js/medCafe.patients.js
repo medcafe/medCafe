@@ -276,10 +276,10 @@ function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRe
 
 
 					"bJQueryUI": true,
-					"aaSortingFixed": [[ 0, 'asc' ], [ 1, 'asc'] ],
+					"aaSortingFixed": [[ 0, 'asc' ]],
 					"aoColumns": [
 							{ "bVisible": false },
-						{ "bVisible": false },
+
 								null,
 								null
 									]

@@ -7,6 +7,7 @@ import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
+import org.projecthdata.hdata.schemas._2009._06.support.*;
 
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
@@ -39,6 +40,11 @@ public abstract class Repository
      *  Get a problem list for a patient.
      */
     public abstract List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId);
+
+   /**
+     *  Get a support (contact) list for a patient.
+     */
+    public abstract List<Support> getSupportInfo(String patientId);
 
 
     /**

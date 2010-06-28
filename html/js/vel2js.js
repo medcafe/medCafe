@@ -445,13 +445,13 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
 t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th><th></th><th></th></tr></thead><tbody>');
+t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
 var orderno = 1;
 t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Patient ID</td><td value="');
+t.p('</td><td>Patient ID</td><td value="');
 t.p( context.patient_id);
 t.p('">');
 t.p( context.patient_id);
@@ -461,7 +461,7 @@ t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Patient Name</td>');
+t.p('</td><td>Patient Name</td>');
 var space = " ";
 t.p('    ');
 t.p('<td value =');
@@ -493,13 +493,13 @@ t.p(' 	');
 }
 t.p( context.patient_data.name.lastname);
 t.p('</td></tr>');
-orderno = ( orderno + 1 );
 if (context.patient_data.address) {
 var addresscount = 0;
 t.p('	');
 for (var i2=0;  i2<context.patient_data.address.length; i2++) {
 var addressDetail = context.patient_data.address[i2];
 velocityCount = i2;
+orderno = ( orderno + 1 );
 var linecount = 0;
 t.p('		');
 if (addressDetail.streetAddress) {
@@ -511,16 +511,8 @@ t.p('				');
 if (linecount > 0) {
 t.p(' <tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td></td><td value = "');
 t.p( streetAdd);
 t.p('">');
@@ -530,16 +522,8 @@ t.p('</td></tr>				');
 else {
 t.p(' <tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td>Patient Address</td><td value = "');
 t.p( streetAdd);
 t.p('">');
@@ -552,18 +536,11 @@ t.p('							');
 velocityCount = i2;
 t.p('					');
 }
+orderno = ( orderno + 1 );
 t.p('		<tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td></td><td value= "');
 t.p( addressDetail.city);
 t.p('", "');
@@ -582,21 +559,16 @@ t.p('	');
 }
 
 }
-orderno = ( orderno + 1 );
 if (context.patient_data.telecom) {
-var telecomCount = 0;
-t.p('	');
+t.p('		');
 for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
 var telecomDetail = context.patient_data.telecom[i2];
 velocityCount = i2;
+orderno = ( orderno + 1 );
 t.p('		<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td value = "');
-t.p( telecomCount);
-t.p('">');
-t.p( telecomCount);
 t.p('</td>		');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
 t.p('			<td value = Patient "');
@@ -628,8 +600,7 @@ t.p('-');
 t.p( telecomDetail.value.substring(6));
 t.p('</td></tr>		');
 }
-telecomCount = ( telecomCount + 1 );
-t.p('			');
+t.p('	');
 }
 
 }
@@ -639,7 +610,7 @@ t.p('	<tr class = "gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Language Spoken</td><td value = ');
+t.p('</td><td>Language Spoken</td><td value = ');
 t.p( context.patient_data.language);
 t.p('>');
 t.p( context.patient_data.language);
@@ -650,7 +621,7 @@ t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Gender</td><td value="');
+t.p('</td><td>Gender</td><td value="');
 t.p( context.patient_data.gender.displayName);
 t.p('">');
 t.p( context.patient_data.gender.displayName);
@@ -661,7 +632,7 @@ t.p('	<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Marital Status</td><td value="');
+t.p('</td><td>Marital Status</td><td value="');
 t.p( context.patient_data.maritialStatus.displayName);
 t.p('">');
 t.p( context.patient_data.maritialStatus.displayName);
@@ -674,7 +645,7 @@ t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Race</td><td value =	');
+t.p('</td><td>Race</td><td value =	');
 for (var i2=0;  i2<context.patient_data.race.length; i2++) {
 var raceDetail = context.patient_data.race[i2];
 velocityCount = i2;
@@ -715,7 +686,7 @@ t.p('<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Birth Date</td><td value="');
+t.p('</td><td>Birth Date</td><td value="');
 t.p( context.patient_data.birthtime.month);
 t.p('/');
 t.p( context.patient_data.birthtime.day);
@@ -744,7 +715,7 @@ t.p('		<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p('</td><td>Birth Place</td><td value="');
 t.p( context.patient_data.birthPlace.city);
 t.p('", "');
 t.p( context.patient_data.birthPlace.stateOrProvince);
@@ -760,7 +731,7 @@ t.p('		<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p('</td><td>Birth Place</td><td value="');
 t.p( context.patient_data.birthPlace.stateOrProvince);
 t.p('">');
 t.p( context.patient_data.birthPlace.stateOrProvince);
@@ -772,7 +743,7 @@ t.p('		<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Birth Place</td><td value="');
+t.p('</td><td>Birth Place</td><td value="');
 t.p( context.patient_data.birthPlace.city);
 t.p('">');
 t.p( context.patient_data.birthPlace.city);
@@ -781,13 +752,14 @@ t.p('</td></tr>	');
 }
 }
 }
-orderno = ( orderno + 1 );
 if (context.patient_data.guardian && context.patient_data.guardian.name) {
+t.p('	');
+orderno = ( orderno + 1 );
 t.p('	<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td>0</td><td>Guardian</td>	<td value =	');
+t.p('</td><td>Guardian</td>	<td value =	');
 if (context.patient_data.guardian.name.given) {
 t.p('		');
 for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
@@ -820,8 +792,6 @@ t.p('	');
 t.p( context.patient_data.guardian.name.lastname);
 t.p('</td></tr>');
 t.p('	');
-orderno = ( orderno + 1 );
-t.p('	');
 if (context.patient_data.guardian.address) {
 var addresscount = 0;
 t.p('		');
@@ -835,20 +805,13 @@ t.p('				');
 for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
 var streetAdd = addressDetail.streetAddress[i5];
 velocityCount = i5;
+orderno = ( orderno + 1 );
 t.p('					');
 if (linecount > 0) {
 t.p(' <tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td></td><td value = "');
 t.p( streetAdd);
 t.p('">');
@@ -858,16 +821,8 @@ t.p('</td></tr>					');
 else {
 t.p(' <tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td>Guardian Address</td><td value = "');
 t.p( streetAdd);
 t.p('">');
@@ -880,18 +835,11 @@ t.p('								');
 velocityCount = i3;
 t.p('							');
 }
+orderno = ( orderno + 1 );
 t.p('			<tr class="gradeX"><td value = "');
 t.p( orderno);
-t.p('"."');
-t.p( addresscount);
 t.p('">');
 t.p( orderno);
-t.p('.');
-t.p( addresscount);
-t.p('</td><td value = "');
-t.p( linecount);
-t.p('">');
-t.p( linecount);
 t.p('</td><td></td><td value= "');
 t.p( addressDetail.city);
 t.p('", "');
@@ -912,22 +860,16 @@ t.p('		');
 t.p('	');
 }
 t.p('	');
-orderno = ( orderno + 1 );
-t.p('	');
 if (context.patient_data.guardian.telecom) {
-var telecomCount = 0;
 t.p('		');
 for (var i3=0;  i3<context.patient_data.guardian.telecom.length; i3++) {
 var telecomDetail = context.patient_data.guardian.telecom[i3];
 velocityCount = i3;
+orderno = ( orderno + 1 );
 t.p('			<tr class="gradeX"><td value = "');
 t.p( orderno);
 t.p('">');
 t.p( orderno);
-t.p('</td><td value = "');
-t.p( telecomCount);
-t.p('">');
-t.p( telecomCount);
 t.p('</td>			');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
 t.p('				<td value = Guardian "');
@@ -959,8 +901,7 @@ t.p('-');
 t.p( telecomDetail.value.substring(6));
 t.p('</td></tr>			');
 }
-telecomCount = ( telecomCount + 1 );
-t.p('				');
+t.p('		');
 }
 
 t.p('	');
@@ -1211,6 +1152,265 @@ velocityCount = i1;
 t.p('    </optgroup>');
 }
 velocityCount = 0;
+return t.toString();
+}
+function v2js_listSupportInfo(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="supportInfo');
+t.p( context.patient_id);
+t.p('"><thead><tr><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>');
+var contactNumber = 0;
+for (var i1=0;  i1<context.supportInfo.length; i1++) {
+var support = context.supportInfo[i1];
+velocityCount = i1;
+t.p('	');
+var conType = 'undefined';
+t.p('	');
+if (support.contactType.valueOf() == 'AGNT') {
+conType = 'Agent';
+t.p('	');
+}
+else {
+if (support.contactType.valueOf() == 'ECON') {
+conType = 'Emergency Contact';
+t.p('	');
+}
+else {
+if (support.contactType.valueOf() == 'CAREGIVER') {
+conType = 'Caregiver';
+t.p('	');
+}
+else {
+if (support.contactType.valueOf() == 'NOK') {
+conType = 'Next of Kin';
+t.p('	');
+}
+else {
+if (support.contactType.valueOf() == 'PRS') {
+conType = support.contactRelationship.displayName;
+t.p('	');
+}
+}
+}
+}
+}
+var orderno = 1;
+t.p('	<tr class="gradeX"><td value = "');
+t.p( contactNumber);
+t.p('">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>Name</td>	<td value =	');
+if (support.contact.name.given) {
+t.p('		');
+for (var i3=0;  i3<support.contact.name.given.length; i3++) {
+var givenNameDetail = support.contact.name.given[i3];
+velocityCount = i3;
+t.p('			"');
+t.p( givenNameDetail);
+t.p(' " 				');
+}
+velocityCount = i1;
+t.p('	');
+}
+t.p('	"');
+t.p( support.contact.name.lastname);
+t.p('">	');
+if (support.contact.name.given) {
+t.p('		');
+for (var i3=0;  i3<support.contact.name.given.length; i3++) {
+var givenNameDetail = support.contact.name.given[i3];
+velocityCount = i3;
+t.p('			');
+t.p( givenNameDetail);
+t.p( context.space);
+t.p(' 		');
+}
+velocityCount = i1;
+t.p('	');
+}
+t.p('	');
+t.p( support.contact.name.lastname);
+t.p('</td></tr>	');
+if (support.contact.address) {
+var addresscount = 0;
+t.p('		');
+for (var i3=0;  i3<support.contact.address.length; i3++) {
+var addressDetail = support.contact.address[i3];
+velocityCount = i3;
+var linecount = 0;
+t.p('			');
+if (addressDetail.streetAddress) {
+t.p('				');
+for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
+var streetAdd = addressDetail.streetAddress[i5];
+velocityCount = i5;
+orderno = ( orderno + 1 );
+t.p('					');
+if (linecount > 0) {
+t.p(' <tr class="gradeX"><td value = "contactNumber">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td></td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>					');
+}
+else {
+t.p(' <tr class="gradeX"><td value = "contactNumber">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>Address</td><td value = "');
+t.p( streetAdd);
+t.p('">');
+t.p( streetAdd);
+t.p('</td></tr>					');
+}
+linecount = ( linecount + 1 );
+t.p('								');
+}
+velocityCount = i3;
+t.p('							');
+}
+orderno = ( orderno + 1 );
+t.p('			<tr class="gradeX"><td value = "contactNumber">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td></td><td value= "');
+t.p( addressDetail.city);
+t.p('", "');
+t.p( addressDetail.stateOrProvince);
+t.p('"  "');
+t.p( addressDetail.zip);
+t.p('">');
+t.p( addressDetail.city);
+t.p(', ');
+t.p( addressDetail.stateOrProvince);
+t.p('  ');
+t.p( addressDetail.zip);
+t.p('</td></tr>			');
+addresscount = ( addresscount + 1 );
+t.p('		');
+}
+velocityCount = i1;
+t.p('	');
+}
+t.p('	');
+if (support.contact.telecom) {
+t.p('		');
+for (var i3=0;  i3<support.contact.telecom.length; i3++) {
+var telecomDetail = support.contact.telecom[i3];
+velocityCount = i3;
+orderno = ( orderno + 1 );
+t.p('			<tr class="gradeX"><td value = "contactNumber">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td>			');
+if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+t.p('				<td value = "');
+t.p( conType);
+t.p('"\'s "');
+t.p( telecomDetail.type);
+t.p('" address>');
+t.p( conType);
+t.p('\'s ');
+t.p( telecomDetail.type);
+t.p(' address</td><td value = "');
+t.p( telecomDetail.value);
+t.p('">');
+t.p( telecomDetail.value);
+t.p('</td></tr>			');
+}
+else {
+t.p('				<td value = "');
+t.p( conType);
+t.p('"\'s "');
+t.p( telecomDetail.use);
+t.p('" number>');
+t.p( conType);
+t.p('\'s ');
+t.p( telecomDetail.use);
+t.p(' number</td><td value = "');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('"-"');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('"-"');
+t.p( telecomDetail.value.substring(6));
+t.p('">');
+t.p( telecomDetail.value.substring(0, 3));
+t.p('-');
+t.p( telecomDetail.value.substring(3, 6));
+t.p('-');
+t.p( telecomDetail.value.substring(6));
+t.p('</td></tr>			');
+}
+t.p('		');
+}
+velocityCount = i1;
+t.p('	');
+}
+orderno = ( orderno + 1 );
+t.p('	');
+if (support.contactRelationship.displayName) {
+t.p('		<tr class="gradeX"><td value = "contactNumber">');
+t.p( contactNumber);
+t.p('</td><td value = "');
+t.p( conType);
+t.p('">');
+t.p( conType);
+t.p('</td><td value = "');
+t.p( orderno);
+t.p('">');
+t.p( orderno);
+t.p('</td><td>Relationship</td><td value= "');
+t.p( support.contactRelationship.displayName);
+t.p('">');
+t.p( support.contactRelationship.displayName);
+t.p('</td></tr>	');
+}
+t.p('	');
+contactNumber = ( contactNumber + 1 );
+}
+velocityCount = 0;
+t.p('</tbody></table>');
 return t.toString();
 }
 function v2js_listWidgets(context) { 

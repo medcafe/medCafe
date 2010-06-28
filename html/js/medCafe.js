@@ -273,6 +273,20 @@ $(document).ready( function() {
 		{
 			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);			
 		}
+		else if  (type == "Support")
+		{
+			if (typeof addProblemInfo == 'undefined')
+			{
+				$.getScript('js/medCafe.supportInfo.js', function()
+				{
+					addSupportInfo(this, link, tab_num, label, patientId, repId, patientRepId);
+				});
+			}
+			else
+			{
+				addSupportInfo(this, link, tab_num, label, patientId, repId, patientRepId);
+			}
+		}
 		else
 		{
 			

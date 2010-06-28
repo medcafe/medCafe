@@ -109,6 +109,15 @@
 	<method></method>
 	<repository>local</repository>
 </medCafeWidget>
+<medCafeWidget>
+	<name>SupportInfo</name>
+	<type>Support</type>
+	<image>Address_Book.png</image>
+	<server></server>
+	<clickUrl>supportListJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
 </patientSpecific>
 <general>
 <medCafeWidget>

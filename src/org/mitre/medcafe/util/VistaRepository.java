@@ -18,6 +18,8 @@ import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
+import org.projecthdata.hdata.schemas._2009._06.support.Support;
+import org.projecthdata.hdata.schemas._2009._06.support.ContactRelationship;
 import com.medsphere.vistarpc.RPCConnection;
 import com.medsphere.vistarpc.RPCBrokerConnection;
 import com.medsphere.vistarpc.RPCException;
@@ -131,7 +133,7 @@ public class VistaRepository extends Repository {
             }
 
             // marital status
-	
+
             FMMaritalStatus fmMarStatus = patientRepository.getMaritalStatus(filemanPat);
             if (fmMarStatus != null) {
                 boolean unknown = false;
@@ -353,12 +355,12 @@ public class VistaRepository extends Repository {
        // }
         //conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
 	try{
-	conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);        
+	conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
 	}
 	catch (RPCException e)
 	{
 		throw new OvidDomainException(e.getMessage());
-	}	
+	}
 	//conn = factory.getConnection();
         if (conn == null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
@@ -441,7 +443,46 @@ public class VistaRepository extends Repository {
             return list;
         }
     }
+    public List<Support> getSupportInfo(String id)
+    {
+        List<Support> list = new ArrayList<Support>();
+        try {
+            if (setConnection()) {
+                PatientRepository patRepository = new PatientRepository(conn);
+                Collection<String> ids = new ArrayList<String>();
+                ids.add(id);
+                Collection<FMPatientContact> fmPatientList = patRepository.getContacts(ids);
+                for (FMPatientContact fmPatient : fmPatientList)
+                {
+                    Collection<FMPatientContact.ContactInfo> contactList = fmPatient.getContacts();
+                    for (FMPatientContact.ContactInfo contact : contactList)
+                    {
+                        FMPatientContact.ContactType cType = contact.getType();
+                        switch (cType) {
+                            case NEXT_OF_KIN:
+                            case EMERGENCY:
+                            case GUARDIAN:
+                            case DESIGNEE:
+                                fillInContactInfo(list, contact);
+                                break;
+                            default:
+                        }
 
+
+                    }
+                }
+                log.finer("Number of contacts for patient " + id + " is " + list.size());
+            } else {
+                log.warning("BAD CONNECTION");
+            }
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving PatientItems", e);
+        } finally {
+            closeConnection();
+            return list;
+        }
+    }
     public List<Medication> getMedications(String id) {
         List<Medication> list = new ArrayList<Medication>();
         try {
@@ -553,5 +594,52 @@ public class VistaRepository extends Repository {
             telecom.setUse(use);
             teleList.add(telecom);
         }
+    }
+    private void fillInContactInfo(List<Support> list, FMPatientContact.ContactInfo contact)
+    {
+        Support support = new Support();
+        Person person = new Person();
+        Name personName = new Name();
+        String[] nameParts = contact.getName().split(",");
+        personName.setLastname(nameParts[0]);
+        List<String> given = personName.getGiven();
+        for (int i = 1; i < nameParts.length; i++) {
+            given.add(nameParts[i]);
+        }
+
+        person.setName(personName);
+        List<Address> addressList = person.getAddress();
+        Address address = new Address();
+        address.setCity(contact.getCity());
+        address.setStateOrProvince(contact.getState());
+        address.setZip(contact.getZip());
+        List<String> streetAddresses = address.getStreetAddress();
+        streetAddresses.add(contact.getStreet1());
+        String streetAddress = contact.getStreet2();
+        if (stringExists(streetAddress)) {
+            streetAddresses.add(streetAddress);
+        }
+        addressList.add(address);
+
+        List<Telecom> teleList = person.getTelecom();
+        setPhoneNumber(teleList, contact.getPhoneNumber(), "phone-landline", "home");
+        setPhoneNumber(teleList, contact.getAltPhoneNumber(), "phone-landline", "work");
+        support.setContact(person);
+        ContactRelationship relationship = new ContactRelationship();
+        if (stringExists(contact.getRelationshipToPatient())){
+            relationship.setDisplayName(contact.getRelationshipToPatient());
+            support.setContactRelationship(relationship);
+        }
+        switch (contact.getType()) {
+            case NEXT_OF_KIN: support.setContactType("NOK");
+                             break;
+            case GUARDIAN:
+            case DESIGNEE:   support.setContactType("AGNT");
+                             break;
+            case EMERGENCY: support.setContactType("ECON");
+                             break;
+
+        }
+        list.add(support);
     }
 }
