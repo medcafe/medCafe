@@ -787,4 +787,74 @@ public class PatientRepository extends OvidSecureRepository {
 
         }
     }
+    public Collection<FMPatient> searchByNameComponentsForPatients(String family, String given, String middle) throws OvidDomainException
+    {
+           Collection<FMPatient> list = new ArrayList<FMPatient>();
+
+        try {
+            ResAdapter adapter = obtainServerRPCAdapter();
+
+            FMQueryFind query = new FMQueryFind(adapter, FMNameComponents.getFileInfoForClass());
+            query.setIndex("B", "2");
+            FMScreen screen = new FMScreenEquals(new FMScreenField("FILE"), new FMScreenValue("2"));
+           screen = new FMScreenAnd(screen, new FMScreenEquals( new FMScreenField("FIELD"), new FMScreenValue(".01")));
+           query.setScreen(screen);
+            FMResultSet results = query.execute();
+            if (results != null) {
+                if (results.getError() != null) {
+                    throw new OvidDomainException(results.getError());
+                }
+                while (results.next()) {
+                    FMNameComponents nameComp = new FMNameComponents(results);
+
+
+                    boolean match = true;
+                    if (family != null && !family.equals(""))
+                    {
+                        int searchLength = family.length();
+                    
+                        if (nameComp.getFamilyName()== null ||searchLength > nameComp.getFamilyName().length() ||
+                                !family.equals(nameComp.getFamilyName().substring(0,searchLength)))
+                                match = false;
+
+                    }
+                    if (match && given != null && !given.equals(""))
+                     {
+                        int searchLength = given.length();
+                        if (nameComp.getGiven() == null || searchLength > nameComp.getGiven().length() ||
+                                !given.equals(nameComp.getGiven().substring(0,searchLength)))
+                                match = false;
+
+                    }
+                   if (match && middle != null && !middle.equals(""))
+                     {
+                        int searchLength = middle.length();
+                        if (nameComp.getMiddleName() == null || searchLength > nameComp.getMiddleName().length() ||
+                                !middle.equals(nameComp.getMiddleName().substring(0,searchLength)))
+                                match = false;
+
+                    }
+                    if (match)
+                    {
+
+                        String pointer = nameComp.getOriginatingFileIEN().substring(0,nameComp.getOriginatingFileIEN().length()-1);
+                        FMPatient patient = getPatientByIEN(pointer);
+                        patient.setFamilyName(nameComp.getFamilyName());
+                        patient.setMiddleName(nameComp.getMiddleName());
+                        patient.setGivenName(nameComp.getGiven());
+                        patient.setPrefix(nameComp.getPrefix());
+                        patient.setSuffix(nameComp.getSuffix());
+
+                        list.add(patient);
+                    }
+
+                }
+            }
+        } catch (ResException e) {
+            throw new OvidDomainException(e);
+        }
+
+        return list;
+
+    }
 }

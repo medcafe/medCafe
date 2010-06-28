@@ -156,6 +156,10 @@ public class FMNameComponents extends FMRecord {
     {
         return (iens.length()>0);
     }
+    public String getOriginatingFileIEN()
+    {
+	return iens;
+    }
     public void setIENS(String originatingFileIEN)
     {
         iens = originatingFileIEN + ",";
