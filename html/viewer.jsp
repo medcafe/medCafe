@@ -4,17 +4,15 @@
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patient1/chest-xray.jpg";
+	String tabNum = request.getParameter("tab_num");
+	
 %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>jquery.iviewer test</title>
-        <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ></script>-->
-        <script type="text/javascript" src="js/jquery-1.3.2.js" ></script>
-        <script type="text/javascript" src="js/jquery.mousewheel.js" ></script>
-        <script type="text/javascript" src="js/jquery.iviewer.js" ></script>
         <script type="text/javascript">
             var $ = jQuery;
-            $(document).ready(function(){
+            /*$(document).ready(function(){
             	  var server = "<%=imageName%>";
             	 
                   $("#viewer").iviewer(
@@ -24,7 +22,7 @@
                   
                  
                 
-            });
+            });*/
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
         <style>
@@ -47,7 +45,8 @@
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
         <div class="wrapper">
             
-            <div id="viewer" class="viewer"></div>
+            <div id="viewerImageName"><%=imageName%></div>
+            <div id="viewer<%=tabNum%>" class="viewer"></div>
             <br />
             
         </div>

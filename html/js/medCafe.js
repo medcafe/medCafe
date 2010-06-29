@@ -159,6 +159,12 @@ $(document).ready( function() {
 			
 			addPatientDetail(this, link, tab_num, label, patientId, repId, patientRepId);
 		}
+		else if  (type == "Viewer")
+		{
+			
+			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+			
+		}
 		else if  (type == "Repository")
 		{
 
@@ -507,7 +513,6 @@ function displayImage(imageName)
 	 }
 	 var tab_num = addTab(imageTitle, "Image");
 
-	  	
      var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
@@ -545,12 +550,19 @@ function displayImage(imageName)
 				$("#viewerButton" + tab_num).bind("click",{},
 				function(e)
 				{
-	
-					var tab_num = addTab(imageTitle + "Viewer","Viewer");
-	
-					var link = "viewer.jsp?image=" + server;
+					var type= "Viewer";
+					var label = imageTitle +"Viewer";
+				
+					var newTab_num = addTab(label, type);
+					if (newTab_num < 0)
+						return;
+						
+					var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
 					
-					addChart(this, link, tab_num);
+					createWidgetContent("",link, label, type ,newTab_num, "","","");
+								
+					//addWidgetTab(this, link, tab_num, "", "", "", type);
+					//addChart(this, link, tab_num);
 				});
 	
 				$("#editButton" + tab_num).bind("click",{},

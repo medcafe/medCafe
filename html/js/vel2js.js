@@ -966,9 +966,10 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
 t.p( context.repository);
 t.p('"><thead><tr><th></th><th></th></tr></thead><tbody>');
-for (var i1=0;  i1<context.patients.length; i1++) {
-var patient = context.patients[i1];
-velocityCount = i1;
+if (context.patients) {
+for (var i2=0;  i2<context.patients.length; i2++) {
+var patient = context.patients[i2];
+velocityCount = i2;
 t.p('    <tr class="gradeX"><td value="');
 t.p( patient.id);
 t.p('"><span class="summary"><a href="');
@@ -980,7 +981,8 @@ t.p('">');
 t.p( patient.name);
 t.p('</td></tr>');
 }
-velocityCount = 0;
+
+}
 t.p('</tbody></table>');
 return t.toString();
 }
@@ -1069,6 +1071,43 @@ count = ( count + 1 );
 t.p('	');
 }
 velocityCount = 0;
+t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listProblemListTableLocal(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
+}
+t.p('		<tr class="gradeX">		<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>		<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>		<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+
+}
 t.p('</tbody><table>');
 return t.toString();
 }

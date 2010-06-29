@@ -452,5 +452,20 @@ $(document).ready( function() {
 				processTimeline(repId, patientId, patientRepId, data, type, tab_num);		
 			}	
 		}	
-		
+		else if ( type == "Viewer")
+		{
+			
+			if (typeof processViewerImages == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.viewer.js', function()
+				{
+					processViewerImages(repId, patientId, patientRepId, data, type, tab_num);
+				});
+			}
+			else
+			{
+				processViewerImages(repId, patientId, patientRepId, data, type, tab_num);		
+			}	
+		}	
 	}

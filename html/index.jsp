@@ -72,7 +72,8 @@
  	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
  	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
  	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white medCafe"></script>
-        
+    <script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
+    
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
