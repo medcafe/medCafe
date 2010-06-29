@@ -4,12 +4,7 @@
 <%
 
 	String patientId = request.getParameter("patient_id");	
-	if (patientId == null)
-	{
-		Object patientObj = session.getAttribute("patient");
-		if (patientObj != null)
-		 	patientId = patientObj.toString();
-	}
+	
 	
 	String repository = request.getParameter("repository");	
 			
