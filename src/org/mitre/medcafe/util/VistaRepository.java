@@ -612,6 +612,7 @@ public class VistaRepository extends Repository {
         Address address = new Address();
         address.setCity(contact.getCity());
         address.setStateOrProvince(contact.getState());
+	String zip = contact.getZip();
         address.setZip(contact.getZip());
         List<String> streetAddresses = address.getStreetAddress();
         streetAddresses.add(contact.getStreet1());

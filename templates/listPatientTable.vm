@@ -68,7 +68,7 @@ $patient_data.name.lastname</td></tr>
 		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
 			<td value = Patient "$telecomDetail.type" address>Patient $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
 		#else			
-			<td value = Patient "$telecomDetail.use" number>Patient $telecomDetail.use number</td><td value = "$telecomDetail.value.substring(0,3)"-"$telecomDetail.value.substring(3,6)"-"$telecomDetail.value.substring(6)">$telecomDetail.value.substring(0,3)-$telecomDetail.value.substring(3,6)-$telecomDetail.value.substring(6)</td></tr>
+			<td value = Patient "$telecomDetail.use" number>Patient $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
 		#end		
 	#end
 #end
@@ -191,7 +191,7 @@ $patient_data.name.lastname</td></tr>
 			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
 				<td value = Guardian "$telecomDetail.type" address>Guardian $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
 			#else			
-				<td value = Guardian "$telecomDetail.use" number>Guardian $telecomDetail.use number</td><td value = "$telecomDetail.value.substring(0,3)"-"$telecomDetail.value.substring(3,6)"-"$telecomDetail.value.substring(6)">$telecomDetail.value.substring(0,3)-$telecomDetail.value.substring(3,6)-$telecomDetail.value.substring(6)</td></tr>
+				<td value = Guardian "$telecomDetail.use" number>Guardian $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
 			#end		
 		#end
 	#end

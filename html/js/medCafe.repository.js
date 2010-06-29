@@ -94,7 +94,14 @@ function addRepository(callObj, server, tab_num, label, repId)
 											//alert( $("#example" + patientId).text());
 											
 											$("#example" + detailId).dataTable( {
-												"aaSorting": [[ 0, "desc" ]]
+											"aaSortingFixed": [[ 0, 'asc' ]],
+											"aoColumns": [
+											{ "bVisible": false },
+		
+												null,
+												null
+														]
+
 												,"bJQueryUI": true
 											} );
 											setHasContent(tab_num);

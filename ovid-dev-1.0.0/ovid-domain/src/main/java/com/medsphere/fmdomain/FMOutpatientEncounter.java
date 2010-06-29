@@ -81,7 +81,12 @@ public class FMOutpatientEncounter extends FMRecord {
     protected Integer location;
     @FMAnnotateFieldInfo( name="DATE TIME CREATED", number="104", fieldType=FMField.FIELDTYPE.DATE)
     protected Date dateTimeCreated;
-
+    @FMAnnotateFieldInfo( name = "UNIQUE VISIT NUMBER", number = ".2", fieldType = FMField.FIELDTYPE.FREE_TEXT)
+    String visitNo;
+    @FMAnnotateFieldInfo( name = "APPOINTMENT TYPE", number = ".1", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    Integer appointmentType;
+    @FMAnnotateFieldInfo( name = "VISIT FILE ENTRY", number = ".05", fieldType = FMField.POINTER_TO_FILE)
+    Integer visitPointer;
     public FMOutpatientEncounter() {
         super( fileInfo.getFileName() );
     }

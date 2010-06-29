@@ -70,7 +70,7 @@
 			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
 				<td value = "$conType"'s "$telecomDetail.type" address>$conType's $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
 			#else			
-				<td value = "$conType"'s "$telecomDetail.use" number>$conType's $telecomDetail.use number</td><td value = "$telecomDetail.value.substring(0,3)"-"$telecomDetail.value.substring(3,6)"-"$telecomDetail.value.substring(6)">$telecomDetail.value.substring(0,3)-$telecomDetail.value.substring(3,6)-$telecomDetail.value.substring(6)</td></tr>
+				<td value = "$conType"'s "$telecomDetail.use" number>$conType's $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
 			#end		
 		#end
 	#end
