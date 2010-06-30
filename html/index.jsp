@@ -38,7 +38,8 @@
 	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
 	<link rel="Stylesheet" href="${css}/ui.slider.extras.css" type="text/css" />
 	<link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
-	
+	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
+			
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
@@ -77,7 +78,9 @@
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
- 	 
+ 	<script type="text/javascript" src="js/jquery.annotate.js"></script>
+
+	
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.selection.js"></script>
 	<script>

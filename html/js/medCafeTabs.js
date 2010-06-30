@@ -468,4 +468,20 @@ $(document).ready( function() {
 				processViewerImages(repId, patientId, patientRepId, data, type, tab_num);		
 			}	
 		}	
+		else if ( type == "Annotate")
+		{
+			
+			if (typeof processAnnotateImages == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.annotate.js', function()
+				{
+					processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num);
+				});
+			}
+			else
+			{
+				processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num);		
+			}	
+		}	
 	}

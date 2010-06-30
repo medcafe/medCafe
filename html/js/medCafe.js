@@ -165,6 +165,12 @@ $(document).ready( function() {
 			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
 			
 		}
+		else if  (type == "Annotate")
+		{
+			
+			addWidgetTab(this, link, tab_num, patientId, repId, patientRepId, type);
+			
+		}
 		else if  (type == "Repository")
 		{
 
@@ -293,6 +299,10 @@ $(document).ready( function() {
 				addSupportInfo(this, link, tab_num, label, patientId, repId, patientRepId);
 			}
 		}
+		else if (type == "SingleImage")
+		{
+			displayImage(link, patientId, tab_num);
+		}
 		else
 		{
 			
@@ -356,24 +366,6 @@ $(document).ready( function() {
 		} );
 	}
 
-	function imageAnnotate(callObj, server, tab_num)
-	{
-
-		//Delay to let the DOM refresh
-		$(callObj).delay(100,function()
-		{
-			iNettuts.refresh("yellow-widget" + tab_num);
-
-			var html = "<img id=\"toAnnotate\" src=\"" + server + "\" alt=\""+  server + "\" width=\"600\" height=\"398\" />";
-			var jspSvr = "annotate.jsp";
-
-			$("#aaa" + tab_num).append('<iframe id="annotateiframe" width="800" height="400"/>');
-			$('#annotateiframe').attr('src', jspSvr);
-
-			setHasContent(tab_num);
-
-		} );
-	}
 	function filterDate()
 	{
 		   //alert("Filter Date");
@@ -498,9 +490,10 @@ $(document).ready( function() {
   }
 
 
-function displayImage(imageName)
+function displayImage(imageName, patientId, tab_num)
 {
 	//Delay to let the DOM refresh
+
 
 	 var server =  imageName ;
 
@@ -511,8 +504,10 @@ function displayImage(imageName)
 	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
 
 	 }
-	 var tab_num = addTab(imageTitle, "Image");
-
+	 if ( tab_num == -1)
+	 {
+	  	tab_num = addTab(imageTitle, "Image");
+	 }
      var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
@@ -559,8 +554,8 @@ function displayImage(imageName)
 						
 					var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
 					
-					createWidgetContent("",link, label, type ,newTab_num, "","","");
-								
+					createWidgetContent(patientId,link, label, type ,newTab_num, "","local",patientId);
+						
 					//addWidgetTab(this, link, tab_num, "", "", "", type);
 					//addChart(this, link, tab_num);
 				});
@@ -569,13 +564,21 @@ function displayImage(imageName)
 				function(e)
 				{
 	
-					var tab_num = addTab(imageTitle + "Annotate", "Annotate");
+					var type= "Annotate";
+					var label = imageTitle +"Annotate";
+				
+					var newTab_num = addTab(imageTitle + "Annotate", "Annotate");
 	
-					var link = server;
-					imageAnnotate(this, link, tab_num);
+					var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
+					
+					createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
+					//imageAnnotate(this, link, tab_num);
 				});
+				
+				
 			  } );
 		  
+		  	
 		  });//2nd delay
 }
 

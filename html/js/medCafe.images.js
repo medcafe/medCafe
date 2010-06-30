@@ -4,9 +4,9 @@ $(function(){
 		initializeImages();
 });
     
-function initializeImages()
+function initializeImages(patient_id)
 {
-    	addImageButton("7");
+		addImageButton("7");
 }
     
 function addImageButton( patient_id)
@@ -32,7 +32,7 @@ function addImageButton( patient_id)
 	});
 }
 
-function filterImages( startDate, endDate, categories, tab_num)
+function filterImages( patientId, startDate, endDate, categories, tab_num)
 {
 	var delim = "=";
 	//var fileUrl = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
@@ -67,7 +67,11 @@ function filterImages( startDate, endDate, categories, tab_num)
  		$("#flowFile").delay(2500,function()
 		{
 			if (cf == undefined)
-				cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});	
+			{
+				ContentFlowGlobal.setAddOnConf('medCafe', {patient_id: patientId});
+				cf = new ContentFlow('contentFlow', {reflectionColor: "#000000", patient_id: patientId});	
+				
+			}
 			else
 			{
 				//alert("medCafe.images.js filterImages about to refresh through init");
