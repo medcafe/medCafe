@@ -80,16 +80,21 @@ public class VistaRepository extends Repository {
             //set  name
             Name name = new Name();
             List<String> given = name.getGiven();
-	    if (stringExists(filemanPat.getGivenName()))
-		given.add(filemanPat.getGivenName());
-	    if (stringExists(filemanPat.getMiddleName()))
-            	given.add(filemanPat.getMiddleName());
-	    if (stringExists(filemanPat.getSuffix()))
-            	name.setSuffix(filemanPat.getSuffix());
-	    if (stringExists(filemanPat.getFamilyName()))
-		name.setLastname(filemanPat.getFamilyName());
-	    if (stringExists(filemanPat.getPrefix()))
-            	name.setTitle(filemanPat.getPrefix());
+            if (stringExists(filemanPat.getGivenName())) {
+                given.add(filemanPat.getGivenName());
+            }
+            if (stringExists(filemanPat.getMiddleName())) {
+                given.add(filemanPat.getMiddleName());
+            }
+            if (stringExists(filemanPat.getSuffix())) {
+                name.setSuffix(filemanPat.getSuffix());
+            }
+            if (stringExists(filemanPat.getFamilyName())) {
+                name.setLastname(filemanPat.getFamilyName());
+            }
+            if (stringExists(filemanPat.getPrefix())) {
+                name.setTitle(filemanPat.getPrefix());
+            }
             ret.setName(name);
 
             // set address
@@ -143,54 +148,61 @@ public class VistaRepository extends Repository {
 
                 char letter = fmMarStatus.getName().charAt(0);
                 switch (letter) {
-                    case 'D': marStatus.setCode("D");
-                              marStatus.setDisplayName("Divorced");
-                              break;
-                    case 'M': marStatus.setCode("M");
-                              marStatus.setDisplayName("Married");
-                              break;
-                    case 'W': marStatus.setCode("W");
-                              marStatus.setDisplayName("Widowed");
-                              break;
-                    case 'N': marStatus.setCode("S");
-                              marStatus.setDisplayName("Never Married");
-                              break;
-                    case 'S': marStatus.setCode("L");
-                              marStatus.setDisplayName("Legally Separated");
-                              break;
-                    case 'U': unknown = true;
+                    case 'D':
+                        marStatus.setCode("D");
+                        marStatus.setDisplayName("Divorced");
+                        break;
+                    case 'M':
+                        marStatus.setCode("M");
+                        marStatus.setDisplayName("Married");
+                        break;
+                    case 'W':
+                        marStatus.setCode("W");
+                        marStatus.setDisplayName("Widowed");
+                        break;
+                    case 'N':
+                        marStatus.setCode("S");
+                        marStatus.setDisplayName("Never Married");
+                        break;
+                    case 'S':
+                        marStatus.setCode("L");
+                        marStatus.setDisplayName("Legally Separated");
+                        break;
+                    case 'U':
+                        unknown = true;
 
-                              break;
+                        break;
                 }
-                if (!unknown)
+                if (!unknown) {
                     ret.setMaritialStatus(marStatus);
+                }
             }
 
             //Race
             Collection<FMRaceInformation> patRaceList = patientRepository.getRaceInformation(filemanPat);
-	    if (patRaceList.size()>0)
-	    {
-         	   List<Race> raceList = ret.getRace();
-            	for (FMRaceInformation raceInfo : patRaceList) {
-                	Race race = new Race();
-                	race.setCodeSystem("2.16.840.1.113883.6.238");
-                	race.setCodeSystemName("CDC Race and Ethnicity");
-                	String raceDesc = raceInfo.getRaceInformationValue();
-                	race.setDisplayName(raceDesc);
-                	String twoChars = raceDesc.substring(0,2);
-                	if (twoChars.equalsIgnoreCase("AM"))
-                	    race.setCode("1004-1");
-                	else if (twoChars.equalsIgnoreCase("AS"))
-                	    race.setCode("2028-9)");
-                	else if (twoChars.equalsIgnoreCase("BL"))
-                	    race.setCode("2058-6");
-                	else if (twoChars.equalsIgnoreCase("NA"))
-                	    race.setCode("2076-8");
-                	else if (twoChars.equalsIgnoreCase("WH"))
-                	    race.setCode("2106-3");
-                	raceList.add(race);
-            	}
-	    }
+            if (patRaceList.size() > 0) {
+                List<Race> raceList = ret.getRace();
+                for (FMRaceInformation raceInfo : patRaceList) {
+                    Race race = new Race();
+                    race.setCodeSystem("2.16.840.1.113883.6.238");
+                    race.setCodeSystemName("CDC Race and Ethnicity");
+                    String raceDesc = raceInfo.getRaceInformationValue();
+                    race.setDisplayName(raceDesc);
+                    String twoChars = raceDesc.substring(0, 2);
+                    if (twoChars.equalsIgnoreCase("AM")) {
+                        race.setCode("1004-1");
+                    } else if (twoChars.equalsIgnoreCase("AS")) {
+                        race.setCode("2028-9)");
+                    } else if (twoChars.equalsIgnoreCase("BL")) {
+                        race.setCode("2058-6");
+                    } else if (twoChars.equalsIgnoreCase("NA")) {
+                        race.setCode("2076-8");
+                    } else if (twoChars.equalsIgnoreCase("WH")) {
+                        race.setCode("2106-3");
+                    }
+                    raceList.add(race);
+                }
+            }
             //Guardian info
             if (filemanPat.getAge() < 18 || filemanPat.getCivilGuardianDateRuledIncompetent() != null
                     || filemanPat.getIncompVADate() != null) {
@@ -247,34 +259,33 @@ public class VistaRepository extends Repository {
                         }
                         addressList.add(address);
                         teleList = guardian.getTelecom();
-                        setPhoneNumber(teleList, filemanPat.getNokPhoneNumber(), "phone-landline","home");
+                        setPhoneNumber(teleList, filemanPat.getNokPhoneNumber(), "phone-landline", "home");
                         setPhoneNumber(teleList, filemanPat.getNokWorkPhoneNumber(), "phone-landline", "work");
 
                     }
-                }
-                        else if (stringExists(vaGuardName)) {
+                } else if (stringExists(vaGuardName)) {
 
-                        String[] nameParts = vaGuardName.split(",");
-                        guardName.setLastname(nameParts[0]);
-                        given = guardName.getGiven();
-                        for (int i = 1; i < nameParts.length; i++) {
-                            given.add(nameParts[i]);
-                        }
-                        guardian.setName(guardName);
-                        addressList = guardian.getAddress();
-                        address = new Address();
-                        address.setCity(filemanPat.getVaGuardianCity());
-                        address.setStateOrProvince(filemanPat.getVaGuardianStateValue());
-                        address.setZip(filemanPat.getVaGuardianZip4());
-                        streetAddresses = address.getStreetAddress();
-                        streetAddresses.add(filemanPat.getVaGuardianStreetAddress1());
-                        streetAddress = filemanPat.getVaGuardianStreetAddress2();
-                        if (stringExists(streetAddress)) {
-                            streetAddresses.add(streetAddress);
-                        }
-                        addressList.add(address);
-                        teleList = guardian.getTelecom();
-                        setPhoneNumber(teleList, filemanPat.getVaGuardianPhone(), "other", "other");
+                    String[] nameParts = vaGuardName.split(",");
+                    guardName.setLastname(nameParts[0]);
+                    given = guardName.getGiven();
+                    for (int i = 1; i < nameParts.length; i++) {
+                        given.add(nameParts[i]);
+                    }
+                    guardian.setName(guardName);
+                    addressList = guardian.getAddress();
+                    address = new Address();
+                    address.setCity(filemanPat.getVaGuardianCity());
+                    address.setStateOrProvince(filemanPat.getVaGuardianStateValue());
+                    address.setZip(filemanPat.getVaGuardianZip4());
+                    streetAddresses = address.getStreetAddress();
+                    streetAddresses.add(filemanPat.getVaGuardianStreetAddress1());
+                    streetAddress = filemanPat.getVaGuardianStreetAddress2();
+                    if (stringExists(streetAddress)) {
+                        streetAddresses.add(streetAddress);
+                    }
+                    addressList.add(address);
+                    teleList = guardian.getTelecom();
+                    setPhoneNumber(teleList, filemanPat.getVaGuardianPhone(), "other", "other");
                 }
                 ret.setGuardian(guardian);
             }
@@ -328,21 +339,22 @@ public class VistaRepository extends Repository {
         }
     }
 
-  /*  public static void factorySetUp(String[] creds) {
-        try {
-            factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
-        } catch (Exception e) {
-            log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
-        }
+    /*  public static void factorySetUp(String[] creds) {
+    try {
+    factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
+    } catch (Exception e) {
+    log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
     }
-*/
+    }
+     */
     public void onShutdown() {
-   /*     if (factory != null) {
-            factory.emptyPool();
+        /*     if (factory != null) {
+        factory.emptyPool();
         }
         factory = null;  */
-	if (conn!=null)
-		closeConnection();
+        if (conn != null) {
+            closeConnection();
+        }
     }
 
     /**
@@ -350,18 +362,16 @@ public class VistaRepository extends Repository {
      *  @return true if conneciton worked.  False otherwise.
      */
     protected boolean setConnection() throws OvidDomainException {
-      //  if (factory == null) {
-      //      factorySetUp(credentials);
-       // }
+        //  if (factory == null) {
+        //      factorySetUp(credentials);
+        // }
         //conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
-	try{
-	conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
-	}
-	catch (RPCException e)
-	{
-		throw new OvidDomainException(e.getMessage());
-	}
-	//conn = factory.getConnection();
+        try {
+            conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
+        } catch (RPCException e) {
+            throw new OvidDomainException(e.getMessage());
+        }
+        //conn = factory.getConnection();
         if (conn == null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
             return false;
@@ -443,8 +453,8 @@ public class VistaRepository extends Repository {
             return list;
         }
     }
-    public List<Support> getSupportInfo(String id)
-    {
+
+    public List<Support> getSupportInfo(String id) {
         List<Support> list = new ArrayList<Support>();
         try {
             if (setConnection()) {
@@ -452,11 +462,9 @@ public class VistaRepository extends Repository {
                 Collection<String> ids = new ArrayList<String>();
                 ids.add(id);
                 Collection<FMPatientContact> fmPatientList = patRepository.getContacts(ids);
-                for (FMPatientContact fmPatient : fmPatientList)
-                {
+                for (FMPatientContact fmPatient : fmPatientList) {
                     Collection<FMPatientContact.ContactInfo> contactList = fmPatient.getContacts();
-                    for (FMPatientContact.ContactInfo contact : contactList)
-                    {
+                    for (FMPatientContact.ContactInfo contact : contactList) {
                         FMPatientContact.ContactType cType = contact.getType();
                         switch (cType) {
                             case NEXT_OF_KIN:
@@ -483,6 +491,7 @@ public class VistaRepository extends Repository {
             return list;
         }
     }
+
     public List<Medication> getMedications(String id) {
         List<Medication> list = new ArrayList<Medication>();
         try {
@@ -595,8 +604,8 @@ public class VistaRepository extends Repository {
             teleList.add(telecom);
         }
     }
-    private void fillInContactInfo(List<Support> list, FMPatientContact.ContactInfo contact)
-    {
+
+    private void fillInContactInfo(List<Support> list, FMPatientContact.ContactInfo contact) {
         Support support = new Support();
         Person person = new Person();
         Name personName = new Name();
@@ -612,7 +621,7 @@ public class VistaRepository extends Repository {
         Address address = new Address();
         address.setCity(contact.getCity());
         address.setStateOrProvince(contact.getState());
-	String zip = contact.getZip();
+        String zip = contact.getZip();
         address.setZip(contact.getZip());
         List<String> streetAddresses = address.getStreetAddress();
         streetAddresses.add(contact.getStreet1());
@@ -627,20 +636,48 @@ public class VistaRepository extends Repository {
         setPhoneNumber(teleList, contact.getAltPhoneNumber(), "phone-landline", "work");
         support.setContact(person);
         ContactRelationship relationship = new ContactRelationship();
-        if (stringExists(contact.getRelationshipToPatient())){
+        if (stringExists(contact.getRelationshipToPatient())) {
             relationship.setDisplayName(contact.getRelationshipToPatient());
             support.setContactRelationship(relationship);
         }
         switch (contact.getType()) {
-            case NEXT_OF_KIN: support.setContactType("NOK");
-                             break;
+            case NEXT_OF_KIN:
+                support.setContactType("NOK");
+                break;
             case GUARDIAN:
-            case DESIGNEE:   support.setContactType("AGNT");
-                             break;
-            case EMERGENCY: support.setContactType("ECON");
-                             break;
+            case DESIGNEE:
+                support.setContactType("AGNT");
+                break;
+            case EMERGENCY:
+                support.setContactType("ECON");
+                break;
 
         }
         list.add(support);
+    }
+
+    public Collection<FMRecord> getTimeLineInfo(String ien) {
+        Collection<FMRecord> list = new ArrayList<FMRecord>();
+
+
+        try {
+            if (setConnection()) {
+                for (FMPatientMovement patMove : new PatientMovementRepository(conn).getPatientMovementByPatientDFN(ien)) {
+
+                    list.add(patMove);
+                }
+                for (FMOutpatientEncounter patEncoun : new OutpatientEncounterRepository(conn).getOutpatientEncounterByPatientDFN(ien)) {
+                    list.add(patEncoun);
+                }
+            } else {
+                return null;
+            }
+            return list;
+        } catch (OvidDomainException e) {
+            log.log(Level.SEVERE, "Error retrieving patient list", e);
+            return null;
+        } finally {
+            closeConnection();
+        }
     }
 }

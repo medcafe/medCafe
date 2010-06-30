@@ -54,7 +54,7 @@ public class OutpatientEncounterRepository extends OvidSecureRepository {
             FMQueryList query = new FMQueryList(adapter, FMOutpatientEncounter.getFileInfoForClass());
             FMScreen byDFN = new FMScreenEquals(new FMScreenField("PATIENT"), new FMScreenValue(patientDFN));
             query.getField("LOCATION").setInternal(false);
-	    query.getField("APPOINTMENT TYPE").setInternal(false);
+	    		query.getField("APPOINTMENT TYPE").setInternal(false);
             query.setScreen(byDFN);
             FMResultSet results = query.execute();
             if (results != null) {

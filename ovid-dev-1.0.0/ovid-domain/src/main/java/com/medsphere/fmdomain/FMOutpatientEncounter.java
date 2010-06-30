@@ -106,8 +106,22 @@ public class FMOutpatientEncounter extends FMRecord {
     public Integer getLocation() {
         return location;
     }
-
+    public String getLocationValue(){
+    	  return getValue("LOCATION");
+    }
     public Date getDateTimeCreated() {
         return dateTimeCreated;
     }
+    public Integer getVisitFileIEN(){
+    		return visitPointer;
+	}
+	public String getVisitNumber(){
+		  return visitNo;
+	}
+	public Integer getAppointmentType(){
+		  return appointmentType;
+	}
+	public String getAppointmentTypeValue(){
+		return getValue("APPOINTMENT TYPE");
+	}
 }
