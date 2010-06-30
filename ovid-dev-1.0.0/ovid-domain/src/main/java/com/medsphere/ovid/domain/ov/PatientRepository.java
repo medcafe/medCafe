@@ -17,6 +17,7 @@ package com.medsphere.ovid.domain.ov;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.HashMap;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -55,6 +56,8 @@ import com.medsphere.vistarpc.RPCResponse;
 import com.medsphere.vistarpc.VistaRPC;
 import com.medsphere.vistarpc.RPCResponse.ResponseType;
 
+
+
 public class PatientRepository extends OvidSecureRepository {
 
     private Logger logger = Logger.getLogger(PatientRepository.class);
@@ -62,6 +65,7 @@ public class PatientRepository extends OvidSecureRepository {
     public PatientRepository(RPCConnection serverConnection) {
         super(null, serverConnection);
     }
+
     public PatientRepository(RPCConnection connection, RPCConnection serverCconnection) {
         super(connection, serverCconnection);
     }
@@ -209,115 +213,106 @@ public class PatientRepository extends OvidSecureRepository {
         return list;
 
     }
-     // added
-
+    // added
 
     public void addPatient(FMPatientContact patient, FMNameComponents nameComp) throws OvidDomainException {
 
         try {
-        ResAdapter adapter =  obtainServerRPCAdapter();
+            ResAdapter adapter = obtainServerRPCAdapter();
 
-        FMInsert insert = new FMInsert(adapter);
+            FMInsert insert = new FMInsert(adapter);
 
-        patient.setName(nameComp);
-        insert.setEntry(patient);
+            patient.setName(nameComp);
+            insert.setEntry(patient);
 
-        FMResultSet results = insert.execute();
-        if (results == null || results.getError() != null) {
-            logger.error("Error, unable to insert because " + results.getError());
-        } else {
-            System.out.println("added as IEN " + patient.getIEN());
-            nameComp.setIENS(patient.getIEN());
-            insert = new FMInsert(adapter);
-            insert.setEntry(nameComp);
-            results = insert.execute();
-        if (results == null || results.getError() != null) {
-            logger.error("Error, unable to insert because " + results.getError());
-        } else {
-            System.out.println("added as IEN " + nameComp.getIEN());
+            FMResultSet results = insert.execute();
+            if (results == null || results.getError() != null) {
+                logger.error("Error, unable to insert because " + results.getError());
+            } else {
+                System.out.println("added as IEN " + patient.getIEN());
+                nameComp.setIENS(patient.getIEN());
+                insert = new FMInsert(adapter);
+                insert.setEntry(nameComp);
+                results = insert.execute();
+                if (results == null || results.getError() != null) {
+                    logger.error("Error, unable to insert because " + results.getError());
+                } else {
+                    System.out.println("added as IEN " + nameComp.getIEN());
 
-        }
-        }
-        }
-        catch (OvidDomainException ovidE)
-        {
+                }
+            }
+        } catch (OvidDomainException ovidE) {
             throw ovidE;
-        }
-        catch (ResException resE)
-        {
-            logger.error("Error unable to insert because "+ resE.getMessage());
+        } catch (ResException resE) {
+            logger.error("Error unable to insert because " + resE.getMessage());
         }
 
     }
 
-        public void updatePatient(FMPatientContact patient, FMNameComponents nameComp) throws OvidDomainException {
+    public void updatePatient(FMPatientContact patient, FMNameComponents nameComp) throws OvidDomainException {
 
         try {
-        ResAdapter adapter =  obtainServerRPCAdapter();
+            ResAdapter adapter = obtainServerRPCAdapter();
 
-        FMUpdate update = new FMUpdate(adapter);
-        patient.setName(nameComp);
+            FMUpdate update = new FMUpdate(adapter);
+            patient.setName(nameComp);
 
-        update.setEntry(patient);
+            update.setEntry(patient);
 
-        FMResultSet results = update.execute();
-        if (results == null || results.getError() != null) {
-            logger.error("Error, unable to update because " + results.getError());
-        } else {
-            System.out.println("updated IEN " + patient.getIEN());
-            nameComp.setIENS(patient.getIEN());
-        }
+            FMResultSet results = update.execute();
+            if (results == null || results.getError() != null) {
+                logger.error("Error, unable to update because " + results.getError());
+            } else {
+                System.out.println("updated IEN " + patient.getIEN());
+                nameComp.setIENS(patient.getIEN());
+            }
 
-        update = new FMUpdate(adapter);
+            update = new FMUpdate(adapter);
 
 
-        update.setEntry(nameComp);
+            update.setEntry(nameComp);
 
-        results = update.execute();
-        if (results == null || results.getError() != null) {
-            logger.error("Error, unable to update because " + results.getError());
-        } else {
-            System.out.println("updated name components for " + patient.getIEN());
-        }
-        }
-        catch (OvidDomainException ovidE)
-        {
+            results = update.execute();
+            if (results == null || results.getError() != null) {
+                logger.error("Error, unable to update because " + results.getError());
+            } else {
+                System.out.println("updated name components for " + patient.getIEN());
+            }
+        } catch (OvidDomainException ovidE) {
             throw ovidE;
-        }
-        catch (ResException resE)
-        {
-            logger.error("Error unable to update because "+ resE.getMessage());
+        } catch (ResException resE) {
+            logger.error("Error unable to update because " + resE.getMessage());
         }
 
     }
-/*  not implemented yet   
-     private void admitPatient(FMPatientContact patient, FMPatientMovement admit) throws OvidDomainException {
-
-        try {
-        ResAdapter adapter =  obtainServerRPCAdapter();
-
-        FMInsert insert = new FMInsert(adapter);
-        admit.setPatient(patient);
-        insert.setEntry(admit);
-
-        FMResultSet results = insert.execute();
-        if (results == null || results.getError() != null) {
-            logger.error("Error, unable to insert because " + results.getError());
-        } else {
-            System.out.println("added as IEN " + patient.getIEN());
-        }
-        }
-        catch (OvidDomainException ovidE)
-        {
-            throw ovidE;
-        }
-        catch (ResException resE)
-        {
-            logger.error("Error unable to insert because "+ resE.getMessage());
-        }
-
+    /*  not implemented yet
+    private void admitPatient(FMPatientContact patient, FMPatientMovement admit) throws OvidDomainException {
+    
+    try {
+    ResAdapter adapter =  obtainServerRPCAdapter();
+    
+    FMInsert insert = new FMInsert(adapter);
+    admit.setPatient(patient);
+    insert.setEntry(admit);
+    
+    FMResultSet results = insert.execute();
+    if (results == null || results.getError() != null) {
+    logger.error("Error, unable to insert because " + results.getError());
+    } else {
+    System.out.println("added as IEN " + patient.getIEN());
     }
-*/
+    }
+    catch (OvidDomainException ovidE)
+    {
+    throw ovidE;
+    }
+    catch (ResException resE)
+    {
+    logger.error("Error unable to insert because "+ resE.getMessage());
+    }
+    
+    }
+     */
 
     public void fetchNameComponents(FMPatient patient) throws OvidDomainException {
         Collection<FMPatient> collection = new ArrayList<FMPatient>();
@@ -339,13 +334,13 @@ public class PatientRepository extends OvidSecureRepository {
             try {
                 FMQueryList query;
                 ResAdapter adapter = obtainServerRPCAdapter();
-                query = new FMQueryList( adapter, nameComponent );
+                query = new FMQueryList(adapter, nameComponent);
                 FMScreen nameComponentScreen = null;
                 for (FMPatient pat : patients) {
                     FMScreen forOnePatient = new FMScreenAnd(
-                                                   new FMScreenAnd(new FMScreenEquals(new FMScreenField("FILE"), new FMScreenValue("2")),
-                                                                 new FMScreenEquals(new FMScreenField("FIELD"), new FMScreenValue(".01"))),
-                                             new FMScreenEquals(new FMScreenField(".03"), new FMScreenValue(pat.getIEN()+",")));
+                            new FMScreenAnd(new FMScreenEquals(new FMScreenField("FILE"), new FMScreenValue("2")),
+                            new FMScreenEquals(new FMScreenField("FIELD"), new FMScreenValue(".01"))),
+                            new FMScreenEquals(new FMScreenField(".03"), new FMScreenValue(pat.getIEN() + ",")));
 
                     if (nameComponentScreen == null) {
                         nameComponentScreen = forOnePatient;
@@ -359,7 +354,7 @@ public class PatientRepository extends OvidSecureRepository {
                 while (results.next()) {
                     FMRecord entry = new FMRecord(results);
                     for (FMPatient patient : patients) {
-                        if ((patient.getIEN()+",").equals(entry.getValue(".03"))) {
+                        if ((patient.getIEN() + ",").equals(entry.getValue(".03"))) {
                             patient.setFamilyName(entry.getValue("1"));
                             patient.setGivenName(entry.getValue("2"));
                             patient.setMiddleName(entry.getValue("3"));
@@ -379,6 +374,7 @@ public class PatientRepository extends OvidSecureRepository {
         }
 
     }
+
     public Collection<FMDemographicPatient> getDemographics(Collection<String> iens) throws OvidDomainException {
         Collection<FMDemographicPatient> patients = new ArrayList<FMDemographicPatient>();
 
@@ -404,7 +400,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("PROVIDER").setInternal(false);
             query.getField("STATE").setInternal(false);
             query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
-	 //   query.getField("MARITAL STATUS").setInternal(false);
+            //   query.getField("MARITAL STATUS").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -421,7 +417,7 @@ public class PatientRepository extends OvidSecureRepository {
             throw new OvidDomainException(e);
         }
 
-        fetchNameComponents((Collection)patients);
+        fetchNameComponents((Collection) patients);
 
         return patients;
 
@@ -433,8 +429,8 @@ public class PatientRepository extends OvidSecureRepository {
             ResAdapter adapter = obtainServerRPCAdapter();
             FMRaceInformation raceInformation = patient.getRaceInformation();
 
-            FMQueryList query = new FMQueryList( adapter,  raceInformation.getFile());
-	    query.getField("RACE INFORMATION").setInternal(false);
+            FMQueryList query = new FMQueryList(adapter, raceInformation.getFile());
+            query.getField("RACE INFORMATION").setInternal(false);
             query.getField("METHOD OF COLLECTION").setInternal(false);
             FMResultSet results = query.execute();
             while (results.next()) {
@@ -443,7 +439,8 @@ public class PatientRepository extends OvidSecureRepository {
             }
         } catch (ResException e) {
             throw new OvidDomainException(e);
-        } finally {}
+        } finally {
+        }
         return raceInformationList;
     }
 
@@ -453,7 +450,7 @@ public class PatientRepository extends OvidSecureRepository {
             ResAdapter adapter = obtainServerRPCAdapter();
             FMEthnicity ethnicity = patient.getEthnicity();
 
-            FMQueryList query = new FMQueryList( adapter,  ethnicity.getFile());
+            FMQueryList query = new FMQueryList(adapter, ethnicity.getFile());
             query.getField("ETHNICITY INFORMATION").setInternal(false);
             query.getField("METHOD OF COLLECTION").setInternal(false);
             FMResultSet results = query.execute();
@@ -463,7 +460,8 @@ public class PatientRepository extends OvidSecureRepository {
             }
         } catch (ResException e) {
             throw new OvidDomainException(e);
-        } finally {}
+        } finally {
+        }
         return ethnicityList;
     }
 
@@ -477,7 +475,7 @@ public class PatientRepository extends OvidSecureRepository {
             ResAdapter adapter = obtainServerRPCAdapter();
             FMQueryList query = new FMQueryList(adapter, FMMaritalStatus.getFileInfoForClass());
 
-            FMScreen byIEN =  new FMScreenEquals(new FMScreenIEN(), new FMScreenValue(patient.getMaritalStatus().toString()));
+            FMScreen byIEN = new FMScreenEquals(new FMScreenIEN(), new FMScreenValue(patient.getMaritalStatus().toString()));
 
             query.setScreen(byIEN);
             FMResultSet results = query.execute();
@@ -532,7 +530,7 @@ public class PatientRepository extends OvidSecureRepository {
             query.getField("E2-STATE").setInternal(false);
             query.getField("D-STATE").setInternal(false);
             query.getField("PLACE OF BIRTH (STATE)").setInternal(false);
-	   // query.getField("MARITAL STATUS").setInternal(false);
+            // query.getField("MARITAL STATUS").setInternal(false);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -548,7 +546,7 @@ public class PatientRepository extends OvidSecureRepository {
         } catch (ResException e) {
             throw new OvidDomainException(e);
         }
-        fetchNameComponents((Collection)patients);
+        fetchNameComponents((Collection) patients);
         return patients;
 
     }
@@ -586,8 +584,8 @@ public class PatientRepository extends OvidSecureRepository {
         nameList.add(name);
         return patientLookup(nameList);
     }
-
     private final String RPC_CONTEXT = "OR CPRS GUI CHART";
+
     private Collection<FMPatient> patientLookup(Collection<String> values) throws OvidDomainException {
         Collection<FMPatient> patients = new ArrayList<FMPatient>();
 
@@ -615,7 +613,7 @@ public class PatientRepository extends OvidSecureRepository {
             }
             Collection<String> iens = new ArrayList<String>();
             for (String item : items) {
-                String parts[] = item.split("\\^",-1);
+                String parts[] = item.split("\\^", -1);
                 if (parts.length > 0) {
                     String id = parts[0];
                     iens.add(id);
@@ -669,7 +667,7 @@ public class PatientRepository extends OvidSecureRepository {
         try {
 
             if (args == null || args.length == 0) {
-                args = new String[] { "localhost", "9201", "OV1234", "OV1234!!", "PU1234", "PU1234!!"};
+                args = new String[]{"localhost", "9201", "OV1234", "OV1234!!", "PU1234", "PU1234!!"};
             }
             if (args.length < 6) {
                 System.err.println("usage: PatientRepository <host> <port> <ovid-access-code> <ovid-verify-code> <user-access-code> <user-verify-code>");
@@ -677,7 +675,7 @@ public class PatientRepository extends OvidSecureRepository {
             }
 
             serverConn = new RPCBrokerConnection(args[0], new Integer(args[1]), args[2], args[3]);
-            if (serverConn==null) {
+            if (serverConn == null) {
                 return;
             }
 
@@ -699,8 +697,7 @@ public class PatientRepository extends OvidSecureRepository {
                         + "\n\tcurrent admission = " + lpatient.getCurrentAdmission()
                         + "\n\tadmitting physician = " + lpatient.getAdmittingPhysician()
                         + "\n\tadmitting diagnosis = " + lpatient.getAdmittingDiagnosis()
-                        + "\n\tDFN = " + lpatient.getIEN()
-                        );
+                        + "\n\tDFN = " + lpatient.getIEN());
 
             }
 
@@ -721,8 +718,7 @@ public class PatientRepository extends OvidSecureRepository {
                         + "\n\tcurrent admission = " + lpatient.getCurrentAdmission()
                         + "\n\tadmitting physician = " + lpatient.getAdmittingPhysician()
                         + "\n\tadmitting diagnosis = " + lpatient.getAdmittingDiagnosis()
-                        + "\n\tDFN = " + lpatient.getIEN()
-                        );
+                        + "\n\tDFN = " + lpatient.getIEN());
 
             }
 
@@ -742,8 +738,7 @@ public class PatientRepository extends OvidSecureRepository {
                         + "\n\tcurrent admission = " + lpatient.getCurrentAdmission()
                         + "\n\tadmitting physician = " + lpatient.getAdmittingPhysician()
                         + "\n\tadmitting diagnosis = " + lpatient.getAdmittingDiagnosis()
-                        + "\n\tDFN = " + lpatient.getIEN()
-                        );
+                        + "\n\tDFN = " + lpatient.getIEN());
             }
 
             FMPatient patient = new PatientRepository(userConn, serverConn).getPatientByIEN("5");
@@ -787,9 +782,11 @@ public class PatientRepository extends OvidSecureRepository {
 
         }
     }
-    public Collection<FMPatient> searchByNameComponentsForPatients(String family, String given, String middle) throws OvidDomainException
-    {
-           Collection<FMPatient> list = new ArrayList<FMPatient>();
+
+    public Collection<FMPatient> searchByNameComponentsForPatients(String family, String given, String middle) throws OvidDomainException {
+        Collection<FMPatient> list = new ArrayList<FMPatient>();
+        HashMap<String, FMNameComponents> nameMap = new HashMap<String, FMNameComponents>();
+        Collection<String> iens = new ArrayList<String>();
 
         try {
             ResAdapter adapter = obtainServerRPCAdapter();
@@ -797,8 +794,8 @@ public class PatientRepository extends OvidSecureRepository {
             FMQueryFind query = new FMQueryFind(adapter, FMNameComponents.getFileInfoForClass());
             query.setIndex("B", "2");
             FMScreen screen = new FMScreenEquals(new FMScreenField("FILE"), new FMScreenValue("2"));
-           screen = new FMScreenAnd(screen, new FMScreenEquals( new FMScreenField("FIELD"), new FMScreenValue(".01")));
-           query.setScreen(screen);
+            screen = new FMScreenAnd(screen, new FMScreenEquals(new FMScreenField("FIELD"), new FMScreenValue(".01")));
+            query.setScreen(screen);
             FMResultSet results = query.execute();
             if (results != null) {
                 if (results.getError() != null) {
@@ -809,52 +806,65 @@ public class PatientRepository extends OvidSecureRepository {
 
 
                     boolean match = true;
-                    if (family != null && !family.equals(""))
-                    {
+                    if (family != null && !family.equals("")) {
                         int searchLength = family.length();
-                    
-                        if (nameComp.getFamilyName()== null ||searchLength > nameComp.getFamilyName().length() ||
-                                !family.equals(nameComp.getFamilyName().substring(0,searchLength)))
-                                match = false;
+
+                        if (nameComp.getFamilyName() == null || searchLength > nameComp.getFamilyName().length()
+                                || !family.equalsIgnoreCase(nameComp.getFamilyName().substring(0, searchLength))) {
+                            match = false;
+                        }
 
                     }
-                    if (match && given != null && !given.equals(""))
-                     {
+                    if (match && given != null && !given.equals("")) {
                         int searchLength = given.length();
-                        if (nameComp.getGiven() == null || searchLength > nameComp.getGiven().length() ||
-                                !given.equals(nameComp.getGiven().substring(0,searchLength)))
-                                match = false;
+                        if (nameComp.getGiven() == null || searchLength > nameComp.getGiven().length()
+                                || !given.equalsIgnoreCase(nameComp.getGiven().substring(0, searchLength))) {
+                            match = false;
+                        }
 
                     }
-                   if (match && middle != null && !middle.equals(""))
-                     {
+                    if (match && middle != null && !middle.equals("")) {
                         int searchLength = middle.length();
-                        if (nameComp.getMiddleName() == null || searchLength > nameComp.getMiddleName().length() ||
-                                !middle.equals(nameComp.getMiddleName().substring(0,searchLength)))
-                                match = false;
+                        if (nameComp.getMiddleName() == null || searchLength > nameComp.getMiddleName().length()
+                                || !middle.equalsIgnoreCase(nameComp.getMiddleName().substring(0, searchLength))) {
+                            match = false;
+                        }
 
                     }
-                    if (match)
-                    {
+                    if (match) {
 
-                        String pointer = nameComp.getOriginatingFileIEN().substring(0,nameComp.getOriginatingFileIEN().length()-1);
-                        FMPatient patient = getPatientByIEN(pointer);
-                        patient.setFamilyName(nameComp.getFamilyName());
-                        patient.setMiddleName(nameComp.getMiddleName());
-                        patient.setGivenName(nameComp.getGiven());
-                        patient.setPrefix(nameComp.getPrefix());
-                        patient.setSuffix(nameComp.getSuffix());
+                        String pointer = nameComp.getOriginatingFileIEN().substring(0, nameComp.getOriginatingFileIEN().length() - 1);
 
-                        list.add(patient);
+                        nameMap.put(pointer, nameComp);
+                        iens.add(pointer);
                     }
 
+                }
+
+            }
+            if (iens.size() > 0) {
+
+                list = getPatientsForIENS(iens);
+
+                for (FMPatient patient : list) {
+
+                    FMNameComponents nameComp = nameMap.get(patient.getIEN());
+
+                    patient.setFamilyName(nameComp.getFamilyName());
+                    patient.setMiddleName(nameComp.getMiddleName());
+                    patient.setGivenName(nameComp.getGiven());
+                    patient.setPrefix(nameComp.getPrefix());
+                    patient.setSuffix(nameComp.getSuffix());
                 }
             }
         } catch (ResException e) {
             throw new OvidDomainException(e);
         }
 
+
+
         return list;
 
     }
 }
+

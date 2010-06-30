@@ -85,7 +85,7 @@ public class FMOutpatientEncounter extends FMRecord {
     String visitNo;
     @FMAnnotateFieldInfo( name = "APPOINTMENT TYPE", number = ".1", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     Integer appointmentType;
-    @FMAnnotateFieldInfo( name = "VISIT FILE ENTRY", number = ".05", fieldType = FMField.POINTER_TO_FILE)
+    @FMAnnotateFieldInfo( name = "VISIT FILE ENTRY", number = ".05", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     Integer visitPointer;
     public FMOutpatientEncounter() {
         super( fileInfo.getFileName() );

@@ -587,17 +587,9 @@ t.p( telecomDetail.use);
 t.p('" number>Patient ');
 t.p( telecomDetail.use);
 t.p(' number</td><td value = "');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('"-"');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('"-"');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('">');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('-');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('-');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('</td></tr>		');
 }
 t.p('	');
@@ -888,17 +880,9 @@ t.p( telecomDetail.use);
 t.p('" number>Guardian ');
 t.p( telecomDetail.use);
 t.p(' number</td><td value = "');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('"-"');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('"-"');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('">');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('-');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('-');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('</td></tr>			');
 }
 t.p('		');
@@ -967,10 +951,11 @@ t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="examp
 t.p( context.repository);
 t.p('"><thead><tr><th></th><th></th></tr></thead><tbody>');
 if (context.patients) {
+t.p('	');
 for (var i2=0;  i2<context.patients.length; i2++) {
 var patient = context.patients[i2];
 velocityCount = i2;
-t.p('    <tr class="gradeX"><td value="');
+t.p('    	<tr class="gradeX"><td value="');
 t.p( patient.id);
 t.p('"><span class="summary"><a href="');
 t.p('#" class="details">');
@@ -979,7 +964,7 @@ t.p('</a></span></td><td value="');
 t.p( patient.name);
 t.p('">');
 t.p( patient.name);
-t.p('</td></tr>');
+t.p('</td></tr>	');
 }
 
 }
@@ -1071,43 +1056,6 @@ count = ( count + 1 );
 t.p('	');
 }
 velocityCount = 0;
-t.p('</tbody><table>');
-return t.toString();
-}
-function v2js_listProblemListTableLocal(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
-if (context.patientProblem) {
-t.p('	');
-for (var i2=0;  i2<context.patientProblem.length; i2++) {
-var problem = context.patientProblem[i2];
-velocityCount = i2;
-t.p('				');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
-t.p( problem.patient_id);
-t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
-}
-t.p('		<tr class="gradeX">		<td value="');
-t.p( problem.title);
-t.p('">');
-t.p( problem.title);
-t.p('</td>		<td value="');
-t.p( problem.note);
-t.p('">');
-t.p( problem.note);
-t.p('</td>		<td value="');
-t.p( problem.priority);
-t.p('">');
-t.p( problem.priority);
-t.p('</td>		</tr>		');
-count = ( count + 1 );
-t.p('			');
-}
-
-}
 t.p('</tbody><table>');
 return t.toString();
 }
@@ -1408,17 +1356,9 @@ t.p( conType);
 t.p('\'s ');
 t.p( telecomDetail.use);
 t.p(' number</td><td value = "');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('"-"');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('"-"');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('">');
-t.p( telecomDetail.value.substring(0, 3));
-t.p('-');
-t.p( telecomDetail.value.substring(3, 6));
-t.p('-');
-t.p( telecomDetail.value.substring(6));
+t.p( telecomDetail.value);
 t.p('</td></tr>			');
 }
 t.p('		');
