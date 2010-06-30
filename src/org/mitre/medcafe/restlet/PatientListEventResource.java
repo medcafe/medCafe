@@ -117,6 +117,7 @@ public class PatientListEventResource extends ServerResource {
                 inner_obj.put("title", event.getTitle());
                 inner_obj.put("image", "http://" + server + "/" + imageDir +  event.getFileUrl());
                 inner_obj.put("icon", "http://" + server + "/images/" + event.getIcon());
+                inner_obj.put("link", "http://" + server + "/images/" + event.getLink());
                 obj.append("events", inner_obj); 
                 Date date = event.getEventDate();
                 String dateStr = eventDf.format(date);

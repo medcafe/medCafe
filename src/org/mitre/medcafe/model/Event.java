@@ -61,6 +61,7 @@ public class Event
 	private String fileUrl ="";
 	private String type ="";
 	private Date eventDate =new Date();
+	private String link ="";
 	
 	public static final String PATIENT_ID = "patient_id";
 	public static final String TITLE = "title";
@@ -251,9 +252,9 @@ public class Event
 				event.setEventDate(date);
 				event.setIcon(icon);
 					
-				if (type.equals("file"))
+				if (type.equals(Event.FILE_TYPE))
 				{
-					String fileName = rs.getString("thumbnail");
+					String fileName = rs.getString("filename");
 					event.setFileUrl(fileName);
 				}
 				//Set the event values
@@ -331,6 +332,14 @@ public class Event
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 	
 }

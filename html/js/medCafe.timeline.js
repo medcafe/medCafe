@@ -34,6 +34,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
          theme:          theme
      })
    ];
+   
    bandInfos[1].syncWith = 0;
    bandInfos[1].highlight = true;
    bandInfos[1].decorators = [
@@ -49,6 +50,22 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
             ];
             
     var tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+  
+  	//need this to overwrite the code for bubble
+	Timeline.OriginalEventPainter.prototype._showBubble = function(x, y, evt) {
+	  	    //alert("in original painter _showBubble  this._params.theme " +  this._params.theme);
+	  	    var div = document.createElement("div");
+		    var themeBubble = this._params.theme.event.bubble;
+		    //evt.fillInfoBubble(div, this._params.theme, this._band.getLabeller());
+		    //Method to be used to create code to bring up the details inside of medCafe
+		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId);
+		    var link = evt.getLink();
+		    //Rewrite the link - so that 
+		    SimileAjax.WindowManager.cancelPopups();
+		    SimileAjax.Graphics.createBubbleForContentAndPoint(div, x, y,
+	        themeBubble.width, null, themeBubble.maxHeight);
+	};
+	
  	var eventUrl ="listTimelineJSON.jsp?patient_id=" + patientId;
  	//"<%=listEvents%>";
  	
@@ -62,6 +79,9 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
             });
               
    });
+   
+  
+   
        
    //Submit the form on changes to checkbox     
    $(".eventChkBox").change(function ()
@@ -116,3 +136,54 @@ function onResize() {
     }
     timeline.paint();
 }
+
+//this is the code to be overriden to bring up the event inside of medCafe
+//See Timeline.DefaultEventSource.Event in sources.js for more detail on evt object
+function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId)
+{
+        var doc = elmt.ownerDocument;
+        
+        var title = evt.getText();
+        var link = evt.getLink();
+        var image = evt.getImage();
+        
+        if (image != null) {
+        
+        	//This is the code to display an Image in medCafe - may put this on the link click instead
+        	displayImage(image, patientId, -1);
+        	
+            var img = doc.createElement("img");
+            img.src = image;
+            
+            theme.event.bubble.imageStyler(img);
+            elmt.appendChild(img);
+        }
+        
+        var divTitle = doc.createElement("div");
+        var textTitle = doc.createTextNode(title);
+        if (link != null) {
+            var a = doc.createElement("a");
+            a.href = link;
+            a.appendChild(textTitle);
+            divTitle.appendChild(a);
+        } else {
+            divTitle.appendChild(textTitle);
+        }
+        theme.event.bubble.titleStyler(divTitle);
+        elmt.appendChild(divTitle);
+        
+        var divBody = doc.createElement("div");
+        evt.fillDescription(divBody);
+        theme.event.bubble.bodyStyler(divBody);
+        elmt.appendChild(divBody);
+        
+        var divTime = doc.createElement("div");
+        evt.fillTime(divTime, labeller);
+        theme.event.bubble.timeStyler(divTime);
+        elmt.appendChild(divTime);
+        
+        var divWiki = doc.createElement("div");
+        evt.fillWikiInfo(divWiki);
+        theme.event.bubble.wikiStyler(divWiki);
+        elmt.appendChild(divWiki);
+    }
