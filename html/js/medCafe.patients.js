@@ -2,13 +2,13 @@
 function initializePatient(server)
 {
 		var origserverLink = server;
-		
+
     	var emptyVal = '';
 		$("#last_name").blur(function(){
-			
+
 			var serverLink = origserverLink;
 			var isChecked = $("#isPatientChecked").attr('checked');
-	    		
+
 	    	if (isChecked)
 	    	{
 	    		serverLink = serverLink + "&isPatient=" + isChecked + "&";
@@ -17,39 +17,39 @@ function initializePatient(server)
 			serverLink = serverLink + "&search_str_last=" + lastNameVal;
 			var firstNameVal = $('#first_name').val();
 		    serverLink = serverLink +  "&search_str_first=" + firstNameVal;
-		      	  
+
 			 $.getJSON(serverLink,
 		      function(data)
 		      {
-		      	  
+
 		      	  //Check to see if any error message
-				  
+
 				  parent.updateAnnouncements(data);
 				  if (data.announce)
 				  {
 					return;
 				  }
-				  var html = v2js_listSearchPatientsSelect( data );  	 
+				  var html = v2js_listSearchPatientsSelect( data );
 
 			      $("#list_names").html(emptyVal + html);
 		      });
 		  });
-		
+
 		$("#first_name").blur(function(){
 			 //serverLink =  "searchPatientsJSON.jsp?";
 			 var serverLink = origserverLink;
 			 var isChecked = $("#isPatientChecked").attr('checked');
-	    		
+
 	    	if (isChecked)
 	    	{
 	    		serverLink = serverLink + "&isPatient=" + isChecked + "&";
-	    	}	
-	    	
+	    	}
+
 			var firstNameVal = $(this).val();
 			serverLink = serverLink + "&search_str_first=" + firstNameVal;
 			var lastNameVal = $('#last_name').val();
 		    serverLink = serverLink +  "&search_str_last=" + lastNameVal;
-		      	   
+
 		    $.getJSON(serverLink,
 		      function(data)
 		      {
@@ -59,13 +59,13 @@ function initializePatient(server)
 				  {
 					return;
 				  }
-				  var html = v2js_listSearchPatientsSelect( data );  	 
-				
+				  var html = v2js_listSearchPatientsSelect( data );
+
 			      $("#list_names").html(emptyVal + html);
 		      });
 		  });
 }
-    
+
 function setOnSelect(isIntro, server)
 {
 			//alert("medCafe.patient.js server is " + server);
@@ -73,32 +73,25 @@ function setOnSelect(isIntro, server)
 			{
 				//window.location.replace(server);
 				//alert("medCafe.patient.js setOnSelect isIntro true ");
-				$("#list_names").change(function() 
+				$("#list_names").change(function()
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-					alert("medCafe.patients.js value selected " + src);
-		    		var server = "retrievePatient.jsp?patient_id=" + src;
-	
-	 				$.getJSON(server, function(data)
-	 				{
-		    			parent.window.location.replace("index.jsp?patient_id=" + src);	
-		    		});
-		    		
+		    		parent.window.location.replace(server + "/cachePatient.jsp?patient_id=" + src);
 	    		});
-	    		
-	    		
+
+
 			}
 			else
 			{
 				//alert("medCafe.patient.js setOnSelect isIntro false ");
-				
-				$("#list_names").change(function() 
+
+				$("#list_names").change(function()
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		
-		    		retrieve( src);	
+
+		    		retrieve( src);
 	    		});
     		}
 }
@@ -108,71 +101,71 @@ function refresh(patient)
 		var url = "retrievePatient.jsp";
 		//parent.saveWidgets();
 		parent.closeAllTabs("tabs");
-		populate(url, patient);	
-							
+		populate(url, patient);
+
 		//addScheduleButton(patient);
 		//addCreateAssocButton(patient,"physician");
-		
+
 }
 
 function retrieve(patient)
 {
 		var url = "retrievePatient.jsp";
-		
+
 		parent.$("#saveDialog").dialog({
-				autoOpen: false,					
+				autoOpen: false,
 				modal:true,
 				resizable: true,
 				title: "Close Tab",
 				buttons : {
-					"Yes" : function() {          
-							//Have to Destroy as otherwise 
-							//the Dialog will not be reinitialized on open    
+					"Yes" : function() {
+							//Have to Destroy as otherwise
+							//the Dialog will not be reinitialized on open
 							parent.$("#saveDialog").dialog("destroy");
 							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
-							populate(url, patient);	
-							
+							populate(url, patient);
+
 							addScheduleButton(patient);
 							addCreateAssocButton(patient,"physician");
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
-						populate(url, patient);	
+						populate(url, patient);
 						addScheduleButton(patient);
 						addCreateAssocButton(patient,"physician");
 					}
 					,
 					"Cancel" : function() {
 						parent.$("#saveDialog").dialog("destroy");
-					}  
+					}
 				}
-		}); 						
+		});
 		parent.$("#saveDialog").dialog("open");
 }
 
 function populate(url, patient_id)
 {
-		   
+
 	 var server = url + "?patient_id=" + patient_id;
 	 //alert("medCafe.patients.js : populate url " + server);
-	
+
 	 $.getJSON(server, function(data)
 	 {
 	 	   //If no data is retrieved then just return.
 		   if (!data.widgets)
 		   {
 		   		var tab_num = parent.addTab("New", "chart");
-		   		
+
 		   		parent.iNettuts.refresh("yellow-widget" + tab_num);
 				parent.iNettuts.makeSortable();
-	
+
 		   		return;
 		   }
-		   
+
 		   //alert("medCafe.patients.js : number of widgets " + data.widgets.length);
-		   for(i=0; i< data.widgets.length; i++) 
+		   for(i=0; i< data.widgets.length; i++)
 		   {
 		    		var link = "";
 					var label = data.widgets[i].name;
@@ -184,10 +177,10 @@ function populate(url, patient_id)
 					var server =  data.widgets[i].server;
 					var repPatientId =  data.widgets[i].rep_patient_id;
 					var params = "";
-					
-					tab_num = parent.addTab(label, type);					
+
+					tab_num = parent.addTab(label, type);
 					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId, repPatientId);
-					
+
 		   }
 
 	});
@@ -195,17 +188,17 @@ function populate(url, patient_id)
 
 function addScheduleButton( patient_id)
 {
-	
+
 	 var buttonTxt = "<button id='addScheduleBtn'>Add To Schedule</button>";
 	 $("#addSchedule").html("");
 	 $("#addSchedule").append(buttonTxt);
-	 var url="setSchedule.jsp"; 
+	 var url="setSchedule.jsp";
 	 var server = url + "?patient_id=" + patient_id;
-	
+
 	 $("#addScheduleBtn").click(function(event,patient_id){
-	 
+
 		 $.getJSON(server, function(json){
-		 	  
+
               if (json.announce)
               {
               	  //alert("announce");
@@ -217,24 +210,24 @@ function addScheduleButton( patient_id)
 				  //alert("no announce");
               }
         });
-	
+
 	});
 }
 
 function addCreateAssocButton( patient_id, role)
 {
-	
-	
+
+
 	 var buttonTxt = "<button id='createAssocBtn'>Add To My List</button>";
 	 $("#addPatient").html("");
 	 $("#addPatient").append(buttonTxt);
-	 var url="addPatientAssoc.jsp"; 
+	 var url="addPatientAssoc.jsp";
 	 var server = url + "?patient_id=" + patient_id + "&role=" +  role;
-	
+
 	 $("#createAssocBtn").click(function(event,patient_id){
-	 
+
 		 $.getJSON(server, function(json){
-		 	  
+
               if (json.announce)
               {
               	  //alert("announce");
@@ -246,13 +239,14 @@ function addCreateAssocButton( patient_id, role)
 				  //alert("no announce");
               }
         });
-	
+
 	});
 }
 
 function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRepId)
 {
 	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientRepId;
+
 	$.getJSON(link, function(data)
 	{
 			if (data.announce)
@@ -264,12 +258,12 @@ function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRe
               
 			var html = v2js_listPatientTable( data );  	  			
 	  		$("#aaa" + tab_num).append(html);
-	  									
+
 			//Delay to let DOM refresh before adding table styling
 			$(obj).delay(500,function()
 			{
 					//alert( $("#example" + patientId).text());
-											
+
 				$("#example" + patientRepId).dataTable( {
 
 						 						

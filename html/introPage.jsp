@@ -7,7 +7,7 @@
 <head>
 <link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <link type="text/css" href="${css}/custom.css" rel="stylesheet" />
-<link href="css/inettuts.css" rel="stylesheet" type="text/css" />	
+<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="${js}/medCafe.repository.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
@@ -18,15 +18,15 @@
 
 <script>
 $(function(){
-	
+
 	listRepositories("true");
 	listRecentPatients();
-	
+
 });
 
 function updateAnnouncements(data)
 {
-	
+
     if(data.announce)
     {
     	/*$.each(data.announce, function(i, item){
@@ -43,42 +43,42 @@ function updateAnnouncements(data)
 
 function listRecentPatients()
 {
-	 
+
 	 	var serverLink ="recentPatientsJSON.jsp";
-	 	
+
 	 	$.getJSON(serverLink,
 		      function(data)
 		      {
 		      	  //Check to see if any error message
-				  
+
 				  updateAnnouncements(data);
 				  if (data.announce)
 				  {
 					return;
 				  }
-				  var html = v2js_listSearchPatientsSelect( data );  	 
+				  var html = v2js_listSearchPatientsSelect( data );
 
 			      $("#recent_patients").html( html);
-			      $("#recent_patients").change(function() 
+			      $("#recent_patients").change(function()
 				  {
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		window.location.replace("http://${server}/index.jsp?patient_id=" + src);	
+		    		window.location.replace("http://${server}/cachePatient.jsp?patient_id=" + src);
 	    		  });
 		      });
-		      
-		      
+
+
 }
 </script>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	
+
 </head>
 <body>
 <div class="ui-corner-all" >
  <center><img style="margin-bottom:1.5em" alt="logo" class="ui-corner-all" src="${images}/medCafe_logo.png"/></center>
    </div>
 <div class="ui-corner-all" >
-        
+
         <div class="widget color-5" id="intro"  >
         	<div class="ui-widget-header ui-corner-all">
          	<center><h2 id="patient-search">Repository List</h6></center>
@@ -87,7 +87,7 @@ function listRecentPatients()
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
                 	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-                	
+
                 	<center>
                 	<p><div id="listRepositories"></div>
                 	</center>
@@ -95,7 +95,7 @@ function listRecentPatients()
                 </p>
             </div>
         </div>
-       
+
         <div class="widget color-5" id="intro"  >
         	<div class="ui-widget-header ui-corner-all">
          	<center><h2 id="patient-search">Patient Search</h6></center>
@@ -117,7 +117,7 @@ function listRecentPatients()
          	<center><h2>Recent Patients</h6></center>
          	</h2>
         	</div>
-        	
+
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
                 	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
@@ -128,7 +128,7 @@ function listRecentPatients()
                 </p>
             </div>
         </div>
-        
+
 </div>
 
 <noscript>

@@ -1,11 +1,24 @@
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
+<%@ page import="java.util.logging.*" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<%
+<%!
+    public final static String KEY = "/index.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}%><%
+    PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+
+    /*
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 	{
@@ -15,9 +28,9 @@
 	}
 	if (patientId == null)
 		patientId = "1";
-		
-	Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
-	
+    */
+	// Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
+
 %>
 <head>
 
@@ -65,6 +78,7 @@
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
     <script type="text/javascript" src="${js}/medCafe.patients.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.repository.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
 	<script type = "text/javascript" src = "${js}/medCafe.supportInfo.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
@@ -105,7 +119,7 @@
 	<script>
         var outerLayout;
 		var repositoryPatientJSON = {};
-		
+
         var tabID;
         /*
         *#######################
@@ -114,34 +128,33 @@
         */
 
         $(function(){
-            refresh("<%=patientId%>");
+            refresh("<%=cache.getDatabasePatientId()%>");
         });
-		
-		
-        listHistory("listPatientHistory", "<%=patientId%>", "${server}", "Personal");
-        listHistory("listFamilyHistory", "<%=patientId%>", "${server}", "Family");
-        listProblemList("listProblemSummary", "<%=patientId%>", "${server}");
+
+
+        listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
+        listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
+        listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}");
 	    initialize();
-	  	
+
 		function initialize(repositoryJSON)
 		{
-			//alert("index.jsp calling initialize");
-			repositoryPatientJSON = getAssocPatientRepositories("<%=patientId%>");
-		}      		
+			repositoryPatientJSON = getAssocPatientRepositories("<%=cache.getDatabasePatientId()%>");
+		}
 		var isiPad = navigator.userAgent.match(/iPad/i) != null;
-	   
+
  		if (isiPad)
- 		{  	
+ 		{
 			document.addEventListener('touchmove', function(e){ e.preventDefault(); });
 		 }
 		function BlockMove(event) {
   			// Tell Safari not to move the window.
   			event.preventDefault() ;
  		}
- 		
+
  		loadWidgetData(  "generalWidgets", "<%=Constants.GENERAL_WIDGETS%>");
  		loadWidgetData( "patientWidgets", "<%=Constants.PATIENT_WIDGETS%>");
- 		
+
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>
@@ -152,8 +165,8 @@
             	.no-copy {
 	  			-webkit-user-select: none;
 	  			}
-  	
-		fieldset { border:0; margin-top: 1em;}	
+
+		fieldset { border:0; margin-top: 1em;}
 		.ui-slider {clear: both; top: 5em;}
     </style>
 
@@ -231,7 +244,7 @@
     <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
-                <table border="0"><tr><th colspan="2" style="text-align:left;">Joe Patient</th></tr>
+                <table border="0"><tr><th colspan="2" style="text-align:left;"><%=cache.getFirstName()%> <%=cache.getLastName()%></th></tr>
                     <tr><td colspan="2">40 year old male</td></tr>
                     <tr><td>BP</td><td>224/107</td></tr>
                     <tr><td>HR</td><td>78</td></tr>
@@ -252,7 +265,7 @@
             <p><strong>Medicine List</strong><br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide </p>
         </div>
     </div>
-     
+
      <div class="ui-widget top-panel" id="problem_List">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Problem List</strong>
@@ -286,5 +299,5 @@
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 
-	
+
 </html>

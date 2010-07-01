@@ -71,10 +71,10 @@ public class ListPatientWidgetResource extends ServerResource {
     private ArrayList<MedCafeComponent> getComponentList(String type)
     {
     	ArrayList<MedCafeComponent> componentList = new ArrayList<MedCafeComponent>();
-    	
+
     	return componentList;
     }
-    
+
     //@Get("json")
     public JsonRepresentation toJsonOld(){
         try
@@ -138,19 +138,19 @@ public class ListPatientWidgetResource extends ServerResource {
         	// System.out.println("ListWidgetResource JSON start");
         	//String server = "http://" + Config.getServerUrl() + "/";
         	String tempDir = "images/";
-        	
+
         	ArrayList<MedCafeComponent> compList = MedCafeComponent.retrieveComponents(MedCafeComponent.PATIENT, tempDir);
         	int i=0;
-   	
+
         	System.out.println("ListPatientWidgetResource JSON general widgets number of components " + compList.size());
-            
+
             JSONObject obj = new JSONObject();
             // System.out.println("ListWidgetResource JSON start 1");
             for(MedCafeComponent component: compList)
             {
-            	 
+
             	 JSONObject inner_obj = component.toJSON();
-            	 
+
             	 //inner_obj.append("widget", inner_inner_obj);
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                  i++;
@@ -162,8 +162,8 @@ public class ListPatientWidgetResource extends ServerResource {
         catch(JSONException je)
         {
             log.throwing(KEY, "toJson()", je);
-            return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + je.getMessage() ));		
-        	
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + je.getMessage() ));
+
         }
         catch(Exception e)
         {

@@ -6,29 +6,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%
-
-	String patientId = request.getParameter("patient_id");
-	if (patientId == null)
-	{
-		Object patientObj = session.getAttribute("patient");
-		if (patientObj != null)
-		 	patientId = patientObj.toString();
-	}
-	if (patientId == null)
-		patientId = "1";
-		
 	String server = request.getParameter("server");
 	if (server == null)
 	{
 		server = "noServer";
 	}
-	String isIntroPage = "false";
+	String isIntroPage = null;
 
 	isIntroPage= request.getParameter("intro");
 	if (isIntroPage == null)
 		isIntroPage = "false";
 
-	System.out.println("searchPatients.jsp isIntro " + isIntroPage);
+	//System.out.println("searchPatients.jsp isIntro " + isIntroPage);
 
 %>
 <head>
@@ -71,8 +60,8 @@
 		initializePatient(serverLink);
 	});
 
-	
-	
+
+
 	</script>
 </head>
 <body>

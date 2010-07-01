@@ -411,7 +411,7 @@ public class Patient
 		String err_mess = "Could not check the list of repositories for patient " + patient_id;
 
 		ResultSet rs = dbConn.psExecuteQuery(listQuery, err_mess , patient_id );
-		
+
 		/*
 		{ "repositories" : [
 				{"repository" : "OurVista" , "id" : "3"},{"repository" : "local" , "id" : "1"}
@@ -424,15 +424,15 @@ public class Patient
 			while (rs.next())
 			{
 				JSONObject innerObj = new JSONObject();
-				
+
 				  patient_id = rs.getInt(1);
 				  String rep = rs.getString("repository");
 				  int repId = rs.getInt("rep_patient_id");
-		       
+
 				  innerObj.put("repository", rep);
 				  innerObj.put("id", repId);
 				  ret.append("repositories", innerObj);
-					
+
 		          results = true;
 			}
 
@@ -446,7 +446,7 @@ public class Patient
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 
 		}
-		
+
 		if (!results)
         {
         	return WebUtils.buildErrorJson( "There are no patients currently listed in repositories " );
@@ -455,35 +455,30 @@ public class Patient
 		return ret;
 
 	}
-	 public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server){
+
+	public JSONObject searchJson(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server){
 
 		 	boolean rtnResults = false;
 		 	JSONObject ret = new JSONObject();
-
 	        try
 	        {
-
 	        	ResultSet rs = getPatients( isPatient, searchStringFirst, searchStringLast, userName, server);
 		        if( rs == null )
 		        {
 		            return WebUtils.buildErrorJson( "Could not establish a connection to the database  at this time.");
 		        }
-
 		        while( rs.next())
 		        {
-
 			        //convert to JSON
-			        	rtnResults = true;
-
-			            JSONObject o = new JSONObject();
-
-			            int id = rs.getInt(1);
-			            String fName = rs.getString(Patient.FIRST_NAME);
-			            String lName = rs.getString(Patient.LAST_NAME);
-			            o.put(Patient.ID, id);
-			            o.put(Patient.FIRST_NAME, fName);
-			            o.put(Patient.LAST_NAME, lName);
-			            ret.append("patients", o);
+                    rtnResults = true;
+                    JSONObject o = new JSONObject();
+                    int id = rs.getInt(1);
+                    String fName = rs.getString(Patient.FIRST_NAME);
+                    String lName = rs.getString(Patient.LAST_NAME);
+                    o.put(Patient.ID, id);
+                    o.put(Patient.FIRST_NAME, fName);
+                    o.put(Patient.LAST_NAME, lName);
+                    ret.append("patients", o);
 		        }
 		        rs.close();
                 // closeConnection();
@@ -496,26 +491,22 @@ public class Patient
 				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
 					return WebUtils.buildErrorJson( "Problem on generating JSON error." + e.getMessage());
-
 				}
 	        }
 	        catch (SQLException e) {
 				// TODO Auto-generated catch block
 	        	 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
-
 			}
 
 	        if (!rtnResults)
 	        {
 	        	return WebUtils.buildErrorJson( "There are no patients currently listed for First Name " + searchStringFirst + " and Last Name " + searchStringLast );
-
 	        }
 	        return ret ;
 	    }
 
-	 private ResultSet getPatients(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server) throws SQLException
-	 {
-
+	private ResultSet getPatients(String isPatient, String searchStringFirst, String searchStringLast, String userName, String server) throws SQLException
+	{
 		 setConnection();
 
 		 System.out.println("Patient: getPatients : got connection " );
@@ -638,11 +629,12 @@ public class Patient
 			 }
 
 		 }
+		 log.finer("Patient.getPatients() query: " + prep.toString());
 		 ResultSet rs = prep.executeQuery();
 
 	     return rs;
 
-	 }
+	}
 
 
 	 public static JSONObject getPatient(int id,  DbConnection dbConn)
