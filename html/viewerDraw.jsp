@@ -108,10 +108,7 @@
             var canvasPainter;
 			var curAction = 0;
             $(document).ready(function(){
-            	  var server = "<%=imageName%>";
-            	 
-                 
-                  
+            	  var server = "<%=imageName%>";   
                   //var pos = $('#viewer').position();
 				  var pos = $("#viewer").offset();  
   				  var width = $("#viewer").width();

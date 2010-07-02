@@ -9,20 +9,21 @@
 
 	Additional Contributions by: Morris Johns
 ****************************************************************************************************/
-function shape (x, y, width, height, type, options)
+function shape (x, y, width, height, type, color, options)
 {
 	this.x = x;
 	this.y = y;
 	this.width = width;
 	this.height = height;
 	this.type = type;
+	this.color = color;
 	return this;
 }
 
 function createHiddenValues (shape, i) {
      
      	 return '<div class="shape" id="shape' + i + '" name="shape' + i + '" custom:type="' + shape.type +'" custom:x="' + shape.x +
-        			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height +'" />' ;
+        			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height + '" custom:color="'+ shape.color+  '" />' ;
      
     };
     
@@ -104,7 +105,7 @@ var CanvasPainter = CanvasWidget.extend({
     },
 	
 	cpMouseMove: function(e) {
-		this.setColor(this.drawColor);
+		this.setDrawingColor(this.drawColor);
 		this.curPos = this.getCanvasMousePos(e, this.position);
 
 		if(this.curDrawAction == 0) {
@@ -156,10 +157,11 @@ var CanvasPainter = CanvasWidget.extend({
 		context.beginPath();
 		context.fillRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
 		context.closePath();
-		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle" );
+		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle", this.drawColor );
 		currShape = rect;
 	},
 	drawCircle: function (pntFrom, pntTo, context) {
+		
 		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x)/2;
 		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
 		context.beginPath();
@@ -167,7 +169,7 @@ var CanvasPainter = CanvasWidget.extend({
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
 		context.fill();
 		context.closePath();
-		var circle = new shape(centerX, centerY, distance/2, 0,"circle" );
+		var circle = new shape(centerX, centerY, distance/2, 0,"circle" , this.drawColor );
 		currShape = circle;
 	},
 	//GH needed as zooming seems to take slightly different parameters - width is half circle distance
@@ -213,7 +215,7 @@ var CanvasPainter = CanvasWidget.extend({
 		canvasPainter.context.closePath();
 		
 		canvasPainter.shapes = null;
-		this.clearShapes();
+		
 	},
 	clearInterface: function() {
 		
@@ -229,14 +231,17 @@ var CanvasPainter = CanvasWidget.extend({
 	},
 	//Setter Methods
 	setColor: function(color) {
-		var colorIn = $('#colorSelector2').find('div').css('backgroundColor');
 		
-		//this.context.globalAlpha = 0.02;
-		this.context.fillStyle = colorIn;
-		this.context.strokeStyle = colorIn;
-		this.drawColor = colorIn;
+		this.context.globalAlpha = 0.4;
+		this.context.fillStyle = color;
+		this.context.strokeStyle = color;
+		this.drawColor = color;
 	},
-
+	setDrawingColor: function(color) {
+		var colorIn = $('#colorSelector2').find('div').css('backgroundColor');
+		this.setColor(colorIn);
+		this.context.globalAlpha = 0.04;
+	},
 	setLineWidth: function(lineWidth) {
 		this.context.lineWidth = lineWidth;
 	},
@@ -250,6 +255,7 @@ var CanvasPainter = CanvasWidget.extend({
 			this.callWidgetListeners();
 			this.curDrawAction = lastAction;
 			this.clearCanvas(this.context);
+			this.clearShapes();
 			this.shapes == null;
 		} else {
 			this.curDrawAction = action;

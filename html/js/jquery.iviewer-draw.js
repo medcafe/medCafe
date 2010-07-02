@@ -222,6 +222,7 @@
 				var type = $(this).attr("custom:type");
 				var width = $(this).attr("custom:width");
 				var height = $(this).attr("custom:height");
+				var color = $(this).attr("custom:color");
 				
 				var x2 = x1 + width;
 				var y2 = y1 + height;
@@ -261,6 +262,8 @@
 				{
 					x2Container = x1Container + newWidth*2; //The click on zoon stores only the radius not the full width - so need to multiply to get full width
 					canvasPt2 =  {x:x2Container,y: y2Container};
+					
+					container.canvas.setColor(color);
 					container.canvas.drawCircleZoom(canvasPt1, canvasPt2, container.canvas.context);
 					//Save the radius value to be consistent with the click on zoom functionality
 					
@@ -268,6 +271,7 @@
 				}
 				else if (type = "rectangle")
 				{
+					container.canvas.setColor(color);
 					container.canvas.drawRectangle(canvasPt1, canvasPt2, container.canvas.context);
 				
 				}	
