@@ -203,63 +203,98 @@
           this.set_zoom(new_zoom);
          
         },
-        /**
-        * zoom in the shapes
-        **/
-        zoomShapes: function(old_x, old_y, new_x, new_y, new_zoom)
+        zoomShapes: function(old_x, old_y, new_x, new_y, curr_zoom, new_zoom)
         {
         	x=100; y=100;
         	var container = this;
         	var point = this.containerToImage(x, y);
         	container.canvas.clearCanvas();
         	new_zoom = new_zoom / 100;
-        	alert("old point " + old_x + ", " + old_y + 
-        		" new point " + new_x + ", " + new_y);
+        	curr_zoom = curr_zoom / 100;
         	
             $('.shape').each(function ()
 			{
 			
 				var pntFrom= {x:-1,y:-1};
         		var pntTo= {x:-1,y:-1};
-				var x = $(this).attr("custom:x");
-				var y = $(this).attr("custom:y");
-				var xImage = x - old_x;
-				var yImage = y - old_y;
-				var xCanvas = (xImage*new_zoom + new_x*1);
-				var yCanvas = (yImage*new_zoom + new_y*1);
-				
+				var x1 = $(this).attr("custom:x");
+				var y1 = $(this).attr("custom:y");
 				var type = $(this).attr("custom:type");
 				var width = $(this).attr("custom:width");
 				var height = $(this).attr("custom:height");
 				
-				//ChangeTo container coords
-				pntTo.x = xCanvas;
-				pntTo.y = yCanvas;
+				var x2 = x1 + width;
+				var y2 = y1 + height;
 				
-				var newwidth = width * new_zoom;
+				var imageX1 = (1*x1 + 1*old_x) / curr_zoom;
+				var imageY1 = (1*y1 + 1*old_y) /curr_zoom;
 				
-				height = height * new_zoom;
+				var newImageX1 = new_zoom*imageX1;
+				var newImageY1 = new_zoom*imageY1;
 				
-				x = (x*1 + newwidth*1) * 1;
-				y = (y*1 + height*1) * 1;
+				var newContainerX1 = newImageX1 + new_x;
+				//alert("jquery.iviewer-draw zoomShapes old point x: " + x1 + " y : " + y1 + " old origin x: " + old_x + " y: " + old_y);
+				//alert("jquery.iviewer-draw zoomShapes old image point x: " + imageX1 + " y : " + imageY1 );
+				/*alert("jquery.iviewer-draw zoomShapes  new origin x: " + new_x + " y: " + new_y);
+				*/
 				
-				//ChangeTocontainer coords
-				var pntTo = container.containerToImage(x, y);
-				pntFrom = container.imageToContainer(pntTo.x, pntTo.y);
+				var x1Container = newImageX1 + new_x;
+				var y1Container = newImageY1 + new_y;
+				var newWidth = (width*new_zoom)/ curr_zoom;
+				var newHeight = (height*new_zoom)/ curr_zoom;
+				var x2Container = x1Container + newWidth;
+				var y2Container = y1Container + newHeight;
+				
+				var canvasPt1 = {x:x1Container,y:y1Container};
+				var canvasPt2 =  {x:x2Container,y: y2Container};
+				var shapeId = $(this).attr("name");
+				container.updateHiddenValues(shapeId, canvasPt1, newWidth, newHeight, type  );
+					
+				canvasPt1 = {x:x1Container,y:y1Container};
+				canvasPt2 =  {x:x2Container,y: y2Container};
+				//alert("jquery.iviewer-draw zoomShapes  new point 1: " + x1Container + " y: " + y1Container);
+				//alert("jquery.iviewer-draw zoomShapes  new point 2: " + x2Container + " y: " + y2Container);
+					
+				//alert("jquery.iviewer-draw zoomShapes new point " + canvasPt1.x + " " + canvasPt1.y);
+				
 				if (type == "circle")
 				{
-					container.canvas.drawCircle(pntFrom, pntTo, container.canvas.context);
-					//drawCircle: function (pntFrom, pntTo, context) 
+					x2Container = x1Container + newWidth*2; //The click on zoon stores only the radius not the full width - so need to multiply to get full width
+					canvasPt2 =  {x:x2Container,y: y2Container};
+					container.canvas.drawCircleZoom(canvasPt1, canvasPt2, container.canvas.context);
+					//Save the radius value to be consistent with the click on zoom functionality
+					
+					
 				}
 				else if (type = "rectangle")
 				{
-					container.canvas.drawRectangle(pntFrom, pntTo, container.canvas.context);
-					//drawRectangle: function(pntFrom, pntTo, context)
-				}				
+					container.canvas.drawRectangle(canvasPt1, canvasPt2, container.canvas.context);
+				
+				}	
+				
 			});
 			//var length = container.canvas.shapes.length;
 			//alert("no of shapes "  + length);
         },
+        /**
+        * update the values that are kept in html for shape position
+        **/
+        updateHiddenValues: function (shapeName, newPos, newWidth, newHeight, type )
+        {
+      
+      		var shapeDiv = $("#" +shapeName);
+      		$("#" +shapeName).attr("custom:type", type);
+      		$("#" +shapeName).attr("custom:x", newPos.x);
+      		$("#" +shapeName).attr("custom:y", newPos.y);
+      		$("#" +shapeName).attr("custom:width", newWidth);
+      		$("#" +shapeName).attr("custom:height", newHeight);
+      		//var newHtml =  '<div class="shape" name="'+ shapeName + '" id="' + shapeName + '" custom:type="' + type +'" custom:x="' + newPos.x +
+        	//		'" custom:y="' + newPos.y + '" custom:width="' + newWidth + '" custom:height="' + newHeight +'" />' ;
+    	
+    		//alert("jquery.iviewer-draw updateHiddenValues html " + newHtml);
+      		//$("#" +shapeName).html(newHtml);
+        },
+        
         /**
         * center image in container
         **/
@@ -417,9 +452,10 @@
                                
             this.setCoords(new_x, new_y);
 
+			this.zoomShapes(old_xorig, old_yorig, new_x, new_y, this.current_zoom, new_zoom);
+           
             this.current_zoom = new_zoom;
             this.update_status();
-          	this.zoomShapes(old_xorig, old_yorig, this.img_object.x, this.img_object.y, new_zoom);
             
         },
         

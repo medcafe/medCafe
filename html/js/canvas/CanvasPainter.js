@@ -20,10 +20,10 @@ function shape (x, y, width, height, type, options)
 }
 
 function createHiddenValues (shape, i) {
-       
-       	
-        return '<div class="shape" name="shape' + i + '" custom:type="' + shape.type +'" custom:x="' + shape.x +
+     
+     	 return '<div class="shape" id="shape' + i + '" name="shape' + i + '" custom:type="' + shape.type +'" custom:x="' + shape.x +
         			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height +'" />' ;
+     
     };
     
     function createShapeElement (shape, shapeID) 
@@ -113,6 +113,8 @@ var CanvasPainter = CanvasWidget.extend({
 		} else if(this.curDrawAction == 1) {
 			
 			this.drawCircle(this.startPos, this.curPos, this.context);
+			//console.log("CanvasPainter.js line 115 start pos x: " + this.startPos.x + " y: " + this.startPos.y);
+			//console.log("CanvasPainter.js line 115 curr pos x: " + this.curPos.x + " y: " + this.curPos.y);
 		}
 		this.cpMouseDownState = true;
 	},
@@ -120,6 +122,7 @@ var CanvasPainter = CanvasWidget.extend({
 	mouseUpActionPerformed: function(e) {
 		if(!this.cpMouseDownState) return;
 		this.curPos = this.getCanvasMousePos(e, this.position);
+		
 		if(this.curDrawAction > 1) {
 			this.setColor(this.drawColor);
 			this.drawActions[this.curDrawAction](this.startPos, this.curPos, this.context, false);
@@ -135,9 +138,14 @@ var CanvasPainter = CanvasWidget.extend({
 			this.shapes.push(currShape);
 		}
 		
+		var shapesCount = 0;
 		//this.form = $('<div class="shape" id="shape' + this.shapes.length +'"></div>');
-		
-		var html = createHiddenValues(currShape, this.shapes.length);
+		$('.shape').each(function ()
+		{
+				shapesCount++;
+		});
+			
+		var html = createHiddenValues(currShape, shapesCount);
 		$("#canvas").append(html);
 		this.mouseMoveTrigger = new Function();
 		this.cpMouseDownState = false;
@@ -155,8 +163,19 @@ var CanvasPainter = CanvasWidget.extend({
 		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x)/2;
 		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
 		context.beginPath();
-		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2));
-		
+		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2)); 
+		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
+		context.fill();
+		context.closePath();
+		var circle = new shape(centerX, centerY, distance/2, 0,"circle" );
+		currShape = circle;
+	},
+	//GH needed as zooming seems to take slightly different parameters - width is half circle distance
+	drawCircleZoom: function (pntFrom, pntTo, context) {
+		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x);
+		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
+		context.beginPath();
+		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2)); 
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
 		context.fill();
 		context.closePath();
@@ -194,6 +213,7 @@ var CanvasPainter = CanvasWidget.extend({
 		canvasPainter.context.closePath();
 		
 		canvasPainter.shapes = null;
+		this.clearShapes();
 	},
 	clearInterface: function() {
 		
@@ -203,7 +223,10 @@ var CanvasPainter = CanvasWidget.extend({
 		
 		this.shapes == null;
 	},
-	
+	clearShapes: function() {
+		
+		$('#canvas').html("");
+	},
 	//Setter Methods
 	setColor: function(color) {
 		var colorIn = $('#colorSelector2').find('div').css('backgroundColor');

@@ -3,7 +3,7 @@
 <%
 	String imageName = request.getParameter("image");
 	if (imageName == null)
-		imageName = "images/patients/1/chest-xray.jpg";
+		imageName = "images/patients/1/chest-xray-marked.jpg";
 %>
     <head>
     <style type="text/css">
