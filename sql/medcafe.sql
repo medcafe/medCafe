@@ -138,16 +138,22 @@ CREATE TABLE file_category (
 	notes character varying(500) NULL
 );
 
+
 CREATE TABLE file_annotations
 (
 	id SERIAL PRIMARY KEY,
 	patient_id integer NOT NULL,
 	username character varying(50) NOT NULL,
 	file_id  integer NOT NULL,
-	x_1 integer NULL,
-	y_1 integer NULL,
-	x_2 integer NULL,
-	y_2 integer NULL,
+	x_origin integer NULL,
+	y_origin integer NULL,
+	shape_x float NULL,
+	shape_y float NULL,
+	width float NULL,
+	height float NULL,
+	zoom integer NULL,
+	color character varying(50) NULL,
+	shape_type vcharacter varying(50) NOT NULL, 
 	note character varying(500) NOT NULL
 );
 

@@ -122,15 +122,70 @@
                   $("#chooserWidgets").css( { "left": (pos.left + width) + "px", "top":pos.top + "px" } );
                   
                   canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: pos.left , y: pos.top}, width, height);
+				  var rtnObj;
 				  var viewer = $("#viewer").iviewer(
                        {
                        src: server,
-                       canvas: canvasPainter
+                       canvas: canvasPainter,
+                       initCallback: function ()
+                       {
+                           rtnObj = this;
+                           
+                           rtnObj.update_container_info();
+                       }
                   });
-                  		 
+                  		
+                    
+		    		$('#saveViewButton').click(function() {
+  							
+  						var patientId = 4;
+  						var fileId = 15;
+  						
+  						var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+  						
+							//Get the list of shapes, and their associated settings.
+							$('.shape').each(function ()
+							{
+								saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+								var x1 = $(this).attr("custom:x");
+								var y1 = $(this).attr("custom:y");
+								var type = $(this).attr("custom:type");
+								var width = $(this).attr("custom:width");
+								var height = $(this).attr("custom:height");
+								var color = $(this).attr("custom:color");
+								rtnObj.fit();
+								var curr_zoom = rtnObj.current_zoom;
+								var origin= {x:-1,y:-1};
+								origin.x = rtnObj.img_object.x;
+								origin.y = rtnObj.img_object.y;
+								//saveLink = saveLink + "&x=" + x1 + "&y=" + y + "&type=" +  type + "&width=" + width + "&height=" + height + "&color=" + color;
+								saveLink = saveLink + "&origin_x=" + origin.x + "&origin_y=" + origin.y + "&zoom=" + curr_zoom;
+								var currShape = new shape(origin.x , origin.y, width, height, type, color);
+								
+								/*$.get(saveLink, function(data)
+								{
+									
+									//Get the level of current zoom.
+									//Get the current origin values of image compared to container
+									
+								});*/ 
+								$.ajax({
+					                url: saveLink,
+					                type: 'POST',
+					                data: currShape,
+					                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+					                success: function(result) {
+					                    //alert(result.Result);
+					                    //$("#saveStatus").html(result.Result).show();
+					                }
+				            	});
+							});
+							
+  						
+					}); 
 				 
             });
-            
+
             function printError(error) {
 				document.getElementById("errorArea").innerHTML += error +"<br>";
 			}
@@ -146,7 +201,8 @@
 				document.getElementById("btn_"+action).style.background = "#CCCCCC";
 				canvasPainter.setDrawAction(action);
 			}
-		    
+		  
+		 
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
         <style>
@@ -171,11 +227,10 @@
             
             <div id="viewer" class="viewer"></div>
             <br />
-            
+          
         </div>
-        
-		
 		</div>
+        
         <canvas id="canvas" width="400" height="400"></canvas>
 		<canvas id="canvasInterface" width="400" height="400"></canvas>
 		<div id="chooserWidgets">
@@ -190,6 +245,9 @@
 					<div id="colorSelector2"><div style="background-color: #00ff00"></div></div>
 				    <div id="colorpickerHolder2">
 			</div>
+			
 		</div>
+		 <button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
+		
     </body>
 </html>
