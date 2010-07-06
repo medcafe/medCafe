@@ -13,23 +13,29 @@
 	//Save the JSON Object to the database	
 	//System.out.println("saveWidget.jsp in Save Widget start " );
 	Enumeration e = request.getParameterNames();
-	/**
-	key id value 1
-	patient_id value 1
-	server value http://127.0.0.1
-	clickUrl value http://127.0.0.1:8080
-	repository value OurVista
-	type value images
-	location value center
-	tab_num value 1
-	**/
+	/*
+	public static final String FILE_ID = "file_id";
+	public static final String X_ORIGIN = "x_origin";
+	public static final String Y_ORIGIN = "y_origin";
+	public static final String SHAPE_X = "shape_x";
+	public static final String SHAPE_Y = "shape_y";
+	public static final String WIDTH = "width";
+	public static final String HEIGHT = "height";
+	public static final String ZOOM = "zoom";
+	public static final String COLOR = "color";
+	public static final String TYPE = "shape_type";
+	public static final String NOTE = "note";
+	public static final String TRUE = "true";
+	
+	*/
 	String userName =  request.getRemoteUser();
-	String patient_id = request.getParameter("patient_id");
-	String file_id = request.getParameter("file_id");
-	String origin_x = request.getParameter("origin_x");
-	String origin_y = request.getParameter("origin_y");
-	String zoom = request.getParameter("zoom");
-		
+	String patient_id = request.getParameter(ImageTag.ID);
+	String file_id = request.getParameter(ImageTag.FILE_ID);
+	String origin_x = request.getParameter(ImageTag.X_ORIGIN);
+	String origin_y = request.getParameter(ImageTag.Y_ORIGIN);
+	String zoom = request.getParameter(ImageTag.ZOOM);
+
+	DbConnection dbConn= new DbConnection();
 	if(e != null)
 	{
 	   try
@@ -44,12 +50,15 @@
 		  	 	key = keyObj.toString();
 			 	jsonobj.put( key, request.getParameter(key));
 		  }
+		  
 		  System.out.println("saveViewImage.jsp about to Save View Image for jsonObj  " +jsonobj.toString() );
-
+		  ImageTag imageTag = new ImageTag(dbConn);
+		  imageTag.saveAnnotations(userName, jsonobj);
+		  
 	    }
 	    catch(JSONException je) {
 			System.out.println("Error in creating JSON " + je.getMessage() );
-	
+			dbConn.close();
 	    }
   	}
 	

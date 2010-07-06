@@ -4,6 +4,14 @@
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
+	String patientId =  request.getParameter("patient_id");
+		
+	Object patientIdObj = session.getAttribute("patient");
+	if (patientIdObj != null)
+		patientId = patientIdObj.toString();
+		
+	String fileId = request.getParameter("file_id");
+	
 %>
     <head>
     <style type="text/css">
@@ -101,89 +109,17 @@
 	    <script type="text/javascript" src="js/color-picker/eye.js"></script>
 	    <script type="text/javascript" src="js/color-picker/utils.js"></script>
 	    <script type="text/javascript" src="js/color-picker/colorpicker-layout.js"></script>
+		<script type="text/javascript" src="js/medCafe.viewer.js"></script>
 			
 		
         <script type="text/javascript">
             var $ = jQuery;
             var canvasPainter;
 			var curAction = 0;
+			
+			
             $(document).ready(function(){
-            	  var server = "<%=imageName%>";   
-                  //var pos = $('#viewer').position();
-				  var pos = $("#viewer").offset();  
-  				  var width = $("#viewer").width();
-  				  var height = $("#viewer").height();
-				
-				  $("#canvas").width(width); 
-                  $("#canvasInterface").width(width);
-                  
-                  $("#canvas").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );           
-                  $("#canvasInterface").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
-                  $("#chooserWidgets").css( { "left": (pos.left + width) + "px", "top":pos.top + "px" } );
-                  
-                  canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: pos.left , y: pos.top}, width, height);
-				  var rtnObj;
-				  var viewer = $("#viewer").iviewer(
-                       {
-                       src: server,
-                       canvas: canvasPainter,
-                       initCallback: function ()
-                       {
-                           rtnObj = this;
-                           
-                           rtnObj.update_container_info();
-                       }
-                  });
-                  		
-                    
-		    		$('#saveViewButton').click(function() {
-  							
-  						var patientId = 4;
-  						var fileId = 15;
-  						
-  						var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
-  						
-							//Get the list of shapes, and their associated settings.
-							$('.shape').each(function ()
-							{
-								saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
-								var x1 = $(this).attr("custom:x");
-								var y1 = $(this).attr("custom:y");
-								var type = $(this).attr("custom:type");
-								var width = $(this).attr("custom:width");
-								var height = $(this).attr("custom:height");
-								var color = $(this).attr("custom:color");
-								rtnObj.fit();
-								var curr_zoom = rtnObj.current_zoom;
-								var origin= {x:-1,y:-1};
-								origin.x = rtnObj.img_object.x;
-								origin.y = rtnObj.img_object.y;
-								//saveLink = saveLink + "&x=" + x1 + "&y=" + y + "&type=" +  type + "&width=" + width + "&height=" + height + "&color=" + color;
-								saveLink = saveLink + "&origin_x=" + origin.x + "&origin_y=" + origin.y + "&zoom=" + curr_zoom;
-								var currShape = new shape(origin.x , origin.y, width, height, type, color);
-								
-								/*$.get(saveLink, function(data)
-								{
-									
-									//Get the level of current zoom.
-									//Get the current origin values of image compared to container
-									
-								});*/ 
-								$.ajax({
-					                url: saveLink,
-					                type: 'POST',
-					                data: currShape,
-					                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
-					                success: function(result) {
-					                    //alert(result.Result);
-					                    //$("#saveStatus").html(result.Result).show();
-					                }
-				            	});
-							});
-							
-  						
-					}); 
-				 
+            	 initializeViewer('<%=patientId%>', '<%=fileId%>', '<%=imageName%>');
             });
 
             function printError(error) {

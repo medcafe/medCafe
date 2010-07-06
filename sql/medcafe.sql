@@ -153,8 +153,8 @@ CREATE TABLE file_annotations
 	height float NULL,
 	zoom integer NULL,
 	color character varying(50) NULL,
-	shape_type vcharacter varying(50) NOT NULL, 
-	note character varying(500) NOT NULL
+	shape_type character varying(50) NOT NULL, 
+	note text NOT NULL
 );
 
 CREATE TABLE recent_patients
