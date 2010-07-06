@@ -8,6 +8,7 @@ import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.*;
+import com.medsphere.fileman.FMRecord;
 
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
@@ -39,12 +40,12 @@ public abstract class Repository
     /**
      *  Get a problem list for a patient.
      */
-    public abstract List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId);
+    public abstract List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId) throws NotImplementedException;
 
    /**
      *  Get a support (contact) list for a patient.
      */
-    public abstract List<Support> getSupportInfo(String patientId);
+    public abstract List<Support> getSupportInfo(String patientId) throws NotImplementedException;
 
 
     /**
@@ -133,4 +134,5 @@ public abstract class Repository
     {
 
     }
+    public abstract Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
 }

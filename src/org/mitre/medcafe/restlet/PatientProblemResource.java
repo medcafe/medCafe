@@ -33,7 +33,7 @@ public class PatientProblemResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-
+			try{
         List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> problems = r.getProblems( id );
 
         if( problems == null )
@@ -54,5 +54,10 @@ public class PatientProblemResource extends ServerResource {
         	System.out.println("Couldn't print");
         } */
         return WebUtils.bundleJsonResponse( "problem", problems, repository, id );
+        }
+        catch(NotImplementedException notImplE)
+        {
+        		return new JsonRepresentation(WebUtils.buildErrorJson(notImplE.getMessage()));
+        }
     }
 }

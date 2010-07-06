@@ -444,7 +444,7 @@ public class PatientRepository extends OvidSecureRepository {
         return raceInformationList;
     }
 
-    public Collection<FMEthnicity> getEthicity(FMDemographicPatient patient) throws OvidDomainException {
+    public Collection<FMEthnicity> getEthnicity(FMDemographicPatient patient) throws OvidDomainException {
         Collection<FMEthnicity> ethnicityList = new ArrayList<FMEthnicity>();
         try {
             ResAdapter adapter = obtainServerRPCAdapter();
@@ -751,7 +751,7 @@ public class PatientRepository extends OvidSecureRepository {
                 System.out.println("Demograpics: " + demo.toString());
                 System.out.println("===> " + new PatientRepository(userConn, serverConn).getRaceInformation(demo));
                 System.out.println("===> " + new PatientRepository(userConn, serverConn).getMaritalStatus(demo));
-                System.out.println("===> " + new PatientRepository(userConn, serverConn).getEthicity(demo));
+                System.out.println("===> " + new PatientRepository(userConn, serverConn).getEthnicity(demo));
             }
 
             for (FMPatientContact contact : new PatientRepository(userConn, serverConn).getContacts(ids)) {

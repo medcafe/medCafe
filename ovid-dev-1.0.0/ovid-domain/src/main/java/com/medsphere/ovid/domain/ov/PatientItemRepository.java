@@ -35,8 +35,12 @@ import com.medsphere.fileman.FMScreenEquals;
 import com.medsphere.fileman.FMScreenIEN;
 import com.medsphere.fileman.FMScreenOr;
 import com.medsphere.fileman.FMScreenValue;
+import com.medsphere.fileman.FMScreenField;
 import com.medsphere.fileman.FMUtil;
 import com.medsphere.fileman.FMField.FIELDTYPE;
+
+import com.medsphere.fmdomain.FMV_Immunization;
+
 import com.medsphere.ovid.model.DisplayGroupCache;
 import com.medsphere.ovid.model.OrderStatusCache;
 import com.medsphere.ovid.model.domain.patient.IsAPatientItem;
@@ -55,6 +59,7 @@ import com.medsphere.ovid.model.domain.patient.PatientUnverifiedOrder;
 import com.medsphere.ovid.model.domain.patient.PatientVitalEvent;
 import com.medsphere.ovid.model.domain.patient.ResultDetail;
 import com.medsphere.ovid.model.domain.patient.VitalSignDetail;
+import com.medsphere.ovid.model.domain.patient.PatientImmunization;
 import com.medsphere.resource.ResAdapter;
 import com.medsphere.resource.ResException;
 import com.medsphere.vistarpc.RPCArray;
@@ -64,6 +69,7 @@ import com.medsphere.vistarpc.RPCException;
 import com.medsphere.vistarpc.RPCResponse;
 import com.medsphere.vistarpc.VistaRPC;
 import com.medsphere.vistarpc.RPCResponse.ResponseType;
+import com.medsphere.fmdomain.FMV_Immunization;
 
 
 /**
@@ -497,6 +503,61 @@ public class PatientItemRepository extends OvidSecureRepository {
         } catch (RPCException ex) {
             throw new OvidDomainException(ex);
         }
+
+        return collection;
+    }
+    public Collection<PatientImmunization> getImmunizations(String patientDfn) throws OvidDomainException {
+        Collection<PatientImmunization> collection = new ArrayList<PatientImmunization>();
+
+			try {
+
+            ResAdapter adapter = obtainServerRPCAdapter();
+
+            FMQueryList query = new FMQueryList(adapter, FMV_Immunization.getFileInfoForClass());
+
+            FMScreen screen = null;
+       
+                    screen = new FMScreenEquals(new FMScreenField("PATIENT NAME"), new FMScreenValue(patientDfn));
+             
+            
+            
+
+            query.setScreen(screen);
+            query.setPacked(false);
+
+            query.getField("IMMUNIZATION").setInternal(false);
+            query.getField("PATIENT NAME").setInternal(false);
+            query.getField("VISIT").setInternal(false);
+            query.getField("DIAGNOSIS").setInternal(false);
+            query.getField("DIAGNOSIS 2").setInternal(false);
+            query.getField("DIAGNOSIS 3").setInternal(false);
+            query.getField("ORDERING PROVIDER").setInternal(false);
+            query.getField("ENCOUNTER PROVIDER").setInternal(false);
+          
+            FMResultSet results = query.execute();
+            if (results != null) {
+                if (results.getError() != null) {
+                    throw new OvidDomainException(results.getError());
+                }
+                while (results.next()) {
+                    FMV_Immunization immune = new FMV_Immunization(results);
+                    PatientImmunization patImmune = new PatientImmunization(immune.getVisitDate().toString(), immune.getImmunizationValue(), immune.getEventDate(),
+                    immune.getDiagnosisValue(), immune.getDiagnosis2Value(), 
+    					  immune.getDiagnosis3Value(), immune.getSeries(), immune.getReaction(), immune.getContraindicated(), immune.getRemarks(),
+    					  immune.getOrderingProviderValue(), immune.getEncounterProviderValue());
+
+                }
+            } else {
+                return null;
+            }
+        } catch (ResException e) {
+            throw new OvidDomainException(e);
+        }
+       
+    
+
+    
+
 
         return collection;
     }

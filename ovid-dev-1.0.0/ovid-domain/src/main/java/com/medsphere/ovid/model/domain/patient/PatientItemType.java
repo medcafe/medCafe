@@ -29,5 +29,6 @@ public enum PatientItemType {
     Result,
     NursingTask,
     Event,
-    VitalSign
+    VitalSign,
+    Immunization
 }

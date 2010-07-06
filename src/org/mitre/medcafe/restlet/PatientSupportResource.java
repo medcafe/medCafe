@@ -33,7 +33,7 @@ public class PatientSupportResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-
+		  try{
         List<Support> supportInfo = r.getSupportInfo( id );
 
         if( supportInfo == null)
@@ -54,6 +54,11 @@ public class PatientSupportResource extends ServerResource {
         	System.out.println("Couldn't print");
         }  */ 
         return WebUtils.bundleJsonResponse( "supportInfo", supportInfo, repository, id );
+        }
+        catch (NotImplementedException notImplE)
+        {
+        		return new JsonRepresentation(WebUtils.buildErrorJson(notImplE.getMessage()));
+        }
     }
     //output
     //

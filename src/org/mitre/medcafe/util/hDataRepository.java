@@ -18,6 +18,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import com.medsphere.fileman.FMRecord;
 
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
@@ -107,18 +108,19 @@ public class hDataRepository extends Repository
     /**
      *  Get a support (contact) list for a patient.
      */
-    public List<Support> getSupportInfo(String patientId)
+    public List<Support> getSupportInfo(String patientId) throws NotImplementedException
     {
-        return null;
+    	  throw new NotImplementedException("getSupportInfo is not implemented for hDataRepository");
+
     }
 
 
     /**
      *    Problem List
      */
-     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId)
+     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId) throws NotImplementedException
      {
-         return null;
+     		throw new NotImplementedException("getProblems is not implemented for hDataRepository");
      }
     /**
      * Type property.
@@ -134,6 +136,9 @@ public class hDataRepository extends Repository
         URLConnection conn = url.openConnection();
         Patient p = (Patient)u.unmarshal(conn.getInputStream() );
         System.out.println(p.getRace());
+    }
+    public Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException{
+    	throw new NotImplementedException("getTimeLineInfo is not implemented for hDataRepository");
     }
 
 }
