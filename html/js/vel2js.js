@@ -212,6 +212,40 @@ velocityCount = 0;
 t.p('</tbody></div>');
 return t.toString();
 }
+function v2js_listImageTags(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var shapeCount = 0;
+if (context.imageTags) {
+t.p('	');
+for (var i2=0;  i2<context.imageTags.length; i2++) {
+var imageTag = context.imageTags[i2];
+velocityCount = i2;
+t.p('		<div class="shape" id="shape');
+t.p( shapeCount);
+t.p('" name="shape');
+t.p( shapeCount);
+t.p('" custom:type="');
+t.p( imageTag.type);
+t.p('" custom:x="');
+t.p( imageTag.x);
+t.p('" custom:y="');
+t.p( imageTag.y);
+t.p('" custom:width="');
+t.p( imageTag.width);
+t.p('" custom:height="');
+t.p( imageTag.height);
+t.p('" custom:color="');
+t.p( imageTag.color);
+t.p('"></div>	 		 	');
+shapeCount = ( shapeCount + 1 );
+t.p('	  		 ');
+}
+
+}
+return t.toString();
+}
 function v2js_listImages(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -1131,6 +1165,43 @@ count = ( count + 1 );
 t.p('	');
 }
 velocityCount = 0;
+t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listProblemListTableLocal(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
+}
+t.p('		<tr class="gradeX">		<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>		<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>		<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+
+}
 t.p('</tbody><table>');
 return t.toString();
 }
