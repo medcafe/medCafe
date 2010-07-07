@@ -12,7 +12,7 @@ function processViewerImages(repId, patientId, patientRepId, data, type, tab_num
 function initializeViewer(patientId, fileId, server)
 {
 
-                  //var pos = $('#viewer').position();
+				  //var pos = $('#viewer').position();
 				  var pos = $("#viewer").offset();  
   				  var width = $("#viewer").width();
   				  var height = $("#viewer").height();
@@ -32,8 +32,7 @@ function initializeViewer(patientId, fileId, server)
                        canvas: canvasPainter,
                        initCallback: function ()
                        {
-                           rtnObj = this;
-                           
+                           rtnObj = this;      
                            rtnObj.update_container_info();
                        }
                   });
@@ -41,49 +40,55 @@ function initializeViewer(patientId, fileId, server)
                     
 		    		$('#saveViewButton').click(function() {
   							
-  						
-  						var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
-  						
-							//Get the list of shapes, and their associated settings.
-							$('.shape').each(function ()
-							{
-								saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
-								var x1 = $(this).attr("custom:x");
-								var y1 = $(this).attr("custom:y");
-								var type = $(this).attr("custom:type");
-								var width = $(this).attr("custom:width");
-								var height = $(this).attr("custom:height");
-								var color = $(this).attr("custom:color");
-								var note =  $(this).attr("custom:note");
-								rtnObj.fit();
-								var curr_zoom = rtnObj.current_zoom;
-								var origin= {x:-1,y:-1};
-								origin.x = rtnObj.img_object.x;
-								origin.y = rtnObj.img_object.y;
-								//saveLink = saveLink + "&x=" + x1 + "&y=" + y + "&type=" +  type + "&width=" + width + "&height=" + height + "&color=" + color;
-								saveLink = saveLink + "&x_origin=" + origin.x + "&y_origin=" + origin.y + "&zoom=" + curr_zoom + "&note=" + note;
-								var currShape = new shape(x1 , y1, width, height, type, color);
-								
-								/*$.get(saveLink, function(data)
+  						//This delete has to happen first and outside the other functionality
+  						var deleteUrl = "deleteImageAnnotations.jsp?patient_id=" +patientId + "&file_id=" + fileId;
+    					
+    					$.ajax({
+	           				url: deleteUrl,
+	           				type: 'POST',
+	           				beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	           				success: function(result) 
+	           				{
+		                   		var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+	  						
+								//Get the list of shapes, and their associated settings.
+								$('.shape').each(function ()
 								{
+									saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+									//This will resize everything to fit back on the page - so that everything is normalized to the standard zoom
+									//And has an origin for the image of 0,0
+									rtnObj.fit();
+									var x1 = $(this).attr("custom:x");
+									var y1 = $(this).attr("custom:y");
+									var type = $(this).attr("custom:type");
+									var width = $(this).attr("custom:width");
+									var height = $(this).attr("custom:height");
+									var color = $(this).attr("custom:color");
+									var note =  $(this).attr("custom:note");
 									
-									//Get the level of current zoom.
-									//Get the current origin values of image compared to container
-									
-								});*/ 
-								$.ajax({
-					                url: saveLink,
-					                type: 'POST',
-					                data: currShape,
-					                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
-					                success: function(result) {
-					                    //alert(result.Result);
-					                    //$("#saveStatus").html(result.Result).show();
-					                }
-				            	});
-							});
+									var curr_zoom = rtnObj.current_zoom;
+									var origin= {x:-1,y:-1};
+									origin.x = rtnObj.img_object.x;
+									origin.y = rtnObj.img_object.y;
+									//saveLink = saveLink + "&x=" + x1 + "&y=" + y + "&type=" +  type + "&width=" + width + "&height=" + height + "&color=" + color;
+									saveLink = saveLink + "&x_origin=" + origin.x + "&y_origin=" + origin.y + "&zoom=" + curr_zoom + "&note=" + note;
+									var currShape = new shape(x1 , y1, width, height, type, color);
+								
+									$.ajax({
+						                url: saveLink,
+						                type: 'POST',
+						                data: currShape,
+						                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+						                success: function(result) {
+						                    //alert(result.Result);
+						                    //$("#saveStatus").html(result.Result).show();
+						                }
+					            	});
+								});
 							
-  						
+	            			}
+        				});
+
 					}); 
 				 
 }
@@ -91,9 +96,22 @@ function initializeViewer(patientId, fileId, server)
 function retrieveViewerData(patientId, fileId, server)
 {
 
+	var serverLink = "annotateImageJSON.jsp?patient_id=" + patientId + "&file_id=" +fileId;
 	//Get the shapes in JSONFormat
 	//populate the "shape objects with data"
-	
+	$.getJSON(serverLink, function(data)
+	{
+						
+		//Check to see if any error message
+		if (data.announce)
+		{
+			updateAnnouncements(data);
+			return;
+		}
+		var html = v2js_listImageTags( data );  
+		$("#canvas").html(html);
+		initializeViewer(patientId, fileId, server);
+	});
 }
 
 function printError(error)

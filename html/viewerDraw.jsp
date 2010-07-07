@@ -110,7 +110,8 @@
 	    <script type="text/javascript" src="js/color-picker/utils.js"></script>
 	    <script type="text/javascript" src="js/color-picker/colorpicker-layout.js"></script>
 		<script type="text/javascript" src="js/medCafe.viewer.js"></script>
-			
+		<script type="text/javascript" src="${js}/vel2jstools.js"></script>
+		<script type="text/javascript" src="${js}/vel2js.js"></script>	
 		
         <script type="text/javascript">
             var $ = jQuery;
@@ -119,26 +120,8 @@
 			
 			
             $(document).ready(function(){
-            	 initializeViewer('<%=patientId%>', '<%=fileId%>', '<%=imageName%>');
-            });
-
-            function printError(error) {
-				document.getElementById("errorArea").innerHTML += error +"<br>";
-			}
-		
-				// used by the dhtml buttons
-			function setControlLook(id, color) {
-				if(id != canvasPainter.curDrawAction)
-				document.getElementById("btn_"+id).style.background = color;
-			}
-		
-			function setCPDrawAction(action) {
-				document.getElementById("btn_"+canvasPainter.curDrawAction).style.background = "#FFFFFF";
-				document.getElementById("btn_"+action).style.background = "#CCCCCC";
-				canvasPainter.setDrawAction(action);
-			}
-		  
-		 
+            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=imageName%>');
+            });	 
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
         <style>

@@ -223,9 +223,21 @@
 				var width = $(this).attr("custom:width");
 				var height = $(this).attr("custom:height");
 				var color = $(this).attr("custom:color");
-				
+				var zoom = $(this).attr("custom:zoom");
 				var x2 = x1 + width;
-				var y2 = y1 + height;
+				var y2 = y1 + height;	
+				if (isNaN(curr_zoom))
+				{
+					curr_zoom = new_zoom;
+				}
+				if (isNaN(new_x))
+				{
+					new_x = 0;
+				}
+				if (isNaN(new_y))
+				{
+					new_y = 0;
+				}
 				
 				var imageX1 = (1*x1 + 1*old_x) / curr_zoom;
 				var imageY1 = (1*y1 + 1*old_y) /curr_zoom;
@@ -236,8 +248,8 @@
 				var newContainerX1 = newImageX1 + new_x;
 				//alert("jquery.iviewer-draw zoomShapes old point x: " + x1 + " y : " + y1 + " old origin x: " + old_x + " y: " + old_y);
 				//alert("jquery.iviewer-draw zoomShapes old image point x: " + imageX1 + " y : " + imageY1 );
-				/*alert("jquery.iviewer-draw zoomShapes  new origin x: " + new_x + " y: " + new_y);
-				*/
+				//alert("jquery.iviewer-draw zoomShapes  new origin x: " + new_x + " y: " + new_y);
+				
 				
 				var x1Container = newImageX1 + new_x;
 				var y1Container = newImageY1 + new_y;

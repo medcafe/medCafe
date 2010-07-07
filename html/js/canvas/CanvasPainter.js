@@ -155,6 +155,7 @@ var CanvasPainter = CanvasWidget.extend({
 	//Draw Functions
 	drawRectangle: function(pntFrom, pntTo, context) {
 		context.beginPath();
+		//alert("CanvasPainter line 158 drawRectangle point from x " + pntFrom.x + " y " +  pntFrom.y + " and point to x " + pntTo.x + " y " + pntTo.y);
 		context.fillRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
 		context.closePath();
 		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle", this.drawColor );
