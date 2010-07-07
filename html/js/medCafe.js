@@ -230,7 +230,22 @@ $(document).ready( function() {
 				addProblemList(this, link, tab_num, label, patientId, repId, patientRepId);
 			}
 		}
-		else if  (type == "Allergies")
+		else if  (type == "Immunizations")
+		{
+			if (typeof addImmunizations == 'undefined')
+			{
+
+				$.getScript('js/medCafe.immunizations.js', function()
+				{
+					addImmunizations(this, link, tab_num, label, patientId, repId, patientRepId);
+				});
+			}
+			else
+			{
+				addImmunizations(this, link, tab_num, label, patientId, repId, patientRepId);
+			
+			}
+		}	else if  (type == "Allergies")
 		{
 			if (typeof addAllergies == 'undefined')
 			{
@@ -287,7 +302,7 @@ $(document).ready( function() {
 		}
 		else if  (type == "Support")
 		{
-			if (typeof addProblemInfo == 'undefined')
+			if (typeof addSupportInfo == 'undefined')
 			{
 				$.getScript('js/medCafe.supportInfo.js', function()
 				{

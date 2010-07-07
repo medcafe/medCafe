@@ -1,0 +1,33 @@
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="immunizations$patient_id">
+<thead><tr><th></th><th></th><th></th></tr></thead><tbody>
+#foreach( $immunization in $immunizations )
+<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Immunization</td><td value="$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName">$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td></tr>
+<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Administered Date</td><td value="$immunization.administeredDate.month"/"$immunization.administeredDate.day"/"$immunization.administeredDate.year">$immunization.administeredDate.month/$immunization.administeredDate.day/$immunization.administeredDate.year</td></tr>
+<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Details</td><td value="$immunization.narrative">$immunization.narrative</td></tr>
+<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Administered by</td>
+
+#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
+
+#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
+<td value =
+#if ($immunization.performer.person.name.given)
+	#foreach ($givenNameDetail in $immunization.performer.person.name.given)
+		"$givenNameDetail " 		
+	#end
+#end
+"$immunization.performer.person.name.lastname">
+#if ($immunization.performer.person.name.given)
+	#foreach ($givenNameDetail in $immunization.performer.person.name.given)
+		$givenNameDetail$space 
+	#end
+#end
+$immunization.performer.person.name.lastname</td></tr>
+
+
+
+
+
+
+#end
+</tbody>
+<table>

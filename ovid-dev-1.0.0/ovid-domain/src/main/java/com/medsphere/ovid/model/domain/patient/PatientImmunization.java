@@ -41,7 +41,7 @@ public class PatientImmunization extends PatientItem {
         diagnoses = new ArrayList<String>();
     }
     public PatientImmunization(String id, String message, Date eventDate, String diag1, String diag2, String diag3, 
-    String series, String react,
+    String diag4, String diag5, String diag6, String diag7, String diag8, String series, String react,
     String contraind, String rem, String orderProv, String encountProv)
     {
     	super(id, message, null, eventDate, PatientItemType.Immunization);
@@ -64,6 +64,26 @@ public class PatientImmunization extends PatientItem {
     	if (diag3 != null)
     	{
     		diagnoses.add(diag3);
+    	}
+    	if (diag4 != null)
+    	{
+    		diagnoses.add(diag4);
+    	}
+    	if (diag5 != null)
+    	{
+    		diagnoses.add(diag5);
+    	}
+    	if (diag6 != null)
+    	{
+    		diagnoses.add(diag6);
+    	}
+    	if (diag7 != null)
+    	{
+    		diagnoses.add(diag7);
+    	}
+    	if (diag8 != null)
+    	{
+    		diagnoses.add(diag8);
     	}
     }
     public ArrayList<String> getDiagnoses()

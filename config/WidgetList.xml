@@ -118,6 +118,15 @@
 	<method></method>
 	<repository>OurVista</repository>
 </medCafeWidget>
+<medCafeWidget>
+	<name>Immunizations</name>
+	<type>Immunizations</type>
+	<image>hypo.png</image>
+	<server></server>
+	<clickUrl>immunizationJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+</medCafeWidget>
 </patientSpecific>
 <general>
 <medCafeWidget>

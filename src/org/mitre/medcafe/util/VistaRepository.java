@@ -20,6 +20,7 @@ import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.Support;
 import org.projecthdata.hdata.schemas._2009._06.support.ContactRelationship;
+import org.projecthdata.hdata.schemas._2009._06.immunization.Immunization;
 import com.medsphere.vistarpc.RPCConnection;
 import com.medsphere.vistarpc.RPCBrokerConnection;
 import com.medsphere.vistarpc.RPCException;
@@ -545,6 +546,55 @@ public class VistaRepository extends Repository {
         }
     }
 
+    public List<Immunization> getImmunizations(String id) {
+        List<Immunization> list = new ArrayList<Immunization>();
+        try {
+            if (setConnection()) {
+                PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
+                Collection<PatientImmunization> vista_list = r.getImmunizations(id);
+                // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
+                for (PatientImmunization imm : vista_list) {
+                    Immunization immunization = new Immunization();  //hData type
+                    immunization.setNarrative("Series: " + imm.getSeries()+ " Reaction: "+ imm.getReaction() +
+                            " Contraindicated: "+ imm.getContraindicated());
+                    Actor provider = new Actor();
+                    Person person = new Person();
+                    person.setName(setPersonsName(imm.getEncounterProvider()));
+                    provider.setPerson(person);
+                    immunization.setPerformer(provider);
+                    //populate
+
+                    if (imm.getDateTime() != null) {
+                        GregorianCalendar cal = new GregorianCalendar();
+                        cal.setTime(imm.getDateTime());
+                        DatatypeFactory factory = DatatypeFactory.newInstance();
+                        immunization.setAdministeredDate(factory.newXMLGregorianCalendar(cal));                    }
+
+
+                    MedicationInformation m = new MedicationInformation();
+
+                    MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
+                    mm.setFreeTextBrandName(imm.getImmunizationName());
+                    m.setManufacturedMaterial(mm);
+
+                    immunization.setMedicationInformation(m);
+
+
+                    list.add(immunization);
+                }
+                log.finer("Number of immunizations for patient " + id + " is " + list.size());
+            } else {
+                log.warning("BAD CONNECTION");
+            }
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving PatientItems", e);
+        } finally {
+            closeConnection();
+            return list;
+        }
+    }
+
     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String id) {
         List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> list = new ArrayList<org.projecthdata.hdata.schemas._2009._06.condition.Condition>();
         try {
@@ -679,5 +729,16 @@ public class VistaRepository extends Repository {
         } finally {
             closeConnection();
         }
+    }
+
+    private Name setPersonsName(String fullname) {
+        Name personsName = new Name();
+        String[] nameParts = fullname.split(",");
+        personsName.setLastname(nameParts[0]);
+        List<String> given = personsName.getGiven();
+        for (int i = 1; i < nameParts.length; i++) {
+            given.add(nameParts[i]);
+        }
+        return personsName;
     }
 }

@@ -531,6 +531,11 @@ public class PatientItemRepository extends OvidSecureRepository {
             query.getField("DIAGNOSIS").setInternal(false);
             query.getField("DIAGNOSIS 2").setInternal(false);
             query.getField("DIAGNOSIS 3").setInternal(false);
+            query.getField("DIAGNOSIS 4").setInternal(false);
+            query.getField("DIAGNOSIS 5").setInternal(false);
+            query.getField("DIAGNOSIS 6").setInternal(false);
+            query.getField("DIAGNOSIS 7").setInternal(false);
+            query.getField("DIAGNOSIS 8").setInternal(false);
             query.getField("ORDERING PROVIDER").setInternal(false);
             query.getField("ENCOUNTER PROVIDER").setInternal(false);
           
@@ -542,9 +547,11 @@ public class PatientItemRepository extends OvidSecureRepository {
                 while (results.next()) {
                     FMV_Immunization immune = new FMV_Immunization(results);
                     PatientImmunization patImmune = new PatientImmunization(immune.getVisitDate().toString(), immune.getImmunizationValue(), immune.getEventDate(),
-                    immune.getDiagnosisValue(), immune.getDiagnosis2Value(), 
-    					  immune.getDiagnosis3Value(), immune.getSeries(), immune.getReaction(), immune.getContraindicated(), immune.getRemarks(),
+                    immune.getDiagnosisValue(), immune.getDiagnosis2Value(), immune.getDiagnosis3Value(), immune.getDiagnosis4Value(), immune.getDiagnosis5Value(),
+                    immune.getDiagnosis6Value(), immune.getDiagnosis7Value(), immune.getDiagnosis8Value(),
+    					  immune.getSeries(), immune.getReaction(), immune.getContraindicated(), immune.getRemarks(),
     					  immune.getOrderingProviderValue(), immune.getEncounterProviderValue());
+    					  collection.add(patImmune);
 
                 }
             } else {

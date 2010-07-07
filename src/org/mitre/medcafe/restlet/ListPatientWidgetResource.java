@@ -89,15 +89,15 @@ public class ListPatientWidgetResource extends ServerResource {
         	// System.out.println("ListWidgetResource JSON start");
         	//String server = "http://" + Config.getServerUrl() + "/";
         	String server = "";
-        	String[] widgetName = new String[]{"Details", "Images", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Charts", "Dates","SupportInfo"};
-        	String[] type = new String[]{"Detail","Image", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Chart", "Date","Support"};
+        	String[] widgetName = new String[]{"Details", "Images", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Charts", "Dates","SupportInfo","Immunizations"};
+        	String[] type = new String[]{"Detail","Image", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Chart", "Date","Support","Immunizations"};
 
-        	String[] images = new String[]{"patient.png","coverflow.png",  "slider-small.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg","history.png", "problem.png", "chart.png", "date.png", "Address_Book.png"};
-        	String[] clickUrl = new String[]{server + "repository-listJSON.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp",server +"historyJSON.jsp", server + "problemListJSON.jsp", server + "chart.jsp",  "", server + "supportListJSON.jsp"};
+        	String[] images = new String[]{"patient.png","coverflow.png",  "slider-small.png","pages-icon.png","timeline.png","bookmark.png","prescription.png","allergy.jpg","history.png", "problem.png", "chart.png", "date.png", "Address_Book.png", "hypo.png"};
+        	String[] clickUrl = new String[]{server + "repository-listJSON.jsp",server +"coverflow-flash/index.jsp",server +"slider.jsp","editor.jsp" ,"timelineJSON.jsp",server + "bookmarksJSON.jsp",server + "prescriptionJSON.jsp", server + "allergyJSON.jsp",server +"historyJSON.jsp", server + "problemListJSON.jsp", server + "chart.jsp",  "", server + "supportListJSON.jsp", server + "immunizationJSON.jsp"};
 
-        	String[] method = new String[]{"", "","","", "", "","","","","","","",""};
+        	String[] method = new String[]{"", "","","", "", "","","","","","","","",""};
 
-        	String[] repository = new String[]{"OurVista","", "","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista","OurVista", "","", "OurVista"};
+        	String[] repository = new String[]{"OurVista","", "","OurVista", "OurVista","OurVista", "OurVista","OurVista","OurVista","OurVista", "","", "OurVista", "OurVista"};
 
         	int i=0;
 

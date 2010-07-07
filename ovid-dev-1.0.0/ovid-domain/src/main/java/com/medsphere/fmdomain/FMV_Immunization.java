@@ -36,18 +36,7 @@ public class FMV_Immunization extends FMRecord {
     /*-------------------------------------------------------------
      * begin static initialization
      *-------------------------------------------------------------*/
-    public static final String FEVER = "1";
-    public static final String IRRITABILITY = "2";
-    public static final String LOCAL_REACTION = "3";
-    public static final String VOMITING = "4";
-    public static final String RASH = "5";
-    public static final String LETHARGY = "6";
-    public static final String CONVULSIONS = "7";
-    public static final String ARTHRITIS = "8";
-    public static final String ANAPHYLAXIS = "9";
-    public static final String RESPIRATORY_DISTRESS = "10";
-    public static final String OTHER = "11";
-    public static final String NONE = "0";
+
     private static Set<FMField> domainFields;
     private static FMFile fileInfo;
     private static Map<String, AnnotatedElement> domainJavaFields;
@@ -109,6 +98,16 @@ public class FMV_Immunization extends FMRecord {
     protected Integer diag2;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 3", number = ".1", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diag3;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS 4", number = ".11", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer diag4;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS 5", number = ".12", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer diag5;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS 6", number = ".13", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer diag6;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS 7", number = ".14", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer diag7;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS 8", number = ".15", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer diag8;
     @FMAnnotateFieldInfo(name = "REMARKS", number = "1101", fieldType = FMField.FIELDTYPE.WORD_PROCESSING)
     protected String remarks;
     @FMAnnotateFieldInfo(name = "EVENT DATE AND TIME", number = "1201", fieldType = FMField.FIELDTYPE.DATE)
@@ -188,6 +187,46 @@ public class FMV_Immunization extends FMRecord {
     public String getDiagnosis3Value()
     {
         return getValue(".1");
+    }
+    public Integer getDiagnosis4()
+    {
+        return diag4;
+    }
+    public String getDiagnosis4Value()
+    {
+        return getValue(".11");
+    }
+    public Integer getDiagnosis5()
+    {
+	return diag5;
+    }
+    public String getDiagnosis5Value()
+    {
+        return getValue(".12");
+    }
+    public Integer getDiagnosis6()
+    {
+        return diag6;
+    }
+    public String getDiagnosis6Value()
+    {
+        return getValue(".13");
+    }
+    public Integer getDiagnosis7()
+    {
+	return diag7;
+    }
+    public String getDiagnosis7Value()
+    {
+        return getValue(".14");
+    }
+    public Integer getDiagnosis8()
+    {
+        return diag8;
+    }
+    public String getDiagnosis8Value()
+    {
+        return getValue(".15");
     }
     public String getRemarks()
     {

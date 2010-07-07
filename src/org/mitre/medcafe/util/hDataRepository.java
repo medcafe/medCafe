@@ -11,6 +11,7 @@ import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.*;
+import org.projecthdata.hdata.schemas._2009._06.immunization.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -111,6 +112,14 @@ public class hDataRepository extends Repository
     public List<Support> getSupportInfo(String patientId) throws NotImplementedException
     {
     	  throw new NotImplementedException("getSupportInfo is not implemented for hDataRepository");
+
+    }
+     /**
+     *  Get a list of immunizations for a patient.
+     */
+    public List<Immunization> getImmunizations(String id) throws NotImplementedException
+    {
+    	  throw new NotImplementedException("getImmunizations is not implemented for hDataRepository");
 
     }
 
