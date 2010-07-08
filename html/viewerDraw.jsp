@@ -9,7 +9,9 @@
 	Object patientIdObj = session.getAttribute("patient");
 	if (patientIdObj != null)
 		patientId = patientIdObj.toString();
-		
+	String dir = "images/patients/" + patientId + "/";
+
+	imageName = dir + imageName;		
 	String fileId = request.getParameter("file_id");
 	
 %>

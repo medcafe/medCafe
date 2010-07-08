@@ -343,7 +343,7 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(200,function()
 		{
-			//alert("image server " + server);
+			alert("medCafe.js addChart line 346 image server " + server + " tab num " + tab_num);
 
 			iNettuts.refresh("yellow-widget" + tab_num);
 
@@ -568,11 +568,9 @@ function displayImage(imageName, patientId, tab_num)
 						return;
 						
 					var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
-					
 					createWidgetContent(patientId,link, label, type ,newTab_num, "","local",patientId);
 						
-					//addWidgetTab(this, link, tab_num, "", "", "", type);
-					//addChart(this, link, tab_num);
+					
 				});
 	
 				$("#editButton" + tab_num).bind("click",{},
@@ -584,10 +582,12 @@ function displayImage(imageName, patientId, tab_num)
 				
 					var newTab_num = addTab(imageTitle + "Annotate", "Annotate");
 	
-					var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
+					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
+					var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;	
+				 	addChart(this, link, newTab_num);
+				 	
+					//createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
 					
-					createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
-					//imageAnnotate(this, link, tab_num);
 				});
 				
 				

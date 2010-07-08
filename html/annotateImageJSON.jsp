@@ -8,10 +8,11 @@
 	if (patient_id == null)
 		patient_id = Constants.DEFAULT_PATIENT;
 	
-	String fileId = request.getParameter("file_id");
+	String fileName = request.getParameter("image");
+	System.out.println("annotateJSON: fileName " + fileName);
 	
 	String user =  request.getRemoteUser();
-	JSONObject imageTags = ImageTag.retrieveAnnotations(user, patient_id, fileId);
+	JSONObject imageTags = ImageTag.retrieveAnnotations(user, patient_id, fileName);
 	
 %>
 <%=imageTags.toString()%>

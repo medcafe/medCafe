@@ -103,7 +103,7 @@ function initializeViewer(patientId, fileId, server)
 function retrieveViewerData(patientId, fileId, server)
 {
 
-	var serverLink = "annotateImageJSON.jsp?patient_id=" + patientId + "&file_id=" +fileId;
+	var serverLink = "annotateImageJSON.jsp?patient_id=" + patientId + "&image=" +server;
 	//Get the shapes in JSONFormat
 	//populate the "shape objects with data"
 	$.getJSON(serverLink, function(data)
@@ -112,7 +112,7 @@ function retrieveViewerData(patientId, fileId, server)
 		//Check to see if any error message
 		if (data.announce)
 		{
-			updateAnnouncements(data);
+			parent.updateAnnouncements(data);
 			return;
 		}
 		var html = v2js_listImageTags( data );  
@@ -120,6 +120,7 @@ function retrieveViewerData(patientId, fileId, server)
 		initializeViewer(patientId, fileId, server);
 	});
 }
+
 
 function printError(error)
 {
