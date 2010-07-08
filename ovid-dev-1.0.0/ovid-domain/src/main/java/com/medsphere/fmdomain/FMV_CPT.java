@@ -14,14 +14,13 @@
  */
 package com.medsphere.fmdomain;
 /*
- * container class of fileman V Immunization information
+ * container class of fileman V CPT information
  */
-
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.Map;
 import java.util.Set;
@@ -32,22 +31,23 @@ import com.medsphere.fileman.FMFile;
 import com.medsphere.fileman.FMRecord;
 import com.medsphere.fileman.FMResultSet;
 
-public class FMV_Immunization extends FMRecord {
+import com.medsphere.fmdomain.FMICD_Diagnosis;
+
+public class FMV_CPT extends FMRecord {
 
     /*-------------------------------------------------------------
      * begin static initialization
      *-------------------------------------------------------------*/
-
     private static Set<FMField> domainFields;
     private static FMFile fileInfo;
     private static Map<String, AnnotatedElement> domainJavaFields;
     private static Map<String, String> domainNumbers;
 
     static {
-        domainJavaFields = getDomainJavaFields(FMV_Immunization.class);
+        domainJavaFields = getDomainJavaFields(FMV_CPT.class);
         domainFields = getFieldsInDomain(domainJavaFields);
-        domainNumbers = getNumericMapping(FMV_Immunization.class);
-        fileInfo = new FMFile("V IMMUNIZATION") { //
+        domainNumbers = getNumericMapping(FMV_CPT.class);
+        fileInfo = new FMFile("V CPT") { //
 
             @Override
             public Collection<FMField> getFields() {
@@ -80,21 +80,18 @@ public class FMV_Immunization extends FMRecord {
     /*-------------------------------------------------------------
      * end static initialization
      *-------------------------------------------------------------*/
-
-    @FMAnnotateFieldInfo(name = "IMMUNIZATION", number = ".01", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
-    protected Integer immunization;
+    @FMAnnotateFieldInfo(name = "CPT", number = ".01", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer cpt;
     @FMAnnotateFieldInfo(name = "PATIENT NAME", number = ".02", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer patient;
     @FMAnnotateFieldInfo(name = "VISIT", number = ".03", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer visit;
-    @FMAnnotateFieldInfo(name = "SERIES", number = ".04", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String seriesCode;
-    @FMAnnotateFieldInfo(name = "REACTION", number = ".06", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String reaction;
-    @FMAnnotateFieldInfo(name = "CONTRAINDICATED", number = ".07", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String contraindicated;
-    @FMAnnotateFieldInfo(name = "DIAGNOSIS", number = ".08", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    @FMAnnotateFieldInfo(name = "PROVIDER NARRATIVE", number = ".04", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer narrative;
+    @FMAnnotateFieldInfo(name = "DIAGNOSIS", number = ".05", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diagnosis;
+    @FMAnnotateFieldInfo(name = "PRINCIPAL PROCEDURE", number = ".07", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
+    protected String principalProcedure;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 2", number = ".09", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diag2;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 3", number = ".1", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
@@ -109,24 +106,25 @@ public class FMV_Immunization extends FMRecord {
     protected Integer diag7;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 8", number = ".15", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diag8;
-    @FMAnnotateFieldInfo(name = "REMARKS", number = "1101", fieldType = FMField.FIELDTYPE.WORD_PROCESSING)
-    protected String remarks;
+    @FMAnnotateFieldInfo(name = " QUANTITY", number = ".16", fieldType = FMField.FIELDTYPE.NUMERIC)
+    protected Double quantity;
     @FMAnnotateFieldInfo(name = "EVENT DATE AND TIME", number = "1201", fieldType = FMField.FIELDTYPE.DATE)
     protected Date eventDate;
     @FMAnnotateFieldInfo(name = "ORDERING PROVIDER", number = "1202", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
-    protected Integer orderProvider;
+    protected Integer orderingProvider;
     @FMAnnotateFieldInfo(name = "ENCOUNTER PROVIDER", number = "1204", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer encounterProvider;
-	 private ArrayList<FMICD_Diagnosis> diagnoses = null;
+    @FMAnnotateFieldInfo(name = "COMMENTS", number = "81101", fieldType = FMField.FIELDTYPE.FREE_TEXT)
+    protected String comments;
+    protected ArrayList<FMICD_Diagnosis> diagnoses = null;
 
-
-    public FMV_Immunization() {
+    public FMV_CPT() {
         super(fileInfo.getFileName());
 
 
     }
 
-    public FMV_Immunization(FMResultSet results) {
+    public FMV_CPT(FMResultSet results) {
         super(results);
     }
    
@@ -172,142 +170,150 @@ public class FMV_Immunization extends FMRecord {
     {
         return diagnoses;
     }
-    public String getImmunizationValue (){
-        return getValue(".01");
-    }
-    public Integer getImmunization()
-    {
-        return immunization;
+    public Integer getCpt() {
+        return cpt;
     }
 
-    public Integer getPatientId() {
+    public String getCptValue() {
+        return getValue(".01");
+    }
+
+    public Integer getPatient() {
         return patient;
     }
 
-    public String getPatientName(){
+    public String getPatientName() {
         return getValue(".02");
     }
 
-    public Integer getVisitIEN(){
-       return visit;
+    public Integer getVisitIEN() {
+        return visit;
     }
-    public String getSeries()
-    {
 
-        return seriesCode;
+    public Integer getProviderNarrative() {
+        return narrative;
     }
-    public String getReaction()
-    {
-        return reaction;
+
+    public String getProviderNarrativeValue() {
+        return getValue(".04");
     }
-    public String getContraindicated()
-    {
-        return contraindicated;
+
+    public Double getQuantity() {
+        return quantity;
     }
-    public Integer getDiagnosis()
-    {
-        return diagnosis;
+
+    public String getPrincipalProcedure() {
+        return principalProcedure;
     }
-    public String getDiagnosisValue()
-    {
-        return getValue(".08");
-    }
-    public Integer getDiagnosis2()
-    {
-	return diag2;
-    }
-    public String getDiagnosis2Value()
-    {
-        return getValue(".09");
-    }
-    public Integer getDiagnosis3()
-    {
-        return diag3;
-    }
-    public String getDiagnosis3Value()
-    {
-        return getValue(".1");
-    }
-    public Integer getDiagnosis4()
-    {
-        return diag4;
-    }
-    public String getDiagnosis4Value()
-    {
-        return getValue(".11");
-    }
-    public Integer getDiagnosis5()
-    {
-	return diag5;
-    }
-    public String getDiagnosis5Value()
-    {
-        return getValue(".12");
-    }
-    public Integer getDiagnosis6()
-    {
-        return diag6;
-    }
-    public String getDiagnosis6Value()
-    {
-        return getValue(".13");
-    }
-    public Integer getDiagnosis7()
-    {
-	return diag7;
-    }
-    public String getDiagnosis7Value()
-    {
-        return getValue(".14");
-    }
-    public Integer getDiagnosis8()
-    {
-        return diag8;
-    }
-    public String getDiagnosis8Value()
-    {
-        return getValue(".15");
-    }
-    public String getRemarks()
-    {
-        return remarks;
-    }
-    public Date getEventDate()
-    {
+
+    public Date getEventDate() {
         return eventDate;
     }
-    public Integer getOrderingProvider()
-    {
-        return orderProvider;
-    }
-    public String getOrderingProviderValue()
-    {
-         return getValue("1202");
-    }
-    public Integer getEncounterProvider()
-    {
-            return encounterProvider;
-    }
-    public String getEncounterProviderValue()
-    {
-           return getValue("1204");
+
+    public Integer getOrderingProvider() {
+        return orderingProvider;
     }
 
+    public String getOrderingProviderValue() {
+        return getValue("1202");
+    }
+
+    public Integer getEncounterProvider() {
+        return encounterProvider;
+    }
+
+    public String getEncounterProviderValue() {
+        return getValue("1204");
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public Integer getDiagnosis() {
+        return diagnosis;
+    }
+
+    public String getDiagnosisValue() {
+        return getValue(".05");
+    }
+
+    public Integer getDiagnosis2() {
+        return diag2;
+    }
+
+    public String getDiagnosis2Value() {
+        return getValue(".09");
+    }
+
+    public Integer getDiagnosis3() {
+        return diag3;
+    }
+
+    public String getDiagnosis3Value() {
+        return getValue(".1");
+    }
+
+    public Integer getDiagnosis4() {
+        return diag4;
+    }
+
+    public String getDiagnosis4Value() {
+        return getValue(".11");
+    }
+
+    public Integer getDiagnosis5() {
+        return diag5;
+    }
+
+    public String getDiagnosis5Value() {
+        return getValue(".12");
+    }
+
+    public Integer getDiagnosis6() {
+        return diag6;
+    }
+
+    public String getDiagnosis6Value() {
+        return getValue(".13");
+    }
+
+    public Integer getDiagnosis7() {
+        return diag7;
+    }
+
+    public String getDiagnosis7Value() {
+        return getValue(".14");
+    }
+
+    public Integer getDiagnosis8() {
+        return diag8;
+    }
+
+    public String getDiagnosis8Value() {
+        return getValue(".15");
+    }
 
     @Override
     public String toString() {
-        return " Visit=[" + getVisitIEN() + "]" +
-        " patient=["+getPatientName()+"]"
-        + " immunization =["+getImmunizationValue()+"]"
-        + " series=["+ getSeries() + "]"
-        + " reaction=[" + getReaction() + "]"
-        + " contraindicated=[" + getContraindicated() + "]"
-        + " date=["+getEventDate() +"]"+
-                " diagnosis =[" + getDiagnosisValue() + "]"
-                + " remarks = [" + getRemarks() + "]"
+        return " Event Date=[" + getEventDate() + "]"
+                + " patient=[" + getPatientName() + "]"
+                + " CPT =[" + getCptValue() + "]"
+                + " quantity =[" + getQuantity() + "]"
+                + " provider narrative =[" + getProviderNarrativeValue() + "]"
+                + " principal procedure =[" + getPrincipalProcedure() + "]"
+                + " visit IEN =[" + getVisitIEN() + "]"
                 + " ordering provider=[" + getOrderingProviderValue() + "]"
-                + " encounter provider=["+ getEncounterProviderValue()+ "]";
+                + " encounter provider =[" + getEncounterProviderValue() + "]"
+                + " comments =[" + getComments() + "]"
+                + " diagnosis =[" + getDiagnosisValue() + "]"
+                + " diagnosis =[" + getDiagnosis2Value() + "]"
+                + " diagnosis =[" + getDiagnosis3Value() + "]"
+                + " diagnosis =[" + getDiagnosis4Value() + "]"
+                + " diagnosis =[" + getDiagnosis5Value() + "]"
+                + " diagnosis =[" + getDiagnosis6Value() + "]"
+                + " diagnosis =[" + getDiagnosis7Value() + "]"
+                + " diagnosis =[" + getDiagnosis8Value() + "]";
 
     }
-
 }

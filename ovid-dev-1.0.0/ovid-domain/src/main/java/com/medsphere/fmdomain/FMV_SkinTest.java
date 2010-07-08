@@ -14,7 +14,7 @@
  */
 package com.medsphere.fmdomain;
 /*
- * container class of fileman V Immunization information
+ * container class of fileman V Skin Test information
  */
 
 
@@ -32,7 +32,7 @@ import com.medsphere.fileman.FMFile;
 import com.medsphere.fileman.FMRecord;
 import com.medsphere.fileman.FMResultSet;
 
-public class FMV_Immunization extends FMRecord {
+public class FMV_SkinTest extends FMRecord {
 
     /*-------------------------------------------------------------
      * begin static initialization
@@ -44,10 +44,10 @@ public class FMV_Immunization extends FMRecord {
     private static Map<String, String> domainNumbers;
 
     static {
-        domainJavaFields = getDomainJavaFields(FMV_Immunization.class);
+        domainJavaFields = getDomainJavaFields(FMV_SkinTest.class);
         domainFields = getFieldsInDomain(domainJavaFields);
-        domainNumbers = getNumericMapping(FMV_Immunization.class);
-        fileInfo = new FMFile("V IMMUNIZATION") { //
+        domainNumbers = getNumericMapping(FMV_SkinTest.class);
+        fileInfo = new FMFile("V SKIN TEST") { //
 
             @Override
             public Collection<FMField> getFields() {
@@ -81,18 +81,18 @@ public class FMV_Immunization extends FMRecord {
      * end static initialization
      *-------------------------------------------------------------*/
 
-    @FMAnnotateFieldInfo(name = "IMMUNIZATION", number = ".01", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
-    protected Integer immunization;
+    @FMAnnotateFieldInfo(name = "SKIN TEST", number = ".01", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
+    protected Integer skinTest;
     @FMAnnotateFieldInfo(name = "PATIENT NAME", number = ".02", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer patient;
     @FMAnnotateFieldInfo(name = "VISIT", number = ".03", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer visit;
-    @FMAnnotateFieldInfo(name = "SERIES", number = ".04", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String seriesCode;
-    @FMAnnotateFieldInfo(name = "REACTION", number = ".06", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String reaction;
-    @FMAnnotateFieldInfo(name = "CONTRAINDICATED", number = ".07", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
-    protected String contraindicated;
+    @FMAnnotateFieldInfo(name = "RESULTS", number = ".04", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
+    protected String result;
+    @FMAnnotateFieldInfo(name = "READING", number = ".05", fieldType = FMField.FIELDTYPE.NUMERIC)
+    protected Double reading;
+    @FMAnnotateFieldInfo(name = "DATE READ", number = ".06", fieldType = FMField.FIELDTYPE.DATE)
+    protected Date dateRead;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS", number = ".08", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diagnosis;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 2", number = ".09", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
@@ -109,100 +109,50 @@ public class FMV_Immunization extends FMRecord {
     protected Integer diag7;
     @FMAnnotateFieldInfo(name = "DIAGNOSIS 8", number = ".15", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer diag8;
-    @FMAnnotateFieldInfo(name = "REMARKS", number = "1101", fieldType = FMField.FIELDTYPE.WORD_PROCESSING)
-    protected String remarks;
     @FMAnnotateFieldInfo(name = "EVENT DATE AND TIME", number = "1201", fieldType = FMField.FIELDTYPE.DATE)
     protected Date eventDate;
     @FMAnnotateFieldInfo(name = "ORDERING PROVIDER", number = "1202", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
-    protected Integer orderProvider;
+    protected Integer orderingProvider;
     @FMAnnotateFieldInfo(name = "ENCOUNTER PROVIDER", number = "1204", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer encounterProvider;
-	 private ArrayList<FMICD_Diagnosis> diagnoses = null;
+    @FMAnnotateFieldInfo(name = "COMMENTS", number = "81101", fieldType = FMField.FIELDTYPE.FREE_TEXT)
+    protected String comments;
+    private ArrayList<FMICD_Diagnosis> diagnoses = null;
 
-
-    public FMV_Immunization() {
+    public FMV_SkinTest() {
         super(fileInfo.getFileName());
 
 
     }
 
-    public FMV_Immunization(FMResultSet results) {
+    public FMV_SkinTest(FMResultSet results) {
         super(results);
-    }
-   
-    /*  This method works based on the setInternal being false for Diagnosis 1 - 8
-     *   returning ICD9 code. If they are not set to false, then it returns IENs into
-     *   the ICD DIAGNOSIS file.
-     */
-    public Collection<String> getDiagnosesKeyList() {
-        ArrayList<String> diagList = new ArrayList<String>();
-        if (getDiagnosisValue() != null) {
-            diagList.add(getDiagnosisValue());
-        }
-        if (getDiagnosis2Value() != null) {
-            diagList.add(getDiagnosis2Value());
-        }
-        if (getDiagnosis3Value() != null) {
-            diagList.add(getDiagnosis3Value());
-        }
-        if (getDiagnosis4Value() != null) {
-            diagList.add(getDiagnosis4Value());
-        }
-        if (getDiagnosis5Value() != null) {
-            diagList.add(getDiagnosis5Value());
-        }
-        if (getDiagnosis6Value() != null) {
-            diagList.add(getDiagnosis6Value());
-        }
-        if (getDiagnosis7Value() != null) {
-            diagList.add(getDiagnosis7Value());
-        }
-        if (getDiagnosis8Value() != null) {
-            diagList.add(getDiagnosis8Value());
-        }
-        return diagList;
-    }
 
-    public void setDiagnoses(ArrayList<FMICD_Diagnosis> diagArray)
-    {
-        diagnoses = diagArray;
     }
-    /* to use this method, you must first populate it by calling setDiagnoses  */
-    public ArrayList<FMICD_Diagnosis> getDiagnoses()
-    {
-        return diagnoses;
+    public Integer getSkinTest (){
+        return skinTest;
     }
-    public String getImmunizationValue (){
+    public String getSkinTestValue()
+    {
         return getValue(".01");
     }
-    public Integer getImmunization()
-    {
-        return immunization;
-    }
-
-    public Integer getPatientId() {
+    public Integer getPatient() {
         return patient;
     }
-
     public String getPatientName(){
         return getValue(".02");
     }
-
     public Integer getVisitIEN(){
        return visit;
     }
-    public String getSeries()
-    {
-
-        return seriesCode;
+    public String getResults(){
+        return result;
     }
-    public String getReaction()
-    {
-        return reaction;
+    public Double getReading(){
+        return reading;
     }
-    public String getContraindicated()
-    {
-        return contraindicated;
+    public Date getDateRead(){
+        return dateRead;
     }
     public Integer getDiagnosis()
     {
@@ -268,9 +218,43 @@ public class FMV_Immunization extends FMRecord {
     {
         return getValue(".15");
     }
-    public String getRemarks()
+ public Collection<String> getDiagnosesKeyList() {
+        ArrayList<String> diagList = new ArrayList<String>();
+        if (getDiagnosisValue() != null) {
+            diagList.add(getDiagnosisValue());
+        }
+        if (getDiagnosis2Value() != null) {
+            diagList.add(getDiagnosis2Value());
+        }
+        if (getDiagnosis3Value() != null) {
+            diagList.add(getDiagnosis3Value());
+        }
+        if (getDiagnosis4Value() != null) {
+            diagList.add(getDiagnosis4Value());
+        }
+        if (getDiagnosis5Value() != null) {
+            diagList.add(getDiagnosis5Value());
+        }
+        if (getDiagnosis6Value() != null) {
+            diagList.add(getDiagnosis6Value());
+        }
+        if (getDiagnosis7Value() != null) {
+            diagList.add(getDiagnosis7Value());
+        }
+        if (getDiagnosis8Value() != null) {
+            diagList.add(getDiagnosis8Value());
+        }
+        return diagList;
+    }
+
+    public void setDiagnoses(ArrayList<FMICD_Diagnosis> diagArray)
     {
-        return remarks;
+        diagnoses = diagArray;
+    }
+    /* to use this method, you must first populate it by calling setDiagnoses  */
+    public ArrayList<FMICD_Diagnosis> getDiagnoses()
+    {
+        return diagnoses;
     }
     public Date getEventDate()
     {
@@ -278,36 +262,46 @@ public class FMV_Immunization extends FMRecord {
     }
     public Integer getOrderingProvider()
     {
-        return orderProvider;
+        return orderingProvider;
     }
     public String getOrderingProviderValue()
     {
-         return getValue("1202");
+        return getValue("1202");
     }
-    public Integer getEncounterProvider()
+     public Integer getEncounterProvider()
     {
-            return encounterProvider;
+        return encounterProvider;
     }
     public String getEncounterProviderValue()
     {
-           return getValue("1204");
+        return getValue("1204");
     }
-
+    public String getComments()
+    {
+        return comments;
+    }
 
     @Override
     public String toString() {
-        return " Visit=[" + getVisitIEN() + "]" +
+        return " Event Date=[" + getEventDate() + "]" +
         " patient=["+getPatientName()+"]"
-        + " immunization =["+getImmunizationValue()+"]"
-        + " series=["+ getSeries() + "]"
-        + " reaction=[" + getReaction() + "]"
-        + " contraindicated=[" + getContraindicated() + "]"
-        + " date=["+getEventDate() +"]"+
-                " diagnosis =[" + getDiagnosisValue() + "]"
-                + " remarks = [" + getRemarks() + "]"
-                + " ordering provider=[" + getOrderingProviderValue() + "]"
-                + " encounter provider=["+ getEncounterProviderValue()+ "]";
-
+        + " skin test =["+getSkinTestValue()+"]"
+        + " result =["+ getResults() + "]"
+        + " reading =[" + getReading() + "]"
+        + " date read =[" + getDateRead() + "]"
+        + " diagnosis =[" + getDiagnosisValue() + "]"
+        + " diagnosis =[" + getDiagnosis2Value() + "]"
+        + " diagnosis =[" + getDiagnosis3Value() + "]"
+        + " diagnosis =[" + getDiagnosis4Value() + "]"
+        + " diagnosis =[" + getDiagnosis5Value() + "]"
+        + " diagnosis =[" + getDiagnosis6Value() + "]"
+        + " diagnosis =[" + getDiagnosis7Value() + "]"
+        + " diagnosis =[" + getDiagnosis8Value() + "]"
+        + " visit IEN =[" + getVisitIEN() + "]"
+        + " ordering provider=[" + getOrderingProviderValue() + "]"
+        + " encounter provider =["+getEncounterProviderValue() +"]"+
+                " comments =[" + getComments() + "]";
     }
 
 }
+

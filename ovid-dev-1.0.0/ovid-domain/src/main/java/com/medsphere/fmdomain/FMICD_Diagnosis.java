@@ -87,7 +87,7 @@ public class FMICD_Diagnosis extends FMRecord {
     @FMAnnotateFieldInfo(name = "MAJOR DIAGNOSTIC CATEGORY", number = "5", fieldType = FMField.FIELDTYPE.POINTER_TO_FILE)
     protected Integer category;
     @FMAnnotateFieldInfo(name = "MDC13", number = "5.5", fieldType = FMField.FIELDTYPE.NUMERIC)
-    protected Integer mdc13;
+    protected Double mdc13;
     @FMAnnotateFieldInfo(name = "MDC24", number = "5.7", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
     protected String mdc24;
     @FMAnnotateFieldInfo(name = "MDC25", number = "5.9", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
@@ -99,9 +99,9 @@ public class FMICD_Diagnosis extends FMRecord {
     @FMAnnotateFieldInfo(name = "DESCRIPTION", number = "10", fieldType = FMField.FIELDTYPE.FREE_TEXT)
     protected String description;
     @FMAnnotateFieldInfo(name = "AGE LOW", number = "14", fieldType = FMField.FIELDTYPE.NUMERIC)
-    protected Integer ageLow;
+    protected Double ageLow;
     @FMAnnotateFieldInfo(name = "AGE HIGH", number = "15", fieldType = FMField.FIELDTYPE.NUMERIC)
-    protected Integer ageHigh;
+    protected Double ageHigh;
     @FMAnnotateFieldInfo(name = "ACTIVATION DATE", number = "16", fieldType = FMField.FIELDTYPE.DATE)
     protected Date activationDate;
 
@@ -131,7 +131,7 @@ public class FMICD_Diagnosis extends FMRecord {
         return getValue("5");
     }
 
-    public Integer getMdc13(){
+    public Double getMdc13(){
         return mdc13;
     }
 
@@ -153,11 +153,11 @@ public class FMICD_Diagnosis extends FMRecord {
     {
         return description;
     }
-    public Integer getAgeLow()
+    public Double getAgeLow()
     {
         return ageLow;
     }
-    public Integer getAgeHigh()
+    public Double getAgeHigh()
     {
         return ageHigh;
     }
