@@ -124,42 +124,7 @@
         this.img_object.x = 0;
         this.img_object.y = 0;
         
-        //init object
-        this.img_object.object = $("<img>").load(function(){
-            me.img_object.display_width = me.img_object.orig_width = this.width;
-            me.img_object.display_height = me.img_object.orig_height = this.height;
-            $(this)
-            		.css("position","absolute")
-                 //auto otherwise
-                   .prependTo(me.container);
-                   
-            me.container.addClass("iviewer_cursor");
-
-            if(me.settings.zoom == "fit")
-            {
-                me.fit();
-            }
-            else
-            {
-                me.set_zoom(me.settings.zoom);
-            }
-            //src attribute is after setting load event, or it won't work
-        }).attr("src",this.settings.src).
-        //bind mouse events
-        mousedown(function(e){ return me.drag_start(e); }).
-        mousemove(function(e){return me.drag(e)}).
-        mouseup(function(e){return me.drag_end(e)}).
-        click(function(e){return me.click(e)}).
-        mouseleave(function(e){return me.drag_end(e)}).
-        mousewheel(function(ev, delta)
-        {
-            //this event is there instead of containing div, because
-            //at opera it triggers many times on div
-            var zoom = (delta > 0)?1:-1;
-            me.zoom_by(zoom);
-            return false;
-        });
-        
+        me.initializeImage();
        	
         if(!this.settings.ui_disabled)
         {
@@ -203,6 +168,47 @@
           this.set_zoom(new_zoom);
          
         },
+        initializeImage: function()
+        {
+        	me = this;
+        	//init object
+	        this.img_object.object = $("<img>").load(function(){
+	            me.img_object.display_width = me.img_object.orig_width = this.width;
+	            me.img_object.display_height = me.img_object.orig_height = this.height;
+	            $(this)
+	            		.css("position","absolute")
+	                 //auto otherwise
+	                   .prependTo(me.container);
+	                   
+	            me.container.addClass("iviewer_cursor");
+	
+	            if(me.settings.zoom == "fit")
+	            {
+	                me.fit();
+	            }
+	            else
+	            {
+	                me.set_zoom(me.settings.zoom);
+	            }
+	            //src attribute is after setting load event, or it won't work
+	        }).attr("src",this.settings.src).
+	        //bind mouse events
+	        mousedown(function(e){ return me.drag_start(e); }).
+	        mousemove(function(e){return me.drag(e)}).
+	        mouseup(function(e){return me.drag_end(e)}).
+	        click(function(e){return me.click(e)}).
+	        mouseleave(function(e){return me.drag_end(e)}).
+	        mousewheel(function(ev, delta)
+	        {
+	            //this event is there instead of containing div, because
+	            //at opera it triggers many times on div
+	            var zoom = (delta > 0)?1:-1;
+	            me.zoom_by(zoom);
+	            return false;
+	        });
+	        
+        }
+        ,
         zoomShapes: function(old_x, old_y, new_x, new_y, curr_zoom, new_zoom)
         {
         	x=100; y=100;
@@ -224,6 +230,7 @@
 				var height = $(this).attr("custom:height");
 				var color = $(this).attr("custom:color");
 				var zoom = $(this).attr("custom:zoom");
+				var offset = $(this).attr("custom:offset");
 				var x2 = x1 + width;
 				var y2 = y1 + height;	
 				if (isNaN(curr_zoom))
@@ -241,27 +248,27 @@
 				
 				var imageX1 = (1*x1 + 1*old_x) / curr_zoom;
 				var imageY1 = (1*y1 + 1*old_y) /curr_zoom;
-				
-				var newImageX1 = new_zoom*imageX1;
+				var newOffSet =  (-1*offset*new_zoom);
+				//alert("jquery.iviewer-draw zoomShapes  new offset " + newOffSet);
+				//The offset is now set back to 0
+				offset = 0;
+				var newImageX1 = new_zoom*imageX1 + 1*newOffSet;
 				var newImageY1 = new_zoom*imageY1;
-				
-				var newContainerX1 = newImageX1 + new_x;
-				//alert("jquery.iviewer-draw zoomShapes old point x: " + x1 + " y : " + y1 + " old origin x: " + old_x + " y: " + old_y);
-				//alert("jquery.iviewer-draw zoomShapes old image point x: " + imageX1 + " y : " + imageY1 );
-				//alert("jquery.iviewer-draw zoomShapes  new origin x: " + new_x + " y: " + new_y);
-				
-				
+
 				var x1Container = newImageX1 + new_x;
 				var y1Container = newImageY1 + new_y;
 				var newWidth = (width*new_zoom)/ curr_zoom;
 				var newHeight = (height*new_zoom)/ curr_zoom;
+				
 				var x2Container = x1Container + newWidth;
 				var y2Container = y1Container + newHeight;
 				
 				var canvasPt1 = {x:x1Container,y:y1Container};
 				var canvasPt2 =  {x:x2Container,y: y2Container};
 				var shapeId = $(this).attr("name");
-				container.updateHiddenValues(shapeId, canvasPt1, newWidth, newHeight, type  );
+				//alert("jquery.iviewer-draw zoomShapes  offset " + offset);
+				
+				container.updateHiddenValues(shapeId, canvasPt1, newWidth, newHeight, type , offset );
 					
 				canvasPt1 = {x:x1Container,y:y1Container};
 				canvasPt2 =  {x:x2Container,y: y2Container};
@@ -292,10 +299,70 @@
 			//var length = container.canvas.shapes.length;
 			//alert("no of shapes "  + length);
         },
+        moveShapes: function(dx, dy)
+        {
+        	var container = this;
+        	container.canvas.clearCanvas();
+        	
+            $('.shape').each(function ()
+			{
+			
+				var pntFrom= {x:-1,y:-1};
+        		var pntTo= {x:-1,y:-1};
+				var x1 = $(this).attr("custom:x");
+				var y1 = $(this).attr("custom:y");
+				var type = $(this).attr("custom:type");
+				var width = $(this).attr("custom:width");
+				var height = $(this).attr("custom:height");
+				var color = $(this).attr("custom:color");
+				var zoom = $(this).attr("custom:zoom");
+				var offset = $(this).attr("custom:offset");
+				var x2 = (x1*1 + 1*width);
+				
+				var y2 = (y1*1 + 1*height);	
+				
+				var imageX1 = (1*x1 + dx);
+				var imageY1 = (1*y1 + dy);
+				var imageX2 = (1*x2 + dx);
+				var imageY2 = (1*y2 + dy);
+				
+				var canvasPt1 = {x:imageX1,y:imageY1};
+				var canvasPt2 =  {x:imageX2,y: imageY2};
+				var shapeId = $(this).attr("name");
+				
+				var centerShapeX = (x1 + x2) /2;
+				var zoom = container.current_zoom/100;
+                
+				offset = offset*1 + (dx/ zoom);
+				
+				container.updateHiddenValues(shapeId, canvasPt1, width, height, type,  offset);
+								
+				if (type == "circle")
+				{
+					imageX2 = imageX1 + width*2; //The click on zoon stores only the radius not the full width - so need to multiply to get full width
+					canvasPt2 =  {x:imageX2,y: imageY2};
+					
+					container.canvas.setColor(color);
+					container.canvas.drawCircleZoom(canvasPt1, canvasPt2, container.canvas.context);
+					//Save the radius value to be consistent with the click on zoom functionality
+					
+					
+				}
+				else if (type = "rectangle")
+				{
+					container.canvas.setColor(color);
+					container.canvas.drawRectangle(canvasPt1, canvasPt2, container.canvas.context);
+				
+				}	
+				
+			});
+			//var length = container.canvas.shapes.length;
+			//alert("no of shapes "  + length);
+        },
         /**
         * update the values that are kept in html for shape position
         **/
-        updateHiddenValues: function (shapeName, newPos, newWidth, newHeight, type )
+        updateHiddenValues: function (shapeName, newPos, newWidth, newHeight,type, offSet )
         {
       
       		var shapeDiv = $("#" +shapeName);
@@ -304,6 +371,7 @@
       		$("#" +shapeName).attr("custom:y", newPos.y);
       		$("#" +shapeName).attr("custom:width", newWidth);
       		$("#" +shapeName).attr("custom:height", newHeight);
+      		$("#" +shapeName).attr("custom:offset", offSet);
       		//var newHtml =  '<div class="shape" name="'+ shapeName + '" id="' + shapeName + '" custom:type="' + type +'" custom:x="' + newPos.x +
         	//		'" custom:y="' + newPos.y + '" custom:width="' + newWidth + '" custom:height="' + newHeight +'" />' ;
     	
@@ -360,14 +428,14 @@
             if(this.img_object.display_height <= this.settings.height){
                 y = -(this.img_object.display_height - this.settings.height)/2;
             }
-            
+           
             this.img_object.x = x;
             this.img_object.y = y;
             
             this.img_object.object.css("top",y + "px")
                              .css("left",x + "px");
                              
-            
+           
         },
         
         
@@ -553,7 +621,7 @@
         **/
         drag_start: function(e)
         {
-        
+			//alert("jquery.iviewer-draw.js drag start");        
             if(this.settings.onStartDrag && 
                this.settings.onStartDrag.call(this,this.getMouseCoords(e)) == false)
             {
@@ -590,7 +658,21 @@
                 return false;
             }
         },
-        
+        moveLeft: function(e)
+        {
+            var oldtop =  this.img_object.y;
+            var oldleft = this.img_object.x;
+            var newtop =  this.img_object.y;
+            var newleft = this.img_object.x-60;
+            this.setCoords(newleft, newtop);
+            
+            var dx = this.img_object.x - oldleft;
+            var dy = this.img_object.y - oldtop;
+            this.moveShapes(dx,dy);
+             
+             return false;
+            
+        },
         /**
         *   callback for handling stop drag
         **/
@@ -628,6 +710,10 @@
             $("<div>").addClass("iviewer_zoom_fit").addClass("iviewer_common").
             addClass("iviewer_button").
             mousedown(function(){me.fit(this); return false;}).appendTo(this.container);
+            
+            $("<div>").addClass("iviewer_left").addClass("iviewer_common").
+            addClass("iviewer_button").
+            mousedown(function(){me.moveLeft(this); return false;}).appendTo(this.container);
             
             this.zoom_object = $("<div>").addClass("iviewer_zoom_status").addClass("iviewer_common").
             appendTo(this.container);

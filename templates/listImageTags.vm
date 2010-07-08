@@ -1,7 +1,7 @@
 #set ($shapeCount = 0)
 #if ($imageTags)
 	#foreach(  $imageTag in $imageTags )
-		<div class="shape" id="shape$shapeCount" name="shape$shapeCount" custom:type="${imageTag.type}" custom:x="${imageTag.x}" custom:y="${imageTag.y}" custom:width="${imageTag.width}" custom:height="${imageTag.height}" custom:color="${imageTag.color}"></div>	 	
+		<div class="shape" id="shape$shapeCount" name="shape$shapeCount" custom:type="${imageTag.type}" custom:x="${imageTag.x}" custom:y="${imageTag.y}" custom:width="${imageTag.width}" custom:height="${imageTag.height}" custom:color="${imageTag.color}" custom:offset="0"></div>	 	
 	 	#set ($shapeCount = $shapeCount +1)	
 	  	
 	 #end

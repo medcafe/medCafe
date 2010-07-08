@@ -37,7 +37,14 @@ function initializeViewer(patientId, fileId, server)
                        }
                   });
                   		
-                    
+                    $('#moveImageButton').click(function() 
+                    {
+                    	//Set up the mouse events
+                    	canvasPainter.canvasInterface.removeEventListener("mousedown", canvasPainter.mouseDownActionPerformed.bindAsEventListener(canvasPainter), false);
+  						$("<img>").mousedown(function(e){ return rtnObj.drag_start(e); })
+                    	document.getElementById("canvas");
+  					});
+  					
 		    		$('#saveViewButton').click(function() {
   							
   						//This delete has to happen first and outside the other functionality
@@ -126,7 +133,10 @@ function setControlLook(id, color) {
 }
 		
 function setCPDrawAction(action) {
-	document.getElementById("btn_"+canvasPainter.curDrawAction).style.background = "#FFFFFF";
+	if (canvasPainter.curDrawAction > -1)
+	{
+		document.getElementById("btn_"+canvasPainter.curDrawAction).style.background = "#FFFFFF";
+	}
 	document.getElementById("btn_"+action).style.background = "#CCCCCC";
 	canvasPainter.setDrawAction(action);
 }

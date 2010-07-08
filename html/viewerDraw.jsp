@@ -95,7 +95,6 @@
         <title>jquery.iviewer test</title>
         <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker-layout.css" />
         <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
-        <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ></script>-->
         <script type="text/javascript" src="js/jquery-1.3.2.js" ></script>
         <script type="text/javascript" src="js/jquery.mousewheel.js" ></script>
         <script type="text/javascript" src="js/jquery.iviewer-draw.js" ></script>
@@ -167,6 +166,7 @@
 			
 		</div>
 		 <button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
+		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button>
 		
     </body>
 </html>

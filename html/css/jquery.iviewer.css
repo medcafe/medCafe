@@ -41,8 +41,13 @@
     background: url(../images/viewer/iviewer.zoom_fit.gif);
 }
 
-.iviewer_zoom_status {
+.iviewer_left {
     left: 160px;
+    background: url(../images/viewer/iviewer.zoom_in.gif);
+}
+
+.iviewer_zoom_status {
+    left: 190px;
     font: 1em/28px Sans;
     color: #000;
     background-color: #fff;

@@ -23,7 +23,7 @@ function shape (x, y, width, height, type, color, options)
 function createHiddenValues (shape, i) {
      
      	 return '<div class="shape" id="shape' + i + '" name="shape' + i + '" custom:type="' + shape.type +'" custom:x="' + shape.x +
-        			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height + '" custom:color="'+ shape.color+  '" />' ;
+        			'" custom:y="' + shape.y + '" custom:width="' + shape.width + '" custom:height="' + shape.height + '" custom:color="'+ shape.color+ '" custom:offset="0" />' ;
      
     };
     
@@ -155,7 +155,6 @@ var CanvasPainter = CanvasWidget.extend({
 	//Draw Functions
 	drawRectangle: function(pntFrom, pntTo, context) {
 		context.beginPath();
-		//alert("CanvasPainter line 158 drawRectangle point from x " + pntFrom.x + " y " +  pntFrom.y + " and point to x " + pntTo.x + " y " + pntTo.y);
 		context.fillRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
 		context.closePath();
 		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle", this.drawColor );
