@@ -43,11 +43,15 @@
 
 .iviewer_left {
     left: 160px;
-    background: url(../images/viewer/iviewer.zoom_in.gif);
+    background: url(../images/viewer/iviewer.left.gif);
 }
 
-.iviewer_zoom_status {
+.iviewer_right {
     left: 190px;
+    background: url(../images/viewer/iviewer.right.gif);
+}
+.iviewer_zoom_status {
+    left: 220px;
     font: 1em/28px Sans;
     color: #000;
     background-color: #fff;

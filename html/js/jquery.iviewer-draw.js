@@ -663,6 +663,22 @@
             var oldtop =  this.img_object.y;
             var oldleft = this.img_object.x;
             var newtop =  this.img_object.y;
+            var newleft = this.img_object.x+60;
+            this.setCoords(newleft, newtop);
+            
+            var dx = this.img_object.x - oldleft;
+            var dy = this.img_object.y - oldtop;
+            this.moveShapes(dx,dy);
+             
+             return false;
+            
+        }
+        ,
+        moveRight: function(e)
+        {
+            var oldtop =  this.img_object.y;
+            var oldleft = this.img_object.x;
+            var newtop =  this.img_object.y;
             var newleft = this.img_object.x-60;
             this.setCoords(newleft, newtop);
             
@@ -714,6 +730,10 @@
             $("<div>").addClass("iviewer_left").addClass("iviewer_common").
             addClass("iviewer_button").
             mousedown(function(){me.moveLeft(this); return false;}).appendTo(this.container);
+           
+           $("<div>").addClass("iviewer_right").addClass("iviewer_common").
+            addClass("iviewer_button").
+            mousedown(function(){me.moveRight(this); return false;}).appendTo(this.container);
             
             this.zoom_object = $("<div>").addClass("iviewer_zoom_status").addClass("iviewer_common").
             appendTo(this.container);
