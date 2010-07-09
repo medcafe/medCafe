@@ -128,8 +128,8 @@
         <style>
             .viewer
             {
-                width: 100%;
-                height: 390px;
+                width: 90%;
+                height: 310px;
                 border: 1px solid black;
                 position: relative;
             }
@@ -151,8 +151,8 @@
         </div>
 		</div>
         
-        <canvas id="canvas" width="400" height="400"></canvas>
-		<canvas id="canvasInterface" width="400" height="400"></canvas>
+        <canvas id="canvas" width="300" height="310"></canvas>
+		<canvas id="canvasInterface" width="300" height="310"></canvas>
 		<div id="chooserWidgets">
 			<div id="controls">
 			<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')"><div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24"></img></div></div> 

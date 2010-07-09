@@ -343,8 +343,6 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(200,function()
 		{
-			alert("medCafe.js addChart line 346 image server " + server + " tab num " + tab_num);
-
 			iNettuts.refresh("yellow-widget" + tab_num);
 
 			$("#aaa" + tab_num).append('<iframe frameborder="0" id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="720" height="350"/>');

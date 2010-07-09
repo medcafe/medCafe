@@ -211,6 +211,7 @@
         ,
         zoomShapes: function(old_x, old_y, new_x, new_y, curr_zoom, new_zoom)
         {
+        	
         	x=100; y=100;
         	var container = this;
         	var point = this.containerToImage(x, y);
@@ -245,7 +246,14 @@
 				{
 					new_y = 0;
 				}
-				
+				if (isNaN(old_x))
+				{
+					old_x = 0;
+				}
+				if (isNaN(old_y))
+				{
+					old_y = 0;
+				}
 				var imageX1 = (1*x1 + 1*old_x) / curr_zoom;
 				var imageY1 = (1*y1 + 1*old_y) /curr_zoom;
 				var newOffSet =  (-1*offset*new_zoom);
@@ -302,8 +310,17 @@
         moveShapes: function(dx, dy)
         {
         	var container = this;
-        	container.canvas.clearCanvas();
         	
+        	if (isNaN(dx))
+			{
+					return;
+			}
+			if (isNaN(dy))
+			{
+					return;
+			}
+			container.canvas.clearCanvas();
+        		
             $('.shape').each(function ()
 			{
 			
@@ -332,7 +349,7 @@
 				
 				var centerShapeX = (x1 + x2) /2;
 				var zoom = container.current_zoom/100;
-                
+               
 				offset = offset*1 + (dx/ zoom);
 				
 				container.updateHiddenValues(shapeId, canvasPt1, width, height, type,  offset);
