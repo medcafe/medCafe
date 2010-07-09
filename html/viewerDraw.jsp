@@ -10,8 +10,7 @@
 	if (patientIdObj != null)
 		patientId = patientIdObj.toString();
 	String dir = "images/patients/" + patientId + "/";
-
-	imageName = dir + imageName;		
+		
 	String fileId = request.getParameter("file_id");
 	
 %>
@@ -121,7 +120,7 @@
 			
 			
             $(document).ready(function(){
-            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=imageName%>');
+            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageName%>');
             });	 
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />

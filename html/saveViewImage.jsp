@@ -34,6 +34,7 @@
 	String origin_x = request.getParameter(ImageTag.X_ORIGIN);
 	String origin_y = request.getParameter(ImageTag.Y_ORIGIN);
 	String zoom = request.getParameter(ImageTag.ZOOM);
+	String fileName = request.getParameter("image");
 
 	DbConnection dbConn= new DbConnection();
 	if(e != null)

@@ -9,14 +9,15 @@ function processViewerImages(repId, patientId, patientRepId, data, type, tab_num
 
 }
 
-function initializeViewer(patientId, fileId, server)
+function initializeViewer(patientId, fileId, dir, server)
 {
 
 				  //var pos = $('#viewer').position();
 				  var pos = $("#viewer").offset();  
   				  var width = $("#viewer").width();
   				  var height = $("#viewer").height();
-				
+				 var fullFile = dir + server;
+				   
 				  $("#canvas").width(width); 
                   $("#canvasInterface").width(width);
                   
@@ -28,7 +29,7 @@ function initializeViewer(patientId, fileId, server)
 				  var rtnObj;
 				  var viewer = $("#viewer").iviewer(
                        {
-                       src: server,
+                       src: fullFile,
                        canvas: canvasPainter,
                        initCallback: function ()
                        {
@@ -48,7 +49,7 @@ function initializeViewer(patientId, fileId, server)
 		    		$('#saveViewButton').click(function() {
   							
   						//This delete has to happen first and outside the other functionality
-  						var deleteUrl = "deleteImageAnnotations.jsp?patient_id=" +patientId + "&file_id=" + fileId;
+  						var deleteUrl = "deleteImageAnnotations.jsp?patient_id=" +patientId + "&file_id=" + fileId + "&image=" + server;
     					
     					$.ajax({
 	           				url: deleteUrl,
@@ -56,12 +57,12 @@ function initializeViewer(patientId, fileId, server)
 	           				beforeSend: function() { $("#saveStatus").html("Saving").show(); },
 	           				success: function(result) 
 	           				{
-		                   		var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+		                   		var saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId + "&image=" + server; 
 	  						
 								//Get the list of shapes, and their associated settings.
 								$('.shape').each(function ()
 								{
-									saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId; 
+									saveLink = "saveViewImage.jsp?patient_id=" + patientId + "&fileId=" + fileId + "&image=" +server; 
 									//This will resize everything to fit back on the page - so that everything is normalized to the standard zoom
 									//And has an origin for the image of 0,0
 									rtnObj.fit();
@@ -77,6 +78,15 @@ function initializeViewer(patientId, fileId, server)
 									var origin= {x:-1,y:-1};
 									origin.x = rtnObj.img_object.x;
 									origin.y = rtnObj.img_object.y;
+									if (isNaN(origin.x))
+									{
+										origin.x = 0;
+									}
+									if (isNaN(origin.y))
+									{
+										origin.y = 0;
+									}
+									
 									//saveLink = saveLink + "&x=" + x1 + "&y=" + y + "&type=" +  type + "&width=" + width + "&height=" + height + "&color=" + color;
 									saveLink = saveLink + "&x_origin=" + origin.x + "&y_origin=" + origin.y + "&zoom=" + curr_zoom + "&note=" + note;
 									var currShape = new shape(x1 , y1, width, height, type, color);
@@ -100,7 +110,7 @@ function initializeViewer(patientId, fileId, server)
 				 
 }
 
-function retrieveViewerData(patientId, fileId, server)
+function retrieveViewerData(patientId, fileId, dir, server)
 {
 
 	var serverLink = "annotateImageJSON.jsp?patient_id=" + patientId + "&image=" +server;
@@ -117,7 +127,7 @@ function retrieveViewerData(patientId, fileId, server)
 		}
 		var html = v2js_listImageTags( data );  
 		$("#canvas").html(html);
-		initializeViewer(patientId, fileId, server);
+		initializeViewer(patientId, fileId, dir, server);
 	});
 }
 
