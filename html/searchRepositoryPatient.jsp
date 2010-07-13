@@ -27,6 +27,7 @@
 	{
 		listPatientSearchRepositories();
 		initializeSearchPatient();
+		initializeAssociatePatient();
 	});
 	
 	function listPatientSearchRepositories()
@@ -48,10 +49,36 @@
 	  		});
 	}
 	
+	function associatePatient()
+	{
+		var serverLink ="addPatientRepositoryAssoc.jsp";
+		var inputVals = $("#returnedPatientlist :input");
+		var append ="?";
+  		for (i=0; i < inputVals.length; i++)
+  		{
+  				
+  				serverLink = serverLink + append + inputVals[i].name + "=" + inputVals[i].value;
+  				append = "&";
+  		}
+  		serverLink = append +  "repository=" + repository;
+  		alert("searchRepositoryPatient : associatePatient server link " + serverLink);
+  		$.get(serverLink,function(data)
+		{
+		    //Check to see if any error message
+
+			if (data.announce)
+			{
+				var html = v2js_announcements(data);
+				alert("searchRepositoryPatient : announce error "   + html);	
+				return;
+			}	     
+		});
+	}
+	
 	function searchPatientRepository()
 	{
 		var serverLink ="repositoryPatient-listJSON.jsp";
-		var inputVals = $("input");
+		var inputVals = $("#searchPatientParams :input");
 		var append ="?";
   		for (i=0; i < inputVals.length; i++)
   		{
@@ -90,6 +117,17 @@
 		});
 		
 	}
+	
+	function initializeAssociatePatient()
+	{
+		$("#associatePatientBtn").click(function(event,patient_id){
+	 
+	 		
+			associatePatient();
+	
+		});
+		
+	}
 	</script>
 </head>
 
@@ -116,10 +154,13 @@
 	<div class="ui-widget-header ui-corner-all">
          <center><h2 id="patient-list_results">Repository Listing Results</h6></center></h2>
     </div>
-	<div class="ui-widget-content ui-corner-all">
+	<div class="ui-widget-content ui-corner-all" id="returnedPatientlist">
 		<div>
 			<div id="patient_list"></div>
 		</div>
+		
+		<input type="button" value="Add to medCafe" id="associatePatientBtn"></input><br/>
+	
 	</div>
 </body>
 </html>

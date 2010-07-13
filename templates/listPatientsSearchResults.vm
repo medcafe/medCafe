@@ -2,7 +2,10 @@
 <thead><tr><th></th><th></th></tr></thead><tbody>
 #if ($patients)
 	#foreach( $patient in $patients )
-    	<tr class="gradeX"><td value="$patient.id"><span class="summary"><a href="#" class="details">$patient.id</a></span></td><td value="$patient.name">$patient.name</td></tr>
+    	<tr class="gradeX"><td value="$patient.id"><span class="summary">$patient.id</span></td>
+    	<td><input type="hidden" id="patient_${patient.id}" name="patient_${patient.id}" value="$patient.name"/>$patient.name</td>
+    	<td><input type=checkbox name="patient_rep_id" id="patient_rep_id" value="${patient.id}"></input></td>
+    	</tr>
 	#end
 #end
 </tbody>

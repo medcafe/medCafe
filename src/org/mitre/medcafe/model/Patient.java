@@ -908,7 +908,16 @@ public class Patient
 		 return ret;
 	 }
 
-
+	 public void parseFullName(String fullName) 
+	 {
+		 if (fullName.contains(","))
+		 {
+			 String[] nameParts = fullName.split(",");
+			 lastName = nameParts[0].trim();
+			 firstName = nameParts[1].trim();
+		 }
+	 }
+	 
 	public String getFirstName() {
 		return firstName;
 	}

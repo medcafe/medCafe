@@ -7,49 +7,53 @@
     JSONObject rtnObj = new JSONObject();
 	//Get the patient Id
     String patientId = request.getParameter(Constants.PATIENT_ID);
-    String patientRepId = request.getParameter("patient_rep_id");
+    String[] patientRepIds = request.getParameterValues("patient_rep_id");
     String repository = request.getParameter("repository");
-    String firstName = request.getParameter(Patient.FIRST_NAME);
-    String lastName = request.getParameter(Patient.LAST_NAME);
-    System.out.println("addPatientRepositoryAssoc.jsp patient id " + patientId + " repository " + patientRepId);
+    
+    for (String patientRepId: patientRepIds)
+    {
+    	String fullName = request.getParameter("patient_" + patientRepId);
+    	//String lastName = request.getParameter(Patient.LAST_NAME);
+    	System.out.println("addPatientRepositoryAssoc.jsp patient id " + patientId + " repository " + patientRepId);
 	
-	Patient patient = new Patient(conn);
-	patient.setFirstName(firstName);
-	patient.setLastName(lastName);
-	//First check if this is a current patient
-	
-	String userName =  request.getRemoteUser();
-	
-	//No patient specified - so this is new
-	if (patientId == null)
-	{	
-		rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);			
-	}
-	else
-	{
-	    rtnObj = patient.isPatient( patientId, patientRepId, repository); 
-		boolean hasVal = rtnObj.has("rep_patient_id");
-		Object id =null;
-		if (hasVal)
-		{
-		 id = rtnObj.get("rep_patient_id");
-		}
+		Patient patient = new Patient(conn);
+		//Set the name parts
+		patient.parseFullName(fullName);
 		
-		if (id != null)
+		//First check if this is a current patient
+		String userName =  request.getRemoteUser();
+	
+		//No patient specified - so this is new
+		if (patientId == null)
+		{	
+			rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);			
+		}
+		else //This patient may already exist
 		{
-			if (Patient.NO_PATIENT.equals(id))
+		    rtnObj = patient.isPatient( patientId, patientRepId, repository); 
+			boolean hasVal = rtnObj.has("rep_patient_id");
+			Object id =null;
+			if (hasVal)
 			{
-				rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
-				System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
-			}	
-		}
-		else
-		{
-				rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
-				System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
+			 id = rtnObj.get("rep_patient_id");
+			}
 			
+			if (id != null)
+			{
+				if (Patient.NO_PATIENT.equals(id))
+				{
+					rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
+					System.out.println("addPatientRepository add assoc for new patient " + rtnObj.toString());
+				}	
+			}
+			else
+			{
+					rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
+					System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
+				
+			}
 		}
+	    
 	}
 	//patient.closeConnection();
-	response.sendRedirect("associatePatient.jsp");
 %>

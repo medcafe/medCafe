@@ -1066,14 +1066,19 @@ var patient = context.patients[i2];
 velocityCount = i2;
 t.p('    	<tr class="gradeX"><td value="');
 t.p( patient.id);
-t.p('"><span class="summary"><a href="');
-t.p('#" class="details">');
+t.p('"><span class="summary">');
 t.p( patient.id);
-t.p('</a></span></td><td value="');
+t.p('</span></td>    	<td><input type="hidden" id="patient_');
+t.p( patient.id);
+t.p('" name="patient_');
+t.p( patient.id);
+t.p('" value="');
 t.p( patient.name);
-t.p('">');
+t.p('"/>');
 t.p( patient.name);
-t.p('</td></tr>	');
+t.p('</td>    	<td><input type=checkbox name="patient_rep_id" id="patient_rep_id" value="');
+t.p( patient.id);
+t.p('"></input></td>    	</tr>	');
 }
 
 }

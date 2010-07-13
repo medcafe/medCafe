@@ -51,7 +51,8 @@ public class PatientCache extends TimerTask
     public void loadLocalInfo()
     {
         //get repository/local IDs
-        String query = "select * from patient where id=?";
+        //String query = "select * from patient where id=?";
+        String query = "select a.rep_patient_id, p.first_name, p.last_name, a.repository from patient p join patient_repository_assoc a on p.id=a.patient_id where p.id=?";
         DbConnection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
