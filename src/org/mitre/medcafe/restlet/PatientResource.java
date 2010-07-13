@@ -30,9 +30,9 @@ public class PatientResource extends ServerResource {
     //Patient item;
 
     /** The sequence of characters that identifies the resource. */
-    String id;
-    String repository;
-
+    private String id;
+    private String repository;
+    
     @Override
     protected void doInit() throws ResourceException {
         // Get the "id" attribute value taken from the URI template

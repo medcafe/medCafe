@@ -19,7 +19,6 @@
 
 	<title>medCafe</title>
 
-
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
@@ -74,7 +73,7 @@
     	<h3><a href="#">Add Patient Details</a></h3>
     	<div>
 			<p>
-				<iframe height="400"  frameborder="0" name="associatePatient" id="general_widgetsFrame" src="http://${server}/associatePatient.jsp"></iframe>
+				<iframe height="400"  frameborder="0" name="associatePatient" id="general_widgetsFrame" src="http://${server}/associatePatient.jsp?patient_id=<%=patientId%>"></iframe>
 			</p>
 		</div>
 		<h3><a href="#">Address</a></h3>

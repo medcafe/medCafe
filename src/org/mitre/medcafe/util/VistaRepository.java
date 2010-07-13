@@ -2,7 +2,6 @@ package org.mitre.medcafe.util;
 
 // import org.mitre.hdata.hrf.core.*;
 import com.medsphere.fileman.*;
-import com.medsphere.fmdomain.FMMaritalStatus;
 import com.medsphere.fmdomain.*;
 import com.medsphere.ovid.domain.ov.*;
 import com.medsphere.ovid.model.domain.patient.*;
@@ -340,6 +339,30 @@ public class VistaRepository extends Repository {
         }
     }
 
+    /**
+     *  Get a list of patient identifiers
+     */
+    public Map<String, String> getPatientByName(String family, String given, String middle) {
+        Map<String, String> ret = new HashMap<String, String>();
+        try {
+            if (setConnection()) {
+                for (FMPatient lpatient : new PatientRepository(conn).searchByNameComponentsForPatients(family, given, middle)) {
+                    // ret.add( lpatient.getEnterprisePatientIdentifier() );
+                    // log.finer(lpatient.getIEN());
+                    //ret.put( new String[]{"id",lpatient.getIEN()}, new String[]{"name", lpatient.getName()} );
+                    ret.put(lpatient.getIEN(), lpatient.getName());
+                }
+            } else {
+                return null;
+            }
+            return ret;
+        } catch (OvidDomainException ode) {
+            log.log(Level.SEVERE, "Error retrieving patient list", ode);
+            return null;
+        } finally {
+            closeConnection();
+        }
+    }
     /*  public static void factorySetUp(String[] creds) {
     try {
     factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);

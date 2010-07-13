@@ -3,6 +3,7 @@ package org.mitre.medcafe.util;
 import org.json.JSONObject;
 
 import java.util.*;
+
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
@@ -23,6 +24,11 @@ public abstract class Repository
      */
     public abstract Patient getPatient( String patientId );
 
+    /**
+     *  Given a patient name, get the patient id
+     */
+    public abstract Map<String, String> getPatientByName(String family, String given, String middle);
+    
     /**
      *  Get a list of patient identifiers
      */

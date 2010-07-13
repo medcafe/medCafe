@@ -6,7 +6,15 @@
 <%	
 	//Get a list of the Symptoms in a checkbox 
 	String url = "associatePatient.jsp";
-	
+	String patientId = request.getParameter("patient_id");
+	if (patientId == null)
+	{
+		Object patientObj = session.getAttribute("patient");
+		if (patientObj != null)
+		 	patientId = patientObj.toString();
+	}
+	if (patientId == null)
+		patientId = "1";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
@@ -28,7 +36,7 @@
 
 <body>
 	<form action="addPatientRepositoryAssoc.jsp">
-		Patient Id<input type="text" name="patient_id" value="0"></input><br/>
+		Patient Id<input type="text" name="patient_id" value="<%=patientId%>"></input><br/>
 		Patient Repository Id<input type="text" name="patient_rep_id" value="10"></input><br/>
 		Repository<input type="text" name="repository" value="OurVista"></input><br/>
 		First Name<input type="text" name="first_name" value=""></input><br/>

@@ -16,6 +16,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -149,5 +151,13 @@ public class hDataRepository extends Repository
     public Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException{
     	throw new NotImplementedException("getTimeLineInfo is not implemented for hDataRepository");
     }
+
+    /* Still to be implemented*/
+	@Override
+	public Map<String, String> getPatientByName(String family, String given,
+			String middle) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
