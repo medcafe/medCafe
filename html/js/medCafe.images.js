@@ -36,34 +36,13 @@ function filterImages( patientId, startDate, endDate, categories, tab_num)
 {
 	//alert("medCafe.images.js filterImages patientId " + patientId );
 	var delim = "=";
-	//var fileUrl = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
 	var fileUrl = "contentflow/coverFeed.jsp?patient_id=" + patientId;
-	/*var append = "~";
-	
-	if (startDate != "null")
-	{
-		fileUrl = fileUrl + append + "dates" +  delim  + startDate;
-	}
-	if (endDate != "null")
-	{
-		fileUrl = fileUrl +  "_" + endDate;
-	}
-	
-	if (! (categories == "") )
-			fileUrl = fileUrl +  "~filterCat"+  delim  + categories;
-	*/
 	 
 	$.get(fileUrl, function(data)
  	{	
  	
  		$("#flowFile").html("");	
  		$("#flowFile").html(data);
- 		
- 		//if (cf != undefined)
- 		//{
- 			//Set focus to image Tab if these images are already loaded
- 			//$('#tabs').tabs('select', "#tabs-" + tab_num);
- 		//}
  		
  		$("#flowFile").delay(2500,function()
 		{

@@ -28,10 +28,12 @@
     }
     
 	String dates = null;
-
+	String rep = "local";
+	patientId = cache.getRepoPatientId(rep);
+	
 	System.out.println("coverFeed.jsp patient_id " + patientId );
 	// String url = coverflowFile;
-	String url = "/repositories/medcafe/patients/" +  patientId + "/images";
+	String url = "/repositories/" + rep +"/patients/" +  patientId + "/images";
 
 	String append = "?";
 	if ( (startDate != null) && (!startDate.equals("")))
