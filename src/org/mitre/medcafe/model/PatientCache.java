@@ -268,7 +268,31 @@ public class PatientCache extends TimerTask
 	public String getRepoPatientId(String repositoryName) 
 	{
 		//return this.repoPatientId; 
-		return "1";
+		String patientRepId="";
+		JSONArray repArray;
+		try {
+			repArray = repositories.getJSONArray("repositories");		
+			if (repArray != null)
+			{
+				for (int i= 0; i < repArray.length(); i++)
+				{
+					JSONObject rep = (JSONObject)repArray.get(i);
+					if (rep != null)
+					{
+						String repName = rep.getString("repository");
+						if (repName.equals(repositoryName))
+						{
+								patientRepId =  rep.getString("id");;
+						}
+					}
+				}
+			}
+			return patientRepId;
+		} 
+		catch (JSONException e) {
+			// TODO Auto-generated catch block
+			return "-1";
+		}
 	}
 	
 	public void setRepoPatientId(String repositoryName, String repositoryId) 
