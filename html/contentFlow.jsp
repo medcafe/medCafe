@@ -60,9 +60,9 @@
                 <div class="slider"><div class="position"></div></div>
             </div>
 
-			<div style="{display :none;}" id="cfStartDate"><%=startDate%></div>
-			<div style="{display :none;}" id="cfEndDate"><%=endDate%></div>
-			<div style="{display :none;}" id="cfFilterCat"><%=filterCat%></div>
+			<div style="visibility:hidden" id="cfStartDate"><%=startDate%></div>
+			<div style="display :none;" id="cfEndDate"><%=endDate%></div>
+			<div style="display :none;" id="cfFilterCat"><%=filterCat%></div>
 			 
         </div>
     </body>
