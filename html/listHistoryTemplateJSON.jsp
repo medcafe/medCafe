@@ -1,4 +1,5 @@
 <%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.model.*" %>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -12,31 +13,33 @@
 	JSONObject repositoryIds = new JSONObject();
 	if (patientRepId == null)
 	{
-		Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
-		if (repositoryIdObjs != null)
+		PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+	    if( cache == null )
+	    {  //nobody is logged in
+	        //log.warning("No patient selected");
+	        response.sendRedirect("introPage.jsp");
+	        return;
+	    }
+	    repositoryIds = cache.getRepositories();
+    
+		System.out.println("listHistoryTemplateJSON: got repository ID  " + repositoryIds.toString() );
+		JSONArray repArray = repositoryIds.getJSONArray("repositories");
+		if (repArray != null)
 		{
-			if (repositoryIdObjs instanceof JSONObject)
+			for (int i= 0; i < repArray.length(); i++)
 			{
-				repositoryIds = (JSONObject)repositoryIdObjs;
-				System.out.println("listHistoryTemplateJSON: got repository ID  " + repositoryIds.toString() );
-				JSONArray repArray = repositoryIds.getJSONArray("repositories");
-				if (repArray != null)
+				JSONObject rep = (JSONObject)repArray.get(i);
+				if (rep != null)
 				{
-					for (int i= 0; i < repArray.length(); i++)
+					String repName = rep.getString("repository");
+					if (repName.equals(repositoryName))
 					{
-						JSONObject rep = (JSONObject)repArray.get(i);
-						if (rep != null)
-						{
-							String repName = rep.getString("repository");
-							if (repName.equals(repositoryName))
-							{
-								patientRepId =  rep.getString("id");;
-							}
-						}
+							patientRepId =  rep.getString("id");;
 					}
 				}
 			}
 		}
+		
 	}
 	
 	System.out.println("listHistoryTemplateJSON: got patient rep Id " + patientRepId );

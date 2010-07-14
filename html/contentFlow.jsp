@@ -7,10 +7,11 @@
 	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "1";
+		
 	String append = "~";
 	String delim = "=";
 	//coverFeed.jsp?filter=dates=<start_date>_<end_date>~filter=filter1,filter2
-	String coverflowFile = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
+	String coverflowFile = "contentflow/coverFeed.jsp?patient_id"  + delim + patientId;
 	String url = coverflowFile;
 	String startDate = request.getParameter("start_date");
 	String endDate = request.getParameter("end_date");
@@ -30,6 +31,7 @@
 			coverflowFile += append + "dates" +  delim  + startDate;
 	if (endDate != null)
 			coverflowFile +=  "_" + endDate;
+			
 	if ( (filterCat != null) && (!filterCat.equals("")) )
 			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 

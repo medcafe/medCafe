@@ -19,15 +19,17 @@
 	//check for a patientId in the session
 
 	String patientId = request.getParameter("patient_id");
-	if (patientId == null)
-	{
-		Object patientObj = session.getAttribute("patient");
-		if (patientObj != null)
-		 	patientId = patientObj.toString();
-	}
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    
 	String dates = null;
 
-	//System.out.println("coverFeed.jsp endDate " + endDate );
+	System.out.println("coverFeed.jsp patient_id " + patientId );
 	// String url = coverflowFile;
 	String url = "/repositories/medcafe/patients/" +  patientId + "/images";
 

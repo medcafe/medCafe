@@ -73,7 +73,7 @@
     	<h3><a href="#">Add Patient Details</a></h3>
     	<div>
 			<p>
-				<iframe height="400"  frameborder="0" name="associatePatient" id="general_widgetsFrame" src="http://${server}/associatePatient.jsp?patient_id=<%=patientId%>"></iframe>
+				<iframe height="400"  frameborder="0" name="associatePatient" id="general_widgetsFrame" src="http://${server}/searchRepositoryPatient.jsp?patient_id=<%=patientId%>"></iframe>
 			</p>
 		</div>
 		<h3><a href="#">Address</a></h3>

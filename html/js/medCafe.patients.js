@@ -77,7 +77,13 @@ function setOnSelect(isIntro, server)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		parent.window.location.replace(server + "/cachePatient.jsp?patient_id=" + src);
+		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src
+		    		$.get(cacheServer, function(data)
+	 				{
+	 					var indexSrv = server + "/index.jsp";
+	 					parent.window.location.replace(indexSrv);
+	 				});
+		    		
 	    		});
 
 
@@ -91,7 +97,13 @@ function setOnSelect(isIntro, server)
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 
-		    		retrieve( src);
+					var cacheServer = server + "/cachePatient.jsp?patient_id=" + src
+		    		$.get(cacheServer, function(data)
+	 				{
+	 					var indexSrv = server + "/index.jsp";
+	 					parent.window.location.replace(indexSrv);
+	 				});
+		    		//retrieve( src);
 	    		});
     		}
 }

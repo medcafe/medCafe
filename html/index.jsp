@@ -128,19 +128,25 @@
         */
 
         $(function(){
-            refresh("<%=cache.getDatabasePatientId()%>");
+           refresh("<%=cache.getDatabasePatientId()%>");
         });
 
 
-        listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
-        listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
-        listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}");
-	    initialize();
-
+        initialize();
+		getHeader();
+		
+		function getHeader()
+		{
+			listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
+        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
+        	listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}");
+		}
+		
 		function initialize(repositoryJSON)
 		{
 			repositoryPatientJSON = getAssocPatientRepositories("<%=cache.getDatabasePatientId()%>");
 		}
+		
 		var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
  		if (isiPad)

@@ -16,15 +16,8 @@
 	
 	JSONObject widgetList =  Widget.listWidgets(user_name, patientId);
 	Patient.addRecentPatients(user_name, patientId);
-	session.setAttribute("patient", patientId);
+	//session.setAttribute("patient", patientId);
 	
-	
-	JSONObject repositoryIds = new JSONObject();
-	Patient patient = new Patient();
-	patient.setConnection();
-	repositoryIds = patient.listRepositories(patientId);
-	
-	session.setAttribute("repPatientIds", repositoryIds);
 
 %>
 <%=widgetList.toString()%>

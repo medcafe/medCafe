@@ -75,6 +75,7 @@ $(function(){
 					repPatientJSON = data;	  
 					var len = repPatientJSON.repositories.length;
 					var x;
+					//{"repositories":[{"id":2,"repository":"OurVista"},{"id":2,"repository":"local"}]}s
 					for (x in repPatientJSON.repositories)
 					{	  		
 						test = repPatientJSON.repositories[x].repository;

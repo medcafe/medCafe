@@ -34,9 +34,10 @@ function addImageButton( patient_id)
 
 function filterImages( patientId, startDate, endDate, categories, tab_num)
 {
+	alert("medCafe.images.js filterImages patientId " + patientId );
 	var delim = "=";
 	//var fileUrl = "contentflow/coverFeed.jsp?filter=patient_id"  + delim + patientId;
-	var fileUrl = "contentflow/coverFeed.jsp";
+	var fileUrl = "contentflow/coverFeed.jsp?patient_id=" + patientId;
 	/*var append = "~";
 	
 	if (startDate != "null")

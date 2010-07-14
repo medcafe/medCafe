@@ -30,8 +30,8 @@ public class PatientCache extends TimerTask
 	protected String databasePatientId = null;
 	protected javax.servlet.ServletContext application = null;
 	public final static String NA = "Resource not available";
-	protected String repository = null;
-	protected String repoPatientId = null;
+	protected JSONObject repositories = null;
+	//protected String repoPatientId = null;
 
 	protected String firstName = null;
 	protected String lastName = null;
@@ -51,23 +51,24 @@ public class PatientCache extends TimerTask
     public void loadLocalInfo()
     {
         //get repository/local IDs
-        //String query = "select * from patient where id=?";
-        String query = "select a.rep_patient_id, p.first_name, p.last_name, a.repository from patient p join patient_repository_assoc a on p.id=a.patient_id where p.id=?";
+        String query = "select * from patient where id=?";
+        //String query = "select a.rep_patient_id, p.first_name, p.last_name, a.repository from patient p join patient_repository_assoc a on p.id=a.patient_id where p.id=?";
         DbConnection conn = null;
         PreparedStatement ps = null;
+        
         ResultSet rs = null;
         try
         {
             conn = new DbConnection();
+            loadRepositoryInfo(conn);
+            
             rs = conn.psExecuteQuery(query, "Looking up repository info",  new Integer(databasePatientId));
             while(rs.next())
             {
-                repository = rs.getString("repository");
-                repoPatientId = rs.getString("rep_patient_id");
                 firstName = rs.getString("first_name");
                 lastName = rs.getString("last_name");
             }
-            DatabaseUtility.close(rs);
+            
         }
         catch(SQLException e)
         {
@@ -76,11 +77,22 @@ public class PatientCache extends TimerTask
         }
         finally
         {
-            DatabaseUtility.close(rs);
-            conn.close();
+        	//If this is closed - causes issues later
+            //DatabaseUtility.close(rs);
+            //conn.close();
         }
     }
 
+    public void loadRepositoryInfo(DbConnection conn)
+    {
+        //get repository/local IDs
+        //String query = "select * from patient where id=?";
+        Patient patient = new Patient(conn);
+        repositories = patient.listRepositories(databasePatientId);
+        //System.out.println("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
+	     
+    }
+    
     public void run()
     {
         log.entering(KEY, "run()");
@@ -93,46 +105,116 @@ public class PatientCache extends TimerTask
             return;
         }
         //define and send request
-        String results;
-        try {
-            results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/medications" );
-            medicineList = new JSONObject(results);
-        }
-        catch(JSONException e)
-        {
-            log.throwing(KEY, "constructor", e);
-            medicineList = WebUtils.buildErrorJson( "Problem retrieving medication list from source." + e.getMessage());
-        }
-        log.finer("Done retrieving medication list");
-        try {
-            results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/allergies" );
-            alertList = new JSONObject(results);
-        }
-        catch(JSONException e)
-        {
-            log.throwing(KEY, "constructor", e);
-            alertList = WebUtils.buildErrorJson( "Problem retrieving alert list from source." + e.getMessage());
-        }
-        log.finer("Done retrieving alert list");
-        try {
-            results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/images" );
-            images = new JSONObject(results);
-         }
-         catch(JSONException e)
-         {
-             log.throwing(KEY, "constructor", e);
-             images = WebUtils.buildErrorJson( "Problem retrieving image list from source." + e.getMessage());
-         }
-         log.finer( "Done retrieving image list" );
-         try {
-             results = getJsonContent( app, "/patients/" + repoPatientId + "/history" );
-             medicalHistory = new JSONObject( results );
-         }
-         catch(JSONException e)
-         {
-             log.throwing(KEY, "constructor", e);
-             images = WebUtils.buildErrorJson( "Problem retrieving medical history from source." + e.getMessage());
-         }
+        String results="";
+        //{"repositories":[{"id":2,"repository":"OurVista"},{"id":2,"repository":"local"}]}
+       
+        JSONArray reps = new JSONArray();
+		try 
+		{
+			System.out.println("PatientCache run repository JSONObject " + repositories.toString());
+		    
+			reps = repositories.getJSONArray("repositories");
+		}
+		catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				log.throwing(KEY, "constructor", e1);
+				repositories = WebUtils.buildErrorJson( "Problem retrieving list of repositories for patient." + e1.getMessage());			    
+		 }
+			
+		 if (repositories.has("repositories"))
+		 {
+        	try {
+        		
+	        	medicineList = new JSONObject();
+	        	for (int i=0; i < reps.length(); i++ )
+	        	{
+	        		JSONObject repObj = (JSONObject) reps.get(i);
+	        		String repository = repObj.getString("repository");
+	        		String repoPatientId = repObj.getString("id");
+	        		
+		            results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/medications" );
+		            JSONObject meds = new JSONObject(results);
+		      	  	meds.put("repository", repository);
+		            medicineList.append("medicines", meds);
+	            }
+	        	//System.out.println("PatientCache generating medicine list line 141 JSONObject " + medicineList.toString());
+	        }
+	        catch(JSONException e)
+	        {
+	            log.throwing(KEY, "constructor", e);
+	            medicineList = WebUtils.buildErrorJson( "Problem retrieving medication list from source." + e.getMessage());
+	        }
+        
+	        log.finer("Done retrieving medication list");
+	        try {
+	            alertList = new JSONObject();
+	            for (int i=0; i < reps.length(); i++ )
+	        	{
+	        		JSONObject repObj = (JSONObject) reps.get(i);
+	        		String repository = repObj.getString("repository");
+	        		String repoPatientId = repObj.getString("id");
+	        		
+		            results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/allergies" );
+		            
+		            JSONObject alerts = new JSONObject(results);
+		            alerts.put("repository", repository);
+		      	  	alertList.append("alerts", alerts);
+	            }
+	        	//System.out.println("PatientCache generating alert/allergy list line 175 JSONObject " + alertList.toString());
+	   
+	        }
+	        catch(JSONException e)
+	        {
+	            log.throwing(KEY, "constructor", e);
+	            alertList = WebUtils.buildErrorJson( "Problem retrieving alert list from source." + e.getMessage());
+	        }
+	        log.finer("Done retrieving alert list");
+	        try {
+	            images = new JSONObject();
+	            for (int i=0; i < reps.length(); i++ )
+	        	{
+	        		JSONObject repObj = (JSONObject) reps.get(i);
+	        		String repository = repObj.getString("repository");
+	        		String repoPatientId = repObj.getString("id");
+	        		
+	        		results = getJsonContent( app, "/repositories/" + repository + "/patients/" + repoPatientId + "/images" );
+		            
+		            JSONObject imageObj = new JSONObject(results);
+		            imageObj.put("repository", repository);
+		      	  	images.append("imageList", imageObj);
+	            }
+	        	//System.out.println("PatientCache generating image list line 198 JSONObject " + images.toString());
+	   
+	         }
+	         catch(JSONException e)
+	         {
+	             log.throwing(KEY, "constructor", e);
+	             images = WebUtils.buildErrorJson( "Problem retrieving image list from source." + e.getMessage());
+	         }
+	         log.finer( "Done retrieving image list" );
+	         try {
+	        	 medicalHistory  = new JSONObject();
+		         for (int i=0; i < reps.length(); i++ )
+		         {
+		        		JSONObject repObj = (JSONObject) reps.get(i);
+		        		String repository = repObj.getString("repository");
+		        		String repoPatientId = repObj.getString("id");
+		        		
+		        		results = getJsonContent( app, "/patients/" + repoPatientId + "/history" );
+			              
+			            JSONObject history = new JSONObject(results);
+			            history.put("repository", repository);
+			            medicalHistory.append("medicalHistory", history);
+		         }
+		         //System.out.println("PatientCache generating medical History list line 221 JSONObject " + medicalHistory.toString());
+		  	   
+	         }
+	         catch(JSONException e)
+	         {
+	             log.throwing(KEY, "constructor", e);
+	             images = WebUtils.buildErrorJson( "Problem retrieving medical history from source." + e.getMessage());
+	         }
+		 }
          log.exiting(KEY, "run()");
     }
 
@@ -164,14 +246,7 @@ public class PatientCache extends TimerTask
         return out.toString();
     }
 
-    public JSONObject toJson() throws JSONException
-    {
-        JSONObject ret = new JSONObject();
-        ret.put("localid", databasePatientId);
-        ret.put("repository", repository);
-        ret.put("repository patient id", repoPatientId);
-        return ret;
-    }
+   
     //}}}
 
     //{{{ Getters and Setters
@@ -187,10 +262,20 @@ public class PatientCache extends TimerTask
 	public void setMedicineList(JSONObject medicineList) { this.medicineList = medicineList; }
     public String getDatabasePatientId() { return this.databasePatientId; }
 	public void setDatabasePatientId(String databasePatientId) { this.databasePatientId = databasePatientId; }
-	public String getRepository() { return this.repository; }
-	public void setRepository(String repository) { this.repository = repository; }
-	public String getRepoPatientId() { return this.repoPatientId; }
-	public void setRepoPatientId(String repositoryId) { this.repoPatientId = repoPatientId; }
+	public JSONObject getRepositories() { return this.repositories; }
+	public void setRepository(JSONObject repositories) { this.repositories = repositories; }
+	
+	public String getRepoPatientId(String repositoryName) 
+	{
+		//return this.repoPatientId; 
+		return "1";
+	}
+	
+	public void setRepoPatientId(String repositoryName, String repositoryId) 
+	{
+		//this.repoPatientId = repoPatientId; 
+	}
+	
 	public String getLastName() { return this.lastName; }
 	public void setLastName(String lastName) { this.lastName = lastName; }
 	public String getFirstName() { return this.firstName; }
