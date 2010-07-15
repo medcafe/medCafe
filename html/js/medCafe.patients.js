@@ -178,8 +178,7 @@ function populate(url, patient_id)
 {
 
 	 var server = url + "?patient_id=" + patient_id;
-	 alert("medCafe.patients.js : populate url " + server);
-	 //parent.window.location.replace(server);
+	//parent.window.location.replace(server);
 	 
 	 $.getJSON(server, function(data)
 	 {
