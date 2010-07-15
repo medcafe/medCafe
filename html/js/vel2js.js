@@ -1118,27 +1118,20 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-if (context.patientProblem) {
+if (context.problem) {
 t.p('	');
-for (var i2=0;  i2<context.patientProblem.length; i2++) {
-var problem = context.patientProblem[i2];
+for (var i2=0;  i2<context.problem.length; i2++) {
+var problemDetail = context.problem[i2];
 velocityCount = i2;
-t.p('	   <tr>	  	');
-if (problem.color) {
-t.p('	  		<td style="background-color:');
-t.p( problem.color);
-t.p('">');
-t.p( problem.title);
-t.p('	  	');
-}
-else {
-t.p('			<td>');
-t.p( problem.title);
-t.p('	   	');
-}
-t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
-t.p( problem.note);
-t.p('</div></td> 	   	</tr>	');
+t.p('	   <tr>	  	<td>');
+t.p( problemDetail.problemName);
+t.p('</td>		<td>		<div class="ui-corner-all" id="detail">		');
+t.p( problemDetail.problemDate.low.month);
+t.p('/');
+t.p( problemDetail.problemDate.low.day);
+t.p('/');
+t.p( problemDetail.problemDate.low.year);
+t.p('		</div></td> 	   	</tr>	');
 }
 
 }

@@ -82,6 +82,7 @@ function setOnSelect(isIntro, server)
 	 				{
 	 					var indexSrv = server + "/index.jsp";
 	 					parent.window.location.replace(indexSrv);
+	 					//populate(indexSrv, src);
 	 				});
 		    		
 	    		});
@@ -97,11 +98,12 @@ function setOnSelect(isIntro, server)
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 
-					var cacheServer = server + "/cachePatient.jsp?patient_id=" + src
+					var cacheServer = server + "/cachePatient.jsp?patient_id=" + src;
 		    		$.get(cacheServer, function(data)
 	 				{
 	 					var indexSrv = server + "/index.jsp";
-	 					parent.window.location.replace(indexSrv);
+	 					//parent.window.location.replace(indexSrv);
+	 					retrieve( server, src);
 	 				});
 		    		//retrieve( src);
 	    		});
@@ -111,6 +113,8 @@ function setOnSelect(isIntro, server)
 function refresh(patient)
 {
 		var url = "retrievePatient.jsp";
+		
+		//var url = "index.jsp";
 		//parent.saveWidgets();
 		parent.closeAllTabs("tabs");
 		populate(url, patient);
@@ -120,9 +124,10 @@ function refresh(patient)
 
 }
 
-function retrieve(patient)
+function retrieve(server, patient)
 {
 		var url = "retrievePatient.jsp";
+		//var url = "index.jsp";
 
 		parent.$("#saveDialog").dialog({
 				autoOpen: false,
@@ -136,17 +141,29 @@ function retrieve(patient)
 							parent.$("#saveDialog").dialog("destroy");
 							parent.saveWidgets();
 							parent.closeAllTabs("tabs");
-							populate(url, patient);
-
-							addScheduleButton(patient);
-							addCreateAssocButton(patient,"physician");
+							//
+							var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient
+		    				$.get(cacheServer, function(data)
+	 						{
+								parent.window.location.replace("index.jsp");
+								
+								//addScheduleButton(patient);
+								//addCreateAssocButton(patient,"physician");
+							});
+							
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
-						populate(url, patient);
-						addScheduleButton(patient);
-						addCreateAssocButton(patient,"physician");
+						//populate(url, patient);
+						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient
+		    			$.get(cacheServer, function(data)
+	 					{
+								parent.window.location.replace("index.jsp");								
+								//addScheduleButton(patient);
+								//addCreateAssocButton(patient,"physician");
+						});
+						
 					}
 					,
 					"Cancel" : function() {
@@ -161,8 +178,9 @@ function populate(url, patient_id)
 {
 
 	 var server = url + "?patient_id=" + patient_id;
-	 //alert("medCafe.patients.js : populate url " + server);
-
+	 alert("medCafe.patients.js : populate url " + server);
+	 //parent.window.location.replace(server);
+	 
 	 $.getJSON(server, function(data)
 	 {
 	 	   //If no data is retrieved then just return.

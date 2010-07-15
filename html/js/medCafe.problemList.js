@@ -9,6 +9,7 @@ function listProblemList(id, patient_id, server)
 	{
 		var html = v2js_listProblemList( data );
 
+		alert("medCafe.problemList.js listProblemList html "  +html);
 		$("#" + id).html(html);
 
   		$('#' + id + ' td').each( function(){
