@@ -160,6 +160,8 @@ public class Widget
 
 	public static JSONObject saveWidgets( String userName, JSONObject widgetJSON) throws SQLException
 	{
+		System.out.println("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
+		
 		JSONObject ret = new JSONObject();
 		setConnection();
 
@@ -213,10 +215,15 @@ public class Widget
 				prep.addBatch();
 
 			}
+			System.out.println("Widget : saveWidgets about to execute batch " + prep.toString());
+			
 			prep.executeBatch();
 		}
 		catch (JSONException e) {
+			
 			// TODO Auto-generated catch block
+			System.out.println("Widget : saveWidgets Problem on updating widget data from database ." + e.getMessage());
+			
 			return WebUtils.buildErrorJson( "Problem on updating widget data from database ." + e.getMessage());
 
 		}

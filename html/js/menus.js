@@ -1,4 +1,4 @@
-function processMenuClick(menuLabel)
+function processMenuClick(menuLabel, patientId)
 {
 	
 	if (menuLabel == "Add Tab")
@@ -11,13 +11,12 @@ function processMenuClick(menuLabel)
 	}
 	else if (menuLabel == "Save")
 	{
-		
-		 saveWidgets();
+		 saveWidgets(patientId);
 	}
 	else if (menuLabel == "Close Tabs")
 	{
 		 initClose();
-		 saveWidgets();
+		 saveWidgets(patientId);
 		 closeAllTabs("tabs");
 	}
 	else if (menuLabel == "Test")

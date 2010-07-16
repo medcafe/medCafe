@@ -10,14 +10,11 @@
 <%
 	
 	String userName =  request.getRemoteUser();
-	Object patient_idObj = session.getAttribute("patient");
 	
-	String patient_id = "1";
-	if (patient_idObj != null)
-		patient_id = patient_idObj.toString();
+	String patientId = request.getParameter("patient_id");
+	
+	System.out.println("deleteWidget.jsp about to Delete Widget for patient " + patientId );
 		
-	System.out.println("deleteWidget.jsp about to Delete Widget for patient " + patient_id );
-		
-	Widget.deleteWidgets(patient_id, userName);
+	Widget.deleteWidgets(patientId, userName);
 
 %>

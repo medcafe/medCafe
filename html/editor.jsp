@@ -1,17 +1,22 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
-<%@ page import = "org.mitre.medcafe.util.*"%>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%
 	String patientId = null;
-		
-	Object patientIdObj = session.getAttribute("patient");
-	if (patientIdObj != null)
-		patientId = patientIdObj.toString();
-		
-	String tab_num = request.getParameter("tab_num");
-		
+	
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+    //System.out.println("Editor.jsp get Patient Id from cache " + patientId);
+    
+	String tab_num = request.getParameter("tab_num");		
 	String user =  request.getRemoteUser();
   	
 	TextProcesses processText = new TextProcesses();	

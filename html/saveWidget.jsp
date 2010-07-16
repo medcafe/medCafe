@@ -11,7 +11,7 @@
 	//Web utils get the widgetSettings
 	//Put the String to JSON data
 	//Save the JSON Object to the database	
-	//System.out.println("saveWidget.jsp in Save Widget start " );
+	System.out.println("saveWidget.jsp in Save Widget start " );
 	Enumeration e = request.getParameterNames();
 	/**
 	key id value 1

@@ -66,7 +66,7 @@ function initializePatient(server)
 		  });
 }
 
-function setOnSelect(isIntro, server)
+function setOnSelect(isIntro, server, oldPatient)
 {
 			//alert("medCafe.patient.js server is " + server);
 			if (isIntro == "true")
@@ -97,15 +97,8 @@ function setOnSelect(isIntro, server)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-
-					var cacheServer = server + "/cachePatient.jsp?patient_id=" + src;
-		    		$.get(cacheServer, function(data)
-	 				{
-	 					var indexSrv = server + "/index.jsp";
-	 					//parent.window.location.replace(indexSrv);
-	 					retrieve( server, src);
-	 				});
-		    		//retrieve( src);
+					retrieve( server, src, oldPatient);
+	 		
 	    		});
     		}
 }
@@ -115,7 +108,6 @@ function refresh(patient)
 		var url = "retrievePatient.jsp";
 		
 		//var url = "index.jsp";
-		//parent.saveWidgets();
 		parent.closeAllTabs("tabs");
 		populate(url, patient);
 
@@ -124,7 +116,7 @@ function refresh(patient)
 
 }
 
-function retrieve(server, patient)
+function retrieve(server, patient, oldPatient)
 {
 		var url = "retrievePatient.jsp";
 		//var url = "index.jsp";
@@ -139,10 +131,11 @@ function retrieve(server, patient)
 							//Have to Destroy as otherwise
 							//the Dialog will not be reinitialized on open
 							parent.$("#saveDialog").dialog("destroy");
-							parent.saveWidgets();
-							parent.closeAllTabs("tabs");
+							//Cannot use the cached Patient as this may have been already reset
+							parent.saveWidgets(oldPatient);
+							
 							//
-							var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient
+							var cacheServer = "cachePatient.jsp?patient_id=" + patient
 		    				$.get(cacheServer, function(data)
 	 						{
 								parent.window.location.replace("index.jsp");

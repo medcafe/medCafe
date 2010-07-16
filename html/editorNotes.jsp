@@ -1,17 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
-<%@ page import = "org.mitre.medcafe.util.*"%>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	
 	String title = request.getParameter("title");
 	String tab_num = request.getParameter("tab_num");
+	System.out.println("EditorNotes.jsp start " ) ; 
 	
 	String patientId = null;
-	//System.out.println("EditorNotes.jsp patient id  "  + patientId) ; 
-	Object patientObj = session.getAttribute("patient");
-	if (patientObj != null)
-		 patientId = patientObj.toString();
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+    System.out.println("EditorNotes.jsp patient id  "  + patientId) ; 
 		 		
 	String action  = request.getParameter("action");
 	if (action == null)

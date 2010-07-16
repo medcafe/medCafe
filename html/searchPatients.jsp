@@ -17,6 +17,14 @@
 	if (isIntroPage == null)
 		isIntroPage = "false";
 
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    String currentPatient = "-1";
+    
+    //This may be the case as may be on intro page where the patient has not, as yet been selected
+    if (cache != null)
+    {
+    	currentPatient = cache.getDatabasePatientId();
+    }
 	//System.out.println("searchPatients.jsp isIntro " + isIntroPage);
 
 %>
@@ -56,7 +64,7 @@
 	$(function(){
 
     	var serverLink =  "searchPatientsJSON.jsp?server=<%=server%>";
-		setOnSelect("<%=isIntroPage%>","http://${server}");
+		setOnSelect("<%=isIntroPage%>","http://${server}", "<%=currentPatient%>");
 		initializePatient(serverLink);
 	});
 

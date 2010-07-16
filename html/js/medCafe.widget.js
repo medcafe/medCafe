@@ -164,8 +164,11 @@ var medCafeWidget =
     			url = url + "?";
     			var widgetSettings = this.getExtWidgetSettings(id);
     			if (widgetSettings == "")
+    			{
+    				alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.tab_num);
+    		
     				return;
-    			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
+    			}
     			$.ajax({
 	                url: url,
 	                type: 'POST',
@@ -209,23 +212,28 @@ function extendWidgets(id){
 }
 
 //Make sure that the delete event happens before all other events
-function saveWidgets()
+function saveWidgets(oldPatient)
 {
-		var deleteUrl = "deleteWidget.jsp?";
-    	//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
+		var deleteUrl = "deleteWidget.jsp?patient_id=" + oldPatient;
+    	//
+    	//Get these first before attempting delete
+    	var ids = medCafeWidget.getAllIds();
+    	
     	$.ajax({
 	           url: deleteUrl,
 	           type: 'POST',
 	           beforeSend: function() { $("#saveStatus").html("Saving").show(); },
 	           success: function(result) {
 	                   
-					var ids = medCafeWidget.getAllIds();
+					
 					//Cycle through each to save
 					$.each (ids, function(i, val)
 					{
 						medCafeWidget.saveWidget("saveWidget.jsp", val);
 					});
-	            }
+					
+					
+	           }
         });
 		//Code to cycle through the widgets and save
 	

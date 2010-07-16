@@ -1,3 +1,4 @@
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	String tabNum = request.getParameter("tab_num");
 	if (tabNum == null)
@@ -11,11 +12,15 @@
 	if (type == null)
 		type = "Chart";
 		
-	String patientId ="1";
-	Object patientIdObj = session.getAttribute("patient");
-	if (patientIdObj != null)
-		patientId = patientIdObj.toString();
 	
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    String patientId = cache.getDatabasePatientId();
 	
 	System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
 	
