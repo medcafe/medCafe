@@ -12,13 +12,15 @@
 	String[] symptomIds = request.getParameterValues("symptom_check") ;
 	System.out.println("History: saveHistory : symptomsId " + symptomIds.length);
 					
-  	String patientId = request.getParameter(Constants.PATIENT_ID);
-	if (patientId == null)
-	{
-	  	Object patientIdObj = session.getAttribute("patient");
-		if (patientIdObj != null)
-			patientId = patientIdObj.toString();
-	}
+  	String patientId = null;
+  	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
 		
 	if (patientId == null)
 	{

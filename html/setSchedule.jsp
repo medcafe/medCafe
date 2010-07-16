@@ -9,15 +9,15 @@
     String patientId = request.getParameter(Constants.PATIENT_ID);
     System.out.println("setSchedule.jsp patient id " + patientId);
 
-	if (patientId == null)
-	{
-	    patientId = (String) session.getAttribute("patient");
-	    if( patientId == null)
-        {
-            patientId = "1";
-        }
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
     }
-
+    patientId = cache.getDatabasePatientId();
+  
 	//Check if a time- duration is specified if not
 	//Retrieve the earliest available appointment and give 30 minutes
 	String apptDateStr = request.getParameter(Schedule.APPT_DATE);

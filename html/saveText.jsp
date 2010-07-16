@@ -3,7 +3,7 @@
 <%@ page import = "java.util.*"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%@ page import = "java.io.UnsupportedEncodingException"%>
-<%@ page import = "org.mitre.medcafe.util.*"%>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	System.out.println("SaveText.jsp: start");
 	
@@ -13,10 +13,15 @@
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
   	String patientId = null;
-  	Object patientObj = session.getAttribute("patient");
-	if (patientObj != null)
-		 patientId = patientObj.toString();
-	
+  	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+    
 	String title = request.getParameter("title");
 		
 	TextProcesses textProcesses = new TextProcesses();	

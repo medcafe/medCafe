@@ -3,7 +3,7 @@
 <%@ page import = "java.util.*"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%@ page import = "java.io.UnsupportedEncodingException"%>
-<%@ page import = "org.mitre.medcafe.util.*"%>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	//String formData = request.getParameter("form[info1]");
 	String action = request.getParameter("action");
@@ -12,12 +12,15 @@
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
   	String patientId =null;
-  	Object patientIdObj = session.getAttribute("patient");
-	if (patientIdObj != null)
-		patientId = patientIdObj.toString();
-		
-	if (patientId == null)
-		patientId = "1";
+  	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+    
 	System.out.println("SaveBookmarks.jsp: patient id " + patientId);
 		
 	ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();

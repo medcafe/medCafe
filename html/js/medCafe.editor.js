@@ -6,7 +6,6 @@ function processEditor(repId, patientId, patientRepId, data, type, tab_num)
 
 function setUpEditActions(tab_num, patientId)
 {
-		alert("medCafe.editor.js setUpEditActions patientId " + patientId);
 	
 	var titleNew = $(this).val();
 	loadNotes(titleNew, tab_num, patientId);
@@ -67,7 +66,6 @@ function setUpEditActions(tab_num, patientId)
 }
 function loadTemplate(title, tab_num, patientId)
 {
-	alert("medCafe.editor.js loadTemplate patientId " + patientId);
 	$('#editNote').load('editorNotes.jsp?title=' + title + '&tab_num=' + tab_num + '&action=copyTemplate',
     	
     		function() {
@@ -86,7 +84,6 @@ function loadTemplate(title, tab_num, patientId)
 
 function loadNotes(title, tab_num, patientId)
 {
-alert("medCafe.editor.js loadNotes patientId " + patientId);
 
 	$('#editNote').load('editorNotes.jsp?patient_id=' + patientId + '&title=' + title + '&tab_num=' + tab_num,
     	

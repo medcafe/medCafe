@@ -7,13 +7,15 @@
 	//Get a list of the Symptoms in a checkbox 
 	String url = "listHistoryTemplateJSON.jsp";
 	String patientId = request.getParameter(Constants.PATIENT_ID);
-	if (patientId == null)
-	{
-		Object patientObj = session.getAttribute("patient");
-		if (patientObj != null)
-		 	patientId = patientObj.toString();
-	}
-	
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+    
 	if (patientId != null)
 	{
 		url = url + "?" +  Constants.PATIENT_ID + "=" + patientId;

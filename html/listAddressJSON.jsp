@@ -1,4 +1,4 @@
-<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.util.*,org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
@@ -8,12 +8,14 @@
 	String jspUrl ="";
 		
 	String patientId = request.getParameter(Constants.PATIENT_ID);
-	if (patientId == null)
-	{
-		Object patientObj = session.getAttribute("patient");
-		if (patientObj != null)
-		 	patientId = patientObj.toString();
-	}
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
 	
 	if (patientId != null)
 	{

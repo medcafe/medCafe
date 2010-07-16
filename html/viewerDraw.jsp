@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
 	String patientId =  request.getParameter("patient_id");
 		
-	Object patientIdObj = session.getAttribute("patient");
-	if (patientIdObj != null)
-		patientId = patientIdObj.toString();
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+  
 	String dir = "images/patients/" + patientId + "/";
 		
 	String fileId = request.getParameter("file_id");

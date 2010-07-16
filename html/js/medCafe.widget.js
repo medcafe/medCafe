@@ -218,7 +218,6 @@ function saveWidgets(oldPatient)
     	//
     	//Get these first before attempting delete
     	var ids = medCafeWidget.getAllIds();
-    	
     	$.ajax({
 	           url: deleteUrl,
 	           type: 'POST',
