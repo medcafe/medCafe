@@ -9,7 +9,7 @@
 		patient_id = Constants.DEFAULT_PATIENT;
 	String repository = request.getParameter("repository");
 	if (repository == null)
-		repository = "OurVista";
+		repository = Constants.DEFAULT_REPOSITORY;
 	
 	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/supportList";
 	
