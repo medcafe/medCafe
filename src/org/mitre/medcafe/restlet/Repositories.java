@@ -33,7 +33,7 @@ public class Repositories
         Repository r = new VistaRepository();
         r.setName("JeffVista");
         String host = "192.168.56.101";
-        r.setCredentials( host, "8002", "OV1234", "OV1234!!" );
+        r.setCredentials( host, "9201", "SM1234", "SM1234!!" );
         // r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
         try
         {

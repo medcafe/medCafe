@@ -1194,43 +1194,6 @@ velocityCount = 0;
 t.p('</tbody><table>');
 return t.toString();
 }
-function v2js_listProblemListTableLocal(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
-if (context.patientProblem) {
-t.p('	');
-for (var i2=0;  i2<context.patientProblem.length; i2++) {
-var problem = context.patientProblem[i2];
-velocityCount = i2;
-t.p('				');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
-t.p( problem.patient_id);
-t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
-}
-t.p('		<tr class="gradeX">		<td value="');
-t.p( problem.title);
-t.p('">');
-t.p( problem.title);
-t.p('</td>		<td value="');
-t.p( problem.note);
-t.p('">');
-t.p( problem.note);
-t.p('</td>		<td value="');
-t.p( problem.priority);
-t.p('">');
-t.p( problem.priority);
-t.p('</td>		</tr>		');
-count = ( count + 1 );
-t.p('			');
-}
-
-}
-t.p('</tbody><table>');
-return t.toString();
-}
 function v2js_listRepositorySelect(context) { 
 var t = new StringCat();
 var velocityCount = 0;
