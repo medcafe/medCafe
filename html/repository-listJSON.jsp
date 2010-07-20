@@ -17,7 +17,12 @@
 	String repository = request.getParameter("repository");
 	//String patientId = cache.getRepoPatientId();
 	String patientId = request.getParameter("patient_id");
-	String listRep =  "/repositories/" + repository + "/patients/" + patientId;
+	
+	String listRep =  "/repositories/" + repository + "/patients";
+	if (patientId != null)
+	{
+		listRep += "/" + patientId;
+	}
 
 	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
 %>
