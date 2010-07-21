@@ -1,0 +1,272 @@
+ BRIEF DATA DICTIONARY #405 -- PATIENT MOVEMENT FILE           6/10/10    PAGE 1
+SITE: MEDSPHERE   UCI: OPEN,OPEN                               (VERSION 5.3)   
+-------------------------------------------------------------------------------
+
+DATE/TIME                      405,.01    DATE 
+  MOVEMENT DATE/TIME                    
+                           Enter the date and time of this patient movement. 
+
+TRANSACTION                    405,.02    POINTER 
+                              TO MAS MOVEMENT TRANSACTION TYPE FILE (#405.3) 
+                                        
+                       Enter the transaction type for this patient movement. 
+
+PATIENT                        405,.03    POINTER TO PATIENT FILE (#2) 
+                                        Enter the NAME of the patient. 
+
+TYPE OF MOVEMENT               405,.04    POINTER 
+                                     TO FACILITY MOVEMENT TYPE FILE (#405.1) 
+TRANSFER FACILITY              405,.05    POINTER TO INSTITUTION FILE (#4) 
+  FACILITY                              
+           Enter the facility from/to which the patient was received/placed. 
+
+WARD LOCATION                  405,.06    POINTER TO WARD LOCATION FILE (#42) 
+                                        
+                             Enter the ward on which the patient was placed. 
+
+ROOM-BED                       405,.07    POINTER TO ROOM-BED FILE (#405.4) 
+                                        
+                       Enter the ROOM-BED to which this patient is assigned. 
+
+PRIMARY PHYSICIAN              405,.08    POINTER TO NEW PERSON FILE (#200) 
+  PROVIDER                              
+             Enter the PROVIDER assigned to this patient with this movement. 
+
+FACILITY TREATING SPECIALTY    405,.09    POINTER 
+                                 TO FACILITY TREATING SPECIALTY FILE (#45.7) 
+                                        
+ Enter the TREATING SPECIALTY assigned to this patient with this movement.  Thi 
+                                     s must be an active treating specialty. 
+
+DIAGNOSIS [SHORT]              405,.1     FREE TEXT 
+                                        
+ Enter a 3-30 character description of the diagnosis associated with this movem 
+                                         ent excluding semi-colons. 
+
+ADMITTED FOR SC CONDITION?     405,.11    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        
+ Is this service-connected veteran being admitted for a service connected condi 
+                                         tion? 
+ADMITTING REGULATION           405,.12    POINTER 
+                                     TO VA ADMITTING REGULATION FILE (#43.4) 
+                                        
+ Select from the available listing the admitting regulation under which this pa 
+              tient is being admitted if this movement type is an admission. 
+
+ABSENCE RETURN DATE            405,.13    DATE 
+                                        
+ For absences, if desired, enter the date on which the patient is expected to r 
+                             eturn.  Date must be on or after movement date. 
+
+ADMISSION/CHECK-IN MOVEMENT    405,.14    POINTER 
+                                         TO PATIENT MOVEMENT FILE (#405) 
+                                        
+ Enter the admission or check-in movement with which this movement is associate 
+                                         d. 
+ASIH ADMISSION                 405,.15    POINTER 
+                                         TO PATIENT MOVEMENT FILE (#405) 
+
+
+PTF ENTRY                      405,.16    POINTER TO PTF FILE (#45) 
+                                        
+ The number of the entry in the PTF (45) file associated with this movement. 
+
+DISCHARGE/CHECK-OUT MOVEMENT   405,.17    POINTER 
+                                         TO PATIENT MOVEMENT FILE (#405) 
+                                        
+ Answer with the movement which removes this patient from inpatient/lodger care 
+                                         . 
+MAS MOVEMENT TYPE              405,.18    POINTER 
+                                         TO MAS MOVEMENT TYPE FILE (#405.2) 
+                                        
+            A pointer to the MAS Movement Type file.  Created by the module. 
+
+ATTENDING PHYSICIAN            405,.19    POINTER TO NEW PERSON FILE (#200) 
+                                        
+ The name of the physician attending to this patient.  Can be the same as the P 
+                                         RIMARY CARE PHYSICIAN. 
+
+ADMITTING ELIGIBILITY          405,.2     POINTER 
+                                         TO ELIGIBILITY CODE FILE (#8) 
+                                        
+ Answer with the ELIGIBILITY CODE which best describes the entitlement under wh 
+                                         ich this patient is being admitted. 
+
+ASIH TRANSFER                  405,.21    POINTER 
+                                         TO PATIENT MOVEMENT FILE (#405) 
+
+
+ASIH SEQUENCE                  405,.22    NUMBER 
+                                        
+                             Type a Number between 0 and 2, 0 Decimal Digits 
+
+DMMS EPISODE NUMBER            405,.23    NUMBER 
+                                        
+                         Type a Number between 1 and 99999, 0 Decimal Digits 
+
+RELATED PHYSICAL MOVEMENT      405,.24    POINTER 
+                                         TO PATIENT MOVEMENT FILE (#405) 
+SCHEDULED ADMISSION?           405,.25    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        Was this admission scheduled? 
+
+PTF PURGE STATUS               405,.26    SET 
+                                          '1' FOR PURGED;
+                                          '0' FOR ACTIVE;
+
+
+VISIT FILE ENTRY               405,.27    POINTER TO VISIT FILE (#9000010) 
+                                        
+ This is the Visit Tracking pointer.  Stored here just to make sure it's includ 
+                                         ed in the event driver. 
+REASON FOR LODGING             405,30.01    POINTER 
+                                         TO LODGING REASON FILE (#406.41) 
+
+
+LODGING COMMENTS               405,30.02    FREE TEXT 
+                                        
+                                   Answer must be 3-30 characters in length. 
+
+DISPOSITION                    405,30.03    SET 
+                                          'a' FOR ADMITTED;
+                                          'd' FOR DISMISSED;
+                                        
+ Enter A if the patient was admitted from lodger status, otherwise answer D. 
+
+EXCLUDE FROM FACILITY DIR      405,40     COMPUTED 
+
+
+FACILITY DIRECTORY EXCLUSION   405,41     SET 
+                                          '0' FOR NO;
+                                          '1' FOR YES;
+                                        
+ Enter 'YES' if the patient wishes to "opt out" from the Facility Directory for 
+                                     this admission.  Otherwise answer 'NO'. 
+
+FACILITY DIRECTORY TIME STAMP  405,42     DATE 
+                                        (No range limit on date) 
+
+FACILITY DIRECTORY USER        405,43     POINTER TO NEW PERSON FILE (#200) 
+
+SOURCE OF ADMISSION            405,51     COMPUTED 
+
+
+PTF MOVEMENT NUMBER            405,52     NUMBER 
+                                        
+                          Type a Number between 1 and 1000, 0 Decimal Digits 
+
+NEXT PTF MOVEMENT              405,53     NUMBER 
+                                        
+                          Type a Number between 0 and 9999, 0 Decimal Digits 
+
+ADMITTING CATEGORY             405,54     POINTER 
+                              TO SHARING AGREEMENT SUB-CATEGORY FILE (#35.2) 
+                                        
+                                Please enter the Sharing Agreement Category. 
+
+ELIGIBILITY                    405,55     COMPUTED 
+
+
+IRT BACKGROUND JOB RUN         405,60.01    DATE 
+
+
+DIAGNOSIS                      405,99    405.099  WORD-PROCESSING  
+
+
+ENTERED BY                     405,100    POINTER TO NEW PERSON FILE (#200) 
+
+
+ENTERED ON                     405,101    DATE 
+
+LAST EDITED BY                 405,102    POINTER TO NEW PERSON FILE (#200) 
+
+
+LAST EDITED ON                 405,103    DATE 
+
+
+WARD AT DISCHARGE              405,200    COMPUTED 
+
+
+LENGTH OF STAY                 405,201    COMPUTED 
+  LOS                                   
+
+PASS DAYS                      405,202    COMPUTED 
+
+DAYS ABSENT                    405,203    COMPUTED 
+
+
+ASIH DAYS                      405,204    COMPUTED 
+
+
+ORIGINAL ADMISSION DATE        405,300    DATE 
+                                        
+                            Enter the patient's Original Admission Date/Time 
+
+ODS AT ADMISSION               405,11500.01    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        
+              Was this patient admitted with a period of service of 6 (ODS)? 
+
+NON-VA FACILITY?               405,11500.02    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        
+ Is this patient being transferred to a non-VA facility?  If so, answer yes.  A 
+                              nswer no for transfers to another VA facility. 
+
+AT VA EXPENSE?                 405,11500.03    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        
+       Is the cost of this transfer to a non-VA facility incurred by the VA? 
+
+ODS ADMISSION ENTRY            405,11500.04    POINTER 
+                                   ***** TO A FILE THAT IS UNDEFINED ******* 
+                                        
+ Enter the entry in the ODS ADMISSIONS file which corresponds to this admission 
+                                         . 
+DISPLACED FOR ODS PATIENT?     405,11500.05    SET 
+                                          '1' FOR YES;
+                                          '0' FOR NO;
+                                        
+        Was this VA patient transferred out to make room for an ODS patient? 
+
+VA COST TO TRAVEL              405,11500.06    NUMBER 
+                                        
+            Type a Dollar Amount between 0 and 99999999999, 2 Decimal Digits 
+
+DISPLACED PATIENT              405,11500.07    POINTER 
+                                   ***** TO A FILE THAT IS UNDEFINED ******* 
+                                        
+          Enter the DISPLACED PATIENT entry corresponding to this discharge. 
+
+ED DISCHARGE ORDER             405,21400.01    POINTER TO ORDER FILE (#100) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

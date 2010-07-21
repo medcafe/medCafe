@@ -1,0 +1,29 @@
+										   Abstract
+NAME        DESCRIPTION                     VIEWER         Bitmap for Abstract     Created   DEFAULT OBJECT TYPE
+--------------------------------------------------------------------------------
+756         Historical 756                  YES					     	YES       XRAY
+ABS         Abstract file ABS               YES                                 	YES       STILL IMAGE
+ASC         Text file Image extension ASC   YES			magtext.bmp		NO        TEXT
+AVI         Motion Video AVI                YES 		magavi.bmp      	NO        MOTION VIDEO
+BIG         Xray big file 2000K BIG         YES					        YES       XRAY
+BMP         Bitmap file BMP                 YES					        YES       STILL IMAGE
+BW          Black and White BW              YES						YES       BWMED
+DCM         Dicom file DCM                  YES                                  	YES       DICOM IMAGE		
+DOC         Word Document DOC               NO  		magdoc.bmp              NO        WORD
+HTM         Web Document HTM                YES			maghtml.bmp             NO        HTML
+HTML        Web Document HTML               YES  		maghtml.bmp             NO        HTML
+JPG         Full Color JPG                  YES                                  	YES       STILL IMAGE
+MP3         Motion Video MPEG-3             NO  		magavi.bmp              NO        MOTION VIDEO
+MP4         Motion Video MPEG-4             NO  		magavi.bmp              NO        MOTION VIDEO
+MPEG        Motion Video MPG                NO			magavi.bmp              NO        MOTION VIDEO
+MPG         Motion Video MPG                NO		  	magavi.bmp              NO        MOTION VIDEO
+PAC         Xray image PAC                  YES                                  	YES       XRAY
+PDF         Adobe PDF                       NO  		magpdf.bmp		NO        ADOBE
+RTF         Rich Text format RTF            NO			magrtf.bmp              NO        RICH TEXT
+TGA         Targa Image TGA                 YES                                  	YES       STILL IMAGE
+TIF         Scanned Document TIF            YES                                  	YES       DOCUMENT
+TXT         Text file import TXT            YES			magtext.bmp             NO        TEXT
+WAV         Audio file WAV                  NO  		magwav.bmp              NO        AUDIO
+
+
+

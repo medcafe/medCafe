@@ -1,0 +1,105 @@
+DATE                           409.68,.01    DATE 
+                                         
+
+PATIENT                        409.68,.02    POINTER TO PATIENT FILE (#2) 
+
+
+CLINIC STOP CODE               409.68,.03    POINTER 
+                                         TO CLINIC STOP FILE (#40.7) 
+
+
+LOCATION                       409.68,.04    POINTER 
+                                         TO HOSPITAL LOCATION FILE (#44) 
+VISIT FILE ENTRY               409.68,.05    POINTER TO VISIT FILE (#9000010) 
+                                         
+
+PARENT ENCOUNTER               409.68,.06    POINTER 
+                                      TO OUTPATIENT ENCOUNTER FILE (#409.68) 
+
+
+CHECK OUT PROCESS COMPLETION   409.68,.07    DATE 
+  CHECK OUT PROCESS COMPLETION DATE      
+
+ORIGINATING PROCESS TYPE       409.68,.08    SET 
+                                          '1' FOR APPOINTMENT;
+                                          '2' FOR STOP CODE ADDITION;
+                                          '3' FOR DISPOSITION;
+                                          '4' FOR CREDIT STOP CODE;
+
+EXTENDED REFERENCE             409.68,.09    FREE TEXT 
+                                        
+                                   Answer must be 1-60 characters in length. 
+
+APPOINTMENT TYPE               409.68,.1    POINTER 
+                                         TO APPOINTMENT TYPE FILE (#409.1) 
+
+
+MEDICAL CENTER DIVISION        409.68,.11    POINTER 
+                                     TO MEDICAL CENTER DIVISION FILE (#40.8) 
+
+
+STATUS                         409.68,.12    POINTER 
+                                        TO APPOINTMENT STATUS FILE (#409.63)
+
+ELIGIBILITY OF ENCOUNTER       409.68,.13    POINTER 
+                                         TO ELIGIBILITY CODE FILE (#8) 
+
+
+UNIQUE VISIT NUMBER            409.68,.2    FREE TEXT 
+                                        
+                                   Answer must be 1-12 characters in length. 
+
+EDITED LAST BY                 409.68,101    POINTER 
+                                         TO NEW PERSON FILE (#200) 
+
+
+DATE/TIME LAST EDITED          409.68,102    DATE 
+
+CREATED BY                     409.68,103    POINTER 
+                                         TO NEW PERSON FILE (#200) 
+
+
+DATE/TIME CREATED              409.68,104    DATE 
+
+
+COMPUTER GENERATED?            409.68,201    SET 
+                                          '0' FOR NO;
+                                          '1' FOR YES;
+
+
+UNRESOLVED APPT TYPE REASON    409.68,202    SET 
+                                          '1' FOR DUAL ELIGIBILITY;
+                                          '2' FOR POSSIBLE COMP & PEN;
+CREATED BY CONVERSION          409.68,901    SET 
+                                          '0' FOR NO;
+                                          '1' FOR YES;
+
+
+ORIGINAL CREATE DT FROM 'SDV'  409.68,902    DATE 
+
+
+NON-HISTORICAL STOP CODE USED  409.68,903    SET 
+                                          '0' FOR NO;
+                                          '1' FOR YES;
+
+
+CONVERSION COMPLETED           409.68,904    SET 
+                                          '0' FOR NO;
+                                          '1' FOR YES;
+                                        Respond yes or no 
+
+DATE OF LAST CONVERSION        409.68,905    DATE 
+                                        
+                            ENTER THE DATE THIS ENCOUNTER WAS LAST CONVERTED 
+
+
+
+
+
+
+
+
+
+
+
+
