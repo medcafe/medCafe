@@ -171,7 +171,7 @@ function retrieve(server, patient, oldPatient)
 
 function addAssociatePatient(isIntro)
 {
-	var buttonTxt = "<button id='addPatientAssocBtn'>Associate Patient</button>";
+	var buttonTxt = "<center><button id='addPatientAssocBtn'>Associate Patient</button></center>";
 	 $("#associatePatient").html(buttonTxt);
 	 
 	 $("#addPatientAssocBtn").click(function(event,patient_id){
