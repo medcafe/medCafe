@@ -5,13 +5,10 @@ import com.medsphere.fileman.*;
 import com.medsphere.fmdomain.*;
 import com.medsphere.ovid.domain.ov.*;
 import com.medsphere.ovid.model.domain.patient.*;
-import com.medsphere.vistalink.*;
-import gov.va.med.vistalink.adapter.cci.VistaLinkConnection;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.*;
-import org.json.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
@@ -20,6 +17,26 @@ import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.Support;
 import org.projecthdata.hdata.schemas._2009._06.support.ContactRelationship;
 import org.projecthdata.hdata.schemas._2009._06.immunization.Immunization;
+import org.projecthdata.hdata.schemas._2009._06.provider.*;
+import org.projecthdata.hdata.schemas._2009._06.comment.*;
+import org.projecthdata.hdata.schemas._2009._06.encounter.EncounterType;
+import org.projecthdata.hdata.schemas._2009._06.result.*;
+
+
+import org.mitre.medcafe.hdatabased.encounter.EncounterDetail;
+import org.mitre.medcafe.hdatabased.exam.Exam;
+import org.mitre.medcafe.hdatabased.exam.ExamType;
+import org.mitre.medcafe.hdatabased.exam.ExamResult;
+import org.mitre.medcafe.hdatabased.healthfactor.Factor;
+import org.mitre.medcafe.hdatabased.healthfactor.HealthFactor;
+import org.mitre.medcafe.hdatabased.patienteducation.PatientEducation;
+import org.mitre.medcafe.hdatabased.patienteducation.Topic;
+import org.mitre.medcafe.hdatabased.patienteducation.PatientUnderstanding;
+import org.mitre.medcafe.hdatabased.procedure.Procedure;
+import org.mitre.medcafe.hdatabased.procedure.ProcedureCode;
+import org.mitre.medcafe.hdatabased.treatment.Treatment;
+import org.mitre.medcafe.hdatabased.treatment.TreatmentType;
+
 import com.medsphere.vistarpc.RPCConnection;
 import com.medsphere.vistarpc.RPCBrokerConnection;
 import com.medsphere.vistarpc.RPCException;
@@ -78,8 +95,8 @@ public class VistaRepository extends Repository {
             Patient ret = new Patient();
 
             //set  name
-            Name name = new Name();
-            List<String> given = name.getGiven();
+            Name personName = new Name();
+            List<String> given = personName.getGiven();
             if (stringExists(filemanPat.getGivenName())) {
                 given.add(filemanPat.getGivenName());
             }
@@ -87,15 +104,15 @@ public class VistaRepository extends Repository {
                 given.add(filemanPat.getMiddleName());
             }
             if (stringExists(filemanPat.getSuffix())) {
-                name.setSuffix(filemanPat.getSuffix());
+                personName.setSuffix(filemanPat.getSuffix());
             }
             if (stringExists(filemanPat.getFamilyName())) {
-                name.setLastname(filemanPat.getFamilyName());
+                personName.setLastname(filemanPat.getFamilyName());
             }
             if (stringExists(filemanPat.getPrefix())) {
-                name.setTitle(filemanPat.getPrefix());
+                personName.setTitle(filemanPat.getPrefix());
             }
-            ret.setName(name);
+            ret.setName(personName);
 
             // set address
             List<Address> addressList = ret.getAddress();
@@ -371,6 +388,8 @@ public class VistaRepository extends Repository {
     }
     }
      */
+
+    @Override
     public void onShutdown() {
         /*     if (factory != null) {
         factory.emptyPool();
@@ -424,6 +443,7 @@ public class VistaRepository extends Repository {
      *
      *@param credentials New credentials property.
      */
+    @Override
     public void setCredentials(String... credentials) {
         if (credentials.length < 4) {
             throw new RuntimeException("Invalid number of credentials.  You must proivide <host> <port> <ovid-access-code> <ovid-verify-code>");
@@ -461,6 +481,7 @@ public class VistaRepository extends Repository {
                     Reaction re = new Reaction();
                     re.setValue(pa.getSigns());
                     allergy.setReaction(re);
+
 
                     // System.out.println(pa.toString());
                     //add to the list
@@ -577,32 +598,7 @@ public class VistaRepository extends Repository {
                 Collection<PatientImmunization> vista_list = r.getImmunizations(id);
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
                 for (PatientImmunization imm : vista_list) {
-                    Immunization immunization = new Immunization();  //hData type
-                    immunization.setNarrative("Series: " + imm.getSeries()+ " Reaction: "+ imm.getReaction() +
-                            " Contraindicated: "+ imm.getContraindicated());
-                    Actor provider = new Actor();
-                    Person person = new Person();
-                    person.setName(setPersonsName(imm.getEncounterProvider()));
-                    provider.setPerson(person);
-                    immunization.setPerformer(provider);
-                    //populate
-
-                    if (imm.getDateTime() != null) {
-                        GregorianCalendar cal = new GregorianCalendar();
-                        cal.setTime(imm.getDateTime());
-                        DatatypeFactory factory = DatatypeFactory.newInstance();
-                        immunization.setAdministeredDate(factory.newXMLGregorianCalendar(cal));                    }
-
-
-                    MedicationInformation m = new MedicationInformation();
-
-                    MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
-                    mm.setFreeTextBrandName(imm.getImmunizationName());
-                    m.setManufacturedMaterial(mm);
-
-                    immunization.setMedicationInformation(m);
-
-
+                    Immunization immunization = fillInImmunizationInfo(imm);
                     list.add(immunization);
                 }
                 log.finer("Number of immunizations for patient " + id + " is " + list.size());
@@ -763,5 +759,532 @@ public class VistaRepository extends Repository {
             given.add(nameParts[i]);
         }
         return personsName;
+    }
+
+    public Collection<EncounterDetail> getPatientVisits(String id) {
+        Collection<PatientVisit> ret;
+        try {
+            if (setConnection()) {
+                ret = new PatientVisitRepository(conn).getVisitsByPatientDFN(id);
+
+
+            } else {
+                return null;
+            }
+            Collection<EncounterDetail> visits = new ArrayList<EncounterDetail>();
+
+
+            for (PatientVisit visit : ret) {
+                EncounterDetail encounter = new EncounterDetail();
+                populateEncounterDetail(encounter, visit);
+
+                List<Actor> providers = encounter.getEncounterProvider();
+                populateProviderList(providers, visit);
+
+                List<Procedure> procedures = encounter.getProcedures();
+                populateProcedureList(procedures, visit);
+
+                List<Condition> conditions = encounter.getConditions();
+                populateConditionList(conditions, visit);
+
+                List<PatientEducation> patientEd = encounter.getEducation();
+                populatePatientEducationList(patientEd, visit);
+
+                List<Exam> exams = encounter.getExams();
+                populateExamList(exams, visit);
+
+                List<Immunization> immunizations = encounter.getImmunizations();
+                populateImmunizationList(immunizations, visit);
+
+                List<Result> results = encounter.getResults();
+                populateResultList(results, visit);
+
+                List<Treatment> treatments = encounter.getTreatments();
+                populateTreatmentList(treatments, visit);
+
+                List<HealthFactor> healthFactors = encounter.getHealthFactors();
+                populateHealthFactorList(healthFactors, visit);
+
+                visits.add(encounter);
+
+            }
+            return visits;
+        } catch (OvidDomainException e) {
+            log.log(Level.SEVERE, "Error retrieving patient visits", e);
+            return null;
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving PatientItems", e);
+            return null;
+        } finally {
+            closeConnection();
+
+        }
+    }
+
+    private Immunization fillInImmunizationInfo(PatientImmunization imm) {
+
+        Immunization immunization = new Immunization();  //hData type
+        immunization.setNarrative("Series: " + imm.getSeries() + " Reaction: " + imm.getReaction()
+                + " Contraindicated: " + imm.getContraindicated());
+        Actor provider = new Actor();
+        Person person = new Person();
+        person.setName(setPersonsName(imm.getEncounterProvider()));
+        provider.setPerson(person);
+        immunization.setPerformer(provider);
+        //populate
+
+        if (imm.getDateTime() != null) {
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(imm.getDateTime());
+            try {
+                DatatypeFactory factory = DatatypeFactory.newInstance();
+                immunization.setAdministeredDate(factory.newXMLGregorianCalendar(cal));
+            } catch (Exception e) {
+                log.log(Level.FINER, e.getMessage());
+            }
+
+        }
+
+
+        MedicationInformation m = new MedicationInformation();
+
+        MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
+        mm.setFreeTextBrandName(imm.getImmunizationName());
+        m.setManufacturedMaterial(mm);
+
+        immunization.setMedicationInformation(m);
+        return immunization;
+
+
+    }
+
+    private void populateTreatmentList(List<Treatment> treatments, PatientVisit visit) {
+        for (FMV_Treatment fmTreatment : visit.getTreatments()) {
+
+            Treatment treatment = new Treatment();
+            if (stringExists(fmTreatment.getComments())) {
+                Comment comment = new Comment();
+                comment.setText(fmTreatment.getComments());
+                treatment.setComment(comment);
+            }
+
+            TreatmentType treatmentType = new TreatmentType();
+            treatmentType.setValue(fmTreatment.getTreatmentValue());
+            treatment.setTreatmentType(treatmentType);
+
+            List<Provider> trProviders = treatment.getProviders();
+            if (stringExists(fmTreatment.getEncounterProviderValue())) {
+
+                Provider trProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmTreatment.getEncounterProviderValue()));
+                performer.setPerson(person);
+                trProvider.setProviderEntity(performer);
+                trProvider.setProviderRoleFreeText("Encounter Provider");
+                trProviders.add(trProvider);
+            }
+
+            if (stringExists(fmTreatment.getOrderingProviderValue())) {
+
+                Provider trProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmTreatment.getOrderingProviderValue()));
+                performer.setPerson(person);
+                trProvider.setProviderEntity(performer);
+                trProvider.setProviderRoleFreeText("Ordering Provider");
+                trProviders.add(trProvider);
+            }
+
+            if (fmTreatment.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(fmTreatment.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    DateRange dateRange = new DateRange();
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    treatment.setEncounterDate(dateRange);
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in Treatment record: e.getMessage()");
+                }
+
+            }
+
+            treatments.add(treatment);
+        }
+    }
+
+    private void populateHealthFactorList(List<HealthFactor> healthFactors, PatientVisit visit) {
+        for (FMV_HealthFactors fmFactor : visit.getHealthFactors()) {
+
+            HealthFactor healthFactor = new HealthFactor();
+            if (stringExists(fmFactor.getComments())) {
+                Comment comment = new Comment();
+                comment.setText(fmFactor.getComments());
+                healthFactor.setComment(comment);
+            }
+
+            Factor factor = new Factor();
+            factor.setValue(fmFactor.getHealthFactorValue());
+            healthFactor.setHealthFactor(factor);
+
+            Severity severity = new Severity();
+            severity.setValue(fmFactor.getLevelSeverity());
+
+            List<Provider> hfProviders = healthFactor.getProviders();
+            if (stringExists(fmFactor.getEncounterProviderValue())) {
+
+                Provider hfProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmFactor.getEncounterProviderValue()));
+                performer.setPerson(person);
+                hfProvider.setProviderEntity(performer);
+                hfProvider.setProviderRoleFreeText("Encounter Provider");
+                hfProviders.add(hfProvider);
+            }
+
+            if (stringExists(fmFactor.getOrderingProviderValue())) {
+
+                Provider hfProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmFactor.getOrderingProviderValue()));
+                performer.setPerson(person);
+                hfProvider.setProviderEntity(performer);
+                hfProvider.setProviderRoleFreeText("Ordering Provider");
+                hfProviders.add(hfProvider);
+            }
+
+            if (fmFactor.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(fmFactor.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    DateRange dateRange = new DateRange();
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    healthFactor.setEncounterDate(dateRange);
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in HealthFactor record: e.getMessage()");
+                }
+            }
+
+            healthFactors.add(healthFactor);
+        }
+    }
+
+    private void populateResultList(List<Result> results, PatientVisit visit) {
+        for (FMV_SkinTest fmSkinTest : visit.getSkinTests()) {
+
+            Result result = new Result();
+            ResultType resultType = new ResultType();
+            resultType.setValue(fmSkinTest.getSkinTestValue());
+            result.setResultType(resultType);
+            if (fmSkinTest.getReading() != null) {
+                result.setResultValue(fmSkinTest.getReading());
+            }
+            if (stringExists(fmSkinTest.getResults())) {
+                CodedValue interpretation = new CodedValue();
+                interpretation.setValue(fmSkinTest.getResults());
+                result.setResultInterpretation(interpretation);
+            }
+            if (stringExists(fmSkinTest.getComments())) {
+                result.setNarrative(fmSkinTest.getComments());
+            }
+            DateRange dateRange = new DateRange();
+            try {
+                DatatypeFactory factory = DatatypeFactory.newInstance();
+                if (fmSkinTest.getEventDate() != null) {
+                    GregorianCalendar cal = new GregorianCalendar();
+                    cal.setTime(fmSkinTest.getEventDate());
+
+
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    result.setResultDateTime(dateRange);
+
+
+                }
+                if (fmSkinTest.getDateRead() != null) {
+                    GregorianCalendar cal = new GregorianCalendar();
+                    cal.setTime(fmSkinTest.getDateRead());
+
+
+                    dateRange.setHigh(factory.newXMLGregorianCalendar(cal));
+                    result.setResultDateTime(dateRange);
+
+
+                }
+            } catch (Exception e) {
+                log.log(Level.FINER, "Error setting date in Result record: e.getMessage()");
+            }
+
+            results.add(result);
+        }
+    }
+
+    private void populateImmunizationList(List<Immunization> immunizations, PatientVisit visit) {
+        for (FMV_Immunization fmImmune : visit.getImmunizations()) {
+
+            Immunization immunization = new Immunization();  //hData type
+            immunization.setNarrative("Series: " + fmImmune.getSeries() + " Reaction: " + fmImmune.getReaction()
+                    + " Contraindicated: " + fmImmune.getContraindicated());
+            Actor provider = new Actor();
+            Person person = new Person();
+            person.setName(setPersonsName(fmImmune.getEncounterProviderValue()));
+            provider.setPerson(person);
+            immunization.setPerformer(provider);
+            //populate
+
+            if (fmImmune.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(fmImmune.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    immunization.setAdministeredDate(factory.newXMLGregorianCalendar(cal));
+                } catch (Exception e) {
+                    log.log(Level.FINER, e.getMessage());
+                }
+
+            }
+
+
+            MedicationInformation m = new MedicationInformation();
+
+            MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
+            mm.setFreeTextBrandName(fmImmune.getImmunizationValue());
+            m.setManufacturedMaterial(mm);
+
+            immunization.setMedicationInformation(m);
+
+            immunizations.add(immunization);
+        }
+    }
+
+    private void populateExamList(List<Exam> exams, PatientVisit visit) {
+        for (FMV_Exam fmExam : visit.getExams()) {
+
+            Exam exam = new Exam();
+            ExamType examType = new ExamType();
+            examType.setValue(fmExam.getExamValue());
+            exam.setExamType(examType);
+            if (stringExists(fmExam.getComments())) {
+                Comment comment = new Comment();
+                comment.setText(fmExam.getComments());
+                exam.setComment(comment);
+            }
+            ExamResult exResult = new ExamResult();
+            exResult.setValue(fmExam.getResult());
+            exam.setExamResult(exResult);
+
+            List<Provider> exProviders = exam.getProviders();
+            if (stringExists(fmExam.getEncounterProviderValue())) {
+
+                Provider exProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmExam.getEncounterProviderValue()));
+                performer.setPerson(person);
+                exProvider.setProviderEntity(performer);
+                exProvider.setProviderRoleFreeText("Encounter Provider");
+                exProviders.add(exProvider);
+            }
+
+            if (stringExists(fmExam.getOrderingProviderValue())) {
+
+                Provider exProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmExam.getOrderingProviderValue()));
+                performer.setPerson(person);
+                exProvider.setProviderEntity(performer);
+                exProvider.setProviderRoleFreeText("Ordering Provider");
+                exProviders.add(exProvider);
+            }
+
+            if (fmExam.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(fmExam.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    DateRange dateRange = new DateRange();
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    exam.setEncounterDate(dateRange);
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in Exam record: e.getMessage()");
+                }
+            }
+
+            exams.add(exam);
+        }
+    }
+
+    private void populatePatientEducationList(List<PatientEducation> patientEd, PatientVisit visit) {
+        for (FMV_PatientEd fmEd : visit.getPatientEd()) {
+
+            PatientEducation pEducation = new PatientEducation();
+            Topic topic = new Topic();
+            topic.setValue(fmEd.getTopicValue());
+            pEducation.setTopic(topic);
+            PatientUnderstanding understand = new PatientUnderstanding();
+            understand.setValue(fmEd.getLevelOfUnderstanding());
+            pEducation.setPatientUnderstanding(understand);
+            if (stringExists(fmEd.getComments())) {
+                Comment comment = new Comment();
+                comment.setText(fmEd.getComments());
+                pEducation.setComment(comment);
+            }
+            List<Provider> edProviders = pEducation.getProviders();
+            if (stringExists(fmEd.getEncounterProviderValue())) {
+
+                Provider edProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmEd.getEncounterProviderValue()));
+                performer.setPerson(person);
+                edProvider.setProviderEntity(performer);
+                edProvider.setProviderRoleFreeText("Encounter Provider");
+                edProviders.add(edProvider);
+            }
+
+            if (stringExists(fmEd.getOrderingProviderValue())) {
+
+                Provider edProvider = new Provider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(fmEd.getOrderingProviderValue()));
+                performer.setPerson(person);
+                edProvider.setProviderEntity(performer);
+                edProvider.setProviderRoleFreeText("Ordering Provider");
+                edProviders.add(edProvider);
+            }
+
+            if (fmEd.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(fmEd.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    DateRange dateRange = new DateRange();
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    pEducation.setEncounterDate(dateRange);
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in PatientEducation record: e.getMessage()");
+                }
+            }
+
+            patientEd.add(pEducation);
+        }
+    }
+
+    private void populateConditionList(List<Condition> conditions, PatientVisit visit) {
+        for (FMV_POV pov : visit.getPOVs()) {
+
+            Condition condition = new Condition();
+            ProblemCode code = new ProblemCode();
+            code.setCode(pov.getPovValue());
+            code.setValue(pov.getICDNarrative());
+            code.setCodeSystem("2.16.840.1.113883.6.104");
+            code.setCodeSystemName("ICD9");
+            condition.setProblemCode(code);
+            condition.setProblemName(pov.getICDNarrative());
+            if (pov.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(pov.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+                    DateRange dateRange = new DateRange();
+                    dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                    condition.setProblemDate(dateRange);
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in Condition record: e.getMessage()");
+                }
+            }
+            condition.setNarrative(pov.getProviderNarrativeValue());
+            List<Condition.TreatingProvider> treatingProviders = condition.getTreatingProvider();
+            if (stringExists(pov.getEncounterProviderValue())) {
+                Condition.TreatingProvider provider = new Condition.TreatingProvider();
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(pov.getEncounterProviderValue()));
+                performer.setPerson(person);
+                provider.setActor(performer);
+                treatingProviders.add(provider);
+            }
+            conditions.add(condition);
+        }
+    }
+
+    private void populateProcedureList(List<Procedure> procedures, PatientVisit visit) {
+        for (FMV_CPT procedureCode : visit.getCurrentProcedureCodes()) {
+
+            Procedure procedure = new Procedure();
+            ProcedureCode code = new ProcedureCode();
+            code.setCode(procedureCode.getCPTRecord().getCptCode());
+            code.setValue(procedureCode.getCPTRecord().getShortName());
+            code.setCodeSystem("2.16.840.1.113883.6.12");
+            code.setCodeSystemName("CPT-4");
+            procedure.setProcedureType(code);
+            procedure.setProcedureFreeTextType(procedureCode.getCPTRecord().getShortName());
+            if (stringExists(procedureCode.getEncounterProviderValue())) {
+                Actor performer = new Actor();
+                Person person = new Person();
+                person.setName(setPersonsName(procedureCode.getEncounterProviderValue()));
+                performer.setPerson(person);
+                procedure.setPerformer(performer);
+            }
+            procedure.setNarrative(procedureCode.getComments());
+            if (procedureCode.getEventDate() != null) {
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(procedureCode.getEventDate());
+                try {
+                    DatatypeFactory factory = DatatypeFactory.newInstance();
+
+                    procedure.setProcedureDate(factory.newXMLGregorianCalendar(cal));
+                } catch (Exception e) {
+                    log.log(Level.FINER, "Error setting date in Procedure record: e.getMessage()");
+                }
+            }
+
+            procedures.add(procedure);
+        }
+    }
+
+    private void populateProviderList(List<Actor> providers, PatientVisit visit) {
+
+        for (FMV_Provider fmProvider : visit.getProviders()) {
+
+            Actor provider = new Actor();
+            Person person = new Person();
+            Name providerName = setPersonsName(fmProvider.getEncounterProviderValue());
+            person.setName(providerName);
+
+            providers.add(provider);
+        }
+    }
+
+    private void populateEncounterDetail(EncounterDetail encounter, PatientVisit visit) {
+        InstanceIdentifier encounterId = new InstanceIdentifier();
+        encounterId.setRoot(visit.getVisit().getPatientName());
+        encounterId.setExtension(visit.getVisit().getVisitID());
+        encounter.setEncounterId(encounterId);
+        EncounterType encounterType = new EncounterType();
+        encounterType.setValue(visit.getVisit().getPatientInOut() + "PATIENT -- " + visit.getVisit().getServiceCategory());
+        encounter.setEncounterType(encounterType);
+        if (stringExists(visit.getVisit().getComments())) {
+            encounter.setNarrative(visit.getVisit().getComments());
+        }
+        if (visit.getVisit().getVisitDate() != null) {
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(visit.getVisit().getVisitDate());
+            try {
+                DatatypeFactory factory = DatatypeFactory.newInstance();
+                DateRange dateRange = new DateRange();
+                dateRange.setLow(factory.newXMLGregorianCalendar(cal));
+                encounter.setEncounterDate(dateRange);
+            } catch (Exception e) {
+                log.log(Level.FINER, "Error setting date in Encounter record: e.getMessage()");
+            }
+
+        }
     }
 }

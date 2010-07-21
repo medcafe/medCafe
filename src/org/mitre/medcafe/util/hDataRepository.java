@@ -12,6 +12,9 @@ import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.*;
 import org.projecthdata.hdata.schemas._2009._06.immunization.*;
+
+
+import org.mitre.medcafe.hdatabased.encounter.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -151,7 +154,9 @@ public class hDataRepository extends Repository
     public Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException{
     	throw new NotImplementedException("getTimeLineInfo is not implemented for hDataRepository");
     }
-
+	   public Collection<EncounterDetail> getPatientVisits(String id) throws NotImplementedException{
+	   	throw new NotImplementedException("getPatientVisits is not implemented for hDataRepository");
+	   	}
     /* Still to be implemented*/
 	@Override
 	public Map<String, String> getPatientByName(String family, String given,
