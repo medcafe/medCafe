@@ -120,6 +120,7 @@ public class FMV_Immunization extends FMRecord {
 	 private ArrayList<FMICD_Diagnosis> diagnoses = null;
 
 
+
     public FMV_Immunization() {
         super(fileInfo.getFileName());
 
@@ -292,6 +293,7 @@ public class FMV_Immunization extends FMRecord {
     {
            return getValue("1204");
     }
+
 
 
     @Override

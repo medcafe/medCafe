@@ -118,6 +118,9 @@ public class FMV_CPT extends FMRecord {
     protected String comments;
     protected ArrayList<FMICD_Diagnosis> diagnoses = null;
 
+    protected FMCPT cptRecord;
+
+
     public FMV_CPT() {
         super(fileInfo.getFileName());
 
@@ -294,6 +297,15 @@ public class FMV_CPT extends FMRecord {
         return getValue(".15");
     }
 
+    public void setCPTRecord(FMCPT cptRec)
+    {
+        cptRecord = cptRec;
+    }
+    public FMCPT getCPTRecord()
+    {
+        return cptRecord;
+    }
+
     @Override
     public String toString() {
         return " Event Date=[" + getEventDate() + "]"
@@ -313,7 +325,9 @@ public class FMV_CPT extends FMRecord {
                 + " diagnosis =[" + getDiagnosis5Value() + "]"
                 + " diagnosis =[" + getDiagnosis6Value() + "]"
                 + " diagnosis =[" + getDiagnosis7Value() + "]"
-                + " diagnosis =[" + getDiagnosis8Value() + "]";
+                + " diagnosis =[" + getDiagnosis8Value() + "]"
+                + "CPT Record =[" + getCPTRecord() + "]";
+
 
     }
 }

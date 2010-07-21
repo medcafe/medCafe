@@ -102,7 +102,8 @@ public class FMVisit extends FMRecord {
     protected String patientInOut;
     @FMAnnotateFieldInfo(name = "ENCOUNTER TYPE", number = "15003", fieldType = FMField.FIELDTYPE.SET_OF_CODES)
     protected String encounterType;
-
+	 @FMAnnotateFieldInfo(name = "COMMENTS", number = "81101", fieldType = FMField.FIELDTYPE.FREE_TEXT)
+    protected String comments;
     public FMVisit() {
         super(fileInfo.getFileName());
 
@@ -168,6 +169,10 @@ public class FMVisit extends FMRecord {
     {
         return encounterType;
     }
+    public String getComments()
+    {
+    	  return comments;
+    }
 
     @Override
     public String toString() {
@@ -181,7 +186,8 @@ public class FMVisit extends FMRecord {
                 " outside location =[" + getOutsideLocation() + "]"
                 + " visit id = [" + getVisitID() + "]"
                 + " In or Out Patient=[" + getPatientInOut() + "]"
-                + " encounter type=["+ getEncounterType()+ "]";
+                + " encounter type=["+ getEncounterType()+ "]"
+                + " comments=[" + getComments() + "]";
 
     }
 

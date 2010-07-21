@@ -47,6 +47,7 @@ import com.medsphere.fmdomain.FMV_SkinTest;
 import com.medsphere.fmdomain.FMV_PatientEd;
 import com.medsphere.fmdomain.FMV_Treatment;
 import com.medsphere.fmdomain.FMICD_Diagnosis;
+import com.medsphere.fmdomain.FMCPT;
 import com.medsphere.resource.ResAdapter;
 import com.medsphere.resource.ResException;
 
@@ -248,6 +249,7 @@ public class PatientVisitRepository extends OvidSecureRepository {
                 }
                 while (results.next()) {
                     cpt = new FMV_CPT(results);
+                    fillCPTRecord(cpt);
                     PatientVisit vis = visitMap.get(cpt.getVisitIEN().toString());
                     vis.getCurrentProcedureCodes().add(cpt);
                     Collection<String> diagKeyList = cpt.getDiagnosesKeyList();
@@ -421,15 +423,11 @@ public class PatientVisitRepository extends OvidSecureRepository {
 
     }
 
-    /**
-     * Get patients by name (LAST,FIRST)
-     * @param name
-     * @return
-     * @throws OvidDomainException
-     */
-    public PatientVisit[] getVisitsByPatientDFN(String patientDfn) throws OvidDomainException {
+
+    public Collection<PatientVisit> getVisitsByPatientDFN(String patientDfn) throws OvidDomainException {
         HashMap<String, PatientVisit> visitMap = new HashMap<String, PatientVisit>();
         ArrayList<String> visitIens = new ArrayList<String>();
+        Collection<PatientVisit> patVisit = new ArrayList<PatientVisit>();
         try {
             ResAdapter adapter = obtainServerRPCAdapter();
 
@@ -454,11 +452,40 @@ public class PatientVisitRepository extends OvidSecureRepository {
             throw new OvidDomainException(e);
         }
         getDetail(visitMap, visitIens);
-        int listSize = visitMap.size();
-        PatientVisit[] patVisit = new PatientVisit[listSize];
-        patVisit = visitMap.values().toArray(patVisit);
-        Arrays.sort(patVisit);
+
+        patVisit.addAll(visitMap.values());
+
         return patVisit;
 
     }
+    public void fillCPTRecord(FMV_CPT cpt) throws OvidDomainException
+    {
+         FMScreen byCPTCode = new FMScreenEquals( new FMScreenField("CPT CODE"), new FMScreenValue(cpt.getCptValue()));
+
+
+
+        try {
+            RPCConnection connection = getServerConnection();
+            ResAdapter  adapter = obtainServerRPCAdapter();
+            FMQueryList query = new FMQueryList(adapter, FMCPT.getFileInfoForClass());
+            query.setScreen(byCPTCode);
+
+            query.getField("CPT CATEGORY").setInternal(false);
+            FMResultSet results = query.execute();
+            if (results != null) {
+                if (results.getError() != null) {
+                    throw new OvidDomainException(results.getError());
+                }
+
+                FMCPT cptRecord = new FMCPT(results);
+                cpt.setCPTRecord(cptRecord);
+            }
+        } catch (ResException e) {
+            throw new OvidDomainException(e);
+        }
+         catch (OvidDomainException e){
+             throw e;
+         }
+    }
+     
 }
