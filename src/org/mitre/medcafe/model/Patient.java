@@ -166,6 +166,8 @@ public class Patient
 			{
 				ret = checkExists(patient_rep_id, repository);
 
+				System.out.print("Patient: associatePatientRepository patient exists already JSON data  " + ret.toString() );
+
 				if (ret.get("exists").equals("true"))
 					return ret;
 
@@ -201,6 +203,7 @@ public class Patient
 				return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );
 			}
 			ret = checkExists(patient_rep_id, repository);
+			System.out.print("Patient: associatePatientRepository patient added successfully " + ret.toString() );
 
 
 		}

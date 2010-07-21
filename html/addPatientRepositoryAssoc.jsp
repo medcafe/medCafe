@@ -27,6 +27,17 @@
 		if (patientId == null)
 		{	
 			rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);			
+			
+			//Add the local entry
+			Object localObj = rtnObj.get(Patient.ID);
+			String localId = "-1";
+			if (localObj != null)
+				localId = localObj.toString();
+				
+			System.out.println("addPatientRepository get local id for new patient " + localId);
+			
+			rtnObj = patient.associatePatientRepository( localId,  localId, Constants.LOCAL_REPOSITORY, userName);			
+			
 		}
 		else //This patient may already exist
 		{
@@ -44,16 +55,39 @@
 				{
 					rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
 					System.out.println("addPatientRepository add assoc for new patient " + rtnObj.toString());
+					//Now add the local entry
+					Object localObj = rtnObj.get(Patient.ID);
+					String localId = "-1";
+					if (localObj != null)
+						localId = localObj.toString();
+				
+					System.out.println("addPatientRepository get local id for new patient " + localId);
+			
+					rtnObj = patient.associatePatientRepository( localId,  localId, Constants.LOCAL_REPOSITORY, userName);			
+			
 				}	
 			}
 			else
 			{
 					rtnObj = patient.associatePatientRepository( patientId,  patientRepId, repository, userName);
 					System.out.println("addPatientRepository add assoc for existing patient " + rtnObj.toString());
+					//Now add the local entry
+					Object localObj = rtnObj.get(Patient.ID);
+					String localId = "-1";
+					if (localObj != null)
+						localId = localObj.toString();
 				
+					System.out.println("addPatientRepository get local id for new patient " + localId);
+			
+					rtnObj = patient.associatePatientRepository( localId,  localId, Constants.LOCAL_REPOSITORY, userName);			
+			
 			}
 		}
+		 
+		
 	    
 	}
+	//Add the local entry
+	
 	//patient.closeConnection();
 %>

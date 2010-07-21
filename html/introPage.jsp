@@ -12,6 +12,7 @@
 <script type="text/javascript" src="${js}/medCafe.repository.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
+	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
 <%
 	String repositoryUrl ="/repositories";
 %>
@@ -21,7 +22,16 @@ $(function(){
 
 	listRepositories("true");
 	listRecentPatients();
+	var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"searchRepositoryPatient.jsp\"></iframe>";
+	
+	var $dialog = $("#associatePatientDialog")
+		.html(associatePatient)
+		.dialog({
+			autoOpen: false,
+			title: 'Associate Patient'
+		});
 
+	
 });
 
 function updateAnnouncements(data)
@@ -69,11 +79,19 @@ function listRecentPatients()
 
 
 }
+
+function popUpAssociatePatient()
+{
+	
+	$("#associatePatientDialog").dialog('open');
+	return false;	
+}
 </script>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 
 </head>
 <body>
+
 <div class="ui-corner-all" >
  <center><img style="margin-bottom:1.5em" alt="logo" class="ui-corner-all" src="${images}/medCafe_logo.png"/></center>
    </div>
@@ -96,6 +114,7 @@ function listRecentPatients()
             </div>
         </div>
 
+		<div id="associatePatientDialog"></div>
         <div class="widget color-5" id="intro"  >
         	<div class="ui-widget-header ui-corner-all">
          	<center><h2 id="patient-search">Patient Search</h6></center>

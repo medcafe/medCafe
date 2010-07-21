@@ -100,10 +100,23 @@ $(document).ready( function() {
 	             this.addEventListener("touchmove", stopTouchMove, false);
 	        });
 		
+		setUpAssociatePatient();
 		extendWidgets();
 	});
 	//End of code to initialize page
 
+	function setUpAssociatePatient()
+	{
+		var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"searchRepositoryPatient.jsp\"></iframe>";
+	
+		var $dialog = $("#associatePatientDialog")
+			.html(associatePatient)
+			.dialog({
+				autoOpen: false,
+				title: 'Associate Patient'
+			});
+	}
+	
 	function stopTouchMove(event)
 	{
 	   var isiPad = navigator.userAgent.match(/iPad/i) != null;
@@ -670,4 +683,9 @@ function getAssocPatientRepositories(patientId)
 	return repPatientJSON;
 }  	
 
-
+function popUpAssociatePatient()
+{
+	
+	$("#associatePatientDialog").dialog('open');
+	return false;	
+}

@@ -18,8 +18,9 @@
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
+	
 	<style>
-		td {font-size:0.8em};
+		td {font-size:0.7em};
 	</style>
 	<script>
 	var repository;
@@ -52,16 +53,19 @@
 	function associatePatient()
 	{
 		var serverLink ="addPatientRepositoryAssoc.jsp";
-		var inputVals = $("#returnedPatientlist :input");
+		var inputVals = $("#returnedPatientlist :input:checked");
 		var append ="?";
   		for (i=0; i < inputVals.length; i++)
   		{
   				
   				serverLink = serverLink + append + inputVals[i].name + "=" + inputVals[i].value;
   				append = "&";
+  				
+  				var name = $("#patient_" + inputVals[i].value).val();
+  				serverLink = serverLink + append + "patient_" + inputVals[i].value + "=" + name;
   		}
-  		serverLink = append +  "repository=" + repository;
-  		alert("searchRepositoryPatient : associatePatient server link " + serverLink);
+  		serverLink = serverLink + append +  "repository=" + repository;
+  		
   		$.get(serverLink,function(data)
 		{
 		    //Check to see if any error message
@@ -71,7 +75,8 @@
 				var html = v2js_announcements(data);
 				alert("searchRepositoryPatient : announce error "   + html);	
 				return;
-			}	     
+			}	   
+			
 		});
 	}
 	
@@ -86,7 +91,7 @@
   				serverLink = serverLink + append + inputVals[i].name + "=" + inputVals[i].value;
   				append = "&";
   		}
-  		
+  		//addPatientRepositoryAssoc.jsp?patient_rep_id=9&repository=OurVista
 		serverLink = serverLink + "&repository=" + repository;
 		
 		$.getJSON(serverLink,function(data)
@@ -139,7 +144,7 @@
          <p>
         	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;" id="searchPatientParams">
 			<table>
-			<tr><td>Patient Repository Id</td><td><input type="text" name="patient_rep_id" value="10"></input></td></tr>
+			<!--tr><td>Patient Repository Id</td><td><input type="text" name="patient_rep_id" value="10"></input></td></tr-->
 			<tr><td>Repository</td><td><p><div id="listRepositories"></div></td></tr>
 			<tr><td>First Name</td><td><input type="text" name="first_name" value=""></input></td></tr>
 			<tr><td>Middle Initial</td><td><input type="text" name="middle_initial" value=""></input></td></tr>

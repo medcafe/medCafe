@@ -67,7 +67,6 @@
  	<script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
  	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
  	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
- 	<script type="text/javascript" src="${js}/jquery.annotate.js"></script>
 	<script type="text/javascript" src="${js}/menu/fg.menu.js"></script>
 	<script type="text/javascript" src="${js}/menus.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
@@ -183,7 +182,7 @@
     <div id="head"></div>
     <div id="dialog" >Are you sure you want to close?</div>
 	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
-
+    <div id="associatePatientDialog"></div>
 
 <div class="ui-layout-center ui-corner-all no-copy">
 	<div id="announcements"></div>

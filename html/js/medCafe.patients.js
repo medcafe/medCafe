@@ -1,8 +1,10 @@
 
-function initializePatient(server)
+function initializePatient(server, isIntro)
 {
 		var origserverLink = server;
 
+		addAssociatePatient(isIntro);
+		
     	var emptyVal = '';
 		$("#last_name").blur(function(){
 
@@ -165,6 +167,19 @@ function retrieve(server, patient, oldPatient)
 				}
 		});
 		parent.$("#saveDialog").dialog("open");
+}
+
+function addAssociatePatient(isIntro)
+{
+	var buttonTxt = "<button id='addPatientAssocBtn'>Associate Patient</button>";
+	 $("#associatePatient").html(buttonTxt);
+	 
+	 $("#addPatientAssocBtn").click(function(event,patient_id){
+
+		parent.popUpAssociatePatient();
+		
+	});
+	
 }
 
 function populate(url, patient_id)

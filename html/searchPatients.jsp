@@ -46,6 +46,7 @@
 	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
 
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
@@ -65,7 +66,7 @@
 
     	var serverLink =  "searchPatientsJSON.jsp?server=<%=server%>";
 		setOnSelect("<%=isIntroPage%>","http://${server}", "<%=currentPatient%>");
-		initializePatient(serverLink);
+		initializePatient(serverLink, "<%=isIntroPage%>");
 	});
 
 
@@ -93,7 +94,9 @@
 		<div id="listPatients"><input id="isPatientChecked" value="isPatient" type="checkbox">Display only my Patients</input></div>
 		<div id="addSchedule"></div>
 		<div id="addPatient"></div>
-
+		<div id="associatePatient"></div>
+		
+		
 </form>
 </div>
 </div>
