@@ -18,6 +18,7 @@
         return;
     }
 
+	
     /*
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
@@ -138,7 +139,7 @@
 		{
 			listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
         	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
-        	listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}");
+        	listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}", 'OurVista');
 		}
 		
 		function initialize(repositoryJSON)

@@ -1,9 +1,15 @@
 
-function listProblemList(id, patient_id, server)
+function listProblemList(id, patient_id, server, repositories)
 {
 	///patients/{id}/history/{category}
 	var link = "problemListJSON.jsp?patient_id=" + patient_id;
 
+	var repositoryList = repositories.split(",");
+	for(i = 0; i < repositoryList.length; i++)
+	{
+		link = link + "&repository=" + repositoryList[i];
+	}
+	
 	$("#" + id).html("");
 	$.getJSON(link, function(data)
 	{
