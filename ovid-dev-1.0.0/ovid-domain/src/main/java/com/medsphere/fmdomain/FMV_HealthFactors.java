@@ -46,7 +46,7 @@ public class FMV_HealthFactors extends FMRecord {
         domainJavaFields = getDomainJavaFields(FMV_HealthFactors.class);
         domainFields = getFieldsInDomain(domainJavaFields);
         domainNumbers = getNumericMapping(FMV_HealthFactors.class);
-        fileInfo = new FMFile("V Health Factors") { //
+        fileInfo = new FMFile("V HEALTH FACTORS") { //
 
             @Override
             public Collection<FMField> getFields() {

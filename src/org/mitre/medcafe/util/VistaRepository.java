@@ -804,16 +804,17 @@ public class VistaRepository extends Repository {
 
                 List<HealthFactor> healthFactors = encounter.getHealthFactors();
                 populateHealthFactorList(healthFactors, visit);
-
+					 System.out.println(visit);
                 visits.add(encounter);
 
             }
+            
             return visits;
         } catch (OvidDomainException e) {
             log.log(Level.SEVERE, "Error retrieving patient visits", e);
             return null;
         } catch (Throwable e) {
-            log.throwing(KEY, "Error retreiving PatientItems", e);
+            log.log(Level.SEVERE, "Error retreiving PatientItems", e);
             return null;
         } finally {
             closeConnection();
@@ -1255,10 +1256,12 @@ public class VistaRepository extends Repository {
 
             Actor provider = new Actor();
             Person person = new Person();
-            Name providerName = setPersonsName(fmProvider.getEncounterProviderValue());
+            if (stringExists(fmProvider.getProviderValue())) {
+            Name providerName = setPersonsName(fmProvider.getProviderValue());
             person.setName(providerName);
 
             providers.add(provider);
+            }
         }
     }
 

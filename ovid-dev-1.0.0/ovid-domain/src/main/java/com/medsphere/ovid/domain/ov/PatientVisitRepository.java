@@ -431,8 +431,8 @@ public class PatientVisitRepository extends OvidSecureRepository {
         try {
             ResAdapter adapter = obtainServerRPCAdapter();
 
-            FMQueryFind query = new FMQueryFind(adapter, FMVisit.getFileInfoForClass());
-            query.setScreen(new FMScreenEquals(new FMScreenField("PATIENT NAME"), new FMScreenValue(patientDfn)));
+            FMQueryList query = new FMQueryList(adapter, FMVisit.getFileInfoForClass());
+          //  query.setScreen(new FMScreenEquals(new FMScreenField("PATIENT NAME"), new FMScreenValue("PATIENT, CLINICAL F")));
             query.getField("PARENT VISIT LINK").setInternal(false);
             query.getField("LOC. OF ENCOUNTER").setInternal(false);
             query.getField("HOSPITAL LOCATION").setInternal(false);
@@ -443,18 +443,24 @@ public class PatientVisitRepository extends OvidSecureRepository {
                     throw new OvidDomainException(results.getError());
                 }
                 while (results.next()) {
+
                     FMVisit fmVisit = new FMVisit(results);
+                    int patient = fmVisit.getPatient();
+                    int patientIen = Integer.parseInt(patientDfn);
+                    if (patient == patientIen) {
                     visitMap.put(fmVisit.getIEN(), new PatientVisit(fmVisit));
                     visitIens.add(fmVisit.getIEN());
+                    }
                 }
             }
         } catch (ResException e) {
             throw new OvidDomainException(e);
         }
+      	if (visitMap.size()>0) {  
         getDetail(visitMap, visitIens);
 
         patVisit.addAll(visitMap.values());
-
+}
         return patVisit;
 
     }
