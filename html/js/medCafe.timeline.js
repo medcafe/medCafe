@@ -58,7 +58,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		    var themeBubble = this._params.theme.event.bubble;
 		    //evt.fillInfoBubble(div, this._params.theme, this._band.getLabeller());
 		    //Method to be used to create code to bring up the details inside of medCafe
-		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId);
+		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId,type);
 		    var link = evt.getLink();
 		    //Rewrite the link - so that 
 		    SimileAjax.WindowManager.cancelPopups();
@@ -139,26 +139,48 @@ function onResize() {
 
 //this is the code to be overriden to bring up the event inside of medCafe
 //See Timeline.DefaultEventSource.Event in sources.js for more detail on evt object
-function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId)
+function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
 {
-        var doc = elmt.ownerDocument;
-        
+		var doc = elmt.ownerDocument;
+       
         var title = evt.getText();
         var link = evt.getLink();
         var image = evt.getImage();
+        var nodetype = evt.getProperty("type");
         
-        if (image != null) {
+        //use the nodetype to determine what to do
         
-        	//This is the code to display an Image in medCafe - may put this on the link click instead
-        	displayImage(image, patientId, -1);
-        	
-            var img = doc.createElement("img");
-            img.src = image;
-            
-            theme.event.bubble.imageStyler(img);
-            elmt.appendChild(img);
+        if (nodetype == "Images")
+        {
+	        if (image != null) {
+	        
+	        	//This is the code to display an Image in medCafe - may put this on the link click instead
+	        	displayImage(image, patientId, -1);
+	        	
+	            var img = doc.createElement("img");
+	            img.src = image;
+	            
+	            theme.event.bubble.imageStyler(img);
+	            elmt.appendChild(img);
+	        }
         }
-        
+        else if (nodetype == "Visits")
+        {
+        	//Put in code here to bring up visit detail data
+        	
+        }
+        else if (nodetype == "Records")
+        {
+        }
+        else if (nodetype == "Symptoms")
+        {
+        }
+        else if (nodetype == "Problems")
+        {
+        }
+        else if (nodetype == "Hospital")
+        {
+        }
         var divTitle = doc.createElement("div");
         var textTitle = doc.createTextNode(title);
         if (link != null) {

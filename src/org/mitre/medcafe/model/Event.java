@@ -252,6 +252,8 @@ public class Event
 				event.setEventDate(date);
 				event.setIcon(icon);
 					
+				event.setType(type);
+				
 				if (type.equals(Event.FILE_TYPE))
 				{
 					String fileName = rs.getString("filename");
