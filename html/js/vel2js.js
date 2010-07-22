@@ -1016,7 +1016,7 @@ t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspac
 t.p( context.patient);
 t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>');
 if (!( context.bookmarks )) {
-t.p('	<tr class="gradeX"><td name="name" value=""></td>    <td name="url" value=""></td>    <td name="description" value=""></td></tr>');
+t.p('	<tr class="gradeX"><td name="name" value="" class="editInput"></td>    <td name="url" class="editInput" value=""></td>    <td name="description" class="editInput" value=""></td>    <td></td>    </tr>');
 }
 else {
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
@@ -1191,6 +1191,43 @@ count = ( count + 1 );
 t.p('	');
 }
 velocityCount = 0;
+t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listProblemListTableLocal(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
+}
+t.p('		<tr class="gradeX">		<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>		<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>		<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+
+}
 t.p('</tbody><table>');
 return t.toString();
 }

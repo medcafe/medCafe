@@ -4,9 +4,11 @@
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks$patient">
 <thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>
 #if(!$bookmarks)
-	<tr class="gradeX"><td name="name" value=""></td>
-    <td name="url" value=""></td>
-    <td name="description" value=""></td></tr>
+	<tr class="gradeX"><td name="name" value="" class="editInput"></td>
+    <td name="url" class="editInput" value=""></td>
+    <td name="description" class="editInput" value=""></td>
+    <td></td>
+    </tr>
 #else
 
 #foreach( $bookmark in $bookmarks )

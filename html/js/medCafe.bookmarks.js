@@ -11,9 +11,18 @@ function fnClickAddRow(tableObj, patient_id) {
 	
 		var aRows = tableObj.fnGetNodes();	
 		var rowNum = aRows.length;
-		var row = tableObj.fnAddData( ['name','url','description']);
-		makeEditable(tableObj, patient_id);
+		var buttonText = '<input type="button" value="Add Link" id="AddLink1" class="addLink">';
+						
+		var row = tableObj.fnAddData( ['name','url','description',buttonText]);
 		var aData = tableObj.fnGetData( row );
+		
+		$(tableObj).find("td").each( function(i) {
+      		$(this).addClass('editInput');
+    	} );
+    		
+    	initButtons();
+		makeEditable(tableObj, patient_id);
+		
 		
 }
 	
@@ -79,7 +88,6 @@ function gatherData(tableObj, patient_id)
 		
 		var action = "saveBookmarks.jsp?action=Save&patient=" + patient_id;
 		action = action + paramStr;
-		alert("action " + action); 
 		$.post(action, function(){
   			//alert("done");
 		});
