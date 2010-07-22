@@ -28,7 +28,8 @@ public class MedcafeApplication extends Application {
         router.attach("/repositories/{repository}/patients/{id}/problems", org.mitre.medcafe.restlet.PatientProblemResource.class);
         router.attach("/repositories/{repository}/patients/{id}/bookmarks", org.mitre.medcafe.restlet.PatientBookmarkResource.class);
         router.attach("/repositories/{repository}/patients/{id}/immunizations", org.mitre.medcafe.restlet.PatientImmunizationResource.class);
-	router.attach("/repositories/{repository}/patients/{id}/supportList", org.mitre.medcafe.restlet.PatientSupportResource.class);
+        router.attach("/repositories/{repository}/patients/{id}/encounters", org.mitre.medcafe.restlet.PatientEncounterResource.class);
+		  router.attach("/repositories/{repository}/patients/{id}/supportList", org.mitre.medcafe.restlet.PatientSupportResource.class);
         //router.attach("/repositories/{repository}/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
 
         //List the available Widgets

@@ -148,5 +148,5 @@ public abstract class Repository
     }
     public abstract Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
     
-    public abstract Collection<EncounterDetail> getPatientVisits(String id) throws NotImplementedException;
+    public abstract Collection<EncounterDetail> getPatientEncounters(String id) throws NotImplementedException;
 }

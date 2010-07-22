@@ -761,7 +761,7 @@ public class VistaRepository extends Repository {
         return personsName;
     }
 
-    public Collection<EncounterDetail> getPatientVisits(String id) {
+    public Collection<EncounterDetail> getPatientEncounters(String id) {
         Collection<PatientVisit> ret;
         try {
             if (setConnection()) {
