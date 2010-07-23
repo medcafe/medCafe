@@ -36,7 +36,7 @@ public class PatientListEventResource extends ServerResource {
     protected Date endDate =  new Date();
     private String userName;
     private String[] eventTypes = new String[]{};
-    
+
     /** The sequence of characters that identifies the resource. */
 
     /**
@@ -60,20 +60,20 @@ public class PatientListEventResource extends ServerResource {
 
        System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
        userName = form.getFirstValue(USER_ID);
-       
+
        eventTypes = form.getValuesArray("event");
-       
+
     }
 
-  
+
     @Get("json")
     public JsonRepresentation toJson(){
-       
+
     	/* Required JSON format
     	 * {
 				'wikiURL': "http://simile.mit.edu/shelf/",
 				'wikiSection': "Simile Cubism Timeline",
-				
+
 				'events' : [
 				       {'start':  new Date(2006,2,15),
 				        'title': 'Still Life with a White Dish',
@@ -89,13 +89,13 @@ public class PatientListEventResource extends ServerResource {
         try
         {
         	DateFormat df = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
-            
+
             String startDateStr = df.format(startDate);
             System.out.println("PatientImageResource toJSON start date " + startDateStr );
-            
+
             String endDateStr = df.format(endDate);
             System.out.println("PatientImageResource toJSON end date " + endDateStr );
-            
+
         	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes);
         	System.out.println("PatientListEventRestlet : toJSON: event list " + events.size());
         	ArrayList<String> dates = new ArrayList<String>();
@@ -103,13 +103,13 @@ public class PatientListEventResource extends ServerResource {
             String server = Config.getServerUrl() ;
             obj.put("wikiURL", "Patient data ");
             obj.put("wikiSection", "Patient Data");
-            
+
         	String dir = "patients/" + this.id + "/";
         	String imageDir = "images/" + dir;
-        	
+
         	int i=0;
             DateFormat eventDf = new SimpleDateFormat(Event.DATE_FORMAT);
-            
+
         	for(Event event: events)
             {
         		JSONObject inner_obj = new JSONObject ();
@@ -126,8 +126,8 @@ public class PatientListEventResource extends ServerResource {
                 i++;
             }
         	String jsonStr = obj.toString();
-        	System.out.println("PatientListEventRestlet : toJSON: " + jsonStr);
         	jsonStr = putInDates(jsonStr, dates);
+        	System.out.println("PatientListEventRestlet : toJSON: " + jsonStr);
         	JsonRepresentation json = new JsonRepresentation(jsonStr);
             return json;
         }
@@ -145,7 +145,7 @@ public class PatientListEventResource extends ServerResource {
 			e.printStackTrace();
 			return new JsonRepresentation("{\"error\": \""+e.getMessage()+"\"}");
 		}
-	
+
     }
 
     /*Workaround to stop insertion of quotes*/
