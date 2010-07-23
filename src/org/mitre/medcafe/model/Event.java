@@ -289,6 +289,10 @@ public class Event
 					String fileName = rs.getString("filename");
 					event.setFileUrl(fileName);
 				}
+				
+				event.setRepPatientId(patientId);
+				event.setRepository(Constants.LOCAL_REPOSITORY);
+				 
 				//Set the event values
 				eventList.add( event);
 					
@@ -320,7 +324,7 @@ public class Event
 		    		url = url.replaceAll("<:patientId:>", repPatientId);
 		    		String results = getJsonContent( medApp, url );
 		    		JSONObject jsonResults = new JSONObject(results);
-		    		System.out.println("Event retrieveEventsFromRepositories type " +  type + " jsonObject " + jsonResults.toString());
+		    		//System.out.println("Event retrieveEventsFromRepositories type " +  type + " jsonObject " + jsonResults.toString());
 		    		ArrayList<Event> eventsFromRestlet = getEventObject(jsonResults, userName, patientId, repPatientId, repository, type, icon);
 		    		eventList.addAll(eventsFromRestlet);
 		    	}
@@ -394,6 +398,7 @@ public class Event
 				 }
 				 event.setTitle(immTitle);
 				 event.setIcon(icon);
+				 event.setType(type);
 				 eventList.add(event);
 		     }
 			 
