@@ -13,9 +13,12 @@ import java.util.List;
 import org.json.JSONObject;
 import org.mitre.medcafe.model.Event;
 import org.mitre.medcafe.model.MedCafeFile;
+import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.Config;
+import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.Text;
+import org.restlet.Application;
 import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
@@ -96,7 +99,13 @@ public class PatientListEventResource extends ServerResource {
             String endDateStr = df.format(endDate);
             System.out.println("PatientImageResource toJSON end date " + endDateStr );
 
-        	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes);
+            Application app = this.getApplication();
+            DbConnection conn = conn = new DbConnection();
+            Patient patient = new Patient(conn);
+            JSONObject repositories = patient.listRepositories(id);
+           
+        	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes, app, repositories);
+        	
         	System.out.println("PatientListEventRestlet : toJSON: event list " + events.size());
         	ArrayList<String> dates = new ArrayList<String>();
             JSONObject obj = new JSONObject();
@@ -119,6 +128,9 @@ public class PatientListEventResource extends ServerResource {
                 inner_obj.put("icon", "http://" + server + "/images/" + event.getIcon());
                 inner_obj.put("link", "http://" + server + "/images/" + event.getLink());
                 inner_obj.put("type", event.getType());
+                inner_obj.put("repository", event.getRepository());
+                inner_obj.put("rep_patient_id", event.getRepPatientId());
+                
                 obj.append("events", inner_obj); 
                 Date date = event.getEventDate();
                 String dateStr = eventDf.format(date);
