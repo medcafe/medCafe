@@ -3,8 +3,7 @@
 <%@ page import="java.util.logging.*" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <%!
     public final static String KEY = "/index.jsp";
@@ -53,7 +52,7 @@
 	<link rel="Stylesheet" href="${css}/ui.slider.extras.css" type="text/css" />
 	<link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
-			
+
 	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
@@ -88,18 +87,18 @@
  	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
  	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white medCafe"></script>
     <script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
-    
+
     <script type="text/javascript" src="${js}/editor/jquery.rte.js"></script>
 	<script type="text/javascript" src="${js}/editor/jquery.rte.tb.js"></script>
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
  	<script type="text/javascript" src="js/jquery.annotate.js"></script>
 
-	
+
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.selection.js"></script>
 	<script>
  	   Timeline_ajax_url="http://${server}/js/timeline/simile-ajax-api.js";
-	   Timeline_urlPrefix='http://${server}/js/timeline/';       
+	   Timeline_urlPrefix='http://${server}/js/timeline/';
        Timeline_parameters='bundle=true';
     </script>
     <script src="http://${server}/js/timeline/timeline-api.js?bundle=true" type="text/javascript">
@@ -115,7 +114,7 @@
     <script src="http://127.0.0.1:8080/medcafe/js/timeline/scripts/l10n/en/labellers.js" onerror="" type="text/javascript"></script>
     <link rel="stylesheet" href="http://127.0.0.1:8080/medcafe/js/timeline/styles/graphics.css" type="text/css"-->
 
-    
+
 	<script>
         var outerLayout;
 		var repositoryPatientJSON = {};
@@ -134,19 +133,19 @@
 
         initialize();
 		getHeader();
-		
+
 		function getHeader()
 		{
 			listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
         	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
         	listProblemList("listProblemSummary", "<%=cache.getDatabasePatientId()%>", "${server}", 'OurVista');
 		}
-		
+
 		function initialize(repositoryJSON)
 		{
 			repositoryPatientJSON = getAssocPatientRepositories("<%=cache.getDatabasePatientId()%>");
 		}
-		
+
 		var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
  		if (isiPad)
@@ -228,18 +227,19 @@
         </div>
         <h6><a href="#" >Schedule</a></h6>
         <div id="calendar"  class="widget-content"></div>
+        <hr width="50%"/>
+        <span>
+            <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
+                <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
+            </a>
+            <div id="search-engines" class="hidden"></div>
+            <%-- <button id="addTabBtn">Add Tab</button> --%>
+        </span>
         <a href="logout.jsp">Logout</a>
 	</div>
 </div>
 
 <div class="ui-layout-north">
-    <span>
-        <!--a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
-            <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
-        </a>
-        <div id="search-engines" class="hidden"></div>
-        <button id="addTabBtn">Add Tab</button-->
-    </span>
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
