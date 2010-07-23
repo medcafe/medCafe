@@ -1,3 +1,4 @@
-<% session.invalidate();
-    response.sendRedirect( "login.jsp" );
+<%@ page import="org.mitre.medcafe.util.*" %><%
+    session.invalidate();
+    response.sendRedirect( Config.getWebapp() );
 %>
