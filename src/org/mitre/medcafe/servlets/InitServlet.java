@@ -15,6 +15,8 @@
  */
 package org.mitre.medcafe.servlets;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.*;
 import java.util.*;
 import java.io.File;
@@ -44,6 +46,10 @@ import org.mitre.medcafe.util.*;
 public class InitServlet extends HttpServlet
 {
 
+    public final static String KEY = InitServlet.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    static{log.setLevel(Level.FINER);}
+
     /**
      *  Constructor for the PqmServlet object
      *
@@ -64,6 +70,7 @@ public class InitServlet extends HttpServlet
     public void init( ServletConfig config )
         throws ServletException
     {
+        log.entering(KEY, "init()");
         /*
          *  required for all Servlets
          */
@@ -73,12 +80,16 @@ public class InitServlet extends HttpServlet
          */
         String base_path = config.getServletContext().getRealPath( "/" );
         Constants.BASE_PATH = base_path;
-         
-        String config_dir = base_path + "WEB-INF/";
 
+        String config_dir = base_path + "WEB-INF/";
         Config.init( config_dir );
         // Config.setProperty( "BasePath", base_path );
-        VelocityUtil.init( config_dir + "templates");
+
+        /* Configure velocity */
+        Properties p = new Properties();
+        p.setProperty("file.resource.loader.path", config_dir + "templates" );
+        p.setProperty("runtime.log", base_path + "../../logs/velocity_example.log");
+        VelocityUtil.init(p);
         /*
          *  Grab the name for the currently deployed webapp.  It's possible this could be in error if the webapp is deployed
          *  as a subdirectory (i.e., The docbase is http://localhost:8080/first/sub).  If this ever gets deployed that way it will
@@ -106,6 +117,7 @@ public class InitServlet extends HttpServlet
 
         /* set up repositories */
         Repositories.setDefaultRepositories();
+        log.exiting(KEY, "init()");
     }
 
     /**
@@ -133,7 +145,7 @@ public class InitServlet extends HttpServlet
      */
     public void doPost( HttpServletRequest req, HttpServletResponse resp )
     {
-    	
+
     }
 }
 

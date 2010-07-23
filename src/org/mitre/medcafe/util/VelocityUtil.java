@@ -9,20 +9,21 @@ import java.util.logging.*;
 import org.json.*;
 
 
-public class VelocityUtil{
+public class VelocityUtil
+{
 
     public final static String KEY = VelocityUtil.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
     /*  first, get and initialize an engine  */
-    private static VelocityEngine ve = new VelocityEngine();
+    private static VelocityEngine ve = null;
 
-    public static void init( String templateLocation )
+    public static void init( Properties p )
     {
         try
         {
-            ve.setProperty("file.resource.loader.path", templateLocation );
-            ve.init();
+            Velocity.init(p);
+            // ve = new VelocityEngine();
         }
         catch(Exception e)
         {
@@ -100,9 +101,10 @@ public class VelocityUtil{
         VelocityContext context = new VelocityContext(converted);
         // context.put("context", converted);
         /*  get the Template  */
-        Template t = ve.getTemplate( template );
+        // Template t = ve.getTemplate( template );
         /*  now render the template into a Writer  */
-        t.merge( context, writer );
+        // t.merge( context, writer );
+        Velocity.mergeTemplate( template, "UTF-8", context, writer );
     }
 
 
