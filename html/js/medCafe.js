@@ -243,6 +243,20 @@ $(document).ready( function() {
 				addProblemList(this, link, tab_num, label, patientId, repId, patientRepId);
 			}
 		}
+		else if  (type == "Visits")
+		{
+			if (typeof processVisitList == 'undefined')
+			{
+				$.getScript('js/medCafe.visits.js', function()
+				{
+					processVisitList(this, link, tab_num, label, patientId, repId, patientRepId);
+				});
+			}
+			else
+			{
+				processVisitList(this, link, tab_num, label, patientId, repId, patientRepId);
+			}
+		}
 		else if  (type == "Immunizations")
 		{
 			if (typeof addImmunizations == 'undefined')

@@ -167,7 +167,17 @@ function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
         else if (nodetype == "Visits")
         {
         	//Put in code here to bring up visit detail data
+        	var tab_num = addTab(imageTitle, "Visit " + title);
         	
+        	//call createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
+			
+        }
+        else if (nodetype == "Immunizations")
+        {
+        	//Put in code here to bring up visit detail data
+        	var tab_num = addTab(imageTitle, "Immunization " + title);
+        	
+        	//call createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
         }
         else if (nodetype == "Records")
         {

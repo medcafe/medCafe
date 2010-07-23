@@ -13,10 +13,14 @@
 	
 	String server = "http://" + Config.getServerUrl() ;
 	String patient_id = request.getParameter(Constants.PATIENT_ID);
-	
-	if (patient_id == null)
-		patient_id = "1";
-  
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+	patient_id = cache.getDatabasePatientId();
+	System.out.println("timelineJSON.jsp patientId " + patient_id);
 	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String[] events  = request.getParameterValues("event");

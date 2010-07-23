@@ -484,4 +484,20 @@ $(document).ready( function() {
 				processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num);		
 			}	
 		}	
+		else if ( type == "Visits")
+		{
+			
+			if (typeof processVisitList == 'undefined')
+			{
+			
+				$.getScript('js/medCafe.visits.js', function()
+				{
+					processVisitList(repId, patientId, patientRepId, data, type, tab_num);
+				});
+			}
+			else
+			{
+				processVisitList(repId, patientId, patientRepId, data, type, tab_num);		
+			}	
+		}	
 	}
