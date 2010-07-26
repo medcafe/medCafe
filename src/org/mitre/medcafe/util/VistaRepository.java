@@ -765,7 +765,7 @@ public class VistaRepository extends Repository {
         Collection<PatientVisit> ret;
         try {
             if (setConnection()) {
-                ret = new PatientVisitRepository(conn).getVisitsByPatientDFN(id);
+                ret = new PatientVisitRepository(conn,"MSC PATIENT DASHBOARD").getVisitsByPatientDFN(id);
 
 
             } else {

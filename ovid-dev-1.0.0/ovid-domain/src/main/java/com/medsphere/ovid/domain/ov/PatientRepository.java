@@ -859,9 +859,7 @@ public class PatientRepository extends OvidSecureRepository {
             }
         } catch (ResException e) {
             throw new OvidDomainException(e);
-        }
-
-
+        } 
 
         return list;
 

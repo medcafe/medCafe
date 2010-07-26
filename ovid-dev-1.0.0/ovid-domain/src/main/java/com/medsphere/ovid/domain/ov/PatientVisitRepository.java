@@ -50,22 +50,27 @@ import com.medsphere.fmdomain.FMICD_Diagnosis;
 import com.medsphere.fmdomain.FMCPT;
 import com.medsphere.resource.ResAdapter;
 import com.medsphere.resource.ResException;
-
+import com.medsphere.vistarpc.VistaRPC;
+import com.medsphere.vistarpc.RPCResponse;
+import com.medsphere.vistarpc.RPCException;
 import com.medsphere.vistarpc.RPCConnection;
-
+import com.medsphere.vistarpc.RPCResponse.ResponseType;
 
 import com.medsphere.ovid.model.domain.patient.PatientVisit;
 
 public class PatientVisitRepository extends OvidSecureRepository {
 
     private Logger logger = Logger.getLogger(PatientRepository.class);
-
-    public PatientVisitRepository(RPCConnection serverConnection) {
+    private String fmContext;
+    
+    public PatientVisitRepository(RPCConnection serverConnection, String fmContext) {
         super(null, serverConnection);
+        this.fmContext = fmContext;
     }
 
-    public PatientVisitRepository(RPCConnection connection, RPCConnection serverCconnection) {
+    public PatientVisitRepository(RPCConnection connection, RPCConnection serverCconnection, String fmContext) {
         super(connection, serverCconnection);
+        this.fmContext = fmContext;
     }
 
 
@@ -431,7 +436,7 @@ public class PatientVisitRepository extends OvidSecureRepository {
         try {
             ResAdapter adapter = obtainServerRPCAdapter();
 
-            FMQueryList query = new FMQueryList(adapter, FMVisit.getFileInfoForClass());
+           FMQueryList query = new FMQueryList(adapter, FMVisit.getFileInfoForClass());
           //  query.setScreen(new FMScreenEquals(new FMScreenField("PATIENT NAME"), new FMScreenValue("PATIENT, CLINICAL F")));
             query.getField("PARENT VISIT LINK").setInternal(false);
             query.getField("LOC. OF ENCOUNTER").setInternal(false);
@@ -452,10 +457,12 @@ public class PatientVisitRepository extends OvidSecureRepository {
                     visitIens.add(fmVisit.getIEN());
                     }
                 }
-            }
-        } catch (ResException e) {
+            } 
+			}
+			catch (ResException e) {
             throw new OvidDomainException(e);
         }
+      
       	if (visitMap.size()>0) {  
         getDetail(visitMap, visitIens);
 
