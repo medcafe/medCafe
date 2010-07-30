@@ -324,7 +324,7 @@ $(document).ready( function() {
 				width = '400';
 			}
 				
-			patientId = "4";
+			
 			iNettuts.refresh("yellow-widget" + tab_num);
 
 			var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientId + "&patient_rep_id=" + patientRepId;

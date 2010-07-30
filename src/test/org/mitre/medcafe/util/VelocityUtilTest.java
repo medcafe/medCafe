@@ -60,7 +60,9 @@ public class VelocityUtilTest
     public void setUp() throws Exception {
         // String tempdir = System.getProperty("java.io.tmpdir") + "/";
         // File velocity.properties
-        VelocityUtil.init(System.getProperty("antfile.dir") + "/config/templates");
+        Properties prop = new Properties();
+        prop.setProperty("antfile.dir", System.getProperty("antfile.dir") + "/config/templates");
+        VelocityUtil.init(prop);
     }
 
 

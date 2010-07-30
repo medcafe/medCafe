@@ -55,7 +55,7 @@ public class PatientListEventResource extends ServerResource {
 
        String startDateStr = form.getFirstValue("start_date");
        if (startDateStr == null)
-       	startDateStr = "2006,2,15";
+       	startDateStr = "2004,2,15";
 
        String endDateStr = form.getFirstValue("end_date");
        if (endDateStr == null)

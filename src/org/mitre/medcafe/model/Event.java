@@ -104,6 +104,7 @@ public class Event
 	public static final String PROBLEMS_TYPE = "Problems";
 	public static final String HOSPITAL_TYPE = "Hospital";
 	public static final String IMMUNIZATION_TYPE = "Immunizations";
+	public static final String ENCOUNTER_TYPE = "Encounters";
 	public final static String NA = "Resource not available";
 	
 	private static DbConnection dbConn = null;
@@ -187,7 +188,9 @@ public class Event
 				}
 				else if (type.equals(Event.PROBLEMS_TYPE))
 				{
-					
+					//String url = "/repositories/<:repository:>/patients/<:patientId:>/problems";
+					//ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName, patientId, startDateStr, endDateStr, eventTypes, icon, type, application, repositories);
+					//eventList.addAll(newEventList);
 				}
 				else if (type.equals(Event.SYMPTOMS_TYPE))
 				{
@@ -199,6 +202,12 @@ public class Event
 					
 					ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName,  patientId,  startDateStr,  endDateStr, eventTypes,  icon,  type, application, repositories) ;	
 					eventList.addAll(newEventList);
+				}
+				else if (type.equals(Event.ENCOUNTER_TYPE))
+				{
+					//String url = "/repositories/<:repository:>/patients/<:patientId:>/encounters";
+					//ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName, patientId, startDateStr, endDateStr, eventTypes, icon, type, application, repositories);
+					//eventList.addAll(newEventList);
 				}
 			}
 			System.out.println("Event : retrieveEvents: finished ");

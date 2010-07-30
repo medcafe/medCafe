@@ -43,7 +43,7 @@ public class Repositories
             }
         }catch (Exception e) {}
 
-        host = "openvista.medsphere.org";
+  /*      host = "openvista.medsphere.org";
         try
         {
         if( InetAddress.getByName(host).isReachable(TIMEOUT) )
@@ -54,7 +54,7 @@ public class Repositories
             repos.put(r.getName(), r);
         }
         }catch (Exception e) {}
-
+*/
         host = "medcafe.mitre.org";
         try
         {

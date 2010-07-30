@@ -26,10 +26,12 @@ COPY user_roles (username, rolename) FROM stdin;
 jchoyt	User
 jchoyt	Admin
 jchoyt	manager
+mgreer	User
 \.
 
 COPY users (username, password, emailaddress) FROM stdin;
 jchoyt	a94a8fe5ccb19ba61c4c0873d391e987982fbbd3	jchoyt@mitre.org
+mgreer	a94a8fe5ccb19ba61c4c0873d391e987982fbbd3	mgreer@mitre.org
 \.
 
 
