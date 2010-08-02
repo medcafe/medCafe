@@ -89,6 +89,9 @@ public class FMPatientMovement extends FMRecord {
     protected Integer wardLocation;
     @FMAnnotateFieldInfo(name="FACILITY TREATING SPECIALTY", number=".09", fieldType = FIELDTYPE.POINTER_TO_FILE)
     protected Integer facilityTreatingSpecialty;
+	 @FMAnnotateFieldInfo(name = "PTF ENTRY", number=".16", fieldType = 
+	 FIELDTYPE.POINTER_TO_FILE)
+	 protected Integer ptfEntry;
 
     public FMPatientMovement() {
         super(fileInfo.getFileName());
@@ -121,4 +124,10 @@ public class FMPatientMovement extends FMRecord {
     public String getFacilityTreatingSpecialtyValue() {
         return getValue(".09");
     }
+    public Integer getPTFEntry(){
+    	  return ptfEntry;
+    	  }
+    public String getPTFEntryValue() {
+    	  return getValue(".16");
+    	  }
 }
