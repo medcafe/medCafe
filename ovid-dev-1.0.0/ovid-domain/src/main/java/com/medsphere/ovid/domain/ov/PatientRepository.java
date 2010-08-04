@@ -338,8 +338,8 @@ public class PatientRepository extends OvidSecureRepository {
                 FMScreen nameComponentScreen = null;
                 for (FMPatient pat : patients) {
                     FMScreen forOnePatient = new FMScreenAnd(
-                            new FMScreenAnd(new FMScreenEquals(new FMScreenField("FILE"), new FMScreenValue("2")),
-                            new FMScreenEquals(new FMScreenField("FIELD"), new FMScreenValue(".01"))),
+                            new FMScreenAnd(new FMScreenEquals(new FMScreenField(".01"), new FMScreenValue("2")),
+                            new FMScreenEquals(new FMScreenField(".02"), new FMScreenValue(".01"))),
                             new FMScreenEquals(new FMScreenField(".03"), new FMScreenValue(pat.getIEN() + ",")));
 
                     if (nameComponentScreen == null) {

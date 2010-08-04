@@ -37,15 +37,18 @@ import org.mitre.medcafe.hdatabased.procedure.ProcedureCode;
 import org.mitre.medcafe.hdatabased.treatment.Treatment;
 import org.mitre.medcafe.hdatabased.treatment.TreatmentType;
 
-import com.medsphere.vistarpc.RPCConnection;
 import com.medsphere.vistarpc.RPCBrokerConnection;
+import com.medsphere.vistarpc.factory.RPCPooledConnection;
+import com.medsphere.vistarpc.factory.RPCBrokerPooledConnection;
 import com.medsphere.vistarpc.RPCException;
+import com.medsphere.vistarpc.factory.RPCBrokerPooledConnectionFactory;
 
 import java.util.Collection;
 import java.util.ArrayList;
 
+import java.util.HashMap;
 /**
- *  This class implements an interface to a back-end Vista repostory.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
+ *  This class implements an interface to a back-end Vista repository.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
  *  used via the medsphere ovid library
  */
 public class VistaRepository extends Repository {
@@ -54,7 +57,9 @@ public class VistaRepository extends Repository {
     public final static Logger log = Logger.getLogger(KEY);
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
-    protected RPCConnection conn = null;
+   // protected RPCBrokerConnection conn = null;
+   protected static RPCBrokerPooledConnectionFactory rpcConnFactory = null;
+
 
     public VistaRepository() {
         type = "VistA";
@@ -64,11 +69,14 @@ public class VistaRepository extends Repository {
      *  Given a patient id, get the patient info
      */
     public Patient getPatient(String id) {
+        RPCBrokerPooledConnection conn = null;
         try {
             FMPatientContact filemanPat = null;
             FMPatientContact[] patList = null;
             PatientRepository patientRepository = null;
-            if (setConnection()) {
+
+            conn = setConnection();
+            if (conn != null) {
                 patientRepository = new PatientRepository(conn);
                 Collection<String> iens = new ArrayList<String>();
                 iens.add(id);
@@ -326,7 +334,7 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error assembling return object", e);
             return null;
         } finally {
-            closeConnection();
+            closeConnection(conn);
         }
 
     }
@@ -336,8 +344,10 @@ public class VistaRepository extends Repository {
      */
     public Map<String, String> getPatients() {
         Map<String, String> ret = new HashMap<String, String>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 for (FMPatient lpatient : new PatientRepository(conn).getAllPatients()) {
                     // ret.add( lpatient.getEnterprisePatientIdentifier() );
                     // log.finer(lpatient.getIEN());
@@ -352,7 +362,7 @@ public class VistaRepository extends Repository {
             log.log(Level.SEVERE, "Error retrieving patient list", e);
             return null;
         } finally {
-            closeConnection();
+            closeConnection(conn);
         }
     }
 
@@ -361,8 +371,10 @@ public class VistaRepository extends Repository {
      */
     public Map<String, String> getPatientByName(String family, String given, String middle) {
         Map<String, String> ret = new HashMap<String, String>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 for (FMPatient lpatient : new PatientRepository(conn).searchByNameComponentsForPatients(family, given, middle)) {
                     // ret.add( lpatient.getEnterprisePatientIdentifier() );
                     // log.finer(lpatient.getIEN());
@@ -377,64 +389,64 @@ public class VistaRepository extends Repository {
             log.log(Level.SEVERE, "Error retrieving patient list", ode);
             return null;
         } finally {
-            closeConnection();
+            closeConnection(conn);
         }
     }
-    /*  public static void factorySetUp(String[] creds) {
+    public static void factorySetUp(String[] creds) {
     try {
-    factory = new VistaLinkPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
+    rpcConnFactory = new RPCBrokerPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
     } catch (Exception e) {
     log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
     }
     }
-     */
+     
 
     @Override
     public void onShutdown() {
-        /*     if (factory != null) {
-        factory.emptyPool();
+       if (rpcConnFactory != null) {
+        rpcConnFactory.emptyPool();
         }
-        factory = null;  */
-        if (conn != null) {
+        rpcConnFactory = null;
+      /*  if (conn != null) {
             closeConnection();
-        }
+        }  */
     }
 
     /**
      *  sets the passed VistaLinkPooledConnection
-     *  @return true if conneciton worked.  False otherwise.
+     *  @return true if connection worked.  False otherwise.
      */
-    protected boolean setConnection() throws OvidDomainException {
-        //  if (factory == null) {
-        //      factorySetUp(credentials);
-        // }
-        //conn = OvidSecureRepository.getDirectConnection(credentials[0], credentials[1], credentials[2], credentials[3]);
-        try {
-            conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
-        } catch (RPCException e) {
-            throw new OvidDomainException(e.getMessage());
+    protected RPCBrokerPooledConnection setConnection() throws OvidDomainException {
+        RPCBrokerPooledConnection conn = null;
+   
+        if (rpcConnFactory == null) {
+              factorySetUp(credentials);
         }
+
+       
+               conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
+    
+     //       conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
+     
         //conn = factory.getConnection();
         if (conn == null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
-            return false;
+            return  null;
         }
-        return true;
+        return conn;
     }
 
     /**
-     *  closes the passed VistaLinkPooledConnection
+     *  closes the passed RPCBrokerConnection
      */
-    protected void closeConnection() {
+    protected void closeConnection(RPCBrokerPooledConnection conn) {
         if (conn != null) {
-            try {
-                // log.finer("closing connection");
+           
+                log.finer("closing connection");
                 // conn.returnToPool();
-                conn.close();
-            } catch (RPCException e) {
-                log.finer("Error closing connection");
-            }
-            conn = null;
+
+                conn.returnToPool();
+ 
         }
     }
 
@@ -453,8 +465,10 @@ public class VistaRepository extends Repository {
 
     public List<Allergy> getAllergies(String id) {
         List<Allergy> list = new ArrayList<Allergy>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 log.finer("Connection made...");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 log.finer("HERE!! " + r.toString());
@@ -494,15 +508,17 @@ public class VistaRepository extends Repository {
         } catch (Throwable e) {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
-            closeConnection();
+            closeConnection(conn);
             return list;
         }
     }
 
     public List<Support> getSupportInfo(String id) {
         List<Support> list = new ArrayList<Support>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 PatientRepository patRepository = new PatientRepository(conn);
                 Collection<String> ids = new ArrayList<String>();
                 ids.add(id);
@@ -532,15 +548,17 @@ public class VistaRepository extends Repository {
         } catch (Throwable e) {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
-            closeConnection();
+            closeConnection(conn);
             return list;
         }
     }
 
     public List<Medication> getMedications(String id) {
         List<Medication> list = new ArrayList<Medication>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 Collection<IsAPatientItem> vista_list = r.getMedications(id);
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
@@ -585,15 +603,17 @@ public class VistaRepository extends Repository {
         } catch (Throwable e) {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
-            closeConnection();
+            closeConnection(conn);
             return list;
         }
     }
 
     public List<Immunization> getImmunizations(String id) {
         List<Immunization> list = new ArrayList<Immunization>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 Collection<PatientImmunization> vista_list = r.getImmunizations(id);
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
@@ -609,15 +629,17 @@ public class VistaRepository extends Repository {
         } catch (Throwable e) {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
-            closeConnection();
+            closeConnection(conn);
             return list;
         }
     }
 
     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String id) {
         List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> list = new ArrayList<org.projecthdata.hdata.schemas._2009._06.condition.Condition>();
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 log.finer("Connection made...");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 log.finer("HERE!! " + r.toString());
@@ -655,7 +677,7 @@ public class VistaRepository extends Repository {
         } catch (Throwable e) {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
-            closeConnection();
+            closeConnection(conn);
             return list;
         }
     }
@@ -727,10 +749,11 @@ public class VistaRepository extends Repository {
 
     public Collection<FMRecord> getTimeLineInfo(String ien) {
         Collection<FMRecord> list = new ArrayList<FMRecord>();
-
+        RPCBrokerPooledConnection conn = null;
 
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 for (FMPatientMovement patMove : new PatientMovementRepository(conn).getPatientMovementByPatientDFN(ien)) {
 
                     list.add(patMove);
@@ -746,7 +769,7 @@ public class VistaRepository extends Repository {
             log.log(Level.SEVERE, "Error retrieving patient list", e);
             return null;
         } finally {
-            closeConnection();
+            closeConnection(conn);
         }
     }
 
@@ -763,8 +786,10 @@ public class VistaRepository extends Repository {
 
     public Collection<EncounterDetail> getPatientEncounters(String id) {
         Collection<PatientVisit> ret;
+        RPCBrokerPooledConnection conn = null;
         try {
-            if (setConnection()) {
+            conn = setConnection();
+            if (conn != null) {
                 ret = new PatientVisitRepository(conn,"MSC PATIENT DASHBOARD").getVisitsByPatientDFN(id);
 
 
@@ -808,7 +833,7 @@ public class VistaRepository extends Repository {
                 visits.add(encounter);
 
             }
-            
+
             return visits;
         } catch (OvidDomainException e) {
             log.log(Level.SEVERE, "Error retrieving patient visits", e);
@@ -817,7 +842,7 @@ public class VistaRepository extends Repository {
             log.log(Level.SEVERE, "Error retreiving PatientItems", e);
             return null;
         } finally {
-            closeConnection();
+            closeConnection(conn);
 
         }
     }

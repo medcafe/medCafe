@@ -22,6 +22,8 @@ import com.medsphere.vistarpc.RPCException;
 import com.medsphere.vistarpc.RPCResponse;
 import com.medsphere.vistarpc.VistaRPC;
 
+import java.net.SocketException;
+
 public class RPCBrokerPooledConnectionFactory extends RPCPooledConnectionFactory {
 
     private Logger logger = Logger.getLogger(RPCBrokerPooledConnectionFactory.class);
@@ -91,11 +93,18 @@ public class RPCBrokerPooledConnectionFactory extends RPCPooledConnectionFactory
             try {
                 connection.close();
             } catch (RPCException e1) {
-                e1.printStackTrace();
-            }
+                 e1.printStackTrace();
+            } 
             return false;
-        }
-
+         } catch (Exception e) {
+        		try {
+                connection.close();
+            } catch (RPCException e1) {
+                 e1.printStackTrace();
+            } 
+            return false;
+        	}
+            
     }
 
 }
