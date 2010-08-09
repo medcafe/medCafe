@@ -1296,7 +1296,7 @@ public class VistaRepository extends Repository {
         encounterId.setExtension(visit.getVisit().getVisitID());
         encounter.setEncounterId(encounterId);
         EncounterType encounterType = new EncounterType();
-        encounterType.setValue(visit.getVisit().getPatientInOut() + "PATIENT -- " + visit.getVisit().getServiceCategory());
+        encounterType.setValue(visit.getVisit().getPatientInOut() + "PATIENT");
         encounter.setEncounterType(encounterType);
         if (stringExists(visit.getVisit().getComments())) {
             encounter.setNarrative(visit.getVisit().getComments());
