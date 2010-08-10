@@ -84,6 +84,7 @@ public class Event
 	private String link ="";
 	private String repository =Constants.DEFAULT_REPOSITORY;
 	private String repPatientId = "0";
+	private String description = "";
 
 	public static final String PATIENT_ID = "patient_id";
 	public static final String TITLE = "title";
@@ -188,9 +189,9 @@ public class Event
 				}
 				else if (type.equals(Event.PROBLEMS_TYPE))
 				{
-					//String url = "/repositories/<:repository:>/patients/<:patientId:>/problems";
-					//ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName, patientId, startDateStr, endDateStr, eventTypes, icon, type, application, repositories);
-					//eventList.addAll(newEventList);
+					String url = "/repositories/<:repository:>/patients/<:patientId:>/problems";
+					ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName, patientId, startDateStr, endDateStr, eventTypes, icon, type, application, repositories);
+					eventList.addAll(newEventList);
 				}
 				else if (type.equals(Event.SYMPTOMS_TYPE))
 				{
@@ -383,9 +384,28 @@ public class Event
 				 /*  "medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"TETANUS DIPTHERIA (TD-ADULT)"}},"refusal":false}*/
 
 				 JSONObject infoObj = immObj.getJSONObject("medicationInformation");
-
 				 infoObj = infoObj.getJSONObject("manufacturedMaterial");
 				 String immTitle = infoObj.getString("freeTextBrandName");
+				 String desc = immObj.getString("narrative");
+				 try {
+				 	desc = desc+ " Refused:  " + immObj.getBoolean("refusal");
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 	log.finer("No refusal information in immunization record of patient # " + repPatientId + " for " + immTitle);
+				 }
+				 try {
+				 	desc = desc + "\nAdministered by: ";
+				 	JSONObject perfObj = immObj.getJSONObject("performer");
+				 	JSONObject personObj = perfObj.getJSONObject("person");
+					desc = desc + getPersonName(personObj);
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 	log.finer("No provider information in immunization record of patient # " + repPatientId + " for " + immTitle);
+				 }
+				 event.setDescription(desc);
+		
 
 				 JSONObject dateObj = immObj.getJSONObject("administeredDate");
 				 //System.out.println("Event getEventObject dateObj " + dateObj.toString());
@@ -405,8 +425,64 @@ public class Event
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				 }
-				 event.setTitle(immTitle);
 				 event.setIcon(icon);
+				 event.setTitle(immTitle);
+				 event.setType(type);
+				 eventList.add(event);
+		     }
+
+
+		}
+	else		if (type.equals(Event.PROBLEMS_TYPE))
+		{
+			/*{"repository":"OurVista","problem":[{"narrative":"A","problemCode":{"code":"250.00"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":4,"year":2010,"hour":0,"day":1}},"problemName":"Diabetes"},{"narrative":"A","problemCode":{"code":"819.0"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2008,"hour":0,"day":9}},"problemName":"Multiple fractures involving both upper limbs, and upper limb with rib(s) and st"}],"patient_id":"3"}
+
+			 * */
+			if (!jsonResults.has("problem"))
+			{
+				return eventList;
+			}
+
+			 JSONArray jsonProbs = jsonResults.getJSONArray("problem");
+
+			 for (int i=0; i < jsonProbs.length(); i++ )
+		     {
+				 Event event = new Event();
+				 event.setId(Integer.parseInt(patientId));
+				 event.setRepPatientId(repPatientId);
+				 event.setRepository(repository);
+				 JSONObject probObj;
+				 probObj = (JSONObject) jsonProbs.get(i);
+
+				 String probTitle = probObj.getString("problemName");
+				 String active = probObj.getString("narrative");
+				 if (active.equals("A"))
+				 	probTitle = probTitle + " - ACTIVE";
+				 else
+				 	probTitle = probTitle + " - INACTIVE";
+				 event.setDescription("ICD9 Code: " + probObj.getJSONObject("problemCode").getString("code"));
+		
+
+				 JSONObject dateObj = probObj.getJSONObject("problemDate").getJSONObject("low");
+				 //System.out.println("Event getEventObject dateObj " + dateObj.toString());
+				 /* 	"administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":6,"year":2010,"day":30,"hour":0},*/
+				 String month = dateObj.getString("month");
+				 int monthVal = Integer.parseInt(month) -1;
+				 String day = dateObj.getString("day");
+				 String year = dateObj.getString("year");
+				 String dateStr = monthVal + "/" + day + "/" + year;
+				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				 try
+				 {
+					Date probDate = df.parse(dateStr);
+					event.setEventDate(probDate);
+				 }
+				 catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				 }
+				 event.setIcon(icon);
+				 event.setTitle(probTitle);
 				 event.setType(type);
 				 eventList.add(event);
 		     }
@@ -452,6 +528,151 @@ public class Event
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				 }
+				 String desc = "";
+
+
+				 try{
+				 	JSONArray condArray = encObj.getJSONArray("conditions");
+				 	for (int j = 0; j < condArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = "Conditions: ";
+				 		JSONObject condObj = (JSONObject) condArray.get(j);
+				 		JSONObject probObj = condObj.getJSONObject("problemCode");
+				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray examArray = encObj.getJSONArray("exams");
+				 	for (int j = 0; j < examArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Exams: ";
+				 		JSONObject examObj = (JSONObject) examArray.get(j);
+				 		JSONObject examTypeObj = examObj.getJSONObject("examType");
+				 		JSONObject resultObj = examObj.getJSONObject("result");
+				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray procedureArray = encObj.getJSONArray("procedures");
+				 	for (int j = 0; j < procedureArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Procedures: ";
+				 		JSONObject procObj = (JSONObject) procedureArray.get(j);
+				 		JSONObject codeObj = procObj.getJSONObject("procedureCode");
+				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray factorsArray = encObj.getJSONArray("healthFactors");
+				 	for (int j = 0; j < factorsArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Health Factors: ";
+				 		JSONObject healthFactorObj = (JSONObject) factorsArray.get(j);
+				 		JSONObject factorObj = healthFactorObj.getJSONObject("factor");
+				 		JSONObject severityObj = healthFactorObj.getJSONObject("severity");
+				 		desc = desc + factorObj.getString("value") + " - Severity: " + severityObj.getString("value");
+				 		try{
+				 		   desc = desc +  "; Comments: " + healthFactorObj.getString("comment");
+				 		}
+				 		catch (JSONException jsonE2)
+				 		{
+				 		}
+				 		desc = desc + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray resultsArray = encObj.getJSONArray("results");
+				 	for (int j = 0; j < resultsArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Test Results: ";
+				 		JSONObject resultsObj = (JSONObject) resultsArray.get(j);
+				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray immArray = encObj.getJSONArray("immunizations");
+				 	for (int j = 0; j < immArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Immunizations: ";
+				 		JSONObject immObj = (JSONObject) immArray.get(j);
+				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName") + " - " + immObj.getString("narrative") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray topicsArray = encObj.getJSONArray("education");
+				 	for (int j = 0; j < topicsArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Topics Discussed: ";
+				 		JSONObject topicsObj = (JSONObject) topicsArray.get(j);
+				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray treatmentsArray = encObj.getJSONArray("treatments");
+				 	for (int j = 0; j < treatmentsArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Treatments: ";
+				 		JSONObject treatmentObj = (JSONObject) treatmentsArray.get(j);
+				 		desc = desc + treatmentObj.getJSONObject("treatmentType").getString("value");
+				 		try {
+				 			desc = desc + ": " + treatmentObj.getString("comment");
+				 		}
+				 		catch (JSONException jsonE2)
+				 		{
+				 		}
+				 		desc = desc + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 try{
+				 	JSONArray providerArray = encObj.getJSONArray("encounterProvider");
+				 	for (int j = 0; j < providerArray.length(); j++)
+				 	{
+				 		if (j == 0)
+				 			desc = desc + "Providers: ";
+				 		JSONObject providerObj = (JSONObject) providerArray.get(j);
+				
+				 		JSONObject personObj = providerObj.getJSONObject("person");
+				 		desc = desc + getPersonName(personObj) + "<br>";
+				 	}
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 }
+				 	/*			 {"repository":"OurVista","encounters":[{"conditions":[{"narrative":"ROUTINE INFANT OR CHILD HEALTH CHECK","treatingProvider":[],"problemCode":{"codeSystemName":"ICD9","codeSystem":"2.16.840.1.113883.6.104","value":"ROUTIN CHILD HEALTH EXAM","code":"V20.2"},"problemName":"ROUTIN CHILD HEALTH EXAM"}],"healthFactors":[],"results":[{"resultDateTime":{"high":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":10,"year":2005,"hour":0,"day":1},"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29}},"resultInterpretation":{"value":"NEGATIVE"},"resultValue":0,"resultType":{"value":"TINE"}}],"encounterDate":{"low":{"minute":30,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":14,"day":29}},"encounterId":{"extension":"10B5-TEST","root":"8"},"encounterProvider":[{}],"immunizations":[{"narrative":"Series: PARTIALLY COMPLETE Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"DIP.,PERT.,TET. (DPT)"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: LETHARGY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"POLIOMYELITIS"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"MEASLES,MUMPS,RUBELLA (MMR)"}},"refusal":false}],"education":[{"patientUnderstanding":{"value":"GOOD"},"topic":{"value":"VA-IMMUNIZATIONS"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}]}],"exams":[{"result":{"value":"NORMAL"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}],"examType":{"value":"GENERAL DEVELOPMENT EXAM"}}],"procedures":[],"encounterType":{"value":"OUTPATIENT"},"treatments":[]}],"patient_id":"8"} */
+				 	
+				 event.setDescription(desc);
 				 event.setTitle(encTitle);
 				 event.setIcon(icon);
 				 event.setType(type);
@@ -462,6 +683,25 @@ public class Event
 		}
 		return eventList;
 	}
+	public static String getPersonName(JSONObject person)
+	{
+	  
+	 	String personName = "";
+	 	try {
+	 		JSONObject nameObj = person.getJSONObject("name");
+			JSONArray jsonNames = nameObj.getJSONArray("given");
+			for (int j = 0; j< jsonNames.length(); j++)
+			{
+				personName = personName + (String) jsonNames.get(j) + " ";
+			}
+			personName = personName + nameObj.getString("lastname");
+		}
+		catch (JSONException jsonE)
+		{
+		}
+		return personName;
+	}
+	
 
 	public static HashMap<String,String> getIcons()
 	{
@@ -472,12 +712,14 @@ public class Event
 	    	icons.put(Event.FILE_TYPE, icon);
 	    	icon = "doctor-icon.png";
 	    	icons.put(Event.APPT_TYPE, icon);
-	    //	icon = "immunization-icon.jpg";
-	    	icon = "dull-blue-circle.png";
+	    	icon = "immunization-icon.jpg";
+	    	//icon = "dull-blue-circle.png";
 	    	icons.put(Event.IMMUNIZATION_TYPE, icon);
-               // icon = "doctors_bag.png";
-               icon = "green-circle.png";
+         icon = "doctors_bag.png";
+         //      icon = "green-circle.png";
                 icons.put(Event.ENCOUNTER_TYPE, icon);
+         icon = "sadface.png";
+         icons.put(Event.PROBLEMS_TYPE, icon);
 
 	    	return icons;
 	}
@@ -560,6 +802,15 @@ public class Event
 
 	public void setRepPatientId(String repPatientId) {
 		this.repPatientId = repPatientId;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription()
+	{
+		return description;
 	}
 
 	 private static String getJsonContent( MedcafeApplication app, String endpoint )

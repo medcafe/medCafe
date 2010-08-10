@@ -46,13 +46,13 @@ public class PatientProblemResource extends ServerResource {
             return new JsonRepresentation(WebUtils.buildErrorJson( "There are no problems currently listed for patient " + id + " in repository " + repository ));
         }
         //convert to JSON
-     /*   try{
+    /*  try{
         System.out.println(WebUtils.bundleJsonResponse("problem",problems,repository,id).getText());
         }
         catch (IOException IOe)
         {
         	System.out.println("Couldn't print");
-        } */
+        } */ 
         return WebUtils.bundleJsonResponse( "problem", problems, repository, id );
         }
         catch(NotImplementedException notImplE)

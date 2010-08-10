@@ -79,7 +79,7 @@
 	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.repository.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
-	<script type = "text/javascript" src = "${js}/medCafe.supportInfo.js"></script>
+	<script type="text/javascript" src="${js}/medCafe.supportInfo.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
  	<script type="text/javascript" src="${js}/medCafe.images.js"></script>

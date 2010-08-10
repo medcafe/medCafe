@@ -110,8 +110,8 @@ public class PatientListEventResource extends ServerResource {
         	ArrayList<String> dates = new ArrayList<String>();
             JSONObject obj = new JSONObject();
             String server = Config.getServerUrl() ;
-            obj.put("wikiURL", "Patient data ");
-            obj.put("wikiSection", "Patient Data");
+            //obj.put("wikiURL", "Patient data ");
+            //obj.put("wikiSection", "Patient Data");
 
         	String dir = "patients/" + this.id + "/";
         	String imageDir = "images/" + dir;
@@ -123,14 +123,17 @@ public class PatientListEventResource extends ServerResource {
             {
         		JSONObject inner_obj = new JSONObject ();
                 inner_obj.put("start", "<:startDate" + i + ":>");
+                if (!event.getIcon().equals(""))
+                	inner_obj.put("icon", "http://" + server + "/images/" + event.getIcon());
                 inner_obj.put("title", event.getTitle());
-                inner_obj.put("image", "http://" + server + "/" + imageDir +  event.getFileUrl());
-                inner_obj.put("icon", "http://" + server + "/images/" + event.getIcon());
-                inner_obj.put("link", "http://" + server + "/images/" + event.getLink());
+                if (!event.getFileUrl().equals(""))
+                	inner_obj.put("image", "http://" + server + "/" + imageDir +  event.getFileUrl());
+                if (!event.getLink().equals(""))
+                	inner_obj.put("link", "http://" + server + "/images/" + event.getLink());
                 inner_obj.put("type", event.getType());
                 inner_obj.put("repository", event.getRepository());
                 inner_obj.put("rep_patient_id", event.getRepPatientId());
-                
+                inner_obj.put("description", event.getDescription());
                 obj.append("events", inner_obj); 
                 Date date = event.getEventDate();
                 String dateStr = eventDf.format(date);

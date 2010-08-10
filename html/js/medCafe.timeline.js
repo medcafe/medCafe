@@ -58,6 +58,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		    var themeBubble = this._params.theme.event.bubble;
 		    //evt.fillInfoBubble(div, this._params.theme, this._band.getLabeller());
 		    //Method to be used to create code to bring up the details inside of medCafe
+		    					 alert("check icons"); 
 		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId,type);
 		    var link = evt.getLink();
 		    //Rewrite the link - so that 
@@ -93,15 +94,17 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		var listJSON = "listTimelineJSON.jsp?";
 		var eventList = getTimelineEvents();
 		listJSON = listJSON + eventList;
-		
+
 		$.getJSON(listJSON, function(data)
 		{
 			tl.loadJSON(listJSON, function(json, url) {
+
                 eventSource.loadJSON(json, url);
             });				
 		});
+		     
 	});
-	        
+	  		        
    setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
  		 	
 }
@@ -147,6 +150,7 @@ function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
         var link = evt.getLink();
         var image = evt.getImage();
         var nodetype = evt.getProperty("type");
+   
         
         //use the nodetype to determine what to do
         
@@ -175,7 +179,7 @@ function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
         else if (nodetype == "Immunizations")
         {
         	//Put in code here to bring up visit detail data
-        	var tab_num = addTab(imageTitle, "Immunization " + title);
+        //	var tab_num = addTab(imageTitle, "Immunization " + title);
         	
         	//call createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
         }
@@ -201,6 +205,7 @@ function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
         } else {
             divTitle.appendChild(textTitle);
         }
+
         theme.event.bubble.titleStyler(divTitle);
         elmt.appendChild(divTitle);
         

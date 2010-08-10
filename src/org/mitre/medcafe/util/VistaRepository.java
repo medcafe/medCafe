@@ -805,6 +805,7 @@ public class VistaRepository extends Repository {
 
                 List<Actor> providers = encounter.getEncounterProvider();
                 populateProviderList(providers, visit);
+          
 
                 List<Procedure> procedures = encounter.getProcedures();
                 populateProcedureList(procedures, visit);
@@ -829,7 +830,7 @@ public class VistaRepository extends Repository {
 
                 List<HealthFactor> healthFactors = encounter.getHealthFactors();
                 populateHealthFactorList(healthFactors, visit);
-					 System.out.println(visit);
+					 //System.out.println(visit);
                 visits.add(encounter);
 
             }
@@ -957,6 +958,7 @@ public class VistaRepository extends Repository {
 
             Severity severity = new Severity();
             severity.setValue(fmFactor.getLevelSeverity());
+            healthFactor.setSeverity(severity);
 
             List<Provider> hfProviders = healthFactor.getProviders();
             if (stringExists(fmFactor.getEncounterProviderValue())) {
@@ -1284,7 +1286,7 @@ public class VistaRepository extends Repository {
             if (stringExists(fmProvider.getProviderValue())) {
             Name providerName = setPersonsName(fmProvider.getProviderValue());
             person.setName(providerName);
-
+				provider.setPerson(person);
             providers.add(provider);
             }
         }
