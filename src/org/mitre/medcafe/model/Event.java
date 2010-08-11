@@ -712,7 +712,7 @@ public class Event
 	    	icons.put(Event.FILE_TYPE, icon);
 	    	icon = "doctor-icon.png";
 	    	icons.put(Event.APPT_TYPE, icon);
-	    	icon = "immunization-icon.jpg";
+	    	icon = "immunization-icon.png";
 	    	//icon = "dull-blue-circle.png";
 	    	icons.put(Event.IMMUNIZATION_TYPE, icon);
          icon = "doctors_bag.png";

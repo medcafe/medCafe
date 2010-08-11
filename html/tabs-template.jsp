@@ -182,7 +182,7 @@ function bindClose()
 </script>
 		
 <div class="id" id="<%=title%>"></div>	
-<div id="columns">
+<!---<div id="columns"><--->
 
 	<div id="column<%=tabNum%>" class="column">
 			<div class="widget color-<%=tabNum%>" id="yellow-widget<%=tabNum%>">

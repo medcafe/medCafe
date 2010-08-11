@@ -58,7 +58,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		    var themeBubble = this._params.theme.event.bubble;
 		    //evt.fillInfoBubble(div, this._params.theme, this._band.getLabeller());
 		    //Method to be used to create code to bring up the details inside of medCafe
-		    					 alert("check icons"); 
+		    			//		 alert("check icons"); 
 		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId,type);
 		    var link = evt.getLink();
 		    //Rewrite the link - so that 
