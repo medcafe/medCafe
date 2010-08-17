@@ -13,6 +13,8 @@ import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.*;
 import org.projecthdata.hdata.schemas._2009._06.immunization.*;
 
+import org.projecthdata.hdata.schemas._2009._06.result.*;
+
 
 import org.mitre.medcafe.hdatabased.encounter.*;
 import java.io.FileInputStream;
@@ -136,6 +138,14 @@ public class hDataRepository extends Repository
      {
      		throw new NotImplementedException("getProblems is not implemented for hDataRepository");
      }
+      public List<Result> getLatestVitals(String id)  throws NotImplementedException{
+        throw new NotImplementedException("getLatestVitals is not implemented for hDataRepository");
+    }
+
+    public List<Result> getAllVitals(String id) throws NotImplementedException {
+        throw new NotImplementedException("getAllVitals is not implemented for hDataRepository");
+    }
+
     /**
      * Type property.
      */

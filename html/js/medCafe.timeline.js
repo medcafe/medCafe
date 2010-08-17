@@ -3,9 +3,12 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 	$('#tabs').tabs('select', "#tabs-" + tab_num);
 	
 	var eventSource = new Timeline.DefaultEventSource();
- 	var d = Timeline.DateTime.parseGregorianDateTime("2008");
+ 	var d = Timeline.DateTime.parseGregorianDateTime("2009");
  	
  	var theme = Timeline.ClassicTheme.create();
+ 	theme.event.instant.iconWidth = 25;
+ 	theme.event.instant.iconHeight = 30;
+ 	theme.event.track.height = 30;
  	
  	theme.event.bubble.width = 320;
             theme.ether.backgroundColors = [
@@ -39,7 +42,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
    bandInfos[1].highlight = true;
    bandInfos[1].decorators = [
                 new Timeline.SpanHighlightDecorator({
-                    startDate:  "Nov 14 2006 00:00:00 GMT",
+                    startDate:  "Nov 14 2008 00:00:00 GMT",
                     endDate:    "Dec 05 2010 00:00:00 GMT",
                     startLabel: "First Visit",
                     endLabel:   "",

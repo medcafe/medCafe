@@ -47,6 +47,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 
 import java.util.HashMap;
+
 /**
  *  This class implements an interface to a back-end Vista repository.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
  *  used via the medsphere ovid library
@@ -57,9 +58,8 @@ public class VistaRepository extends Repository {
     public final static Logger log = Logger.getLogger(KEY);
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
-   // protected RPCBrokerConnection conn = null;
-   protected static RPCBrokerPooledConnectionFactory rpcConnFactory = null;
-
+    // protected RPCBrokerConnection conn = null;
+    protected static RPCBrokerPooledConnectionFactory rpcConnFactory = null;
 
     public VistaRepository() {
         type = "VistA";
@@ -392,23 +392,23 @@ public class VistaRepository extends Repository {
             closeConnection(conn);
         }
     }
+
     public static void factorySetUp(String[] creds) {
-    try {
-    rpcConnFactory = new RPCBrokerPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
-    } catch (Exception e) {
-    log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
+        try {
+            rpcConnFactory = new RPCBrokerPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
+        } catch (Exception e) {
+            log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
+        }
     }
-    }
-     
 
     @Override
     public void onShutdown() {
-       if (rpcConnFactory != null) {
-        rpcConnFactory.emptyPool();
+        if (rpcConnFactory != null) {
+            rpcConnFactory.emptyPool();
         }
         rpcConnFactory = null;
-      /*  if (conn != null) {
-            closeConnection();
+        /*  if (conn != null) {
+        closeConnection();
         }  */
     }
 
@@ -418,20 +418,20 @@ public class VistaRepository extends Repository {
      */
     protected RPCBrokerPooledConnection setConnection() throws OvidDomainException {
         RPCBrokerPooledConnection conn = null;
-   
+
         if (rpcConnFactory == null) {
-              factorySetUp(credentials);
+            factorySetUp(credentials);
         }
 
-       
-               conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
-    
-     //       conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
-     
+
+        conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
+
+        //       conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
+
         //conn = factory.getConnection();
         if (conn == null) {
             log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
-            return  null;
+            return null;
         }
         return conn;
     }
@@ -441,12 +441,12 @@ public class VistaRepository extends Repository {
      */
     protected void closeConnection(RPCBrokerPooledConnection conn) {
         if (conn != null) {
-           
-                log.finer("closing connection");
-                // conn.returnToPool();
 
-                conn.returnToPool();
- 
+            log.finer("closing connection");
+            // conn.returnToPool();
+
+            conn.returnToPool();
+
         }
     }
 
@@ -634,6 +634,88 @@ public class VistaRepository extends Repository {
         }
     }
 
+    private List<Result> getVitals(String id, boolean latest) {
+        RPCBrokerPooledConnection conn = null;
+        List<Result> results = new ArrayList<Result>();
+        try {
+            conn = setConnection();
+            if (conn != null) {
+                log.finer("Connection made . . .");
+                PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
+                log.finer("HERE!! " + r.toString());
+                GregorianCalendar calendar = new GregorianCalendar();
+
+                calendar.roll(Calendar.YEAR, -100);
+                Date earlyDate = calendar.getTime();
+                Collection<IsAPatientItem> vitalItems = r.getVitals(id, earlyDate, new Date());
+                Collection<PatientVitalEvent> vitals = new ArrayList<PatientVitalEvent>();
+                for (IsAPatientItem vitalItem : vitalItems) {
+                    vitals.add((PatientVitalEvent) vitalItem);
+                }
+                if (latest) {
+                    PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new PatientVitalComparator());
+                    vitalQueue.addAll(vitals);
+                    vitals = new ArrayList<PatientVitalEvent>();
+                    vitals.add(vitalQueue.peek());
+                }
+                for (PatientVitalEvent vital : vitals) {
+
+                    if (vital.getDateTime() != null) {
+                        GregorianCalendar cal = new GregorianCalendar();
+                        cal.setTime(vital.getDateTime());
+                        DatatypeFactory factory = DatatypeFactory.newInstance();
+                        DateRange d = new DateRange();
+                        d.setLow(factory.newXMLGregorianCalendar(cal));
+
+                        Collection<VitalSignDetail> details = vital.getDetails();
+                        for (VitalSignDetail detail : details) {
+                            Result result = new Result();
+                            result.setResultDateTime(d);
+                            ResultType resultType = new ResultType();
+                            resultType.setValue(detail.getName());
+                            result.setResultType(resultType);
+                            String value = detail.getValue();
+                            if (stringExists(detail.getUnits())) {
+                                value = value + " " + detail.getUnits();
+                            }
+                            result.setResultValue(value);
+                            String indicator = detail.getIndicator();
+                            if (stringExists(detail.getSo2())) {
+                                indicator = indicator + " " + detail.getSo2();
+                            }
+                            result.setNarrative(indicator);
+                            results.add(result);
+                            if (stringExists(detail.getBmi())){
+                            		result = new Result();
+                                result.setResultValue(detail.getBmi());
+                                resultType = new ResultType();
+                                resultType.setValue("BMI");
+                                result.setResultType(resultType);
+                                result.setResultDateTime(d);
+                                result.setNarrative(indicator);
+                                results.add(result);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            log.severe("Error retrieving patient vitals.");
+            e.printStackTrace(System.err);
+        } finally {
+            conn.close();
+        }
+        return results;
+    }
+
+    public List<Result> getLatestVitals(String id) {
+        return getVitals(id, true);
+    }
+
+    public List<Result> getAllVitals(String id) {
+        return getVitals(id, false);
+    }
+
     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String id) {
         List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> list = new ArrayList<org.projecthdata.hdata.schemas._2009._06.condition.Condition>();
         RPCBrokerPooledConnection conn = null;
@@ -790,7 +872,7 @@ public class VistaRepository extends Repository {
         try {
             conn = setConnection();
             if (conn != null) {
-                ret = new PatientVisitRepository(conn,"MSC PATIENT DASHBOARD").getVisitsByPatientDFN(id);
+                ret = new PatientVisitRepository(conn, "MSC PATIENT DASHBOARD").getVisitsByPatientDFN(id);
 
 
             } else {
@@ -805,7 +887,7 @@ public class VistaRepository extends Repository {
 
                 List<Actor> providers = encounter.getEncounterProvider();
                 populateProviderList(providers, visit);
-          
+
 
                 List<Procedure> procedures = encounter.getProcedures();
                 populateProcedureList(procedures, visit);
@@ -830,7 +912,7 @@ public class VistaRepository extends Repository {
 
                 List<HealthFactor> healthFactors = encounter.getHealthFactors();
                 populateHealthFactorList(healthFactors, visit);
-					 //System.out.println(visit);
+                //System.out.println(visit);
                 visits.add(encounter);
 
             }
@@ -1284,10 +1366,10 @@ public class VistaRepository extends Repository {
             Actor provider = new Actor();
             Person person = new Person();
             if (stringExists(fmProvider.getProviderValue())) {
-            Name providerName = setPersonsName(fmProvider.getProviderValue());
-            person.setName(providerName);
-				provider.setPerson(person);
-            providers.add(provider);
+                Name providerName = setPersonsName(fmProvider.getProviderValue());
+                person.setName(providerName);
+                provider.setPerson(person);
+                providers.add(provider);
             }
         }
     }
@@ -1316,5 +1398,18 @@ public class VistaRepository extends Repository {
             }
 
         }
+
+    }
+
+    private class PatientVitalComparator implements Comparator<PatientVitalEvent> {
+
+        public PatientVitalComparator() {
+            super();
+        }
+
+        public int compare(PatientVitalEvent one, PatientVitalEvent two) {
+            return two.getDateTime().compareTo(one.getDateTime());
+        }
     }
 }
+

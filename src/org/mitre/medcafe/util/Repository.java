@@ -10,6 +10,7 @@ import org.projecthdata.hdata.schemas._2009._06.medication.*;
 import org.projecthdata.hdata.schemas._2009._06.immunization.*;
 import org.projecthdata.hdata.schemas._2009._06.condition.*;
 import org.projecthdata.hdata.schemas._2009._06.support.*;
+import org.projecthdata.hdata.schemas._2009._06.result.*;
 import org.mitre.medcafe.hdatabased.encounter.*;
 
 import com.medsphere.fileman.FMRecord;
@@ -149,4 +150,10 @@ public abstract class Repository
     public abstract Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
     
     public abstract Collection<EncounterDetail> getPatientEncounters(String id) throws NotImplementedException;
+    
+    public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
+    public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
+       
+    
+
 }
