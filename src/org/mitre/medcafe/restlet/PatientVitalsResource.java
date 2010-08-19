@@ -25,6 +25,7 @@ public class PatientVitalsResource extends ServerResource {
     @Override
     protected void doInit() throws ResourceException {
         this.id = (String) getRequest().getAttributes().get("id");
+        System.out.println("id = " + id);
         this.repository = (String) getRequest().getAttributes().get("repository");
         this.choice = (String) getRequest().getAttributes().get("choice");
     }

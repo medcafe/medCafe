@@ -1,0 +1,16 @@
+#if ($medicines)
+</p><br/><p>
+	#foreach ($repos in $medicines)
+		#if ($repos.medications)
+			#foreach(  $medicationDetail in $repos.medications )
+			 *
+	   		#if ($medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName)
+	  			   ${medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName}<br/>
+	  			#elseif ($medicationDetail.narrative)
+	  					${medicationDetail.narrative}<br/>
+	  			#end
+		
+	   	#end
+	   #end
+	#end
+#end

@@ -1,0 +1,11 @@
+#if ($alerts)
+</p><br><p>
+	#foreach ($repos in $alerts)
+		#if ($repos.allergies)
+			#foreach(  $allergyDetail in $repos.allergies )
+	   		${allergyDetail.product.value}<br/>
+		
+	   	#end
+	   #end
+	#end
+#end

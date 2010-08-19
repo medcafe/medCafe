@@ -1,0 +1,24 @@
+#if ($patient)
+   #set ($printed=0)
+   #set ($space=" ")
+   #foreach ($repos in $patient)
+   	#if ($repos.patient_data)
+   		#if ($printed == 0)
+   			<tr><th colspan="2" style="text-align:left;">
+   			#foreach ($givenName in $repos.patient_data.name.given)
+   				${givenName}${space}
+   			#end
+   			$repos.patient_data.name.lastname</th></tr>
+   			#set ($printed = 1)
+   			<tr><td colspan="2">
+   			#if ($repos.age)
+					${repos.age}${space}
+				#end
+				#if ($repos.patient_data.gender)
+					$repos.patient_data.gender.displayName
+				#end
+     			</td></tr>
+     		#end
+     	#end
+	#end
+#end     	

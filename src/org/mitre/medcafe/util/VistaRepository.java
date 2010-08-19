@@ -106,19 +106,19 @@ public class VistaRepository extends Repository {
             Name personName = new Name();
             List<String> given = personName.getGiven();
             if (stringExists(filemanPat.getGivenName())) {
-                given.add(filemanPat.getGivenName());
+                given.add(capitalizeString(filemanPat.getGivenName()));
             }
             if (stringExists(filemanPat.getMiddleName())) {
-                given.add(filemanPat.getMiddleName());
+                given.add(capitalizeString(filemanPat.getMiddleName()));
             }
             if (stringExists(filemanPat.getSuffix())) {
                 personName.setSuffix(filemanPat.getSuffix());
             }
             if (stringExists(filemanPat.getFamilyName())) {
-                personName.setLastname(filemanPat.getFamilyName());
+                personName.setLastname(capitalizeString(filemanPat.getFamilyName()));
             }
             if (stringExists(filemanPat.getPrefix())) {
-                personName.setTitle(filemanPat.getPrefix());
+                personName.setTitle(capitalizeString(filemanPat.getPrefix()));
             }
             ret.setName(personName);
 
@@ -126,7 +126,7 @@ public class VistaRepository extends Repository {
             List<Address> addressList = ret.getAddress();
             Address address = new Address();
             address.setCity(filemanPat.getCity());
-            address.setStateOrProvince(filemanPat.getStateValue());
+            address.setStateOrProvince(capitalizeString(capitalizeString(filemanPat.getStateValue())));
             address.setZip(filemanPat.getZip4());
             List<String> streetAddresses = address.getStreetAddress();
             streetAddresses.add(filemanPat.getStreetAddressLine1());
@@ -248,7 +248,7 @@ public class VistaRepository extends Repository {
                     addressList = guardian.getAddress();
                     address = new Address();
                     address.setCity(filemanPat.getCivilGuardianCity());
-                    address.setStateOrProvince(filemanPat.getCivilGuardianStateValue());
+                    address.setStateOrProvince(capitalizeString(filemanPat.getCivilGuardianStateValue()));
                     address.setZip(filemanPat.getCivilGuardianZip4());
                     streetAddresses = address.getStreetAddress();
                     streetAddresses.add(filemanPat.getCivilGuardianStreetAddress1());
@@ -274,7 +274,7 @@ public class VistaRepository extends Repository {
                         addressList = guardian.getAddress();
                         address = new Address();
                         address.setCity(filemanPat.getNokCity());
-                        address.setStateOrProvince(filemanPat.getNokStateValue());
+                        address.setStateOrProvince(capitalizeString(filemanPat.getNokStateValue()));
                         address.setZip(filemanPat.getNokZip4());
                         streetAddresses = address.getStreetAddress();
                         streetAddresses.add(filemanPat.getNokStreetAddressLine1());
@@ -291,16 +291,16 @@ public class VistaRepository extends Repository {
                 } else if (stringExists(vaGuardName)) {
 
                     String[] nameParts = vaGuardName.split(",");
-                    guardName.setLastname(nameParts[0]);
+                    guardName.setLastname(capitalizeString(nameParts[0]));
                     given = guardName.getGiven();
                     for (int i = 1; i < nameParts.length; i++) {
-                        given.add(nameParts[i]);
+                        given.add(capitalizeString(nameParts[i]));
                     }
                     guardian.setName(guardName);
                     addressList = guardian.getAddress();
                     address = new Address();
                     address.setCity(filemanPat.getVaGuardianCity());
-                    address.setStateOrProvince(filemanPat.getVaGuardianStateValue());
+                    address.setStateOrProvince(capitalizeString(filemanPat.getVaGuardianStateValue()));
                     address.setZip(filemanPat.getVaGuardianZip4());
                     streetAddresses = address.getStreetAddress();
                     streetAddresses.add(filemanPat.getVaGuardianStreetAddress1());
@@ -317,7 +317,7 @@ public class VistaRepository extends Repository {
 
             //set gender
             Gender g = new Gender();
-            g.setDisplayName(filemanPat.getSex());
+            g.setDisplayName(filemanPat.getSex().toLowerCase());
             ret.setGender(g);
             log.finer(String.valueOf(filemanPat.getDob()));
 
@@ -480,7 +480,7 @@ public class VistaRepository extends Repository {
                     //populate
 
                     Product c = new Product();
-                    c.setValue(pa.getMessage());
+                    c.setValue(capitalizeString(pa.getMessage()));
                     allergy.setProduct(c);
                     //set time for adverse reaction
                     if (pa.getDateTime() != null) {
@@ -493,7 +493,7 @@ public class VistaRepository extends Repository {
                     }
 
                     Reaction re = new Reaction();
-                    re.setValue(pa.getSigns());
+                    re.setValue(capitalizeString(pa.getSigns()));
                     allergy.setReaction(re);
 
 
@@ -567,7 +567,7 @@ public class VistaRepository extends Repository {
                     PatientMedication pa = (PatientMedication) a;  //vista (ovid) type
                     //populate
                     //message -> narrative
-                    medication.setNarrative(pa.getMessage());
+                    medication.setNarrative(capitalizeString(pa.getMessage(), true));
                     //set time for adverse reaction
                     if (pa.getDateTime() != null) {
                         GregorianCalendar cal = new GregorianCalendar();
@@ -576,7 +576,7 @@ public class VistaRepository extends Repository {
                         medication.getEffectiveTime().add(factory.newXMLGregorianCalendar(cal));
                     }
 
-                    String medname = pa.getMedName();
+                    String medname = capitalizeString(pa.getMedName(), true);
                     MedicationInformation m = new MedicationInformation();
                     MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
                     m.setManufacturedMaterial(mm);
@@ -584,11 +584,11 @@ public class VistaRepository extends Repository {
                     medication.setMedicationInformation(m);
 
                     Dose d = new Dose();
-                    d.setValue(pa.getDose());
+                    d.setValue(capitalizeString(pa.getDose(), true));
                     medication.setDose(d);
 
                     CodedValue c = new CodedValue();
-                    c.setValue(pa.getDelivery());
+                    c.setValue(capitalizeString(pa.getDelivery(), true));
                     medication.setDeliveryMethod(c);
 
                     medication.setPatientInstructions(pa.getFrequency());
@@ -637,10 +637,13 @@ public class VistaRepository extends Repository {
     private List<Result> getVitals(String id, boolean latest) {
         RPCBrokerPooledConnection conn = null;
         List<Result> results = new ArrayList<Result>();
+       // RPCBrokerConnection conn = null;
         try {
             conn = setConnection();
+            //conn = new RPCBrokerConnection("medcafe.mitre.org", 9201, "OV1234", "OV1234!!");
             if (conn != null) {
                 log.finer("Connection made . . .");
+                conn.setContext("MSC PATIENT DASHBOARD");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 log.finer("HERE!! " + r.toString());
                 GregorianCalendar calendar = new GregorianCalendar();
@@ -650,13 +653,16 @@ public class VistaRepository extends Repository {
                 Collection<IsAPatientItem> vitalItems = r.getVitals(id, earlyDate, new Date());
                 Collection<PatientVitalEvent> vitals = new ArrayList<PatientVitalEvent>();
                 for (IsAPatientItem vitalItem : vitalItems) {
-                    vitals.add((PatientVitalEvent) vitalItem);
+                		PatientVitalEvent item = (PatientVitalEvent) vitalItem;
+                    vitals.add(item);
                 }
-                if (latest) {
+                if (vitals.size()>0) {
+                	if (latest) {
                     PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new PatientVitalComparator());
                     vitalQueue.addAll(vitals);
                     vitals = new ArrayList<PatientVitalEvent>();
                     vitals.add(vitalQueue.peek());
+                  }
                 }
                 for (PatientVitalEvent vital : vitals) {
 
@@ -699,11 +705,12 @@ public class VistaRepository extends Repository {
                     }
                 }
             }
+				//conn.close();
         } catch (Throwable e) {
             log.severe("Error retrieving patient vitals.");
             e.printStackTrace(System.err);
         } finally {
-            conn.close();
+             conn.close();
         }
         return results;
     }
@@ -933,11 +940,11 @@ public class VistaRepository extends Repository {
     private Immunization fillInImmunizationInfo(PatientImmunization imm) {
 
         Immunization immunization = new Immunization();  //hData type
-        immunization.setNarrative("Series: " + imm.getSeries() + " Reaction: " + imm.getReaction()
-                + " Contraindicated: " + imm.getContraindicated());
+        immunization.setNarrative("Series: " + capitalizeString(imm.getSeries()) + " Reaction: " + capitalizeString(imm.getReaction())
+                + " Contraindicated: " + capitalizeString(imm.getContraindicated()));
         Actor provider = new Actor();
         Person person = new Person();
-        person.setName(setPersonsName(imm.getEncounterProvider()));
+        person.setName(setPersonsName(capitalizeString(imm.getEncounterProvider())));
         provider.setPerson(person);
         immunization.setPerformer(provider);
         //populate
@@ -958,7 +965,7 @@ public class VistaRepository extends Repository {
         MedicationInformation m = new MedicationInformation();
 
         MedicationInformation.ManufacturedMaterial mm = new MedicationInformation.ManufacturedMaterial();
-        mm.setFreeTextBrandName(imm.getImmunizationName());
+        mm.setFreeTextBrandName(capitalizeString(imm.getImmunizationName()));
         m.setManufacturedMaterial(mm);
 
         immunization.setMedicationInformation(m);
@@ -1400,7 +1407,38 @@ public class VistaRepository extends Repository {
         }
 
     }
-
+   private String capitalizeString(String toBeFixed)
+   {
+   	return capitalizeString(toBeFixed, false);
+   }
+	private String capitalizeString(String toBeFixed, boolean medString)
+	{	
+		if (toBeFixed != null && !toBeFixed.equals("")){
+			String returnString = "";
+			toBeFixed = toBeFixed.toLowerCase();
+			String delimiters = ",/.;:-_()&!? []{}0123456789";
+			StringTokenizer parts = new StringTokenizer(toBeFixed, delimiters, true);
+			while (parts.hasMoreTokens())
+			{
+				String word = parts.nextToken();
+				if (delimiters.contains(word))
+				{
+					returnString = returnString + word;
+				}
+				else
+				{
+					returnString = returnString + word.substring(0,1).toUpperCase() + word.substring(1);
+				}
+			}
+			if (!medString)
+				return returnString;
+			else {
+				returnString = returnString.replace("Mg", "mg");
+				return returnString.replace("Ml", "mL");
+			}
+		}
+		return toBeFixed;
+	}
     private class PatientVitalComparator implements Comparator<PatientVitalEvent> {
 
         public PatientVitalComparator() {

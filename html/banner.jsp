@@ -18,6 +18,7 @@
 %>
 
 
+
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
@@ -28,11 +29,9 @@
     <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
-                <table border="0"><tr><th colspan="2" style="text-align:left;"><%=cache.getFirstName()%> <%=cache.getLastName()%></th></tr>
-                    <tr><td colspan="2">40 year old male</td></tr>
-                    <tr><td>BP</td><td>224/107</td></tr>
-                    <tr><td>HR</td><td>78</td></tr>
-                    <tr><td>Temp</td><td>98.5&deg;F</td></tr>
+                <table border="0">
+                 <%VelocityUtil.applyTemplate(cache.getPatientList(), "listPatientBio.vm", out); %>
+                 <%VelocityUtil.applyTemplate(cache.getVitalsList(), "listPatientVitals.vm", out); %>
                 </table>
             </p>
         </div>
@@ -46,8 +45,9 @@
     </div>
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Medicine List</strong><br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide 
-       
+            <p><strong>Medicine List</strong>
+            <%VelocityUtil.applyTemplate(cache.getMedicineList(), "listMedicineList.vm", out); %>
+           <!--> <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide <-->  
              </p>
         </div>
     </div>
@@ -57,7 +57,7 @@
             <p><strong>Problem List</strong>
     
             <%VelocityUtil.applyTemplate(cache.getProblemList(), "listProblemList.vm", out);%>
-      
+      		</p>
             <!-->br/>Heart Disease<br/>Colon Cancer<br/>Smoking<br/>Alcohol Abuse</p-->
         </div>
     </div>
@@ -70,7 +70,9 @@
     </div>
     <div class="ui-widget top-panel" id="allergies_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Allergies/Alerts</strong><br/>Penicillan Allergy</p>
+            <p><strong>Allergies/Alerts</strong>
+            	<%VelocityUtil.applyTemplate(cache.getAlertList(), "listAlertList.vm", out); %>
+            </p>
         </div>
     </div>
 

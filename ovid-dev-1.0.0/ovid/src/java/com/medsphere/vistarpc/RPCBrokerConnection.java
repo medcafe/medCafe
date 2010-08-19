@@ -580,9 +580,9 @@ public class RPCBrokerConnection implements RPCConnection {
 
         logger.debug("Setting context to: " + context);
         VistaRPC xwbCreateContext = new VistaRPC("XWB CREATE CONTEXT", ResponseType.SINGLE_VALUE);
-        if (encryptedContext == null) {
+        //if (encryptedContext == null) {
             encryptedContext = VistaRPC.encrypt(context);
-        }
+        //}
         xwbCreateContext.setParam(1, encryptedContext);
         RPCResponse response = execute(xwbCreateContext);
         if (response == null || response.getError() != null) {

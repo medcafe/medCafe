@@ -1,0 +1,32 @@
+#if ($vitalRecords)
+	#foreach ($repos in $vitalRecords)
+		#if ($repos.vitals)
+			#set ($print = 0)
+
+			#foreach(  $vitalDetail in $repos.vitals )
+				#if ($print == 0)
+					<tr><td>
+					Vitals on</td>
+					<td>${vitalDetail.resultDateTime.low.month}/${vitalDetail.resultDateTime.low.day}/
+					${vitalDetail.resultDateTime.low.year}@${vitalDetail.resultDateTime.low.hour}:${vitalDetail.resultDateTime.low.minute}</td></tr>
+					#set ($print = 1)
+				#end
+				<tr><td>$vitalDetail.resultType.value</td>
+				<td>
+				#set ($alert = 0)
+	   		#if ($vitalDetail.narrative != "")
+	   			#if ($vitalDetail.narrative.substring(0,1) == "*")
+	   				#set ($alert = 1)
+	   				<font color = "red">
+					#end
+				#end
+				$vitalDetail.resultValue
+				#if ($alert==1)
+					</font>
+				#end
+				</td></tr>
+		
+	   	#end
+	   #end
+	#end
+#end
