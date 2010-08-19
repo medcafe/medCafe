@@ -4,15 +4,15 @@
  */
 
 Timeline.GregorianDateLabeller.monthNames["vi"] = [
-    "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+    "Thï¿½ng 1", "Thï¿½ng 2", "Thï¿½ng 3", "Thï¿½ng 4", "Thï¿½ng 5", "Thï¿½ng 6", "Thï¿½ng 7", "Thï¿½ng 8", "Thï¿½ng 9", "Thï¿½ng 10", "Thï¿½ng 11", "Thï¿½ng 12"
 ];
 
 Timeline.GregorianDateLabeller.labelIntervalFunctions["vi"] = function(date, intervalUnit) {
     var text;
     var emphasized = false;
-    
+
     var date2 = Timeline.DateTime.removeTimeZoneOffset(date, this._timeZone);
-    
+
     switch(intervalUnit) {
     case Timeline.DateTime.DAY:
     case Timeline.DateTime.WEEK:
@@ -21,6 +21,6 @@ Timeline.GregorianDateLabeller.labelIntervalFunctions["vi"] = function(date, int
     default:
         return this.defaultLabelInterval(date, intervalUnit);
     }
-    
+
     return { text: text, emphasized: emphasized };
 };

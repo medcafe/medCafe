@@ -1,7 +1,7 @@
 <%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*,java.util.*" %><%@
-attribute name="relurl" required="true" rtexprvalue="true" %><%@
-attribute name="mediatype" required="false" %><%@
-attribute name="restVerb" required="false" %><%
+    attribute name="relurl" required="true" rtexprvalue="true" %><%@
+    attribute name="mediatype" required="false" %><%@
+    attribute name="restVerb" required="false" %><%
 
     MediaType mtype = null;
     if( mediatype == null )

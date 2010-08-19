@@ -1,14 +1,13 @@
-function addMedications(callObj, server, tab_num, label, patient_id, repId, patientRepId)
-{	
+function addMedications(callObj, widgetInfo)
+{
 		//For testing purposes
-		
-		var html = "<div class=\"medications" +  patient_id + "\"></div>"; 
+        // alert("entering addMedications");
+		// var html = "<div class=\"medications" +  patient_id + "\"></div>";
 		$(callObj).delay(100,function()
 		{
-			
-			 	iNettuts.refresh("yellow-widget" + tab_num);
-			
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
+			 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
+				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+				alert( serverLink);
 				$.getJSON(serverLink, function(data)
 				{
 						var toggleMinus = 'images/bullet_toggle_minus.png';
@@ -19,23 +18,23 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId, pati
 							updateAnnouncements(data);
 							return;
 						}
-						var html = v2js_listPatientMedsVert( data );  	 
-						
+						var html = v2js_listPatientMedsVert( data );
+
 						var tableObj;
-						var selectedRow=0;		
-						$("#aaa" + tab_num).append(html);
-	  										
-						//alert( $("#example" + repId).text());
-						 	tableObj = $("#medications" + patientRepId).dataTable( {
-						 	
+						var selectedRow=0;
+						// $("#aaa" + widgetInfo.order).append(html);
+						$("#tabs-2 #column1").append(html);
+
+						alert( " should have added medications to column 1");
+						 	tableObj = $("#medications" + widgetInfo.rep_patient_id).dataTable( {
+
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
-							 if ( oSettings.aiDisplay.length == 0 )
+						 	        if ( oSettings.aiDisplay.length == 0 )
 									{
 										return;
 									}
-									
-									var nTrs = $('#medications' + patientRepId+ ' tbody tr');
+									var nTrs = $('#medications' + widgetInfo.rep_patient_id+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -45,38 +44,16 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId, pati
 										if ( sGroup != sLastGroup )
 										{
 											var nGroup = document.createElement( 'tr' );
-											
-											//var collapseLines= '<img src="' + toggleMinus + '" alt="collapse this section" />';
-											//nGroup.innerHTML = "<td>" + collapseLines+ "</td>";
-											
 											var nCell = document.createElement( 'td' );
 											nCell.colSpan = iColspan;
 											nCell.className = "group";
 											nCell.innerHTML = sGroup;
-											
-											/*$('img', $(nGroup)).addClass('clickable').click(function() {
-
-												    var toggleSrc = $(this).attr('src');				
-												    if ( toggleSrc == toggleMinus ) {
-												    
-												      $(this).attr('src', togglePlus).parents('tr').siblings().fadeOut('fast');
-												
-												    } 
-												    else{
-												
-												      $(this).attr('src', toggleMinus).parents('tr').siblings().fadeIn('fast');
-												
-												    };
-												
-											});*/
-											
 											nGroup.appendChild( nCell );
 											nTrs[i].parentNode.insertBefore( nGroup, nTrs[i] );
 											sLastGroup = sGroup;
 										}
 									}
 								},
-						 	
 								"bJQueryUI": true,
 								"aoColumns": [
 										{ "bVisible": false },
@@ -85,38 +62,24 @@ function addMedications(callObj, server, tab_num, label, patient_id, repId, pati
 									],
 								"aaSortingFixed": [[ 0, 'asc' ]],
 								"aaSorting": [[ 1, 'asc' ]]
-								
-								
 						} );
-					
-					
-						var medUrl = serverLink;
-						/*$(this).delay(100,function()
-						{
-							listMedication(medUrl );
-							iNettuts.makeSortable();
-							
-						} );*/
 						//Add a button to add a new Row
-						
-						//Get the selected row if user clicks on <tr> object	 
-						$("#medications" + patientRepId + " tbody tr").click( function() {
-						
+
+						//Get the selected row if user clicks on <tr> object
+						$("#medications" + widgetInfo.rep_patient_id + " tbody tr").click( function() {
+
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
-						
+
 						//Get the selected row if user clicks on <td> object
-						$("#medications" + patientRepId + " tbody td").click( function() {
-						
+						$("#medications" + widgetInfo.rep_patient_id + " tbody td").click( function() {
+
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
 						});
-						
-						setHasContent(tab_num);
-						
+						setHasContent(widgetInfo.order);
 					} );
-					setHasContent(tab_num);
+					setHasContent(widgetInfo.order);
 		});
-		
 }

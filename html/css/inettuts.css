@@ -4,12 +4,13 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
 
 /* Columns section */
 #columns .column {
-   
-    width: 101%;
-		/* Min-height: */
-		min-height: 400px;
-		height: auto !important; 
-		height: 400px;
+    float:left;
+    width: 33.3%;
+    /* Min-height: */
+    min-height: 100px;
+    height: auto !important;
+    height: 100px;
+    margin-right:2em;
 }
 
 #columns .widget {
@@ -39,7 +40,7 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
     -webkit-border-bottom-right-radius: 2px;
     line-height: 1.2em;
     overflow: hidden;
-    height: 410px;
+    min-height: 110px;
 }
 #columns .widget .widget-content p {
     padding: 0.8em 0;
@@ -56,8 +57,8 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
     font-size: 12px;
 }
 #columns .widget .widget-content ul {
-    
-   
+
+
 }
 #columns .widget .widget-content ul.images {
     padding: 7px 0 0 0;
@@ -76,8 +77,8 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
 
 .dragIcon {
 
-	 
-	 
+
+
 }
 /* End Columns section */
 

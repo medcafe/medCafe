@@ -1,1 +1,1 @@
-Release: v0_00 Build date, time: 20100707, 1212
+Release: v0_00 Build date, time: 20100818, 2021

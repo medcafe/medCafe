@@ -79,3 +79,7 @@
     float:left;
     margin-right:0.5em;
 }
+
+.inettuts-container {
+    min-height:300px;
+}

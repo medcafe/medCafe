@@ -4,7 +4,7 @@ function initializePatient(server, isIntro)
 		var origserverLink = server;
 
 		addAssociatePatient(isIntro);
-		
+
     	var emptyVal = '';
 		$("#last_name").blur(function(){
 
@@ -86,7 +86,7 @@ function setOnSelect(isIntro, server, oldPatient)
 	 					parent.window.location.replace(indexSrv);
 	 					//populate(indexSrv, src);
 	 				});
-		    		
+
 	    		});
 
 
@@ -100,7 +100,7 @@ function setOnSelect(isIntro, server, oldPatient)
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 					retrieve( server, src, oldPatient);
-	 		
+
 	    		});
     		}
 }
@@ -108,7 +108,7 @@ function setOnSelect(isIntro, server, oldPatient)
 function refresh(patient)
 {
 		var url = "retrievePatient.jsp";
-		
+
 		//var url = "index.jsp";
 		parent.closeAllTabs("tabs");
 		populate(url, patient);
@@ -135,17 +135,17 @@ function retrieve(server, patient, oldPatient)
 							parent.$("#saveDialog").dialog("destroy");
 							//Cannot use the cached Patient as this may have been already reset
 							parent.saveWidgets(oldPatient);
-							
+
 							//
 							var cacheServer = "cachePatient.jsp?patient_id=" + patient
 		    				$.get(cacheServer, function(data)
 	 						{
 								parent.window.location.replace("index.jsp");
-								
+
 								//addScheduleButton(patient);
 								//addCreateAssocButton(patient,"physician");
 							});
-							
+
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
@@ -154,11 +154,11 @@ function retrieve(server, patient, oldPatient)
 						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient
 		    			$.get(cacheServer, function(data)
 	 					{
-								parent.window.location.replace("index.jsp");								
+								parent.window.location.replace("index.jsp");
 								//addScheduleButton(patient);
 								//addCreateAssocButton(patient,"physician");
 						});
-						
+
 					}
 					,
 					"Cancel" : function() {
@@ -173,53 +173,58 @@ function addAssociatePatient(isIntro)
 {
 	var buttonTxt = "<center><button id='addPatientAssocBtn'>Associate Patient</button></center>";
 	 $("#associatePatient").html(buttonTxt);
-	 
+
 	 $("#addPatientAssocBtn").click(function(event,patient_id){
 
 		parent.popUpAssociatePatient();
-		
+
 	});
-	
+
 }
 
 function populate(url, patient_id)
 {
 
 	 var server = url + "?patient_id=" + patient_id;
-	//parent.window.location.replace(server);
-	 
+
 	 $.getJSON(server, function(data)
 	 {
-	 	   //If no data is retrieved then just return.
-		   if (!data.widgets)
+	 	   //If no tabs are defined then just return.
+		   if (!data.tabs)
 		   {
 		   		var tab_num = parent.addTab("New", "chart");
 
 		   		parent.iNettuts.refresh("yellow-widget" + tab_num);
-				parent.iNettuts.makeSortable();
+				// parent.iNettuts.makeSortable();
 
 		   		return;
 		   }
 
-		   //alert("medCafe.patients.js : number of widgets " + data.widgets.length);
+		   //put the new tabs in
+		   for(i=0; i< data.tabs.length; i++)
+		   {
+                var label = data.tabs[i].name;
+		        // alert("adding tab " + i);
+                tab_num = parent.addTab(label, "Details");
+		   }
+		   //next put the widgets on the tabs
 		   for(i=0; i< data.widgets.length; i++)
 		   {
-		    		var link = "";
-					var label = data.widgets[i].name;
-					//var label = "Label" + i;
-					var type =  data.widgets[i].type;
-					var repId =  data.widgets[i].repository;
-					var tab_num =  data.widgets[i].tab_order;
-					var location =  data.widgets[i].location;
-					var server =  data.widgets[i].server;
-					var repPatientId =  data.widgets[i].rep_patient_id;
-					var params = "";
+                // var link = "";
+                // var label = data.widgets[i].name;
+                // //var label = "Label" + i;
+                // var type =  data.widgets[i].type;
+                // var widgetInfo.repository =  data.widgets[i].repository;
+                // var tab_num =  data.widgets[i].order;
+                // var location =  data.widgets[i].location;
+                // var server =  data.widgets[i].server;
+                // var repPatientId =  data.widgets[i].rep_patient_id;
+                // var params = "";
 
-					tab_num = parent.addTab(label, type);
-					parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, repId, repPatientId);
-
+                // parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, widgetInfo.repository, repPatientId);
+                // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
+                parent.createWidgetContent( data.widgets[i] );
 		   }
-
 	});
 }
 
@@ -280,9 +285,9 @@ function addCreateAssocButton( patient_id, role)
 	});
 }
 
-function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRepId)
+function addPatientDetail(obj, widgetInfo)
 {
-	var link =  "repository-listJSON.jsp?repository=" + repId  +"&patient_id="  + patientRepId;
+	var link =  "repository-listJSON.jsp?repository=" + widgetInfo.repository  +"&patient_id="  + widgetInfo.rep_patient_id;
 
 	$.getJSON(link, function(data)
 	{
@@ -292,31 +297,25 @@ function addPatientDetail(obj, link, tab_num, label, patientId, repId, patientRe
                   updateAnnouncements(data);
                   return;
             }
-              
-			var html = v2js_listPatientTable( data );  	  			
-	  		$("#aaa" + tab_num).append(html);
+
+			var html = v2js_listPatientTable( data );
+	  		// $("#aaa" + tab_num).append(html);
+	  		$("#tabs-2 #column2").append(html);
 
 			//Delay to let DOM refresh before adding table styling
 			$(obj).delay(500,function()
 			{
 					//alert( $("#example" + patientId).text());
 
-				$("#example" + patientRepId).dataTable( {
-
-						 						
-
-
+				$("#example" + widgetInfo.rep_patient_id).dataTable( {
 					"bJQueryUI": true,
 					"aaSortingFixed": [[ 0, 'asc' ]],
 					"aoColumns": [
 							{ "bVisible": false },
-
 								null,
-								null
-									]
-
+								null ]
 				} );
-				setHasContent(tab_num);
+				setHasContent(widgetInfo.order);
 			} );
 	});
 }

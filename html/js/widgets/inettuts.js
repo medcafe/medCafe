@@ -4,9 +4,9 @@
  */
 
 var iNettuts = {
-    
+
     jQueryWidgets : $,
-  
+
     settings : {
         columns : '.column',
         widgetSelector: '.widget',
@@ -32,63 +32,63 @@ var iNettuts = {
     },
 
     init : function () {
-    	
+    	// alert("iNettuts initialization");
         this.attachStylesheet('css/inettuts.js.css');
         this.addWidgetControls();
         this.makeSortable();
     },
-    
+
     getWidgetSettings : function (id) {
-    
+
         var $ = this.jQueryWidgets,
             settings = this.settings;
         return (id&&settings.widgetIndividual[id]) ? $.extend({},settings.widgetDefault,settings.widgetIndividual[id]) : settings.widgetDefault;
     },
-    
+
     getSettings : function (id) {
-    
+
         var $ = this.jQueryWidgets,
             settings = this.settings;
         return settings
             },
     addWidgetControls : function () {
-       
-        
+
+        // alert("Running iNettuts addWidgetControls()");
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings;
         $(settings.widgetSelector, $(settings.columns)).each(function () {
-      
-      		
+
+
             var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
-            
+
             if (thisWidgetSettings.removable) {
-            
+
                 $('<a href="#" class="remove">CLOSE</a>').mousedown(function (e) {
-                    e.stopPropagation();    
+                    e.stopPropagation();
                 }).click(function () {
                     if(confirm('This widget will be removed, ok?')) {
                         $(this).parents(settings.widgetSelector).animate({
-                            opacity: 0    
+                            opacity: 0
                         },function () {
                             $(this).wrap('<div/>').parent().slideUp(function () {
                                 $(this).remove();
-                                
+
                             });
                         });
                     }
                     return false;
                 }).appendTo($(settings.handleSelector, this));
             }
-            
+
             if (thisWidgetSettings.editable) {
-            	
+
                 $('<a href="#" class="edit">EDIT</a>').mousedown(function (e) {
-                    e.stopPropagation();    
+                    e.stopPropagation();
                 }).toggle(function () {
                 	var test = $(this).css({backgroundPosition: '-66px 0', width: '55px'})
                         .parents(settings.widgetSelector);
-                	
+
                     $(this).css({backgroundPosition: '-66px 0', width: '55px'})
                         .parents(settings.widgetSelector)
                             .find('.edit-box').show().find('input').focus();
@@ -111,10 +111,10 @@ var iNettuts = {
                     .append('</ul>')
                     .insertAfter($(settings.handleSelector,this));
             }
-            
+
             if (thisWidgetSettings.collapsible) {
                 $('<a href="#" class="collapse">COLLAPSE</a>').mousedown(function (e) {
-                    e.stopPropagation();    
+                    e.stopPropagation();
                 }).toggle(function () {
                     $(this).css({backgroundPosition: '-38px 0'})
                         .parents(settings.widgetSelector)
@@ -127,28 +127,28 @@ var iNettuts = {
                     return false;
                 }).prependTo($(settings.handleSelector,this));
             }
-            
+
               if (thisWidgetSettings.resizable) {
 	            	var test = $(settings.handleSelector,this);
 	            	var resizeButton = $(test).find('.maximize');
 	            	//alert('test close parent ' + $(test).text());
 	                $(resizeButton).mousedown(function (e) {
-	                    e.stopPropagation();    
+	                    e.stopPropagation();
 	                }).click(function () {
-	                    
+
 						displayDialog(tabNum);
-	                    
+
 	                    return false;
 	                });
 	            }
         });
-        
+
         $('.edit-box').each(function () {
             $('input',this).keyup(function () {
                 $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
             });
             $('ul.colors li',this).click(function () {
-                
+
                 var colorStylePattern = /\bcolor-[\w]{1,}\b/,
                     thisWidgetColorClass = $(this).parents(settings.widgetSelector).attr('class').match(colorStylePattern)
                 if (thisWidgetColorClass) {
@@ -157,47 +157,48 @@ var iNettuts = {
                         .addClass($(this).attr('class').match(colorStylePattern)[0]);
                 }
                 return false;
-                
+
             });
         });
-        
+
     },
-    
+
     refresh : function (id) {
-       
+        // alert("Running iNettuts refresh()");
+
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings;
-            
+
         $(settings.widgetSelector, $(settings.columns)).each(function () {
-      
+
 	      	//alert("this id " + this.id);
 	      	//Only refresh for the recently moved tab
 	      	if (this.id === id)
 	      	{
 	            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
-	      
+
 	        	if (thisWidgetSettings.editable) {
-	            	
+
 	            	//Want to be able to identify the <a> and refresh the method - without readding
 	            	var test = $(settings.handleSelector,this);
-	            
+
 	            	var widgetId = $(test).attr('id');
-	      		
+
 	            	var editButton = $(test).find('.edit');
-	           
+
 	                var events = $(editButton).data("events");
 	                //
 	                var tabNum = id.substring("yellow-widget".length,id.length);
-	                
+
 	                $(editButton).mousedown().toggle(function(){
-		                     
+
 		                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
 		                        .parents(settings.widgetSelector)
 		                            .find('.edit-box').show().find('input').focus();
 		                    return true;
 		                },function () {
-		                  
+
 		                    $(this).css({backgroundPosition: '', width: ''})
 		                        .parents(settings.widgetSelector)
 		                            .find('.edit-box').hide();
@@ -205,54 +206,54 @@ var iNettuts = {
 		                });
 	                //});
 	            }
-	      
+
 	            if (thisWidgetSettings.removable) {
 	            	var test = $(settings.handleSelector,this);
 	            	var closeButton = $(test).find('.remove');
 	            	//alert('test close parent ' + $(test).text());
 	                $(closeButton).mousedown(function (e) {
-	                    e.stopPropagation();    
+	                    e.stopPropagation();
 	                }).click(function () {
 	                    if(confirm('This widget will be removed, ok?')) {
 	                    	 removeWidget(tabNum);
 	                        $(this).parents(settings.widgetSelector).animate({
-	                            opacity: 0    
+	                            opacity: 0
 	                        },function () {
-	                        	
+
 	                            $(this).wrap('<div/>').parent().slideUp(function () {
 	                                $(this).remove();
-	                               
-                               
+
+
 	                            });
 	                        });
 	                    }
 	                    return false;
 	                });
 	            }
-	            
+
 	            if (thisWidgetSettings.resizable) {
 	            	var test = $(settings.handleSelector,this);
 	            	var resizeButton = $(test).find('.maximize');
 	            	//alert('test close parent ' + $(test).text());
 	                $(resizeButton).mousedown(function (e) {
-	                    e.stopPropagation();    
+	                    e.stopPropagation();
 	                }).click(function () {
-	                    
+
 						displayDialog(tabNum);
-	                    
+
 	                    return false;
 	                });
 	            }
-	          
-	            
+
+
 	            if (thisWidgetSettings.collapsible) {
 	            	var test = $(settings.handleSelector,this);
 	            	var collapseButton = $(test).find('.collapse');
-	            	
+
 	                $(collapseButton).mousedown(function (e) {
-	                	
-	                    e.stopPropagation();    
-	                   
+
+	                    e.stopPropagation();
+
 	                }).toggle(function () {
 	                    $(this).css({backgroundPosition: '-38px 0'})
 	                        .parents(settings.widgetSelector)
@@ -265,16 +266,16 @@ var iNettuts = {
 	                    return false;
 	                });
 	            }
-            
+
             }
         });
-        
+
         $('.edit-box').each(function () {
             $('input',this).keyup(function () {
                 $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
             });
             $('ul.colors li',this).click(function () {
-                
+
                 var colorStylePattern = /\bcolor-[\w]{1,}\b/,
                     thisWidgetColorClass = $(this).parents(settings.widgetSelector).attr('class').match(colorStylePattern)
                 if (thisWidgetColorClass) {
@@ -283,18 +284,20 @@ var iNettuts = {
                         .addClass($(this).attr('class').match(colorStylePattern)[0]);
                 }
                 return false;
-                
+
             });
         });
-        
+
     },
-    
+
     attachStylesheet : function (href) {
         var $ = this.jQueryWidgets;
         return $('<link href="' + href + '" rel="stylesheet" type="text/css" />').appendTo('head');
     },
-    
+
     makeSortable : function () {
+        // alert("Running iNettuts makeSortable()");
+
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings,
@@ -309,13 +312,13 @@ var iNettuts = {
                     }
                 });
                 /*var notSort = $('> div:not(' + notSortable + ')', settings.columns);
-                $('> div:not(' + notSortable + ')', settings.columns).each(function (i) 
+                $('> div:not(' + notSortable + ')', settings.columns).each(function (i)
                 {
                 	alert("the following are sortable " + $(this).attr('id'));
                 });*/
                 return $('> div:not(' + notSortable + ')', settings.columns);
             })();
-        
+
         $sortableItems.find(settings.handleSelector).css({
             cursor: 'move'
         }).mousedown(function (e) {
@@ -323,16 +326,16 @@ var iNettuts = {
             $(this).parent().css({
                 width: $(this).parent().width() + 'px'
             });
-            
+
         }).mouseup(function () {
-        
+
             if(!$(this).parent().hasClass('dragIcon')) {
-                $(this).parent().css({height:'', width:''});     
+                $(this).parent().css({height:'', width:''});
             } else {
                 $(settings.columns).sortable('disable');
             }
         });
-       
+
         $(settings.columns).sortable({
             items: $sortableItems,
             connectWith: $(settings.columns),
@@ -357,12 +360,12 @@ var iNettuts = {
                            	$(this).show();
                             });
                             //Make sure that all sizes reset
-                
+
                 $(settings.columns).sortable('enable');
             }
         });
     }
-  
+
 };
 
 iNettuts.init();

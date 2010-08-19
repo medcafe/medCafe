@@ -1,18 +1,9 @@
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
-	String tabNum = request.getParameter("tab_num");
-	if (tabNum == null)
-		tabNum = "2";
-		
-	String title = request.getParameter("title");
-	if (title == null)
-		title = "Title";
-	
-	String type = request.getParameter("type");
-	if (type == null)
-		type = "Chart";
-		
-	
+	String tabNum = WebUtils.getOptionalParameter(request, "tab_num", "2");
+	String title = WebUtils.getOptionalParameter(request, "title", "Title");
+	String type = WebUtils.getOptionalParameter(request, "type", "Chart");
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -21,9 +12,9 @@
         return;
     }
     String patientId = cache.getDatabasePatientId();
-	
+
 	System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
-	
+
 %>
 <script>
 
@@ -35,34 +26,34 @@ $(function(){
 	filterType();
 	bindClose();
 
-	$(".widget-content").droppable({
-      drop: function(event, ui) 
+	$(".inettuts-container").droppable({
+      drop: function(event, ui)
       {
-      
+
       		var hasContentObj = $(this).find("#hasContent");
       		var hasContent = $(hasContentObj).attr("custom:hasContent");
       		var img = $(dragObj).find('img');
-      		
+
 			if (img.length == 0)
 			{
 				alert("this is not a draggable object");
 				//This is not a droppable object
 				return;
 			}
-			
+
 			var dragObj = $(ui.draggable)
        		var widgetId = $(ui.draggable).html();
-       		
-       		//Make 
+
+       		//Make
 			var link = $(dragObj).find('img').attr("custom:url")
 			//alert("tabs-template.jsp drag Obj " + $(dragObj).html());
 			if (typeof(link) == "undefined")
 			{
 				return;
 			}
-			
+
        		var text = $(dragObj).find('p').text();
-								
+
        		var imgHtml = $(dragObj).find('img').html();
        		var label = $(dragObj).find('img').attr("src");
 			//var link = $(dragObj).find('img').attr("custom:url");
@@ -76,38 +67,38 @@ $(function(){
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var repPatientJSON;
 			$.getJSON(serverLink,function(data)
-			{		      	  	  
-					repPatientJSON = data;	  
+			{
+					repPatientJSON = data;
 					var len = repPatientJSON.repositories.length;
 					var x;
 					//{"repositories":[{"id":2,"repository":"OurVista"},{"id":2,"repository":"local"}]}s
 					for (x in repPatientJSON.repositories)
-					{	  		
+					{
 						test = repPatientJSON.repositories[x].repository;
 						if (test == repository)
 						{
 							  repPatientId = repPatientJSON.repositories[x].id;
 							  //alert("tabs-template.jsp getRepId rep id: " + repPatientId);
 						}
-							  		
+
 					}
-					
-					if (hasContent == "false")
-					{
-						//No content : Use the current Tab
+
+					// if (hasContent == "false")
+					// {
+					// 	//No content : Use the current Tab
 						//addChart(this, link, "<%=tabNum%>");
-						
+
 						createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository, repPatientId);
 						$(hasContentObj).attr("custom:hasContent",true);
-						
-						renameTab("<%=tabNum%>",text);
-					}
-					else
-					{
-						//Tab already has content Create a new Tab
-						createLink(patientId,link, text, type ,params, repository, repPatientId);
-					}
-		      
+
+						// renameTab("<%=tabNum%>",text);
+					// }
+					// else
+					// {
+					// 	//Tab already has content Create a new Tab
+					// 	createLink(patientId,link, text, type ,params, repository, repPatientId);
+					// }
+
 		   });
 		   }
     });
@@ -119,58 +110,42 @@ $(function(){
 function filterType()
 {
 	//alert("tabs_template.jsp : filterType try to bind the FILTERS for type <%=type%> looking for javascript function filterDate<%=type%>");
-			
-	var srcName = "js/filterDate<%=type%>.js"; 
+
+	var srcName = "js/filterDate<%=type%>.js";
 	if (typeof filterDate<%=type%> == 'undefined')
-	{		
+	{
 		$.getScript(srcName, function(){
-	
+
 			//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
-			
-			$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat) 
-			{	 		
-				var tabNum = "<%=tabNum%>";		
+
+			$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat)
+			{
+				var tabNum = "<%=tabNum%>";
 				filterDate<%=type%>(startDate, endDate,filterCat, tabNum );
-					
-			});	
-			
+
+			});
+
 		});
 	}
 	else
 	{
 		//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
-			
-		$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat) 
-		{	 		
-				var tabNum = "<%=tabNum%>";		
+
+		$(document).bind('FILTER_DATE', function(event, startDate, endDate, filterCat)
+		{
+				var tabNum = "<%=tabNum%>";
 				filterDate<%=type%>(startDate, endDate, filterCat, tabNum );
-					
-		});	
-	}
-	
-	//No longer Needed as FILTER handles all filtering at once
-	/*var catSrcName = "js/filterCategory<%=type%>.js"; 
-	if (typeof filterCategory<%=type%> != 'undefined')
-	{
-		$.getScript(catSrcName, function(){
-		
-			
-			$(document).bind('FILTER_CATEGORY', function(event, filterCategory) 
-				{	 		
-					var tabNum = "<%=tabNum%>";
-					filterCategory<%=type%>( filterCategory , tabNum);
-					
-				});	
+
 		});
-	}*/
+	}
 }
 
 function bindClose()
 {
 
-			$(document).bind('CLOSE_TAB', function(event, tabSelected) 
-			{	 	
-				
+			$(document).bind('CLOSE_TAB', function(event, tabSelected)
+			{
+
 				var tabNum = "<%=tabNum%>";
 				if (tabNum == tabSelected)
 				{
@@ -184,43 +159,12 @@ function bindClose()
 <div class="id" id="<%=title%>"></div>	
 <!---<div id="columns"><--->
 
-	<div id="column<%=tabNum%>" class="column">
-			<div class="widget color-<%=tabNum%>" id="yellow-widget<%=tabNum%>">
-				<div style="cursor: move;" class="widget-head">
-					   <a href="#" class="collapse">COLLAPSE</a>
-					   <h3><%=title%></h3>
-					   <a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a>
-					   <a href="#" class="maximize">MAXIMIZE</a>
-				</div>
-				<div class="edit-box" style="display: none;">
-					                
-					                <ul><li class="item">
-					                	<label>Change the title?</label>
-					                	<input value="<%=title%>"></li></ul>
-					                	
-					                <li class="item"><label>Available colors:</label>
-					                <ul class="colors"><li class="color-1></li>
-					                <li class="color-2"></li><li class="color-3"></li>
-					                <li class="color-4"></li><li class="color-5"></li>
-					                <li class="color-6"></li></ul></li>
-				</div>
-					                
-				<div class="widget-content no-copy" id="widget-content<%=tabNum%>">
+}
+</script>
 
-						
-					    	<p><div id="aaa<%=tabNum%>" class="no-copy">
-					    		</div>
-					    	</p>
-					    
-					    	<div id="dialog<%=tabNum%>">
-					    		<div id="modalaaa<%=tabNum%>"></div>
-					    	</div>
-					    	<div id="hasContent" custom:hasContent="false"></div>
-					    	
-				</div>
-	       </div>
-    </div>
+<div class="id" id="<%=title%>"></div>
+<div id="columns">
+	<div id="column1" class="column inettuts-container"></div>
+	<div id="column2" class="column inettuts-container"></div>
 </div>
-
-
 

@@ -7,6 +7,6 @@
     // cache.run();
     session.setAttribute(PatientCache.KEY, cache);
     System.out.println("cachePatient.jsp getting patient id " + patientId  );
-	
-    //response.sendRedirect("index.jsp");
+
+    response.sendRedirect("index.jsp");
 %>
