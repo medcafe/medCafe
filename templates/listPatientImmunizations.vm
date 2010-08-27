@@ -1,4 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="immunizations$patient_id">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="Immunizations$patient_id">
 <thead><tr><th></th><th></th><th></th></tr></thead><tbody>
 #foreach( $immunization in $immunizations )
 <tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Immunization</td><td value="$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName">$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td></tr>

@@ -16,7 +16,7 @@
 	//String repository = cache.getRepository();
 	String repository = request.getParameter("repository");
 	//String patientId = cache.getRepoPatientId();
-	String patientId = request.getParameter("patient_id");
+	String patientId = request.getParameter("patient_rep_id");
 	
 	String listRep =  "/repositories/" + repository + "/patients";
 	if (patientId != null)

@@ -1,8 +1,8 @@
-function processViewerImages(repId, patientId, patientRepId, data, type, tab_num)
+function processViewerImages(widgetInfo, data)
 {
 		var server = $('#viewerImageName').text();
            	 
-        $("#viewer" + tab_num).iviewer(
+        $("#viewer" + widgetInfo.tab_num).iviewer(
         {
             src: server
         });       

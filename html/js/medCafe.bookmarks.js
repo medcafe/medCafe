@@ -120,12 +120,12 @@ function processInput(aData, row_num)
 	return "";
 	//return paramStr;
 }
-function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
+function addBookmarks(callObj, widgetInfo, data)
 {
 		//var onSubmit = 'onSubmit="$('#test').load('saveBookmarks.jsp?patient_id=<%=patient_id%>')'';"
-		var html = "<div class=\"bookmarks" +  patient_id + "\"></div>";
-
-		$(callObj).delay(200,function()
+		//var html = "<div class=\"bookmarks" +  patient_id + "\"></div>";
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+	/*	$(callObj).delay(200,function()
 		{
 
 			 	iNettuts.refresh("yellow-widget" + tab_num);
@@ -133,16 +133,30 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
 				$.getJSON(serverLink, function(data)
 				{
-
-						var html = v2js_listPatientsBookmarksTable( data );
-
+*/
+						var dataObject = eval('(' + data + ')');
+					//	var html = v2js_listPatientsBookmarksTable( data );
+					var html = window["v2js_" + widgetInfo.template](dataObject);
 						var tableObj;
 						var selectedRow=0;
-						// $("#aaa" + tab_num).append(html);
+					/*	// $("#aaa" + tab_num).append(html);
 						$("#tabs-2 #column1").append(html);
 
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#bookmarks" + patient_id).dataTable( {
+						 	tableObj = $("#bookmarks" + patient_id).dataTable( {  */
+				
+					if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
+					//	$("#aaa" + tab_num).append(html);
+	  										
+						//alert( $("#example" + repId).text());
+						 	tableObj = $("#"+widgetInfo.type + widgetInfo.patient_id).dataTable( {
+						 	
+				
 								"aaSorting": [[ 0, "desc" ]]
 								,"bJQueryUI": true
 								,"fnDrawCallback": function() {
@@ -152,22 +166,22 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 
 						//Add a button to add a new Row
 						var buttonText = '<p><button type="button" id="addRowButton">Add Row</button><button type="button" id="deleteRowButton">Delete Row</button></p>';
-						$("#bookmarks" + patient_id).append(buttonText);
+						$("#" + widgetInfo.type + widgetInfo.patient_id).append(buttonText);
 
 						//Make sure that values are updated in the tableObj
-						makeEditable(tableObj, patient_id);
+						makeEditable(tableObj, widgetInfo.patient_id);
 
 						initButtons();
 
 						//Get the selected row if user clicks on <tr> object
-						$("#bookmarks" + patient_id + " tbody tr").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.patient_id + " tbody tr").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 
 						//Get the selected row if user clicks on <td> object
-						$("#bookmarks" + patient_id + " tbody td").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.patient_id + " tbody td").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
@@ -176,7 +190,7 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 						$("#addRowButton").bind("click",{table:tableObj},
 								function(e)
 								{
-									fnClickAddRow(tableObj, patient_id);
+									fnClickAddRow(tableObj, widgetInfo.patient_id);
 
 								});
 
@@ -187,18 +201,18 @@ function addBookmarks(callObj, server, tab_num, label, patient_id, repId)
 								});
 
 						//Put in code to call saveData
-						$('#bookmarkForm' + patient_id).submit( function() {
+						$('#'+ widgetInfo.type + 'Form' + widgetInfo.patient_id).submit( function() {
 
-							gatherData(tableObj, patient_id);
+							gatherData(tableObj, widgetInfo.patient_id);
 							return false;
 						} );
 
-						setHasContent(tab_num);
-
+						setHasContent(widgetInfo.order);
+/*
 					} );
 					setHasContent(tab_num);
 		});
-
+  */
 }
 
 function makeEditable(tableObj, patient_id)

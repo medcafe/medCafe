@@ -7,12 +7,14 @@
 	if (patient_id == null)
 		patient_id = Constants.DEFAULT_PATIENT;
 	//Just for testing purposes
-
+   String rep_patient_id = request.getParameter("patient_rep_id");
+   if (rep_patient_id == null)
+   	rep_patient_id = Constants.DEFAULT_PATIENT;
 	String repository = request.getParameter("repository");
 	if (repository == null)
 		repository = Constants.DEFAULT_REPOSITORY;
 	
-	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/allergies";
+	String jspUrl =  "/repositories/" + repository + "/patients/" + rep_patient_id + "/allergies";
 	
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;

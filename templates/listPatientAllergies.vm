@@ -1,4 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="allergies$patient_id">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="Allergies$patient_id">
 <thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>
 #foreach( $allergy in $allergies) 
 <tr class="gradeX"><td value="$allergy.product.value">$allergy.product.value</td><td value="$allergy.reaction.value">$allergy.reaction.value</td></tr>

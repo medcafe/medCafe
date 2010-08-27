@@ -11,8 +11,11 @@
 	String repository = request.getParameter("repository");
 	if (repository == null)
 		repository = Constants.DEFAULT_REPOSITORY;
+	String rep_patient_id = request.getParameter("patient_rep_id");
+	if (rep_patient_id == null)
+		rep_patient_id = Constants.DEFAULT_PATIENT;
 	
-	String jspUrl =  "/repositories/" + repository + "/patients/" + patient_id + "/medications";
+	String jspUrl =  "/repositories/" + repository + "/patients/" + rep_patient_id + "/medications";
 	
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;

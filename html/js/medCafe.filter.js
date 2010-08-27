@@ -157,7 +157,7 @@ function setChecked(categories)
 			}
 }		
 //Any javascript that needs to be run after page is loaded - though thi smay not be required
-function processFilter(repId, patientId, patientRepId, data, type)
+function processFilter(widgetInfo, data)
 {
 		//alert("medCafe.filter.js: processFilter. Start");
 		

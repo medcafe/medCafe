@@ -3,7 +3,8 @@
 	String tabNum = WebUtils.getOptionalParameter(request, "tab_num", "2");
 	String title = WebUtils.getOptionalParameter(request, "title", "Title");
 	String type = WebUtils.getOptionalParameter(request, "type", "Chart");
-
+	String location = WebUtils.getOptionalParameter(request, "location", "center");
+	
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -52,20 +53,41 @@ $(function(){
 				return;
 			}
 
-       		var text = $(dragObj).find('p').text();
+       	//	var text = $(dragObj).find('p').text();
 
-       		var imgHtml = $(dragObj).find('img').html();
-       		var label = $(dragObj).find('img').attr("src");
+       	//	var imgHtml = $(dragObj).find('img').html();
+       	//	var label = $(dragObj).find('img').attr("src");
 			//var link = $(dragObj).find('img').attr("custom:url");
-			var type = $(dragObj).find('img').attr("custom:type");
-			var html = $(dragObj).find('img').attr("custom:html");
-			var method = $(dragObj).find('img').attr("custom:method");
-			var patientId = "<%=patientId%>";
-			var params = $(dragObj).find('img').attr("custom:params");
-			var repository = $(dragObj).find('img').attr("custom:repository");
-			var repPatientId ;
+		//	var type = $(dragObj).find('img').attr("custom:type");
+		//	var html = $(dragObj).find('img').attr("custom:html");
+		//	var method = $(dragObj).find('img').attr("custom:method");
+		//	var patientId = "<%=patientId%>";
+		//	var params = $(dragObj).find('img').attr("custom:params");
+		//	var repository = $(dragObj).find('img').attr("custom:repository");
+		//	var repPatientId ;
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
+			var widgetInfo = {
+				"id" : $(ui.draggable).html(),
+				"patient_id" : "<%=patientId%>",
+				"rep_patient_id" : "",
+				"location" : "<%=location%>",
+				"repository" : $(dragObj).find('img').attr("custom:repository"),
+				"type" : $(dragObj).find('img').attr("custom:type"),
+				"name" : $(dragObj).find('p').text(),
+				"server" : $(dragObj).find('img').attr("custom:url"),
+				"tab_num": "<%=tabNum%>",
+				"params" : $(dragObj).find('img').attr("custom:params"),
+				"column" : "1",
+				"script" : $(dragObj).find('img').attr("custom:script"),
+				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
+				"template" : $(dragObj).find('img').attr("custom:template")
+			}; 
+		//	alert (widgetInfo.script + " " + widgetInfo.script_file + " " + widgetInfo.template + " " + widgetInfo.name);
+			if (ui.position["left"] > 550)
+				widgetInfo.column = "2";
+
 			var repPatientJSON;
+		
 			$.getJSON(serverLink,function(data)
 			{
 					repPatientJSON = data;
@@ -75,9 +97,10 @@ $(function(){
 					for (x in repPatientJSON.repositories)
 					{
 						test = repPatientJSON.repositories[x].repository;
-						if (test == repository)
+						if (test == widgetInfo.repository)
 						{
-							  repPatientId = repPatientJSON.repositories[x].id;
+							  widgetInfo.rep_patient_id = repPatientJSON.repositories[x].id;
+							  //repPatientId = repPatientJSON.repositories[x].id;
 							  //alert("tabs-template.jsp getRepId rep id: " + repPatientId);
 						}
 
@@ -88,7 +111,7 @@ $(function(){
 					// 	//No content : Use the current Tab
 						//addChart(this, link, "<%=tabNum%>");
 
-						createWidgetContent(patientId,link, text, type ,"<%=tabNum%>",params, repository, repPatientId);
+						createWidgetContent(widgetInfo);
 						$(hasContentObj).attr("custom:hasContent",true);
 
 						// renameTab("<%=tabNum%>",text);

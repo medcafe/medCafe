@@ -1,4 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="supportInfo$patient_id">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="Support$patient_id">
 <thead><tr><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>
 
 #set ($contactNumber = 0)

@@ -1,4 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example$patient_id"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="Detail$patient_id"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>
 
 #* The $orderno is used to sort the rows into an order that makes sense for a patient.  $orderno goes in the first column of every row and is the
    first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order 

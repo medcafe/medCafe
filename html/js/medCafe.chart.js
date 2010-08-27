@@ -1,11 +1,11 @@
 var alreadyFetched = {};
 var data = [];
-function processChart(repId, patientId, patientRepId, data, type,tab_num)
+function processChart(widgetInfo, data)
 {	
 	// fetch one series, adding to what we got
 
    	// find the URL in the link right next to us
-    var dataurl =  "chartJSON.jsp?patient_id=" + patientId;
+    var dataurl =  "chartJSON.jsp?patient_id=" + widgetInfo.patient_id;
 
     // then fetch the data with jQuery
 

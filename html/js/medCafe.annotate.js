@@ -1,6 +1,6 @@
-function processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num)
+function processAnnotateImages(widgetInfo, data)
 {
-		$("#toAnnotate" + tab_num).annotateImage({
+		$("#toAnnotate" + widgetInfo.tab_num).annotateImage({
 					editable: true,
 					useAjax: false,
 					notes: [ { "top": 286,

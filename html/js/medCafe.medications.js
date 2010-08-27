@@ -1,40 +1,48 @@
-function addMedications(callObj, widgetInfo)
+function addMedications(callObj, widgetInfo, data)
 {
 		//For testing purposes
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
         // alert("entering addMedications");
+        
 		// var html = "<div class=\"medications" +  patient_id + "\"></div>";
-		$(callObj).delay(100,function()
+	/*	$(callObj).delay(100,function()
 		{
 			 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
 				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 				alert( serverLink);
 				$.getJSON(serverLink, function(data)
-				{
+				{     */
+				
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
+							var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (data.announce)
+						if (dataObject.announce)
 						{
-							updateAnnouncements(data);
+							updateAnnouncements(dataObject);
 							return;
 						}
-						var html = v2js_listPatientMedsVert( data );
-
+						//var html = v2js_listPatientMedsVert( data );
+						var html = window["v2js_" + widgetInfo.template](dataObject);
 						var tableObj;
-						var selectedRow=0;
-						// $("#aaa" + widgetInfo.order).append(html);
-						$("#tabs-2 #column1").append(html);
-
-						alert( " should have added medications to column 1");
-						 	tableObj = $("#medications" + widgetInfo.rep_patient_id).dataTable( {
-
+							if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
+					//	$("#aaa" + tab_num).append(html);
+	  										
+						//alert( $("#example" + repId).text());
+						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
 						 	        if ( oSettings.aiDisplay.length == 0 )
 									{
 										return;
 									}
-									var nTrs = $('#medications' + widgetInfo.rep_patient_id+ ' tbody tr');
+									var nTrs = $('#' + widgetInfo.type + widgetInfo.rep_patient_id+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -66,20 +74,20 @@ function addMedications(callObj, widgetInfo)
 						//Add a button to add a new Row
 
 						//Get the selected row if user clicks on <tr> object
-						$("#medications" + widgetInfo.rep_patient_id + " tbody tr").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.rep_patient_id + " tbody tr").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 
 						//Get the selected row if user clicks on <td> object
-						$("#medications" + widgetInfo.rep_patient_id + " tbody td").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.rep_patient_id + " tbody td").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
 						});
 						setHasContent(widgetInfo.order);
-					} );
+			/*		} );
 					setHasContent(widgetInfo.order);
-		});
+		});   */
 }

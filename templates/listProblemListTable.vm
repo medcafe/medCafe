@@ -3,7 +3,7 @@
 		#set($ActiveStatus="Active")
 		#set($InActiveStatus="Inactive")
 		#if( $count == 0 )
-			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList$patient_id">
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id="Problem$patient_id">
 			<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>
 		#end
 	

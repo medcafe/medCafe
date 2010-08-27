@@ -1,9 +1,7 @@
-function processSymptoms(repId, patientId, patientRepId, data, type)
+function processSymptoms(widgetInfo, data)
 {
 
-		var serverLink =  "listHistoryTemplateJSON.jsp?repository=" + repId + "&patient_id=" + patientId + "&patient_rep_id=" + patientRepId;
-		$.getJSON(serverLink, function(data)
-			{
+
 					$('#templateList').html("");
 		  			var html = v2js_listHistoryTemplate( data );  
 		  				
@@ -15,7 +13,7 @@ function processSymptoms(repId, patientId, patientRepId, data, type)
 						
 					$('#saveButton').click(function() {
   							
-  						var saveLink = "saveHistory.jsp?patient_id=" + patientId;
+  						var saveLink = "saveHistory.jsp?patient_id=" + widgetInfo.patient_id;
   						var checkedVals = $("input:checked");
 		
   						for (i=0; i < checkedVals.length; i++)
@@ -27,5 +25,5 @@ function processSymptoms(repId, patientId, patientRepId, data, type)
 								
 						});
 					});
-			});
+		
 }

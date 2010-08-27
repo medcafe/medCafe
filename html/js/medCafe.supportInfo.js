@@ -1,32 +1,39 @@
-function addSupportInfo(callObj, server, tab_num, label, patient_id, repId, patientRepId)
+function addSupportInfo(callObj, widgetInfo, data)
 {	
 		//For testing purposes
-		
-		var html = "<div class=\"supportInfo" +  patient_id + "\"></div>"; 
-		$(callObj).delay(100,function()
-		{
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+		//var html = "<div class=\"supportInfo" +  widgetInfo.rep_patient_id + "\"></div>"; 
+		//$(callObj).delay(100,function()
+		//{
 			
-			 	iNettuts.refresh("yellow-widget" + tab_num);
+		//	 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
 			
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
-				$.getJSON(serverLink, function(data)
-				{
+		//		var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+		//		$.getJSON(serverLink, function(data)
+		//		{
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
+						var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (data.announce)
+						if (dataObject.announce)
 						{
-							updateAnnouncements(data);
+							updateAnnouncements(dataObject);
 							return;
 						}
-						var html = v2js_listSupportInfo( data );  	 
-						
+						//var html = v2js_listSupportInfo( dataObject );  	 
+						var html = window["v2js_" + widgetInfo.template](dataObject);
 						var tableObj;
-						var selectedRow=0;		
-						$("#aaa" + tab_num).append(html);
+						var selectedRow=0;	
+							if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
+					//	$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#supportInfo" + patientRepId).dataTable( {
+						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -35,7 +42,7 @@ function addSupportInfo(callObj, server, tab_num, label, patient_id, repId, pati
 										return;
 									}
 									
-									var nTrs = $('#supportInfo' + patientRepId+ ' tbody tr');
+									var nTrs = $('#'+ widgetInfo.type + widgetInfo.rep_patient_id + ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -92,7 +99,7 @@ function addSupportInfo(callObj, server, tab_num, label, patient_id, repId, pati
 						} );
 					
 					
-						var supportUrl = serverLink;
+						var supportUrl = widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 						/*$(this).delay(100,function()
 						{
 							listSupportInfo(supportUrl );
@@ -103,10 +110,10 @@ function addSupportInfo(callObj, server, tab_num, label, patient_id, repId, pati
 						
 					
 						
-						setHasContent(tab_num);
+						setHasContent(widgetInfo.order);
 						
-					} );
-					setHasContent(tab_num);
-		});
+	//				} );
+	//				setHasContent(widgetInfo.order);
+	//	});
 		
 }

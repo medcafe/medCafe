@@ -85,24 +85,25 @@ $(document).ready( function() {
 	//End of code to initialize page
 	
 	//Code to create widgets content
-	function createWidgetContent(patientId,link, label, type ,tab_num)
+	function createWidgetContent(widgetInfo)
 	{
+		var type = widgetInfo.type;
 		if (type === "chart")	
 		{					
-			addChart(this, link, tab_num);
+			addChart(this, widgetInfo);
 		}
 		else if  (type == "repository")
 		{
 			
-			addRepository(this, link, tab_num, label)
+			addRepository(this, widgetInfo)
 		}
 		else
 		{
-			addChart(this, link, tab_num);
+			addChart(this, widgetInfo);
 		}					
 	}
 	
-	function addRepository(callObj, server, tab_num, label)
+	function addRepository(callObj, widgetInfo)
 	{
 	
 		var repId = "OurVista";
@@ -112,11 +113,11 @@ $(document).ready( function() {
 		$(callObj).delay(200,function()
 		{
 			
-				iNettuts.refresh("yellow-widget" + tab_num);
+				iNettuts.refresh("yellow-widget" + widgetInfo.order);
 				
-				var serverLink =  server + "c/repositories/" + repId + "/patients";
+				var serverLink =  widgetInfo.server + "c/repositories/" + repId + "/patients";
 						    
-				$("#aaa" + tab_num).load(serverLink);
+				$("#aaa" + widgetInfo.order).load(serverLink);
 				
 				$(this).delay(10000,function()
 				{
@@ -129,20 +130,20 @@ $(document).ready( function() {
 									
 						$(this).delay(1000,function()
 						{
-							listRepository(server, repId );
+							listRepository(widgetInfo.server, repId );
 							iNettuts.makeSortable();
 							
 						} );
 						
-						setHasContent(tab_num);
+						setHasContent(widgetInfo.order);
 						
 					} );
-					setHasContent(tab_num);
+					setHasContent(widgetInfo.order);
 		});
 		
 	}
 		
-	function addChart(callObj, server, tab_num)
+	function addChart(callObj, widgetInfo)
 	{
 		//alert("callObj " + callObj);
 		//Delay to let the DOM refresh
@@ -150,52 +151,52 @@ $(document).ready( function() {
 		{
 			//alert("image server " + server);
 			
-			iNettuts.refresh("yellow-widget" + tab_num);
+			iNettuts.refresh("yellow-widget" + widgetInfo.order);
 									
-			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
+			$("#aaa" + widgetInfo.order).append('<iframe id="iframe'+ widgetInfo.order+ '" name="iframe'+ widgetInfo.order+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num); 
+				$('#iframe'+ widgetInfo.order).attr('src', widgetInfo.server +"?order=" + widgetInfo.order); 
 			} );				
 				
 			iNettuts.makeSortable();
 			
-			setHasContent(tab_num);
+			setHasContent(widgetInfo.order);
 		} );
 	}
 	
-	function addCoverflow(callObj, server, tab_num)
+	function addCoverflow(callObj, server, order)
 	{
 		
 		//Delay to let the DOM refresh
 		$(callObj).delay(100,function()
 		{
-			iNettuts.refresh("yellow-widget" + tab_num);
+			iNettuts.refresh("yellow-widget" + order);
 									
-			$("#aaa" + tab_num).append('<iframe id="chartsiframe" width="800" height="400"/>');
+			$("#aaa" + order).append('<iframe id="chartsiframe" width="800" height="400"/>');
 			$('#chartsiframe').attr('src', server); 
 			
 				iNettuts.makeSortable();
 							
-			    setHasContent(tab_num);
+			    setHasContent(order);
 		} );
 	}	
 		
-	function imageAnnotate(callObj, server, tab_num)
+	function imageAnnotate(callObj, server, order)
 	{
 		
 		//Delay to let the DOM refresh
 		$(callObj).delay(100,function()
 		{
-			iNettuts.refresh("yellow-widget" + tab_num);
+			iNettuts.refresh("yellow-widget" + order);
 									
 			var html = "<img id=\"toAnnotate\" src=\"" + server + "\" alt=\""+  server + "\" width=\"600\" height=\"398\" />";
 			var jspSvr = "annotate.jsp";
 			
-			$("#aaa" + tab_num).append('<iframe id="annotateiframe" width="800" height="400"/>');
+			$("#aaa" + order).append('<iframe id="annotateiframe" width="800" height="400"/>');
 			$('#annotateiframe').attr('src', jspSvr); 
 			
-			setHasContent(tab_num);
+			setHasContent(order);
 							
 		} );
 	}		
@@ -236,16 +237,16 @@ $(document).ready( function() {
 									return false;
 								}
 								
-								var tab_num = addTab(detailId);
+								var order = addTab(detailId);
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
-									iNettuts.refresh("yellow-widget" + tab_num);
+									iNettuts.refresh("yellow-widget" + order);
 								
 									//Add the patient data
 									var link =  server + "c/repositories/" + rep  +"/patients/" + detailId;
 									//alert("server on clicked link " + link);
-									$("#aaa" + tab_num).load(link);
+									$("#aaa" + order).load(link);
 									
 									//Delay to let DOM refresh before adding table styling
 									$(this).delay(500,function()
@@ -255,7 +256,7 @@ $(document).ready( function() {
 										$("#example" + detailId).dataTable( {
 											"aaSorting": [[ 0, "desc" ]]
 										} );
-										setHasContent(tab_num);
+										setHasContent(order);
 									} );
 									
 								} );
@@ -344,7 +345,7 @@ function displayImage(imageName)
 	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
 	 
 	 }
-	 var tab_num = addTab(imageTitle);
+	 var order = addTab(imageTitle);
 	
 	 var html =$.ajax({
       url: server,
@@ -353,9 +354,9 @@ function displayImage(imageName)
       dataType: "html",
       success: function(msg)
       {
-      	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
-					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
-					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
+      	 var text = "<div id=\"content\">\n<input id=\"viewerButton" + order + "\" type=\"button\" value=\"Viewer\"/>\n" +
+					 "<div id=\"content\">\n<input id=\"editButton" + order + "\" type=\"button\" value=\"Annotate\"/>\n" +
+					"<a href=\"" + server +"\" class=\"jqzoom" + order + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
 					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
 					"</a>" + "</div>\n";
 					
@@ -365,13 +366,13 @@ function displayImage(imageName)
          var viewerFrame = "<iframe height=\"400\" width=\"680\" name=\"imageFrame" + imageTitle + "\" id=\"frame" + imageTitle+ "\" src=\"viewer.jsp?image=" + server + "\"></iframe>";
 					               
          
-         iNettuts.refresh("yellow-widget" + tab_num);
+         iNettuts.refresh("yellow-widget" + order);
 		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
-		 $("#aaa" + tab_num).append( text );
+		 $("#aaa" + order).append( text );
 		 
 		 $(this).delay(100,function()
 		 {
-		 	setHasContent(tab_num);
+		 	setHasContent(order);
 			//Code for zoom
 		 	var options =
             {
@@ -384,26 +385,26 @@ function displayImage(imageName)
 
             }
 		 	
-			$(".jqzoom" + tab_num).jqzoom(options);
+			$(".jqzoom" + order).jqzoom(options);
 			
-			$("#viewerButton" + tab_num).bind("click",{},
+			$("#viewerButton" + order).bind("click",{},
 			function(e)
 			{
 				
-				var tab_num = addTab(imageTitle + "Viewer");
+				var order = addTab(imageTitle + "Viewer");
 				
 				var link = "viewer.jsp?image=" + server;
-				addChart(this, link, tab_num);
+				addChart(this, link, order);
 			});
 			
-			$("#editButton" + tab_num).bind("click",{},
+			$("#editButton" + order).bind("click",{},
 			function(e)
 			{
 				
-				var tab_num = addTab(imageTitle + "Annotate");
+				var order = addTab(imageTitle + "Annotate");
 				
 				var link = server;
-				imageAnnotate(this, link, tab_num);
+				imageAnnotate(this, link, order);
 			});
 		  } );
 		}

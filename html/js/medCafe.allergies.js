@@ -1,36 +1,43 @@
 var retry = true;
-function addAllergies(callObj, widgetInfo)
+function addAllergies(callObj, widgetInfo, data)
 {
-		var html = "<div class=\"allergies" +  patient_id + "\"></div>";
-		$(callObj).delay(100,function()
-		{
-			 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
-				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
-				// alert("server link " + serverLink);
-				$.getJSON(serverLink, function(data)
-				{
-
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+	//	$(callObj).delay(100,function()
+	//	{
+	//		 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
+	//			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+	//			// alert("server link " + serverLink);
+	//			$.getJSON(serverLink, function(data)
+	//			{
+				var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (data.announce)
+						if (dataObject.announce)
 						{
 							if (retry)
 							{
-								addAllergies(callObj, widgetInfo);
+								addAllergies(callObj, widgetInfo, dataObject);
 								retry = false;
 							}
 							else
 							{
-								updateAnnouncements(data);
+								updateAnnouncements(dataObject);
 							}
 							return;
 						}
-						var html = v2js_listPatientAllergies( data );
+					
+						//var html = v2js_listPatientAllergies( dataObject );
+				//		var html = window["v2js_listPatientAllergies2"](dataObject);
+						var html = window["v2js_" + widgetInfo.template](dataObject);
 						// alert("HTML is: " + html);
-						var tableObj;
-						var selectedRow=0;
+					//	var tableObj;
+					//	var selectedRow=0;
+						if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
 						// $("#aaa" + widgetInfo.order).append(html);
-						$("#tabs-2 #column1").append(html);
-						 	tableObj = $("#allergies" + widgetInfo.rep_patient_id).dataTable( {
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+					 	tableObj = $("#" +widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -39,7 +46,7 @@ function addAllergies(callObj, widgetInfo)
 										return;
 									}
 
-									var nTrs = $('#allergies' + widgetInfo.rep_patient_id+ ' tbody tr');
+									var nTrs = $('#' + widgetInfo.type + widgetInfo.rep_patient_id+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -69,23 +76,22 @@ function addAllergies(callObj, widgetInfo)
 
 						} );
 
-						var medUrl = serverLink;
+						var medUrl =   widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 
 						//Get the selected row if user clicks on <tr> object
-						$("#allergies" + widgetInfo.rep_patient_id + " tbody tr").click( function() {
+						$("#"+ widgetInfo.type + widgetInfo.rep_patient_id + " tbody tr").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 
 						//Get the selected row if user clicks on <td> object
-						$("#allergies" + widgetInfo.rep_patient_id + " tbody td").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.rep_patient_id + " tbody td").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
 						});
 						setHasContent(widgetInfo.order);
-					} );
-					setHasContent(widgetInfo.order);
-		});
+
+
 }

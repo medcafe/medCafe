@@ -1,33 +1,45 @@
-function addImmunizations(callObj, server, tab_num, label, patient_id, repId, patientRepId)
+
+function addImmunizations(callObj, widgetInfo, data)
 {
 		//For testing purposes
-
-		var html = "<div class=\"immunizations" +  patient_id + "\"></div>";
-		$(callObj).delay(100,function()
-		{
-
-			 	iNettuts.refresh("yellow-widget" + tab_num);
-
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
-				$.getJSON(serverLink, function(data)
-				{
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+		//var html = "<div class=\"immunizations" +  widgetInfo.patient_id + "\"></div>";
+	//	$(callObj).delay(100,function()
+	//	{
+	 //			iNettuts.refresh("yellow-widget" + widgetInfo.order);
+	//			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+	//			$.getJSON(serverLink, function(data)
+	//			{
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
 						//Check to see if any error message
-						if (data.announce)
+						var dataObject = eval('(' + data + ')');
+						//Check to see if any error message
+		
+						if (dataObject.announce)
 						{
-							updateAnnouncements(data);
+				
+								updateAnnouncements(dataObject);
+						
 							return;
 						}
-						var html = v2js_listPatientImmunizations( data );
-
+					//	var html = v2js_listPatientImmunizations( data );
+			
+						var html = window["v2js_" + widgetInfo.template](dataObject);
+		
 						var tableObj;
 						var selectedRow=0;
 						// $("#aaa" + tab_num).append(html);
-						$("#tabs-2 #column1").append(html);
-
+						//$("#tabs-2 #column1").append(html);
+						if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#immunizations" + patientRepId).dataTable( {
+					//	alert('#' + widgetInfo.type + widgetInfo.rep_patient_id);
+						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -36,7 +48,7 @@ function addImmunizations(callObj, server, tab_num, label, patient_id, repId, pa
 										return;
 									}
 
-									var nTrs = $('#immunizations' + patientRepId+ ' tbody tr');
+									var nTrs = $('#' +widgetInfo.type + widgetInfo.rep_patient_id + ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -93,7 +105,7 @@ function addImmunizations(callObj, server, tab_num, label, patient_id, repId, pa
 						} );
 
 
-						var immunizationsUrl = serverLink;
+						var immunizationsUrl = widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 						/*$(this).delay(100,function()
 						{
 							listImmunizations(immunizationsUrl );
@@ -104,10 +116,8 @@ function addImmunizations(callObj, server, tab_num, label, patient_id, repId, pa
 
 
 
-						setHasContent(tab_num);
+						setHasContent(widgetInfo.order);
 
-					} );
-					setHasContent(tab_num);
-		});
+		
 
 }

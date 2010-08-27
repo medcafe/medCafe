@@ -73,6 +73,9 @@ public class MedCafeComponent
 	private String repository ="";
 	private String params ="";
 	private String tempDir ="";
+	private String template="";
+	private String script="";
+	private String scriptFile="";
 	
 	public static final String NAME = "name";
 	public static final String ORDER = "order";
@@ -85,6 +88,9 @@ public class MedCafeComponent
 	public static final String PARAMS = "params";
 	public static final String PATIENT = "patientSpecific";
 	public static final String GENERAL = "general";
+	public static final String SCRIPT = "script";
+	public static final String SCRIPT_FILE = "scriptFile";
+	public static final String TEMPLATE = "template";
 	
 	public static final String XML_WIDGET = "medCafeWidget";
 	
@@ -178,6 +184,18 @@ public class MedCafeComponent
 		    		 		NodeList repList = componentElmnt.getElementsByTagName(REPOSITORY);
 		    		 		String repository = repList.item(0).getTextContent();
 		    		 		
+		    		 		NodeList scriptList = componentElmnt.getElementsByTagName(SCRIPT);
+		    		 		String script = scriptList.item(0).getTextContent();
+		    		 		
+		    		 		NodeList scriptFileList = componentElmnt.getElementsByTagName(SCRIPT_FILE);
+		    		 		String scriptFile = scriptFileList.item(0).getTextContent();
+		    		 		
+		    		 		String template = "";	    		 		
+		    		 		NodeList templateList = componentElmnt.getElementsByTagName(TEMPLATE);
+		    		 		if (templateList.getLength() > 0)
+		    		 			template = templateList.item(0).getTextContent();
+		    		 		
+		    		 		
 		    		 		NodeList paramsList = componentElmnt.getElementsByTagName(PARAMS);
 		    		 		String params ="";
 		    		 		if (paramsList.getLength() > 0)
@@ -192,6 +210,9 @@ public class MedCafeComponent
 		    		 		component.setServer(server);
 		    		 		component.setTempDir(tempDir);
 		    		 		component.setParams(params);
+		    		 		component.setScript(script);
+		    		 		component.setScriptFile(scriptFile);
+		    		 		component.setTemplate(template);
 		    		 		
 		    		 		componentList.add(component);
 		    		 		
@@ -205,6 +226,44 @@ public class MedCafeComponent
 		 }
 		 return componentList;
 		
+	}
+	
+	public static HashMap<String, MedCafeComponent> getComponentHash()
+	{
+		HashMap<String, MedCafeComponent> compHash = new HashMap<String, MedCafeComponent>();
+	try{
+		ArrayList<MedCafeComponent> compList = retrieveComponents(MedCafeComponent.PATIENT, "");
+		for (MedCafeComponent comp : compList)
+		{
+			compHash.put(comp.getName(), comp);	
+		}
+		compList = retrieveComponents(MedCafeComponent.GENERAL, "");
+		for (MedCafeComponent comp : compList)
+		{
+			compHash.put(comp.getName(), comp);
+		}
+		}
+		catch (SQLException sqlE)
+		{
+			log.severe("Error getting widget information: " + sqlE.getMessage() );
+		}
+		catch (ParseException parseE)
+		{
+			log.severe("Error parsing widget information: " + parseE.getMessage());
+		}
+		catch (ParserConfigurationException parseConfE)
+		{
+			log.severe("Error with parser configuration when parsing widget information: " + parseConfE.getMessage());
+		}
+		catch (Exception e)
+		{
+			log.severe("Error while reading widget information: " + e.getMessage()); 
+		}
+		finally
+		{
+		}
+		return compHash;
+	
 	}
 
 	public String getName() {
@@ -278,6 +337,9 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.TYPE, type);
 		 jsonObj.put(MedCafeComponent.REPOSITORY, repository);
 		 jsonObj.put(MedCafeComponent.PARAMS, params);
+		 jsonObj.put(MedCafeComponent.SCRIPT, script);
+		 jsonObj.put(MedCafeComponent.SCRIPT_FILE, scriptFile);
+		 jsonObj.put(MedCafeComponent.TEMPLATE, template);
     	 return jsonObj;
 	}
 
@@ -297,6 +359,30 @@ public class MedCafeComponent
 
 	public void setParams(String params) {
 		this.params = params;
+	}
+	
+	public String getScript() {
+		return script;
+	}
+	
+	public void setScript(String script) {
+		this.script = script;
+	}
+	
+	public String getScriptFile() {
+		return scriptFile;
+	}
+	
+	public void setScriptFile(String scriptFile) {
+		this.scriptFile = scriptFile;
+	}
+	
+	public String getTemplate() {
+		return template;
+	}
+	
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 	
 }

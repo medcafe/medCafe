@@ -125,7 +125,7 @@ public class Widget
 		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 		 o.put(Widget.TAB_NUMBER, this.getTab_num());
 		 o.put(Widget.COLUMN, this.getColumn());
-
+		 
 		 return o;
 
 	}
@@ -246,8 +246,12 @@ public class Widget
 		JSONObject ret = new JSONObject();
 		try
 		{
+		
+
 			HashMap<String, Widget> widgetList = retrieveWidgets(userName, patientId);
 			//split out the tabs
+
+			HashMap<String, MedCafeComponent> compList = MedCafeComponent.getComponentHash();
 
 			//Sort by the tab_order
 			TreeMap<Integer, Widget> sortedWidgets = new TreeMap<Integer, Widget>();
@@ -259,7 +263,15 @@ public class Widget
 				if( widget.getType().equals("tab") )
                     ret.append("tabs", widgetJSON);
                 else
+                {
+						  MedCafeComponent comp = compList.get(widget.getName());
+						  if (comp!= null) {
+						  widgetJSON.put(MedCafeComponent.SCRIPT, comp.getScript());
+						  widgetJSON.put(MedCafeComponent.SCRIPT_FILE, comp.getScriptFile());
+						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
+						  }                		
                     ret.append("widgets", widgetJSON);
+					 }
 			}
 		}
 		catch (SQLException e)
@@ -296,6 +308,7 @@ public class Widget
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
 			Widget widget = new Widget();
 			HashMap<String, String> params = new HashMap<String, String>() ;
+
 			while (rs.next())
 			{
 				int widgetId = rs.getInt("widget_id");
@@ -310,10 +323,14 @@ public class Widget
 					params = new HashMap<String, String>();
 					widget.setParams(params);
 					widgetList.put(widgetId + "", widget);
-				}
 
+				}
+				
 				String param = rs.getString("param");
 				String value = rs.getString("value");
+				
+				//System.out.println("Widget ID: " + widgetId + " param: " + param + " value: " + value);
+				
 				if (param.equals(Widget.TAB_ORDER))
 				{
 					int tabOrdInt = Integer.parseInt(value);

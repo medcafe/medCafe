@@ -9,6 +9,40 @@ t.p( context.announce.message);
 t.p('</h3>');
 return t.toString();
 }
+function v2js_inettutsHead(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<div class="widget color-');
+t.p( context.tabNum);
+t.p('" id="yellow-widget');
+t.p( context.tabNum);
+t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
+t.p('#" class="collapse">COLLAPSE</a><h3>');
+t.p( context.title);
+t.p('</h3><a href="');
+t.p('#" class="remove">CLOSE</a><a href="');
+t.p('#" class="edit">EDIT</a><a href="');
+t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
+t.p( context.title);
+t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
+t.p( context.tabNum);
+t.p('">        <p>            <div id="aaa');
+t.p( context.tabNum);
+t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
+t.p( context.tabNum);
+t.p('">            <div id="modalaaa');
+t.p( context.tabNum);
+t.p('">');
+return t.toString();
+}
+function v2js_inettutsTail(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('            </div>        </div>        <div id="hasContent" custom:hascontent="false">        </div>    </div></div>');
+return t.toString();
+}
 function v2js_listAddress(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -76,6 +110,34 @@ t.p('	');
 }
 velocityCount = 0;
 t.p('</table>');
+return t.toString();
+}
+function v2js_listAlertList(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.alerts) {
+t.p('</p><br><p>	');
+for (var i2=0;  i2<context.alerts.length; i2++) {
+var repos = context.alerts[i2];
+velocityCount = i2;
+t.p('		');
+if (repos.allergies) {
+t.p('			');
+for (var i4=0;  i4<repos.allergies.length; i4++) {
+var allergyDetail = repos.allergies[i4];
+velocityCount = i4;
+t.p('	   		');
+t.p( allergyDetail.product.value);
+t.p('<br/>			   	');
+}
+velocityCount = i2;
+t.p('	   ');
+}
+t.p('	');
+}
+
+}
 return t.toString();
 }
 function v2js_listDates(context) { 
@@ -283,11 +345,50 @@ t.p('\');    <br/>  ');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listMedicineList(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.medicines) {
+t.p('</p><br/><p>	');
+for (var i2=0;  i2<context.medicines.length; i2++) {
+var repos = context.medicines[i2];
+velocityCount = i2;
+t.p('		');
+if (repos.medications) {
+t.p('			');
+for (var i4=0;  i4<repos.medications.length; i4++) {
+var medicationDetail = repos.medications[i4];
+velocityCount = i4;
+t.p('			 *	   		');
+if (medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName) {
+t.p('	  			   ');
+t.p( medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName);
+t.p('<br/>	  			');
+}
+else {
+if (medicationDetail.narrative) {
+t.p('	  					');
+t.p( medicationDetail.narrative);
+t.p('<br/>	  			');
+}
+}
+t.p('			   	');
+}
+velocityCount = i2;
+t.p('	   ');
+}
+t.p('	');
+}
+
+}
+return t.toString();
+}
 function v2js_listPatientAllergies(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="allergies');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Allergies');
 t.p( context.patient_id);
 t.p('"><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
 for (var i1=0;  i1<context.allergies.length; i1++) {
@@ -305,6 +406,80 @@ t.p('</td></tr>');
 }
 velocityCount = 0;
 t.p('</tbody><table>');
+return t.toString();
+}
+function v2js_listPatientAllergies2(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<em>Allergies</em><table><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
+for (var i1=0;  i1<context.allergies.length; i1++) {
+var allergy = context.allergies[i1];
+velocityCount = i1;
+t.p('<tr><td value="');
+t.p( allergy.product.value);
+t.p('">');
+t.p( allergy.product.value);
+t.p('</td><td value="');
+t.p( allergy.reaction.value);
+t.p('">');
+t.p( allergy.reaction.value);
+t.p('</td></tr>');
+}
+velocityCount = 0;
+t.p('</tbody></table>');
+return t.toString();
+}
+function v2js_listPatientBio(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.patient) {
+var printed = 0;
+var space = " ";
+t.p('   ');
+for (var i2=0;  i2<context.patient.length; i2++) {
+var repos = context.patient[i2];
+velocityCount = i2;
+t.p('   	');
+if (repos.patient_data) {
+t.p('   		');
+if (printed == 0) {
+t.p('   			<tr><th colspan="2" style="text-align:left;">   			');
+for (var i5=0;  i5<repos.patient_data.name.given.length; i5++) {
+var givenName = repos.patient_data.name.given[i5];
+velocityCount = i5;
+t.p('   				');
+t.p( givenName);
+t.p( space);
+t.p('   			');
+}
+velocityCount = i2;
+t.p('   			');
+t.p( repos.patient_data.name.lastname);
+t.p('</th></tr>   			');
+printed = 1;
+t.p('   			<tr><td colspan="2">   			');
+if (repos.age) {
+t.p('					');
+t.p( repos.age);
+t.p( space);
+t.p('				');
+}
+t.p('				');
+if (repos.patient_data.gender) {
+t.p('					');
+t.p( repos.patient_data.gender.displayName);
+t.p('				');
+}
+t.p('     			</td></tr>     		');
+}
+t.p('     	');
+}
+t.p('	');
+}
+
+}
 return t.toString();
 }
 function v2js_listPatientHistory(context) { 
@@ -380,7 +555,7 @@ function v2js_listPatientImmunizations(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="immunizations');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Immunizations');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
 for (var i1=0;  i1<context.immunizations.length; i1++) {
@@ -500,7 +675,7 @@ function v2js_listPatientMedsVert(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="medications');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Medications');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
 for (var i1=0;  i1<context.medications.length; i1++) {
@@ -552,7 +727,7 @@ function v2js_listPatientTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Detail');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
 var orderno = 1;
@@ -1003,16 +1178,78 @@ t.p('	');
 t.p('</tbody><table>');
 return t.toString();
 }
+function v2js_listPatientVitals(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.vitalRecords) {
+t.p('	');
+for (var i2=0;  i2<context.vitalRecords.length; i2++) {
+var repos = context.vitalRecords[i2];
+velocityCount = i2;
+t.p('		');
+if (repos.vitals) {
+var print = 0;
+t.p('			');
+for (var i4=0;  i4<repos.vitals.length; i4++) {
+var vitalDetail = repos.vitals[i4];
+velocityCount = i4;
+t.p('				');
+if (print == 0) {
+t.p('					<tr><td>					Vitals on</td>					<td>');
+t.p( vitalDetail.resultDateTime.low.month);
+t.p('/');
+t.p( vitalDetail.resultDateTime.low.day);
+t.p('/					');
+t.p( vitalDetail.resultDateTime.low.year);
+t.p('@');
+t.p( vitalDetail.resultDateTime.low.hour);
+t.p(':');
+t.p( vitalDetail.resultDateTime.low.minute);
+t.p('</td></tr>					');
+print = 1;
+t.p('				');
+}
+t.p('				<tr><td>');
+t.p( vitalDetail.resultType.value);
+t.p('</td>				<td>				');
+var alert = 0;
+t.p('	   		');
+if (vitalDetail.narrative != "") {
+t.p('	   			');
+if (vitalDetail.narrative.substring(0, 1) == "*") {
+alert = 1;
+t.p('	   				<font color = "red">					');
+}
+t.p('				');
+}
+t.p('				');
+t.p( vitalDetail.resultValue);
+t.p('				');
+if (alert == 1) {
+t.p('					</font>				');
+}
+t.p('				</td></tr>			   	');
+}
+velocityCount = i2;
+t.p('	   ');
+}
+t.p('	');
+}
+
+}
+return t.toString();
+}
 function v2js_listPatientsBookmarksTable(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-t.p('<form id="bookmarkForm');
+t.p('<form id="BookmarksForm');
 t.p( context.patient);
-t.p('" name="bookmarkForm');
+t.p('" name="BookmarksForm');
 t.p( context.patient);
-t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks');
+t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="Bookmarks');
 t.p( context.patient);
 t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>');
 if (!( context.bookmarks )) {
@@ -1118,24 +1355,35 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-if (context.problem) {
+if (context.problems) {
 t.p('	');
-for (var i2=0;  i2<context.problem.length; i2++) {
-var problemDetail = context.problem[i2];
+for (var i2=0;  i2<context.problems.length; i2++) {
+var repos = context.problems[i2];
 velocityCount = i2;
-t.p('	   <tr>	  	<td>');
+t.p('		');
+if (repos.problem) {
+t.p('			');
+for (var i4=0;  i4<repos.problem.length; i4++) {
+var problemDetail = repos.problem[i4];
+velocityCount = i4;
+t.p('	   <tr>	  	<td> ');
 t.p( problemDetail.problemName);
-t.p('</td>		<td>		<div class="ui-corner-all" id="detail">		');
+t.p(' </td>		<td>		<div class="ui-corner-all" id="detail">			');
 t.p( problemDetail.problemDate.low.month);
 t.p('/');
 t.p( problemDetail.problemDate.low.day);
 t.p('/');
 t.p( problemDetail.problemDate.low.year);
-t.p('		</div></td> 	   	</tr>	');
+t.p('		</div></td> 	   	</tr>	   	');
+}
+velocityCount = i2;
+t.p('	   ');
+}
+t.p('	');
 }
 
 }
-t.p('</tbody><table>');
+t.p('</tbody></table>');
 return t.toString();
 }
 function v2js_listProblemListTable(context) { 
@@ -1151,7 +1399,7 @@ var ActiveStatus = "Active";
 var InActiveStatus = "Inactive";
 t.p('		');
 if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="Problem');
 t.p( context.patient_id);
 t.p('">			<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>		');
 }
@@ -1194,41 +1442,41 @@ velocityCount = 0;
 t.p('</tbody><table>');
 return t.toString();
 }
-function v2js_listProblemListTableLocal(context) { 
+function v2js_listProblemListTable2(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
-if (context.patientProblem) {
+t.p('		<em>	Problem List</em><dl>	');
+for (var i1=0;  i1<context.problem.length; i1++) {
+var problemDetail = context.problem[i1];
+velocityCount = i1;
+t.p('		');
+if (problemDetail.narrative == "A") {
+t.p('		<font color = "blue">		');
+var activeText = "active";
 t.p('	');
-for (var i2=0;  i2<context.patientProblem.length; i2++) {
-var problem = context.patientProblem[i2];
-velocityCount = i2;
-t.p('				');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
-t.p( problem.patient_id);
-t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
 }
-t.p('		<tr class="gradeX">		<td value="');
-t.p( problem.title);
-t.p('">');
-t.p( problem.title);
-t.p('</td>		<td value="');
-t.p( problem.note);
-t.p('">');
-t.p( problem.note);
-t.p('</td>		<td value="');
-t.p( problem.priority);
-t.p('">');
-t.p( problem.priority);
-t.p('</td>		</tr>		');
-count = ( count + 1 );
-t.p('			');
+else {
+t.p('		<font color = "gray">		');
+var activeText = "inactive";
+t.p('	');
 }
-
+t.p('	<dt>	');
+t.p( problemDetail.problemName);
+t.p(' - ICD9: ');
+t.p( problemDetail.problemCode.code);
+t.p('</dt>	<dd>');
+t.p( problemDetail.problemDate.low.month);
+t.p('/	');
+t.p( problemDetail.problemDate.low.day);
+t.p('/');
+t.p( problemDetail.problemDate.low.year);
+t.p(' - Currently ');
+t.p( activeText);
+t.p('</dd>	</font>	<br>');
 }
-t.p('</tbody><table>');
+velocityCount = 0;
+t.p('</dl>');
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 
@@ -1317,7 +1565,7 @@ function v2js_listSupportInfo(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="supportInfo');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Support');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>');
 var contactNumber = 0;
@@ -1585,6 +1833,12 @@ t.p('" custom:params="');
 t.p( widget.params);
 t.p('" custom:repository="');
 t.p( widget.repository);
+t.p('" custom:script="');
+t.p( widget.script);
+t.p('" custom:script_file="');
+t.p( widget.scriptFile);
+t.p('" custom:template="');
+t.p( widget.template);
 t.p('"></img>    	<p>');
 t.p( widget.name);
 t.p('</p>    </div><br/>  ');

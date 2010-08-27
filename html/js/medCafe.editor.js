@@ -1,7 +1,7 @@
-function processEditor(repId, patientId, patientRepId, data, type, tab_num)
+function processEditor(widgetInfo, data)
 {
 
-	setUpEditActions(tab_num, patientId);
+	setUpEditActions(widgetInfo.tab_num, widgetInfo.patient_id);
 }
 
 function setUpEditActions(tab_num, patientId)

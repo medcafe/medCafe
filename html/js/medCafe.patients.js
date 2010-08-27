@@ -189,6 +189,7 @@ function populate(url, patient_id)
 
 	 $.getJSON(server, function(data)
 	 {
+	 
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
@@ -206,11 +207,12 @@ function populate(url, patient_id)
                 var label = data.tabs[i].name;
 		        // alert("adding tab " + i);
                 tab_num = parent.addTab(label, "Details");
+     
 		   }
 		   //next put the widgets on the tabs
 		   for(i=0; i< data.widgets.length; i++)
 		   {
-                // var link = "";
+		   	                  // var link = "";
                 // var label = data.widgets[i].name;
                 // //var label = "Label" + i;
                 // var type =  data.widgets[i].type;
@@ -285,29 +287,41 @@ function addCreateAssocButton( patient_id, role)
 	});
 }
 
-function addPatientDetail(obj, widgetInfo)
+function addPatientDetail(obj, widgetInfo, data)
 {
-	var link =  "repository-listJSON.jsp?repository=" + widgetInfo.repository  +"&patient_id="  + widgetInfo.rep_patient_id;
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+/*	var link =  "repository-listJSON.jsp?repository=" + widgetInfo.repository  +"&patient_id="  + widgetInfo.rep_patient_id;
 
 	$.getJSON(link, function(data)
-	{
-			if (data.announce)
+	{  
+	*/
+	
+			var dataObject = eval('(' + data + ')');
+			if (dataObject.announce)
             {
               	  //alert("announce");
-                  updateAnnouncements(data);
+                  updateAnnouncements(dataObject);
                   return;
             }
 
-			var html = v2js_listPatientTable( data );
+		//	var html = v2js_listPatientTable( data );
+			
+			var html = window["v2js_" + widgetInfo.template](dataObject);
 	  		// $("#aaa" + tab_num).append(html);
-	  		$("#tabs-2 #column2").append(html);
+	  		if (!widgetInfo.tab_num)
+				widgetInfo.tab_num = "2";
+			if (!widgetInfo.column)
+				widgetInfo.column = "1";
+					
+			$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+	  		//$("#tabs-2 #column2").append(html);
 
 			//Delay to let DOM refresh before adding table styling
-			$(obj).delay(500,function()
-			{
+		//	$(obj).delay(500,function()
+		//	{
 					//alert( $("#example" + patientId).text());
 
-				$("#example" + widgetInfo.rep_patient_id).dataTable( {
+				$("#"+ widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 					"bJQueryUI": true,
 					"aaSortingFixed": [[ 0, 'asc' ]],
 					"aoColumns": [
@@ -316,6 +330,6 @@ function addPatientDetail(obj, widgetInfo)
 								null ]
 				} );
 				setHasContent(widgetInfo.order);
-			} );
-	});
+/*			} );
+	});  */
 }

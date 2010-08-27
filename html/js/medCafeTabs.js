@@ -265,12 +265,12 @@ $(document).ready( function() {
 	}
 
 
-	function createLink(patientId, link, label, type, params, repository, repPatientId)
+	function createLink(widgetInfo)
 	{
-		var tab_num = addTab(label, type);
-		if (tab_num < 0)
+		widgetInfo.tab_num = addTab(label, type);
+		if (widgetInfo.tab_num < 0)
 			return;
-		createWidgetContent(patientId,link, label, type ,tab_num, params,repository,repPatientId);
+		createWidgetContent(widgetInfo);
 
 	}
 
@@ -310,36 +310,43 @@ $(document).ready( function() {
 
 	}
 
-	function addWidgetTab(callObj, server, tab_num, patientId, repId, patientRepId, type)
+	function addWidgetTab(callObj, widgetInfo)
 	{
 
-			var height = '380';
-			var width ='800';
+	    	var height = '380';
+		/*	var width ='800';  */
 			var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 			if (isiPad)
 			{
 				height = '380';
-				width = '400';
+		/*		width = '400'; */
 			}
 
 			
-			iNettuts.refresh("yellow-widget" + tab_num);
+			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
 
-			var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientId + "&patient_rep_id=" + patientRepId;
+			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id;
 
 			$.get(serverLink, function(data)
 			{
+				
 
 				//Check to see if any error message
 				// $("#aaa" + tab_num).append(data);
-				$("#tabs-2 #column1").append(data);
-				alert("should have added content now");
+				if (widgetInfo.template=="") {
+				if (!widgetInfo.column)
+					widgetInfo.column = "1";
+				if (!widgetInfo.tab_num)
+					widgetInfo.tab_num = "2";
+				$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(data);
+				}
+			//	alert("should have added content now");
 				//iNettuts.makeSortable();
-				setHasContent(tab_num);
+				setHasContent(widgetInfo.order);
 				//Run any scripts specific to this type
-			 	processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num);
-
+			 	//processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num);
+				processScripts(callObj, widgetInfo, data);
 			    //Try to add a scroll
 				$(callObj).delay(100,function()
 				{
@@ -348,7 +355,7 @@ $(document).ready( function() {
 
 						$.getScript('js/jScrollTouch.js', function()
 						{
-							$("#aaa" + tab_num).jScrollTouch({height:height,width:width});
+							$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).jScrollTouch({height:height,width:width});
 						});
 					}
 					else
@@ -356,7 +363,7 @@ $(document).ready( function() {
 						if (isiPad)
 						{
 						}
-						$("#aaa" + tab_num).jScrollTouch({height:height,width:width});
+						$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).jScrollTouch({height:height,width:width});
 					}
 
 				} );
@@ -375,9 +382,9 @@ $(document).ready( function() {
 		}
 	}
 
-	function processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num)
+	function processScripts(callObj, widgetInfo, data)
 	{
-
+		var type = widgetInfo.type;
 		if (type == "Symptoms" || (type == "AddHistory") )
 		{
 			if (typeof processSymptoms == 'undefined')
@@ -385,12 +392,12 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.symptoms.js', function()
 				{
-					processSymptoms(repId, patientId, patientRepId, data, type);
+					processSymptoms(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processSymptoms(repId, patientId, patientRepId, data, type);
+				processSymptoms(widgetInfo, data);
 			}
 		}
 		else if ( type == "Filter")
@@ -401,18 +408,18 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.filter.js', function()
 				{
-					processFilter(repId, patientId, patientRepId, data, type);
+					processFilter(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processFilter(repId, patientId, patientRepId, data, type);
+				processFilter(widgetInfo, data);
 			}
 		}
 		else if ( type == "Chart")
 		{
 
-			processChart(repId, patientId, patientRepId, data, type,tab_num);
+			processChart(widgetInfo, data);
 
 		}
 		else if ( type == "Image")
@@ -420,7 +427,7 @@ $(document).ready( function() {
 			//Delay to allow for all of the document to be loaded
 			//$(callObj).delay(2500,function()
 			//{
-				processImages(repId, patientId, patientRepId, data, type,tab_num);
+				processImages(widgetInfo, data);
 			//});
 		}
 		else if ( type == "EditorNonIFrame")
@@ -430,12 +437,12 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.editor.js', function()
 				{
-					processEditor(repId, patientId, patientRepId, data, type, tab_num);
+					processEditor(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processEditor(repId, patientId, patientRepId, data, type, tab_num);
+				processEditor(widgetInfo, data);
 			}
 		}
 		else if ( type == "Timeline")
@@ -445,12 +452,12 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.timeline.js', function()
 				{
-					processTimeline(repId, patientId, patientRepId, data,type, tab_num);
+					processTimeline(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processTimeline(repId, patientId, patientRepId, data, type, tab_num);
+				processTimeline(widgetInfo, data);
 			}
 		}
 		else if ( type == "Viewer")
@@ -461,12 +468,12 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.viewer.js', function()
 				{
-					processViewerImages(repId, patientId, patientRepId, data, type, tab_num);
+					processViewerImages(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processViewerImages(repId, patientId, patientRepId, data, type, tab_num);
+				processViewerImages(widgetInfo, data);
 			}
 		}
 		else if ( type == "Annotate")
@@ -477,28 +484,34 @@ $(document).ready( function() {
 
 				$.getScript('js/medCafe.annotate.js', function()
 				{
-					processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num);
+					processAnnotateImages(widgetInfo, data);
 				});
 			}
 			else
 			{
-				processAnnotateImages(repId, patientId, patientRepId, data, type, tab_num);
+				processAnnotateImages(widgetInfo, data);
 			}
 		}
-		else if ( type == "Visits")
+		else if ( type == "Allergies"|| type == "Problem" || type == "Immunizations" || type == "Support" || type == "Medications" || type == "Bookmarks" ||
+		type == "Detail")
 		{
 			
-			if (typeof processVisitList == 'undefined')
+			//if (typeof addAllergies == 'undefined')
+			if (typeof window[widgetInfo.script] == 'undefined')
 			{
 			
-				$.getScript('js/medCafe.visits.js', function()
+			//	$.getScript('js/medCafe.allergies.js', function()
+			$.getScript('js/' + widgetInfo.script_file, function()
 				{
-					processVisitList(repId, patientId, patientRepId, data, type, tab_num);
+					window[widgetInfo.script](callObj, widgetInfo, data);
 				});
 			}
 			else
 			{
-				processVisitList(repId, patientId, patientRepId, data, type, tab_num);		
+				window[widgetInfo.script](callObj, widgetInfo, data);		
 			}	
 		}	
+		
+	
 	}
+

@@ -1,7 +1,7 @@
 #set( $count=0)
-<form id="bookmarkForm$patient" name="bookmarkForm$patient">
+<form id="BookmarksForm$patient" name="BookmarksForm$patient">
 <input type="submit" value="save"></input>
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="bookmarks$patient">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="Bookmarks$patient">
 <thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>
 #if(!$bookmarks)
 	<tr class="gradeX"><td name="name" value="" class="editInput"></td>

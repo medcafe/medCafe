@@ -1,6 +1,6 @@
-function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
+function processTimeline(widgetInfo, data)
 {
-	$('#tabs').tabs('select', "#tabs-" + tab_num);
+	$('#tabs').tabs('select', "#tabs-" + widgetInfo.tab_num);
 	
 	var eventSource = new Timeline.DefaultEventSource();
  	var d = Timeline.DateTime.parseGregorianDateTime("2009");
@@ -62,7 +62,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 		    //evt.fillInfoBubble(div, this._params.theme, this._band.getLabeller());
 		    //Method to be used to create code to bring up the details inside of medCafe
 		    			//		 alert("check icons"); 
-		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),patientId,type);
+		    fillInfoBubbleCustom(evt, div, this._params.theme, this._band.getLabeller(),widgetInfo.patient_id,widgetInfo.type);
 		    var link = evt.getLink();
 		    //Rewrite the link - so that 
 		    SimileAjax.WindowManager.cancelPopups();
@@ -70,7 +70,7 @@ function processTimeline(repId, patientId, patientRepId, data, type, tab_num)
 	        themeBubble.width, null, themeBubble.maxHeight);
 	};
 	
- 	var eventUrl ="listTimelineJSON.jsp?patient_id=" + patientId;
+ 	var eventUrl ="listTimelineJSON.jsp?patient_id=" + widgetInfo.patient_id;
  	//"<%=listEvents%>";
  	
  	//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')

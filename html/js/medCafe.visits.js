@@ -1,13 +1,13 @@
-function processVisitList(callObj, server, tab_num, label, patient_id, repId, patientRepId)
+function processVisitList(callObj, widgetInfo)
 {
 
-		var html = "<div class=\"visitListing" +  patient_id + "\"></div>";
+		var html = "<div class=\"visitListing" +  widgetInfo.patient_id + "\"></div>";
 		$(callObj).delay(200,function()
 		{
 
 				var idLabel = "visitList";
-			 	iNettuts.refresh("yellow-widget" + tab_num);
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patientRepId;
+			 	iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
+				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 				//alert("server link " + serverLink);
 				$.getJSON(serverLink, function(data)
 				{
@@ -25,7 +25,7 @@ function processVisitList(callObj, server, tab_num, label, patient_id, repId, pa
 						$("#aaa" + tab_num).append(html);
 
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#"+ idLabel + patientRepId).dataTable( {
+						 	tableObj = $("#"+ idLabel + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -34,7 +34,7 @@ function processVisitList(callObj, server, tab_num, label, patient_id, repId, pa
 										return;
 									}
 
-									var nTrs = $('#'+ idLabel + patientRepId+ ' tbody tr');
+									var nTrs = $('#'+ idLabel + widgetInfo.rep_patient_id+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -68,23 +68,23 @@ function processVisitList(callObj, server, tab_num, label, patient_id, repId, pa
 						var medUrl = serverLink;
 
 						//Get the selected row if user clicks on <tr> object
-						$("#" + idLabel" + patientRepId + " tbody tr").click( function() {
+						$("#" + idLabel + widgetInfo.rep_patient_id + " tbody tr").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 
 						//Get the selected row if user clicks on <td> object
-						$("#" +idLabel + patientRepId + " tbody td").click( function() {
+						$("#" +idLabel + widgetInfo.rep_patient_id + " tbody td").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
 						});
 
-						setHasContent(tab_num);
+						setHasContent(widgetInfo.tab_num);
 
 					} );
-					setHasContent(tab_num);
+					setHasContent(widgetInfo.tab_num);
 		});
 
 }

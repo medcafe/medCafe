@@ -102,9 +102,9 @@ var medCafeWidget =
 
     		}
     		,
-    		populateExtWidgetSettings : function ( patientId,link, label, type ,tab_num, params, repId, patientRepId )
+    		populateExtWidgetSettings : function ( widgetInfo )
     		{   			
-    			var id = "yellow-widget" + tab_num;
+    			var id = "yellow-widget" + widgetInfo.tab_num;
 		
     			var newSettings = this.getExtWidgetSettings(id);
 		
@@ -113,16 +113,16 @@ var medCafeWidget =
     				alert("Could not set values ");
     			}
     			//Temporarily set id to the tab_num
-    			newSettings.id = tab_num;
-    			newSettings.tab_order = tab_num;
-    			newSettings.repository = repId;
-    			newSettings.type = type;
+    			newSettings.id = widgetInfo.tab_num;
+    			newSettings.tab_order = widgetInfo.tab_num;
+    			newSettings.repository = widgetInfo.repository;
+    			newSettings.type = widgetInfo.type;
     			//extSettings.location = location;
     			//extSettings.clickUrl = clickUrl;
-    			newSettings.name = label;
-    			newSettings.server = link;
-    			newSettings.patient_id = patientId;
-    			newSettings.rep_patient_id = patientRepId;
+    			newSettings.name = widgetInfo.name;
+    			newSettings.server = widgetInfo.server;
+    			newSettings.patient_id = widgetInfo.patient_id;
+    			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			
     			this.setExtWidgetSettings(id,newSettings );   					
 				

@@ -1,15 +1,15 @@
-function addRepository(callObj, server, tab_num, label, repId)
+function addRepository(callObj, widgetInfo)
 	{
 	
 
 		//alert("medcafe.repository.js repository " + repId);
-		var html = "<div class=\"example" +  repId + "\"></div>"; 
+		var html = "<div class=\"example" +  widgetInfo.repository + "\"></div>"; 
 		$(callObj).delay(200,function()
 		{
 			
-				iNettuts.refresh("yellow-widget" + tab_num);
+				iNettuts.refresh("yellow-widget" + widgetInfo.order);
 				
-				var serverLink =  server + "repository-listJSON.jsp?repository=" + repId;
+				var serverLink =  widgetInfo.server + "repository-listJSON.jsp?repository=" + widgetInfo.repository;
 				
 				$.getJSON(serverLink, function(data)
 				{
@@ -20,9 +20,14 @@ function addRepository(callObj, server, tab_num, label, repId)
 							return;
 						}
 						var html = v2js_listPatientsTable( data );  	  					
-								
+						if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);			
 						
-						$("#aaa" + tab_num).append(html);
+						//$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
 						$("#example" + repId).dataTable( {
@@ -34,15 +39,15 @@ function addRepository(callObj, server, tab_num, label, repId)
 									
 						$(this).delay(100,function()
 						{
-							listRepository(server, repId );
+							listRepository(widgetInfo.server, widgetInfo.repository );
 							iNettuts.makeSortable();
 							
 						} );
 						
-						setHasContent(tab_num);
+						setHasContent(widgetInfo.order);
 						
 					} );
-					setHasContent(tab_num);
+					setHasContent(widgetInfo.order);
 		});
 		
 	}

@@ -33,9 +33,9 @@
  			var html = v2js_listPatientsBookmarksTable( data );  	  					
 						
 			var patientId = "<%=patient_id%>";				
-			$("#bookmarks").append(html);
+			$("#Bookmarks").append(html);
 	  										
-			$("#bookmarks" + patientId).dataTable( {
+			$("#Bookmarks" + patientId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 			} );
 			
@@ -52,7 +52,7 @@
 	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 </head>
 <body onload="onLoad();" onresize="onResize();">
-<div id="bookmarks"></div>
+<div id="Bookmarks"></div>
 <noscript>
 This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 </noscript>
