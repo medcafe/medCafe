@@ -4,7 +4,7 @@
 	String title = WebUtils.getOptionalParameter(request, "title", "Title");
 	String type = WebUtils.getOptionalParameter(request, "type", "Chart");
 	String location = WebUtils.getOptionalParameter(request, "location", "center");
-	
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -81,13 +81,13 @@ $(function(){
 				"script" : $(dragObj).find('img').attr("custom:script"),
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
 				"template" : $(dragObj).find('img').attr("custom:template")
-			}; 
+			};
 		//	alert (widgetInfo.script + " " + widgetInfo.script_file + " " + widgetInfo.template + " " + widgetInfo.name);
 			if (ui.position["left"] > 550)
 				widgetInfo.column = "2";
 
 			var repPatientJSON;
-		
+
 			$.getJSON(serverLink,function(data)
 			{
 					repPatientJSON = data;
@@ -174,13 +174,7 @@ function bindClose()
 				{
 					removeWidget(tabNum);
 				}
-			});	
-	
-}	
-</script>
-		
-<div class="id" id="<%=title%>"></div>	
-<!---<div id="columns"><--->
+			});
 
 }
 </script>

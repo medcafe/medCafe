@@ -1,7 +1,8 @@
+#include ("inettutsHead.vm")
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="Detail$patient_id"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>
 
 #* The $orderno is used to sort the rows into an order that makes sense for a patient.  $orderno goes in the first column of every row and is the
-   first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order 
+   first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order
    and then for multiline information that is of variable length the second column is used and it is the second sort criteria.
    Both of these columns are hidden in the actual display, but this allows the presentation of the data to be in a sensible order.
 *#
@@ -20,23 +21,23 @@
 <td value =
 #if ($patient_data.name.given)
 	#foreach ($givenNameDetail in $patient_data.name.given)
-		"$givenNameDetail " 		
+		"$givenNameDetail "
 	#end
 #end
 "$patient_data.name.lastname">
 #if ($patient_data.name.given)
 	#foreach ($givenNameDetail in $patient_data.name.given)
-		$givenNameDetail$space 
+		$givenNameDetail$space
 	#end
 #end
 $patient_data.name.lastname</td></tr>
 
 #*   The patient can have more than one address, and the patient can have more than one street address lines in the street address
-     so iterate through all the addresses, and all the street lines for each address     
+     so iterate through all the addresses, and all the street lines for each address
 *#
 
 #if ($patient_data.address)
-	#set ($addresscount = 0)	
+	#set ($addresscount = 0)
 	#foreach ($addressDetail in $patient_data.address)
 		#set ($orderno = $orderno + 1)
 		#set ($linecount = 0)
@@ -46,9 +47,9 @@ $patient_data.name.lastname</td></tr>
 				#else <tr class="gradeX"><td value = "$orderno">$orderno</td><td>Patient Address</td><td value = "$streetAdd">$streetAdd</td></tr>
 				#end
 				#set ($linecount = $linecount +1)
-				
+
 			#end
-			
+
 		#end
 		#set ($orderno = $orderno + 1)
 		<tr class="gradeX"><td value = "$orderno">$orderno</td><td></td><td value= "$addressDetail.city", "$addressDetail.stateOrProvince"  "$addressDetail.zip">$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip</td></tr>
@@ -61,15 +62,15 @@ $patient_data.name.lastname</td></tr>
 
 
 #if ($patient_data.telecom)
-	
+
 	#foreach ($telecomDetail in $patient_data.telecom)
 		#set ($orderno = $orderno +1)
 		<tr class="gradeX"><td value = "$orderno">$orderno</td>
-		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
+		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
 			<td value = Patient "$telecomDetail.type" address>Patient $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
-		#else			
+		#else
 			<td value = Patient "$telecomDetail.use" number>Patient $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
-		#end		
+		#end
 	#end
 #end
 
@@ -125,7 +126,7 @@ $patient_data.name.lastname</td></tr>
 #set ($orderno = $orderno + 1)
 
 #if ($patient_data.birthPlace)
-	#if ($patient_data.birthPlace.city && $patient_data.birthPlace.stateOrProvince) 
+	#if ($patient_data.birthPlace.city && $patient_data.birthPlace.stateOrProvince)
 		<tr class="gradeX"><td value = "$orderno">$orderno</td><td>Birth Place</td><td value="$patient_data.birthPlace.city", "$patient_data.birthPlace.stateOrProvince">$patient_data.birthPlace.city, $patient_data.birthPlace.stateOrProvince</td></tr>
 	#elseif ($patient_data.birthPlace.stateOrProvince)
 		<tr class="gradeX"><td value = "$orderno">$orderno</td><td>Birth Place</td><td value="$patient_data.birthPlace.stateOrProvince">$patient_data.birthPlace.stateOrProvince</td></tr>
@@ -145,13 +146,13 @@ $patient_data.name.lastname</td></tr>
 	<td value =
 	#if ($patient_data.guardian.name.given)
 		#foreach ($givenNameDetail in $patient_data.guardian.name.given)
-			"$givenNameDetail " 		
+			"$givenNameDetail "
 		#end
 	#end
 	"$patient_data.guardian.name.lastname">
 	#if ($patient_data.guardian.name.given)
 		#foreach ($givenNameDetail in $patient_data.guardian.name.given)
-			$givenNameDetail$space 
+			$givenNameDetail$space
 		#end
 	#end
 	$patient_data.guardian.name.lastname</td></tr>
@@ -160,7 +161,7 @@ $patient_data.name.lastname</td></tr>
 
 
 	#if ($patient_data.guardian.address)
-		#set ($addresscount = 0)	
+		#set ($addresscount = 0)
 		#foreach ($addressDetail in $patient_data.guardian.address)
 			#set ($linecount = 0)
 			#if ($addressDetail.streetAddress)
@@ -170,9 +171,9 @@ $patient_data.name.lastname</td></tr>
 					#else <tr class="gradeX"><td value = "$orderno">$orderno</td><td>Guardian Address</td><td value = "$streetAdd">$streetAdd</td></tr>
 					#end
 					#set ($linecount = $linecount +1)
-				
+
 				#end
-				
+
 			#end
 			#set ($orderno = $orderno + 1)
 			<tr class="gradeX"><td value = "$orderno">$orderno</td><td></td><td value= "$addressDetail.city", "$addressDetail.stateOrProvince"  "$addressDetail.zip">$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip</td></tr>
@@ -184,18 +185,19 @@ $patient_data.name.lastname</td></tr>
 #* Display guardian telecommunication information      *#
 
 
-	#if ($patient_data.guardian.telecom)	
+	#if ($patient_data.guardian.telecom)
 		#foreach ($telecomDetail in $patient_data.guardian.telecom)
 			#set ($orderno = $orderno + 1)
 			<tr class="gradeX"><td value = "$orderno">$orderno</td>
-			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
+			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
 				<td value = Guardian "$telecomDetail.type" address>Guardian $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></td>
-			#else			
+			#else
 				<td value = Guardian "$telecomDetail.use" number>Guardian $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
-			#end		
+			#end
 		#end
 	#end
 #end
 </tbody>
 <table>
+#include("inettutsTail.vm")
 

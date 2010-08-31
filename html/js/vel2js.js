@@ -14,9 +14,9 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<div class="widget color-');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('" id="yellow-widget');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
 t.p( context.title);
@@ -26,13 +26,13 @@ t.p('#" class="edit">EDIT</a><a href="');
 t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
 t.p( context.title);
 t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('">        <p>            <div id="aaa');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('">            <div id="modalaaa');
-t.p( context.tabNum);
+t.p( context.tab_num);
 t.p('">');
 return t.toString();
 }
@@ -388,6 +388,8 @@ function v2js_listPatientAllergies(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+context.velocityCount=velocityCount;
+t.p( v2js_inettutsHead(context));
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Allergies');
 t.p( context.patient_id);
 t.p('"><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
@@ -406,28 +408,8 @@ t.p('</td></tr>');
 }
 velocityCount = 0;
 t.p('</tbody><table>');
-return t.toString();
-}
-function v2js_listPatientAllergies2(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<em>Allergies</em><table><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
-for (var i1=0;  i1<context.allergies.length; i1++) {
-var allergy = context.allergies[i1];
-velocityCount = i1;
-t.p('<tr><td value="');
-t.p( allergy.product.value);
-t.p('">');
-t.p( allergy.product.value);
-t.p('</td><td value="');
-t.p( allergy.reaction.value);
-t.p('">');
-t.p( allergy.reaction.value);
-t.p('</td></tr>');
-}
-velocityCount = 0;
-t.p('</tbody></table>');
+context.velocityCount=velocityCount;
+t.p( v2js_inettutsTail(context));
 return t.toString();
 }
 function v2js_listPatientBio(context) { 
@@ -675,6 +657,8 @@ function v2js_listPatientMedsVert(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+context.velocityCount=velocityCount;
+t.p( v2js_inettutsHead(context));
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Medications');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
@@ -721,12 +705,16 @@ t.p('</td></tr>');
 }
 velocityCount = 0;
 t.p('</tbody><table>');
+context.velocityCount=velocityCount;
+t.p( v2js_inettutsTail(context));
 return t.toString();
 }
 function v2js_listPatientTable(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+context.velocityCount=velocityCount;
+t.p( v2js_inettutsHead(context));
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Detail');
 t.p( context.patient_id);
 t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
@@ -756,7 +744,7 @@ var givenNameDetail = context.patient_data.name.given[i2];
 velocityCount = i2;
 t.p('		"');
 t.p( givenNameDetail);
-t.p(' " 			');
+t.p(' "	');
 }
 
 }
@@ -771,7 +759,7 @@ velocityCount = i2;
 t.p('		');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 	');
+t.p('	');
 }
 
 }
@@ -815,10 +803,10 @@ t.p( streetAdd);
 t.p('</td></tr>				');
 }
 linecount = ( linecount + 1 );
-t.p('							');
+t.p('			');
 }
 velocityCount = i2;
-t.p('					');
+t.p('		');
 }
 orderno = ( orderno + 1 );
 t.p('		<tr class="gradeX"><td value = "');
@@ -844,7 +832,7 @@ t.p('	');
 
 }
 if (context.patient_data.telecom) {
-t.p('		');
+t.p('	');
 for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
 var telecomDetail = context.patient_data.telecom[i2];
 velocityCount = i2;
@@ -1043,7 +1031,7 @@ var givenNameDetail = context.patient_data.guardian.name.given[i3];
 velocityCount = i3;
 t.p('			"');
 t.p( givenNameDetail);
-t.p(' " 				');
+t.p(' "		');
 }
 
 t.p('	');
@@ -1059,7 +1047,7 @@ velocityCount = i3;
 t.p('			');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 		');
+t.p('		');
 }
 
 t.p('	');
@@ -1106,10 +1094,10 @@ t.p( streetAdd);
 t.p('</td></tr>					');
 }
 linecount = ( linecount + 1 );
-t.p('								');
+t.p('				');
 }
 velocityCount = i3;
-t.p('							');
+t.p('			');
 }
 orderno = ( orderno + 1 );
 t.p('			<tr class="gradeX"><td value = "');
@@ -1176,6 +1164,10 @@ t.p('	');
 }
 }
 t.p('</tbody><table>');
+context.velocityCount=velocityCount;
+context.orderno=orderno;
+context.space=space;
+t.p( v2js_inettutsTail(context));
 return t.toString();
 }
 function v2js_listPatientVitals(context) { 
@@ -1440,43 +1432,6 @@ t.p('	');
 }
 velocityCount = 0;
 t.p('</tbody><table>');
-return t.toString();
-}
-function v2js_listProblemListTable2(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('		<em>	Problem List</em><dl>	');
-for (var i1=0;  i1<context.problem.length; i1++) {
-var problemDetail = context.problem[i1];
-velocityCount = i1;
-t.p('		');
-if (problemDetail.narrative == "A") {
-t.p('		<font color = "blue">		');
-var activeText = "active";
-t.p('	');
-}
-else {
-t.p('		<font color = "gray">		');
-var activeText = "inactive";
-t.p('	');
-}
-t.p('	<dt>	');
-t.p( problemDetail.problemName);
-t.p(' - ICD9: ');
-t.p( problemDetail.problemCode.code);
-t.p('</dt>	<dd>');
-t.p( problemDetail.problemDate.low.month);
-t.p('/	');
-t.p( problemDetail.problemDate.low.day);
-t.p('/');
-t.p( problemDetail.problemDate.low.year);
-t.p(' - Currently ');
-t.p( activeText);
-t.p('</dd>	</font>	<br>');
-}
-velocityCount = 0;
-t.p('</dl>');
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 
@@ -1844,5 +1799,32 @@ t.p( widget.name);
 t.p('</p>    </div><br/>  ');
 }
 velocityCount = 0;
+return t.toString();
+}
+function v2js_toInettuts(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<div class="widget color-');
+t.p( context.tabNum);
+t.p('" id="yellow-widget');
+t.p( context.tabNum);
+t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
+t.p('#" class="collapse">COLLAPSE</a><h3>');
+t.p( context.title);
+t.p('</h3><a href="');
+t.p('#" class="remove">CLOSE</a><a href="');
+t.p('#" class="edit">EDIT</a><a href="');
+t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
+t.p( context.title);
+t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
+t.p( context.tabNum);
+t.p('">        <p>            <div id="aaa');
+t.p( context.tabNum);
+t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
+t.p( context.tabNum);
+t.p('">            <div id="modalaaa');
+t.p( context.tabNum);
+t.p('">            </div>        </div>        <div id="hasContent" custom:hascontent="false">        </div>    </div></div>');
 return t.toString();
 }

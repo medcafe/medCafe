@@ -189,7 +189,7 @@ function populate(url, patient_id)
 
 	 $.getJSON(server, function(data)
 	 {
-	 
+
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
@@ -207,7 +207,7 @@ function populate(url, patient_id)
                 var label = data.tabs[i].name;
 		        // alert("adding tab " + i);
                 tab_num = parent.addTab(label, "Details");
-     
+
 		   }
 		   //next put the widgets on the tabs
 		   for(i=0; i< data.widgets.length; i++)
@@ -293,9 +293,9 @@ function addPatientDetail(obj, widgetInfo, data)
 /*	var link =  "repository-listJSON.jsp?repository=" + widgetInfo.repository  +"&patient_id="  + widgetInfo.rep_patient_id;
 
 	$.getJSON(link, function(data)
-	{  
+	{
 	*/
-	
+
 			var dataObject = eval('(' + data + ')');
 			if (dataObject.announce)
             {
@@ -303,16 +303,18 @@ function addPatientDetail(obj, widgetInfo, data)
                   updateAnnouncements(dataObject);
                   return;
             }
+            dataObject.tab_num=widgetInfo.tab_num;
+            dataObject.title = widgetInfo.title;
 
 		//	var html = v2js_listPatientTable( data );
-			
+
 			var html = window["v2js_" + widgetInfo.template](dataObject);
 	  		// $("#aaa" + tab_num).append(html);
 	  		if (!widgetInfo.tab_num)
 				widgetInfo.tab_num = "2";
 			if (!widgetInfo.column)
 				widgetInfo.column = "1";
-					
+
 			$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 	  		//$("#tabs-2 #column2").append(html);
 

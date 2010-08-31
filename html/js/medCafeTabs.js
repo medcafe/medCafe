@@ -312,36 +312,34 @@ $(document).ready( function() {
 
 	function addWidgetTab(callObj, widgetInfo)
 	{
-
-	    	var height = '380';
-		/*	var width ='800';  */
+            var height = '380';
+		    /* var width ='800'; */
 			var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 			if (isiPad)
 			{
 				height = '380';
-		/*		width = '400'; */
+				/* width = '400'; */
 			}
 
-			
+
 			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
 
 			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id;
-
 			$.get(serverLink, function(data)
 			{
-				
+
 
 				//Check to see if any error message
 				// $("#aaa" + tab_num).append(data);
 				if (widgetInfo.template=="") {
-				if (!widgetInfo.column)
-					widgetInfo.column = "1";
-				if (!widgetInfo.tab_num)
-					widgetInfo.tab_num = "2";
-				$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(data);
+                    if (!widgetInfo.column)
+                        widgetInfo.column = "1";
+                    if (!widgetInfo.tab_num)
+                        widgetInfo.tab_num = "2";
+                    $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(data);
 				}
-			//	alert("should have added content now");
+			// alert("should have added content now");
 				//iNettuts.makeSortable();
 				setHasContent(widgetInfo.order);
 				//Run any scripts specific to this type
@@ -495,23 +493,23 @@ $(document).ready( function() {
 		else if ( type == "Allergies"|| type == "Problem" || type == "Immunizations" || type == "Support" || type == "Medications" || type == "Bookmarks" ||
 		type == "Detail")
 		{
-			
+
 			//if (typeof addAllergies == 'undefined')
 			if (typeof window[widgetInfo.script] == 'undefined')
 			{
-			
-			//	$.getScript('js/medCafe.allergies.js', function()
-			$.getScript('js/' + widgetInfo.script_file, function()
-				{
-					window[widgetInfo.script](callObj, widgetInfo, data);
-				});
+
+                //	$.getScript('js/medCafe.allergies.js', function()
+                $.getScript('js/' + widgetInfo.script_file, function()
+                    {
+                        window[widgetInfo.script](callObj, widgetInfo, data);
+                    });
 			}
 			else
 			{
-				window[widgetInfo.script](callObj, widgetInfo, data);		
-			}	
-		}	
-		
-	
+				window[widgetInfo.script](callObj, widgetInfo, data);
+			}
+		}
+
+
 	}
 

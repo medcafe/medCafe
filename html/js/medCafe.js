@@ -428,8 +428,8 @@ function displayImage(imageName, patientId, tab_num)
 					"server" : "",
 					"tab_num": "",
 					"params" : ""
-				
-				}; 
+
+				};
 					//var type= "Viewer";
 					//var label = imageTitle +"Viewer";
 
@@ -456,8 +456,8 @@ function displayImage(imageName, patientId, tab_num)
 						"server" : "",
 						"tab_num": "",
 						"params" : ""
-				
-					}; 
+
+					};
 				//	var type= "Annotate";
 				//	var label = imageTitle +"Annotate";
 
