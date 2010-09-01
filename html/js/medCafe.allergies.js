@@ -9,25 +9,25 @@ function addAllergies(callObj, widgetInfo, data)
 	//			// alert("server link " + serverLink);
 	//			$.getJSON(serverLink, function(data)
 	//			{
-				var dataObject = eval('(' + data + ')');
+			//	var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (dataObject.announce)
+						if (data.announce)
 						{
 							if (retry)
 							{
-								addAllergies(callObj, widgetInfo, dataObject);
+								addAllergies(callObj, widgetInfo, data);
 								retry = false;
 							}
 							else
 							{
-								updateAnnouncements(dataObject);
+								updateAnnouncements(data);
 							}
 							return;
 						}
 					
-						//var html = v2js_listPatientAllergies( dataObject );
-				//		var html = window["v2js_listPatientAllergies2"](dataObject);
-						var html = window["v2js_" + widgetInfo.template](dataObject);
+						//var html = v2js_listPatientAllergies( data );
+				//		var html = window["v2js_listPatientAllergies2"](data);
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						// alert("HTML is: " + html);
 					//	var tableObj;
 					//	var selectedRow=0;
@@ -76,7 +76,7 @@ function addAllergies(callObj, widgetInfo, data)
 
 						} );
 
-						var medUrl =   widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+						var medUrl =   widgetInfo.server + widgetInfo.clickUrl+ "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 
 						//Get the selected row if user clicks on <tr> object
 						$("#"+ widgetInfo.type + widgetInfo.rep_patient_id + " tbody tr").click( function() {

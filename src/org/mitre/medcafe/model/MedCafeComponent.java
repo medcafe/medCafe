@@ -76,6 +76,7 @@ public class MedCafeComponent
 	private String template="";
 	private String script="";
 	private String scriptFile="";
+	private boolean jsonProcess= false;
 	
 	public static final String NAME = "name";
 	public static final String ORDER = "order";
@@ -91,6 +92,7 @@ public class MedCafeComponent
 	public static final String SCRIPT = "script";
 	public static final String SCRIPT_FILE = "scriptFile";
 	public static final String TEMPLATE = "template";
+	public static final String JSON_PROCESS = "jsonProcess";
 	
 	public static final String XML_WIDGET = "medCafeWidget";
 	
@@ -190,6 +192,9 @@ public class MedCafeComponent
 		    		 		NodeList scriptFileList = componentElmnt.getElementsByTagName(SCRIPT_FILE);
 		    		 		String scriptFile = scriptFileList.item(0).getTextContent();
 		    		 		
+		    		 		NodeList jsonProcessList = componentElmnt.getElementsByTagName(JSON_PROCESS);
+		    		 		boolean jsonProcess = Boolean.valueOf(jsonProcessList.item(0).getTextContent());
+		    		 		
 		    		 		String template = "";	    		 		
 		    		 		NodeList templateList = componentElmnt.getElementsByTagName(TEMPLATE);
 		    		 		if (templateList.getLength() > 0)
@@ -213,7 +218,7 @@ public class MedCafeComponent
 		    		 		component.setScript(script);
 		    		 		component.setScriptFile(scriptFile);
 		    		 		component.setTemplate(template);
-		    		 		
+		    		 		component.setJsonProcess(jsonProcess);
 		    		 		componentList.add(component);
 		    		 		
 		    		 	}
@@ -325,6 +330,13 @@ public class MedCafeComponent
 	public static String getCLICK_URL() {
 		return CLICK_URL;
 	}
+	public boolean getJsonProcess() {
+		return jsonProcess;
+	}
+	
+	public void setJsonProcess(boolean jsonProcess) {
+		this.jsonProcess = jsonProcess;
+	}
 
 	public JSONObject toJSON() throws JSONException 
 	{
@@ -333,6 +345,7 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.NAME, name);
 		 jsonObj.put(MedCafeComponent.IMAGE, tempDir + image);
 		 jsonObj.put(MedCafeComponent.CLICK_URL, clickUrl);
+		 jsonObj.put(MedCafeComponent.SERVER, server);
 		 jsonObj.put(MedCafeComponent.METHOD, method);
 		 jsonObj.put(MedCafeComponent.TYPE, type);
 		 jsonObj.put(MedCafeComponent.REPOSITORY, repository);
@@ -340,6 +353,7 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.SCRIPT, script);
 		 jsonObj.put(MedCafeComponent.SCRIPT_FILE, scriptFile);
 		 jsonObj.put(MedCafeComponent.TEMPLATE, template);
+   	 jsonObj.put(MedCafeComponent.JSON_PROCESS, String.valueOf(jsonProcess));
     	 return jsonObj;
 	}
 

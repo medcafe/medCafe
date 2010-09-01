@@ -186,7 +186,7 @@ function populate(url, patient_id)
 {
 
 	 var server = url + "?patient_id=" + patient_id;
-
+//	alert ("URL " + url + " id " + patient_id);
 	 $.getJSON(server, function(data)
 	 {
 
@@ -195,12 +195,12 @@ function populate(url, patient_id)
 		   {
 		   		var tab_num = parent.addTab("New", "chart");
 
-		   		parent.iNettuts.refresh("yellow-widget" + tab_num);
+		   		parent.iNettuts.refresh("yellow-widget-" + tab_num);
 				// parent.iNettuts.makeSortable();
 
 		   		return;
 		   }
-
+		   alert(JSON.stringify(data));
 		   //put the new tabs in
 		   for(i=0; i< data.tabs.length; i++)
 		   {
@@ -209,9 +209,10 @@ function populate(url, patient_id)
                 tab_num = parent.addTab(label, "Details");
 
 		   }
-		   //next put the widgets on the tabs
-		   for(i=0; i< data.widgets.length; i++)
-		   {
+		   if (data.widgets){
+		   	//next put the widgets on the tabs
+		   	for(i=0; i< data.widgets.length; i++)
+		   	{
 		   	                  // var link = "";
                 // var label = data.widgets[i].name;
                 // //var label = "Label" + i;
@@ -226,6 +227,7 @@ function populate(url, patient_id)
                 // parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, widgetInfo.repository, repPatientId);
                 // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
                 parent.createWidgetContent( data.widgets[i] );
+		   	}
 		   }
 	});
 }
@@ -296,16 +298,16 @@ function addPatientDetail(obj, widgetInfo, data)
 	{
 	*/
 
-			var dataObject = eval('(' + data + ')');
-			if (dataObject.announce)
+		//	var dataObject = eval('(' + data + ')');
+			if (data.announce)
             {
               	  //alert("announce");
-                  updateAnnouncements(dataObject);
+                  updateAnnouncements(data);
                   return;
             }
 		//	var html = v2js_listPatientTable( data );
 
-			var html = window["v2js_" + widgetInfo.template](dataObject);
+			var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 	  		// $("#aaa" + tab_num).append(html);
 	  		if (!widgetInfo.tab_num)
 				widgetInfo.tab_num = "2";
@@ -328,7 +330,7 @@ function addPatientDetail(obj, widgetInfo, data)
 								null,
 								null ]
 				} );
-				setHasContent(widgetInfo.order);
+				setHasContent(widgetInfo.tab_num);
 /*			} );
 	});  */
 }

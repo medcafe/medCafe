@@ -67,21 +67,24 @@ $(function(){
 		//	var repPatientId ;
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var widgetInfo = {
-				"id" : $(ui.draggable).html(),
+			//	"id" : $(ui.draggable).html(),
 				"patient_id" : "<%=patientId%>",
 				"rep_patient_id" : "",
 				"location" : "<%=location%>",
 				"repository" : $(dragObj).find('img').attr("custom:repository"),
 				"type" : $(dragObj).find('img').attr("custom:type"),
 				"name" : $(dragObj).find('p').text(),
-				"server" : $(dragObj).find('img').attr("custom:url"),
+				"clickUrl" : $(dragObj).find('img').attr("custom:url"),
+				"server" : $(dragObj).find('img').attr("custom:server"),
 				"tab_num": "<%=tabNum%>",
 				"params" : $(dragObj).find('img').attr("custom:params"),
 				"column" : "1",
 				"script" : $(dragObj).find('img').attr("custom:script"),
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
-				"template" : $(dragObj).find('img').attr("custom:template")
+				"template" : $(dragObj).find('img').attr("custom:template"),
+				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
 			};
+		//	alert("tabs-template " + JSON.stringify(widgetInfo));
 		//	alert (widgetInfo.script + " " + widgetInfo.script_file + " " + widgetInfo.template + " " + widgetInfo.name);
 			if (ui.position["left"] > 550)
 				widgetInfo.column = "2";
@@ -174,10 +177,13 @@ function bindClose()
 				{
 					removeWidget(tabNum);
 				}
-			});
 
-}
+			});	
+	
+}	
 </script>
+
+
 
 <div class="id" id="<%=title%>"></div>
 <div id="columns">

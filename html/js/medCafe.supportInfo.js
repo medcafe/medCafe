@@ -13,15 +13,15 @@ function addSupportInfo(callObj, widgetInfo, data)
 		//		{
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
-						var dataObject = eval('(' + data + ')');
+				//		var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (dataObject.announce)
+						if (data.announce)
 						{
-							updateAnnouncements(dataObject);
+							updateAnnouncements(data);
 							return;
 						}
-						//var html = v2js_listSupportInfo( dataObject );  	 
-						var html = window["v2js_" + widgetInfo.template](dataObject);
+						//var html = v2js_listSupportInfo( data );  	 
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
 						var selectedRow=0;	
 							if (!widgetInfo.tab_num)

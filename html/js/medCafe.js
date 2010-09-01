@@ -120,83 +120,28 @@ $(document).ready( function() {
 	    var type = widgetInfo.type;
 
 
-		if  (type == "Viewer")
-		{
-			addWidgetTab(this, widgetInfo);
-		}
-		else if  (type == "Annotate")
-		{
-			addWidgetTab(this, widgetInfo);
-		}
-		else if  (type == "Repository")
-		{
-			$.getScript('js/medCafe.repository.js', function()
-			{
-				addRepository(this, widgetInfo);
-			});
-		}
 
-		else if  (type == "History")
-		{
-
-			if (typeof addHistory == 'undefined')
-			{
-				$.getScript('js/medCafe.history.js', function()
-				{
-					addHistory(this, widgetInfo);
-				});
-			}
-			else
-			{
-				addHistory(this, widgetInfo);
-			}
-		}
-
-		else if  (type == "Visits")
-		{
-			if (typeof processVisitList == 'undefined')
-			{
-				$.getScript('js/medCafe.visits.js', function()
-				{
-					processVisitList(this, widgetInfo);
-				});
-			}
-			else
-			{
-				processVisitList(this, widgetInfo);
-			}
-		}
-		else if  (type == "Immunizations" || type == "Allergies" || type == "Problem" || type == "Support" || type == "Medications"||type =="Symptoms"
-		|| type =="AddHistory" || type == "EditorNonIFrame" || type == "Timeline" || type == "Filter" || type == "Bookmarks" || type == "Image" || type == "Chart"
-		|| type == "Detail")
-		{
-			if (typeof window[widgetInfo.script] == 'undefined')
-			{
-				$.getScript('js/' + widgetInfo.script_file, function()
-				{
-					addWidgetTab(this, widgetInfo);
-				});
-			}
-			else
-			{
-				addWidgetTab(this, widgetInfo);
-			}
-		}
-
-		else if (type == "SingleImage")
+	
+	/*	if (type == "SingleImage")
 		{
 			displayImage(widgetInfo);
 		}
-		else
+		else   */ 
+			{
+				addWidgetTab(this, widgetInfo);
+			}
+		
+
+	/*	else
 		{
 			addChart(this, widgetInfo);
-		}
+		}  */
 		medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		});
 	}
 
 
-	function addChart(callObj, widgetInfo)
+	function addChart(callObj, widgetInfo, imageTitle)
 	{
 		//alert("medCafeTabs " +  tab_num + " about to call setHasContent  set to " + true  );
 
@@ -209,7 +154,7 @@ $(document).ready( function() {
 			$("#aaa" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
 			{
-				$('#iframe'+ widgetInfo.tab_num).attr('src', server +"?tab_num=" + widgetInfo.tab_num + "&patient_id=" + widgetInfo.patient_id + "&rep_patient_id="  + widgetInfo.rep_patient_id);
+				$('#iframe'+ widgetInfo.tab_num).attr('src', widgetInfo.clickUrl +"?tab_num=" + widgetInfo.tab_num + "&patient_id=" + widgetInfo.patient_id + "&rep_patient_id="  + widgetInfo.rep_patient_id+ "&image=" + imageTitle);
 
 			} );
 
@@ -438,7 +383,8 @@ function displayImage(imageName, patientId, tab_num)
 						return;
 					widgetInfo.tab_num = newTab_num;
 					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
-					widgetInfo.server = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
+					widgetInfo.clickUrl = "viewer.jsp";
+					widgetInfo.image = server;
 					createWidgetContent(widgetInfo);
 
 
@@ -465,8 +411,8 @@ function displayImage(imageName, patientId, tab_num)
 
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
-				 	widgetInfo.server = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
-				 	addChart(this, widgetInfo);
+				 	widgetInfo.clickUrl = "viewerDraw.jsp"
+				 	addChart(this, widgetInfo, imageTitle);
 
 					//createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
 

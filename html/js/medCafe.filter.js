@@ -1,15 +1,15 @@
 var retry = true;
 
-function filterInitialize(url, startDate, endDate, category)
+function filterInitialize(url, startDate, endDate, category, widgetInfo)
 {			
 			setChecked(category);
 			$.getJSON(url, function(data)
 			{
   			
-	  			var startHtml = v2js_listStartDates( data );  
-	  			
+	  			var startHtml = v2js_inettutsHead(widgetInfo) + v2js_listStartDates( data );  
+
 	  			$("#valueAA").append(startHtml);
-	    		var endHtml = v2js_listEndDates( data );  
+	    		var endHtml = v2js_listEndDates( data ) + v2js_inettutsTail(widgetInfo);  
 	  			$("#valueBB").append(endHtml);
 				
 				$('select#valueAA').delay(1000,function()
@@ -167,5 +167,5 @@ function processFilter(widgetInfo, data)
 		
 		var url = "listDates.jsp?filter_start_date=" + startDate + "&filter_end_date=" + endDate;
 		//alert("medCafe.filter.js processFilter startDate " + startDate + " endDate " + endDate + " category " + category);
-		filterInitialize(url, startDate, endDate, category);
+		filterInitialize(url, startDate, endDate, category, widgetInfo);
 }

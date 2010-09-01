@@ -1,25 +1,28 @@
-function addRepository(callObj, widgetInfo)
+function addRepository(callObj, widgetInfo, data)
 	{
 	
 
 		//alert("medcafe.repository.js repository " + repId);
-		var html = "<div class=\"example" +  widgetInfo.repository + "\"></div>"; 
-		$(callObj).delay(200,function()
-		{
+	//	var html = "<div class=\"example" +  widgetInfo.repository + "\"></div>"; 
+	   var html = "<div class=\"" + widgetInfo.type +  widgetInfo.repository + "\"></div>";
+	//	$(callObj).delay(200,function()
+	//	{
 			
-				iNettuts.refresh("yellow-widget" + widgetInfo.order);
+	//			iNettuts.refresh("yellow-widget" + widgetInfo.order);
 				
-				var serverLink =  widgetInfo.server + "repository-listJSON.jsp?repository=" + widgetInfo.repository;
+	//			var serverLink =  widgetInfo.server + "repository-listJSON.jsp?repository=" + widgetInfo.repository;
 				
-				$.getJSON(serverLink, function(data)
-				{
+	//			$.getJSON(serverLink, function(data)
+	//			{
 						//Check to see if there was an error returned	
+				//		var dataObject = eval('(' + data + ')');
 						updateAnnouncements(data);
 						if (data.announce)
 						{
 							return;
 						}
-						var html = v2js_listPatientsTable( data );  	  					
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
+					//	var html = v2js_listPatientsTable( data );  	  					
 						if (!widgetInfo.tab_num)
 							widgetInfo.tab_num = "2";
 						if (!widgetInfo.column)
@@ -30,7 +33,7 @@ function addRepository(callObj, widgetInfo)
 						//$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						$("#example" + repId).dataTable( {
+						$("#" + widgetInfo.type + widgetInfo.repository).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 								,"bJQueryUI": true
 								,"sPaginationType": "full_numbers"
@@ -39,23 +42,25 @@ function addRepository(callObj, widgetInfo)
 									
 						$(this).delay(100,function()
 						{
-							listRepository(widgetInfo.server, widgetInfo.repository );
-							iNettuts.makeSortable();
+
+							listRepository(widgetInfo );
+
+						//	iNettuts.makeSortable();
 							
 						} );
 						
 						setHasContent(widgetInfo.order);
 						
-					} );
-					setHasContent(widgetInfo.order);
-		});
+			//		} );
+			//		setHasContent(widgetInfo.order);
+//		});
 		
 	}
 	
-	function listRepository(server, rep)
+	function listRepository(widgetInfo)
 	{
 		
-					$("#example" + rep + " .summary").each(function ()
+					$("#" +widgetInfo.type + widgetInfo.repository + " .summary").each(function ()
 				 	{
 				 		var detailId = $(this).text();
 				 		//alert("calling list repository for rep  " + rep + " detail " + detailId);
@@ -68,18 +73,54 @@ function addRepository(callObj, widgetInfo)
 							
 								//First check if the current detail tab exists
 								//Then put focus on this tab
-								if ($("#example" + detailId).attr('id') )
+								if ($("#Detail" + detailId).attr('id') )
 								{
 									//Find closest tab
 									
-									var test = $("#example" + detailId).parent().parent().closest('.tabContent');
+									var test = $("#Detail" + detailId).parent().parent().closest('.tabContent');
 									var tabId = test.attr('id');
 									
 									$('#tabs').tabs('select', '#' + tabId);
 									return false;
 								}
-								
-								var tab_num = addTab(detailId, "Repository");
+
+							var link = widgetInfo.server + "widgets-listJSON.jsp?type=patient_widgets";
+							$.getJSON(link, function(data)
+							{
+								var done = false;
+								for (var i = 0; i< data.widgets.length && !done ; i++)
+								{
+									var widget = data.widgets[i];
+
+									if (widget.name == "Details")
+									{
+										done = true;
+										var newWidget = {
+											"id" : widgetInfo.id + 1,
+											"patient_id" : "",
+											"rep_patient_id" : detailId,
+											"location" : widgetInfo.location,
+											"repository" : widgetInfo.repository,
+											"type" : widget.type,
+											"name" : "Details",
+											"server" : widget.server,
+											"tab_num": widgetInfo.tab_num,
+											"params" : widget.params,
+											"column" : widgetInfo.column,
+											"script" : widget.script,
+											"script_file" : widget.scriptFile,
+											"template" :widget.template,
+											"clickUrl": widget.clickUrl,
+											"jsonProcess": widget.jsonProcess
+											
+										};
+
+										addWidgetTab(this, newWidget);
+									}
+								}
+							});
+						
+							/*	var tab_num = addTab(detailId, "Repository");
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
@@ -113,7 +154,7 @@ function addRepository(callObj, widgetInfo)
 										} );
 									});
 									
-								} );
+								} ); */
 							} );
 								
 		    	    });

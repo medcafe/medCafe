@@ -155,7 +155,7 @@ public class ListWidgetResource extends ServerResource {
                  i++;
             }
             log.finer( obj.toString());
-            System.out.println("ListWidgetResource JSON " +  obj.toString());
+           // System.out.println("ListWidgetResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
            
         }

@@ -30,42 +30,48 @@
 	});
 }
 
-function addHistory(callObj, server, tab_num, label, patient_id, repId)
+function addHistory(callObj, widgetInfo, data)
 {
+		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
+	//	var html = "<div class=\"history" +  patient_id + "\"></div>";
+	//	$(callObj).delay(400,function()
+	//	{
 
-		var html = "<div class=\"history" +  patient_id + "\"></div>";
-		$(callObj).delay(400,function()
-		{
-
-			 	iNettuts.refresh("yellow-widget" + tab_num);
-				var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
+			// 	iNettuts.refresh("yellow-widget" + tab_num);
+			//	var serverLink =  server + "?repository=" + repId + "&patient_id=" + patient_id;
 				//alert("server link " + serverLink);
-				$.getJSON(serverLink, function(data)
-				{
+			//	$.getJSON(serverLink, function(data)
+			//	{
 
 						//Check to see if any error message
+					//	var dataObject = eval('(' + data + ')');
 						if (data.announce)
 						{
-							if (retry)
+					/*		if (retry)
 							{
-								addHistory(callObj, server, tab_num, label, patient_id, repId);
+								addHistory(callObj, widgetInfo, data);
 								retry = false;
 							}
 							else
-							{
+							{     */
 								updateAnnouncements(data);
-							}
+						//	}
 							return;
 						}
-						var html = v2js_listPatientHistoryTable( data );
-
+		//				var html = v2js_listPatientHistoryTable( data );
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
 						var selectedRow=0;
 						// $("#aaa" + tab_num).append(html);
-						$("#tabs-2 #column1").append(html);
-
+					  //	$("#tabs-2 #column1").append(html);
+						if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+						if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#history" + patient_id).dataTable( {
+						 	tableObj = $("#" + widgetInfo.type + widgetInfo.patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -74,7 +80,7 @@ function addHistory(callObj, server, tab_num, label, patient_id, repId)
 										return;
 									}
 
-									var nTrs = $('#history' + patient_id+ ' tbody tr');
+									var nTrs = $('#' + widgetInfo.type + widgetInfo.patient_id+ ' tbody tr');
 									var iColspan = nTrs[0].getElementsByTagName('td').length;
 									var sLastGroup = "";
 									for ( var i=0 ; i<nTrs.length ; i++ )
@@ -105,17 +111,17 @@ function addHistory(callObj, server, tab_num, label, patient_id, repId)
 						} );
 
 
-						var medUrl = serverLink;
-
+					//	var medUrl = serverLink;
+						var medUrl = widgetInfo.server + widgetInfo.clickUrl+ "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.patient_id;	
 						//Get the selected row if user clicks on <tr> object
-						$("#history" + patient_id + " tbody tr").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.patient_id + " tbody tr").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos;
 						});
 
 						//Get the selected row if user clicks on <td> object
-						$("#history" + patient_id + " tbody td").click( function() {
+						$("#" + widgetInfo.type + widgetInfo.patient_id + " tbody td").click( function() {
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
@@ -123,8 +129,8 @@ function addHistory(callObj, server, tab_num, label, patient_id, repId)
 
 						setHasContent(tab_num);
 
-					} );
-					setHasContent(tab_num);
-		});
+//					} );
+	//				setHasContent(tab_num);
+	//	});
 
 }

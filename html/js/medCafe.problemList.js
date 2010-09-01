@@ -43,24 +43,25 @@ function addProblemList(callObj, widgetInfo, data)
 				//alert("server link " + serverLink);
 	//			$.getJSON(serverLink, function(data)
 	//			{
-		var dataObject = eval('(' + data + ')');
-						//Check to see if any error message
-						if (dataObject.announce)
+	//	var dataObject = JSON.parse(data);
+	//	var dataObject = data;
+							//Check to see if any error message
+						if (data.announce)
 						{
 							if (retry)
 							{
-								addProblemList(callObj, widgetInfo, dataObject);
+								addProblemList(callObj, widgetInfo, data);
 								retry = false;
 							}
 							else
 							{
-								updateAnnouncements(dataObject);
+								updateAnnouncements(data);
 							}
 							return;
 						}
-					//	var html = v2js_listProblemListTable( dataObject );
-					//	var html = window["v2js_listProblemListTable2"](dataObject);
-						var html = window["v2js_" + widgetInfo.template](dataObject);
+					//	var html = v2js_listProblemListTable( data );
+					//	var html = window["v2js_listProblemListTable2"](data);
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						//var tableObj;
 						//var selectedRow=0;
 						//$("#aaa" + tab_num).append(html);
@@ -111,7 +112,7 @@ function addProblemList(callObj, widgetInfo, data)
 						} );
 
 
-						var medUrl = widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+						var medUrl = widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 
 						//Get the selected row if user clicks on <tr> object
 						$("#" + widgetInfo.type + widgetInfo.rep_patient_id + " tbody tr").click( function() {

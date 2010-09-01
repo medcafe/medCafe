@@ -11,13 +11,15 @@ var medCafeWidget =
 					widgetDefault : 
 					{
 							id : 1,
-							tab_order : 1, 
+							order : 1,
+							tab_num : 2,
+							column: 1, 
 							repository : 'OurVista',
 							type: 'images',
 							location : 'center',
 							clickUrl :'http://127.0.0.1:8080',
 							name : 'widget name',
-							server : 'http://127.0.0.1',
+							server : 'http://127.0.0.1:8080/',
 							patient_id :1,
 							rep_patient_id :1,
 							remove :'false'
@@ -27,13 +29,15 @@ var medCafeWidget =
 			             intro : 
 			             {
 				            id : 1,
-							tab_order : 1, 
+							order : 1,
+							tab_num : 2,
+							column: 1, 
 							repository : 'OurVista',
 							type: 'images',
 							location : 'center',
 							clickUrl :'http://127.0.0.1:8080',
 							name : 'widget name',
-							server : 'http://127.0.0.1',
+							server : 'http://127.0.0.1:8080/',
 							patient_id :1,
 							rep_patient_id :1,
 							remove :'false'
@@ -104,7 +108,7 @@ var medCafeWidget =
     		,
     		populateExtWidgetSettings : function ( widgetInfo )
     		{   			
-    			var id = "yellow-widget" + widgetInfo.tab_num;
+    			var id = "yellow-widget" + widgetInfo.tab_num + "_" + widgetInfo.order;
 		
     			var newSettings = this.getExtWidgetSettings(id);
 		
@@ -113,8 +117,11 @@ var medCafeWidget =
     				alert("Could not set values ");
     			}
     			//Temporarily set id to the tab_num
-    			newSettings.id = widgetInfo.tab_num;
-    			newSettings.tab_order = widgetInfo.tab_num;
+    		//	alert( "id " + widgetInfo.id + "yes this is what widgetInfo.id has");
+    		//	alert("order " + widgetInfo.order);
+    		//	alert("widgetInfo.type " + widgetInfo.type);
+    			newSettings.id = widgetInfo.id;
+    		//	newSettings.order = widgetInfo.order;
     			newSettings.repository = widgetInfo.repository;
     			newSettings.type = widgetInfo.type;
     			//extSettings.location = location;
@@ -123,7 +130,7 @@ var medCafeWidget =
     			newSettings.server = widgetInfo.server;
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
-    			
+    			newSettings.clickUrl = widgetInfo.clickUrl;
     			this.setExtWidgetSettings(id,newSettings );   					
 				
 				

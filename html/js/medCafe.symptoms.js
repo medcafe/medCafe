@@ -1,10 +1,10 @@
 function processSymptoms(widgetInfo, data)
 {
 
-
+				//	var dataObject = eval('(' + data + ')');
 					$('#templateList').html("");
 		  			var html = v2js_listHistoryTemplate( data );  
-		  				
+		  			//var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);	
 					$('#templateList').html(html);
 					$(this).delay(100,function()
 					{

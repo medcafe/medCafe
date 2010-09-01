@@ -15,15 +15,15 @@ function addMedications(callObj, widgetInfo, data)
 				
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
-							var dataObject = eval('(' + data + ')');
+						//	var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (dataObject.announce)
+						if (data.announce)
 						{
-							updateAnnouncements(dataObject);
+							updateAnnouncements(data);
 							return;
 						}
 						//var html = v2js_listPatientMedsVert( data );
-						var html = window["v2js_" + widgetInfo.template](dataObject);
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
 							if (!widgetInfo.tab_num)
 							widgetInfo.tab_num = "2";

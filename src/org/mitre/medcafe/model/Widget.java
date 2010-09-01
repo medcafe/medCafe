@@ -64,6 +64,7 @@ public class Widget
 	protected String column = null;
 
 
+
 	//All the other parameters
 	private  HashMap<String, String > params = new HashMap<String, String >();
 
@@ -81,6 +82,7 @@ public class Widget
 	public static final String TRUE = "true";
 	public static final String TAB_NUMBER = "tab_num";
 	public static final String COLUMN = "column";
+
 
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
 	public static final String SELECT_WIDGETS = "SELECT id, widget_id, param, value from widget_params where username = ? and patient_id = ? ORDER BY widget_id ";
@@ -125,6 +127,7 @@ public class Widget
 		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 		 o.put(Widget.TAB_NUMBER, this.getTab_num());
 		 o.put(Widget.COLUMN, this.getColumn());
+
 		 
 		 return o;
 
@@ -269,6 +272,8 @@ public class Widget
 						  widgetJSON.put(MedCafeComponent.SCRIPT, comp.getScript());
 						  widgetJSON.put(MedCafeComponent.SCRIPT_FILE, comp.getScriptFile());
 						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
+						  widgetJSON.put(MedCafeComponent.CLICK_URL, comp.getClickUrl());
+						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
 						  }                		
                     ret.append("widgets", widgetJSON);
 					 }

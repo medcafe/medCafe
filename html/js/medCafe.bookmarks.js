@@ -134,9 +134,9 @@ function addBookmarks(callObj, widgetInfo, data)
 				$.getJSON(serverLink, function(data)
 				{
 */
-						var dataObject = eval('(' + data + ')');
+					//	var dataObject = eval('(' + data + ')');
 					//	var html = v2js_listPatientsBookmarksTable( data );
-					var html = window["v2js_" + widgetInfo.template](dataObject);
+					var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
 						var selectedRow=0;
 					/*	// $("#aaa" + tab_num).append(html);

@@ -323,9 +323,20 @@ $(document).ready( function() {
 			}
 
 
-			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
 
-			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id;
+			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
+			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
+			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository;
+			if (widgetInfo.type != "Repository")
+			{
+				var serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id;
+			}
+			if (widgetInfo.image && widgetInfo.image!="") {
+				var serverLink = serverLink + "&image=" + widgetInfo.image;
+			}
+
+
+
 			$.get(serverLink, function(data)
 			{
 
@@ -340,11 +351,26 @@ $(document).ready( function() {
                     $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(data);
 				}
 			// alert("should have added content now");
-				//iNettuts.makeSortable();
-				setHasContent(widgetInfo.order);
+			//	iNettuts.makeSortable();
+				setHasContent(widgetInfo.tab_num);
+			//	alert("tab_num " + widgetInfo.tab_num);
+			//	alert (JSON.stringify(widgetInfo));
+				if (widgetInfo.jsonProcess == "true")
+				{
+					var dataObject = JSON.parse(  data);
+					//dataObject.tabNum = widgetInfo.tab_num
+					processScripts(callObj, widgetInfo, dataObject);
+				}
+				else
+				{
+					processScripts(callObj, widgetInfo, data);
+				}
+	
+			//	data = JSON.stringify(dataObject);
+			//	alert(data);
 				//Run any scripts specific to this type
 			 	//processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num);
-				processScripts(callObj, widgetInfo, data);
+				//processScripts(callObj, widgetInfo, dataObject);
 			    //Try to add a scroll
 				$(callObj).delay(100,function()
 				{
@@ -414,12 +440,12 @@ $(document).ready( function() {
 				processFilter(widgetInfo, data);
 			}
 		}
-		else if ( type == "Chart")
+	/*	else if ( type == "Chart")
 		{
 
 			processChart(widgetInfo, data);
 
-		}
+		}  */
 		else if ( type == "Image")
 		{
 			//Delay to allow for all of the document to be loaded
@@ -490,8 +516,7 @@ $(document).ready( function() {
 				processAnnotateImages(widgetInfo, data);
 			}
 		}
-		else if ( type == "Allergies"|| type == "Problem" || type == "Immunizations" || type == "Support" || type == "Medications" || type == "Bookmarks" ||
-		type == "Detail")
+		else 
 		{
 
 			//if (typeof addAllergies == 'undefined')

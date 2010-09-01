@@ -13,19 +13,19 @@ function addImmunizations(callObj, widgetInfo, data)
 						var toggleMinus = 'images/bullet_toggle_minus.png';
 						var togglePlus = 'images/bullet_toggle_plus.png';
 						//Check to see if any error message
-						var dataObject = eval('(' + data + ')');
+					//	var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
 		
-						if (dataObject.announce)
+						if (data.announce)
 						{
 				
-								updateAnnouncements(dataObject);
+								updateAnnouncements(data);
 						
 							return;
 						}
 					//	var html = v2js_listPatientImmunizations( data );
 			
-						var html = window["v2js_" + widgetInfo.template](dataObject);
+						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 		
 						var tableObj;
 						var selectedRow=0;
@@ -105,7 +105,7 @@ function addImmunizations(callObj, widgetInfo, data)
 						} );
 
 
-						var immunizationsUrl = widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
+						var immunizationsUrl = widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 						/*$(this).delay(100,function()
 						{
 							listImmunizations(immunizationsUrl );
