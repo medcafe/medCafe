@@ -303,9 +303,6 @@ function addPatientDetail(obj, widgetInfo, data)
                   updateAnnouncements(dataObject);
                   return;
             }
-            dataObject.tab_num=widgetInfo.tab_num;
-            dataObject.title = widgetInfo.title;
-
 		//	var html = v2js_listPatientTable( data );
 
 			var html = window["v2js_" + widgetInfo.template](dataObject);

@@ -1,4 +1,3 @@
-#include ("inettutsHead.vm")
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="Allergies$patient_id">
 <thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>
 #foreach( $allergy in $allergies)
@@ -6,5 +5,4 @@
 #end
 </tbody>
 <table>
-#include("inettutsTail.vm")
 
