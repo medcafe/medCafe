@@ -348,7 +348,7 @@ $(document).ready( function() {
                         widgetInfo.column = "1";
                     if (!widgetInfo.tab_num)
                         widgetInfo.tab_num = "2";
-                    $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(data);
+                    $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));
 				}
 			// alert("should have added content now");
 			//	iNettuts.makeSortable();
@@ -411,6 +411,7 @@ $(document).ready( function() {
 		var type = widgetInfo.type;
 		if (type == "Symptoms" || (type == "AddHistory") )
 		{
+			//alert("data: " + data);
 			if (typeof processSymptoms == 'undefined')
 			{
 

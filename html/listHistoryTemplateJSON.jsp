@@ -52,7 +52,7 @@
 	if (patientObj != null)
 		 	patientId = patientObj.toString();
 	
-	if (patientId != null)
+	//if (patientId != null)
 		 jspUrl =  "/history/templates/patients/" + patientRepId;
 	
 	String user =  request.getRemoteUser();

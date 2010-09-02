@@ -2,8 +2,17 @@ function processSymptoms(widgetInfo, data)
 {
 
 				//	var dataObject = eval('(' + data + ')');
+					//alert("data " + data);
+					if (!widgetInfo.tab_num)
+							widgetInfo.tab_num = "2";
+					if (!widgetInfo.column)
+							widgetInfo.column = "1";
+					
+					var html = v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo);
+					$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 					$('#templateList').html("");
-		  			var html = v2js_listHistoryTemplate( data );  
+				
+			  		//	var html = v2js_listHistoryTemplate( data );  
 		  			//var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);	
 					$('#templateList').html(html);
 					$(this).delay(100,function()
