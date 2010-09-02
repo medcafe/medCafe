@@ -15,10 +15,10 @@
         </li>
     </div>
     <div class="widget-content no-copy" id="widget-content$tab_num">
-        <p>
+        <span>
             <div id="aaa$tab_num" class="no-copy">
             </div>
-        </p>
+        </span>
         <div id="dialog$tab_num">
             <div id="modalaaa$tab_num">
 

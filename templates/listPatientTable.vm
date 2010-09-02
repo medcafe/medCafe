@@ -1,8 +1,6 @@
 #set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
 #set ($oparen = "(")
 #set ($cparen = ")")
-<div id="Detail$patient_id">
-
 #* The $orderno is used to sort the rows into an order that makes sense for a patient.  $orderno goes in the first column of every row and is the
    first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order
    and then for multiline information that is of variable length the second column is used and it is the second sort criteria.
@@ -11,13 +9,15 @@
 
 #*   Patient name and id  *#
 #* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
-<div style="float:left; margin-right:2em;">
+<p>
 #if ($patient_data.name.given)
 	<b>#foreach ($givenNameDetail in $patient_data.name.given)
 		$givenNameDetail$space
 	#end
 #end
-$patient_data.name.lastname</b><br/>
+$patient_data.name.lastname</b></p>
+<div style="float:left; margin-right:2em;">
+
 
 #*   The patient can have more than one address, and the patient can have more than one street address lines in the street address
      so iterate through all the addresses, and all the street lines for each address
@@ -47,7 +47,6 @@ $patient_data.name.lastname</b><br/>
 	#end
 #end
 </div>
-<br/>
 #* Patient birthday and birthplace   *#
 #if ($patient_data.birthtime)
     Born $patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year
@@ -133,5 +132,4 @@ $patient_data.gender.displayName<br/>
 		#end
 	#end
 #end
-</div>
 
