@@ -1,31 +1,13 @@
 #set( $count=0)
-<form id="BookmarksForm$patient" name="BookmarksForm$patient">
-<input type="submit" value="save"></input>
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="Bookmarks$patient">
-<thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>
+
 #if(!$bookmarks)
-	<tr class="gradeX"><td name="name" value="" class="editInput"></td>
-    <td name="url" class="editInput" value=""></td>
-    <td name="description" class="editInput" value=""></td>
-    <td></td>
-    </tr>
+	<i>No bookmarks defined for this patient.</i>
 #else
-
-#foreach( $bookmark in $bookmarks )
-    <tr class="gradeX"><td name="name" class="editInput" value="$bookmark.name">$bookmark.name</td>
-    <td name="url" value="$bookmark.url" class="editInput">$bookmark.url</td>
-    <td name="description" class="editInput" value="$bookmark.description">$bookmark.description</td>
-    <td><div>
-    <input class="addLink" id="AddLink$count" value="Add Link" type="button"></input>
-    <div id="bookmarkName$count" style="display:none;">$bookmark.name</div>
-    <div id="bookmarkUrl$count" style="display:none;">$bookmark.url</div>
-    </div></td>
-    </tr>
-    #set( $count = $count + 1 )
+    #foreach( $bookmark in $bookmarks )
+        <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>
+        <a href="$bookmark.url" title="$bookmark.description" target="_blank">$bookmark.name</a>
+        <a onclick="alert('this should delete this bookmark')" href="#" class="ui-icon ui-icon-trash"  style="float: right; margin-left: .3em;"></a>
+        <br clear="all"/>
+    #end
 #end
-
-#end
-</tbody>
-</table>
-</form>
 
