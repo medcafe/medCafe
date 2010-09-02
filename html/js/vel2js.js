@@ -19,12 +19,12 @@ t.p('" id="yellow-widget');
 t.p( context.tab_num);
 t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
-t.p( context.title);
+t.p( context.name);
 t.p('</h3><a href="');
 t.p('#" class="remove">CLOSE</a><a href="');
 t.p('#" class="edit">EDIT</a><a href="');
 t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
-t.p( context.title);
+t.p( context.name);
 t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
 t.p( context.tab_num);
 t.p('">        <p>            <div id="aaa');
@@ -705,63 +705,33 @@ function v2js_listPatientTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Detail');
-t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
-var orderno = 1;
-t.p('<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Patient ID</td><td value="');
-t.p( context.patient_id);
-t.p('">');
-t.p( context.patient_id);
-t.p('</td></tr>');
-orderno = ( orderno + 1 );
-t.p('<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Patient Name</td>');
 var space = " ";
 t.p('    ');
-t.p('<td value =');
-if (context.patient_data.name.given) {
-t.p('	');
-for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
-var givenNameDetail = context.patient_data.name.given[i2];
-velocityCount = i2;
-t.p('		"');
-t.p( givenNameDetail);
-t.p(' " 			');
-}
-
-}
-t.p('"');
-t.p( context.patient_data.name.lastname);
+var oparen = "(";
+var cparen = ")";
+t.p('<div id="Detail');
+t.p( context.patient_id);
 t.p('">');
+t.p('<div style="float:left; margin-right:2em;">');
 if (context.patient_data.name.given) {
-t.p('	');
+t.p('	<b>');
 for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
 var givenNameDetail = context.patient_data.name.given[i2];
 velocityCount = i2;
 t.p('		');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 	');
+t.p('	');
 }
 
 }
 t.p( context.patient_data.name.lastname);
-t.p('</td></tr>');
+t.p('</b><br/>');
 if (context.patient_data.address) {
-var addresscount = 0;
 t.p('	');
 for (var i2=0;  i2<context.patient_data.address.length; i2++) {
 var addressDetail = context.patient_data.address[i2];
 velocityCount = i2;
-orderno = ( orderno + 1 );
 var linecount = 0;
 t.p('		');
 if (addressDetail.streetAddress) {
@@ -771,151 +741,114 @@ var streetAdd = addressDetail.streetAddress[i4];
 velocityCount = i4;
 t.p('				');
 if (linecount > 0) {
-t.p(' <tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value = "');
+t.p(' ');
 t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>				');
+t.p('<br/>				');
 }
 else {
-t.p(' <tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Patient Address</td><td value = "');
+t.p(' ');
 t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>				');
+t.p('<br/>				');
 }
 linecount = ( linecount + 1 );
-t.p('							');
+t.p('			');
 }
 velocityCount = i2;
-t.p('					');
+t.p('		');
 }
-orderno = ( orderno + 1 );
-t.p('		<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value= "');
-t.p( addressDetail.city);
-t.p('", "');
-t.p( addressDetail.stateOrProvince);
-t.p('"  "');
-t.p( addressDetail.zip);
-t.p('">');
+t.p('        ');
 t.p( addressDetail.city);
 t.p(', ');
 t.p( addressDetail.stateOrProvince);
 t.p('  ');
 t.p( addressDetail.zip);
-t.p('</td></tr>		');
-addresscount = ( addresscount + 1 );
-t.p('	');
+t.p('<br/>	');
 }
 
 }
 if (context.patient_data.telecom) {
-t.p('		');
+t.p('	');
 for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
 var telecomDetail = context.patient_data.telecom[i2];
 velocityCount = i2;
-orderno = ( orderno + 1 );
-t.p('		<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td>		');
+t.p('		');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
-t.p('			<td value = Patient "');
-t.p( telecomDetail.type);
-t.p('" address>Patient ');
-t.p( telecomDetail.type);
-t.p(' address</td><td value = "');
+t.p('			');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></td>		');
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.type);
+t.p(' ');
+t.p( cparen);
+t.p('<br/>		');
 }
 else {
-t.p('			<td value = Patient "');
-t.p( telecomDetail.use);
-t.p('" number>Patient ');
-t.p( telecomDetail.use);
-t.p(' number</td><td value = "');
+t.p('			');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></tr>		');
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.use);
+t.p(' ');
+t.p( cparen);
+t.p('<br/>		');
 }
 t.p('	');
 }
 
 }
-orderno = ( orderno + 1 );
-if (context.patient_data.language) {
-t.p('	<tr class = "gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Language Spoken</td><td value = ');
-t.p( context.patient_data.language);
-t.p('>');
-t.p( context.patient_data.language);
-t.p('</td>');
+t.p('</div><br/>');
+if (context.patient_data.birthtime) {
+t.p('    Born ');
+t.p( context.patient_data.birthtime.month);
+t.p('/');
+t.p( context.patient_data.birthtime.day);
+t.p('/');
+t.p( context.patient_data.birthtime.year);
+t.p('    ');
+if (context.patient_data.birthPlace) {
+t.p('        in        ');
+if (context.patient_data.birthPlace.city && context.patient_data.birthPlace.stateOrProvince) {
+t.p('            ');
+t.p( context.patient_data.birthPlace.city);
+t.p(', ');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('        ');
 }
-orderno = ( orderno + 1 );
-t.p('<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Gender</td><td value="');
+else {
+if (context.patient_data.birthPlace.stateOrProvince) {
+t.p('            ');
+t.p( context.patient_data.birthPlace.stateOrProvince);
+t.p('        ');
+}
+else {
+if (context.patient_data.birthPlace.city) {
+t.p('            ');
+t.p( context.patient_data.birthPlace.city);
+t.p('        ');
+}
+}
+}
+t.p('    ');
+}
+t.p('    <br/>');
+}
+if (context.patient_data.language) {
+t.p('	Primarily speaks ');
+t.p( context.patient_data.language);
+t.p('<br/>');
+}
 t.p( context.patient_data.gender.displayName);
-t.p('">');
-t.p( context.patient_data.gender.displayName);
-t.p('</td></tr>');
+t.p('<br/>');
 if (context.patient_data.maritialStatus) {
-orderno = ( orderno + 1 );
-t.p('	<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Marital Status</td><td value="');
+t.p('		');
 t.p( context.patient_data.maritialStatus.displayName);
-t.p('">');
-t.p( context.patient_data.maritialStatus.displayName);
-t.p('</td></tr>');
+t.p('<br/>');
 }
 if (context.patient_data.race) {
+t.p('    Ethnicity:	');
 var first = true;
-orderno = ( orderno + 1 );
-t.p('<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Race</td><td value =	');
-for (var i2=0;  i2<context.patient_data.race.length; i2++) {
-var raceDetail = context.patient_data.race[i2];
-velocityCount = i2;
-t.p('		');
-if (!( first )) {
-t.p('			", "		');
-}
-t.p('		"');
-t.p( raceDetail.displayName);
-t.p('"		');
-first = false;
-t.p('	');
-}
-
-t.p('>	');
-first = true;
 t.p('	');
 for (var i2=0;  i2<context.patient_data.race.length; i2++) {
 var raceDetail = context.patient_data.race[i2];
@@ -933,121 +866,30 @@ first = false;
 t.p('	');
 }
 
-t.p('	</td></tr>');
+t.p('	<br/>');
 }
-orderno = ( orderno + 1 );
-t.p('<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Birth Date</td><td value="');
-t.p( context.patient_data.birthtime.month);
-t.p('/');
-t.p( context.patient_data.birthtime.day);
-t.p('/');
-t.p( context.patient_data.birthtime.year);
-t.p(' ');
-t.p( context.patient_data.birthtime.hour);
-t.p(':');
-t.p( context.patient_data.birthtime.minute);
-t.p('">');
-t.p( context.patient_data.birthtime.month);
-t.p('/');
-t.p( context.patient_data.birthtime.day);
-t.p('/');
-t.p( context.patient_data.birthtime.year);
-t.p(' ');
-t.p( context.patient_data.birthtime.hour);
-t.p(':');
-t.p( context.patient_data.birthtime.minute);
-t.p('</td></tr>');
-orderno = ( orderno + 1 );
-if (context.patient_data.birthPlace) {
-t.p('	');
-if (context.patient_data.birthPlace.city && context.patient_data.birthPlace.stateOrProvince) {
-t.p('		<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Birth Place</td><td value="');
-t.p( context.patient_data.birthPlace.city);
-t.p('", "');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('">');
-t.p( context.patient_data.birthPlace.city);
-t.p(', ');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('</td></tr>	');
-}
-else {
-if (context.patient_data.birthPlace.stateOrProvince) {
-t.p('		<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Birth Place</td><td value="');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('">');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('</td></tr>	');
-}
-else {
-if (context.patient_data.birthPlace.city) {
-t.p('		<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Birth Place</td><td value="');
-t.p( context.patient_data.birthPlace.city);
-t.p('">');
-t.p( context.patient_data.birthPlace.city);
-t.p('</td></tr>	');
-}
-}
-}
-}
+t.p('<br clear="all"/>');
 if (context.patient_data.guardian && context.patient_data.guardian.name) {
-t.p('	');
-orderno = ( orderno + 1 );
-t.p('	<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Guardian</td>	<td value =	');
+t.p('    ');
+t.p('		<u>Guardian</u><br/>	');
 if (context.patient_data.guardian.name.given) {
-t.p('		');
-for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
-var givenNameDetail = context.patient_data.guardian.name.given[i3];
-velocityCount = i3;
-t.p('			"');
-t.p( givenNameDetail);
-t.p(' " 				');
-}
-
-t.p('	');
-}
-t.p('	"');
-t.p( context.patient_data.guardian.name.lastname);
-t.p('">	');
-if (context.patient_data.guardian.name.given) {
-t.p('		');
+t.p('	    <b>		');
 for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
 var givenNameDetail = context.patient_data.guardian.name.given[i3];
 velocityCount = i3;
 t.p('			');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 		');
+t.p('		');
 }
 
 t.p('	');
 }
 t.p('	');
 t.p( context.patient_data.guardian.name.lastname);
-t.p('</td></tr>');
+t.p('</b><br/>	');
 t.p('	');
 if (context.patient_data.guardian.address) {
-var addresscount = 0;
 t.p('		');
 for (var i3=0;  i3<context.patient_data.guardian.address.length; i3++) {
 var addressDetail = context.patient_data.guardian.address[i3];
@@ -1059,93 +901,63 @@ t.p('				');
 for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
 var streetAdd = addressDetail.streetAddress[i5];
 velocityCount = i5;
-orderno = ( orderno + 1 );
-t.p('					');
+t.p('                    ');
 if (linecount > 0) {
-t.p(' <tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value = "');
+t.p(' ');
 t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>					');
+t.p('<br/>					');
 }
 else {
-t.p(' <tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Guardian Address</td><td value = "');
+t.p(' ');
 t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>					');
+t.p('<br/>					');
 }
 linecount = ( linecount + 1 );
-t.p('								');
+t.p('				');
 }
 velocityCount = i3;
-t.p('							');
+t.p('			');
 }
-orderno = ( orderno + 1 );
-t.p('			<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value= "');
-t.p( addressDetail.city);
-t.p('", "');
-t.p( addressDetail.stateOrProvince);
-t.p('"  "');
-t.p( addressDetail.zip);
-t.p('">');
+t.p('            ');
 t.p( addressDetail.city);
 t.p(', ');
 t.p( addressDetail.stateOrProvince);
 t.p('  ');
 t.p( addressDetail.zip);
-t.p('</td></tr>			');
-addresscount = ( addresscount + 1 );
-t.p('		');
+t.p('<br/>		');
 }
 
 t.p('	');
 }
+t.p('    ');
 t.p('	');
 if (context.patient_data.guardian.telecom) {
 t.p('		');
 for (var i3=0;  i3<context.patient_data.guardian.telecom.length; i3++) {
 var telecomDetail = context.patient_data.guardian.telecom[i3];
 velocityCount = i3;
-orderno = ( orderno + 1 );
-t.p('			<tr class="gradeX"><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td>			');
+t.p('			');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
-t.p('				<td value = Guardian "');
-t.p( telecomDetail.type);
-t.p('" address>Guardian ');
-t.p( telecomDetail.type);
-t.p(' address</td><td value = "');
+t.p('				');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></td>			');
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.type);
+t.p(' ');
+t.p( cparen);
+t.p('			');
 }
 else {
-t.p('				<td value = Guardian "');
-t.p( telecomDetail.use);
-t.p('" number>Guardian ');
-t.p( telecomDetail.use);
-t.p(' number</td><td value = "');
+t.p('				');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></tr>			');
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.use);
+t.p(' ');
+t.p( cparen);
+t.p(' <br/>			');
 }
 t.p('		');
 }
@@ -1153,7 +965,7 @@ t.p('		');
 t.p('	');
 }
 }
-t.p('</tbody><table>');
+t.p('</div>');
 return t.toString();
 }
 function v2js_listPatientVitals(context) { 
@@ -1789,5 +1601,32 @@ t.p( widget.name);
 t.p('</p>    </div><br/>  ');
 }
 velocityCount = 0;
+return t.toString();
+}
+function v2js_toInettuts(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<div class="widget color-');
+t.p( context.tabNum);
+t.p('" id="yellow-widget');
+t.p( context.tabNum);
+t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
+t.p('#" class="collapse">COLLAPSE</a><h3>');
+t.p( context.title);
+t.p('</h3><a href="');
+t.p('#" class="remove">CLOSE</a><a href="');
+t.p('#" class="edit">EDIT</a><a href="');
+t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
+t.p( context.title);
+t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
+t.p( context.tabNum);
+t.p('">        <p>            <div id="aaa');
+t.p( context.tabNum);
+t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
+t.p( context.tabNum);
+t.p('">            <div id="modalaaa');
+t.p( context.tabNum);
+t.p('">            </div>        </div>        <div id="hasContent" custom:hascontent="false">        </div>    </div></div>');
 return t.toString();
 }

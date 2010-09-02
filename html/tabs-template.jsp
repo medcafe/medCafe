@@ -178,9 +178,9 @@ function bindClose()
 					removeWidget(tabNum);
 				}
 
-			});	
-	
-}	
+			});
+
+}
 </script>
 
 
@@ -189,5 +189,6 @@ function bindClose()
 <div id="columns">
 	<div id="column1" class="column inettuts-container"></div>
 	<div id="column2" class="column inettuts-container"></div>
+	<div style="clear:both"/>
 </div>
 

@@ -1,12 +1,12 @@
 <div class="widget color-$tab_num" id="yellow-widget$tab_num">
     <div style="cursor: move;" class="widget-head">
-        <a href="#" class="collapse">COLLAPSE</a><h3>$title</h3><a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a><a href="#" class="maximize">MAXIMIZE</a>
+        <a href="#" class="collapse">COLLAPSE</a><h3>$name</h3><a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a><a href="#" class="maximize">MAXIMIZE</a>
     </div>
     <div class="edit-box" style="display: none;">
         <ul>
             <li class="item">
                 <label>Change the title?</label>
-                <input value="$title"/>
+                <input value="$name"/>
             </li>
         </ul>
         <li class="item">

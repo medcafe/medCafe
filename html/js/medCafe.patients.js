@@ -200,7 +200,7 @@ function populate(url, patient_id)
 
 		   		return;
 		   }
-		   alert(JSON.stringify(data));
+		   // alert(JSON.stringify(data));
 		   //put the new tabs in
 		   for(i=0; i< data.tabs.length; i++)
 		   {
@@ -322,14 +322,14 @@ function addPatientDetail(obj, widgetInfo, data)
 		//	{
 					//alert( $("#example" + patientId).text());
 
-				$("#"+ widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
-					"bJQueryUI": true,
-					"aaSortingFixed": [[ 0, 'asc' ]],
-					"aoColumns": [
-							{ "bVisible": false },
-								null,
-								null ]
-				} );
+				// $("#"+ widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+				// 	"bJQueryUI": true,
+				// 	"aaSortingFixed": [[ 0, 'asc' ]],
+				// 	"aoColumns": [
+				// 			{ "bVisible": false },
+				// 				null,
+				// 				null ]
+				// } );
 				setHasContent(widgetInfo.tab_num);
 /*			} );
 	});  */

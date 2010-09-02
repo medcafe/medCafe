@@ -36,7 +36,7 @@ public class ListPatientWidgetResource extends ServerResource {
     // static{log.setLevel(Level.FINER);}
 
 
-    @Get("html")
+    // @Get("html")
     public Representation toHtml(){
 
     	// System.out.println("Found ListWidgetResource html ");
@@ -129,7 +129,7 @@ public class ListPatientWidgetResource extends ServerResource {
             return null;
         }
     }
-    
+
     @Get("json")
     public JsonRepresentation toJson(){
         try

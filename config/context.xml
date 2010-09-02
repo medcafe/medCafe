@@ -2,7 +2,7 @@
    <Resource name="jdbc/medcafe" auth="Container"
           type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
           url="jdbc:postgresql://127.0.0.1:5432/medcafe"
-          username="mary" password="coolBLUE" maxActive="100" maxIdle="10" maxWait="-1"/>
+          username="jchoyt" password="ou812ic" maxActive="100" maxIdle="10" maxWait="-1"/>
 
       <!-- Realm for mmrc -->
 
@@ -10,8 +10,8 @@
             debug="99"
             driverName="org.postgresql.Driver"
             connectionURL="jdbc:postgresql:medcafe"
-            connectionName="mary"
-            connectionPassword="coolBLUE"
+            connectionName="jchoyt"
+            connectionPassword="ou812ic"
             userTable="users"
             userNameCol="username"
             userCredCol="password"
