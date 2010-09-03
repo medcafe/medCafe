@@ -6,19 +6,20 @@ function filterInitialize(url, startDate, endDate, category, widgetInfo)
 			$.getJSON(url, function(data)
 			{
   			
-	  			var startHtml = v2js_inettutsHead(widgetInfo) + v2js_listStartDates( data );  
+	  			var startHtml = v2js_listStartDates( data );  
 
 	  			$("#valueAA").append(startHtml);
-	    		var endHtml = v2js_listEndDates( data ) + v2js_inettutsTail(widgetInfo);  
+	    		var endHtml = v2js_listEndDates( data ) ;  
 	  			$("#valueBB").append(endHtml);
-				
+				$('select#valueBB').delay(1000, function()
+				{
 				$('select#valueAA').delay(1000,function()
 				{
-					$('select#valueAA, select#valueBB').selectToUISlider({
+					/*$('select').selectToUISlider({
 						labels: 12
-					});
+					}); */
 				});
-				
+				});
 				
 				
 				$('#slider_button').click(function()

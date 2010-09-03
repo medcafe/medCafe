@@ -6,7 +6,7 @@ function processVisitList(callObj, widgetInfo)
 		{
 
 				var idLabel = "visitList";
-			 	iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
+			 	iNettuts.refresh("yellow-widget" + widgetInfo.id);
 				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 				//alert("server link " + serverLink);
 				$.getJSON(serverLink, function(data)

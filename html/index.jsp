@@ -191,9 +191,7 @@
 	    <ul class="tabs" id ="test">
 	    <!-- add wrapper that Layout will auto-size to 'fill space' -->
     	</ul>
-        <div id="tabs-1" class="tabContent">
 
-        </div>
     </div>
 </div>
 

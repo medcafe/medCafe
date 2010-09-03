@@ -96,7 +96,7 @@ function addRepository(callObj, widgetInfo, data)
 									{
 										done = true;
 										var newWidget = {
-											"id" : widgetInfo.id + 1,
+											"id" : "",
 											"patient_id" : "",
 											"rep_patient_id" : detailId,
 											"location" : widgetInfo.location,
@@ -114,7 +114,7 @@ function addRepository(callObj, widgetInfo, data)
 											"jsonProcess": widget.jsonProcess
 											
 										};
-
+										newWidget.id = addWidgetNum(newWidget);
 										addWidgetTab(this, newWidget);
 									}
 								}
@@ -124,7 +124,7 @@ function addRepository(callObj, widgetInfo, data)
 								//Delay to let the DOM refresh
 								$(this).delay(500,function()
 								{
-									iNettuts.refresh("yellow-widget" + tab_num);
+									iNettuts.refresh("yellow-widget" + widgetInfo.id);
 								
 									//Add the patient data
 									var link =  server + "repository-listJSON.jsp?repository=" + rep  +"&patient_id="  + detailId;

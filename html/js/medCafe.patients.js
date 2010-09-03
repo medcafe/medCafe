@@ -195,7 +195,7 @@ function populate(url, patient_id)
 		   {
 		   		var tab_num = parent.addTab("New", "chart");
 
-		   		parent.iNettuts.refresh("yellow-widget-" + tab_num);
+		   	//	parent.iNettuts.refresh("yellow-widget-" + tab_num);
 				// parent.iNettuts.makeSortable();
 
 		   		return;

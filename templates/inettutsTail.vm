@@ -1,9 +1,10 @@
 
 
             </div>
-        </div>
-        <div id="hasContent" custom:hascontent="false">
-        </div>
+        	</div>
+        	<div id="hasContent" custom:hascontent="false">
+        	</div>
+    	</div>
     </div>
 </div>
 

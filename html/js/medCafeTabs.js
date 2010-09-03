@@ -221,6 +221,7 @@ $(document).ready( function() {
 		//alert("medCafeTabs addTab start");
 		//First check if tab already exists
 		var tab_num = 0;
+		var tab_id = 0;
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			var tabObj = $(this).find(".id");
@@ -243,10 +244,14 @@ $(document).ready( function() {
 		{
 			tab_id = $(this).attr('id');
 		});
+		if (tab_id!="0")
+		{
 		var curr_num = tab_id.split("-")[1];
 
 		tab_num = curr_num*1 + 1;
-
+		}
+		else
+			tab_num = 1;
 		var hrefBase = "tabs-" + tab_num;
 
 		//alert("medCafeTabs addTab current tab num " + tab_num + "  hrefBase " + hrefBase);
@@ -264,6 +269,50 @@ $(document).ready( function() {
 		return tab_num;
 	}
 
+  function addWidgetNum(widgetInfo)
+	{
+
+		//alert("medCafeTabs addTab start");
+		//First check if tab already exists
+		var widget_id = 0;
+		var max_id = 0;
+		$('.column').each(function(i)
+		{
+			$(this).find('.id').each(function()
+			{
+			
+				var widgetLabel = $(this).attr("id");
+				var testLabel  = widgetInfo.name+widgetInfo.patient_id;
+				//alert ("WidgetLabel " + widgetLabel + " newLabel " + testLabel + " test result " + (widgetLabel == testLabel));
+				var yellows= $(this).find('.widget');
+				if (yellows!="undefined")
+				{
+				var widget_idName = yellows.attr('id');
+				var id = widget_idName.substring(13)*1;
+				if (id > max_id)
+				{
+					max_id = id;
+				}
+				
+				if (widgetLabel == testLabel)
+				{
+				//	alert("i got here");
+					widget_id = widget_idName.substring(13);
+					return -1;
+				//	$('#tabs').tabs('select', "#tabs-" + tab_num);
+				}
+				}
+
+			});
+		});
+
+
+		//If the tab_number is greater than 0 then it has been found already - just return	-1
+		//if (widget_id != 0) return -1;
+	
+
+		return max_id*1 + 1;
+	}
 
 	function createLink(widgetInfo)
 	{
@@ -324,7 +373,7 @@ $(document).ready( function() {
 
 
 
-			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
+			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
 			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository;
 			if (widgetInfo.type != "Repository")
@@ -352,7 +401,7 @@ $(document).ready( function() {
 				}
 			// alert("should have added content now");
 			//	iNettuts.makeSortable();
-				setHasContent(widgetInfo.tab_num);
+				setHasContent(widgetInfo.id);
 			//	alert("tab_num " + widgetInfo.tab_num);
 			//	alert (JSON.stringify(widgetInfo));
 				if (widgetInfo.jsonProcess == "true")
@@ -372,6 +421,7 @@ $(document).ready( function() {
 			 	//processScripts(callObj, repId, patientId, patientRepId, data, type, tab_num);
 				//processScripts(callObj, widgetInfo, dataObject);
 			    //Try to add a scroll
+			    
 				$(callObj).delay(100,function()
 				{
 					if (typeof isScrollable == 'undefined')
@@ -392,6 +442,10 @@ $(document).ready( function() {
 
 				} );
 		});
+		//alert (widgetInfo.id);
+		//extendWidgets("yellow-widget"+widgetInfo.id);
+					iNettuts.refresh("yellow-widget" + widgetInfo.id);
+					iNettuts.makeSortable();
 	}
 
 	function callTemplate(type, data, patientId)

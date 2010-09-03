@@ -51,8 +51,8 @@ $(document).ready( function() {
 			var tab_num = addTab("new","chart");
 
 			//Make sure that tab is refreshed to add relevant scripts/ events
-			iNettuts.refresh("yellow-widget" + tab_num);
-			iNettuts.makeSortable();
+			//iNettuts.refresh("yellow-widget" + tab_num);
+			//iNettuts.makeSortable();
 		});
 
 		var medCafe = {
@@ -70,7 +70,7 @@ $(document).ready( function() {
 
 		medCafe.add("127.0.0.1:8080/medcafe/c","OurVista");
    		// alert("in medCafe.js onload(): break1");
-		iNettuts.makeSortable();
+		//iNettuts.makeSortable();
    		// alert("in medCafe.js onload(): break2");
 
 		$("body").draggable({
@@ -138,6 +138,7 @@ $(document).ready( function() {
 		}  */
 		medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		});
+		iNettuts.refresh("yellow-widget" + widgetInfo.id);
 	}
 
 
@@ -149,7 +150,7 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(200,function()
 		{
-			iNettuts.refresh("yellow-widget" + widgetInfo.tab_num);
+			iNettuts.refresh("yellow-widget" + widgetInfo.id);
 
 			$("#aaa" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
@@ -172,7 +173,7 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(100,function()
 		{
-			iNettuts.refresh("yellow-widget" + tab_num);
+			//iNettuts.refresh("yellow-widget" + tab_num);
 
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
@@ -336,7 +337,7 @@ function displayImage(imageName, patientId, tab_num)
 
          var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
 
-         iNettuts.refresh("yellow-widget" + tab_num);
+        // iNettuts.refresh("yellow-widget" + tab_num);
 		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
 		 //alert("medCafe.js addTab text to add to aaa" + tab_num + " " + text);
 

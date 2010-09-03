@@ -13,26 +13,27 @@ function v2js_inettutsHead(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<div class="widget color-');
-t.p( context.tab_num);
-t.p('" id="yellow-widget');
-t.p( context.tab_num);
-t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
+t.p('<div id = ');
+t.p( context.name);
+t.p( context.patient_id);
+t.p(' class = "id"><div class="widget color-2" id="yellow-widget');
+t.p( context.id);
+t.p('">    	<div style="cursor: move;" class="widget-head">         <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
 t.p( context.name);
 t.p('</h3><a href="');
 t.p('#" class="remove">CLOSE</a><a href="');
 t.p('#" class="edit">EDIT</a><a href="');
-t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
+t.p('#" class="maximize">MAXIMIZE</a>    	</div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
 t.p( context.name);
 t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
-t.p( context.tab_num);
+t.p( context.id);
 t.p('">        <p>            <div id="aaa');
-t.p( context.tab_num);
+t.p( context.id);
 t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
-t.p( context.tab_num);
+t.p( context.id);
 t.p('">            <div id="modalaaa');
-t.p( context.tab_num);
+t.p( context.id);
 t.p('">');
 return t.toString();
 }
@@ -40,7 +41,7 @@ function v2js_inettutsTail(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('            </div>        </div>        <div id="hasContent" custom:hascontent="false">        </div>    </div></div>');
+t.p('            </div>        	</div>        	<div id="hasContent" custom:hascontent="false">        	</div>    	</div>    </div></div>');
 return t.toString();
 }
 function v2js_listAddress(context) { 
@@ -1601,32 +1602,5 @@ t.p( widget.name);
 t.p('</p>    </div><br/>  ');
 }
 velocityCount = 0;
-return t.toString();
-}
-function v2js_toInettuts(context) { 
-var t = new StringCat();
-var velocityCount = 0;
-if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<div class="widget color-');
-t.p( context.tabNum);
-t.p('" id="yellow-widget');
-t.p( context.tabNum);
-t.p('">    <div style="cursor: move;" class="widget-head">        <a href="');
-t.p('#" class="collapse">COLLAPSE</a><h3>');
-t.p( context.title);
-t.p('</h3><a href="');
-t.p('#" class="remove">CLOSE</a><a href="');
-t.p('#" class="edit">EDIT</a><a href="');
-t.p('#" class="maximize">MAXIMIZE</a>    </div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
-t.p( context.title);
-t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
-t.p( context.tabNum);
-t.p('">        <p>            <div id="aaa');
-t.p( context.tabNum);
-t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
-t.p( context.tabNum);
-t.p('">            <div id="modalaaa');
-t.p( context.tabNum);
-t.p('">            </div>        </div>        <div id="hasContent" custom:hascontent="false">        </div>    </div></div>');
 return t.toString();
 }

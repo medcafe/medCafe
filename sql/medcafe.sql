@@ -302,7 +302,14 @@ insert into widget_params(widget_id, patient_id, username, param, value) values 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'location', 'center');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'name', 'Bookmarks-Patient-7');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'server', 'http://127.0.0.1:8080/medcafe/bookmarksJSON.jsp');
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '7', 'gaily', 'rep_patient_id', '7');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'gaily', 'rep_patient_id', '7');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'tab_order', 3);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'type', 'Medications');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'repository','OurVista');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'location', 'center');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'name', 'Medications-Patient-3');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'server', 'http://127.0.0.1:8080/medcafe/prescriptionJSON.jsp');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'rep_patient_id', '3');
 
 insert into category (category, description)  values ('NONE','No category specified');
 insert into category (category, description)  values ('Smoker','Is active smoker');

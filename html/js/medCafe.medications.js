@@ -7,9 +7,9 @@ function addMedications(callObj, widgetInfo, data)
 		// var html = "<div class=\"medications" +  patient_id + "\"></div>";
 	/*	$(callObj).delay(100,function()
 		{
-			 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
+			 	iNettuts.refresh("yellow-widget" + widgetInfo.id);
 				var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
-				alert( serverLink);
+				//alert( serverLink);
 				$.getJSON(serverLink, function(data)
 				{     */
 				

@@ -1,7 +1,9 @@
-<div class="widget color-$tab_num" id="yellow-widget$tab_num">
-    <div style="cursor: move;" class="widget-head">
+<div id = ${name}${patient_id} class = "id">
+<div class="widget color-2" id="yellow-widget$id">
+
+    	<div style="cursor: move;" class="widget-head"> 
         <a href="#" class="collapse">COLLAPSE</a><h3>$name</h3><a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a><a href="#" class="maximize">MAXIMIZE</a>
-    </div>
+    	</div>
     <div class="edit-box" style="display: none;">
         <ul>
             <li class="item">
@@ -14,11 +16,11 @@
             <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>
         </li>
     </div>
-    <div class="widget-content no-copy" id="widget-content$tab_num">
+    <div class="widget-content no-copy" id="widget-content$id">
         <span>
-            <div id="aaa$tab_num" class="no-copy">
+            <div id="aaa$id" class="no-copy">
             </div>
         </span>
-        <div id="dialog$tab_num">
-            <div id="modalaaa$tab_num">
+        <div id="dialog$id">
+            <div id="modalaaa$id">
 

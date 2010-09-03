@@ -109,7 +109,7 @@ function addImmunizations(callObj, widgetInfo, data)
 						/*$(this).delay(100,function()
 						{
 							listImmunizations(immunizationsUrl );
-							iNettuts.makeSortable();
+							//iNettuts.makeSortable();
 
 						} );*/
 						//Add a button to add a new Row

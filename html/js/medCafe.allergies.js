@@ -4,7 +4,7 @@ function addAllergies(callObj, widgetInfo, data)
 		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
 	//	$(callObj).delay(100,function()
 	//	{
-	//		 	iNettuts.refresh("yellow-widget" + widgetInfo.order);
+	//		 	iNettuts.refresh("yellow-widget" + widgetInfo.id);
 	//			var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 	//			// alert("server link " + serverLink);
 	//			$.getJSON(serverLink, function(data)

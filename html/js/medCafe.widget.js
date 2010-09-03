@@ -12,7 +12,7 @@ var medCafeWidget =
 					{
 							id : 1,
 							order : 1,
-							tab_num : 2,
+							tab_num : 1,
 							column: 1, 
 							repository : 'OurVista',
 							type: 'images',
@@ -30,7 +30,7 @@ var medCafeWidget =
 			             {
 				            id : 1,
 							order : 1,
-							tab_num : 2,
+							tab_num : 1,
 							column: 1, 
 							repository : 'OurVista',
 							type: 'images',
@@ -89,13 +89,14 @@ var medCafeWidget =
 		    setExtWidgetSettings : function ( id, newSettings) {
     			
     			//Make sure to extend to add the new values
+    			//alert (id);
     			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
-		        
+		       // alert(JSON.stringify(this.extSettings.widgetIndSettings[id]));
     		}
     		,
-		    removeWidgetSettings : function ( tab_num) {
+		    removeWidgetSettings : function ( widget_id) {
     		
-    			var id = "yellow-widget" + tab_num;
+    			var id = "yellow-widget" + widget_id;
 				var newSettings = this.getExtWidgetSettings(id);
     			if (!newSettings)
     			{
@@ -108,7 +109,7 @@ var medCafeWidget =
     		,
     		populateExtWidgetSettings : function ( widgetInfo )
     		{   			
-    			var id = "yellow-widget" + widgetInfo.tab_num + "_" + widgetInfo.order;
+    			var id = "yellow-widget" + widgetInfo.id;
 		
     			var newSettings = this.getExtWidgetSettings(id);
 		
@@ -117,11 +118,12 @@ var medCafeWidget =
     				alert("Could not set values ");
     			}
     			//Temporarily set id to the tab_num
-    		//	alert( "id " + widgetInfo.id + "yes this is what widgetInfo.id has");
+    			//alert( "id " + widgetInfo.id + "yes this is what widgetInfo.id has");
     		//	alert("order " + widgetInfo.order);
     		//	alert("widgetInfo.type " + widgetInfo.type);
-    			newSettings.id = widgetInfo.id;
+    		//	newSettings.id = widgetInfo.id;
     		//	newSettings.order = widgetInfo.order;
+    			newSettings.id = widgetInfo.id;
     			newSettings.repository = widgetInfo.repository;
     			newSettings.type = widgetInfo.type;
     			//extSettings.location = location;
@@ -172,7 +174,7 @@ var medCafeWidget =
     			var widgetSettings = this.getExtWidgetSettings(id);
     			if (widgetSettings == "")
     			{
-    				alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.tab_num);
+    				alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
     		
     				return;
     			}
@@ -190,7 +192,7 @@ var medCafeWidget =
     		deleteWidgets : function (url)
     		{
     			url = url + "?";
-    			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.tab_num);
+    			//alert("medcafe.widget.js widgetSettings ID " + id + " " + widgetSettings.id);
     			$.ajax({
 	                url: url,
 	                type: 'POST',

@@ -88,7 +88,10 @@ $(function(){
 		//	alert (widgetInfo.script + " " + widgetInfo.script_file + " " + widgetInfo.template + " " + widgetInfo.name);
 			if (ui.position["left"] > 550)
 				widgetInfo.column = "2";
-
+			var new_id = addWidgetNum(widgetInfo)
+			if (new_id > 0)
+			{
+				widgetInfo.id = new_id;
 			var repPatientJSON;
 
 			$.getJSON(serverLink,function(data)
@@ -126,6 +129,7 @@ $(function(){
 					// }
 
 		   });
+		   }
 		   }
     });
 
