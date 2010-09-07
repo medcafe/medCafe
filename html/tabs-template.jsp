@@ -73,7 +73,12 @@ $(function(){
 				"template" : $(dragObj).find('img').attr("custom:template"),
 				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
 			};
-			if (ui.position["left"] > 550)
+			//	var tabObject = $(this).closest('.tabContent');
+
+			var panePos = $('.ui-layout-center').position();
+			var colPos = $('#column2').position();
+			//alert("ui " + ui.position["left"] + " column " +colPos.left + " pane " + panePos.left);
+			if (ui.position["left"] >= (colPos.left + panePos.left))
 				widgetInfo.column = "2";
 	//		var new_id = addWidgetNum(widgetInfo)
 	//		if (new_id > 0)
