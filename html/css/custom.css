@@ -83,3 +83,9 @@
 .inettuts-container {
     min-height:300px;
 }
+
+/*  for medical history widget */
+.High { color: #ff0033; }
+
+/* for problem list widget */
+.Inactive { color: #666666; }

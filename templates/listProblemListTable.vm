@@ -1,26 +1,13 @@
-#set( $count=0)
-	#foreach(  $problemDetail in $problem )
-		#set($ActiveStatus="Active")
-		#set($InActiveStatus="Inactive")
-		#if( $count == 0 )
-			<table cellpadding="0" cellspacing="0" border="0" class="display" id="Problem$patient_id">
-			<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>
-		#end
-	
-		<tr class="gradeX"  >
-	
-		<td  value="$problemDetail.problemName">$problemDetail.problemName</td>
-		<td value="$problemDetail.problemCode.code">$problemDetail.problemCode.code</td>
-		<td value="$problemDetail.problemDate">$problemDetail.problemDate.low.month/
-		$problemDetail.problemDate.low.day/$problemDetail.problemDate.low.year</td>
-		#if ( $problemDetail.narrative == "A")
-			<td  style = "background-color:yellow" value="$problemDetail.narrative">$ActiveStatus</td>
-		#else
-			<td style = "background-color:gray"value="$problemDetail.narrative">$InActiveStatus</td>	
-		#end
-		</tr>
-		#set( $count = $count + 1 )
-	#end
+#foreach(  $problemDetail in $problem )
 
-</tbody>
-<table>
+    #if ( $problemDetail.narrative == "A")
+        #set($status = "Active")
+    #else
+        #set($status = "Inactive")
+    #end
+    <p class="$status"><b>$problemDetail.problemName</b><br/>
+    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code $problemDetail.problemCode.code<br clear="all"/>
+    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started $problemDetail.problemDate.low.month/$problemDetail.problemDate.low.day/$problemDetail.problemDate.low.year ($status)<br clear="all"/>
+    </p>
+#end
+

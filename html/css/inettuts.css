@@ -5,12 +5,12 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
 /* Columns section */
 #columns .column {
     float:left;
-    width: 45%;
+    width: 49%;
     /* Min-height: */
     min-height: 100px;
     height: auto !important;
     height: 100px;
-    margin-right:2em;
+    /* margin-right:1em; */
 }
 
 #columns .widget {

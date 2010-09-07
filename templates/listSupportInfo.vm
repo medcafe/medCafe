@@ -1,10 +1,6 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="Support$patient_id">
-<thead><tr><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>
-
-#set ($contactNumber = 0)
 #foreach( $support in $supportInfo )
-#* get contact type *#
-	#set ($conType = 'undefined')
+    #* get contact type *#
+	#set ($conType = 'Undefined')
 
 	#if ($support.contactType.valueOf() == 'AGNT')
 		#set ($conType = 'Agent')
@@ -16,70 +12,46 @@
 		#set ($conType = 'Next of Kin')
 	#elseif ($support.contactType.valueOf() == 'PRS')
 		#set ($conType = $support.contactRelationship.displayName)
-	#end 
+	#end
 
-
-#set ($orderno = 1)
-
-#* Display contact name   *#
-
-	<tr class="gradeX"><td value = "$contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td><td>Name</td>
-	<td value =
+    #* Display contact name   *#
+    <p><b>
 	#if ($support.contact.name.given)
 		#foreach ($givenNameDetail in $support.contact.name.given)
-			"$givenNameDetail " 		
+			$givenNameDetail$space
 		#end
 	#end
-	"$support.contact.name.lastname">
-	#if ($support.contact.name.given)
-		#foreach ($givenNameDetail in $support.contact.name.given)
-			$givenNameDetail$space 
-		#end
-	#end
-	$support.contact.name.lastname</td></tr>
+	$support.contact.name.lastname</b><br>
+
+	$conType
+	#if ($support.contactRelationship.displayName)
+		( $support.contactRelationship.displayName )
+	#end</p>
+
 
 	#if ($support.contact.address)
-		#set ($addresscount = 0)	
+        <i><u>Address</u></i><br/>
 		#foreach ($addressDetail in $support.contact.address)
-			#set ($linecount = 0)
 			#if ($addressDetail.streetAddress)
 				#foreach ($streetAdd in $addressDetail.streetAddress)
-					#set ($orderno = $orderno + 1)
-					#if ($linecount > 0) <tr class="gradeX"><td value = "contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td><td></td><td value = "$streetAdd">$streetAdd</td></tr>
-					#else <tr class="gradeX"><td value = "contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td><td>Address</td><td value = "$streetAdd">$streetAdd</td></tr>
-					#end
-					#set ($linecount = $linecount +1)
-				
+					$streetAdd <br>
 				#end
-				
 			#end
-			#set ($orderno = $orderno + 1)
-			<tr class="gradeX"><td value = "contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td><td></td><td value= "$addressDetail.city", "$addressDetail.stateOrProvince"  "$addressDetail.zip">$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip</td></tr>
-			#set ($addresscount = $addresscount + 1)
+			$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip <br/>
 		#end
-
 	#end
 
 #* Display support person's telecommunication information      *#
 
 
-	#if ($support.contact.telecom)	
+	#if ($support.contact.telecom)
+	    <br/><i><u>Contact Information</u></i><br/>
 		#foreach ($telecomDetail in $support.contact.telecom)
-			#set ($orderno = $orderno + 1)
-			<tr class="gradeX"><td value = "contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td>
-			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im") 
-				<td value = "$conType"'s "$telecomDetail.type" address>$conType's $telecomDetail.type address</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
-			#else			
-				<td value = "$conType"'s "$telecomDetail.use" number>$conType's $telecomDetail.use number</td><td value = "$telecomDetail.value">$telecomDetail.value</td></tr>
-			#end		
+			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
+				$telecomDetail.value ( $telecomDetail.type )<br>
+			#else
+				$telecomDetail.value ( $telecomDetail.use )<br>
+			#end
 		#end
 	#end
-	#set ($orderno = $orderno + 1)
-	#if ($support.contactRelationship.displayName)
-		<tr class="gradeX"><td value = "contactNumber">$contactNumber</td><td value = "$conType">$conType</td><td value = "$orderno">$orderno</td><td>Relationship</td><td value= "$support.contactRelationship.displayName">$support.contactRelationship.displayName</td></tr>
-	#end
-
-	#set ($contactNumber = $contactNumber + 1)
 #end
-</tbody>
-</table>

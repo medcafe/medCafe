@@ -23,6 +23,7 @@ $patient_data.name.lastname</b></p>
      so iterate through all the addresses, and all the street lines for each address
 *#
 #if ($patient_data.address)
+    <i><u>Address(es)</u></i><br/>
 	#foreach ($addressDetail in $patient_data.address)
         #set ($linecount = 0)
 		#if ($addressDetail.streetAddress)
@@ -38,6 +39,7 @@ $patient_data.name.lastname</b></p>
 #end
 #*  Iterate through all of the patients telecommunication information; this includes phone, pagers, IM and email.  *#
 #if ($patient_data.telecom)
+    <i><u>Contact Information</u></i><br/>
 	#foreach ($telecomDetail in $patient_data.telecom)
 		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
 			$telecomDetail.value $oparen $telecomDetail.type $cparen<br/>
@@ -69,16 +71,12 @@ $patient_data.name.lastname</b></p>
 	Primarily speaks $patient_data.language<br/>
 #end
 
-#* Patient Gender  *#
-$patient_data.gender.displayName<br/>
-
 #* Patient Marital Status  *#
 #if ($patient_data.maritialStatus)
 		$patient_data.maritialStatus.displayName<br/>
 #end
 
 #* Patient Race Information  *#
-
 #if ($patient_data.race)
     Ethnicity:
 	#set ($first = true)
@@ -107,6 +105,7 @@ $patient_data.gender.displayName<br/>
 
 	#*  Display guardian addresses   *#
 	#if ($patient_data.guardian.address)
+        <i><u>Address(es)</u></i><br/>
 		#foreach ($addressDetail in $patient_data.guardian.address)
 			#set ($linecount = 0)
 			#if ($addressDetail.streetAddress)
@@ -123,6 +122,7 @@ $patient_data.gender.displayName<br/>
 
     #* Display guardian telecommunication information      *#
 	#if ($patient_data.guardian.telecom)
+        <i><u>Contact Information</u></i><br/>
 		#foreach ($telecomDetail in $patient_data.guardian.telecom)
 			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
 				$telecomDetail.value $oparen $telecomDetail.type $cparen

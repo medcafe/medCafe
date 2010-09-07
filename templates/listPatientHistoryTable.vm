@@ -1,19 +1,6 @@
-#set( $count=0)
 #if ($patient_history)
 	#foreach( $history in $patient_history  )
-		
-		#if( $count == 0 )
-			<table cellpadding="0" cellspacing="0" border="0" class="display" id="History$history.patient_id">
-			<thead><tr><th>History Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>
-		#end
-		<tr class="gradeX">
-		<td value="$history.title">$history.title</td>
-		<td value="$history.note">$history.note</td>
-		<td value="$history.priority">$history.priority</td>
-		</tr>
-		#set( $count = $count + 1 )
-		
+		<p class="$history.priority">$history.title<br/>
+		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>$history.note<br clear="all"/></p>
 	#end
 #end
-</tbody>
-<table>

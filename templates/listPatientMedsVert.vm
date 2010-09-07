@@ -1,7 +1,7 @@
 #set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
 #set ($oparen = "(")
 #set ($cparen = ")")
-
+<a onclick="alert('Method to add a new medication goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 #foreach( $medication in $medications )
     <b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
         ## <li>Manufacturer Info: $medication.medicationInformation.manufacturedMaterial.freeTextBrandName
