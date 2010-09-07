@@ -299,7 +299,19 @@ $(document).ready( function() {
 					var tabname = tabObject.attr('id').split("-")[1];
 					//alert("tabname " + tabname);
 					if (tabname == widgetInfo.tab_num)
-					{
+					{						
+						var paneObject = $(this).closest('.ui-layout-center');
+						paneObject.scrollTop(0);
+						var wrapperObject = $(this).closest('.dataTables_wrapper');
+						//alert(wrapperObject.attr('id'));
+						var pos;
+						if (wrapperObject.attr('id') != undefined)
+							pos = wrapperObject.position();
+						else
+							 pos = $(this).position();
+
+						//alert ("top " + pos.top + " left " + pos.left + " id " + $(this).attr('id') + " class " + $(this).attr('class'));
+						paneObject.scrollTop(pos.top);
 						widget_id = widget_idName.substring(13);
 
 					}
