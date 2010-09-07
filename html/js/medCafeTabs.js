@@ -222,23 +222,23 @@ $(document).ready( function() {
 		//First check if tab already exists
 		var tab_num = 0;
 		var tab_id = 0;
-		$('.tabs').parent().find(".tabContent").each(function(i)
-		{
-			var tabObj = $(this).find(".id");
-			var tabId = $(tabObj).attr("id");
-			if (tabId == label)
-			{
-				var tab_id = $(this).attr('id');
-				tab_num = tab_id.split("-")[1];
-				$('#tabs').tabs('select', "#tabs-" + tab_num);
+	//	$('.tabs').parent().find(".tabContent").each(function(i)
+	//	{
+	//		var tabObj = $(this).find(".id");
+	//		var tabId = $(tabObj).attr("id");
+	//		if (tabId == label)
+	//		{
+	//			var tab_id = $(this).attr('id');
+	//			tab_num = tab_id.split("-")[1];
+	//			$('#tabs').tabs('select', "#tabs-" + tab_num);
 
-			}
+//			}
 
-		});
+//		});
 
 
 		//If the tab_number is greater than 0 then it has been found already - just return	-1
-		if (tab_num != 0) return -1;
+//		if (tab_num != 0) return -1;
 
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
@@ -272,8 +272,7 @@ $(document).ready( function() {
   function addWidgetNum(widgetInfo)
 	{
 
-		//alert("medCafeTabs addTab start");
-		//First check if tab already exists
+
 		var widget_id = 0;
 		var max_id = 0;
 		$('.column').each(function(i)
@@ -282,8 +281,8 @@ $(document).ready( function() {
 			{
 			
 				var widgetLabel = $(this).attr("id");
-				var testLabel  = widgetInfo.name+widgetInfo.patient_id;
-				//alert ("WidgetLabel " + widgetLabel + " newLabel " + testLabel + " test result " + (widgetLabel == testLabel));
+				var testLabel  = widgetInfo.name+widgetInfo.rep_patient_id;
+			
 				var yellows= $(this).find('.widget');
 				if (yellows!="undefined")
 				{
@@ -293,23 +292,25 @@ $(document).ready( function() {
 				{
 					max_id = id;
 				}
-				
+
 				if (widgetLabel == testLabel)
 				{
-				//	alert("i got here");
-					widget_id = widget_idName.substring(13);
-					return -1;
-				//	$('#tabs').tabs('select', "#tabs-" + tab_num);
+					var tabObject = $(this).closest('.tabContent');
+					var tabname = tabObject.attr('id').split("-")[1];
+					//alert("tabname " + tabname);
+					if (tabname == widgetInfo.tab_num)
+					{
+						widget_id = widget_idName.substring(13);
+
+					}
+
 				}
 				}
 
 			});
 		});
-
-
-		//If the tab_number is greater than 0 then it has been found already - just return	-1
-		//if (widget_id != 0) return -1;
-	
+		if (widget_id != 0)
+			return -1;
 
 		return max_id*1 + 1;
 	}

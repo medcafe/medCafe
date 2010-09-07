@@ -115,7 +115,9 @@ function addRepository(callObj, widgetInfo, data)
 											
 										};
 										newWidget.id = addWidgetNum(newWidget);
-										addWidgetTab(this, newWidget);
+									//	alert("widget.id " + newWidget.id);
+										if (newWidget.id != -1)
+											addWidgetTab(this, newWidget);
 									}
 								}
 							});

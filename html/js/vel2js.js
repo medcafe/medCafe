@@ -15,7 +15,7 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<div id = ');
 t.p( context.name);
-t.p( context.patient_id);
+t.p( context.rep_patient_id);
 t.p(' class = "id"><div class="widget color-2" id="yellow-widget');
 t.p( context.id);
 t.p('">    	<div style="cursor: move;" class="widget-head">         <a href="');
@@ -28,9 +28,9 @@ t.p('#" class="maximize">MAXIMIZE</a>    	</div>    <div class="edit-box" style=
 t.p( context.name);
 t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
 t.p( context.id);
-t.p('">        <p>            <div id="aaa');
+t.p('">        <span>            <div id="aaa');
 t.p( context.id);
-t.p('" class="no-copy">            </div>        </p>        <div id="dialog');
+t.p('" class="no-copy">            </div>        </span>        <div id="dialog');
 t.p( context.id);
 t.p('">            <div id="modalaaa');
 t.p( context.id);
@@ -654,52 +654,48 @@ function v2js_listPatientMedsVert(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Medications');
-t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
+var space = " ";
+t.p('    ');
+var oparen = "(";
+var cparen = ")";
 for (var i1=0;  i1<context.medications.length; i1++) {
 var medication = context.medications[i1];
 velocityCount = i1;
-t.p('<tr class="gradeX"><td>');
+t.p('    <b>');
 t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Manufacturer Info</td><td value="');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('">');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Patient Information</td><td value="');
-t.p( medication.patientInstructions);
-t.p('">');
-t.p( medication.patientInstructions);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Effective Time</td><td value="');
+t.p('</b><br/>        ');
+t.p('        ');
+if (medication.effectiveTime.value) {
+t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  ');
 t.p( medication.effectiveTime.value);
-t.p('">');
-t.p( medication.effectiveTime.value);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Dose</td><td value="');
+t.p('<br clear="all"/>        ');
+}
+t.p('        ');
+if (medication.dose.value) {
+t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: ');
 t.p( medication.dose.value);
-t.p('">');
-t.p( medication.dose.value);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Delivery Method</td><td value="');
+t.p('<br clear="all"/>            ');
+if (medication.deliveryMethod.value) {
+t.p('                ');
+t.p( oparen);
+t.p(' ');
 t.p( medication.deliveryMethod.value);
-t.p('">');
-t.p( medication.deliveryMethod.value);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Narrative</td><td value="');
-t.p( medication.narrative);
-t.p('">');
-t.p( medication.narrative);
-t.p('</td></tr>');
+t.p(' ');
+t.p( cparen);
+t.p('            ');
+}
+t.p('        ');
+}
+t.p('        ');
+if (medication.patientInstructions) {
+t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: ');
+t.p( medication.patientInstructions);
+t.p('<br clear="all"/>        ');
+}
+t.p('    ');
+t.p('    <br/>');
 }
 velocityCount = 0;
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientTable(context) { 
@@ -710,10 +706,7 @@ var space = " ";
 t.p('    ');
 var oparen = "(";
 var cparen = ")";
-t.p('<div id="Detail');
-t.p( context.patient_id);
-t.p('">');
-t.p('<div style="float:left; margin-right:2em;">');
+t.p('<p>');
 if (context.patient_data.name.given) {
 t.p('	<b>');
 for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
@@ -727,7 +720,7 @@ t.p('	');
 
 }
 t.p( context.patient_data.name.lastname);
-t.p('</b><br/>');
+t.p('</b></p><div style="float:left; margin-right:2em;">');
 if (context.patient_data.address) {
 t.p('	');
 for (var i2=0;  i2<context.patient_data.address.length; i2++) {
@@ -799,7 +792,7 @@ t.p('	');
 }
 
 }
-t.p('</div><br/>');
+t.p('</div>');
 if (context.patient_data.birthtime) {
 t.p('    Born ');
 t.p( context.patient_data.birthtime.month);
@@ -966,7 +959,6 @@ t.p('		');
 t.p('	');
 }
 }
-t.p('</div>');
 return t.toString();
 }
 function v2js_listPatientVitals(context) { 
@@ -1036,48 +1028,25 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
-t.p('<form id="BookmarksForm');
-t.p( context.patient);
-t.p('" name="BookmarksForm');
-t.p( context.patient);
-t.p('"><input type="submit" value="save"></input><table cellpadding="0" cellspacing="0" border="0" class="display" id="Bookmarks');
-t.p( context.patient);
-t.p('"><thead><tr><th>Bookmark</th><th>URL</th><th>Description</th><th></th></tr></thead><tbody>');
 if (!( context.bookmarks )) {
-t.p('	<tr class="gradeX"><td name="name" value="" class="editInput"></td>    <td name="url" class="editInput" value=""></td>    <td name="description" class="editInput" value=""></td>    <td></td>    </tr>');
+t.p('	<i>No bookmarks defined for this patient.</i>');
 }
 else {
+t.p('    ');
 for (var i1=0;  i1<context.bookmarks.length; i1++) {
 var bookmark = context.bookmarks[i1];
 velocityCount = i1;
-t.p('    <tr class="gradeX"><td name="name" class="editInput" value="');
-t.p( bookmark.name);
-t.p('">');
-t.p( bookmark.name);
-t.p('</td>    <td name="url" value="');
+t.p('        <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>        <a href="');
 t.p( bookmark.url);
-t.p('" class="editInput">');
-t.p( bookmark.url);
-t.p('</td>    <td name="description" class="editInput" value="');
+t.p('" title="');
 t.p( bookmark.description);
-t.p('">');
-t.p( bookmark.description);
-t.p('</td>    <td><div>    <input class="addLink" id="AddLink');
-t.p( count);
-t.p('" value="Add Link" type="button"></input>    <div id="bookmarkName');
-t.p( count);
-t.p('" style="display:none;">');
+t.p('" target="_blank">');
 t.p( bookmark.name);
-t.p('</div>    <div id="bookmarkUrl');
-t.p( count);
-t.p('" style="display:none;">');
-t.p( bookmark.url);
-t.p('</div>    </div></td>    </tr>    ');
-count = ( count + 1 );
+t.p('</a>        <a onclick="alert(\'this should delete this bookmark\')" href="');
+t.p('#" class="ui-icon ui-icon-trash"  style="float: right; margin-left: .3em;"></a>        <br clear="all"/>    ');
 }
 velocityCount = 0;
 }
-t.p('</tbody></table></form>');
 return t.toString();
 }
 function v2js_listPatientsSearchResults(context) { 

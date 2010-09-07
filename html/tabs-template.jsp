@@ -53,21 +53,10 @@ $(function(){
 				return;
 			}
 
-       	//	var text = $(dragObj).find('p').text();
-
-       	//	var imgHtml = $(dragObj).find('img').html();
-       	//	var label = $(dragObj).find('img').attr("src");
-			//var link = $(dragObj).find('img').attr("custom:url");
-		//	var type = $(dragObj).find('img').attr("custom:type");
-		//	var html = $(dragObj).find('img').attr("custom:html");
-		//	var method = $(dragObj).find('img').attr("custom:method");
-		//	var patientId = "<%=patientId%>";
-		//	var params = $(dragObj).find('img').attr("custom:params");
-		//	var repository = $(dragObj).find('img').attr("custom:repository");
-		//	var repPatientId ;
+     
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var widgetInfo = {
-			//	"id" : $(ui.draggable).html(),
+			
 				"patient_id" : "<%=patientId%>",
 				"rep_patient_id" : "",
 				"location" : "<%=location%>",
@@ -84,14 +73,12 @@ $(function(){
 				"template" : $(dragObj).find('img').attr("custom:template"),
 				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
 			};
-		//	alert("tabs-template " + JSON.stringify(widgetInfo));
-		//	alert (widgetInfo.script + " " + widgetInfo.script_file + " " + widgetInfo.template + " " + widgetInfo.name);
 			if (ui.position["left"] > 550)
 				widgetInfo.column = "2";
-			var new_id = addWidgetNum(widgetInfo)
-			if (new_id > 0)
-			{
-				widgetInfo.id = new_id;
+	//		var new_id = addWidgetNum(widgetInfo)
+	//		if (new_id > 0)
+	//		{
+	//			widgetInfo.id = new_id;
 			var repPatientJSON;
 
 			$.getJSON(serverLink,function(data)
@@ -99,7 +86,7 @@ $(function(){
 					repPatientJSON = data;
 					var len = repPatientJSON.repositories.length;
 					var x;
-					//{"repositories":[{"id":2,"repository":"OurVista"},{"id":2,"repository":"local"}]}s
+
 					for (x in repPatientJSON.repositories)
 					{
 						test = repPatientJSON.repositories[x].repository;
@@ -111,6 +98,10 @@ $(function(){
 						}
 
 					}
+					var new_id = addWidgetNum(widgetInfo)
+					if (new_id > 0)
+					{
+						widgetInfo.id = new_id;
 
 					// if (hasContent == "false")
 					// {
@@ -128,8 +119,9 @@ $(function(){
 					// 	createLink(patientId,link, text, type ,params, repository, repPatientId);
 					// }
 
+		   	}
 		   });
-		   }
+		   
 		   }
     });
 
