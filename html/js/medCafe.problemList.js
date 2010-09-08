@@ -71,7 +71,7 @@ function addProblemList(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 					
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
-						//alert( $("#example" + repId).text());
+/*						//alert( $("#example" + repId).text());
 							tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings

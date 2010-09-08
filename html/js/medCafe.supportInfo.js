@@ -33,7 +33,7 @@ function addSupportInfo(callObj, widgetInfo, data)
 					//	$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+		/*				 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -75,7 +75,7 @@ function addSupportInfo(callObj, widgetInfo, data)
 												
 												    };
 												
-											});*/
+											});
 											
 											nGroup.appendChild( nCell );
 											nTrs[i].parentNode.insertBefore( nGroup, nTrs[i] );

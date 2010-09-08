@@ -277,22 +277,25 @@ $(document).ready( function() {
 		var max_id = 0;
 		$('.column').each(function(i)
 		{
-			$(this).find('.id').each(function()
+		//	$(this).find('.id').each(function()
+			$(this).find('.widget').each(function()
 			{
-			
-				var widgetLabel = $(this).attr("id");
+				var widgetLabel = $(this).find('.id').attr("id");
+			//	var widgetLabel = $(this).attr("id");
 				var testLabel  = widgetInfo.name+widgetInfo.rep_patient_id;
-			
-				var yellows= $(this).find('.widget');
+			   var yellows = $(this);
+			//	var yellows= $(this).find('.widget');
 				if (yellows!="undefined")
 				{
 				var widget_idName = yellows.attr('id');
+				if (widget_idName != undefined)
+				{
 				var id = widget_idName.substring(13)*1;
 				if (id > max_id)
 				{
 					max_id = id;
 				}
-
+				
 				if (widgetLabel == testLabel)
 				{
 					var tabObject = $(this).closest('.tabContent');
@@ -316,6 +319,7 @@ $(document).ready( function() {
 
 					}
 
+				}
 				}
 				}
 
@@ -427,7 +431,7 @@ $(document).ready( function() {
 				{
 					processScripts(callObj, widgetInfo, data);
 				}
-	
+			medCafeWidget.populateExtWidgetSettings(widgetInfo);
 			//	data = JSON.stringify(dataObject);
 			//	alert(data);
 				//Run any scripts specific to this type
@@ -457,8 +461,13 @@ $(document).ready( function() {
 		});
 		//alert (widgetInfo.id);
 		//extendWidgets("yellow-widget"+widgetInfo.id);
+		$(callObj).delay(1000,function()
+		{
+					//	iNettuts.addControlsToOneID("yellow-widget" + widgetInfo.id);
+				//	alert(widgetInfo.id);
 					iNettuts.refresh("yellow-widget" + widgetInfo.id);
-					iNettuts.makeSortable();
+		});			
+			//		iNettuts.makeSortable();
 	}
 
 	function callTemplate(type, data, patientId)

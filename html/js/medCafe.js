@@ -138,7 +138,14 @@ $(document).ready( function() {
 		}  */
 		medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		});
-		iNettuts.refresh("yellow-widget" + widgetInfo.id);
+	//	iNettuts.addControlsToOneID("yellow-widget" + widgetInfo.id, function()
+	//	{
+	//	iNettuts.refresh("yellow-widget" + widgetInfo.id, function()
+	//	{
+	//		//iNettuts.makeSortable();
+	//		});
+	//	});
+	
 	}
 
 

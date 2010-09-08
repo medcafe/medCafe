@@ -1,5 +1,6 @@
-<div id = ${name}${rep_patient_id} class = "id">
+
 <div class="widget color-2" id="yellow-widget$id">
+<div id = ${name}${rep_patient_id} class = "id">
 
     	<div style="cursor: move;" class="widget-head"> 
         <a href="#" class="collapse">COLLAPSE</a><h3>$name</h3><a href="#" class="remove">CLOSE</a><a href="#" class="edit">EDIT</a><a href="#" class="maximize">MAXIMIZE</a>

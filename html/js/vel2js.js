@@ -13,12 +13,12 @@ function v2js_inettutsHead(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<div id = ');
+t.p('<div class="widget color-2" id="yellow-widget');
+t.p( context.id);
+t.p('"><div id = ');
 t.p( context.name);
 t.p( context.rep_patient_id);
-t.p(' class = "id"><div class="widget color-2" id="yellow-widget');
-t.p( context.id);
-t.p('">    	<div style="cursor: move;" class="widget-head">         <a href="');
+t.p(' class = "id">    	<div style="cursor: move;" class="widget-head">         <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
 t.p( context.name);
 t.p('</h3><a href="');
@@ -389,24 +389,18 @@ function v2js_listPatientAllergies(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Allergies');
-t.p( context.patient_id);
-t.p('"><thead><tr><th>Product</th><th>Reaction</th></tr></thead><tbody>');
+t.p('<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
 for (var i1=0;  i1<context.allergies.length; i1++) {
 var allergy = context.allergies[i1];
 velocityCount = i1;
-t.p('<tr class="gradeX"><td value="');
+t.p('    <b>');
 t.p( allergy.product.value);
-t.p('">');
-t.p( allergy.product.value);
-t.p('</td><td value="');
+t.p('</b><br/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: ');
 t.p( allergy.reaction.value);
-t.p('">');
-t.p( allergy.reaction.value);
-t.p('</td></tr>');
+t.p('<br clear="all"/>');
 }
 velocityCount = 0;
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientBio(context) { 
@@ -497,37 +491,21 @@ function v2js_listPatientHistoryTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
 if (context.patient_history) {
 t.p('	');
 for (var i2=0;  i2<context.patient_history.length; i2++) {
 var history = context.patient_history[i2];
 velocityCount = i2;
-t.p('				');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="History');
-t.p( history.patient_id);
-t.p('">			<thead><tr><th>History Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
-}
-t.p('		<tr class="gradeX">		<td value="');
-t.p( history.title);
-t.p('">');
-t.p( history.title);
-t.p('</td>		<td value="');
-t.p( history.note);
-t.p('">');
-t.p( history.note);
-t.p('</td>		<td value="');
+t.p('		<p class="');
 t.p( history.priority);
 t.p('">');
-t.p( history.priority);
-t.p('</td>		</tr>		');
-count = ( count + 1 );
-t.p('			');
+t.p( history.title);
+t.p('<br/>		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
+t.p( history.note);
+t.p('<br clear="all"/></p>	');
 }
 
 }
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientImmunizations(context) { 
@@ -658,6 +636,8 @@ var space = " ";
 t.p('    ');
 var oparen = "(";
 var cparen = ")";
+t.p('<a onclick="alert(\'Method to add a new medication goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
 for (var i1=0;  i1<context.medications.length; i1++) {
 var medication = context.medications[i1];
 velocityCount = i1;
@@ -722,7 +702,7 @@ t.p('	');
 t.p( context.patient_data.name.lastname);
 t.p('</b></p><div style="float:left; margin-right:2em;">');
 if (context.patient_data.address) {
-t.p('	');
+t.p('    <i><u>Address(es)</u></i><br/>	');
 for (var i2=0;  i2<context.patient_data.address.length; i2++) {
 var addressDetail = context.patient_data.address[i2];
 velocityCount = i2;
@@ -761,7 +741,7 @@ t.p('<br/>	');
 
 }
 if (context.patient_data.telecom) {
-t.p('	');
+t.p('    <i><u>Contact Information</u></i><br/>	');
 for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
 var telecomDetail = context.patient_data.telecom[i2];
 velocityCount = i2;
@@ -833,8 +813,6 @@ t.p('	Primarily speaks ');
 t.p( context.patient_data.language);
 t.p('<br/>');
 }
-t.p( context.patient_data.gender.displayName);
-t.p('<br/>');
 if (context.patient_data.maritialStatus) {
 t.p('		');
 t.p( context.patient_data.maritialStatus.displayName);
@@ -884,7 +862,7 @@ t.p( context.patient_data.guardian.name.lastname);
 t.p('</b><br/>	');
 t.p('	');
 if (context.patient_data.guardian.address) {
-t.p('		');
+t.p('        <i><u>Address(es)</u></i><br/>		');
 for (var i3=0;  i3<context.patient_data.guardian.address.length; i3++) {
 var addressDetail = context.patient_data.guardian.address[i3];
 velocityCount = i3;
@@ -926,7 +904,7 @@ t.p('	');
 t.p('    ');
 t.p('	');
 if (context.patient_data.guardian.telecom) {
-t.p('		');
+t.p('        <i><u>Contact Information</u></i><br/>		');
 for (var i3=0;  i3<context.patient_data.guardian.telecom.length; i3++) {
 var telecomDetail = context.patient_data.guardian.telecom[i3];
 velocityCount = i3;
@@ -1150,56 +1128,35 @@ function v2js_listProblemListTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-var count = 0;
-t.p('	');
 for (var i1=0;  i1<context.problem.length; i1++) {
 var problemDetail = context.problem[i1];
 velocityCount = i1;
-var ActiveStatus = "Active";
-var InActiveStatus = "Inactive";
-t.p('		');
-if (count == 0) {
-t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="Problem');
-t.p( context.patient_id);
-t.p('">			<thead><tr><th>Problem Name</th><th>Code</th><th>Date</th><th>Status</th></tr></thead><tbody>		');
+t.p('    ');
+if (problemDetail.narrative == "A") {
+var status = "Active";
+t.p('    ');
 }
-t.p('			<tr class="gradeX"  >			<td  value="');
+else {
+var status = "Inactive";
+t.p('    ');
+}
+t.p('    <p class="');
+t.p( status);
+t.p('"><b>');
 t.p( problemDetail.problemName);
-t.p('">');
-t.p( problemDetail.problemName);
-t.p('</td>		<td value="');
+t.p('</b><br/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code ');
 t.p( problemDetail.problemCode.code);
-t.p('">');
-t.p( problemDetail.problemCode.code);
-t.p('</td>		<td value="');
-t.p( problemDetail.problemDate);
-t.p('">');
+t.p('<br clear="all"/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started ');
 t.p( problemDetail.problemDate.low.month);
-t.p('/		');
+t.p('/');
 t.p( problemDetail.problemDate.low.day);
 t.p('/');
 t.p( problemDetail.problemDate.low.year);
-t.p('</td>		');
-if (problemDetail.narrative == "A") {
-t.p('			<td  style = "background-color:yellow" value="');
-t.p( problemDetail.narrative);
-t.p('">');
-t.p( ActiveStatus);
-t.p('</td>		');
-}
-else {
-t.p('			<td style = "background-color:gray"value="');
-t.p( problemDetail.narrative);
-t.p('">');
-t.p( InActiveStatus);
-t.p('</td>			');
-}
-t.p('		</tr>		');
-count = ( count + 1 );
-t.p('	');
+t.p(' (');
+t.p( status);
+t.p(')<br clear="all"/>    </p>');
 }
 velocityCount = 0;
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 
@@ -1288,15 +1245,12 @@ function v2js_listSupportInfo(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Support');
-t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>');
-var contactNumber = 0;
 for (var i1=0;  i1<context.supportInfo.length; i1++) {
 var support = context.supportInfo[i1];
 velocityCount = i1;
+t.p('    ');
 t.p('	');
-var conType = 'undefined';
+var conType = 'Undefined';
 t.p('	');
 if (support.contactType.valueOf() == 'AGNT') {
 conType = 'Agent';
@@ -1326,35 +1280,8 @@ t.p('	');
 }
 }
 }
-var orderno = 1;
-t.p('	<tr class="gradeX"><td value = "');
-t.p( contactNumber);
-t.p('">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Name</td>	<td value =	');
-if (support.contact.name.given) {
-t.p('		');
-for (var i3=0;  i3<support.contact.name.given.length; i3++) {
-var givenNameDetail = support.contact.name.given[i3];
-velocityCount = i3;
-t.p('			"');
-t.p( givenNameDetail);
-t.p(' " 				');
-}
-velocityCount = i1;
-t.p('	');
-}
-t.p('	"');
-t.p( support.contact.name.lastname);
-t.p('">	');
+t.p('    ');
+t.p('    <p><b>	');
 if (support.contact.name.given) {
 t.p('		');
 for (var i3=0;  i3<support.contact.name.given.length; i3++) {
@@ -1363,176 +1290,79 @@ velocityCount = i3;
 t.p('			');
 t.p( givenNameDetail);
 t.p( context.space);
-t.p(' 		');
+t.p('		');
 }
 velocityCount = i1;
 t.p('	');
 }
 t.p('	');
 t.p( support.contact.name.lastname);
-t.p('</td></tr>	');
+t.p('</b><br>	');
+t.p( conType);
+t.p('	');
+if (support.contactRelationship.displayName) {
+t.p('		( ');
+t.p( support.contactRelationship.displayName);
+t.p(' )	');
+}
+t.p('</p>	');
 if (support.contact.address) {
-var addresscount = 0;
-t.p('		');
+t.p('        <i><u>Address</u></i><br/>		');
 for (var i3=0;  i3<support.contact.address.length; i3++) {
 var addressDetail = support.contact.address[i3];
 velocityCount = i3;
-var linecount = 0;
 t.p('			');
 if (addressDetail.streetAddress) {
 t.p('				');
 for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
 var streetAdd = addressDetail.streetAddress[i5];
 velocityCount = i5;
-orderno = ( orderno + 1 );
 t.p('					');
-if (linecount > 0) {
-t.p(' <tr class="gradeX"><td value = "contactNumber">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value = "');
 t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>					');
-}
-else {
-t.p(' <tr class="gradeX"><td value = "contactNumber">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Address</td><td value = "');
-t.p( streetAdd);
-t.p('">');
-t.p( streetAdd);
-t.p('</td></tr>					');
-}
-linecount = ( linecount + 1 );
-t.p('								');
+t.p(' <br>				');
 }
 velocityCount = i3;
-t.p('							');
+t.p('			');
 }
-orderno = ( orderno + 1 );
-t.p('			<tr class="gradeX"><td value = "contactNumber">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td></td><td value= "');
-t.p( addressDetail.city);
-t.p('", "');
-t.p( addressDetail.stateOrProvince);
-t.p('"  "');
-t.p( addressDetail.zip);
-t.p('">');
+t.p('			');
 t.p( addressDetail.city);
 t.p(', ');
 t.p( addressDetail.stateOrProvince);
 t.p('  ');
 t.p( addressDetail.zip);
-t.p('</td></tr>			');
-addresscount = ( addresscount + 1 );
-t.p('		');
+t.p(' <br/>		');
 }
 velocityCount = i1;
 t.p('	');
 }
 t.p('	');
 if (support.contact.telecom) {
-t.p('		');
+t.p('	    <br/><i><u>Contact Information</u></i><br/>		');
 for (var i3=0;  i3<support.contact.telecom.length; i3++) {
 var telecomDetail = support.contact.telecom[i3];
 velocityCount = i3;
-orderno = ( orderno + 1 );
-t.p('			<tr class="gradeX"><td value = "contactNumber">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td>			');
+t.p('			');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
-t.p('				<td value = "');
-t.p( conType);
-t.p('"\'s "');
-t.p( telecomDetail.type);
-t.p('" address>');
-t.p( conType);
-t.p('\'s ');
-t.p( telecomDetail.type);
-t.p(' address</td><td value = "');
+t.p('				');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></tr>			');
+t.p(' ( ');
+t.p( telecomDetail.type);
+t.p(' )<br>			');
 }
 else {
-t.p('				<td value = "');
-t.p( conType);
-t.p('"\'s "');
-t.p( telecomDetail.use);
-t.p('" number>');
-t.p( conType);
-t.p('\'s ');
-t.p( telecomDetail.use);
-t.p(' number</td><td value = "');
+t.p('				');
 t.p( telecomDetail.value);
-t.p('">');
-t.p( telecomDetail.value);
-t.p('</td></tr>			');
+t.p(' ( ');
+t.p( telecomDetail.use);
+t.p(' )<br>			');
 }
 t.p('		');
 }
 velocityCount = i1;
 t.p('	');
 }
-orderno = ( orderno + 1 );
-t.p('	');
-if (support.contactRelationship.displayName) {
-t.p('		<tr class="gradeX"><td value = "contactNumber">');
-t.p( contactNumber);
-t.p('</td><td value = "');
-t.p( conType);
-t.p('">');
-t.p( conType);
-t.p('</td><td value = "');
-t.p( orderno);
-t.p('">');
-t.p( orderno);
-t.p('</td><td>Relationship</td><td value= "');
-t.p( support.contactRelationship.displayName);
-t.p('">');
-t.p( support.contactRelationship.displayName);
-t.p('</td></tr>	');
-}
-t.p('	');
-contactNumber = ( contactNumber + 1 );
 }
 velocityCount = 0;
-t.p('</tbody></table>');
 return t.toString();
 }
 function v2js_listWidgets(context) { 

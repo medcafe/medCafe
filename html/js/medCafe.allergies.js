@@ -37,7 +37,7 @@ function addAllergies(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 						// $("#aaa" + widgetInfo.order).append(html);
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
-					 	tableObj = $("#" +widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+		/*			 	tableObj = $("#" +widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -90,7 +90,7 @@ function addAllergies(callObj, widgetInfo, data)
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
-						});
+						});  */
 						setHasContent(widgetInfo.order);
 
 

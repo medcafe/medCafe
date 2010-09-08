@@ -34,7 +34,7 @@ function addMedications(callObj, widgetInfo, data)
 					//	$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+		/*				 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 						 	
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -87,7 +87,7 @@ function addMedications(callObj, widgetInfo, data)
 							selectedRow = aPos[0];
 						});
 						setHasContent(widgetInfo.order);
-			/*		} );
+				} );
 					setHasContent(widgetInfo.order);
 		});   */
 }
