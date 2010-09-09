@@ -512,75 +512,56 @@ function v2js_listPatientImmunizations(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="Immunizations');
-t.p( context.patient_id);
-t.p('"><thead><tr><th></th><th></th><th></th></tr></thead><tbody>');
+var space = " ";
+t.p('    ');
+t.p('<a onclick="alert(\'Method to add a new immunization goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
 for (var i1=0;  i1<context.immunizations.length; i1++) {
 var immunization = context.immunizations[i1];
 velocityCount = i1;
-t.p('<tr class="gradeX"><td>');
+t.p('	<b>');
 t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Immunization</td><td value="');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('">');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Administered Date</td><td value="');
-t.p( immunization.administeredDate.month);
-t.p('"/"');
-t.p( immunization.administeredDate.day);
-t.p('"/"');
-t.p( immunization.administeredDate.year);
-t.p('">');
-t.p( immunization.administeredDate.month);
-t.p('/');
-t.p( immunization.administeredDate.day);
-t.p('/');
-t.p( immunization.administeredDate.year);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Details</td><td value="');
-t.p( immunization.narrative);
-t.p('">');
-t.p( immunization.narrative);
-t.p('</td></tr><tr class="gradeX"><td>');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</td><td>Administered by</td>');
-var space = " ";
-t.p('    ');
-t.p('<td value =');
-if (immunization.performer.person.name.given) {
-t.p('	');
-for (var i3=0;  i3<immunization.performer.person.name.given.length; i3++) {
-var givenNameDetail = immunization.performer.person.name.given[i3];
-velocityCount = i3;
-t.p('		"');
-t.p( givenNameDetail);
-t.p(' " 			');
-}
-velocityCount = i1;
-}
-t.p('"');
-t.p( immunization.performer.person.name.lastname);
-t.p('">');
-if (immunization.performer.person.name.given) {
-t.p('	');
-for (var i3=0;  i3<immunization.performer.person.name.given.length; i3++) {
-var givenNameDetail = immunization.performer.person.name.given[i3];
-velocityCount = i3;
+t.p('</b><br/>		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:');
+t.p( space);
 t.p('		');
+t.p('	');
+if (immunization.performer.person.name.given) {
+t.p('		');
+for (var i3=0;  i3<immunization.performer.person.name.given.length; i3++) {
+var givenNameDetail = immunization.performer.person.name.given[i3];
+velocityCount = i3;
+t.p('			');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 	');
+t.p(' 		');
 }
 velocityCount = i1;
+t.p('	');
 }
+t.p('	');
 t.p( immunization.performer.person.name.lastname);
-t.p('</td></tr>');
+t.p(' on');
+t.p( space);
+t.p('	');
+t.p( immunization.administeredDate.month);
+t.p('/');
+t.p( immunization.administeredDate.day);
+t.p('/');
+t.p( immunization.administeredDate.year);
+t.p('<br clear="all"/>	');
+var comments = immunization.narrative.split('^');
+t.p('	');
+for (var i2=0;  i2<comments.length; i2++) {
+var comment = comments[i2];
+velocityCount = i2;
+t.p('		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
+t.p( comment);
+t.p('<br clear="all"/>	');
+}
+velocityCount = i1;
+t.p('	<br/>');
 }
 velocityCount = 0;
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientMeds(context) { 

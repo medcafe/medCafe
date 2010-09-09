@@ -39,7 +39,7 @@ function addImmunizations(callObj, widgetInfo, data)
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 						//alert( $("#example" + repId).text());
 					//	alert('#' + widgetInfo.type + widgetInfo.rep_patient_id);
-						 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
+		/*				 	tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -81,7 +81,7 @@ function addImmunizations(callObj, widgetInfo, data)
 
 												    };
 
-											});*/
+											});
 
 											nGroup.appendChild( nCell );
 											nTrs[i].parentNode.insertBefore( nGroup, nTrs[i] );
@@ -102,7 +102,7 @@ function addImmunizations(callObj, widgetInfo, data)
 
 
 
-						} );
+						} );  */
 
 
 						var immunizationsUrl = widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;

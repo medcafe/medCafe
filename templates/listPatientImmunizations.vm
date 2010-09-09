@@ -1,33 +1,21 @@
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="Immunizations$patient_id">
-<thead><tr><th></th><th></th><th></th></tr></thead><tbody>
-#foreach( $immunization in $immunizations )
-<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Immunization</td><td value="$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName">$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td></tr>
-<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Administered Date</td><td value="$immunization.administeredDate.month"/"$immunization.administeredDate.day"/"$immunization.administeredDate.year">$immunization.administeredDate.month/$immunization.administeredDate.day/$immunization.administeredDate.year</td></tr>
-<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Details</td><td value="$immunization.narrative">$immunization.narrative</td></tr>
-<tr class="gradeX"><td>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</td><td>Administered by</td>
-
-#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
-
 #set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
-<td value =
-#if ($immunization.performer.person.name.given)
-	#foreach ($givenNameDetail in $immunization.performer.person.name.given)
-		"$givenNameDetail " 		
+
+<a onclick="alert('Method to add a new immunization goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+#foreach( $immunization in $immunizations )
+	<b>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
+		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:$space
+		#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
+	#if ($immunization.performer.person.name.given)
+		#foreach ($givenNameDetail in $immunization.performer.person.name.given)
+			$givenNameDetail$space 
+		#end
 	#end
-#end
-"$immunization.performer.person.name.lastname">
-#if ($immunization.performer.person.name.given)
-	#foreach ($givenNameDetail in $immunization.performer.person.name.given)
-		$givenNameDetail$space 
+	$immunization.performer.person.name.lastname on${space}
+	$immunization.administeredDate.month/$immunization.administeredDate.day/$immunization.administeredDate.year<br clear="all"/>
+	#set ($comments = $immunization.narrative.split('^'))
+	#foreach($comment in $comments)
+		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>$comment<br clear="all"/>
 	#end
+	<br/>
 #end
-$immunization.performer.person.name.lastname</td></tr>
 
-
-
-
-
-
-#end
-</tbody>
-<table>

@@ -940,8 +940,8 @@ public class VistaRepository extends Repository {
     private Immunization fillInImmunizationInfo(PatientImmunization imm) {
 
         Immunization immunization = new Immunization();  //hData type
-        immunization.setNarrative("Series: " + capitalizeString(imm.getSeries()) + " Reaction: " + capitalizeString(imm.getReaction())
-                + " Contraindicated: " + capitalizeString(imm.getContraindicated()));
+        immunization.setNarrative("Series: " + capitalizeString(imm.getSeries()) + "^Reaction: " + capitalizeString(imm.getReaction())
+                + "^Contraindicated: " + capitalizeString(imm.getContraindicated()));
         Actor provider = new Actor();
         Person person = new Person();
         person.setName(setPersonsName(capitalizeString(imm.getEncounterProvider())));
