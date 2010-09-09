@@ -26,7 +26,7 @@ var iNettuts = {
                 removable: true,
                 collapsible: true,
                 editable: true,
-                resizable: true
+                resizable: false
             }
         }
     },
@@ -140,7 +140,7 @@ var iNettuts = {
 
 	                    return false;
 	                });
-	            }
+	            } 
         });
 
         $('.edit-box').each(function () {
@@ -177,7 +177,7 @@ var iNettuts = {
 	      	if (this.id === id)
 	      	{
 	            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
-
+	      
 	        	if (thisWidgetSettings.editable) {
 
 	            	//Want to be able to identify the <a> and refresh the method - without readding
@@ -302,26 +302,29 @@ var iNettuts = {
             $ = this.jQueryWidgets,
             settings = this.settings,
             $sortableItems = (function () {
+
                 var notSortable = '';
                 $(settings.widgetSelector,$(settings.columns)).each(function (i) {
+               
                     if (!iNettuts.getWidgetSettings(this.id).movable) {
                         if(!this.id) {
                             this.id = 'widget-no-id-' + i;
                         }
                         notSortable += '#' + this.id + ',';
+                       
                     }
+                                      
                 });
-                /*var notSort = $('> div:not(' + notSortable + ')', settings.columns);
-                $('> div:not(' + notSortable + ')', settings.columns).each(function (i)
-                {
-                	alert("the following are sortable " + $(this).attr('id'));
-                });*/
+
+                if (notSortable == '')
+                	return $('div.column > div');
                 return $('> div:not(' + notSortable + ')', settings.columns);
             })();
 
         $sortableItems.find(settings.handleSelector).css({
             cursor: 'move'
         }).mousedown(function (e) {
+                                                           ////**************
             $sortableItems.css({width:''});
             $(this).parent().css({
                 width: $(this).parent().width() + 'px'
@@ -335,6 +338,7 @@ var iNettuts = {
                 $(settings.columns).sortable('disable');
             }
         });
+		  $(settings.columns).sortable("destroy");
 
         $(settings.columns).sortable({
             items: $sortableItems,

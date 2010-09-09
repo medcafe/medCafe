@@ -250,8 +250,11 @@ $(document).ready( function() {
 						     //the Dialog will not be reinitialized on open
 
 						     text = $("#modalaaa" + id).html();
-						     $("#aaa" + id).load($link.attr('href') + ' #content');
+						     $("#modalaaa" + id).load($link.attr('href') + ' #content');
+						     	$('#aaa' + id).empty();
+						    	 $("#aaa" + id).append(text);
 						     $("#modalaaa" + id).empty();
+
 						      //Put in code to goto saveText.jsp Delete
 						      $(this).dialog("destroy");
 						   }

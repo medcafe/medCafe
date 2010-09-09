@@ -459,15 +459,15 @@ $(document).ready( function() {
 
 				} );
 		});
-		//alert (widgetInfo.id);
-		//extendWidgets("yellow-widget"+widgetInfo.id);
+
 		$(callObj).delay(1000,function()
 		{
-					//	iNettuts.addControlsToOneID("yellow-widget" + widgetInfo.id);
+
 				//	alert(widgetInfo.id);
 					iNettuts.refresh("yellow-widget" + widgetInfo.id);
+					iNettuts.makeSortable();
 		});			
-			//		iNettuts.makeSortable();
+
 	}
 
 	function callTemplate(type, data, patientId)
