@@ -133,6 +133,7 @@ var medCafeWidget =
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;
+
     			this.setExtWidgetSettings(id,newSettings );   					
 				
 				
@@ -226,23 +227,100 @@ function saveWidgets(oldPatient)
 		var deleteUrl = "deleteWidget.jsp?patient_id=" + oldPatient;
     	//
     	//Get these first before attempting delete
-    	var ids = medCafeWidget.getAllIds();
+  //  	var ids = medCafeWidget.getAllIds();
     	$.ajax({
 	           url: deleteUrl,
 	           type: 'POST',
 	           beforeSend: function() { $("#saveStatus").html("Saving").show(); },
 	           success: function(result) {
-	                   
+	      
 					
 					//Cycle through each to save
-					$.each (ids, function(i, val)
-					{
-						medCafeWidget.saveWidget("saveWidget.jsp", val);
-					});
-					
+	//				$.each (ids, function(i, val)
+	//				{
+	//				 if (val != "intro")
+	//				 {
+	//					medCafeWidget.saveWidget("saveWidget.jsp", val);
+	//				}
+	//				});
+					    	var widgetSettings;
+
+            			//url = url + "?";
+            			order = 1;
+            			tab = 1;
+			$('.tabs').parent().find(".tabContent").each(function(i)
+			{	
+				var newTab = true;
+				var tabName = $(this).find('.id').attr("id");
+				$(this).find('.widget').each(function()
+				{
+    				
+    				var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
+    				if (widgetSettings == "")
+    				{
+    					alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
+    		
+    					return;
+    				}
+    				if (newTab)
+    				{
+    					widgetTabSettings = {
+						"name" : tabName,
+						"type" : "tab",
+						"order" : order,
+						"tab_num" : tab,
+						"id" : order,
+						"patient_id" : widgetSettings.patient_id,
+						"remove" : false
+				};
+			    $.ajax({
+	                url: "saveWidget.jsp?",
+	                type: 'POST',
+	                data: widgetTabSettings,
+
+       
+	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	                success: function(result) {
+	                    //alert(result.Result);
+	                    //$("#saveStatus").html(result.Result).show();
+	                }
+            	});
+
+				order ++;
+				newTab = false;
+    				}
+    				
+    				var column = $(this).closest(".column").attr("id").substring(6);
+    				widgetSettings.tab_num = tab;
+    				widgetSettings.column = column;
+    				widgetSettings.order = order;
+    				widgetSettings.id = order;
+    				    				
+    			$.ajax({
+	                url: "saveWidget.jsp",
+	                type: 'POST',
+	                data: widgetSettings,
+
+	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	                success: function(result) {
+	                    //alert(result.Result);
+	                    //$("#saveStatus").html(result.Result).show();
+	                }
+            	});
+   
+    				order++;
+    				});
+    				tab++;
+    				});
+    				
+
+		//Code to cycle through the widgets and save
+	
+		
 					
 	           }
         });
+    
 		//Code to cycle through the widgets and save
 	
 		

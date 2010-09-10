@@ -401,7 +401,7 @@ $(document).ready( function() {
 				var serverLink = serverLink + "&image=" + widgetInfo.image;
 			}
 
-
+	//		alert('serverLink ' + serverLink);
 
 			$.get(serverLink, function(data)
 			{
@@ -421,8 +421,10 @@ $(document).ready( function() {
 				setHasContent(widgetInfo.id);
 			//	alert("tab_num " + widgetInfo.tab_num);
 			//	alert (JSON.stringify(widgetInfo));
-				if (widgetInfo.jsonProcess == "true")
+			 //  alert("JSONProcess ? " + widgetInfo.jsonProcess);
+				if (widgetInfo.jsonProcess == "true" || widgetInfo.jsonProcess == true)
 				{
+			//		alert(data);
 					var dataObject = JSON.parse(  data);
 					//dataObject.tabNum = widgetInfo.tab_num
 					processScripts(callObj, widgetInfo, dataObject);

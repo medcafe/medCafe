@@ -248,6 +248,9 @@
 </div>
 <div id="clone" class="copy"></div>
 <jsp:include page="schedulePopup.html"/>
+<form name='save_widget_form' id='save_widget_id'>
+  <input type='hidden' name='savedWidgets' />
+</form>
 
 </body>
 

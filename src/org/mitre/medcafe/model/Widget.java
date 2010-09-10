@@ -462,5 +462,6 @@ public class Widget
 	public void setColumn(String column) { this.column = column; }
 	public String getTab_num() { return this.tab_num; }
 	public void setTab_num(String tab_num) { this.tab_num = tab_num; }
+	
 
 }

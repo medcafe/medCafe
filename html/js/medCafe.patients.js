@@ -189,7 +189,7 @@ function populate(url, patient_id)
 //	alert ("URL " + url + " id " + patient_id);
 	 $.getJSON(server, function(data)
 	 {
-
+			//alert(JSON.stringify(data));
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
@@ -202,6 +202,7 @@ function populate(url, patient_id)
 		   }
 		   // alert(JSON.stringify(data));
 		   //put the new tabs in
+		
 		   for(i=0; i< data.tabs.length; i++)
 		   {
                 var label = data.tabs[i].name;
@@ -209,6 +210,7 @@ function populate(url, patient_id)
                 tab_num = parent.addTab(label, "Details");
 
 		   }
+			var previous_id =0;
 		   if (data.widgets){
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
@@ -226,7 +228,11 @@ function populate(url, patient_id)
 
                 // parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, widgetInfo.repository, repPatientId);
                 // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
+
+
                 parent.createWidgetContent( data.widgets[i] );
+
+
 		   	}
 		   }
 	});

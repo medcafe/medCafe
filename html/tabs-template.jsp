@@ -74,16 +74,8 @@ $(function(){
 				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
 			};
 			//	var tabObject = $(this).closest('.tabContent');
-
-			var panePos = $('.ui-layout-center').position();
-			var colPos = $('#column2').position();
-			//alert("ui " + ui.position["left"] + " column " +colPos.left + " pane " + panePos.left);
-			if (ui.position["left"] >= (colPos.left + panePos.left))
-				widgetInfo.column = "2";
-	//		var new_id = addWidgetNum(widgetInfo)
-	//		if (new_id > 0)
-	//		{
-	//			widgetInfo.id = new_id;
+			widgetInfo.column = $(this).attr('id').substring(6);
+	
 			var repPatientJSON;
 
 			$.getJSON(serverLink,function(data)
