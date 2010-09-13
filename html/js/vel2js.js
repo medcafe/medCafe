@@ -1370,7 +1370,7 @@ t.p( widget.repository);
 t.p('" custom:script="');
 t.p( widget.script);
 t.p('" custom:script_file="');
-t.p( widget.scriptFile);
+t.p( widget.script_file);
 t.p('" custom:template="');
 t.p( widget.template);
 t.p('" custom:server="');

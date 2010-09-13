@@ -113,7 +113,7 @@ $(document).ready( function() {
 	   }
 	}
 	//Code to create widgets content
-	function createWidgetContent(widgetInfo)
+	function createWidgetContent(widgetInfo, group)
 	{
 	 $(this).delay(200,function()
 	 {
@@ -128,7 +128,7 @@ $(document).ready( function() {
 		}
 		else   */ 
 			{
-				addWidgetTab(this, widgetInfo);
+				addWidgetTab(this, widgetInfo, group);
 			}
 		
 
@@ -383,6 +383,7 @@ function displayImage(imageName, patientId, tab_num)
 					"name" : imageTitle+"Viewer",
 					"server" : "",
 					"tab_num": "",
+					"image" : imageName,
 					"params" : ""
 
 				};

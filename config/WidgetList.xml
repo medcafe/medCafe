@@ -10,7 +10,7 @@
 	<repository>OurVista</repository>
 	<template>listPatientTable</template>
 	<script>addPatientDetail</script>
-	<scriptFile>medCafe.patients.js</scriptFile>
+	<script_file>medCafe.patients.js</script_file>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -22,7 +22,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processImages</script>
-	<scriptFile>medCafe.images.js</scriptFile>
+	<script_file>medCafe.images.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -34,7 +34,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processFilter</script>
-	<scriptFile>medCafe.filter.js</scriptFile>
+	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -46,7 +46,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processEditor</script>
-	<scriptFile>medCafe.editor.js</scriptFile>
+	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -58,7 +58,7 @@
 	<method></method>
 	<repository>OurVista</repository>
 	<script>processTimeline</script>
-	<scriptFile>medCafe.timeline.js</scriptFile>
+	<script_file>medCafe.timeline.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -71,7 +71,7 @@
 	<repository>local</repository>
 	<template>listPatientsBookmarksTable</template>
 	<script>addBookmarks</script>
-	<scriptFile>medCafe.bookmarks.js</scriptFile>
+	<script_file>medCafe.bookmarks.js</script_file>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -84,7 +84,7 @@
 	<repository>OurVista</repository>
 	<template>listPatientMedsVert</template>
 	<script>addMedications</script>
-	<scriptFile>medCafe.medications.js</scriptFile>
+	<script_file>medCafe.medications.js</script_file>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -97,7 +97,7 @@
 	<repository>OurVista</repository>
 	<template>listPatientAllergies</template>
 	<script>addAllergies</script>
-	<scriptFile>medCafe.allergies.js</scriptFile>
+	<script_file>medCafe.allergies.js</script_file>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -110,7 +110,7 @@
 	<params></params>
 	<repository>local</repository>
 	<script>processSymptoms</script>
-	<scriptFile>medCafe.symptoms.js</scriptFile>
+	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
@@ -123,7 +123,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>addHistory</script>
-	<scriptFile>medCafe.history.js</scriptFile>
+	<script_file>medCafe.history.js</script_file>
 	<template>listPatientHistoryTable</template>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
@@ -137,7 +137,7 @@
 	<repository>OurVista</repository>
 	<template>listProblemListTable</template>
 	<script>addProblemList</script>
-	<scriptFile>medCafe.problemList.js</scriptFile>
+	<script_file>medCafe.problemList.js</script_file>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -149,7 +149,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processChart</script>
-	<scriptFile>medCafe.chart.js</scriptFile>
+	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -161,7 +161,7 @@
 	<method></method>
 	<repository>OurVista</repository>
 	<script>addSupportInfo</script>
-	<scriptFile>medCafe.supportInfo.js</scriptFile>
+	<script_file>medCafe.supportInfo.js</script_file>
 	<template>listSupportInfo</template>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
@@ -174,7 +174,7 @@
 	<method></method>
 	<repository>OurVista</repository>
 	<script>addImmunizations</script>
-	<scriptFile>medCafe.immunizations.js</scriptFile>
+	<script_file>medCafe.immunizations.js</script_file>
 	<template>listPatientImmunizations</template>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
@@ -190,7 +190,7 @@
 	<params>repository:OurVista</params>
 	<repository>OurVista</repository>
 	<script>addRepository</script>
-	<scriptFile>medCafe.repository.js</scriptFile>
+	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
@@ -204,7 +204,7 @@
 	<params>repository:OurHdata</params>
 	<repository>OurHdata</repository>
 	<script>addRepository</script>
-	<scriptFile>medCafe.repository.js</scriptFile>
+	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
 	<jsonProcess>true</jsonProcess>
 </medCafeWidget>
@@ -218,7 +218,7 @@
 	<params></params>
 	<repository></repository>
 	<script>processChart</script>
-	<scriptFile>medCafe.chart.js</scriptFile>
+	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -231,7 +231,7 @@
 	<params></params>
 	<repository>local</repository>
 	<script>processSymptoms</script>
-	<scriptFile>medCafe.symptoms.js</scriptFile>
+	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
@@ -244,7 +244,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processEditor</script>
-	<scriptFile>medCafe.editor.js</scriptFile>
+	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
@@ -256,7 +256,7 @@
 	<method></method>
 	<repository>local</repository>
 	<script>processFilter</script>
-	<scriptFile>medCafe.filter.js</scriptFile>
+	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 </general>

@@ -230,10 +230,19 @@ function populate(url, patient_id)
                 // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
 
 
-                parent.createWidgetContent( data.widgets[i] );
+                parent.createWidgetContent( data.widgets[i], true );
 
 
 		   	}
+		   		$(parent).delay(700* data.widgets.length,function()
+		{
+				for (i=0; i<data.widgets.length; i++)
+				{
+					//alert(i + "  : " + data.widgets[i].id);
+					iNettuts.refresh("yellow-widget" + data.widgets[i].id);
+				}
+				iNettuts.makeSortable();
+		});
 		   }
 	});
 }

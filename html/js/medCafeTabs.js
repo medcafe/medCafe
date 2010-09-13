@@ -376,7 +376,7 @@ $(document).ready( function() {
 
 	}
 
-	function addWidgetTab(callObj, widgetInfo)
+	function addWidgetTab(callObj, widgetInfo, group)
 	{
             var height = '380';
 		    /* var width ='800'; */
@@ -420,8 +420,8 @@ $(document).ready( function() {
 			//	iNettuts.makeSortable();
 				setHasContent(widgetInfo.id);
 			//	alert("tab_num " + widgetInfo.tab_num);
-			//	alert (JSON.stringify(widgetInfo));
-			 //  alert("JSONProcess ? " + widgetInfo.jsonProcess);
+			  // alert (JSON.stringify(widgetInfo));
+			  //alert("JSONProcess ? " + widgetInfo.jsonProcess);
 				if (widgetInfo.jsonProcess == "true" || widgetInfo.jsonProcess == true)
 				{
 			//		alert(data);
@@ -461,14 +461,16 @@ $(document).ready( function() {
 
 				} );
 		});
-
+ if (group != true && group != "true")
+ {
 		$(callObj).delay(1000,function()
 		{
 
-				//	alert(widgetInfo.id);
+					//alert(widgetInfo.id);
 					iNettuts.refresh("yellow-widget" + widgetInfo.id);
 					iNettuts.makeSortable();
-		});			
+		});
+}		
 
 	}
 
@@ -601,6 +603,8 @@ $(document).ready( function() {
 			//if (typeof addAllergies == 'undefined')
 			if (typeof window[widgetInfo.script] == 'undefined')
 			{
+					//alert (JSON.stringify(widgetInfo));
+					//alert('script undefined ' + widgetInfo.script + " file " + widgetInfo.script_file + " " + widgetInfo.scriptFile);
 
                 //	$.getScript('js/medCafe.allergies.js', function()
                 $.getScript('js/' + widgetInfo.script_file, function()

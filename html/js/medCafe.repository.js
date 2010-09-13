@@ -108,7 +108,7 @@ function addRepository(callObj, widgetInfo, data)
 											"params" : widget.params,
 											"column" : widgetInfo.column,
 											"script" : widget.script,
-											"script_file" : widget.scriptFile,
+											"script_file" : widget.script_file,
 											"template" :widget.template,
 											"clickUrl": widget.clickUrl,
 											"jsonProcess": widget.jsonProcess

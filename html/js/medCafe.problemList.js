@@ -48,15 +48,9 @@ function addProblemList(callObj, widgetInfo, data)
 							//Check to see if any error message
 						if (data.announce)
 						{
-							if (retry)
-							{
-								addProblemList(callObj, widgetInfo, data);
-								retry = false;
-							}
-							else
-							{
+						
 								updateAnnouncements(data);
-							}
+							
 							return;
 						}
 					//	var html = v2js_listProblemListTable( data );
@@ -71,6 +65,7 @@ function addProblemList(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 					
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+
 /*						//alert( $("#example" + repId).text());
 							tableObj = $("#"+widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 

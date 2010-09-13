@@ -90,7 +90,7 @@ public class MedCafeComponent
 	public static final String PATIENT = "patientSpecific";
 	public static final String GENERAL = "general";
 	public static final String SCRIPT = "script";
-	public static final String SCRIPT_FILE = "scriptFile";
+	public static final String SCRIPT_FILE = "script_file";
 	public static final String TEMPLATE = "template";
 	public static final String JSON_PROCESS = "jsonProcess";
 	

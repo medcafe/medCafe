@@ -324,7 +324,7 @@ var iNettuts = {
         $sortableItems.find(settings.handleSelector).css({
             cursor: 'move'
         }).mousedown(function (e) {
-                                                           ////**************
+                                                       ////**************
             $sortableItems.css({width:''});
             $(this).parent().css({
                 width: $(this).parent().width() + 'px'
