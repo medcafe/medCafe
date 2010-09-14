@@ -57,7 +57,7 @@ $.fn.medcafeTouch = function(options) {
             //var changeY = originalCoord.y - finalCoord.y
             
             //console.log('Ending swipe gesture..position x: ' + finalCoord.x +' y : ' + finalCoord.y);
-            addTab(event);
+            addTab(event, finalCoord.x);
             removeEvents(event);
         }
 
@@ -78,7 +78,7 @@ $.fn.medcafeTouch = function(options) {
             
         }
         
-		function addTab(event) {
+		function addTab(event, xPos) {
         
         	var img = $(dragObj).find('img');
       		var patientId = options.patientId;
@@ -90,7 +90,7 @@ $.fn.medcafeTouch = function(options) {
 			}
 			else
 			{
-				var label = $(dragObj).find('img').attr("src");
+				/*var label = $(dragObj).find('img').attr("src");
 				var imgHtml = $(dragObj).find('img').html();
 				var type = $(dragObj).find('img').attr("custom:type");
 				var html = $(dragObj).find('img').attr("custom:html");
@@ -100,7 +100,38 @@ $.fn.medcafeTouch = function(options) {
 				var text = $(dragObj).find('p').text();
 				var repPatientId ;
 				var link = $(dragObj).find('img').attr("custom:url");
-				console.log("medCafe.touch.js addTab label " + label + " imgHtml " + imgHtml + " type " + type + " html " + html + " method " + method + " patient Id " + patientId);
+				console.log("medCafe.touch.js addTab label " + label + " imgHtml " + imgHtml + " type " + type + " html " + html + " method " + method + " patient Id " + patientId);  */
+				var widgetInfo = {
+			
+				"patient_id" : patientId,
+				"rep_patient_id" : "",
+				"location" : "center",
+				"repository" : $(dragObj).find('img').attr("custom:repository"),
+				"type" : $(dragObj).find('img').attr("custom:type"),
+				"name" : $(dragObj).find('p').text(),
+				"clickUrl" : $(dragObj).find('img').attr("custom:url"),
+				"server" : $(dragObj).find('img').attr("custom:server"),
+				"tab_num": "",
+				"params" : $(dragObj).find('img').attr("custom:params"),
+				"column" : "",
+				"script" : $(dragObj).find('img').attr("custom:script"),
+				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
+				"template" : $(dragObj).find('img').attr("custom:template"),
+				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
+			};
+			//	var tabObject = $(this).closest('.tabContent');
+			$('.column').each(function()
+			{	
+				left = $(this).offset().left;
+				right = left + $(this).width()
+				if (xPos < right && xPos > left)
+				{
+					widgetInfo.column = $(this).attr('id').substring(6);
+					widgetInfo.tab_num = $(this).closest('.tabContent').attr('id').substring(5);
+					console.log("medCafe.touch.js " + widgetInfo.repository + " column " + widgetInfo.column + " tab_num "  + widgetInfo.tab_num + " clickUrl " + widgetInfo.clickUrl + " type " + widgetInfo.type + " patient Id " + widgetInfo.patient_id); 
+
+
+	
             	var serverLink = "retrievePatientRepositoryAssoc.jsp";
 				var repPatientJSON;
 				$.getJSON(serverLink,function(data)
@@ -111,18 +142,21 @@ $.fn.medcafeTouch = function(options) {
 						for (x in repPatientJSON.repositories)
 						{	  		
 							test = repPatientJSON.repositories[x].repository;
-							if (test == repository)
+							if (test == widgetInfo.repository)
 							{
-								  repPatientId = repPatientJSON.repositories[x].id;
-								  console.log("medCafe.touch.js getRepId rep id: " + repPatientId);
+								  widgetInfo.rep_patient_id = repPatientJSON.repositories[x].id;
+								  console.log("medCafe.touch.js getRepId rep id: " + widgetInfo.rep_patient_id);
 							}
 								  		
 						}
 						//Tab already has content Create a new Tab
-						createLink(patientId,link, text, type ,params, repository, repPatientId);
+						createWidgetContent(widgetInfo);
+
       					clearWidgets();
 			   });
-		   
+				}
+				
+			});		   
 			}
         }
         

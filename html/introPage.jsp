@@ -99,15 +99,15 @@ function popUpAssociatePatient()
 
         <div class="widget color-5" id="intro"  >
         	<div class="ui-widget-header ui-corner-all">
-         	<center><h2 id="patient-search">Repository List</h6></center>
-         	</h2>
+         	<center><h2 id="patient-search">Repository List</h2></center>
+         	
         	</div>
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
                 	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 
                 	<center>
-                	<p><div id="listRepositories"></div>
+                	  <div id="listRepositories"></div>
                 	</center>
                 	</div>
                 </p>
@@ -117,8 +117,8 @@ function popUpAssociatePatient()
 		<div id="associatePatientDialog"></div>
         <div class="widget color-5" id="intro"  >
         	<div class="ui-widget-header ui-corner-all">
-         	<center><h2 id="patient-search">Patient Search</h6></center>
-         	</h2>
+         	<center><h2 id="patient-search">Patient Search</h2</center>
+         
         	</div>
             <div class="ui-widget-content ui-corner-all color-5">
                 <p>
@@ -133,8 +133,8 @@ function popUpAssociatePatient()
 
 		<div class="widget color-5" id="recent"  >
         	<div class="ui-widget-header ui-corner-all">
-         	<center><h2>Recent Patients</h6></center>
-         	</h2>
+         	<center><h2>Recent Patients</h2></center>
+       
         	</div>
 
             <div class="ui-widget-content ui-corner-all color-5">

@@ -38,6 +38,7 @@ public class PatientCache extends TimerTask {
     protected JSONObject patientList = null;
     protected String firstName = null;
     protected String lastName = null;
+    protected String photo = null;
     protected boolean finished = false;
 
     //}}}
@@ -67,6 +68,7 @@ public class PatientCache extends TimerTask {
             while (rs.next()) {
                 firstName = rs.getString("first_name");
                 lastName = rs.getString("last_name");
+                photo = rs.getString("photo");
             }
 
         } catch (SQLException e) {
@@ -476,6 +478,12 @@ public class PatientCache extends TimerTask {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+    public void setPhoto(String photo) {
+    	  this.photo = photo;
+    }
+    public String getPhoto() {
+    	  return photo;
     }
     //}}}
 

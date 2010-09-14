@@ -138,26 +138,26 @@
 
 <body>
 	<div class="ui-widget-header ui-corner-all">
-         <center><h2 id="patient-search">Repository Patient Search</h6></center></h2>
+         <center><h2 id="patient-search">Repository Patient Search</h2></center>
     </div>
 	<div class="ui-widget-content ui-corner-all">
          <p>
         	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;" id="searchPatientParams">
 			<table>
 			<!--tr><td>Patient Repository Id</td><td><input type="text" name="patient_rep_id" value="10"></input></td></tr-->
-			<tr><td>Repository</td><td><p><div id="listRepositories"></div></td></tr>
-			<tr><td>First Name</td><td><input type="text" name="first_name" value=""></input></td></tr>
-			<tr><td>Middle Initial</td><td><input type="text" name="middle_initial" value=""></input></td></tr>
-			<tr><td>Last Name</td><td><input type="text" name="last_name" value=""></input></td></tr>
+			<tr><td>Repository</td><td><div id="listRepositories"></div></td></tr>
+			<tr><td>First Name</td><td><input type="text" name="first_name" value=""/></td></tr>
+			<tr><td>Middle Initial</td><td><input type="text" name="middle_initial" value=""/></td></tr>
+			<tr><td>Last Name</td><td><input type="text" name="last_name" value=""/></td></tr>
 			</table>
-			<input type="button" value="Search" id="patientSearchBtn"></input><br/>
+			<input type="button" value="Search" id="patientSearchBtn"/><br/>
 			
 			</div>
 		</p>
 			
 	</div>
 	<div class="ui-widget-header ui-corner-all">
-         <center><h2 id="patient-list_results">Repository Listing Results</h6></center></h2>
+         <center><h2 id="patient-list_results">Repository Listing Results</h2></center>
     </div>
 	<div class="ui-widget-content ui-corner-all" id="returnedPatientlist">
 		<div>

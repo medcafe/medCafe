@@ -22,7 +22,7 @@
     <div class="ui-widget top-panel" style="width:100px;padding:0px;text-align:center;">
         <div class="ui-state-highlight ui-corner-all" style="padding: 0em;">
             <p>
-                <img alt="Patient photo" src="images/patients/photo_1.jpg" ></img>
+                <img alt="Patient photo" src="images/patients/<%=cache.getPhoto()%>" ></img>
             </p>
         </div>
     </div>

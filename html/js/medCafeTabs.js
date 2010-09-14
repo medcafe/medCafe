@@ -333,9 +333,9 @@ $(document).ready( function() {
 
 	function createLink(widgetInfo)
 	{
-		widgetInfo.tab_num = addTab(label, type);
-		if (widgetInfo.tab_num < 0)
-			return;
+		//widgetInfo.tab_num = addTab(widgetInfo.name, type);
+		//if (widgetInfo.tab_num < 0)
+		//	return;
 		createWidgetContent(widgetInfo);
 
 	}

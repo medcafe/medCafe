@@ -31,7 +31,7 @@ public class Repositories
     {
         repos = new HashMap<String, Repository>();
         Repository r = new VistaRepository();
-        r.setName("JeffVista");
+        r.setName("OurVista");
         String host = "192.168.56.101";
         r.setCredentials( host, "9201", "SM1234", "SM1234!!" );
         // r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
@@ -55,7 +55,7 @@ public class Repositories
         }
         }catch (Exception e) {}
 */
-        host = "medcafe.mitre.org";
+       host = "medcafe.mitre.org";
         try
         {
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )

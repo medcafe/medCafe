@@ -250,7 +250,7 @@
 <medCafeWidget>
 	<name>Filter</name>
 	<type>Filter</type>
-	<image>filter.png</image>
+	<image>slider-small.png</image>
 	<server></server>
 	<clickUrl>filterTools.jsp</clickUrl>
 	<method></method>
