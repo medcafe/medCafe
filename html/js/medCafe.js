@@ -334,11 +334,22 @@ function displayImage(imageName, patientId, tab_num)
 	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
 
 	 }
-	 if ( tab_num == -1)
+	 var fileType = "";
+	 pos = server.lastIndexOf(".") + 1;
+	 if (pos > 0)
 	 {
-	  	tab_num = addTab(imageTitle, "Image");
+	 	fileType = server.substring(pos);
 	 }
-     var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
+	 
+	
+	if (fileType != "pdf")
+	{
+		 if ( tab_num == -1)
+		 {
+		  	tab_num = addTab(imageTitle, "Image");
+		 }
+	 
+	     var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 
 					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
@@ -347,7 +358,7 @@ function displayImage(imageName, patientId, tab_num)
      				 "</div>\n" +
 					"</div>\n";
 
-
+		
          var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
 
         // iNettuts.refresh("yellow-widget" + tab_num);
@@ -444,6 +455,36 @@ function displayImage(imageName, patientId, tab_num)
 
 
 		  });//2nd delay
+	
+	}
+	else
+	{
+				var widgetInfo = {
+					"patient_id" : patientId,
+					"rep_patient_id" : patientId,
+					"repository" : "local",
+					"type" : "Viewer",
+					"name" : imageTitle+"Viewer",
+					"server" : "",
+					"tab_num": "",
+					"image" : imageName,
+					"column" : 1,
+					"jsonProcess" : false,
+					"params" : ""
+
+				};
+					//var type= "Viewer";
+					//var label = imageTitle +"Viewer";
+
+			
+		/*			widgetInfo.id = addWidgetNum(widgetInfo);
+					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
+					widgetInfo.clickUrl = "viewer.jsp";
+					widgetInfo.image = server;
+					createWidgetContent(widgetInfo);   */
+					window.open(imageName, name);
+
+	}
 }
 
 function initClose()
