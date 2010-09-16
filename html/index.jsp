@@ -138,8 +138,8 @@
 
 		function getHeader()
 		{
-			listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
-        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");
+		/*	listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
+        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");  */
 		}
 
 		function initialize(repositoryJSON)
@@ -248,9 +248,7 @@
 </div>
 <div id="clone" class="copy"></div>
 <jsp:include page="schedulePopup.html"/>
-<form name='save_widget_form' id='save_widget_id'>
-  <input type='hidden' name='savedWidgets' />
-</form>
+
 
 </body>
 

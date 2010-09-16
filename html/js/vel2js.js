@@ -946,9 +946,16 @@ t.p('/					');
 t.p( vitalDetail.resultDateTime.low.year);
 t.p('@');
 t.p( vitalDetail.resultDateTime.low.hour);
-t.p(':');
+t.p(':					');
+if (vitalDetail.resultDateTime.low.minute == 0) {
+t.p('						00					');
+}
+else {
+t.p('						');
 t.p( vitalDetail.resultDateTime.low.minute);
-t.p('</td></tr>					');
+t.p('					');
+}
+t.p('					</td></tr>					');
 print = 1;
 t.p('				');
 }

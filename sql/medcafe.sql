@@ -258,15 +258,15 @@ insert into history_category (category, title, description) values ('Personal', 
 insert into history_category (category, title, description) values ('Family', 'Family/ Social History', 'List of known issues with family history');
 
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '3', 'CLINICAL F', 'PATIENT','OurVista', 'elizabeth.jpg');
-insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '2', 'DIETARY', 'PATIENT','OurVista', 'gandhi.jpg');
+insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '2', 'DIETARY', 'PATIENT','OurVista', 'monalisa.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '1', 'ONE', 'ZZTEST','OurVista', 'relee.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '7', 'PHARMACY', 'PATIENT','OurVista', 'rosie.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '6', 'LABORATORY', 'PATIENT','OurVista', 'JohnMuir.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '5', 'RADIOLOGY', 'PATIENT','OurVista', 'lincoln.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '4', 'CLINICAL M', 'PATIENT','OurVista', 'sherman.jpg');
 insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ( '8', 'PEDIATRIC', 'PATIENT', 'OurVista', 'girl-silhouette.jpg');
-insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ('9', 'JOHN Q JR', 'SMITH', 'OurVista', 'burnsides.jpg');
-insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values  ('10', 'BARNABY QUINTIN III', 'JONES', 'OurVista', 'monalisa.jpg');
+insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values ('9', 'JOHN Q', 'SMITH', 'OurVista', 'elvis.jpg');
+insert into  patient (rep_patient_id, first_name, last_name, repository, photo) values  ('10', 'BARNABY QUINTIN', 'JONES', 'OurVista', 'gandhi.jpg');
 
 
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (8,8,'OurVista');
@@ -277,8 +277,8 @@ insert into patient_repository_assoc (patient_id, rep_patient_id,repository) val
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (1,3,'OurVista');
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (2,2,'OurVista');
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (3,1,'OurVista');
-insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (10,9,'OurVista');
-insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (9.10,'OurVista');
+insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (9,9,'OurVista');
+insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (10,10,'OurVista');
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (1,1,'local');
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (2,2,'local');
 insert into patient_repository_assoc (patient_id, rep_patient_id,repository) values (3,3,'local');
@@ -371,7 +371,7 @@ insert into widget_params(widget_id, patient_id, username, param, value) values 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '1', 'mgreer', 'type', 'tab');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '1', 'mgreer', 'tab_num', 1);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '1', 'mgreer', 'name', 'Summary');
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'order', 3);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'order', 2);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'type', 'Medications');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'repository','OurVista');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'location', 'center');
@@ -379,10 +379,22 @@ insert into widget_params(widget_id, patient_id, username, param, value) values 
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'clickUrl', 'prescriptionJSON.jsp');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'server', '');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'rep_patient_id', '3');
-insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'mgreer', 'order', 5);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'column', 1);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '2', '1', 'mgreer', 'tab_num', 1);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'mgreer', 'order', 3);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'mgreer', 'type', 'tab');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'mgreer', 'tab_num', 2);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '3', '1', 'mgreer', 'name', 'Areas of Concern');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'order', 4);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'type', 'Medications');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'repository','OurVista');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'location', 'center');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'name', 'Medications');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'clickUrl', 'prescriptionJSON.jsp');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'server', '');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'rep_patient_id', '3');
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'column', 1);
+insert into widget_params(widget_id, patient_id, username, param, value) values ( '4', '1', 'mgreer', 'tab_num', 2);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '2', 'mgreer', 'order', 1);
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '2', 'mgreer', 'type', 'tab');
 insert into widget_params(widget_id, patient_id, username, param, value) values ( '1', '2', 'mgreer', 'tab_num', 1);

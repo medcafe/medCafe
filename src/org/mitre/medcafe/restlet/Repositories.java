@@ -29,6 +29,7 @@ public class Repositories
      */
     public static void setDefaultRepositories()
     {
+    	  boolean ourVista = false;
         repos = new HashMap<String, Repository>();
         Repository r = new VistaRepository();
         r.setName("OurVista");
@@ -40,6 +41,7 @@ public class Repositories
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
             {
                 repos.put(r.getName(), r);
+                ourVista = true;
             }
         }catch (Exception e) {}
 
@@ -61,7 +63,14 @@ public class Repositories
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
             {
                 r = new VistaRepository();
+                if (!ourVista)
+                {
                 r.setName("OurVista");
+                }
+                else
+                {
+                	r.setName("medCafeDemoVista");
+                }
                 r.setCredentials( "128.29.109.7", "9201", "OV1234", "OV1234!!" );
                 repos.put(r.getName(), r);
 		System.out.println("Got ourVista connection");
