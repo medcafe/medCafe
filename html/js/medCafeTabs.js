@@ -395,7 +395,8 @@ $(document).ready( function() {
 			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository;
 			if (widgetInfo.type != "Repository")
 			{
-				var serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id;
+				var serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
+				widgetInfo.tab_num;
 			}
 			if (widgetInfo.image && widgetInfo.image!="") {
 				var serverLink = serverLink + "&image=" + widgetInfo.image;

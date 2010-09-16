@@ -159,7 +159,7 @@ $(document).ready( function() {
 		{
 			iNettuts.refresh("yellow-widget" + widgetInfo.id);
 
-			$("#aaa" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
+			$("#tabs-" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
 			{
 				$('#iframe'+ widgetInfo.tab_num).attr('src', widgetInfo.clickUrl +"?tab_num=" + widgetInfo.tab_num + "&patient_id=" + widgetInfo.patient_id + "&rep_patient_id="  + widgetInfo.rep_patient_id+ "&image=" + imageTitle);
@@ -326,7 +326,7 @@ function displayImage(imageName, patientId, tab_num)
 
 
 	 var server =  imageName ;
-
+	 //alert("image " + imageName + " patientID " + patientId + " tab-num " + tab_num);
 	 var imageTitle = server;
 	 var pos = server.lastIndexOf("/") + 1;
 	 if (pos > 0)
@@ -339,10 +339,13 @@ function displayImage(imageName, patientId, tab_num)
 	  	tab_num = addTab(imageTitle, "Image");
 	 }
      var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
+
 					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
 					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
 					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
-					"</a>" + "</div>\n";
+					"</a>" + 
+     				 "</div>\n" +
+					"</div>\n";
 
 
          var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";
@@ -353,7 +356,7 @@ function displayImage(imageName, patientId, tab_num)
 
 		  $(this).delay(500,function()
 		 {
-			 $("#aaa" + tab_num).html( text );
+			 $("#tabs-" + tab_num).html( text );
 
 			 $(this).delay(100,function()
 			 {
@@ -384,6 +387,8 @@ function displayImage(imageName, patientId, tab_num)
 					"server" : "",
 					"tab_num": "",
 					"image" : imageName,
+					"column" : 1,
+					"jsonProcess" : false,
 					"params" : ""
 
 				};
@@ -394,6 +399,7 @@ function displayImage(imageName, patientId, tab_num)
 					if (newTab_num < 0)
 						return;
 					widgetInfo.tab_num = newTab_num;
+					widgetInfo.id = addWidgetNum(widgetInfo);
 					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
 					widgetInfo.clickUrl = "viewer.jsp";
 					widgetInfo.image = server;
@@ -413,6 +419,9 @@ function displayImage(imageName, patientId, tab_num)
 						"name" : imageTitle+"Annotate",
 						"server" : "",
 						"tab_num": "",
+						"column" : 1,
+						"image" : imageName,
+						"jsonProcess" : false,
 						"params" : ""
 
 					};
@@ -420,7 +429,7 @@ function displayImage(imageName, patientId, tab_num)
 				//	var label = imageTitle +"Annotate";
 
 					var newTab_num = addTab(widgetInfo.name, widgetInfo.type);
-
+					widgetInfo.tab_num = newTab_num;
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
 				 	widgetInfo.clickUrl = "viewerDraw.jsp"
