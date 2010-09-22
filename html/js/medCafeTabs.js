@@ -490,116 +490,7 @@ $(document).ready( function() {
 	function processScripts(callObj, widgetInfo, data)
 	{
 		var type = widgetInfo.type;
-		if (type == "Symptoms" || (type == "AddHistory") )
-		{
-			//alert("data: " + data);
-			if (typeof processSymptoms == 'undefined')
-			{
 
-				$.getScript('js/medCafe.symptoms.js', function()
-				{
-					processSymptoms(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processSymptoms(widgetInfo, data);
-			}
-		}
-		else if ( type == "Filter")
-		{
-
-			if (typeof processFilter == 'undefined')
-			{
-
-				$.getScript('js/medCafe.filter.js', function()
-				{
-					processFilter(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processFilter(widgetInfo, data);
-			}
-		}
-	/*	else if ( type == "Chart")
-		{
-
-			processChart(widgetInfo, data);
-
-		}  */
-		else if ( type == "Image")
-		{
-			//Delay to allow for all of the document to be loaded
-			//$(callObj).delay(2500,function()
-			//{
-				processImages(widgetInfo, data);
-			//});
-		}
-		else if ( type == "EditorNonIFrame")
-		{
-			if (typeof processEditor == 'undefined')
-			{
-
-				$.getScript('js/medCafe.editor.js', function()
-				{
-					processEditor(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processEditor(widgetInfo, data);
-			}
-		}
-		else if ( type == "Timeline")
-		{
-			if (typeof processTimeline == 'undefined')
-			{
-
-				$.getScript('js/medCafe.timeline.js', function()
-				{
-					processTimeline(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processTimeline(widgetInfo, data);
-			}
-		}
-		else if ( type == "Viewer")
-		{
-
-			if (typeof processViewerImages == 'undefined')
-			{
-
-				$.getScript('js/medCafe.viewer.js', function()
-				{
-					processViewerImages(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processViewerImages(widgetInfo, data);
-			}
-		}
-		else if ( type == "Annotate")
-		{
-
-			if (typeof processAnnotateImages == 'undefined')
-			{
-
-				$.getScript('js/medCafe.annotate.js', function()
-				{
-					processAnnotateImages(widgetInfo, data);
-				});
-			}
-			else
-			{
-				processAnnotateImages(widgetInfo, data);
-			}
-		}
-		else 
-		{
 
 			//if (typeof addAllergies == 'undefined')
 			if (typeof window[widgetInfo.script] == 'undefined')
@@ -617,7 +508,6 @@ $(document).ready( function() {
 			{
 				window[widgetInfo.script](callObj, widgetInfo, data);
 			}
-		}
 
 
 	}

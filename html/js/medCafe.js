@@ -400,6 +400,8 @@ function displayImage(imageName, patientId, tab_num)
 					"image" : imageName,
 					"column" : 1,
 					"jsonProcess" : false,
+					"script_file" : "medCafe.viewer.js",
+					"script" : "processViewerImages",
 					"params" : ""
 
 				};
@@ -433,6 +435,8 @@ function displayImage(imageName, patientId, tab_num)
 						"column" : 1,
 						"image" : imageName,
 						"jsonProcess" : false,
+						"script_file" : "medCafe.annotate.js",
+					   "script" : "processAnnotateImages",
 						"params" : ""
 
 					};

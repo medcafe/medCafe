@@ -58,14 +58,14 @@
  	-moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border: groove #8e846b;
-    width: 100%;
+ 	 width: 80%;
 }
 
 .imageContain img {
  	width: 80px;
- 	margin-left: auto;
+ 	margin-left: auto; 
  	display: block;
- 	margin-right: auto;
+ 	margin-right: auto;  
  	vertical-align: middle ;
 }
 .imageContain p {

@@ -1,4 +1,4 @@
-function processSymptoms(widgetInfo, data)
+function processSymptoms(callObj, widgetInfo, data)
 {
 
 				//	var dataObject = eval('(' + data + ')');
@@ -15,10 +15,10 @@ function processSymptoms(widgetInfo, data)
 			  		//	var html = v2js_listHistoryTemplate( data );  
 		  			//var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);	
 					$('#templateList').html(html);
-					$(this).delay(100,function()
+		/*			$(callObj).delay(100,function()
 					{
 						$('#templateList').jScrollTouch({height:'380',width:'300'});
-					});
+					});   */
 						
 					$('#saveButton').click(function() {
   							

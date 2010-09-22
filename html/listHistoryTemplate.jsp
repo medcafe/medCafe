@@ -28,16 +28,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>Demo Page: Using Progressive Enhancement to Convert a Select Box Into an Accessible jQuery UI Slider</title>
-	<style>
-		td {font-size:0.8em};
-		
-		.scroll {
-		  height:900px;
-		  width:400px;
-		  overflow:auto;
-		}
-	</style>
+	<title>Symptom List</title>
+
 	<script type="text/javascript">
 		$(function(){
 		
@@ -46,10 +38,10 @@
 				var html = v2js_listHistoryTemplate( data );  
   				
 				$('#templateList').html(html);
-				$(this).delay(100,function()
+	/*			$(this).delay(100,function()
 				{
 					$('#templateList').jScrollTouch({height:'380',width:'300'});
-				});
+				});   */
 			});
 		
 			

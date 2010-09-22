@@ -235,7 +235,7 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
 var trueFlag = "true";
-t.p('<div class="ui-widget top-panel" id="patient_history">');
+t.p('<div class="" id="patient_history">');
 for (var i1=0;  i1<context.categories.length; i1++) {
 var category = context.categories[i1];
 velocityCount = i1;

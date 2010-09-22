@@ -1,6 +1,6 @@
 #set ( $count=0)
 #set ( $trueFlag = "true")
-<div class="ui-widget top-panel" id="patient_history">
+<div class="" id="patient_history">
 
 #foreach( $category in $categories  )
 		<br/>	

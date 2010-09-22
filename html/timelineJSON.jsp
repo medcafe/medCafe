@@ -61,6 +61,8 @@
             <p>
             	<form name="eventListingForm" id="eventForm" action="#">
             		<% for (String eventListVal: eventList) {
+            				if (eventListVal == "Problems"  || eventListVal == "Immunizations" || eventListVal == "Encounters")
+            				{
             		%>
             			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event" 
             		<%
@@ -72,7 +74,9 @@
             		<%}%>
             		>
             		<%=eventListVal%></input><br/>
-            		<% } %>
+            		<% 
+            			}
+            		} %>
             		<br/>
             		
          		
