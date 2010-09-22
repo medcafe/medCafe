@@ -234,15 +234,19 @@ function populate(url, patient_id)
 
 
 		   	}
-		   		$(parent).delay(700* data.widgets.length,function()
-		{
+		  // 		$(parent).delay(700* data.widgets.length,function()
+		//{
 				for (i=0; i<data.widgets.length; i++)
 				{
 					//alert(i + "  : " + data.widgets[i].id);
-					iNettuts.refresh("yellow-widget" + data.widgets[i].id);
-				}
+					//iNettuts.refresh("yellow-widget" + data.widgets[i].id);
+		 			refreshYellowWidget($(parent), data.widgets[i], 1, true)
+		   	}
+				$(parent).delay(5000, function()
+				{
 				iNettuts.makeSortable();
-		});
+				});
+	//	});
 		   }
 	});
 }

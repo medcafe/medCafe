@@ -462,17 +462,43 @@ $(document).ready( function() {
 
 				} );
 		});
- if (group != true && group != "true")
- {
-		$(callObj).delay(1000,function()
+		if (group != true && group != "true")
+      {
+	/*	$(callObj).delay(1000,function()
 		{
 
 					//alert(widgetInfo.id);
 					iNettuts.refresh("yellow-widget" + widgetInfo.id);
 					iNettuts.makeSortable();
-		});
-}		
+		});  */
+		refreshYellowWidget(callObj, widgetInfo, 1, group);
+      }		
 
+	}
+	function refreshYellowWidget(callObj, widgetInfo, num, group)
+	{
+		if (num<50)
+		{
+			if ($("#yellow-widget"+widgetInfo.id).length<=0)
+			{
+				//alert("#yellow-widget"+widgetInfo.id + "  length:  " + $("#yellow-widget" + widgetInfo.id).length);
+				$(callObj).delay(100,function()
+				{
+					num++;
+					refreshYellowWidget(callObj, widgetInfo, num);
+				});
+			}
+			else
+			{
+				iNettuts.refresh("yellow-widget" + widgetInfo.id);
+				if (group != true && group != "true")
+					iNettuts.makeSortable();
+			}
+		}
+		else
+		{
+			//alert("Took more than 5 seconds for the widget to return a value, timed out on extra display features");
+		}
 	}
 
 	function callTemplate(type, data, patientId)
