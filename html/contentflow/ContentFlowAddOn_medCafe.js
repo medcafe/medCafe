@@ -28,7 +28,7 @@ new ContentFlowAddOn ('medCafe', {
      * AddOn configuration object, defining the default configuration values.
      */
    conf: {
-        patient_id: '1'
+        widgetInfo: {}
     },
 
     /* 
@@ -66,7 +66,7 @@ new ContentFlowAddOn ('medCafe', {
      */
     onloadInit: function (flow) {
     	var addOnConf =  flow.getAddOnConf("medCafe");
-    	patientId = addOnConf.patient_id;
+    	widgetInfo = addOnConf.widgetInfo;
     		
     },
 
@@ -155,12 +155,12 @@ new ContentFlowAddOn ('medCafe', {
             if (url) {
                 if (target)
                 {
-                	displayImage(url + "/" + target, patientId, -1);
+                	displayImage(url + "/" + target, widgetInfo, -1);
                     //window.open(url, target).focus();
                 }
                 else
                 {
-                	displayImage(url, patientId, -1);
+                	displayImage(url, widgetInfo, -1);
                     //window.location.href = url;
                 }
             }

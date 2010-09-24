@@ -17,6 +17,7 @@ function shape (x, y, width, height, type, color, options)
 	this.height = height;
 	this.type = type;
 	this.color = color;
+	//alert(color);
 	return this;
 }
 
@@ -35,8 +36,9 @@ function createHiddenValues (shape, i) {
      };
     
 var CanvasPainter = CanvasWidget.extend({
+	canvasName: "",
 	canvasInterface: "",
-
+	contextI: "",
 	canvasWidth: 0,
 	canvasHeight: 0,
 
@@ -67,17 +69,14 @@ var CanvasPainter = CanvasWidget.extend({
 	***/
 
 	constructor: function(canvasName, canvasInterfaceName, position, width, height) {
+		this.canvasName = canvasName;
 		this.canvasInterface = document.getElementById(canvasInterfaceName);
-		this.context = this.canvasInterface.getContext("2d");
+		this.contextI = this.canvasInterface.getContext("2d");	
 		this.inherit(canvasName, position);
-		this.canvas.setAttribute('width', width);
-		this.canvas.setAttribute('height', height);
 		this.canvasHeight = this.canvas.getAttribute('height');
-		this.canvasWidth = width;
-		
-		this.drawActions = [this.drawBrush, this.drawPencil, this.drawLine, this.drawRectangle, this.drawCircle, this.clearCanvas];
-		
-	},
+		this.canvasWidth = this.canvas.getAttribute('width');
+		this.drawActions = [this.drawRectangle, this.drawCircle, this.clearCanvas];
+		},
 
 	initMouseListeners: function() {
 		this.mouseMoveTrigger = new Function();
@@ -105,15 +104,17 @@ var CanvasPainter = CanvasWidget.extend({
     },
 	
 	cpMouseMove: function(e) {
-		this.setDrawingColor(this.drawColor);
+		//alert(JSON.stringify($('#viewer').position()));
+		this.setDrawingColor();
 		this.curPos = this.getCanvasMousePos(e, this.position);
 
 		if(this.curDrawAction == 0) {
-			
-			this.drawRectangle(this.startPos, this.curPos, this.context);
+			this.contextI.clearRect(0,0,this.canvasInterface.getAttribute('width'),this.canvasInterface.getAttribute('height'));
+			this.drawRectangle(this.startPos, this.curPos, this.contextI, this.drawColor);
 		} else if(this.curDrawAction == 1) {
 			
-			this.drawCircle(this.startPos, this.curPos, this.context);
+				this.contextI.clearRect(0,0,this.canvasInterface.getAttribute('width'),this.canvasInterface.getAttribute('height'));
+			this.drawCircle(this.startPos, this.curPos, this.contextI, this.drawColor);
 			//console.log("CanvasPainter.js line 115 start pos x: " + this.startPos.x + " y: " + this.startPos.y);
 			//console.log("CanvasPainter.js line 115 curr pos x: " + this.curPos.x + " y: " + this.curPos.y);
 		}
@@ -122,14 +123,15 @@ var CanvasPainter = CanvasWidget.extend({
 
 	mouseUpActionPerformed: function(e) {
 		if(!this.cpMouseDownState) return;
+		this.cpMouseDownState = false;
 		this.curPos = this.getCanvasMousePos(e, this.position);
-		
-		if(this.curDrawAction > 1) {
-			this.setColor(this.drawColor);
-			this.drawActions[this.curDrawAction](this.startPos, this.curPos, this.context, false);
+		if(this.curDrawAction != 2 ) {
+			this.setDrawingColor();
+			this.drawActions[this.curDrawAction](this.startPos, this.curPos, this.context, this.drawColor);
 			this.clearInterface();
 			this.callWidgetListeners();
-		}
+		
+
 		if (this.shapes == null)
 		{
 			this.shapes = [currShape];
@@ -148,40 +150,45 @@ var CanvasPainter = CanvasWidget.extend({
 			
 		var html = createHiddenValues(currShape, shapesCount);
 		$("#canvas").append(html);
+		}
+		else 
+		{
+			clearCanvas();
+		}
 		this.mouseMoveTrigger = new Function();
-		this.cpMouseDownState = false;
+
 	},
 
 	//Draw Functions
-	drawRectangle: function(pntFrom, pntTo, context) {
+	drawRectangle: function(pntFrom, pntTo, context, color) {
 		context.beginPath();
-		context.fillRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
+		context.strokeRect(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y);
 		context.closePath();
-		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle", this.drawColor );
+		var rect = new shape(pntFrom.x, pntFrom.y, pntTo.x - pntFrom.x, pntTo.y - pntFrom.y,"rectangle", color);
 		currShape = rect;
 	},
-	drawCircle: function (pntFrom, pntTo, context) {
+	drawCircle: function (pntFrom, pntTo, context, color) {
 		
 		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x)/2;
 		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
 		context.beginPath();
 		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2)); 
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
-		context.fill();
+		context.stroke();
 		context.closePath();
-		var circle = new shape(centerX, centerY, distance/2, 0,"circle" , this.drawColor );
+		var circle = new shape(centerX, centerY, distance/2, 0,"circle" , color );
 		currShape = circle;
 	},
 	//GH needed as zooming seems to take slightly different parameters - width is half circle distance
-	drawCircleZoom: function (pntFrom, pntTo, context) {
+	drawCircleZoom: function (pntFrom, pntTo, context, color) {
 		var centerX = Math.max(pntFrom.x,pntTo.x) - Math.abs(pntFrom.x - pntTo.x);
 		var centerY = Math.max(pntFrom.y,pntTo.y) - Math.abs(pntFrom.y - pntTo.y)/2;
 		context.beginPath();
 		var distance = Math.sqrt(Math.pow(pntFrom.x - pntTo.x,2) + Math.pow(pntFrom.y - pntTo.y,2)); 
 		context.arc(centerX, centerY, distance/2,0,Math.PI*2 ,true);
-		context.fill();
+		context.stroke();
 		context.closePath();
-		var circle = new shape(centerX, centerY, distance/2, 0,"circle" );
+		var circle = new shape(centerX, centerY, distance/2, 0,"circle", color );
 		currShape = circle;
 	},
 	drawLine: function(pntFrom, pntTo, context) {
@@ -213,17 +220,15 @@ var CanvasPainter = CanvasWidget.extend({
 		canvasPainter.context.beginPath();	
 		canvasPainter.context.clearRect(0,0,canvasPainter.canvasWidth,canvasPainter.canvasHeight);
 		canvasPainter.context.closePath();
-		
 		canvasPainter.shapes = null;
 		
 	},
 	clearInterface: function() {
 		
-		this.context.beginPath();
-		this.context.clearRect(0,0,this.canvasWidth,this.canvasHeight);
-		this.context.closePath();
-		
-		this.shapes == null;
+		this.contextI.beginPath();
+		this.contextI.clearRect(0,0,this.canvasWidth,this.canvasHeight);
+		this.contextI.closePath();
+	//	this.shapes == null;
 	},
 	clearShapes: function() {
 		
@@ -232,18 +237,22 @@ var CanvasPainter = CanvasWidget.extend({
 	//Setter Methods
 	setColor: function(color) {
 		
-		this.context.globalAlpha = 0.4;
+		//this.context.globalAlpha = 0.4;
 		this.context.fillStyle = color;
 		this.context.strokeStyle = color;
 		this.drawColor = color;
+		this.contextI.fillStyle = color;
+		this.contextI.strokeStyle = color;
 	},
-	setDrawingColor: function(color) {
+	setDrawingColor: function() {
 		var colorIn = $('#colorSelector2').find('div').css('backgroundColor');
 		this.setColor(colorIn);
-		this.context.globalAlpha = 0.04;
+		//this.context.globalAlpha = 0.04;
 	},
+
 	setLineWidth: function(lineWidth) {
 		this.context.lineWidth = lineWidth;
+		this.contextI.lineWidth = lineWidth;
 	},
 	
 	//TODO: look into the event responce/calling for this function

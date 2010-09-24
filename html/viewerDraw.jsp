@@ -134,7 +134,7 @@
         <style>
             .viewer
             {
-                width: 90%;
+                width: 300px;
                 height: 310px;
                 border: 1px solid black;
                 position: relative;
@@ -149,32 +149,48 @@
     <body>
         
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
-        <div class="wrapper">
+       <div class="wrapper">
             
-            <div id="viewer" class="viewer"></div>
+            <div id="viewer" class="viewer"> 
+            </div>	
             <br />
           
-        </div>
-		</div>
-        
-        <canvas id="canvas" width="300" height="310"></canvas>
-		<canvas id="canvasInterface" width="300" height="310"></canvas>
-		<div id="chooserWidgets">
-			<div id="controls">
-			<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')"><div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24"></img></div></div> 
-			<div class="ctr_btn" id="btn_1" onclick="setCPDrawAction(1)" onMouseDown="setControlLook(1, '#CCCCCC')" onMouseOver="setControlLook(1, '#EEEEEE')" onMouseOut="setControlLook(1, '#FFFFFF')"><div class="circle"><img src="images/circle.png" alt="circle" height="22" width="22"></img></div></div> 
-			<div class="ctr_btn" id="btn_2" onclick="setCPDrawAction(2)" onMouseDown="setControlLook(2, '#CCCCCC')" onMouseOver="setControlLook(2, '#EEEEEE')" onMouseOut="setControlLook(2, '#FFFFFF')">clear</div> 
-			<br>
-			<div class="ctr_btn" id="btn_9" onclick="canvasAnimator.newAnimation();" onMouseDown="setControlLook(9, '#CCCCCC')" onMouseOver="setControlLook(9, '#EEEEEE')" onMouseOut="setControlLook(9, '#FFFFFF')">new</div> 
-			
-			<div id="customWidget">
-					<div id="colorSelector2"><div style="background-color: #00ff00"></div></div>
-				    <div id="colorpickerHolder2">
-			</div>
-			
-		</div>
-		 <button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
-		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button>
+     
+   
+        		<canvas id="canvas" width="300" height="310"></canvas>
+				<canvas id="canvasInterface" width="300" height="310"></canvas>
 		
+
+				<div id="chooserWidgets">
+					<div id="controls">
+						<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')">
+							<div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24"></img>
+							</div>
+						</div> 
+						<div class="ctr_btn" id="btn_1" onclick="setCPDrawAction(1)" onMouseDown="setControlLook(1, '#CCCCCC')" onMouseOver="setControlLook(1, '#EEEEEE')" onMouseOut="setControlLook(1, '#FFFFFF')">
+							<div class="circle"><img src="images/circle.png" alt="circle" height="22" width="22"></img>
+							</div>
+						</div> 
+						<div class="ctr_btn" id="btn_2" onclick="setCPDrawAction(2)" onMouseDown="setControlLook(2, '#CCCCCC')" onMouseOver="setControlLook(2, '#EEEEEE')" onMouseOut="setControlLook(2, '#FFFFFF')">clear
+						</div> 
+			<br>
+						<div class="ctr_btn" id="btn_9" onclick="canvasAnimator.newAnimation();" onMouseDown="setControlLook(9, '#CCCCCC')" onMouseOver="setControlLook(9, '#EEEEEE')" onMouseOut="setControlLook(9, '#FFFFFF')">new
+						</div> 
+			
+						<div id="customWidget">
+							<div id="colorSelector2">
+								<div style="background-color: #00ff00">
+								</div>
+							</div>
+				    		<div id="colorpickerHolder2">
+							</div>
+			
+						</div>
+		 				<button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
+						<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button>
+					</div>
+				</div>
+ 		</div>
+
     </body>
 </html>

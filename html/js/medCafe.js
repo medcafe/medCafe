@@ -157,7 +157,7 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(200,function()
 		{
-			iNettuts.refresh("yellow-widget" + widgetInfo.id);
+			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 
 			$("#tabs-" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
 			$(callObj).delay(100,function()
@@ -320,7 +320,7 @@ $(document).ready( function() {
   }
 
 
-function displayImage(imageName, patientId, tab_num)
+function displayImage(imageName, widgetInfo, tab_num)
 {
 	//Delay to let the DOM refresh
 
@@ -389,9 +389,9 @@ function displayImage(imageName, patientId, tab_num)
 				$("#viewerButton" + tab_num).bind("click",{},
 				function(e)
 				{
-				var widgetInfo = {
-					"patient_id" : patientId,
-					"rep_patient_id" : patientId,
+				var newWidget = {
+					"patient_id" : widgetInfo.patient_id,
+					"rep_patient_id" : widgetInfo.rep_patient_id,
 					"repository" : "local",
 					"type" : "Viewer",
 					"name" : imageTitle+"Viewer",
@@ -408,15 +408,15 @@ function displayImage(imageName, patientId, tab_num)
 					//var type= "Viewer";
 					//var label = imageTitle +"Viewer";
 
-					var newTab_num = addTab(widgetInfo.name, widgetInfo.type);
+					var newTab_num = addTab(newWidget.name, newWidget.type);
 					if (newTab_num < 0)
 						return;
-					widgetInfo.tab_num = newTab_num;
-					widgetInfo.id = addWidgetNum(widgetInfo);
+					newWidget.tab_num = newTab_num;
+					newWidget.id = addWidgetNum(newWidget);
 					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
-					widgetInfo.clickUrl = "viewer.jsp";
-					widgetInfo.image = server;
-					createWidgetContent(widgetInfo);
+					newWidget.clickUrl = "viewer.jsp";
+					newWidget.image = server;
+					createWidgetContent(newWidget);
 
 
 				});
@@ -424,9 +424,9 @@ function displayImage(imageName, patientId, tab_num)
 				$("#editButton" + tab_num).bind("click",{},
 				function(e)
 				{
-					var widgetInfo = {
-						"patient_id" : patientId,
-						"rep_patient_id" : patientId,
+					var newWidget = {
+						"patient_id" : widgetInfo.patient_id,
+						"rep_patient_id" : widgetInfo.rep_patient_id,
 						"repository" : "local",
 						"type" : "Annotate",
 						"name" : imageTitle+"Annotate",
@@ -435,20 +435,20 @@ function displayImage(imageName, patientId, tab_num)
 						"column" : 1,
 						"image" : imageName,
 						"jsonProcess" : false,
-						"script_file" : "medCafe.annotate.js",
-					   "script" : "processAnnotateImages",
+						"script_file" : "",
+					   "script" : "",
 						"params" : ""
 
 					};
 				//	var type= "Annotate";
 				//	var label = imageTitle +"Annotate";
 
-					var newTab_num = addTab(widgetInfo.name, widgetInfo.type);
-					widgetInfo.tab_num = newTab_num;
+					var newTab_num = addTab(newWidget.name, newWidget.type);
+					newWidget.tab_num = newTab_num;
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
-				 	widgetInfo.clickUrl = "viewerDraw.jsp"
-				 	addChart(this, widgetInfo, imageTitle);
+				   newWidget.clickUrl = "viewerDraw.jsp"
+				 	addChart(this, newWidget, imageTitle);
 
 					//createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
 
@@ -463,7 +463,7 @@ function displayImage(imageName, patientId, tab_num)
 	}
 	else
 	{
-				var widgetInfo = {
+			/*	var widgetInfo = {
 					"patient_id" : patientId,
 					"rep_patient_id" : patientId,
 					"repository" : "local",
@@ -476,7 +476,7 @@ function displayImage(imageName, patientId, tab_num)
 					"jsonProcess" : false,
 					"params" : ""
 
-				};
+				};   */
 					//var type= "Viewer";
 					//var label = imageTitle +"Viewer";
 

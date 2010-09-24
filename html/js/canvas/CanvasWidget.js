@@ -153,6 +153,9 @@ var CanvasWidget = Base.extend({
 				this.widgetListeners[i]();
 		}
 	},
+	setPosition: function(position) {
+		this.position = position;
+		},
 	
 	/**
 	 * Helper function to get the mouse position relative to the canvas position.

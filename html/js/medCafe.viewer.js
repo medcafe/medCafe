@@ -1,4 +1,4 @@
-function processViewerImages(widgetInfo, data)
+function processViewerImages(callObj, widgetInfo, data)
 {
 	$("#tabs-" + widgetInfo.tab_num).html(data );
 		var server = $('#viewerImageName').text();
@@ -19,9 +19,14 @@ function initializeViewer(patientId, fileId, dir, server)
   				  var width = $("#viewer").width();
   				  var height = $("#viewer").height();
 				 var fullFile = dir + server;
-				   
-				  $("#canvas").width(width); 
-                  $("#canvasInterface").width(width);
+				  var canvasObj = document.getElementById("canvas"); 
+				  //$("#canvas").width(width);
+				  canvasObj.setAttribute("width", width);
+				  canvasObj.setAttribute("height", height);
+				  var canvasInterfaceObj = document.getElementById("canvasInterface");
+				  canvasInterfaceObj.setAttribute("width", width);
+				  canvasInterfaceObj.setAttribute("height", height); 
+                //  $("#canvasInterface").width(width);
                   
                   $("#canvas").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );           
                   $("#canvasInterface").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );

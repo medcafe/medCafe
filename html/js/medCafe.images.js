@@ -48,23 +48,25 @@ function filterImages( widgetInfo, startDate, endDate, categories)
 		{
 			if (cf == undefined)
 			{
-				ContentFlowGlobal.setAddOnConf('medCafe', {patient_id: widgetInfo.patient_id});
-				cf = new ContentFlow('contentFlow', {reflectionColor: "#000000", patient_id: widgetInfo.patient_id});	
+				ContentFlowGlobal.setAddOnConf('medCafe', {widgetInfo: widgetInfo});
+				cf = new ContentFlow('contentFlow', {reflectionColor: "#000000", widgetInfo: widgetInfo});	
 				
 			}
 			else
 			{
+							alert(JSON.stringify(widgetInfo));
 				//alert("medCafe.images.js filterImages about to refresh through init");
 				$("contentFlow").removeClass("mouseoverCheckElement");
 				//cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});		
 				//cf.resize();
+
 				cf._init();
 			}
  		});
    });
 }
 
-function processImages(widgetInfo, data)
+function processImages(callObj, widgetInfo, data)
 {
 		
 		//alert("medCafe.images.js processImages start");
