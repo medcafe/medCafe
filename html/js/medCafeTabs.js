@@ -262,9 +262,16 @@ $(document).ready( function() {
 
 		$("#tabs-" + tab_num).addClass('tabContent');
 		//Load the widget template
-		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
+		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type, function()
+		{	if (type == "Annotate")
+			{
+				// remove iNettuts from this tab
+				$('#tabs-'+tab_num).empty();
+			}
+		});
 		//alert("medCafeTabs: addTab tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
 		//$("#tabs-" + tab_num).
+	
 		$('#tabs').tabs('select', "#tabs-" + tab_num);
 		return tab_num;
 	}

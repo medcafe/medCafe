@@ -30,7 +30,7 @@ function initializeViewer(patientId, fileId, dir, server)
                   
                   $("#canvas").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );           
                   $("#canvasInterface").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
-                  $("#chooserWidgets").css( { "left": (pos.left + width) + "px", "top":pos.top + "px" } );
+                  $("#chooserWidgets").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
                   
                   canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: pos.left , y: pos.top}, width, height);
 				  var rtnObj;
@@ -80,8 +80,11 @@ function initializeViewer(patientId, fileId, dir, server)
 									var height = $(this).attr("custom:height");
 									var color = $(this).attr("custom:color");
 									var note =  $(this).attr("custom:note");
-									
-									var curr_zoom = rtnObj.current_zoom;
+									var curr_zoom = $(this).attr("custom:zoom")*100;
+
+
+								//	var curr_zoom = rtnObj.current_zoom;
+								//	alert("zoom " + zoom + " current_zoom " + curr_zoom);
 									var origin= {x:-1,y:-1};
 									origin.x = rtnObj.img_object.x;
 									origin.y = rtnObj.img_object.y;

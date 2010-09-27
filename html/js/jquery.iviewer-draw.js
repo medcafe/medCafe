@@ -15,7 +15,8 @@
     	 * 
     	 */
     	canvas:null,
-    	 
+
+			intializing: true,
         /* start zoom value for image, not used now
         * may be equal to "fit" to fit image into container or scale in % 
         **/
@@ -98,6 +99,10 @@
         this.dragged = false;
         
         this.settings = $.extend({}, defaults, o || {});
+		  if(this.settings.initializing == true)
+		  	this.settings.initializing = false;
+		  else if (this.settings.initializing != false)
+		  	this.settings.initializing = true;
         this.current_zoom = this.settings.zoom;
         this.canvas = this.settings.canvas;
         
@@ -190,6 +195,7 @@
 	            {
 	                me.set_zoom(me.settings.zoom);
 	            }
+	            me.settings.initializing = false;
 	            //src attribute is after setting load event, or it won't work
 	        }).attr("src",this.settings.src).
 	        //bind mouse events
@@ -206,9 +212,11 @@
 	            me.zoom_by(zoom);
 	            return false;
 	        });
+	 
 	        
         }
         ,
+        
         zoomShapes: function(old_x, old_y, new_x, new_y, curr_zoom, new_zoom)
         {
         	
@@ -218,7 +226,8 @@
         	container.canvas.clearCanvas();
         	new_zoom = new_zoom / 100;
         	curr_zoom = curr_zoom / 100;
-        	
+
+
             $('.shape').each(function ()
 			{
 			
@@ -231,7 +240,7 @@
 				var height = $(this).attr("custom:height");
 				var color = $(this).attr("custom:color");
 				var zoom = $(this).attr("custom:zoom");
-				var offset = $(this).attr("custom:offset");
+		//		var offset = $(this).attr("custom:offset");
 				var x2 = x1 + width;
 				var y2 = y1 + height;	
 				if (isNaN(curr_zoom))
@@ -254,15 +263,20 @@
 				{
 					old_y = 0;
 				}
+	
 				var imageX1 = (1*x1 + 1*old_x) / curr_zoom;
 				var imageY1 = (1*y1 + 1*old_y) /curr_zoom;
-				var newOffSet =  (-1*offset*new_zoom);
+			//	var newOffSet =  (-1*offset*new_zoom);
 				//alert("jquery.iviewer-draw zoomShapes  new offset " + newOffSet);
 				//The offset is now set back to 0
-				offset = 0;
-				var newImageX1 = new_zoom*imageX1 + 1*newOffSet;
-				var newImageY1 = new_zoom*imageY1;
-
+			//	offset = 0;
+			//	var newImageX1 = new_zoom*imageX1 + 1*newOffSet;
+			//	var newImageY1 = new_zoom*imageY1;
+			//	var newImageX1 = new_zoom*imageX1 + 1* horizOffset;
+			//	var newImageY1 = new_zoom * imageY1 + 1* vertOffset;
+				var newImageX1 = new_zoom*imageX1;
+				var newImageY1 = new_zoom * imageY1;
+				
 				var x1Container = newImageX1 + new_x;
 				var y1Container = newImageY1 + new_y;
 				var newWidth = (width*new_zoom)/ curr_zoom;
@@ -270,13 +284,14 @@
 				
 				var x2Container = x1Container + newWidth;
 				var y2Container = y1Container + newHeight;
-				
+			//	alert("old x: " + old_x + " old_y: " + old_y + " new_x: " + new_x + " new_y: " + new_y +" x1: " + x1 +
+			//	" y1: " + y1 + " current zoom: " + curr_zoom + " new_zoom: " + new_zoom + " horizOffset: " + horizOffset + " vertOffset: " + vertOffset);
 				var canvasPt1 = {x:x1Container,y:y1Container};
 				var canvasPt2 =  {x:x2Container,y: y2Container};
 				var shapeId = $(this).attr("name");
 				//alert("jquery.iviewer-draw zoomShapes  offset " + offset);
 				
-				container.updateHiddenValues(shapeId, canvasPt1, newWidth, newHeight, type , offset );
+				container.updateHiddenValues(shapeId, canvasPt1, newWidth, newHeight, type, new_zoom);
 					
 				canvasPt1 = {x:x1Container,y:y1Container};
 				canvasPt2 =  {x:x2Container,y: y2Container};
@@ -304,6 +319,8 @@
 				}	
 				
 			});
+			//this.settings.horizOffset = 0;
+			//this.settings.vertOffset = 0;
 			//var length = container.canvas.shapes.length;
 			//alert("no of shapes "  + length);
         },
@@ -319,6 +336,10 @@
 			{
 					return;
 			}
+			this.settings.horizOffset = this.settings.horizOffset*1 + (dx/this.current_zoom);
+			this.settings.vertOffset = this.settings.vertOffset*1 + (dy/this.current_zoom);
+			var horizOffset = this.settings.horizOffset;
+			var vertOffset = this.settings.vertOffset;
 			container.canvas.clearCanvas();
         		
             $('.shape').each(function ()
@@ -333,7 +354,8 @@
 				var height = $(this).attr("custom:height");
 				var color = $(this).attr("custom:color");
 				var zoom = $(this).attr("custom:zoom");
-				var offset = $(this).attr("custom:offset");
+				//var horizOffset = $(this).attr("custom:horizOffset");
+				//var vertOffset = $(this).attr("custom:vertOffset");
 				var x2 = (x1*1 + 1*width);
 				
 				var y2 = (y1*1 + 1*height);	
@@ -350,9 +372,9 @@
 				var centerShapeX = (x1 + x2) /2;
 				var zoom = container.current_zoom/100;
                
-				offset = offset*1 + (dx/ zoom);
-				
-				container.updateHiddenValues(shapeId, canvasPt1, width, height, type,  offset);
+				//horizOffset = horizOffset*1 + (dx/ zoom);
+				//vertOffset = vertOffset*1 + (dy/zoom);
+				container.updateHiddenValues(shapeId, canvasPt1, width, height, type, zoom); //,  offset);
 								
 				if (type == "circle")
 				{
@@ -379,7 +401,7 @@
         /**
         * update the values that are kept in html for shape position
         **/
-        updateHiddenValues: function (shapeName, newPos, newWidth, newHeight,type, offSet )
+        updateHiddenValues: function (shapeName, newPos, newWidth, newHeight,type, zoom) //, offSet )
         {
       
       		var shapeDiv = $("#" +shapeName);
@@ -388,7 +410,8 @@
       		$("#" +shapeName).attr("custom:y", newPos.y);
       		$("#" +shapeName).attr("custom:width", newWidth);
       		$("#" +shapeName).attr("custom:height", newHeight);
-      		$("#" +shapeName).attr("custom:offset", offSet);
+      		$("#" + shapeName).attr("custom:zoom", zoom);
+      	//	$("#" +shapeName).attr("custom:offset", offSet);
       		//var newHtml =  '<div class="shape" name="'+ shapeName + '" id="' + shapeName + '" custom:type="' + type +'" custom:x="' + newPos.x +
         	//		'" custom:y="' + newPos.y + '" custom:width="' + newWidth + '" custom:height="' + newHeight +'" />' ;
     	
@@ -429,26 +452,34 @@
             //check new coordinates to be correct (to be in rect)
             if(y > 0){
                 y = 0;
+               // alert('y reset');
             }
             if(x > 0){
-                x = 0;
+            	//alert('first reset');
+               x = 0;
             }
+    
             if(y + this.img_object.display_height < this.settings.height){
                 y = this.settings.height - this.img_object.display_height;
+               // alert('second y reset');
             }
             if(x + this.img_object.display_width < this.settings.width){
-                x = this.settings.width - this.img_object.display_width;
+            	//alert('second reset');
+               x = this.settings.width - this.img_object.display_width;
             }
             if(this.img_object.display_width <= this.settings.width){
+            //	alert('x = ' + x);
                 x = -(this.img_object.display_width - this.settings.width)/2;
+               // alert('resetting x ' + x);
             }
             if(this.img_object.display_height <= this.settings.height){
                 y = -(this.img_object.display_height - this.settings.height)/2;
+              //  alert('resetting y ' + y);
             }
-           
-            this.img_object.x = x;
-            this.img_object.y = y;
-            
+           //alert(this.img_object.display_width + " = display width " + this.settings.width + " = width " + x + " = x");
+            this.img_object.x =Math.round( x*1000)/1000;
+            this.img_object.y = Math.round(y*1000)/1000;
+           // alert("setting x " + this.img_object.x);
             this.img_object.object.css("top",y + "px")
                              .css("left",x + "px");
                              
@@ -530,8 +561,8 @@
                 new_zoom = this.settings.zoom_max;
             }
 
-			var old_xorig = -parseInt(this.img_object.object.css("left"),10);
-            var old_yorig = -parseInt(this.img_object.object.css("top"),10);
+			var old_xorig = -parseFloat(this.img_object.object.css("left"));
+            var old_yorig = -parseFloat(this.img_object.object.css("top"));
             
             var old_x = -parseInt(this.img_object.object.css("left"),10) +
                                         Math.round(this.settings.width/2);
@@ -552,7 +583,20 @@
             this.img_object.display_height = new_height;
                                
             this.setCoords(new_x, new_y);
-
+            if (this.settings.initializing=='true' || this.settings.initializing == true)
+            {
+    
+           	old_xorig = -this.img_object.x;
+          	old_yorig = -this.img_object.y;
+           		
+            	this.current_zoom = new_zoom;
+            	this.settings.initializing == false;
+            }
+           
+            	new_x = this.img_object.x;
+            	new_y = this.img_object.y;
+            
+			//alert ("old xorig " + old_xorig + " new_x " + new_x); 
 			this.zoomShapes(old_xorig, old_yorig, new_x, new_y, this.current_zoom, new_zoom);
            
             this.current_zoom = new_zoom;
@@ -706,6 +750,38 @@
              return false;
             
         },
+              moveDown: function(e)
+        {
+            var oldtop =  this.img_object.y;
+            var oldleft = this.img_object.x;
+            var newtop =  this.img_object.y-60;
+            var newleft = this.img_object.x;
+            this.setCoords(newleft, newtop);
+            
+            var dx = this.img_object.x - oldleft;
+            var dy = this.img_object.y - oldtop;
+            this.moveShapes(dx,dy);
+             
+             return false;
+            
+        }
+        ,
+              moveUp: function(e)
+        {
+            var oldtop =  this.img_object.y;
+            var oldleft = this.img_object.x;
+            var newtop =  this.img_object.y+60;
+            var newleft = this.img_object.x;
+            this.setCoords(newleft, newtop);
+            
+            var dx = this.img_object.x - oldleft;
+            var dy = this.img_object.y - oldtop;
+            this.moveShapes(dx,dy);
+             
+             return false;
+            
+        }
+        ,
         /**
         *   callback for handling stop drag
         **/
@@ -751,6 +827,14 @@
            $("<div>").addClass("iviewer_right").addClass("iviewer_common").
             addClass("iviewer_button").
             mousedown(function(){me.moveRight(this); return false;}).appendTo(this.container);
+            
+            $("<div>").addClass("iviewer_up").addClass("iviewer_common").
+            addClass("iviewer_button").
+            mousedown(function(){me.moveUp(this); return false;}).appendTo(this.container);
+           
+           $("<div>").addClass("iviewer_down").addClass("iviewer_common").
+            addClass("iviewer_button").
+            mousedown(function(){me.moveDown(this); return false;}).appendTo(this.container);
             
             this.zoom_object = $("<div>").addClass("iviewer_zoom_status").addClass("iviewer_common").
             appendTo(this.container);

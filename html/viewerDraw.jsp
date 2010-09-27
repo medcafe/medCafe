@@ -134,7 +134,7 @@
         <style>
             .viewer
             {
-                width: 300px;
+                width: 90%;
                 height: 310px;
                 border: 1px solid black;
                 position: relative;
@@ -154,7 +154,8 @@
             <div id="viewer" class="viewer"> 
             </div>	
             <br />
-          
+          				</div>
+ 		</div>
      
    
         		<canvas id="canvas" width="300" height="310"></canvas>
@@ -187,10 +188,9 @@
 			
 						</div>
 		 				<button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
-						<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button>
+				<!--		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button> <--->
 					</div>
-				</div>
- 		</div>
+
 
     </body>
 </html>

@@ -50,8 +50,17 @@
     left: 190px;
     background: url(../images/viewer/iviewer.right.gif);
 }
-.iviewer_zoom_status {
+.iviewer_up {
     left: 220px;
+    background: url(../images/viewer/iviewer.up.gif);
+}
+
+.iviewer_down {
+    left: 250px;
+    background: url(../images/viewer/iviewer.down.gif);
+}
+.iviewer_zoom_status {
+    left: 280px;
     font: 1em/28px Sans;
     color: #000;
     background-color: #fff;
