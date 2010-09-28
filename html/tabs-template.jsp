@@ -71,10 +71,14 @@ $(function(){
 				"script" : $(dragObj).find('img').attr("custom:script"),
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
 				"template" : $(dragObj).find('img').attr("custom:template"),
-				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
+				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess"),
+				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts")
 			};
 			//	var tabObject = $(this).closest('.tabContent');
 			widgetInfo.column = $(this).attr('id').substring(6);
+			widgetInfo.collapsed = 'false';
+			widgetInfo.label = widgetInfo.name;
+			widgetInfo.color_num = 2;
 	
 			var repPatientJSON;
 
@@ -104,7 +108,13 @@ $(function(){
 					// {
 					// 	//No content : Use the current Tab
 						//addChart(this, link, "<%=tabNum%>");
+						if (widgetInfo.iNettuts == false || widgetInfo.iNettuts == "false")
+						{
+							widgetInfo.tab_num = -1;
+							
+						}
 
+						
 						createWidgetContent(widgetInfo);
 						$(hasContentObj).attr("custom:hasContent",true);
 

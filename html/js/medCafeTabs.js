@@ -215,31 +215,33 @@ $(document).ready( function() {
 	}
 
 
-	function addTab(label, type)
+	function addTab(label, type, iNettuts)
 	{
 
 		//alert("medCafeTabs addTab start");
 		//First check if tab already exists
 		var tab_num = 0;
 		var tab_id = 0;
-	//	$('.tabs').parent().find(".tabContent").each(function(i)
-	//	{
-	//		var tabObj = $(this).find(".id");
-	//		var tabId = $(tabObj).attr("id");
-	//		if (tabId == label)
-	//		{
-	//			var tab_id = $(this).attr('id');
-	//			tab_num = tab_id.split("-")[1];
-	//			$('#tabs').tabs('select', "#tabs-" + tab_num);
+		if (label != "new" && label !="New")
+		{
+		$('.tabs').parent().find(".tabContent").each(function(i)
+		{
+			var tabObj = $(this).find(".id");
+			var tabId = $(tabObj).attr("id");
+			if (tabId == label)
+			{
+				var tab_id = $(this).attr('id');
+				tab_num = tab_id.split("-")[1];
+				$('#tabs').tabs('select', "#tabs-" + tab_num);
 
-//			}
+			}
 
-//		});
+		});
 
 
 		//If the tab_number is greater than 0 then it has been found already - just return	-1
-//		if (tab_num != 0) return -1;
-
+		if (tab_num != 0) return -1;
+		}
 		$('.tabs').parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
@@ -262,13 +264,14 @@ $(document).ready( function() {
 
 		$("#tabs-" + tab_num).addClass('tabContent');
 		//Load the widget template
-		$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type, function()
-		{	if (type == "Annotate")
-			{
-				// remove iNettuts from this tab
-				$('#tabs-'+tab_num).empty();
-			}
-		});
+		if (iNettuts != false && iNettuts != "false")
+		{
+			$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
+		}
+		else
+		{
+			$("#tabs-" + tab_num).addClass('no-iNettuts');
+		}
 		//alert("medCafeTabs: addTab tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
 		//$("#tabs-" + tab_num).
 	
@@ -282,10 +285,9 @@ $(document).ready( function() {
 
 		var widget_id = 0;
 		var max_id = 0;
-		$('.column').each(function(i)
-		{
+	
 		//	$(this).find('.id').each(function()
-			$(this).find('.widget').each(function()
+			$('.widget').each(function()
 			{
 				var widgetLabel = $(this).find('.id').attr("id");
 			//	var widgetLabel = $(this).attr("id");
@@ -330,7 +332,6 @@ $(document).ready( function() {
 				}
 				}
 
-			});
 		});
 		if (widget_id != 0)
 			return -1;
@@ -395,7 +396,10 @@ $(document).ready( function() {
 				/* width = '400'; */
 			}
 
-
+			if (widgetInfo.tab_num == -1)
+			{
+				widgetInfo.tab_num = addTab(widgetInfo.name, widgetInfo.type, widgetInfo.iNettuts);
+			}
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
@@ -422,7 +426,14 @@ $(document).ready( function() {
                         widgetInfo.column = "1";
                     if (!widgetInfo.tab_num)
                         widgetInfo.tab_num = "2";
+                        if (widgetInfo.iNettuts != false && widgetInfo.iNettuts != 'false')
+                        {
                     $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));
+                    }
+                    else
+                    {
+                     	$("#tabs-"+ widgetInfo.tab_num).append(v2js_head(widgetInfo) + data +v2js_tail(widgetInfo));
+                    }
 				}
 			// alert("should have added content now");
 			//	iNettuts.makeSortable();
@@ -442,6 +453,7 @@ $(document).ready( function() {
 					processScripts(callObj, widgetInfo, data);
 				}
 			medCafeWidget.populateExtWidgetSettings(widgetInfo);
+		
 			//	data = JSON.stringify(dataObject);
 			//	alert(data);
 				//Run any scripts specific to this type
@@ -498,8 +510,23 @@ $(document).ready( function() {
 			else
 			{
 				iNettuts.refresh("yellow-widget" + widgetInfo.id);
+				
+				if (widgetInfo.collapsed == 'true' || widgetInfo.collapsed == true)
+				{
+ 
+
+	            	var collapseButton = $("#yellow-widget" + widgetInfo.id).find('.collapse');
+						
+						
+	                $(collapseButton).click();
+	          
+    
+     
+
+				}
 				if (group != true && group != "true")
 					iNettuts.makeSortable();
+			
 			}
 		}
 		else

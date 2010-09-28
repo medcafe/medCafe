@@ -68,7 +68,7 @@ public class hDataRepository extends Repository
      */
     public Map<String, String> getPatients(){
         Map<String, String> ret = new HashMap<String,String>();
-        ret.put( "000000001",  "Dr. Robert Bruce" );
+        ret.put( "000000001",  "Bruce, Robert" );
         return ret;
     }
 

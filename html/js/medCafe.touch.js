@@ -117,7 +117,11 @@ $.fn.medcafeTouch = function(options) {
 				"script" : $(dragObj).find('img').attr("custom:script"),
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
 				"template" : $(dragObj).find('img').attr("custom:template"),
-				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess")
+				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess"),
+				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts"),
+				"collapsed" : 'false',
+				"label" : $(dragObj).find('p').text(),
+				"color_num" : 2
 			};
 			//	var tabObject = $(this).closest('.tabContent');
 			$('.column').each(function()
@@ -129,7 +133,10 @@ $.fn.medcafeTouch = function(options) {
 					widgetInfo.column = $(this).attr('id').substring(6);
 					widgetInfo.tab_num = $(this).closest('.tabContent').attr('id').substring(5);
 					console.log("medCafe.touch.js " + widgetInfo.repository + " column " + widgetInfo.column + " tab_num "  + widgetInfo.tab_num + " clickUrl " + widgetInfo.clickUrl + " type " + widgetInfo.type + " patient Id " + widgetInfo.patient_id); 
-
+					
+					if (widgetInfo.iNettuts == false || widgetInfo.iNettuts == 'false')
+						widgetInfo.tab_num = -1;
+					widgetInfo.id = addWidgetNum(widgetInfo);
 
 	
             	var serverLink = "retrievePatientRepositoryAssoc.jsp";

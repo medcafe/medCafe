@@ -62,7 +62,10 @@ public class Widget
 	private String server ="";
 	protected String tab_num = null;
 	protected String column = null;
-
+	private String iNettuts = "true";
+	private String collapsed = "false";
+	private String label = "";
+	private int colorNum = 1;
 
 
 	//All the other parameters
@@ -82,6 +85,10 @@ public class Widget
 	public static final String TRUE = "true";
 	public static final String TAB_NUMBER = "tab_num";
 	public static final String COLUMN = "column";
+	public static final String INETTUTS = "iNettuts";
+	public static final String LABEL = "label";
+	public static final String COLLAPSED = "collapsed";
+	public static final String COLOR_NUM = "color_num";
 
 
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
@@ -127,6 +134,10 @@ public class Widget
 		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 		 o.put(Widget.TAB_NUMBER, this.getTab_num());
 		 o.put(Widget.COLUMN, this.getColumn());
+		 o.put(Widget.INETTUTS, this.getINettuts());
+		 o.put(Widget.COLOR_NUM, this.getColorNum());
+		 o.put(Widget.COLLAPSED, this.getCollapsed());
+		 o.put(Widget.LABEL, this.getLabel());
 
 		 
 		 return o;
@@ -274,6 +285,7 @@ public class Widget
 						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
 						  widgetJSON.put(MedCafeComponent.CLICK_URL, comp.getClickUrl());
 						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
+						  widgetJSON.put(MedCafeComponent.INETTUTS, comp.getINettuts());
 						  }                		
                     ret.append("widgets", widgetJSON);
 					 }
@@ -357,6 +369,14 @@ public class Widget
 					widget.setColumn(value);
 				else if (param.equals(Widget.TAB_NUMBER))
 					widget.setTab_num(value);
+				else if (param.equals(Widget.INETTUTS))
+					widget.setINettuts(value);
+				else if (param.equals(Widget.COLOR_NUM))
+					widget.setColorNum(value);
+				else if (param.equals(Widget.LABEL))
+					widget.setLabel(value);
+				else if (param.equals(Widget.COLLAPSED))
+					widget.setCollapsed(value);
 				else
 					params.put(param, value);
 
@@ -454,10 +474,42 @@ public class Widget
 	public String getRepPatientId() {
 		return repPatientId;
 	}
+	public String getINettuts() {
+		return iNettuts;
+	}
+	public void setINettuts(String iNettuts)
+	{
+		iNettuts = this.iNettuts;
+	}
 
 	public void setRepPatientId(String repPatientId) {
 		this.repPatientId = repPatientId;
 	}
+	public void setCollapsed(String collapsed)
+	{
+		this.collapsed = collapsed;
+	}
+	public String getCollapsed()
+	{
+		return collapsed;
+	}
+	public void setColorNum(String colorNum)
+	{
+		this.colorNum = Integer.parseInt(colorNum);
+	}
+	public int getColorNum()
+	{
+		return colorNum;
+	}
+	public String getLabel()
+	{
+		return label;
+	}
+	public void setLabel(String label)
+	{
+		this.label = label;
+	}
+	
     public String getColumn() { return this.column; }
 	public void setColumn(String column) { this.column = column; }
 	public String getTab_num() { return this.tab_num; }

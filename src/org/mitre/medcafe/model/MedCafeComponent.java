@@ -77,6 +77,7 @@ public class MedCafeComponent
 	private String script="";
 	private String scriptFile="";
 	private boolean jsonProcess= false;
+	private boolean iNettuts = true;
 	
 	public static final String NAME = "name";
 	public static final String ORDER = "order";
@@ -93,7 +94,7 @@ public class MedCafeComponent
 	public static final String SCRIPT_FILE = "script_file";
 	public static final String TEMPLATE = "template";
 	public static final String JSON_PROCESS = "jsonProcess";
-	
+	public static final String INETTUTS = "iNettuts";
 	public static final String XML_WIDGET = "medCafeWidget";
 	
 	public MedCafeComponent()	
@@ -195,6 +196,10 @@ public class MedCafeComponent
 		    		 		NodeList jsonProcessList = componentElmnt.getElementsByTagName(JSON_PROCESS);
 		    		 		boolean jsonProcess = Boolean.valueOf(jsonProcessList.item(0).getTextContent());
 		    		 		
+		    		 				 		
+		    		 		NodeList iNettutsList = componentElmnt.getElementsByTagName(INETTUTS);
+		    		 		boolean iNettuts = Boolean.valueOf(iNettutsList.item(0).getTextContent());
+		    		 		
 		    		 		String template = "";	    		 		
 		    		 		NodeList templateList = componentElmnt.getElementsByTagName(TEMPLATE);
 		    		 		if (templateList.getLength() > 0)
@@ -219,6 +224,7 @@ public class MedCafeComponent
 		    		 		component.setScriptFile(scriptFile);
 		    		 		component.setTemplate(template);
 		    		 		component.setJsonProcess(jsonProcess);
+		    		 		component.setINettuts(iNettuts);
 		    		 		componentList.add(component);
 		    		 		
 		    		 	}
@@ -337,6 +343,12 @@ public class MedCafeComponent
 	public void setJsonProcess(boolean jsonProcess) {
 		this.jsonProcess = jsonProcess;
 	}
+	public boolean getINettuts() {
+		return iNettuts;
+	}
+	public void setINettuts(boolean iNettuts) {
+		this.iNettuts = iNettuts;
+	}
 
 	public JSONObject toJSON() throws JSONException 
 	{
@@ -354,6 +366,7 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.SCRIPT_FILE, scriptFile);
 		 jsonObj.put(MedCafeComponent.TEMPLATE, template);
    	 jsonObj.put(MedCafeComponent.JSON_PROCESS, String.valueOf(jsonProcess));
+   	 jsonObj.put(MedCafeComponent.INETTUTS, String.valueOf(iNettuts));
     	 return jsonObj;
 	}
 

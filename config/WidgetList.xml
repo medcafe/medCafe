@@ -12,6 +12,7 @@
 	<script>addPatientDetail</script>
 	<script_file>medCafe.patients.js</script_file>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Images</name>
@@ -24,6 +25,7 @@
 	<script>processImages</script>
 	<script_file>medCafe.images.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
@@ -36,6 +38,7 @@
 	<script>processFilter</script>
 	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
@@ -48,6 +51,7 @@
 	<script>processEditor</script>
 	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Timeline</name>
@@ -60,6 +64,7 @@
 	<script>processTimeline</script>
 	<script_file>medCafe.timeline.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>false</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Bookmarks</name>
@@ -73,6 +78,7 @@
 	<script>addBookmarks</script>
 	<script_file>medCafe.bookmarks.js</script_file>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Medications</name>
@@ -86,6 +92,7 @@
 	<script>addMedications</script>
 	<script_file>medCafe.medications.js</script_file>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Allergies</name>
@@ -99,6 +106,7 @@
 	<script>addAllergies</script>
 	<script_file>medCafe.allergies.js</script_file>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Symptoms</name>
@@ -113,6 +121,7 @@
 	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>History</name>
@@ -126,6 +135,7 @@
 	<script_file>medCafe.history.js</script_file>
 	<template>listPatientHistoryTable</template>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Problem</name>
@@ -139,6 +149,7 @@
 	<script>addProblemList</script>
 	<script_file>medCafe.problemList.js</script_file>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Charts</name>
@@ -151,6 +162,7 @@
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>SupportInfo</name>
@@ -164,6 +176,7 @@
 	<script_file>medCafe.supportInfo.js</script_file>
 	<template>listSupportInfo</template>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Immunizations</name>
@@ -177,6 +190,7 @@
 	<script_file>medCafe.immunizations.js</script_file>
 	<template>listPatientImmunizations</template>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </patientSpecific>
 <general>
@@ -193,6 +207,7 @@
 	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>hData</name>
@@ -207,6 +222,7 @@
 	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
 	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Charts</name>
@@ -220,6 +236,7 @@
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>AddHistory</name>
@@ -234,6 +251,7 @@
 	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
@@ -246,6 +264,7 @@
 	<script>processEditor</script>
 	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
@@ -258,6 +277,7 @@
 	<script>processFilter</script>
 	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </general>
 </medCafeWidgets>

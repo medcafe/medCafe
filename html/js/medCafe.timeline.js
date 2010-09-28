@@ -1,5 +1,5 @@
-function processTimeline(widgetInfo, data)
-{
+function processTimeline(callObj, widgetInfo, data)
+{	
 	$('#tabs').tabs('select', "#tabs-" + widgetInfo.tab_num);
 	
 	var eventSource = new Timeline.DefaultEventSource();
@@ -174,7 +174,7 @@ function fillInfoBubbleCustom(evt, elmt, theme, labeller, patientId, type)
         else if (nodetype == "Visits")
         {
         	//Put in code here to bring up visit detail data
-        	var tab_num = addTab(imageTitle, "Visit " + title);
+        	//var tab_num = addTab(imageTitle, "Visit " + title);
         	
         	//call createWidgetContent(patientId,link, label, type ,tab_num, params, repId, patientRepId)
 			

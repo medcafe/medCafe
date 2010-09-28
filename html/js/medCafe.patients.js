@@ -193,21 +193,22 @@ function populate(url, patient_id)
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
-		   		var tab_num = parent.addTab("New", "chart");
+		   		var tab_num = parent.addTab("New", "chart", true);
 
 		   	//	parent.iNettuts.refresh("yellow-widget-" + tab_num);
 				// parent.iNettuts.makeSortable();
 
 		   		return;
 		   }
-		   // alert(JSON.stringify(data));
+		  // alert(JSON.stringify(data));
 		   //put the new tabs in
 		
 		   for(i=0; i< data.tabs.length; i++)
 		   {
                 var label = data.tabs[i].name;
 		        // alert("adding tab " + i);
-                tab_num = parent.addTab(label, "Details");
+		        alert(JSON.stringify(data.tabs[i]));
+		        tab_num = parent.addTab(label, "Details", data.tabs[i].iNettuts);
 
 		   }
 			var previous_id =0;
@@ -228,7 +229,12 @@ function populate(url, patient_id)
 
                 // parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, widgetInfo.repository, repPatientId);
                 // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
-
+					if (!data.widgets[i].label || data.widgets[i].label == "")
+						data.widgets[i].label = data.widgets[i].name;
+					if (!data.widgets[i].color_num || data.widgets[i].color_num == "")
+						data.widgets[i].color_num == 2;
+					if (!data.widgets[i].collapsed || data.widgets[i].collapsed == "")
+						data.widgets[i].collapsed == 'false';
 
                 parent.createWidgetContent( data.widgets[i], true );
 

@@ -48,7 +48,7 @@ $(document).ready( function() {
 
 		$('#addTabBtn').click(function()
 		{
-			var tab_num = addTab("new","chart");
+			var tab_num = addTab("new","chart", true);
 
 			//Make sure that tab is refreshed to add relevant scripts/ events
 			//iNettuts.refresh("yellow-widget" + tab_num);
@@ -121,30 +121,14 @@ $(document).ready( function() {
 
 
 
-	
-	/*	if (type == "SingleImage")
-		{
-			displayImage(widgetInfo);
-		}
-		else   */ 
 			{
 				addWidgetTab(this, widgetInfo, group);
 			}
 		
 
-	/*	else
-		{
-			addChart(this, widgetInfo);
-		}  */
 		medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		});
-	//	iNettuts.addControlsToOneID("yellow-widget" + widgetInfo.id, function()
-	//	{
-	//	iNettuts.refresh("yellow-widget" + widgetInfo.id, function()
-	//	{
-	//		//iNettuts.makeSortable();
-	//		});
-	//	});
+	
 	
 	}
 
@@ -171,6 +155,7 @@ $(document).ready( function() {
 
 			//Try to add a scroll
 			//$("#aaa" + tab_num).jScrollTouch({height:'380',width:'800'});
+			medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		} );
 	}
 
@@ -346,7 +331,7 @@ function displayImage(imageName, widgetInfo, tab_num)
 	{
 		 if ( tab_num == -1)
 		 {
-		  	tab_num = addTab(imageTitle, "Image");
+		  	tab_num = addTab(imageTitle, "Image", false);
 		 }
 	 
 	     var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
@@ -394,7 +379,7 @@ function displayImage(imageName, widgetInfo, tab_num)
 					"rep_patient_id" : widgetInfo.rep_patient_id,
 					"repository" : "local",
 					"type" : "Viewer",
-					"name" : imageTitle+"Viewer",
+					"name" : "Viewer:" + imageTitle,
 					"server" : "",
 					"tab_num": "",
 					"image" : imageName,
@@ -402,13 +387,14 @@ function displayImage(imageName, widgetInfo, tab_num)
 					"jsonProcess" : false,
 					"script_file" : "medCafe.viewer.js",
 					"script" : "processViewerImages",
-					"params" : ""
+					"params" : "", 
+					"iNettuts" : false
 
 				};
 					//var type= "Viewer";
 					//var label = imageTitle +"Viewer";
 
-					var newTab_num = addTab(newWidget.name, newWidget.type);
+					var newTab_num = addTab(newWidget.name, newWidget.type, newWidget.iNettuts);
 					if (newTab_num < 0)
 						return;
 					newWidget.tab_num = newTab_num;
@@ -429,7 +415,7 @@ function displayImage(imageName, widgetInfo, tab_num)
 						"rep_patient_id" : widgetInfo.rep_patient_id,
 						"repository" : "local",
 						"type" : "Annotate",
-						"name" : imageTitle+"Annotate",
+						"name" : "Annotate:" + imageTitle,
 						"server" : "",
 						"tab_num": "",
 						"column" : 1,
@@ -437,13 +423,14 @@ function displayImage(imageName, widgetInfo, tab_num)
 						"jsonProcess" : false,
 						"script_file" : "",
 					   "script" : "",
-						"params" : ""
+						"params" : "",
+						"iNettuts" : false
 
 					};
 				//	var type= "Annotate";
 				//	var label = imageTitle +"Annotate";
 
-					var newTab_num = addTab(newWidget.name, newWidget.type);
+					var newTab_num = addTab(newWidget.name, newWidget.type, newWidget.iNettuts);
 					newWidget.tab_num = newTab_num;
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;

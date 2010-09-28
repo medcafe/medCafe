@@ -9,23 +9,37 @@ t.p( context.announce.message);
 t.p('</h3>');
 return t.toString();
 }
+function v2js_head(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<div class="widget" id="yellow-widget');
+t.p( context.id);
+t.p('">	<div id = ');
+t.p( context.name);
+t.p( context.rep_patient_id);
+t.p(' class = "id">');
+return t.toString();
+}
 function v2js_inettutsHead(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<div class="widget color-2" id="yellow-widget');
+t.p('<div class="widget color-');
+t.p( context.color_num);
+t.p('" id="yellow-widget');
 t.p( context.id);
 t.p('"><div id = ');
 t.p( context.name);
 t.p( context.rep_patient_id);
 t.p(' class = "id">    	<div style="cursor: move;" class="widget-head">         <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
-t.p( context.name);
+t.p( context.label);
 t.p('</h3><a href="');
 t.p('#" class="remove">CLOSE</a><a href="');
 t.p('#" class="edit">EDIT</a><a href="');
 t.p('#" class="maximize">MAXIMIZE</a>    	</div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
-t.p( context.name);
+t.p( context.label);
 t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
 t.p( context.id);
 t.p('">        <span>            <div id="aaa');
@@ -1384,10 +1398,19 @@ t.p('" custom:server="');
 t.p( widget.server);
 t.p('" custom:jsonProcess = "');
 t.p( widget.jsonProcess);
+t.p('" custom:iNettuts = "');
+t.p( widget.iNettuts);
 t.p('"></img>    	<p>');
 t.p( widget.name);
 t.p('</p>    </div><br/>  ');
 }
 velocityCount = 0;
+return t.toString();
+}
+function v2js_tail(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('    </div></div>');
 return t.toString();
 }

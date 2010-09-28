@@ -22,7 +22,9 @@ var medCafeWidget =
 							server : 'http://127.0.0.1:8080/',
 							patient_id :1,
 							rep_patient_id :1,
-							remove :'false'
+							remove :'false',
+							iNettuts: 'true'
+
 				    },
 	        		widgetIndSettings : 
 					{
@@ -40,7 +42,8 @@ var medCafeWidget =
 							server : 'http://127.0.0.1:8080/',
 							patient_id :1,
 							rep_patient_id :1,
-							remove :'false'
+							remove :'false',
+							iNettuts: 'true'
 						}
 					}	
 			},
@@ -133,6 +136,8 @@ var medCafeWidget =
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;
+    			newSettings.iNettuts = widgetInfo.iNettuts;
+    		
 
     			this.setExtWidgetSettings(id,newSettings );   					
 				
@@ -250,8 +255,13 @@ function saveWidgets(oldPatient)
             			tab = 1;
 			$('.tabs').parent().find(".tabContent").each(function(i)
 			{	
+				var iNettuts = true;
 				var newTab = true;
 				var tabName = $(this).find('.id').attr("id");
+				if ($(this).hasClass("no-iNettuts"))
+				{
+					iNettuts = false;
+				}	
 				$(this).find('.widget').each(function()
 				{
     				
@@ -271,8 +281,10 @@ function saveWidgets(oldPatient)
 						"tab_num" : tab,
 						"id" : order,
 						"patient_id" : widgetSettings.patient_id,
-						"remove" : false
+						"remove" : false,
+						"iNettuts" : iNettuts
 				};
+			
 			    $.ajax({
 	                url: "saveWidget.jsp?",
 	                type: 'POST',
@@ -289,12 +301,36 @@ function saveWidgets(oldPatient)
 				order ++;
 				newTab = false;
     				}
-    				
-    				var column = $(this).closest(".column").attr("id").substring(6);
+    				if (iNettuts)
+    				{
+    					var column = $(this).closest(".column").attr("id").substring(6);
+ 						widgetSettings.column = column;
+    				}
     				widgetSettings.tab_num = tab;
-    				widgetSettings.column = column;
+ 
     				widgetSettings.order = order;
     				widgetSettings.id = order;
+    				if (widgetSettings.iNettuts != 'false' && widgetSettings.iNettuts !=false)
+ 					{   	
+ 								
+    					var collapseObj = $(this).find('.collapse');
+    					if (collapseObj.css("background-position") == '-38px 0px')
+    					{
+
+    						widgetSettings.collapsed = 'true';
+    					}
+    					else
+
+    						widgetSettings.collapsed = 'false';
+    					var i;
+    					widgetSettings.color_num = 1;
+    					for (i = 2; i<=6; i++)
+    					{
+    						if ($(this).hasClass('color-' + i))
+    							widgetSettings.color_num = i;
+    					}
+    					widgetSettings.label = $(this).find('.widget-head').find('h3').text(); 
+    				}
     				    				
     			$.ajax({
 	                url: "saveWidget.jsp",

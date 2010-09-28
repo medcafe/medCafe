@@ -164,6 +164,16 @@
 
 				<div id="chooserWidgets">
 					<div id="controls">
+							
+						<div id="customWidget">
+							<div id="colorSelector2">
+								<div style="background-color: #00ff00">
+								</div>
+							</div>
+				    		<div id="colorpickerHolder2">
+							</div>
+			
+						</div>
 						<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')">
 							<div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24"></img>
 							</div>
@@ -177,18 +187,10 @@
 			<br>
 						<div class="ctr_btn" id="btn_9" onclick="canvasAnimator.newAnimation();" onMouseDown="setControlLook(9, '#CCCCCC')" onMouseOver="setControlLook(9, '#EEEEEE')" onMouseOut="setControlLook(9, '#FFFFFF')">new
 						</div> 
-			
-						<div id="customWidget">
-							<div id="colorSelector2">
-								<div style="background-color: #00ff00">
-								</div>
-							</div>
-				    		<div id="colorpickerHolder2">
-							</div>
-			
-						</div>
+	
 		 				<button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
 				<!--		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button> <--->
+					</div>
 					</div>
 
 
