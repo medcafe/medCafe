@@ -155,6 +155,8 @@ $(document).ready( function() {
 			   				});
 			   				//$('#tabs').tabs('select', "#tabs-" + tab_num);
 			   				$("#tabs").tabs('select', newIndex);
+			   				if (cf!=undefined)
+			   					cf.resize();
 				}
 				,
 				closeAllTabs : function(tab_name) {
@@ -233,6 +235,8 @@ $(document).ready( function() {
 				var tab_id = $(this).attr('id');
 				tab_num = tab_id.split("-")[1];
 				$('#tabs').tabs('select', "#tabs-" + tab_num);
+				if (cf != undefined)
+					cf.resize();
 
 			}
 
@@ -387,6 +391,8 @@ $(document).ready( function() {
 	function addWidgetTab(callObj, widgetInfo, group)
 	{
             var height = '380';
+          
+           var tabWidth = $('.ui-tabs-panel').not('.ui-tabs-hide').width();
 		    /* var width ='800'; */
 			var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
@@ -461,14 +467,14 @@ $(document).ready( function() {
 				//processScripts(callObj, widgetInfo, dataObject);
 			    //Try to add a scroll
 			    
-				$(callObj).delay(100,function()
+			/*	$(callObj).delay(100,function()
 				{
 					if (typeof isScrollable == 'undefined')
 					{
 
 						$.getScript('js/jScrollTouch.js', function()
 						{
-							$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).jScrollTouch({height:height,width:width});
+							$("#tabs-"+ widgetInfo.tab_num).jScrollTouch({height:height,width:tabWidth});
 						});
 					}
 					else
@@ -476,20 +482,14 @@ $(document).ready( function() {
 						if (isiPad)
 						{
 						}
-						$("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).jScrollTouch({height:height,width:width});
+						$("#tabs-"+ widgetInfo.tab_num ).jScrollTouch({height:height,width:tabWidth});
 					}
 
-				} );
+				} );  */
 		});
 		if (group != true && group != "true")
       {
-	/*	$(callObj).delay(1000,function()
-		{
 
-					//alert(widgetInfo.id);
-					iNettuts.refresh("yellow-widget" + widgetInfo.id);
-					iNettuts.makeSortable();
-		});  */
 		refreshYellowWidget(callObj, widgetInfo, 1, group);
       }		
 
@@ -555,8 +555,6 @@ $(document).ready( function() {
 			//if (typeof addAllergies == 'undefined')
 			if (typeof window[widgetInfo.script] == 'undefined')
 			{
-					//alert (JSON.stringify(widgetInfo));
-					//alert('script undefined ' + widgetInfo.script + " file " + widgetInfo.script_file + " " + widgetInfo.scriptFile);
 
                 //	$.getScript('js/medCafe.allergies.js', function()
                 $.getScript('js/' + widgetInfo.script_file, function()
