@@ -176,9 +176,12 @@ function bindClose()
 			{
 
 				var tabNum = "<%=tabNum%>";
+
 				if (tabNum == tabSelected)
 				{
-					removeWidget(tabNum);
+					//alert("close tab " + tabNum + "  " + tabSelected);
+					//removeWidgetsFromTab(tabNum);
+					removeWidgetTab(tabNum);
 				}
 
 			});

@@ -326,9 +326,9 @@ var iNettuts = {
         }).mousedown(function (e) {
                                                        ////**************
             $sortableItems.css({width:''});
-            $(this).parent().css({
-                width: $(this).parent().width() + 'px'
-            });
+           // $(this).parent().css({
+             //   width: $(this).parent().width() + 'px'
+           // });
 
         }).mouseup(function () {
 

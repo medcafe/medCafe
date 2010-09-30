@@ -207,7 +207,7 @@ function populate(url, patient_id)
 		   {
                 var label = data.tabs[i].name;
 		        // alert("adding tab " + i);
-		        alert(JSON.stringify(data.tabs[i]));
+		       // alert(JSON.stringify(data.tabs[i]));
 		        tab_num = parent.addTab(label, "Details", data.tabs[i].iNettuts);
 
 		   }

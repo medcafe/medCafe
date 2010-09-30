@@ -108,6 +108,26 @@ var medCafeWidget =
     			newSettings.remove = 'true';
     			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
 
+    		},
+    		removeWidgetsFromTab : function(tabNum)
+    		{
+    		
+		        var $ = this.medcafeWidgets,
+		            extSettings = this.extSettings;
+		        var ids = [];
+		        var i=0;
+		        $.each (extSettings.widgetIndSettings, function(id, val)
+		        {
+			
+		        		if (val.tab_num == tabNum)
+		        		{ 	
+		  
+		        			medCafeWidget.removeWidgetSettings(val.id);	
+						
+						}
+		        });
+
+    			
     		}
     		,
     		populateExtWidgetSettings : function ( widgetInfo )
@@ -120,23 +140,18 @@ var medCafeWidget =
     			{
     				alert("Could not set values ");
     			}
-    			//Temporarily set id to the tab_num
-    			//alert( "id " + widgetInfo.id + "yes this is what widgetInfo.id has");
-    		//	alert("order " + widgetInfo.order);
-    		//	alert("widgetInfo.type " + widgetInfo.type);
-    		//	newSettings.id = widgetInfo.id;
-    		//	newSettings.order = widgetInfo.order;
+    
     			newSettings.id = widgetInfo.id;
     			newSettings.repository = widgetInfo.repository;
     			newSettings.type = widgetInfo.type;
-    			//extSettings.location = location;
-    			//extSettings.clickUrl = clickUrl;
+    
     			newSettings.name = widgetInfo.name;
     			newSettings.server = widgetInfo.server;
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;
     			newSettings.iNettuts = widgetInfo.iNettuts;
+    			newSettings.tab_num = widgetInfo.tab_num;
     		
 
     			this.setExtWidgetSettings(id,newSettings );   					
@@ -272,6 +287,9 @@ function saveWidgets(oldPatient)
     		
     					return;
     				}
+    				//alert(widgetSettings.tab_num);
+    				tabName = $("#tabs-" +  widgetSettings.tab_num + "-link").find('span').text();
+    				//alert (tabName);
     				if (newTab)
     				{
     					widgetTabSettings = {
@@ -362,6 +380,10 @@ function saveWidgets(oldPatient)
 		
 }
 
+function removeWidgetTab(tabnum)
+{
+	medCafeWidget.removeWidgetsFromTab(tabnum);
+}
 function removeWidget(id)
 { 			
 	medCafeWidget.removeWidgetSettings(id);

@@ -126,7 +126,7 @@ $(document).ready( function() {
 			}
 		
 
-		medCafeWidget.populateExtWidgetSettings(widgetInfo);
+		
 		});
 	
 	

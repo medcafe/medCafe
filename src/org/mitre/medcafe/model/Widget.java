@@ -479,7 +479,7 @@ public class Widget
 	}
 	public void setINettuts(String iNettuts)
 	{
-		iNettuts = this.iNettuts;
+		this.iNettuts = iNettuts;
 	}
 
 	public void setRepPatientId(String repPatientId) {
