@@ -395,12 +395,14 @@ $(document).ready( function() {
 			pos = widgetInfo.image.lastIndexOf(".");
 		if (widgetInfo.type =="SingleImage" && pos > 0 && widgetInfo.image.substring(widgetInfo.image.lastIndexOf("." )+1) == 'pdf')
 		{
+		  
 			widgetInfo.pdf = true;
 			var windowLabel = widgetInfo.image;
 			pos = windowLabel.lastIndexOf("/");
 			if (pos > 0)
 				windowLabel = windowLabel.substring(pos+1);
-			widgetInfo.window = window.open(widgetInfo.image, windowLabel);
+			widgetInfo.windowObj = window.open(widgetInfo.image, windowLabel);
+			widgetInfo.windowObj.focus();
 			medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		}
 		else
