@@ -390,6 +390,22 @@ $(document).ready( function() {
 
 	function addWidgetTab(callObj, widgetInfo, group)
 	{
+		var pos;
+		if (widgetInfo.image != undefined)
+			pos = widgetInfo.image.lastIndexOf(".");
+		if (widgetInfo.type =="SingleImage" && pos > 0 && widgetInfo.image.substring(widgetInfo.image.lastIndexOf("." )+1) == 'pdf')
+		{
+			widgetInfo.pdf = true;
+			var windowLabel = widgetInfo.image;
+			pos = windowLabel.lastIndexOf("/");
+			if (pos > 0)
+				windowLabel = windowLabel.substring(pos+1);
+			widgetInfo.window = window.open(widgetInfo.image, windowLabel);
+			medCafeWidget.populateExtWidgetSettings(widgetInfo);
+		}
+		else
+		{
+			widgetInfo.pdf = false;
             var height = '380';
           
            var tabWidth = $('.ui-tabs-panel').not('.ui-tabs-hide').width();
@@ -419,7 +435,7 @@ $(document).ready( function() {
 				var serverLink = serverLink + "&image=" + widgetInfo.image;
 			}
 
-	//		alert('serverLink ' + serverLink);
+			//alert('serverLink ' + serverLink);
 
 			$.get(serverLink, function(data)
 			{
@@ -438,6 +454,7 @@ $(document).ready( function() {
                     }
                     else
                     {
+                 
                      	$("#tabs-"+ widgetInfo.tab_num).append(v2js_head(widgetInfo) + data +v2js_tail(widgetInfo));
                     }
 				}
@@ -491,6 +508,7 @@ $(document).ready( function() {
       {
 
 		refreshYellowWidget(callObj, widgetInfo, 1, group);
+      }
       }		
 
 	}

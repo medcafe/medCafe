@@ -5,6 +5,13 @@
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
+			String imageTitle = imageName;
+	int pos = imageName.lastIndexOf("/") + 1;
+	 if (pos > 0)
+	 {
+	 	imageTitle = imageTitle.substring(pos);
+
+	 }
 	String patientId =  request.getParameter("patient_id");
 		
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
@@ -127,7 +134,7 @@
 			
 			
             $(document).ready(function(){
-            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageName%>');
+            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageTitle%>');
             });	 
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />

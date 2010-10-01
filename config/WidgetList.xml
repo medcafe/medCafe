@@ -280,4 +280,48 @@
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </general>
+<internal>
+<medCafeWidget>
+	<name>Viewer</name>
+	<type>Viewer</type>
+	<image></image>
+	<server></server>
+	<clickUrl>viewer.jsp</clickUrl>
+	<method></method>
+	<params></params>
+	<repository>local</repository>
+	<script>processViewerImages</script>
+	<script_file>medCafe.viewer.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>false</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Image</name>
+	<type>SingleImage</type>
+	<image></image>
+	<server></server>
+	<clickUrl>singleImage.jsp</clickUrl>
+	<method></method>
+	<params></params>
+	<repository>local</repository>
+	<script>displayImage</script>
+	<script_file>medCafe.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>false</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Annotate</name>
+	<type>Annotate</type>
+	<image></image>
+	<server></server>
+	<clickUrl>viewerDrawFrame.jsp</clickUrl>
+	<method></method>
+	<params></params>
+	<repository>local</repository>
+	<script>addChart</script>
+	<script_file>medCafe.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>false</iNettuts>
+</medCafeWidget>
+</internal>
 </medCafeWidgets>

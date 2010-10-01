@@ -150,20 +150,45 @@ new ContentFlowAddOn ('medCafe', {
             else if (url = item.content.getAttribute('src')) {
                 target = item.content.getAttribute('target');
             }
-				
-			
+
+			   var newWidgetSettings = {
+			   	"name" : "Image",
+			   	"type" : "SingleImage",
+			   	"script_file" : "medCafe.js",
+			   	"script" : "displayImage",
+			   	"tab_num" : -1,
+			   	"clickUrl" : "singleImage.jsp",
+			   	"iNettuts" : false,
+			   	"jsonProcess" : false,
+			   	"repository" : widgetInfo.repository,
+			   	"rep_patient_id" : widgetInfo.rep_patient_id,
+			   	"patient_id" : widgetInfo.patient_id,
+			   	"server" : widgetInfo.server,
+			   	"template":""
+			   	};
+			   	newWidgetSettings.id = addWidgetNum(newWidgetSettings);
             if (url) {
                 if (target)
                 {
-                	displayImage(url + "/" + target, widgetInfo, -1);
+                	newWidgetSettings.image = url + "/" + target;
+                	// displayImage(url + "/" + target, widgetInfo, -1);
                     //window.open(url, target).focus();
                 }
                 else
                 {
-                	displayImage(url, widgetInfo, -1);
+                	newWidgetSettings.image = url;
+                	 //displayImage(url, widgetInfo, -1);
                     //window.location.href = url;
                 }
             }
+            var pos = newWidgetSettings.image.lastIndexOf('/');
+            var label;
+            if (pos>0)
+            	label = newWidgetSettings.image.substring(pos + 1);
+            else
+            	label = newWidgetSettings.image;
+            newWidgetSettings.tab_num = addTab(label, newWidgetSettings.type, newWidgetSettings.iNettuts); 
+            createWidgetContent(newWidgetSettings, false);
         },
         
         /*

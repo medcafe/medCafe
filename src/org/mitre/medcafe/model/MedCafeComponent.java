@@ -96,6 +96,7 @@ public class MedCafeComponent
 	public static final String JSON_PROCESS = "jsonProcess";
 	public static final String INETTUTS = "iNettuts";
 	public static final String XML_WIDGET = "medCafeWidget";
+	public static final String INTERNAL_WIDGET = "internal";
 	
 	public MedCafeComponent()	
 	{
@@ -249,6 +250,11 @@ public class MedCafeComponent
 			compHash.put(comp.getName(), comp);	
 		}
 		compList = retrieveComponents(MedCafeComponent.GENERAL, "");
+		for (MedCafeComponent comp : compList)
+		{
+			compHash.put(comp.getName(), comp);
+		}
+		compList = retrieveComponents(MedCafeComponent.INTERNAL_WIDGET, "");
 		for (MedCafeComponent comp : compList)
 		{
 			compHash.put(comp.getName(), comp);
