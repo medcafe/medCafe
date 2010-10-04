@@ -66,6 +66,7 @@ public class Widget
 	private String collapsed = "false";
 	private String label = "";
 	private int colorNum = 1;
+	private String image = "";
 
 
 	//All the other parameters
@@ -89,6 +90,7 @@ public class Widget
 	public static final String LABEL = "label";
 	public static final String COLLAPSED = "collapsed";
 	public static final String COLOR_NUM = "color_num";
+	public static final String IMAGE = "image";
 
 
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
@@ -138,6 +140,7 @@ public class Widget
 		 o.put(Widget.COLOR_NUM, this.getColorNum());
 		 o.put(Widget.COLLAPSED, this.getCollapsed());
 		 o.put(Widget.LABEL, this.getLabel());
+		 o.put(Widget.IMAGE, this.getImage());
 
 		 
 		 return o;
@@ -377,6 +380,8 @@ public class Widget
 					widget.setLabel(value);
 				else if (param.equals(Widget.COLLAPSED))
 					widget.setCollapsed(value);
+				else if (param.equals(Widget.IMAGE))
+					widget.setImage(value);
 				else
 					params.put(param, value);
 
@@ -508,6 +513,14 @@ public class Widget
 	public void setLabel(String label)
 	{
 		this.label = label;
+	}
+	public void setImage(String image)
+	{
+		this.image = image;
+	}
+	public String getImage()
+	{
+		return image;
 	}
 	
     public String getColumn() { return this.column; }

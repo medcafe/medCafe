@@ -152,7 +152,8 @@ var medCafeWidget =
     			newSettings.clickUrl = widgetInfo.clickUrl;
     			newSettings.iNettuts = widgetInfo.iNettuts;
     			newSettings.tab_num = widgetInfo.tab_num;
-    		
+    			newSettings.image = widgetInfo.image;
+    			newSettings.pdf = widgetInfo.pdf;
 
     			this.setExtWidgetSettings(id,newSettings );   					
 				

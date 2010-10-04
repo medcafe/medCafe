@@ -135,10 +135,20 @@ public class MedCafeComponent
 		    	 else
 		    		 throw new ParseException("Error on parsing xml document : could not find any nodes", 0);
 		     }
-		     else
+		     else if (type.equals(MedCafeComponent.GENERAL))
 		     {
 
 		    	 typeNodes = componentDoc.getElementsByTagName(MedCafeComponent.GENERAL);
+		    	 if (typeNodes.getLength() > 0)
+		    		 typeNode = typeNodes.item(0);
+		    	 else
+		    		 throw new ParseException("Error on parsing xml document : could not find any nodes", 0);
+		    	 
+		     }
+		      else if (type.equals(MedCafeComponent.INTERNAL_WIDGET))
+		     {
+
+		    	 typeNodes = componentDoc.getElementsByTagName(MedCafeComponent.INTERNAL_WIDGET);
 		    	 if (typeNodes.getLength() > 0)
 		    		 typeNode = typeNodes.item(0);
 		    	 else

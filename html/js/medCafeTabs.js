@@ -391,8 +391,15 @@ $(document).ready( function() {
 	function addWidgetTab(callObj, widgetInfo, group)
 	{
 		var pos;
+		var windowLabel="";
 		if (widgetInfo.image != undefined)
+		{
 			pos = widgetInfo.image.lastIndexOf(".");
+			windowLabel = widgetInfo.image;
+			pos = windowLabel.lastIndexOf("/");
+			if (pos > 0)
+				windowLabel = windowLabel.substring(pos+1);
+		}
 		if (widgetInfo.type =="SingleImage" && pos > 0 && widgetInfo.image.substring(widgetInfo.image.lastIndexOf("." )+1) == 'pdf')
 		{
 		  
@@ -422,7 +429,7 @@ $(document).ready( function() {
 
 			if (widgetInfo.tab_num == -1)
 			{
-				widgetInfo.tab_num = addTab(widgetInfo.name, widgetInfo.type, widgetInfo.iNettuts);
+				widgetInfo.tab_num = addTab(windowLabel, widgetInfo.type, widgetInfo.iNettuts);
 			}
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
