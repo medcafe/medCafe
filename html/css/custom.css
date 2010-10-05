@@ -89,3 +89,13 @@
 
 /* for problem list widget */
 .Inactive { color: #666666; }
+
+.repository-content a.collapse  {
+ 	 float: left;
+    display: inline;
+    background: url(../images/widgets/buttons.gif) no-repeat -38px 0;
+    width: 14px;
+    height: 14px;
+    text-indent: 18px;
+    outline: none;
+}

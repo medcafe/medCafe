@@ -429,6 +429,8 @@ $(document).ready( function() {
 
 			if (widgetInfo.tab_num == -1)
 			{
+				if (windowLabel == "")
+					windowLabel = widgetInfo.name;
 				widgetInfo.tab_num = addTab(windowLabel, widgetInfo.type, widgetInfo.iNettuts);
 			}
 
@@ -477,6 +479,7 @@ $(document).ready( function() {
 				{
 			//		alert(data);
 					var dataObject = JSON.parse(  data);
+					dataObject.widget_id = widgetInfo.id;
 					//dataObject.tabNum = widgetInfo.tab_num
 					processScripts(callObj, widgetInfo, dataObject);
 				}

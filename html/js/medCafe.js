@@ -222,8 +222,25 @@ $(document).ready( function() {
 	{
 		var text = $("#aaa" + id).html();
 
-		$("#modalaaa" + id).append(text);
+		$("#modalaaa" + id).html(text);
 
+			$('#modalaaa' + id).find('a.collapse').toggle(function () {
+						  $(this).text("Less");
+                    $(this).css({backgroundPosition: '-52px 0'});
+                     $(this).parent().find("#add_repos" +id).show();
+                    return false;
+                },function () {
+                		$(this).text("More");
+                      $(this).css({backgroundPosition: ''});
+                     $(this).parent().find("#add_repos" +id).hide();
+                    return false;
+                });
+                
+         
+                if ($('#modalaaa' + id).find('a.collapse').text() == "Less")
+                
+                	$('#modalaaa'+id).find('a.collapse').click();
+       
 		var $link = $('#aaa' + id);
 		//Fill the screen
 		var marginHDialog = 25; marginWDialog  = 25;
@@ -243,11 +260,11 @@ $(document).ready( function() {
 						     //Have to Destroy as otherwise
 						     //the Dialog will not be reinitialized on open
 
-						     text = $("#modalaaa" + id).html();
-						     $("#modalaaa" + id).load($link.attr('href') + ' #content');
-						     	$('#aaa' + id).empty();
-						    	 $("#aaa" + id).append(text);
-						     $("#modalaaa" + id).empty();
+						  //   text = $("#modalaaa" + id).html();
+						     //$("#modalaaa" + id).load($link.attr('href') + ' #content');
+						     //	$('#aaa' + id).empty();
+						    //	 $("#aaa" + id).append(text);
+						   //  $("#modalaaa" + id).empty();
 
 						      //Put in code to goto saveText.jsp Delete
 						      $(this).dialog("destroy");

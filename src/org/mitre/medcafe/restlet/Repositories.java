@@ -32,7 +32,7 @@ public class Repositories
     	  boolean ourVista = false;
         repos = new HashMap<String, Repository>();
         Repository r = new VistaRepository();
-        r.setName("OurVista");
+        r.setName("JeffVista");
         String host = "192.168.56.101";
         r.setCredentials( host, "9201", "SM1234", "SM1234!!" );
         // r.setCredentials( host, "8002", "PU1234", "PU5678!!" );
@@ -41,7 +41,8 @@ public class Repositories
             if( InetAddress.getByName(host).isReachable(TIMEOUT) )
             {
                 repos.put(r.getName(), r);
-                ourVista = true;
+                		System.out.println("Got JeffVista connection");
+               // ourVista = true;
             }
         }catch (Exception e) {}
 

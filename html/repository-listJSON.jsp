@@ -21,10 +21,15 @@
 	String listRep =  "/repositories/" + repository + "/patients";
 	if (patientId != null)
 	{
-		listRep += "/" + patientId;
+		//listRep += "/" + patientId;
+		out.print(cache.getPatientList());
+	}
+	else
+	{
+	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
+
+
+		out.print("<tags:IncludeRestlet relurl=\"/repositories/" + repository + "/patients\" mediatype=\"json\"/>");
 	}
 
-	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
 %>
-
-<tags:IncludeRestlet relurl="<%=listRep%>" mediatype="json"/>

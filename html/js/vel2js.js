@@ -44,18 +44,18 @@ t.p('"/>            </li>        </ul>        <li class="item">            <labe
 t.p( context.id);
 t.p('">        <span>            <div id="aaa');
 t.p( context.id);
-t.p('" class="no-copy">            </div>        </span>        <div id="dialog');
-t.p( context.id);
-t.p('">            <div id="modalaaa');
-t.p( context.id);
-t.p('">');
+t.p('" class="no-copy">   ');
 return t.toString();
 }
 function v2js_inettutsTail(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('            </div>        	</div>        	<div id="hasContent" custom:hascontent="false">        	</div>    	</div>    </div></div>');
+t.p('            </div>        </span>        <div id="dialog');
+t.p( context.id);
+t.p('">            <div id="modalaaa');
+t.p( context.id);
+t.p('">            </div>        	</div>        	<div id="hasContent" custom:hascontent="false">        	</div>    	</div>    </div></div>');
 return t.toString();
 }
 function v2js_listAddress(context) { 
@@ -677,235 +677,117 @@ function v2js_listPatientTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.patient) {
+t.p('<div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.patient.length; i2++) {
+var repos = context.patient[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.patient_data) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
 var space = " ";
 t.p('    ');
+t.p('			');
 var oparen = "(";
 var cparen = ")";
-t.p('<p>');
-if (context.patient_data.name.given) {
-t.p('	<b>');
-for (var i2=0;  i2<context.patient_data.name.given.length; i2++) {
-var givenNameDetail = context.patient_data.name.given[i2];
-velocityCount = i2;
-t.p('		');
-t.p( givenNameDetail);
-t.p( space);
-t.p('	');
-}
-
-}
-t.p( context.patient_data.name.lastname);
-t.p('</b></p><div style="float:left; margin-right:2em;">');
-if (context.patient_data.address) {
-t.p('    <i><u>Address(es)</u></i><br/>	');
-for (var i2=0;  i2<context.patient_data.address.length; i2++) {
-var addressDetail = context.patient_data.address[i2];
-velocityCount = i2;
-var linecount = 0;
-t.p('		');
-if (addressDetail.streetAddress) {
 t.p('			');
-for (var i4=0;  i4<addressDetail.streetAddress.length; i4++) {
-var streetAdd = addressDetail.streetAddress[i4];
-velocityCount = i4;
-t.p('				');
-if (linecount > 0) {
-t.p(' ');
-t.p( streetAdd);
-t.p('<br/>				');
-}
-else {
-t.p(' ');
-t.p( streetAdd);
-t.p('<br/>				');
-}
-linecount = ( linecount + 1 );
 t.p('			');
-}
-velocityCount = i2;
-t.p('		');
-}
-t.p('        ');
-t.p( addressDetail.city);
-t.p(', ');
-t.p( addressDetail.stateOrProvince);
-t.p('  ');
-t.p( addressDetail.zip);
-t.p('<br/>	');
-}
-
-}
-if (context.patient_data.telecom) {
-t.p('    <i><u>Contact Information</u></i><br/>	');
-for (var i2=0;  i2<context.patient_data.telecom.length; i2++) {
-var telecomDetail = context.patient_data.telecom[i2];
-velocityCount = i2;
-t.p('		');
-if (telecomDetail.type == "email" || telecomDetail.type == "im") {
-t.p('			');
-t.p( telecomDetail.value);
-t.p(' ');
-t.p( oparen);
-t.p(' ');
-t.p( telecomDetail.type);
-t.p(' ');
-t.p( cparen);
-t.p('<br/>		');
-}
-else {
-t.p('			');
-t.p( telecomDetail.value);
-t.p(' ');
-t.p( oparen);
-t.p(' ');
-t.p( telecomDetail.use);
-t.p(' ');
-t.p( cparen);
-t.p('<br/>		');
-}
-t.p('	');
-}
-
-}
-t.p('</div>');
-if (context.patient_data.birthtime) {
-t.p('    Born ');
-t.p( context.patient_data.birthtime.month);
-t.p('/');
-t.p( context.patient_data.birthtime.day);
-t.p('/');
-t.p( context.patient_data.birthtime.year);
-t.p('    ');
-if (context.patient_data.birthPlace) {
-t.p('        in        ');
-if (context.patient_data.birthPlace.city && context.patient_data.birthPlace.stateOrProvince) {
-t.p('            ');
-t.p( context.patient_data.birthPlace.city);
-t.p(', ');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('        ');
-}
-else {
-if (context.patient_data.birthPlace.stateOrProvince) {
-t.p('            ');
-t.p( context.patient_data.birthPlace.stateOrProvince);
-t.p('        ');
-}
-else {
-if (context.patient_data.birthPlace.city) {
-t.p('            ');
-t.p( context.patient_data.birthPlace.city);
-t.p('        ');
-}
-}
-}
-t.p('    ');
-}
-t.p('    <br/>');
-}
-if (context.patient_data.language) {
-t.p('	Primarily speaks ');
-t.p( context.patient_data.language);
-t.p('<br/>');
-}
-if (context.patient_data.maritialStatus) {
-t.p('		');
-t.p( context.patient_data.maritialStatus.displayName);
-t.p('<br/>');
-}
-if (context.patient_data.race) {
-t.p('    Ethnicity:	');
-var first = true;
-t.p('	');
-for (var i2=0;  i2<context.patient_data.race.length; i2++) {
-var raceDetail = context.patient_data.race[i2];
-velocityCount = i2;
-t.p('		');
-if (!( first )) {
-t.p('			,');
-t.p( space);
-t.p('		');
-}
-t.p('		');
-t.p( raceDetail.displayName);
-t.p('		');
-first = false;
-t.p('	');
-}
-
-t.p('	<br/>');
-}
-t.p('<br clear="all"/>');
-if (context.patient_data.guardian && context.patient_data.guardian.name) {
-t.p('    ');
-t.p('		<u>Guardian</u><br/>	');
-if (context.patient_data.guardian.name.given) {
-t.p('	    <b>		');
-for (var i3=0;  i3<context.patient_data.guardian.name.given.length; i3++) {
-var givenNameDetail = context.patient_data.guardian.name.given[i3];
-velocityCount = i3;
-t.p('			');
-t.p( givenNameDetail);
-t.p( space);
-t.p('		');
-}
-
-t.p('	');
-}
-t.p('	');
-t.p( context.patient_data.guardian.name.lastname);
-t.p('</b><br/>	');
-t.p('	');
-if (context.patient_data.guardian.address) {
-t.p('        <i><u>Address(es)</u></i><br/>		');
-for (var i3=0;  i3<context.patient_data.guardian.address.length; i3++) {
-var addressDetail = context.patient_data.guardian.address[i3];
-velocityCount = i3;
-var linecount = 0;
-t.p('			');
-if (addressDetail.streetAddress) {
-t.p('				');
-for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
-var streetAdd = addressDetail.streetAddress[i5];
+t.p('			<p>			');
+if (repos.patient_data.name.given) {
+t.p('				<b>				');
+for (var i5=0;  i5<repos.patient_data.name.given.length; i5++) {
+var givenNameDetail = repos.patient_data.name.given[i5];
 velocityCount = i5;
-t.p('                    ');
+t.p('					');
+t.p( givenNameDetail);
+t.p( space);
+t.p('				');
+}
+velocityCount = i2;
+t.p('			');
+}
+t.p('			');
+t.p( repos.patient_data.name.lastname);
+t.p('</b></p>			<div style="float:left; margin-right:2em;">			');
+t.p('			');
+if (repos.patient_data.address) {
+t.p('			    <i><u>Address(es)</u></i><br/>				');
+for (var i5=0;  i5<repos.patient_data.address.length; i5++) {
+var addressDetail = repos.patient_data.address[i5];
+velocityCount = i5;
+var linecount = 0;
+t.p('					');
+if (addressDetail.streetAddress) {
+t.p('						');
+for (var i7=0;  i7<addressDetail.streetAddress.length; i7++) {
+var streetAdd = addressDetail.streetAddress[i7];
+velocityCount = i7;
+t.p('							');
 if (linecount > 0) {
 t.p(' ');
 t.p( streetAdd);
-t.p('<br/>					');
+t.p('<br/>							');
 }
 else {
 t.p(' ');
 t.p( streetAdd);
-t.p('<br/>					');
+t.p('<br/>							');
 }
 linecount = ( linecount + 1 );
-t.p('				');
+t.p('						');
 }
-velocityCount = i3;
-t.p('			');
+velocityCount = i5;
+t.p('					');
 }
-t.p('            ');
+t.p('      		  ');
 t.p( addressDetail.city);
 t.p(', ');
 t.p( addressDetail.stateOrProvince);
 t.p('  ');
 t.p( addressDetail.zip);
-t.p('<br/>		');
+t.p('<br/>				');
 }
-
-t.p('	');
-}
-t.p('    ');
-t.p('	');
-if (context.patient_data.guardian.telecom) {
-t.p('        <i><u>Contact Information</u></i><br/>		');
-for (var i3=0;  i3<context.patient_data.guardian.telecom.length; i3++) {
-var telecomDetail = context.patient_data.guardian.telecom[i3];
-velocityCount = i3;
+velocityCount = i2;
 t.p('			');
+}
+t.p('			');
+t.p('			');
+if (repos.patient_data.telecom) {
+t.p('			    <i><u>Contact Information</u></i><br/>				');
+for (var i5=0;  i5<repos.patient_data.telecom.length; i5++) {
+var telecomDetail = repos.patient_data.telecom[i5];
+velocityCount = i5;
+t.p('					');
 if (telecomDetail.type == "email" || telecomDetail.type == "im") {
-t.p('				');
+t.p('						');
 t.p( telecomDetail.value);
 t.p(' ');
 t.p( oparen);
@@ -913,10 +795,10 @@ t.p(' ');
 t.p( telecomDetail.type);
 t.p(' ');
 t.p( cparen);
-t.p('			');
+t.p('<br/>					');
 }
 else {
-t.p('				');
+t.p('						');
 t.p( telecomDetail.value);
 t.p(' ');
 t.p( oparen);
@@ -924,13 +806,197 @@ t.p(' ');
 t.p( telecomDetail.use);
 t.p(' ');
 t.p( cparen);
-t.p(' <br/>			');
+t.p('<br/>					');
+}
+t.p('				');
+}
+velocityCount = i2;
+t.p('			');
+}
+t.p('			</div>			');
+t.p('			');
+if (repos.patient_data.birthtime) {
+t.p('				Born ');
+t.p( repos.patient_data.birthtime.month);
+t.p('/');
+t.p( repos.patient_data.birthtime.day);
+t.p('/');
+t.p( repos.patient_data.birthtime.year);
+t.p('    			');
+if (repos.patient_data.birthPlace) {
+t.p('        			in        			');
+if (repos.patient_data.birthPlace.city && repos.patient_data.birthPlace.stateOrProvince) {
+t.p('            		');
+t.p( repos.patient_data.birthPlace.city);
+t.p(', ');
+t.p( repos.patient_data.birthPlace.stateOrProvince);
+t.p('     			   ');
+}
+else {
+if (repos.patient_data.birthPlace.stateOrProvince) {
+t.p('     			   	');
+t.p( repos.patient_data.birthPlace.stateOrProvince);
+t.p('       			');
+}
+else {
+if (repos.patient_data.birthPlace.city) {
+t.p('            		');
+t.p( repos.patient_data.birthPlace.city);
+t.p('        			');
+}
+}
+}
+t.p('    			');
+}
+t.p('    			<br/>			');
+}
+t.p('			');
+t.p('			');
+if (repos.patient_data.language) {
+t.p('				Primarily speaks ');
+t.p( repos.patient_data.language);
+t.p('<br/>			');
+}
+t.p('			');
+t.p('			');
+if (repos.patient_data.maritialStatus) {
+t.p('				');
+t.p( repos.patient_data.maritialStatus.displayName);
+t.p('<br/>			');
+}
+t.p('			');
+t.p('			');
+if (repos.patient_data.race) {
+t.p('    			Ethnicity:				');
+var first = true;
+t.p('				');
+for (var i5=0;  i5<repos.patient_data.race.length; i5++) {
+var raceDetail = repos.patient_data.race[i5];
+velocityCount = i5;
+t.p('					');
+if (!( first )) {
+t.p('						,');
+t.p( space);
+t.p('					');
+}
+t.p('					');
+t.p( raceDetail.displayName);
+t.p('					');
+first = false;
+t.p('				');
+}
+velocityCount = i2;
+t.p('			<br/>			');
+}
+t.p('			<br clear="all"/>			');
+t.p('			');
+if (repos.patient_data.guardian && repos.patient_data.guardian.name) {
+t.p('    			');
+t.p('				<u>Guardian</u><br/>				');
+if (repos.patient_data.guardian.name.given) {
+t.p('	   	 		<b>					');
+for (var i6=0;  i6<repos.patient_data.guardian.name.given.length; i6++) {
+var givenNameDetail = repos.patient_data.guardian.name.given[i6];
+velocityCount = i6;
+t.p('						');
+t.p( givenNameDetail);
+t.p( space);
+t.p('					');
+}
+velocityCount = i2;
+t.p('				');
+}
+t.p('				');
+t.p( repos.patient_data.guardian.name.lastname);
+t.p('</b><br/>				');
+t.p('				');
+if (repos.patient_data.guardian.address) {
+t.p('        			<i><u>Address(es)</u></i><br/>					');
+for (var i6=0;  i6<repos.patient_data.guardian.address.length; i6++) {
+var addressDetail = repos.patient_data.guardian.address[i6];
+velocityCount = i6;
+var linecount = 0;
+t.p('						');
+if (addressDetail.streetAddress) {
+t.p('							');
+for (var i8=0;  i8<addressDetail.streetAddress.length; i8++) {
+var streetAdd = addressDetail.streetAddress[i8];
+velocityCount = i8;
+t.p('                    		');
+if (linecount > 0) {
+t.p(' ');
+t.p( streetAdd);
+t.p('<br/>								');
+}
+else {
+t.p(' ');
+t.p( streetAdd);
+t.p('<br/>								');
+}
+linecount = ( linecount + 1 );
+t.p('							');
+}
+velocityCount = i6;
+t.p('						');
+}
+t.p('            		');
+t.p( addressDetail.city);
+t.p(', ');
+t.p( addressDetail.stateOrProvince);
+t.p('  ');
+t.p( addressDetail.zip);
+t.p('<br/>					');
+}
+velocityCount = i2;
+t.p('				');
+}
+t.p('    			');
+t.p('				');
+if (repos.patient_data.guardian.telecom) {
+t.p('        			<i><u>Contact Information</u></i><br/>					');
+for (var i6=0;  i6<repos.patient_data.guardian.telecom.length; i6++) {
+var telecomDetail = repos.patient_data.guardian.telecom[i6];
+velocityCount = i6;
+t.p('						');
+if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+t.p('							');
+t.p( telecomDetail.value);
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.type);
+t.p(' ');
+t.p( cparen);
+t.p('						');
+}
+else {
+t.p('							');
+t.p( telecomDetail.value);
+t.p(' ');
+t.p( oparen);
+t.p(' ');
+t.p( telecomDetail.use);
+t.p(' ');
+t.p( cparen);
+t.p(' <br/>						');
+}
+t.p('					');
+}
+velocityCount = i2;
+t.p('				');
+}
+t.p('			');
 }
 t.p('		');
 }
-
 t.p('	');
 }
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
 }
 return t.toString();
 }

@@ -1,5 +1,5 @@
 
-function initializePatient(server, isIntro)
+function initializePatient(server, isIntro, repository)
 {
 		var origserverLink = server;
 
@@ -68,7 +68,7 @@ function initializePatient(server, isIntro)
 		  });
 }
 
-function setOnSelect(isIntro, server, oldPatient)
+function setOnSelect(isIntro, server, oldPatient, repository)
 {
 			//alert("medCafe.patient.js server is " + server);
 			if (isIntro == "true")
@@ -79,7 +79,7 @@ function setOnSelect(isIntro, server, oldPatient)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src
+		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository;
 		    		$.get(cacheServer, function(data)
 	 				{
 	 					var indexSrv = server + "/index.jsp";
@@ -99,7 +99,7 @@ function setOnSelect(isIntro, server, oldPatient)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-					retrieve( server, src, oldPatient);
+					retrieve( server, src, oldPatient, repository);
 
 	    		});
     		}
@@ -118,11 +118,11 @@ function refresh(patient)
 
 }
 
-function retrieve(server, patient, oldPatient)
+function retrieve(server, patient, oldPatient, repository)
 {
 		var url = "retrievePatient.jsp";
 		//var url = "index.jsp";
-
+		//alert(server + " " + patient + " " + oldPatient);
 		parent.$("#saveDialog").dialog({
 				autoOpen: false,
 				modal:true,
@@ -137,7 +137,7 @@ function retrieve(server, patient, oldPatient)
 							parent.saveWidgets(oldPatient);
 
 							//
-							var cacheServer = "cachePatient.jsp?patient_id=" + patient
+							var cacheServer = "cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    				$.get(cacheServer, function(data)
 	 						{
 								parent.window.location.replace("index.jsp");
@@ -151,7 +151,7 @@ function retrieve(server, patient, oldPatient)
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
 						//populate(url, patient);
-						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient
+						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    			$.get(cacheServer, function(data)
 	 					{
 								parent.window.location.replace("index.jsp");
@@ -324,12 +324,12 @@ function addPatientDetail(obj, widgetInfo, data)
 	*/
 
 		//	var dataObject = eval('(' + data + ')');
-			if (data.announce)
+	/*		if (data.announce)
             {
               	  //alert("announce");
                   updateAnnouncements(data);
                   return;
-            }
+            }  */
 		//	var html = v2js_listPatientTable( data );
 
 			var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
@@ -340,6 +340,21 @@ function addPatientDetail(obj, widgetInfo, data)
 				widgetInfo.column = "1";
 
 			$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+			$(obj).delay(500, function ()
+			{ 
+	
+			$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
+						  $(this).text("Less");
+                    $(this).css({backgroundPosition: '-52px 0'});
+                     $(this).parent().find("#add_repos" +widgetInfo.id).show();
+                    return false;
+                },function () {
+                		$(this).text("More");
+                      $(this).css({backgroundPosition: ''});
+                     $(this).parent().find("#add_repos" +widgetInfo.id).hide();
+                    return false;
+                });
+            });
 	  		//$("#tabs-2 #column2").append(html);
 
 			//Delay to let DOM refresh before adding table styling

@@ -1,135 +1,165 @@
-#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
-#set ($oparen = "(")
-#set ($cparen = ")")
-#* The $orderno is used to sort the rows into an order that makes sense for a patient.  $orderno goes in the first column of every row and is the
-   first sorting criteria.  Incrementing $orderno after every group detail puts the groups in a set order
-   and then for multiline information that is of variable length the second column is used and it is the second sort criteria.
-   Both of these columns are hidden in the actual display, but this allows the presentation of the data to be in a sensible order.
-*#
+#if ($patient)
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#foreach ($repos in $patient)
 
-#*   Patient name and id  *#
-#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
-<p>
-#if ($patient_data.name.given)
-	<b>#foreach ($givenNameDetail in $patient_data.name.given)
-		$givenNameDetail$space
-	#end
-#end
-$patient_data.name.lastname</b></p>
-<div style="float:left; margin-right:2em;">
-
-
-#*   The patient can have more than one address, and the patient can have more than one street address lines in the street address
-     so iterate through all the addresses, and all the street lines for each address
-*#
-#if ($patient_data.address)
-    <i><u>Address(es)</u></i><br/>
-	#foreach ($addressDetail in $patient_data.address)
-        #set ($linecount = 0)
-		#if ($addressDetail.streetAddress)
-			#foreach ($streetAdd in $addressDetail.streetAddress)
-				#if ($linecount > 0) $streetAdd<br/>
-				#else $streetAdd<br/>
+			
+		#if ($repos.announce && $firstRepository == true)
+			$repos.announce
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+		#end
+		#if ($repos.patient_data)
+			#if ($firstRepository != true)
+				#if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
 				#end
-				#set ($linecount = $linecount +1)
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b>
 			#end
-		#end
-        $addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip<br/>
-	#end
-#end
-#*  Iterate through all of the patients telecommunication information; this includes phone, pagers, IM and email.  *#
-#if ($patient_data.telecom)
-    <i><u>Contact Information</u></i><br/>
-	#foreach ($telecomDetail in $patient_data.telecom)
-		#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
-			$telecomDetail.value $oparen $telecomDetail.type $cparen<br/>
-		#else
-			$telecomDetail.value $oparen $telecomDetail.use $cparen<br/>
-		#end
-	#end
-#end
-</div>
-#* Patient birthday and birthplace   *#
-#if ($patient_data.birthtime)
-    Born $patient_data.birthtime.month/$patient_data.birthtime.day/$patient_data.birthtime.year
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+			#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
+			#set ($oparen = "(")
+			#set ($cparen = ")")
 
-    #if ($patient_data.birthPlace)
-        in
-        #if ($patient_data.birthPlace.city && $patient_data.birthPlace.stateOrProvince)
-            $patient_data.birthPlace.city, $patient_data.birthPlace.stateOrProvince
-        #elseif ($patient_data.birthPlace.stateOrProvince)
-            $patient_data.birthPlace.stateOrProvince
-        #elseif ($patient_data.birthPlace.city)
-            $patient_data.birthPlace.city
-        #end
-    #end
-    <br/>
-#end
+			#*   Patient name and id  *#
+			#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
+			<p>
+			#if ($repos.patient_data.name.given)
+				<b>
+				#foreach ($givenNameDetail in $repos.patient_data.name.given)
+					$givenNameDetail$space
+				#end
+			#end
+			$repos.patient_data.name.lastname</b></p>
+			<div style="float:left; margin-right:2em;">
 
-#* Language spoken by patient *#
-#if ($patient_data.language)
-	Primarily speaks $patient_data.language<br/>
-#end
 
-#* Patient Marital Status  *#
-#if ($patient_data.maritialStatus)
-		$patient_data.maritialStatus.displayName<br/>
-#end
-
-#* Patient Race Information  *#
-#if ($patient_data.race)
-    Ethnicity:
-	#set ($first = true)
-	#foreach ($raceDetail in $patient_data.race)
-		#if (!$first)
-			,$space
-		#end
-		$raceDetail.displayName
-		#set ($first = false)
-	#end
-	<br/>
-#end
-
-<br clear="all"/>
-#* If patient has a guardian, display that information   *#
-#if ($patient_data.guardian && $patient_data.guardian.name)
-    #* Display guardian name   *#
-		<u>Guardian</u><br/>
-	#if ($patient_data.guardian.name.given)
-	    <b>
-		#foreach ($givenNameDetail in $patient_data.guardian.name.given)
-			$givenNameDetail$space
-		#end
-	#end
-	$patient_data.guardian.name.lastname</b><br/>
-
-	#*  Display guardian addresses   *#
-	#if ($patient_data.guardian.address)
-        <i><u>Address(es)</u></i><br/>
-		#foreach ($addressDetail in $patient_data.guardian.address)
-			#set ($linecount = 0)
-			#if ($addressDetail.streetAddress)
-				#foreach ($streetAdd in $addressDetail.streetAddress)
-                    #if ($linecount > 0) $streetAdd<br/>
-					#else $streetAdd<br/>
+			#*   The patient can have more than one address, and the patient can have more than one street address lines in the street address
+     				so iterate through all the addresses, and all the street lines for each address
+			*#
+			#if ($repos.patient_data.address)
+			    <i><u>Address(es)</u></i><br/>
+				#foreach ($addressDetail in $repos.patient_data.address)
+			        #set ($linecount = 0)
+					#if ($addressDetail.streetAddress)
+						#foreach ($streetAdd in $addressDetail.streetAddress)
+							#if ($linecount > 0) $streetAdd<br/>
+							#else $streetAdd<br/>
+							#end
+							#set ($linecount = $linecount +1)
+						#end
 					#end
-					#set ($linecount = $linecount +1)
+      		  $addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip<br/>
 				#end
 			#end
-            $addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip<br/>
-		#end
-	#end
+			#*  Iterate through all of the patients telecommunication information; this includes phone, pagers, IM and email.  *#
+			#if ($repos.patient_data.telecom)
+			    <i><u>Contact Information</u></i><br/>
+				#foreach ($telecomDetail in $repos.patient_data.telecom)
+					#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
+						$telecomDetail.value $oparen $telecomDetail.type $cparen<br/>
+					#else
+						$telecomDetail.value $oparen $telecomDetail.use $cparen<br/>
+					#end
+				#end
+			#end
+			</div>
+			#* Patient birthday and birthplace   *#
+			#if ($repos.patient_data.birthtime)
+				Born $repos.patient_data.birthtime.month/$repos.patient_data.birthtime.day/$repos.patient_data.birthtime.year
 
-    #* Display guardian telecommunication information      *#
-	#if ($patient_data.guardian.telecom)
-        <i><u>Contact Information</u></i><br/>
-		#foreach ($telecomDetail in $patient_data.guardian.telecom)
-			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
-				$telecomDetail.value $oparen $telecomDetail.type $cparen
-			#else
-				$telecomDetail.value $oparen $telecomDetail.use $cparen <br/>
+    			#if ($repos.patient_data.birthPlace)
+        			in
+        			#if ($repos.patient_data.birthPlace.city && $repos.patient_data.birthPlace.stateOrProvince)
+            		$repos.patient_data.birthPlace.city, $repos.patient_data.birthPlace.stateOrProvince
+     			   #elseif ($repos.patient_data.birthPlace.stateOrProvince)
+     			   	$repos.patient_data.birthPlace.stateOrProvince
+       			#elseif ($repos.patient_data.birthPlace.city)
+            		$repos.patient_data.birthPlace.city
+        			#end
+    			#end
+    			<br/>
+			#end
+
+			#* Language spoken by patient *#
+			#if ($repos.patient_data.language)
+				Primarily speaks $repos.patient_data.language<br/>
+			#end
+
+			#* Patient Marital Status  *#
+			#if ($repos.patient_data.maritialStatus)
+				$repos.patient_data.maritialStatus.displayName<br/>
+			#end
+
+			#* Patient Race Information  *#
+			#if ($repos.patient_data.race)
+    			Ethnicity:
+				#set ($first = true)
+				#foreach ($raceDetail in $repos.patient_data.race)
+					#if (!$first)
+						,$space
+					#end
+					$raceDetail.displayName
+					#set ($first = false)
+				#end
+			<br/>
+			#end
+
+			<br clear="all"/>
+			#* If patient has a guardian, display that information   *#
+			#if ($repos.patient_data.guardian && $repos.patient_data.guardian.name)
+    			#* Display guardian name   *#
+				<u>Guardian</u><br/>
+				#if ($repos.patient_data.guardian.name.given)
+	   	 		<b>
+					#foreach ($givenNameDetail in $repos.patient_data.guardian.name.given)
+						$givenNameDetail$space
+					#end
+				#end
+				$repos.patient_data.guardian.name.lastname</b><br/>
+
+				#*  Display guardian addresses   *#
+				#if ($repos.patient_data.guardian.address)
+        			<i><u>Address(es)</u></i><br/>
+					#foreach ($addressDetail in $repos.patient_data.guardian.address)
+						#set ($linecount = 0)
+						#if ($addressDetail.streetAddress)
+							#foreach ($streetAdd in $addressDetail.streetAddress)
+                    		#if ($linecount > 0) $streetAdd<br/>
+								#else $streetAdd<br/>
+								#end
+								#set ($linecount = $linecount +1)
+							#end
+						#end
+            		$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip<br/>
+					#end
+				#end
+
+    			#* Display guardian telecommunication information      *#
+				#if ($repos.patient_data.guardian.telecom)
+        			<i><u>Contact Information</u></i><br/>
+					#foreach ($telecomDetail in $repos.patient_data.guardian.telecom)
+						#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
+							$telecomDetail.value $oparen $telecomDetail.type $cparen
+						#else
+							$telecomDetail.value $oparen $telecomDetail.use $cparen <br/>
+						#end
+					#end
+				#end
 			#end
 		#end
 	#end
+	#if ($loopCount >= 2)
+			</div>
+		</div>
+	#end
+	</div>
 #end
-

@@ -40,13 +40,15 @@ public class PatientCache extends TimerTask {
     protected String lastName = null;
     protected String photo = null;
     protected boolean finished = false;
+    private String primaryRepos = "";
 
     //}}}
     //{{{ Constuctors
-    public PatientCache(String databasePatientId, javax.servlet.ServletContext application) {
+    public PatientCache(String databasePatientId, javax.servlet.ServletContext application, String primaryRepos) {
 
         this.databasePatientId = databasePatientId;
         this.application = application;
+        this.primaryRepos = primaryRepos;
         loadLocalInfo();
     }
     //}}}
@@ -86,7 +88,30 @@ public class PatientCache extends TimerTask {
         //String query = "select * from patient where id=?";
         Patient patient = new Patient(conn);
         repositories = patient.listRepositories(databasePatientId);
-        //System.out.println("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
+        try {
+        JSONArray repositoryArray = repositories.getJSONArray("repositories");
+        boolean found = false;
+        /* cycle through to put primary repository first in the list  */
+        for (int i = 0; i< repositoryArray.length() && !found ; i++)
+        {
+        		String repositoryName = repositoryArray.getJSONObject(i).getString("repository");
+        		if (repositoryName.equals(primaryRepos))
+        		{
+        			found = true;
+        			if (i != 0)
+        			{
+        				JSONObject temp = repositoryArray.getJSONObject(0);
+        				repositoryArray.put(0, repositoryArray.getJSONObject(i));
+        				repositoryArray.put(i, temp);
+        			}
+        		}
+        }
+        }
+        catch (JSONException jsonE)
+        {
+        System.out.println("Error accessing JSON Array to order repository");
+        }
+        System.out.println("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
 
     }
 
@@ -132,7 +157,8 @@ public class PatientCache extends TimerTask {
                     patient.put("repository", repository);
                     patientList.append("patient", patient);
                 }
-                //System.out.println("PatientCache generating patient list line 141 JSONObject " + patientList.toString());
+                patientList.put("displayAll", false);
+                System.out.println("PatientCache generating patient list line 141 JSONObject " + patientList.toString());
             } catch (JSONException e) {
                 log.throwing(KEY, "constructor", e);
                 patientList = WebUtils.buildErrorJson("Problem retrieving patient from source." + e.getMessage());
