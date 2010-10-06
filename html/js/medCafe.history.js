@@ -1,8 +1,8 @@
 
- function listHistory(id, patient_id, server, category)
+ function listHistory(id, patient_id, repository, server, category)
 {
 	///patients/{id}/history/{category}
-	var link = "c/patients/" + patient_id + "/history/" + category;
+	var link = "c/repositories/" + repository + "/patients/" + patient_id + "/history/" + category;
 
 	$("#" + id).html("");
 	//alert("medCafe.history.js listHistory " + link);
@@ -45,8 +45,8 @@ function addHistory(callObj, widgetInfo, data)
 
 						//Check to see if any error message
 					//	var dataObject = eval('(' + data + ')');
-						if (data.announce)
-						{
+					//	if (data.announce)
+					//	{
 					/*		if (retry)
 							{
 								addHistory(callObj, widgetInfo, data);
@@ -54,10 +54,10 @@ function addHistory(callObj, widgetInfo, data)
 							}
 							else
 							{     */
-								updateAnnouncements(data);
+							//	updateAnnouncements(data);
 						//	}
-							return;
-						}
+						//	return;
+					//	}
 		//				var html = v2js_listPatientHistoryTable( data );
 						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
@@ -70,8 +70,23 @@ function addHistory(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 					
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+						$(callObj).delay(500, function ()
+						{ 
+	
+							$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
+						  		$(this).text("Less");
+                    		$(this).css({backgroundPosition: '-52px 0'});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).show();
+                    		return false;
+                		},function () {
+                			$(this).text("More");
+                      	$(this).css({backgroundPosition: ''});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).hide();
+                    	return false;
+                		});
+            	});
 						//alert( $("#example" + repId).text());
-						 	tableObj = $("#" + widgetInfo.type + widgetInfo.patient_id).dataTable( {
+						/* 	tableObj = $("#" + widgetInfo.type + widgetInfo.patient_id).dataTable( {
 
 						 	//Call back to put in headings
 						 	"fnDrawCallback": function ( oSettings ) {
@@ -125,11 +140,11 @@ function addHistory(callObj, widgetInfo, data)
 
 							var aPos = tableObj.fnGetPosition( this );
 							selectedRow = aPos[0];
-						});
+						}); 
 
 						setHasContent(tab_num);
 
-//					} );
+//					} );  */
 	//				setHasContent(tab_num);
 	//	});
 

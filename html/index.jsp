@@ -138,8 +138,8 @@
 
 		function getHeader()
 		{
-		/*	listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Personal");
-        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "${server}", "Family");  */
+		/*	listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>","<%=cache.getPrimaryRepos()%>", "${server}", "Personal");
+        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "<%=cache.getPrimaryRepos()%>", "${server}", "Family");  */
 		}
 
 		function initialize(repositoryJSON)

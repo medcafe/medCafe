@@ -1,28 +1,22 @@
-<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 
 	System.out.println("historyJSON: url start");
-	String patient_id = request.getParameter(Constants.PATIENT_ID);
-	if (patient_id == null)
-		patient_id = Constants.DEFAULT_PATIENT;
-		
-	//Just for testing purposes
-	String repository = request.getParameter("repository");
-	if (repository == null)
-		repository = Constants.DEFAULT_REPOSITORY;
-		
-	String type = request.getParameter("type");
-	if (type == null)
-		type = "Personal";
-	
-	String jspUrl =  "/patients/" + patient_id + "/history/" + type;
-	
-	String user =  request.getRemoteUser();
-	jspUrl = jspUrl + "?user=" + user;
-	
-	System.out.println("historyJSON: url " + jspUrl);
-%>
+		String type = request.getParameter("type");
 
-<tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>
+    PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+       // log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+
+
+
+		out.print(cache.getHistoryCategory(type));
+
+
+%>

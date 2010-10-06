@@ -532,52 +532,113 @@ function v2js_listPatientHistory(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-if (context.patient_history) {
-t.p('	');
-for (var i2=0;  i2<context.patient_history.length; i2++) {
-var history = context.patient_history[i2];
+if (context.medicalHistory) {
+var printFirst = 0;
+t.p('</p><br><p>	');
+for (var i2=0;  i2<context.medicalHistory.length; i2++) {
+var repos = context.medicalHistory[i2];
 velocityCount = i2;
-t.p('	   <tr>	  	');
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary">			<thead></thead><tbody>			');
+if (repos.patient_history) {
+t.p('				');
+for (var i5=0;  i5<repos.patient_history.length; i5++) {
+var history = repos.patient_history[i5];
+velocityCount = i5;
+t.p('	   			<tr>	  				');
 if (history.color) {
-t.p('	  		<td style="background-color:');
+t.p('	  					<td style="background-color:');
 t.p( history.color);
 t.p('">');
 t.p( history.title);
-t.p('	  	');
+t.p('	  				');
 }
 else {
-t.p('			<td>');
+t.p('						<td>');
 t.p( history.title);
-t.p('	   	');
+t.p('	  			 	');
 }
-t.p('	   	<div style="display: none;" class="ui-corner-all" id="detail">');
+t.p('	  			 	<div style="display: none;" class="ui-corner-all" id="detail">');
 t.p( history.note);
-t.p('</div></td> 	   	</tr>	');
+t.p('</div></td> 	  			 	</tr>				');
+}
+velocityCount = i2;
+t.p('			');
+}
+t.p('			</tbody>			<table>		');
+}
+t.p('	');
 }
 
 }
-t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listPatientHistoryTable(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.patient_history) {
+if (context.medicalHistory) {
+t.p('<a onclick="alert(\'Method to add medical history goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.patient_history.length; i2++) {
-var history = context.patient_history[i2];
+for (var i2=0;  i2<context.medicalHistory.length; i2++) {
+var repos = context.medicalHistory[i2];
 velocityCount = i2;
-t.p('		<p class="');
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.patient_history) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
+for (var i4=0;  i4<repos.patient_history.length; i4++) {
+var history = repos.patient_history[i4];
+velocityCount = i4;
+t.p('				<p class="');
 t.p( history.priority);
 t.p('">');
 t.p( history.title);
-t.p('<br/>		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
+t.p('<br/>				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
 t.p( history.note);
-t.p('<br clear="all"/></p>	');
+t.p('<br clear="all"/></p>			');
+}
+velocityCount = i2;
+t.p('		');
+}
+t.p('	');
 }
 
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
 }
 return t.toString();
 }

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.mitre.medcafe.model.History;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.WebUtils;
+import org.mitre.medcafe.util.*;
 import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ResourceException;
@@ -35,7 +36,7 @@ public class PatientHistoryResource extends ServerResource {
 	private final static String CATEGORY = "category";
     public final static String KEY = PatientHistoryResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-
+	 private String repository;
     protected Date startDate = null;
     protected Date endDate =  null;
     
@@ -46,6 +47,7 @@ public class PatientHistoryResource extends ServerResource {
         // Get the "type" attribute value taken from the URI template
         Form form = getRequest().getResourceRef().getQueryAsForm();
         id = (String)getRequest().getAttributes().get(PATIENT_ID);
+        this.repository = (String) getRequest().getAttributes().get("repository");
         category = (String)getRequest().getAttributes().get(CATEGORY);
 
         if (category == null)
@@ -86,8 +88,14 @@ public class PatientHistoryResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
+             Repository r = Repositories.getRepository(repository);
 
-            JSONObject obj = History.getHistory(id, category, startDate, endDate);
+        		if (r == null) {
+            	return new JsonRepresentation(WebUtils.buildErrorJson("A repository named " + repository + " does not exist."));
+
+        		}
+
+            JSONObject obj = r.getHistory(id, category, startDate, endDate);
             
             log.finer( obj.toString());
             System.out.println("PatientHistoryResource JSON " +  obj.toString());

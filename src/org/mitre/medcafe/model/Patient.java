@@ -75,6 +75,7 @@ public class Patient
 
 	public static final String LIST_REP_ASSOC_BY_PATIENT_ID = "SELECT patient_id, rep_patient_id, repository from  patient_repository_assoc where patient_id = ? ";
 
+	public static final String SELECT_PATIENT_ID_FOR_REPOSITORY = "SELECT patient_id from patient_repository_assoc where repository=? and rep_patient_id=?";
 	public static final String SEARCH_RECENT_PATIENTS = "SELECT patient.id, patient_id,first_name,last_name from patient, recent_patients where patient.id = recent_patients.patient_id and recent_patients.username = ?";
 	public static final String SELECT_RECENT_PATIENTS = "SELECT patient_id from  recent_patients where username = ? and patient_id = ? ";
 	public static final String INSERT_RECENT_PATIENTS = "INSERT INTO recent_patients  (username, patient_id) values ( ?, ?)";
@@ -746,6 +747,46 @@ public class Patient
 	     return ret;
 
 	 }
+
+public static int getLocalId(String repository, String rep_patient_id)
+	 {
+		 System.out.println("Patient: getLocalId : got connection " );
+		 boolean rtnResults = false;
+
+		 PreparedStatement prep;
+		 int ret = -1;
+		 try
+		 {
+			 if (dbConn == null)
+				 dbConn= new DbConnection();
+
+			 prep = dbConn.prepareStatement(Patient.SELECT_PATIENT_ID_FOR_REPOSITORY);
+			 int rep_id = Integer.parseInt(rep_patient_id);
+			 prep.setString(1,repository);
+			 prep.setInt(2,rep_id);
+			 ResultSet rs = prep.executeQuery();
+			 
+			 while( rs.next())
+		     {
+			        //convert to JSON
+			        rtnResults = true;
+			        ret = rs.getInt("patient_id");
+			     
+		     }
+
+			
+		 }
+		 catch (SQLException e)
+		 {
+				// TODO Auto-generated catch block
+			 log.log(Level.SEVERE, "Problem on selecting data from database ." + e.getMessage());
+
+		 }
+
+	     return ret;
+
+	 }
+
 
 	 public static JSONObject addRecentPatients(String userName, String patientId )
 	 {

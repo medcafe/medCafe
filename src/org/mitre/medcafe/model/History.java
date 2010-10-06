@@ -54,7 +54,7 @@ public class History
 	public static final String SELECT_PATIENT_HISTORY = " SELECT patient_id, history, category, history_date, history_notes, priority.priority, color from medical_history, history_category, priority where medical_history.category_id = history_category.id and priority.id = medical_history.priority and  patient_id = ? and category = ? ";
 	public static final String SELECT_PATIENT_HISTORY_EXT = " and history_date > ? and history_date < ? ";
 	public static final String SELECT_PATIENT_HISTORY_ORDER_BY = " order by priority.priority ASC, history_date DESC";	
-	
+	public static final String SELECT_HISTORY_CATEGORIES = "SELECT category from history_category";
 	public static final String DELETE_SYMPTOMS = "Delete from patient_symptom_list where patient_id = ?";
 	
 	private final static String SELECT_TEMPLATE_HISTORY = "select symptom_list.id, category, symptom from physical_category, symptom_list " + 
@@ -209,6 +209,51 @@ public class History
 			 if (!rtnResults)
 		      {
 		        	return WebUtils.buildErrorJson( "There is no patient history listed for patient " + patient_id );
+		      	  
+		      }
+		 }
+		 catch (SQLException e) 
+		 {
+				// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+	      	     
+		 } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
+		} 
+		
+		 return ret;
+	 }
+	 public static JSONObject getHistoryCategories()
+	 {
+		 JSONObject ret = new JSONObject();
+		 PreparedStatement prep;
+			 try 
+		 {
+			 if (dbConn == null)
+				 dbConn= new DbConnection();
+			 String sql = History.SELECT_HISTORY_CATEGORIES;
+			 prep = dbConn.prepareStatement(sql);
+			 System.out.println("History: getHistoryCategories : query " + prep.toString());
+			    
+			 ResultSet rs = prep.executeQuery();
+			 boolean rtnResults = false;
+			 
+			 while (rs.next())
+			 {
+				 //SELECT patient_id, history, category_id, history_date, history_notes
+				 
+				  rtnResults = true;
+		            
+
+			        
+			      String category = rs.getString("category");
+			      ret.append("history_categories", category);	
+		     }    
+			 
+			 if (!rtnResults)
+		      {
+		        	return WebUtils.buildErrorJson( "There are no history categories" );
 		      	  
 		      }
 		 }

@@ -1,7 +1,7 @@
 package org.mitre.medcafe.util;
 
 import org.json.JSONObject;
-
+import org.mitre.medcafe.model.*;
 import java.util.*;
 
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
@@ -25,7 +25,7 @@ public abstract class Repository
     /**
      *  Given a patient id, get the patient info
      */
-    public abstract Patient getPatient( String patientId );
+    public abstract org.projecthdata.hdata.schemas._2009._06.patient_information.Patient getPatient( String patientId );
 
     /**
      *  Given a patient name, get the patient id
@@ -153,7 +153,16 @@ public abstract class Repository
     
     public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
     public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
+    
+    /* don't currently have history in OpenVista or hData; this refers back to data on the local database system
+       on a live system, this would need to be rewritten for each repository class in order to access that repository   */
        
+    public JSONObject getHistory(String patientId, String category,  Date startDate, Date endDate)
+    {
+    	int id = org.mitre.medcafe.model.Patient.getLocalId(getName(),patientId);
+    	String local_id = String.valueOf(id);
+    	return History.getHistory(local_id, category, startDate, endDate);
+    } 
     
 
 }

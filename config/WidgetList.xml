@@ -130,6 +130,22 @@
 	<server></server>
 	<clickUrl>historyJSON.jsp</clickUrl>
 	<method></method>
+	<params>type:Personal</params>
+	<repository>local</repository>
+	<script>addHistory</script>
+	<script_file>medCafe.history.js</script_file>
+	<template>listPatientHistoryTable</template>
+	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>FamilyHistory</name>
+	<type>FamilyHistory</type>
+	<image>familyhistory.png</image>
+	<server></server>
+	<clickUrl>historyJSON.jsp</clickUrl>
+	<method></method>
+	<params>type:Family</params>
 	<repository>local</repository>
 	<script>addHistory</script>
 	<script_file>medCafe.history.js</script_file>

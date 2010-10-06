@@ -439,11 +439,16 @@ $(document).ready( function() {
 			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository;
 			if (widgetInfo.type != "Repository")
 			{
-				var serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
+				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
 				widgetInfo.tab_num;
 			}
+			if (widgetInfo.params != undefined && widgetInfo.params !="")
+			{
+				serverLink = serverLink + "&" + widgetInfo.params.split(":")[0] + "="+widgetInfo.params.split(":")[1];
+				//alert(serverLink); 
+			}
 			if (widgetInfo.image && widgetInfo.image!="") {
-				var serverLink = serverLink + "&image=" + widgetInfo.image;
+				serverLink = serverLink + "&image=" + widgetInfo.image;
 			}
 
 			//alert('serverLink ' + serverLink);

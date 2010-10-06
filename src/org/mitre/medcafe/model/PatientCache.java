@@ -32,6 +32,7 @@ public class PatientCache extends TimerTask {
     protected JSONObject vitalsList = null;
     protected JSONObject images = null;
     protected JSONObject immuneList = null;
+    protected JSONObject encounterList = null;
     protected String databasePatientId = null;
     protected javax.servlet.ServletContext application = null;
     public final static String NA = "Resource not available";
@@ -44,6 +45,7 @@ public class PatientCache extends TimerTask {
     protected boolean finished = false;
     protected boolean bannerFinished = false;
     private String primaryRepos = "";
+    protected HashMap<String, JSONObject> historyMap = null;
 
     //}}}
     //{{{ Constuctors
@@ -244,22 +246,32 @@ public class PatientCache extends TimerTask {
             }
             log.finer("Done retrieving alert list");
             log.finer(alertList.toString());
+            historyMap = new HashMap<String, JSONObject>();
             try {
-                medicalHistory = new JSONObject();
-                for (int i = 0; i < reps.length(); i++) {
-                    JSONObject repObj = (JSONObject) reps.get(i);
-                    String repository = repObj.getString("repository");
-                    String repoPatientId = repObj.getString("id");
+            	 JSONObject historyObject;
+            	 JSONObject categories = History.getHistoryCategories();
+            	 JSONArray categoryArray = categories.getJSONArray("history_categories");
+            	// System.out.println("Categories: " + categoryArray.toString());
+            	 for (int j = 0; j< categoryArray.length(); j++)
+            	 {
+                		historyObject = new JSONObject();
+                		for (int i = 0; i < reps.length(); i++) {
+                    		JSONObject repObj = (JSONObject) reps.get(i);
+                    		String repository = repObj.getString("repository");
+                    		String repoPatientId = repObj.getString("id");
 
-                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/history");
+	                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/history/" + categoryArray.getString(j));
 
                     try {
                         JSONObject history = new JSONObject(results);
                         history.put("repository", repository);
-                        medicalHistory.append("medicalHistory", history);
+                        historyObject.append("medicalHistory", history);
                     } catch (JSONException e) {
                         log.log(Level.SEVERE, "Error converting the results to JSON.  Raw string was [" + results + "]", e);
                     }
+                    historyMap.put(categoryArray.getString(j), historyObject);
+                    
+                }
                 }
                 //System.out.println("PatientCache generating medical History list line 221 JSONObject " + medicalHistory.toString());
 
@@ -287,7 +299,7 @@ public class PatientCache extends TimerTask {
                 problemList = WebUtils.buildErrorJson("Problem retrieving problem list from source." + e.getMessage());
             }
             log.finer("Done retrieving problem list");
-            bannerFinished = true;
+
             //log.finer(problemList.toString());
                     try {
                 images = new JSONObject();
@@ -345,7 +357,7 @@ public class PatientCache extends TimerTask {
                     contacts.put("repository", repository);
                     supportList.append("contacts", contacts);
                 }
-                //System.out.println("PatientCache generating support list line 175 JSONObject " + immuneList.toString());
+                //System.out.println("PatientCache generating support list line 175 JSONObject " + supportList.toString());
 
             } catch (JSONException e) {
                 log.throwing(KEY, "constructor", e);
@@ -353,6 +365,28 @@ public class PatientCache extends TimerTask {
             }
             log.finer("Done retrieving support list");
             log.finer(supportList.toString());
+                        bannerFinished = true;
+                      try {
+                encounterList = new JSONObject();
+                for (int i = 0; i < reps.length(); i++) {
+                    JSONObject repObj = (JSONObject) reps.get(i);
+                    String repository = repObj.getString("repository");
+                    String repoPatientId = repObj.getString("id");
+
+                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/encounters");
+
+                    JSONObject encounter_data = new JSONObject(results);
+                    encounter_data.put("repository", repository);
+                    encounterList.append("encounter_data", encounter_data);
+                }
+                //System.out.println("PatientCache generating  list line 175 JSONObject " + encounterList.toString());
+
+            } catch (JSONException e) {
+                log.throwing(KEY, "constructor", e);
+                supportList = WebUtils.buildErrorJson("Problem retrieving encounter list from source." + e.getMessage());
+            }
+            log.finer("Done retrieving encounter list");
+            log.finer(encounterList.toString());
         }
         finished = true;
         log.exiting(KEY, "run()");
@@ -408,7 +442,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getImages() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -425,7 +459,7 @@ public class PatientCache extends TimerTask {
         } catch (InterruptedException intE) {
             log.severe("Interrupted while getting medical history from patient cache.");
         }
-        return this.medicalHistory;
+        return getHistoryCategory("Personal");
     }
 
     public JSONObject getMedicineList() {
@@ -441,7 +475,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getImmuneList() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -485,10 +519,10 @@ public class PatientCache extends TimerTask {
         this.images = images;
     }
 
-    public void setMedicalHistory(JSONObject medicalHistory) {
+  /*  public void setMedicalHistory(JSONObject medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
-
+*/
     public void setMedicineList(JSONObject medicineList) {
         this.medicineList = medicineList;
     }
@@ -500,9 +534,29 @@ public class PatientCache extends TimerTask {
 		  this.supportList= supportList;
 	 }
 	 public JSONObject getSupportList() {
+	    try {
+            while (!bannerFinished) {
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException intE) {
+            log.severe("Interrupted while getting vitals list from patient cache.");
+        }
 		  return supportList;
-	}
+	 }
+	 public void setEncounterList(JSONObject encounterList) {
+		  this.encounterList= encounterList;
+	 }
+	 public JSONObject getEncounterList() {
+	    try {
+            while (!finished) {
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException intE) {
+            log.severe("Interrupted while getting vitals list from patient cache.");
+        }
 
+		  return encounterList;
+	 }
     public void setProblemList(JSONObject problemList) {
         this.problemList = problemList;
     }
@@ -518,6 +572,19 @@ public class PatientCache extends TimerTask {
     public void setDatabasePatientId(String databasePatientId) {
         this.databasePatientId = databasePatientId;
     }
+    public void setHistoryCategory(String category, JSONObject historyObject) {
+			historyMap.put(category, historyObject);
+    }
+    public JSONObject getHistoryCategory(String category) {
+       try {
+            while (!bannerFinished) {
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException intE) {
+            log.severe("Interrupted while getting vitals list from patient cache.");
+        }
+		  return historyMap.get(category);
+    }
 
     public JSONObject getRepositories() {
         return this.repositories;
@@ -529,6 +596,9 @@ public class PatientCache extends TimerTask {
 
     public void setPatientList(JSONObject patientList) {
         this.patientList = patientList;
+    }
+    public String getPrimaryRepos() {
+		   return primaryRepos;
     }
 
     public JSONObject getPatientList() {  

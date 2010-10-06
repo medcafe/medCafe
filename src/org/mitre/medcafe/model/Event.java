@@ -387,15 +387,16 @@ public class Event
 				 infoObj = infoObj.getJSONObject("manufacturedMaterial");
 				 String immTitle = infoObj.getString("freeTextBrandName");
 				 String desc = immObj.getString("narrative");
+				 desc.replaceAll("^", "<br/>");
 				 try {
-				 	desc = desc+ " Refused:  " + immObj.getBoolean("refusal");
+				 	desc = desc+ "<br/>Refused:  " + immObj.getBoolean("refusal");
 				 }
 				 catch (JSONException jsonE)
 				 {
 				 	log.finer("No refusal information in immunization record of patient # " + repPatientId + " for " + immTitle);
 				 }
 				 try {
-				 	desc = desc + "\nAdministered by: ";
+				 	desc = desc + "<br/>Administered by: ";
 				 	JSONObject perfObj = immObj.getJSONObject("performer");
 				 	JSONObject personObj = perfObj.getJSONObject("person");
 					desc = desc + getPersonName(personObj);
@@ -539,7 +540,7 @@ public class Event
 				 			desc = "Conditions: ";
 				 		JSONObject condObj = (JSONObject) condArray.get(j);
 				 		JSONObject probObj = condObj.getJSONObject("problemCode");
-				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br>";
+				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -554,7 +555,7 @@ public class Event
 				 		JSONObject examObj = (JSONObject) examArray.get(j);
 				 		JSONObject examTypeObj = examObj.getJSONObject("examType");
 				 		JSONObject resultObj = examObj.getJSONObject("result");
-				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br>";
+				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -568,7 +569,7 @@ public class Event
 				 			desc = desc + "Procedures: ";
 				 		JSONObject procObj = (JSONObject) procedureArray.get(j);
 				 		JSONObject codeObj = procObj.getJSONObject("procedureCode");
-				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br>";
+				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -590,7 +591,7 @@ public class Event
 				 		catch (JSONException jsonE2)
 				 		{
 				 		}
-				 		desc = desc + "<br>";
+				 		desc = desc + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -603,7 +604,7 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Test Results: ";
 				 		JSONObject resultsObj = (JSONObject) resultsArray.get(j);
-				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br>";
+				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -616,7 +617,7 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Immunizations: ";
 				 		JSONObject immObj = (JSONObject) immArray.get(j);
-				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName") + " - " + immObj.getString("narrative") + "<br>";
+				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName") + " - " + immObj.getString("narrative") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -629,7 +630,7 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Topics Discussed: ";
 				 		JSONObject topicsObj = (JSONObject) topicsArray.get(j);
-				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br>";
+				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -649,7 +650,7 @@ public class Event
 				 		catch (JSONException jsonE2)
 				 		{
 				 		}
-				 		desc = desc + "<br>";
+				 		desc = desc + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -664,12 +665,13 @@ public class Event
 				 		JSONObject providerObj = (JSONObject) providerArray.get(j);
 				
 				 		JSONObject personObj = providerObj.getJSONObject("person");
-				 		desc = desc + getPersonName(personObj) + "<br>";
+				 		desc = desc + getPersonName(personObj) + "<br/>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
 				 {
 				 }
+				 desc = desc.replace('^', ' ');
 				 	/*			 {"repository":"OurVista","encounters":[{"conditions":[{"narrative":"ROUTINE INFANT OR CHILD HEALTH CHECK","treatingProvider":[],"problemCode":{"codeSystemName":"ICD9","codeSystem":"2.16.840.1.113883.6.104","value":"ROUTIN CHILD HEALTH EXAM","code":"V20.2"},"problemName":"ROUTIN CHILD HEALTH EXAM"}],"healthFactors":[],"results":[{"resultDateTime":{"high":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":10,"year":2005,"hour":0,"day":1},"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29}},"resultInterpretation":{"value":"NEGATIVE"},"resultValue":0,"resultType":{"value":"TINE"}}],"encounterDate":{"low":{"minute":30,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":14,"day":29}},"encounterId":{"extension":"10B5-TEST","root":"8"},"encounterProvider":[{}],"immunizations":[{"narrative":"Series: PARTIALLY COMPLETE Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"DIP.,PERT.,TET. (DPT)"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: LETHARGY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"POLIOMYELITIS"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"MEASLES,MUMPS,RUBELLA (MMR)"}},"refusal":false}],"education":[{"patientUnderstanding":{"value":"GOOD"},"topic":{"value":"VA-IMMUNIZATIONS"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}]}],"exams":[{"result":{"value":"NORMAL"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}],"examType":{"value":"GENERAL DEVELOPMENT EXAM"}}],"procedures":[],"encounterType":{"value":"OUTPATIENT"},"treatments":[]}],"patient_id":"8"} */
 				 	
 				 event.setDescription(desc);
