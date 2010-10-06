@@ -20,7 +20,7 @@ public class PatientCache extends TimerTask {
     public final static Logger log = Logger.getLogger(KEY);
 
     static {
-        log.setLevel(Level.FINER);
+       // log.setLevel(Level.FINER);
     }
     //{{{ Members
     protected JSONObject medicalHistory = null;
@@ -28,8 +28,10 @@ public class PatientCache extends TimerTask {
     protected JSONObject medicineList = null;
     protected JSONObject alertList = null;
     protected JSONObject problemList = null;
+    protected JSONObject supportList = null;
     protected JSONObject vitalsList = null;
     protected JSONObject images = null;
+    protected JSONObject immuneList = null;
     protected String databasePatientId = null;
     protected javax.servlet.ServletContext application = null;
     public final static String NA = "Resource not available";
@@ -40,6 +42,7 @@ public class PatientCache extends TimerTask {
     protected String lastName = null;
     protected String photo = null;
     protected boolean finished = false;
+    protected boolean bannerFinished = false;
     private String primaryRepos = "";
 
     //}}}
@@ -87,25 +90,37 @@ public class PatientCache extends TimerTask {
         //get repository/local IDs
         //String query = "select * from patient where id=?";
         Patient patient = new Patient(conn);
-        repositories = patient.listRepositories(databasePatientId);
+        JSONObject repositoryList = patient.listRepositories(databasePatientId);
+        ArrayList<JSONObject> repos = new ArrayList<JSONObject>();
         try {
-        JSONArray repositoryArray = repositories.getJSONArray("repositories");
-        boolean found = false;
+       	JSONArray reps = new JSONArray();
+       	reps = repositoryList.getJSONArray("repositories");
+       	int length = reps.length();
+        	for (int i = 0; i< length; i++)
+         {
+       
         /* cycle through to put primary repository first in the list  */
-        for (int i = 0; i< repositoryArray.length() && !found ; i++)
-        {
-        		String repositoryName = repositoryArray.getJSONObject(i).getString("repository");
+       		JSONObject repository = reps.getJSONObject(i);
+        
+        		String repositoryName = repository.getString("repository");
+        		System.out.println(repositoryName + " " + primaryRepos);
+        		System.out.println(repository.toString());
         		if (repositoryName.equals(primaryRepos))
         		{
-        			found = true;
-        			if (i != 0)
-        			{
-        				JSONObject temp = repositoryArray.getJSONObject(0);
-        				repositoryArray.put(0, repositoryArray.getJSONObject(i));
-        				repositoryArray.put(i, temp);
-        			}
+        			
+        			repos.add(0, repository);
         		}
-        }
+        		else
+        		{
+        			repos.add(repository);
+        		}
+        	}
+        	repositories = new JSONObject();
+        	for (JSONObject repository: repos)
+        	{
+        		repositories.append("repositories", repository);
+        	}
+        	System.out.println(repositories.toString());
         }
         catch (JSONException jsonE)
         {
@@ -158,7 +173,7 @@ public class PatientCache extends TimerTask {
                     patientList.append("patient", patient);
                 }
                 patientList.put("displayAll", false);
-                System.out.println("PatientCache generating patient list line 141 JSONObject " + patientList.toString());
+              //  System.out.println("PatientCache generating patient list line 141 JSONObject " + patientList.toString());
             } catch (JSONException e) {
                 log.throwing(KEY, "constructor", e);
                 patientList = WebUtils.buildErrorJson("Problem retrieving patient from source." + e.getMessage());
@@ -230,27 +245,6 @@ public class PatientCache extends TimerTask {
             log.finer("Done retrieving alert list");
             log.finer(alertList.toString());
             try {
-                images = new JSONObject();
-                for (int i = 0; i < reps.length(); i++) {
-                    JSONObject repObj = (JSONObject) reps.get(i);
-                    String repository = repObj.getString("repository");
-                    String repoPatientId = repObj.getString("id");
-
-                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/images");
-
-                    JSONObject imageObj = new JSONObject(results);
-                    imageObj.put("repository", repository);
-                    images.append("imageList", imageObj);
-                }
-                //System.out.println("PatientCache generating image list line 198 JSONObject " + images.toString());
-
-            } catch (JSONException e) {
-                log.throwing(KEY, "constructor", e);
-                images = WebUtils.buildErrorJson("Problem retrieving image list from source." + e.getMessage());
-            }
-            log.finer("Done retrieving image list");
-            log.finer(images.toString());
-            try {
                 medicalHistory = new JSONObject();
                 for (int i = 0; i < reps.length(); i++) {
                     JSONObject repObj = (JSONObject) reps.get(i);
@@ -293,7 +287,72 @@ public class PatientCache extends TimerTask {
                 problemList = WebUtils.buildErrorJson("Problem retrieving problem list from source." + e.getMessage());
             }
             log.finer("Done retrieving problem list");
+            bannerFinished = true;
             //log.finer(problemList.toString());
+                    try {
+                images = new JSONObject();
+                for (int i = 0; i < reps.length(); i++) {
+                    JSONObject repObj = (JSONObject) reps.get(i);
+                    String repository = repObj.getString("repository");
+                    String repoPatientId = repObj.getString("id");
+
+                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/images");
+
+                    JSONObject imageObj = new JSONObject(results);
+                    imageObj.put("repository", repository);
+                    images.append("imageList", imageObj);
+                }
+                //System.out.println("PatientCache generating image list line 198 JSONObject " + images.toString());
+
+            } catch (JSONException e) {
+                log.throwing(KEY, "constructor", e);
+                images = WebUtils.buildErrorJson("Problem retrieving image list from source." + e.getMessage());
+            }
+            log.finer("Done retrieving image list");
+            log.finer(images.toString());
+                try {
+                immuneList = new JSONObject();
+                for (int i = 0; i < reps.length(); i++) {
+                    JSONObject repObj = (JSONObject) reps.get(i);
+                    String repository = repObj.getString("repository");
+                    String repoPatientId = repObj.getString("id");
+
+                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/immunizations");
+
+                    JSONObject vaccines = new JSONObject(results);
+                    vaccines.put("repository", repository);
+                    immuneList.append("vaccines", vaccines);
+                }
+                //System.out.println("PatientCache generating immunization list line 175 JSONObject " + immuneList.toString());
+
+            } catch (JSONException e) {
+                log.throwing(KEY, "constructor", e);
+                immuneList = WebUtils.buildErrorJson("Problem retrieving immunization list from source." + e.getMessage());
+            }
+            log.finer("Done retrieving immune list");
+            log.finer(immuneList.toString());
+        
+                 try {
+                supportList = new JSONObject();
+                for (int i = 0; i < reps.length(); i++) {
+                    JSONObject repObj = (JSONObject) reps.get(i);
+                    String repository = repObj.getString("repository");
+                    String repoPatientId = repObj.getString("id");
+
+                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/supportList");
+
+                    JSONObject contacts = new JSONObject(results);
+                    contacts.put("repository", repository);
+                    supportList.append("contacts", contacts);
+                }
+                //System.out.println("PatientCache generating support list line 175 JSONObject " + immuneList.toString());
+
+            } catch (JSONException e) {
+                log.throwing(KEY, "constructor", e);
+                supportList = WebUtils.buildErrorJson("Problem retrieving support list from source." + e.getMessage());
+            }
+            log.finer("Done retrieving support list");
+            log.finer(supportList.toString());
         }
         finished = true;
         log.exiting(KEY, "run()");
@@ -327,7 +386,7 @@ public class PatientCache extends TimerTask {
     //{{{ Getters and Setters
     public JSONObject getAlertList() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -338,7 +397,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getFamilyHistory() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -360,7 +419,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getMedicalHistory() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -371,7 +430,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getMedicineList() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -380,9 +439,21 @@ public class PatientCache extends TimerTask {
         return this.medicineList;
     }
 
-    public JSONObject getProblemList() {
+    public JSONObject getImmuneList() {
         try {
             while (!finished) {
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException intE) {
+            log.severe("Interrupted while getting immunization list from patient cache.");
+        }
+        return this.immuneList;
+    }
+
+
+    public JSONObject getProblemList() {
+        try {
+            while (!bannerFinished) {
                 Thread.sleep(1000);
             }
         } catch (InterruptedException intE) {
@@ -393,7 +464,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getVitalsList() {
         try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
@@ -421,6 +492,16 @@ public class PatientCache extends TimerTask {
     public void setMedicineList(JSONObject medicineList) {
         this.medicineList = medicineList;
     }
+
+    public void setImmuneList(JSONObject immuneList) {
+        this.immuneList = immuneList;
+    }
+	 public void setSupportList(JSONObject supportList) {
+		  this.supportList= supportList;
+	 }
+	 public JSONObject getSupportList() {
+		  return supportList;
+	}
 
     public void setProblemList(JSONObject problemList) {
         this.problemList = problemList;
@@ -452,7 +533,7 @@ public class PatientCache extends TimerTask {
 
     public JSONObject getPatientList() {  
     try {
-            while (!finished) {
+            while (!bannerFinished) {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {

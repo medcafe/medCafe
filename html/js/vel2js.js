@@ -132,22 +132,28 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.alerts) {
+var printFirst = 0;
 t.p('</p><br><p>	');
 for (var i2=0;  i2<context.alerts.length; i2++) {
 var repos = context.alerts[i2];
 velocityCount = i2;
 t.p('		');
-if (repos.allergies) {
+if (printFirst == 0) {
+printFirst = 1;
 t.p('			');
-for (var i4=0;  i4<repos.allergies.length; i4++) {
-var allergyDetail = repos.allergies[i4];
-velocityCount = i4;
-t.p('	   		');
+if (repos.allergies) {
+t.p('				');
+for (var i5=0;  i5<repos.allergies.length; i5++) {
+var allergyDetail = repos.allergies[i5];
+velocityCount = i5;
+t.p('	   			');
 t.p( allergyDetail.product.value);
-t.p('<br/>			   	');
+t.p('<br/>				   		');
 }
 velocityCount = i2;
-t.p('	   ');
+t.p('	   	');
+}
+t.p('		');
 }
 t.p('	');
 }
@@ -365,32 +371,38 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.medicines) {
+var printFirst = 0;
 t.p('</p><br/><p>	');
 for (var i2=0;  i2<context.medicines.length; i2++) {
 var repos = context.medicines[i2];
 velocityCount = i2;
 t.p('		');
-if (repos.medications) {
+if (printFirst == 0) {
+printFirst = 1;
 t.p('			');
-for (var i4=0;  i4<repos.medications.length; i4++) {
-var medicationDetail = repos.medications[i4];
-velocityCount = i4;
-t.p('			 *	   		');
+if (repos.medications) {
+t.p('				');
+for (var i5=0;  i5<repos.medications.length; i5++) {
+var medicationDetail = repos.medications[i5];
+velocityCount = i5;
+t.p('				 *	   			');
 if (medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName) {
-t.p('	  			   ');
+t.p('	  				   ');
 t.p( medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('<br/>	  			');
+t.p('<br/>	  				');
 }
 else {
 if (medicationDetail.narrative) {
 t.p('	  					');
 t.p( medicationDetail.narrative);
-t.p('<br/>	  			');
+t.p('<br/>	  				');
 }
 }
-t.p('			   	');
+t.p('				');
 }
 velocityCount = i2;
+t.p('	   	');
+}
 t.p('	   ');
 }
 t.p('	');
@@ -403,18 +415,65 @@ function v2js_listPatientAllergies(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
-t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
-for (var i1=0;  i1<context.allergies.length; i1++) {
-var allergy = context.allergies[i1];
-velocityCount = i1;
-t.p('    <b>');
-t.p( allergy.product.value);
-t.p('</b><br/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: ');
-t.p( allergy.reaction.value);
-t.p('<br clear="all"/>');
+if (context.alerts) {
+t.p('	<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>	<div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.alerts.length; i2++) {
+var repos = context.alerts[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
 }
-velocityCount = 0;
+t.p('		');
+if (repos.allergies) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
+for (var i4=0;  i4<repos.allergies.length; i4++) {
+var allergy = repos.allergies[i4];
+velocityCount = i4;
+t.p('		    <b>');
+t.p( allergy.product.value);
+t.p('</b><br/>    			<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: ');
+t.p( allergy.reaction.value);
+t.p('<br clear="all"/>			');
+}
+velocityCount = i2;
+t.p('			<br/>		');
+}
+t.p('	');
+}
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
+}
 return t.toString();
 }
 function v2js_listPatientBio(context) { 
@@ -526,56 +585,104 @@ function v2js_listPatientImmunizations(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.vaccines) {
+t.p('<a onclick="alert(\'Method to add a new immunization goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.vaccines.length; i2++) {
+var repos = context.vaccines[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.immunizations) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
 var space = " ";
 t.p('    ');
-t.p('<a onclick="alert(\'Method to add a new immunization goes here\')" href="');
-t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
-for (var i1=0;  i1<context.immunizations.length; i1++) {
-var immunization = context.immunizations[i1];
-velocityCount = i1;
-t.p('	<b>');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</b><br/>		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:');
-t.p( space);
-t.p('		');
-t.p('	');
-if (immunization.performer.person.name.given) {
-t.p('		');
-for (var i3=0;  i3<immunization.performer.person.name.given.length; i3++) {
-var givenNameDetail = immunization.performer.person.name.given[i3];
-velocityCount = i3;
 t.p('			');
+for (var i4=0;  i4<repos.immunizations.length; i4++) {
+var immunization = repos.immunizations[i4];
+velocityCount = i4;
+t.p('				<b>');
+t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
+t.p('</b><br/>				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:');
+t.p( space);
+t.p('				');
+t.p('				');
+if (immunization.performer.person.name.given) {
+t.p('					');
+for (var i6=0;  i6<immunization.performer.person.name.given.length; i6++) {
+var givenNameDetail = immunization.performer.person.name.given[i6];
+velocityCount = i6;
+t.p('						');
 t.p( givenNameDetail);
 t.p( space);
-t.p(' 		');
+t.p(' 					');
 }
-velocityCount = i1;
-t.p('	');
+velocityCount = i4;
+t.p('				');
 }
-t.p('	');
+t.p('				');
 t.p( immunization.performer.person.name.lastname);
 t.p(' on');
 t.p( space);
-t.p('	');
+t.p('				');
 t.p( immunization.administeredDate.month);
 t.p('/');
 t.p( immunization.administeredDate.day);
 t.p('/');
 t.p( immunization.administeredDate.year);
-t.p('<br clear="all"/>	');
+t.p('<br clear="all"/>				');
 var comments = immunization.narrative.split('^');
-t.p('	');
-for (var i2=0;  i2<comments.length; i2++) {
-var comment = comments[i2];
-velocityCount = i2;
-t.p('		<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
+t.p('				');
+for (var i5=0;  i5<comments.length; i5++) {
+var comment = comments[i5];
+velocityCount = i5;
+t.p('					<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
 t.p( comment);
-t.p('<br clear="all"/>	');
+t.p('<br clear="all"/>				');
 }
-velocityCount = i1;
-t.p('	<br/>');
+velocityCount = i4;
+t.p('				<br/>			');
 }
-velocityCount = 0;
+velocityCount = i2;
+t.p('		');
+}
+t.p('	');
+}
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
+}
 return t.toString();
 }
 function v2js_listPatientMeds(context) { 
@@ -627,50 +734,98 @@ function v2js_listPatientMedsVert(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.medicines) {
+t.p('<a onclick="alert(\'Method to add a new medication goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.medicines.length; i2++) {
+var repos = context.medicines[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.medications) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
 var space = " ";
 t.p('    ');
+t.p('			');
 var oparen = "(";
 var cparen = ")";
-t.p('<a onclick="alert(\'Method to add a new medication goes here\')" href="');
-t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
-for (var i1=0;  i1<context.medications.length; i1++) {
-var medication = context.medications[i1];
-velocityCount = i1;
-t.p('    <b>');
+t.p('			');
+for (var i4=0;  i4<repos.medications.length; i4++) {
+var medication = repos.medications[i4];
+velocityCount = i4;
+t.p('    			<b>');
 t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</b><br/>        ');
-t.p('        ');
+t.p('</b><br/>        		');
+t.p('        		');
 if (medication.effectiveTime.value) {
-t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  ');
+t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  ');
 t.p( medication.effectiveTime.value);
-t.p('<br clear="all"/>        ');
+t.p('<br clear="all"/>        		');
 }
-t.p('        ');
+t.p('        		');
 if (medication.dose.value) {
-t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: ');
+t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: ');
 t.p( medication.dose.value);
-t.p('<br clear="all"/>            ');
+t.p('<br clear="all"/>            	');
 if (medication.deliveryMethod.value) {
-t.p('                ');
+t.p('                	');
 t.p( oparen);
 t.p(' ');
 t.p( medication.deliveryMethod.value);
 t.p(' ');
 t.p( cparen);
-t.p('            ');
+t.p('            	');
 }
-t.p('        ');
+t.p('        		');
 }
-t.p('        ');
+t.p('        		');
 if (medication.patientInstructions) {
-t.p('            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: ');
+t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: ');
 t.p( medication.patientInstructions);
-t.p('<br clear="all"/>        ');
+t.p('<br clear="all"/>        		');
 }
-t.p('    ');
-t.p('    <br/>');
+t.p('    			');
+t.p('    			<br/>			');
 }
-velocityCount = 0;
+velocityCount = i2;
+t.p('		');
+}
+t.p('	');
+}
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
+}
 return t.toString();
 }
 function v2js_listPatientTable(context) { 
@@ -688,7 +843,7 @@ velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
 t.p('			');
-t.p( repos.announce);
+t.p( repos.announce.message);
 t.p('			');
 firstRepository = false;
 loopCount = ( loopCount + 1 );
@@ -1005,13 +1160,16 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.vitalRecords) {
+var printFirst = 0;
 t.p('	');
 for (var i2=0;  i2<context.vitalRecords.length; i2++) {
 var repos = context.vitalRecords[i2];
 velocityCount = i2;
 t.p('		');
-if (repos.vitals) {
+if (repos.vitals && printFirst == 0) {
+t.p('			');
 var print = 0;
+printFirst = 1;
 t.p('			');
 for (var i4=0;  i4<repos.vitals.length; i4++) {
 var vitalDetail = repos.vitals[i4];
@@ -1162,28 +1320,34 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
 if (context.problems) {
+var printFirst = 0;
 t.p('	');
 for (var i2=0;  i2<context.problems.length; i2++) {
 var repos = context.problems[i2];
 velocityCount = i2;
 t.p('		');
-if (repos.problem) {
+if (printFirst == 0) {
+printFirst = 1;
 t.p('			');
-for (var i4=0;  i4<repos.problem.length; i4++) {
-var problemDetail = repos.problem[i4];
-velocityCount = i4;
-t.p('	   <tr>	  	<td> ');
+if (repos.problem) {
+t.p('				');
+for (var i5=0;  i5<repos.problem.length; i5++) {
+var problemDetail = repos.problem[i5];
+velocityCount = i5;
+t.p('	   	<tr>	  		<td> ');
 t.p( problemDetail.problemName);
-t.p(' </td>		<td>		<div class="ui-corner-all" id="detail">			');
+t.p(' </td>			<td>			<div class="ui-corner-all" id="detail">				');
 t.p( problemDetail.problemDate.low.month);
 t.p('/');
 t.p( problemDetail.problemDate.low.day);
 t.p('/');
 t.p( problemDetail.problemDate.low.year);
-t.p('		</div></td> 	   	</tr>	   	');
+t.p('			</div></td> 	   		</tr>	   		');
 }
 velocityCount = i2;
-t.p('	   ');
+t.p('	   	');
+}
+t.p('		');
 }
 t.p('	');
 }
@@ -1196,25 +1360,63 @@ function v2js_listProblemListTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-for (var i1=0;  i1<context.problem.length; i1++) {
-var problemDetail = context.problem[i1];
-velocityCount = i1;
-t.p('    ');
+if (context.problems) {
+t.p('<a onclick="alert(\'Method to add a new problem goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.problems.length; i2++) {
+var repos = context.problems[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.problem) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
+for (var i4=0;  i4<repos.problem.length; i4++) {
+var problemDetail = repos.problem[i4];
+velocityCount = i4;
+t.p('   			 ');
 if (problemDetail.narrative == "A") {
 var status = "Active";
-t.p('    ');
+t.p('   			 ');
 }
 else {
 var status = "Inactive";
-t.p('    ');
+t.p('			    ');
 }
-t.p('    <p class="');
+t.p('			    <p class="');
 t.p( status);
 t.p('"><b>');
 t.p( problemDetail.problemName);
-t.p('</b><br/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code ');
+t.p('</b><br/>			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code ');
 t.p( problemDetail.problemCode.code);
-t.p('<br clear="all"/>    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started ');
+t.p('<br clear="all"/>			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started ');
 t.p( problemDetail.problemDate.low.month);
 t.p('/');
 t.p( problemDetail.problemDate.low.day);
@@ -1222,9 +1424,20 @@ t.p('/');
 t.p( problemDetail.problemDate.low.year);
 t.p(' (');
 t.p( status);
-t.p(')<br clear="all"/>    </p>');
+t.p(')<br clear="all"/>			    </p>			');
 }
-velocityCount = 0;
+velocityCount = i2;
+t.p('		');
+}
+t.p('	');
+}
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
+}
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 
@@ -1313,124 +1526,175 @@ function v2js_listSupportInfo(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-for (var i1=0;  i1<context.supportInfo.length; i1++) {
-var support = context.supportInfo[i1];
-velocityCount = i1;
-t.p('    ');
+if (context.contacts) {
+t.p('<a onclick="alert(\'Method to add a new contact goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
 t.p('	');
+for (var i2=0;  i2<context.contacts.length; i2++) {
+var repos = context.contacts[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.supportInfo) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
+for (var i4=0;  i4<repos.supportInfo.length; i4++) {
+var support = repos.supportInfo[i4];
+velocityCount = i4;
+t.p('			   ');
+t.p('				');
 var conType = 'Undefined';
-t.p('	');
+t.p('				');
 if (support.contactType.valueOf() == 'AGNT') {
 conType = 'Agent';
-t.p('	');
+t.p('				');
 }
 else {
 if (support.contactType.valueOf() == 'ECON') {
 conType = 'Emergency Contact';
-t.p('	');
+t.p('				');
 }
 else {
 if (support.contactType.valueOf() == 'CAREGIVER') {
 conType = 'Caregiver';
-t.p('	');
+t.p('				');
 }
 else {
 if (support.contactType.valueOf() == 'NOK') {
 conType = 'Next of Kin';
-t.p('	');
+t.p('				');
 }
 else {
 if (support.contactType.valueOf() == 'PRS') {
 conType = support.contactRelationship.displayName;
-t.p('	');
+t.p('				');
 }
 }
 }
 }
 }
-t.p('    ');
-t.p('    <p><b>	');
+t.p('			    ');
+t.p('			    <p><b>				');
 if (support.contact.name.given) {
-t.p('		');
-for (var i3=0;  i3<support.contact.name.given.length; i3++) {
-var givenNameDetail = support.contact.name.given[i3];
-velocityCount = i3;
-t.p('			');
+t.p('					');
+for (var i6=0;  i6<support.contact.name.given.length; i6++) {
+var givenNameDetail = support.contact.name.given[i6];
+velocityCount = i6;
+t.p('						');
 t.p( givenNameDetail);
 t.p( context.space);
-t.p('		');
-}
-velocityCount = i1;
-t.p('	');
-}
-t.p('	');
-t.p( support.contact.name.lastname);
-t.p('</b><br>	');
-t.p( conType);
-t.p('	');
-if (support.contactRelationship.displayName) {
-t.p('		( ');
-t.p( support.contactRelationship.displayName);
-t.p(' )	');
-}
-t.p('</p>	');
-if (support.contact.address) {
-t.p('        <i><u>Address</u></i><br/>		');
-for (var i3=0;  i3<support.contact.address.length; i3++) {
-var addressDetail = support.contact.address[i3];
-velocityCount = i3;
-t.p('			');
-if (addressDetail.streetAddress) {
-t.p('				');
-for (var i5=0;  i5<addressDetail.streetAddress.length; i5++) {
-var streetAdd = addressDetail.streetAddress[i5];
-velocityCount = i5;
 t.p('					');
+}
+velocityCount = i4;
+t.p('				');
+}
+t.p('				');
+t.p( support.contact.name.lastname);
+t.p('</b><br>				');
+t.p( conType);
+t.p('				');
+if (support.contactRelationship.displayName) {
+t.p('					( ');
+t.p( support.contactRelationship.displayName);
+t.p(' )				');
+}
+t.p('</p>				');
+if (support.contact.address) {
+t.p('			        <i><u>Address</u></i><br/>					');
+for (var i6=0;  i6<support.contact.address.length; i6++) {
+var addressDetail = support.contact.address[i6];
+velocityCount = i6;
+t.p('						');
+if (addressDetail.streetAddress) {
+t.p('							');
+for (var i8=0;  i8<addressDetail.streetAddress.length; i8++) {
+var streetAdd = addressDetail.streetAddress[i8];
+velocityCount = i8;
+t.p('								');
 t.p( streetAdd);
-t.p(' <br>				');
+t.p(' <br>							');
 }
-velocityCount = i3;
-t.p('			');
+velocityCount = i6;
+t.p('						');
 }
-t.p('			');
+t.p('						');
 t.p( addressDetail.city);
 t.p(', ');
 t.p( addressDetail.stateOrProvince);
 t.p('  ');
 t.p( addressDetail.zip);
-t.p(' <br/>		');
+t.p(' <br/>					');
 }
-velocityCount = i1;
-t.p('	');
-}
-t.p('	');
-if (support.contact.telecom) {
-t.p('	    <br/><i><u>Contact Information</u></i><br/>		');
-for (var i3=0;  i3<support.contact.telecom.length; i3++) {
-var telecomDetail = support.contact.telecom[i3];
-velocityCount = i3;
-t.p('			');
-if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+velocityCount = i4;
 t.p('				');
+}
+t.p('				');
+t.p('				');
+if (support.contact.telecom) {
+t.p('	    			<br/><i><u>Contact Information</u></i><br/>					');
+for (var i6=0;  i6<support.contact.telecom.length; i6++) {
+var telecomDetail = support.contact.telecom[i6];
+velocityCount = i6;
+t.p('						');
+if (telecomDetail.type == "email" || telecomDetail.type == "im") {
+t.p('							');
 t.p( telecomDetail.value);
 t.p(' ( ');
 t.p( telecomDetail.type);
-t.p(' )<br>			');
+t.p(' )<br>						');
 }
 else {
-t.p('				');
+t.p('							');
 t.p( telecomDetail.value);
 t.p(' ( ');
 t.p( telecomDetail.use);
-t.p(' )<br>			');
+t.p(' )<br>						');
 }
+t.p('					');
+}
+velocityCount = i4;
+t.p('				');
+}
+t.p('			');
+}
+velocityCount = i2;
 t.p('		');
 }
-velocityCount = i1;
 t.p('	');
 }
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
 }
-velocityCount = 0;
+t.p('	</div>');
+}
 return t.toString();
 }
 function v2js_listWidgets(context) { 

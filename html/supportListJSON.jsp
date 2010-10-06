@@ -1,25 +1,21 @@
-<%@ page import="org.mitre.medcafe.util.*" %>
+<%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 
 	System.out.println("supportListJSON: url start");
-	String patient_id = request.getParameter(Constants.PATIENT_ID);
-	if (patient_id == null)
-		patient_id = Constants.DEFAULT_PATIENT;
-	String repository = request.getParameter("repository");
-	if (repository == null)
-		repository = Constants.DEFAULT_REPOSITORY;
-	String rep_patient_id = request.getParameter("patient_rep_id");
-	if (rep_patient_id == null)
-		rep_patient_id = Constants.DEFAULT_PATIENT;
-	
-	String jspUrl =  "/repositories/" + repository + "/patients/" + rep_patient_id + "/supportList";
-	
-	String user =  request.getRemoteUser();
-	jspUrl = jspUrl + "?user=" + user;
-	
-	System.out.println("supportListJSON: url " + jspUrl);
-%>
 
-<tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>
+    PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+       // log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+
+
+	
+		out.print(cache.getSupportList());
+
+
+%>

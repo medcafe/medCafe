@@ -1,57 +1,94 @@
-#foreach( $support in $supportInfo )
-    #* get contact type *#
-	#set ($conType = 'Undefined')
+#if ($contacts)
+<a onclick="alert('Method to add a new contact goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 
-	#if ($support.contactType.valueOf() == 'AGNT')
-		#set ($conType = 'Agent')
-	#elseif ($support.contactType.valueOf() == 'ECON')
-		#set ($conType = 'Emergency Contact')
-	#elseif ($support.contactType.valueOf() == 'CAREGIVER')
-		#set ($conType = 'Caregiver')
-	#elseif ($support.contactType.valueOf() == 'NOK')
-		#set ($conType = 'Next of Kin')
-	#elseif ($support.contactType.valueOf() == 'PRS')
-		#set ($conType = $support.contactRelationship.displayName)
-	#end
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#foreach ($repos in $contacts)
 
-    #* Display contact name   *#
-    <p><b>
-	#if ($support.contact.name.given)
-		#foreach ($givenNameDetail in $support.contact.name.given)
-			$givenNameDetail$space
+			
+		#if ($repos.announce && $firstRepository == true)
+			$repos.announce.message
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
 		#end
-	#end
-	$support.contact.name.lastname</b><br>
+		#if ($repos.supportInfo)
+			#if ($firstRepository != true)
+				#if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
+				#end
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+			#end
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+			#foreach( $support in $repos.supportInfo )
+			   #* get contact type *#
+				#set ($conType = 'Undefined')
 
-	$conType
-	#if ($support.contactRelationship.displayName)
-		( $support.contactRelationship.displayName )
-	#end</p>
+				#if ($support.contactType.valueOf() == 'AGNT')
+					#set ($conType = 'Agent')
+				#elseif ($support.contactType.valueOf() == 'ECON')
+					#set ($conType = 'Emergency Contact')
+				#elseif ($support.contactType.valueOf() == 'CAREGIVER')
+					#set ($conType = 'Caregiver')
+				#elseif ($support.contactType.valueOf() == 'NOK')
+					#set ($conType = 'Next of Kin')
+				#elseif ($support.contactType.valueOf() == 'PRS')
+					#set ($conType = $support.contactRelationship.displayName)
+				#end
+
+			    #* Display contact name   *#
+			    <p><b>
+				#if ($support.contact.name.given)
+					#foreach ($givenNameDetail in $support.contact.name.given)
+						$givenNameDetail$space
+					#end
+				#end
+				$support.contact.name.lastname</b><br>
+
+				$conType
+				#if ($support.contactRelationship.displayName)
+					( $support.contactRelationship.displayName )
+				#end</p>
 
 
-	#if ($support.contact.address)
-        <i><u>Address</u></i><br/>
-		#foreach ($addressDetail in $support.contact.address)
-			#if ($addressDetail.streetAddress)
-				#foreach ($streetAdd in $addressDetail.streetAddress)
-					$streetAdd <br>
+				#if ($support.contact.address)
+			        <i><u>Address</u></i><br/>
+					#foreach ($addressDetail in $support.contact.address)
+						#if ($addressDetail.streetAddress)
+							#foreach ($streetAdd in $addressDetail.streetAddress)
+								$streetAdd <br>
+							#end
+						#end
+						$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip <br/>
+					#end
+				#end
+
+				#* Display support person's telecommunication information      *#
+
+
+				#if ($support.contact.telecom)
+	    			<br/><i><u>Contact Information</u></i><br/>
+					#foreach ($telecomDetail in $support.contact.telecom)
+						#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
+							$telecomDetail.value ( $telecomDetail.type )<br>
+						#else
+							$telecomDetail.value ( $telecomDetail.use )<br>
+						#end
+					#end
 				#end
 			#end
-			$addressDetail.city, $addressDetail.stateOrProvince  $addressDetail.zip <br/>
 		#end
 	#end
-
-#* Display support person's telecommunication information      *#
-
-
-	#if ($support.contact.telecom)
-	    <br/><i><u>Contact Information</u></i><br/>
-		#foreach ($telecomDetail in $support.contact.telecom)
-			#if ($telecomDetail.type == "email" || $telecomDetail.type == "im")
-				$telecomDetail.value ( $telecomDetail.type )<br>
-			#else
-				$telecomDetail.value ( $telecomDetail.use )<br>
-			#end
-		#end
+	#if ($loopCount >= 2)
+			</div>
+		</div>
 	#end
-#end
+	</div>
+#end			

@@ -11,15 +11,15 @@ function addSupportInfo(callObj, widgetInfo, data)
 		//		var serverLink =  widgetInfo.server + "?repository=" + widgetInfo.repository + "&patient_id=" + widgetInfo.rep_patient_id;
 		//		$.getJSON(serverLink, function(data)
 		//		{
-						var toggleMinus = 'images/bullet_toggle_minus.png';
-						var togglePlus = 'images/bullet_toggle_plus.png';
+				//		var toggleMinus = 'images/bullet_toggle_minus.png';
+				//		var togglePlus = 'images/bullet_toggle_plus.png';
 				//		var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (data.announce)
-						{
-							updateAnnouncements(data);
-							return;
-						}
+				//		if (data.announce)
+				//		{
+				//			updateAnnouncements(data);
+				//			return;
+				//		}
 						//var html = v2js_listSupportInfo( data );  	 
 						var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 						var tableObj;
@@ -30,6 +30,21 @@ function addSupportInfo(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 					
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
+							$(callObj).delay(500, function ()
+						{ 
+	
+							$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
+						  		$(this).text("Less");
+                    		$(this).css({backgroundPosition: '-52px 0'});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).show();
+                    		return false;
+                		},function () {
+                			$(this).text("More");
+                      	$(this).css({backgroundPosition: ''});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).hide();
+                    	return false;
+                		});
+            	});
 					//	$("#aaa" + tab_num).append(html);
 	  										
 						//alert( $("#example" + repId).text());

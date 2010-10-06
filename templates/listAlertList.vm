@@ -1,11 +1,15 @@
 #if ($alerts)
+#set ($printFirst = 0)
 </p><br><p>
 	#foreach ($repos in $alerts)
-		#if ($repos.allergies)
-			#foreach(  $allergyDetail in $repos.allergies )
-	   		${allergyDetail.product.value}<br/>
-		
+		#if ($printFirst == 0)
+			#set ($printFirst = 1)	
+			#if ($repos.allergies)
+				#foreach(  $allergyDetail in $repos.allergies )
+	   			${allergyDetail.product.value}<br/>
+			
+	   		#end
 	   	#end
-	   #end
+		#end
 	#end
 #end

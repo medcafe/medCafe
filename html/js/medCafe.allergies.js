@@ -11,19 +11,19 @@ function addAllergies(callObj, widgetInfo, data)
 	//			{
 			//	var dataObject = eval('(' + data + ')');
 						//Check to see if any error message
-						if (data.announce)
-						{
-							if (retry)
-							{
-								addAllergies(callObj, widgetInfo, data);
-								retry = false;
-							}
-							else
-							{
-								updateAnnouncements(data);
-							}
-							return;
-						}
+				//		if (data.announce)
+				//		{
+				//			if (retry)
+				//			{
+				//				addAllergies(callObj, widgetInfo, data);
+				//				retry = false;
+				//			}
+				//			else
+				//			{
+				//				updateAnnouncements(data);
+				//			}
+				//			return;
+				//		}
 					
 						//var html = v2js_listPatientAllergies( data );
 				//		var html = window["v2js_listPatientAllergies2"](data);
@@ -37,6 +37,21 @@ function addAllergies(callObj, widgetInfo, data)
 							widgetInfo.column = "1";
 						// $("#aaa" + widgetInfo.order).append(html);
 						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+									$(callObj).delay(500, function ()
+						{ 
+	
+							$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
+						  		$(this).text("Less");
+                    		$(this).css({backgroundPosition: '-52px 0'});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).show();
+                    		return false;
+                		},function () {
+                			$(this).text("More");
+                      	$(this).css({backgroundPosition: ''});
+                     	$(this).parent().find("#add_repos" +widgetInfo.id).hide();
+                    	return false;
+                		});
+            	});
 		/*			 	tableObj = $("#" +widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
 
 						 	//Call back to put in headings

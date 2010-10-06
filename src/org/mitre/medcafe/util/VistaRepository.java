@@ -59,7 +59,7 @@ public class VistaRepository extends Repository {
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
-    protected static RPCBrokerPooledConnectionFactory rpcConnFactory = null;
+    protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
 
     public VistaRepository() {
         type = "VistA";
@@ -393,7 +393,7 @@ public class VistaRepository extends Repository {
         }
     }
 
-    public static void factorySetUp(String[] creds) {
+    public void factorySetUp(String[] creds) {
         try {
             rpcConnFactory = new RPCBrokerPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
         } catch (Exception e) {
@@ -416,7 +416,7 @@ public class VistaRepository extends Repository {
      *  sets the passed VistaLinkPooledConnection
      *  @return true if connection worked.  False otherwise.
      */
-    protected RPCBrokerPooledConnection setConnection() throws OvidDomainException {
+    protected synchronized RPCBrokerPooledConnection setConnection() throws OvidDomainException {
         RPCBrokerPooledConnection conn = null;
 
         if (rpcConnFactory == null) {

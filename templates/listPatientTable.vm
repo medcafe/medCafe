@@ -6,7 +6,7 @@
 
 			
 		#if ($repos.announce && $firstRepository == true)
-			$repos.announce
+			$repos.announce.message
 			#set ($firstRepository = false)
 			#set ($loopCount = $loopCount + 1)
 		#end

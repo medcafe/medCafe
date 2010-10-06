@@ -1,13 +1,50 @@
-#foreach(  $problemDetail in $problem )
+#if ($problems)
+<a onclick="alert('Method to add a new problem goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 
-    #if ( $problemDetail.narrative == "A")
-        #set($status = "Active")
-    #else
-        #set($status = "Inactive")
-    #end
-    <p class="$status"><b>$problemDetail.problemName</b><br/>
-    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code $problemDetail.problemCode.code<br clear="all"/>
-    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started $problemDetail.problemDate.low.month/$problemDetail.problemDate.low.day/$problemDetail.problemDate.low.year ($status)<br clear="all"/>
-    </p>
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#foreach ($repos in $problems)
+
+			
+		#if ($repos.announce && $firstRepository == true)
+			$repos.announce.message
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+		#end
+		#if ($repos.problem)
+			#if ($firstRepository != true)
+				#if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
+				#end
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+			#end
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+
+			#foreach(  $problemDetail in $repos.problem )
+
+   			 #if ( $problemDetail.narrative == "A")
+   			     #set($status = "Active")
+   			 #else
+			        #set($status = "Inactive")
+			    #end
+			    <p class="$status"><b>$problemDetail.problemName</b><br/>
+			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code $problemDetail.problemCode.code<br clear="all"/>
+			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started $problemDetail.problemDate.low.month/$problemDetail.problemDate.low.day/$problemDetail.problemDate.low.year ($status)<br clear="all"/>
+			    </p>
+			#end
+		#end
+	#end
+	#if ($loopCount >= 2)
+			</div>
+		</div>
+	#end
+	</div>
 #end
-

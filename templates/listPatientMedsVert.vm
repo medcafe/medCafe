@@ -1,23 +1,61 @@
-#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
-#set ($oparen = "(")
-#set ($cparen = ")")
+#if ($medicines)
 <a onclick="alert('Method to add a new medication goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
-#foreach( $medication in $medications )
-    <b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
-        ## <li>Manufacturer Info: $medication.medicationInformation.manufacturedMaterial.freeTextBrandName
-        #if($medication.effectiveTime.value)
-            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  $medication.effectiveTime.value<br clear="all"/>
-        #end
-        #if($medication.dose.value)
-            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: $medication.dose.value<br clear="all"/>
-            #if($medication.deliveryMethod.value)
-                $oparen $medication.deliveryMethod.value $cparen
-            #end
-        #end
-        #if($medication.patientInstructions)
-            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: $medication.patientInstructions<br clear="all"/>
-        #end
-    ## Narrative: $medication.narrative
-    <br/>
+
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#foreach ($repos in $medicines)
+
+			
+		#if ($repos.announce && $firstRepository == true)
+			$repos.announce.message
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+		#end
+		#if ($repos.medications)
+			#if ($firstRepository != true)
+				#if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
+				#end
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+			#end
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+			#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
+			#set ($oparen = "(")
+			#set ($cparen = ")")
+
+
+			#foreach( $medication in $repos.medications )
+    			<b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
+        		## <li>Manufacturer Info: $medication.medicationInformation.manufacturedMaterial.freeTextBrandName
+        		#if($medication.effectiveTime.value)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  $medication.effectiveTime.value<br clear="all"/>
+        		#end
+        		#if($medication.dose.value)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: $medication.dose.value<br clear="all"/>
+            	#if($medication.deliveryMethod.value)
+                	$oparen $medication.deliveryMethod.value $cparen
+            	#end
+        		#end
+        		#if($medication.patientInstructions)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: $medication.patientInstructions<br clear="all"/>
+        		#end
+    			## Narrative: $medication.narrative
+    			<br/>
+			#end
+		#end
+	#end
+	#if ($loopCount >= 2)
+			</div>
+		</div>
+	#end
+	</div>
 #end
 

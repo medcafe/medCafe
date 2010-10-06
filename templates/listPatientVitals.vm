@@ -1,8 +1,11 @@
 #if ($vitalRecords)
+	#set ($printFirst = 0)
 	#foreach ($repos in $vitalRecords)
-		#if ($repos.vitals)
-			#set ($print = 0)
 
+		#if ($repos.vitals && $printFirst ==0)
+
+			#set ($print = 0)
+			#set ($printFirst = 1)
 			#foreach(  $vitalDetail in $repos.vitals )
 				#if ($print == 0)
 					<tr><td>
