@@ -370,11 +370,11 @@ function v2js_listMedicineList(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.medicines) {
+if (context.repositoryList) {
 var printFirst = 0;
 t.p('</p><br/><p>	');
-for (var i2=0;  i2<context.medicines.length; i2++) {
-var repos = context.medicines[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (printFirst == 0) {
@@ -415,14 +415,14 @@ function v2js_listPatientAllergies(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.alerts) {
+if (context.repositoryList) {
 t.p('	<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>	<div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.alerts.length; i2++) {
-var repos = context.alerts[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -480,12 +480,12 @@ function v2js_listPatientBio(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.patient) {
+if (context.repositoryList) {
 var printed = 0;
 var space = " ";
 t.p('   ');
-for (var i2=0;  i2<context.patient.length; i2++) {
-var repos = context.patient[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('   	');
 if (repos.patient_data) {
@@ -532,11 +532,11 @@ function v2js_listPatientHistory(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.medicalHistory) {
+if (context.repositoryList) {
 var printFirst = 0;
 t.p('</p><br><p>	');
-for (var i2=0;  i2<context.medicalHistory.length; i2++) {
-var repos = context.medicalHistory[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (printFirst == 0) {
@@ -579,14 +579,14 @@ function v2js_listPatientHistoryTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.medicalHistory) {
+if (context.repositoryList) {
 t.p('<a onclick="alert(\'Method to add medical history goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.medicalHistory.length; i2++) {
-var repos = context.medicalHistory[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -646,14 +646,14 @@ function v2js_listPatientImmunizations(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.vaccines) {
+if (context.repositoryList) {
 t.p('<a onclick="alert(\'Method to add a new immunization goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.vaccines.length; i2++) {
-var repos = context.vaccines[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -795,14 +795,14 @@ function v2js_listPatientMedsVert(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.medicines) {
+if (context.repositoryList) {
 t.p('<a onclick="alert(\'Method to add a new medication goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.medicines.length; i2++) {
-var repos = context.medicines[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -893,13 +893,13 @@ function v2js_listPatientTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.patient) {
+if (context.repositoryList) {
 t.p('<div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.patient.length; i2++) {
-var repos = context.patient[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -1220,11 +1220,11 @@ function v2js_listPatientVitals(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.vitalRecords) {
+if (context.repositoryList) {
 var printFirst = 0;
 t.p('	');
-for (var i2=0;  i2<context.vitalRecords.length; i2++) {
-var repos = context.vitalRecords[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (repos.vitals && printFirst == 0) {
@@ -1380,11 +1380,11 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
-if (context.problems) {
+if (context.repositoryList) {
 var printFirst = 0;
 t.p('	');
-for (var i2=0;  i2<context.problems.length; i2++) {
-var repos = context.problems[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (printFirst == 0) {
@@ -1421,14 +1421,14 @@ function v2js_listProblemListTable(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.problems) {
+if (context.repositoryList) {
 t.p('<a onclick="alert(\'Method to add a new problem goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.problems.length; i2++) {
-var repos = context.problems[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {
@@ -1587,14 +1587,14 @@ function v2js_listSupportInfo(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.contacts) {
+if (context.repositoryList) {
 t.p('<a onclick="alert(\'Method to add a new contact goes here\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
-for (var i2=0;  i2<context.contacts.length; i2++) {
-var repos = context.contacts[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('					');
 if (repos.announce && firstRepository == true) {

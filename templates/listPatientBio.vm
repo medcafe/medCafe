@@ -1,7 +1,7 @@
-#if ($patient)
+#if ($repositoryList)
    #set ($printed=0)
    #set ($space=" ")
-   #foreach ($repos in $patient)
+   #foreach ($repos in $repositoryList)
    	#if ($repos.patient_data)
    		#if ($printed == 0)
    			<tr><th colspan="2" style="text-align:left;">

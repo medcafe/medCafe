@@ -1,6 +1,6 @@
-#if ($vitalRecords)
+#if ($repositoryList)
 	#set ($printFirst = 0)
-	#foreach ($repos in $vitalRecords)
+	#foreach ($repos in $repositoryList)
 
 		#if ($repos.vitals && $printFirst ==0)
 

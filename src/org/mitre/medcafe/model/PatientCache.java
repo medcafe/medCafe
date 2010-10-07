@@ -172,7 +172,7 @@ public class PatientCache extends TimerTask {
                         patient.put("age", age);
                     }
                     patient.put("repository", repository);
-                    patientList.append("patient", patient);
+                    patientList.append("repositoryList", patient);
                 }
                 patientList.put("displayAll", false);
               //  System.out.println("PatientCache generating patient list line 141 JSONObject " + patientList.toString());
@@ -194,7 +194,7 @@ public class PatientCache extends TimerTask {
                     results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/vitals/latest");
                     JSONObject vitals = new JSONObject(results);
                     vitals.put("repository", repository);
-                    vitalsList.append("vitalRecords", vitals);
+                    vitalsList.append("repositoryList", vitals);
                 }
                 //System.out.println("PatientCache generating vitals list line 167 JSONObject " + vitalsList.toString());
             } catch (JSONException e) {
@@ -215,7 +215,7 @@ public class PatientCache extends TimerTask {
                     results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/medications");
                     JSONObject meds = new JSONObject(results);
                     meds.put("repository", repository);
-                    medicineList.append("medicines", meds);
+                    medicineList.append("repositoryList", meds);
                 }
                 //System.out.println("PatientCache generating medicine list line 141 JSONObject " + medicineList.toString());
             } catch (JSONException e) {
@@ -236,7 +236,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject alerts = new JSONObject(results);
                     alerts.put("repository", repository);
-                    alertList.append("alerts", alerts);
+                    alertList.append("repositoryList", alerts);
                 }
                 //System.out.println("PatientCache generating alert/allergy list line 175 JSONObject " + alertList.toString());
 
@@ -265,7 +265,7 @@ public class PatientCache extends TimerTask {
                     try {
                         JSONObject history = new JSONObject(results);
                         history.put("repository", repository);
-                        historyObject.append("medicalHistory", history);
+                        historyObject.append("repositoryList", history);
                     } catch (JSONException e) {
                         log.log(Level.SEVERE, "Error converting the results to JSON.  Raw string was [" + results + "]", e);
                     }
@@ -290,7 +290,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject problems = new JSONObject(results);
                     problems.put("repository", repository);
-                    problemList.append("problems", problems);
+                    problemList.append("repositoryList", problems);
                 }
                 //System.out.println("PatientCache generating problem list line 239 JSONObject " + problemList.toString());
 
@@ -312,7 +312,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject imageObj = new JSONObject(results);
                     imageObj.put("repository", repository);
-                    images.append("imageList", imageObj);
+                    images.append("repositoryList", imageObj);
                 }
                 //System.out.println("PatientCache generating image list line 198 JSONObject " + images.toString());
 
@@ -333,7 +333,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject vaccines = new JSONObject(results);
                     vaccines.put("repository", repository);
-                    immuneList.append("vaccines", vaccines);
+                    immuneList.append("repositoryList", vaccines);
                 }
                 //System.out.println("PatientCache generating immunization list line 175 JSONObject " + immuneList.toString());
 
@@ -355,7 +355,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject contacts = new JSONObject(results);
                     contacts.put("repository", repository);
-                    supportList.append("contacts", contacts);
+                    supportList.append("repositoryList", contacts);
                 }
                 //System.out.println("PatientCache generating support list line 175 JSONObject " + supportList.toString());
 
@@ -377,7 +377,7 @@ public class PatientCache extends TimerTask {
 
                     JSONObject encounter_data = new JSONObject(results);
                     encounter_data.put("repository", repository);
-                    encounterList.append("encounter_data", encounter_data);
+                    encounterList.append("repositoryList", encounter_data);
                 }
                 //System.out.println("PatientCache generating  list line 175 JSONObject " + encounterList.toString());
 

@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex .*;
+import java.lang.reflect.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -60,6 +61,8 @@ import org.restlet.data.Method;
 import org.restlet.data.Preference;
 import org.restlet.data.Protocol;
 import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
@@ -97,6 +100,8 @@ public class Event
 
 	public static final String DATE_FORMAT = "yyyy,MM,dd";//2008,6,08
 	public static final String SQL_DATE_FORMAT = "YYYY-MM-DD";
+
+	public static final String PRIMARY_REPOSITORY = "PrimaryOnly";
 
 	public static final String NOTE_TYPE = "Records";
 	public static final String APPT_TYPE = "Visits";
@@ -144,6 +149,10 @@ public class Event
 	public static String[] getEventList()
 	{
 		return new String[]{Event.SYMPTOMS_TYPE,Event.PROBLEMS_TYPE,Event.APPT_TYPE,Event.HOSPITAL_TYPE,Event.FILE_TYPE,Event.NOTE_TYPE, Event.IMMUNIZATION_TYPE, Event.ENCOUNTER_TYPE};
+	}
+	public static String[] getPatientCacheMethodList()
+	{
+		return new String[] {null, "getProblemList", null, null, null, null, "getImmuneList", "getEncounterList"};
 	}
 
 	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, Application application, JSONObject repositories) throws SQLException, ParseException
@@ -386,17 +395,33 @@ public class Event
 				 JSONObject infoObj = immObj.getJSONObject("medicationInformation");
 				 infoObj = infoObj.getJSONObject("manufacturedMaterial");
 				 String immTitle = infoObj.getString("freeTextBrandName");
-				 String desc = immObj.getString("narrative");
-				 desc.replaceAll("^", "<br/>");
+				 String descTemp = immObj.getString("narrative");
+				 String desc = "";
+				 int index = 0;
+				 while (index != -1)
+				 {
+				 	int newIndex = descTemp.indexOf("^", index);
+				 	if (newIndex != -1)
+				 	{
+				 		desc = desc + descTemp.substring(index, newIndex) + "<br>";
+				 		index = newIndex + 1;
+				 	}
+				 	else
+				 	{
+				 		desc = desc + descTemp.substring(index);
+				 		index = newIndex;
+				 	}
+				 }
+
 				 try {
-				 	desc = desc+ "<br/>Refused:  " + immObj.getBoolean("refusal");
+				 	desc = desc+ "<br>Refused:  " + immObj.getBoolean("refusal");
 				 }
 				 catch (JSONException jsonE)
 				 {
 				 	log.finer("No refusal information in immunization record of patient # " + repPatientId + " for " + immTitle);
 				 }
 				 try {
-				 	desc = desc + "<br/>Administered by: ";
+				 	desc = desc + "<br>Administered by: ";
 				 	JSONObject perfObj = immObj.getJSONObject("performer");
 				 	JSONObject personObj = perfObj.getJSONObject("person");
 					desc = desc + getPersonName(personObj);
@@ -492,6 +517,7 @@ public class Event
 		}
  else		if (type.equals(Event.ENCOUNTER_TYPE))
 		{
+			System.out.println(jsonResults.toString());
 
 			if (!jsonResults.has("encounters"))
 			{
@@ -540,7 +566,7 @@ public class Event
 				 			desc = "Conditions: ";
 				 		JSONObject condObj = (JSONObject) condArray.get(j);
 				 		JSONObject probObj = condObj.getJSONObject("problemCode");
-				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br/>";
+				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -555,7 +581,7 @@ public class Event
 				 		JSONObject examObj = (JSONObject) examArray.get(j);
 				 		JSONObject examTypeObj = examObj.getJSONObject("examType");
 				 		JSONObject resultObj = examObj.getJSONObject("result");
-				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br/>";
+				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -569,7 +595,7 @@ public class Event
 				 			desc = desc + "Procedures: ";
 				 		JSONObject procObj = (JSONObject) procedureArray.get(j);
 				 		JSONObject codeObj = procObj.getJSONObject("procedureCode");
-				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br/>";
+				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -591,7 +617,7 @@ public class Event
 				 		catch (JSONException jsonE2)
 				 		{
 				 		}
-				 		desc = desc + "<br/>";
+				 		desc = desc + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -604,7 +630,7 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Test Results: ";
 				 		JSONObject resultsObj = (JSONObject) resultsArray.get(j);
-				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br/>";
+				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -617,7 +643,13 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Immunizations: ";
 				 		JSONObject immObj = (JSONObject) immArray.get(j);
-				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName") + " - " + immObj.getString("narrative") + "<br/>";
+				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName");
+				 		String[] descArray = immObj.getString("narrative").split("^");
+				 		for (int k = 0; k< descArray.length; k++)
+				 		{
+				 			desc = desc + " - " + descArray[k];
+				 		}
+				 		desc = desc + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -630,7 +662,7 @@ public class Event
 				 		if (j == 0)
 				 			desc = desc + "Topics Discussed: ";
 				 		JSONObject topicsObj = (JSONObject) topicsArray.get(j);
-				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br/>";
+				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -650,7 +682,7 @@ public class Event
 				 		catch (JSONException jsonE2)
 				 		{
 				 		}
-				 		desc = desc + "<br/>";
+				 		desc = desc + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
@@ -665,15 +697,13 @@ public class Event
 				 		JSONObject providerObj = (JSONObject) providerArray.get(j);
 				
 				 		JSONObject personObj = providerObj.getJSONObject("person");
-				 		desc = desc + getPersonName(personObj) + "<br/>";
+				 		desc = desc + getPersonName(personObj) + "<br>";
 				 	}
 				 }
 				 catch (JSONException jsonE)
 				 {
 				 }
-				 desc = desc.replace('^', ' ');
-				 	/*			 {"repository":"OurVista","encounters":[{"conditions":[{"narrative":"ROUTINE INFANT OR CHILD HEALTH CHECK","treatingProvider":[],"problemCode":{"codeSystemName":"ICD9","codeSystem":"2.16.840.1.113883.6.104","value":"ROUTIN CHILD HEALTH EXAM","code":"V20.2"},"problemName":"ROUTIN CHILD HEALTH EXAM"}],"healthFactors":[],"results":[{"resultDateTime":{"high":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":10,"year":2005,"hour":0,"day":1},"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29}},"resultInterpretation":{"value":"NEGATIVE"},"resultValue":0,"resultType":{"value":"TINE"}}],"encounterDate":{"low":{"minute":30,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":14,"day":29}},"encounterId":{"extension":"10B5-TEST","root":"8"},"encounterProvider":[{}],"immunizations":[{"narrative":"Series: PARTIALLY COMPLETE Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"DIP.,PERT.,TET. (DPT)"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: LETHARGY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"POLIOMYELITIS"}},"refusal":false},{"narrative":"Series: BOOSTER Reaction: IRRITABILITY Contraindicated: NO (OK TO USE IN THE FUTURE)","administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2005,"hour":0,"day":29},"performer":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}},"medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"MEASLES,MUMPS,RUBELLA (MMR)"}},"refusal":false}],"education":[{"patientUnderstanding":{"value":"GOOD"},"topic":{"value":"VA-IMMUNIZATIONS"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}]}],"exams":[{"result":{"value":"NORMAL"},"providers":[{"providerRoleFreeText":"Encounter Provider","providerEntity":{"person":{"name":{"given":[],"lastname":"POSTMASTER"}}}}],"examType":{"value":"GENERAL DEVELOPMENT EXAM"}}],"procedures":[],"encounterType":{"value":"OUTPATIENT"},"treatments":[]}],"patient_id":"8"} */
-				 	
+				
 				 event.setDescription(desc);
 				 event.setTitle(encTitle);
 				 event.setIcon(icon);
@@ -683,6 +713,128 @@ public class Event
 
 
 		}
+		return eventList;
+	}
+	public static JSONObject getJsonEventsFromCache(PatientCache cache, String primary, String[] events, Date startDate, Date endDate, String server, String userName)
+	{
+		try{
+			ArrayList<Event> eventList = getEventsFromCache(cache, primary, events, userName);
+			JSONObject obj = new JSONObject();
+			ArrayList<String> dates = new ArrayList<String>();
+      	String dir = "patients/" + cache.getDatabasePatientId() + "/";
+      	String imageDir = "images/" + dir;
+
+      	int i=0;
+      	DateFormat startFormat = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
+      	
+      	DateFormat eventDf = new SimpleDateFormat(Event.DATE_FORMAT);
+			for(Event event: eventList)
+      	{
+      		Date date = event.getEventDate();
+      		if (date.compareTo(startDate)>=0 && date.compareTo(endDate)<=0)
+      	   {
+      	  		JSONObject inner_obj = new JSONObject ();
+      	   	inner_obj.put("start", date);
+      	   	if (!event.getIcon().equals(""))
+      	   		inner_obj.put("icon", "http://" + server + "/images/" + event.getIcon());
+      	   	inner_obj.put("title", event.getTitle());
+      	 		if (!event.getFileUrl().equals(""))
+      	 			inner_obj.put("image", "http://" + server + "/" + imageDir +  event.getFileUrl());
+      	 		if (!event.getLink().equals(""))
+      	 			inner_obj.put("link", "http://" + server + "/images/" + event.getLink());
+      	 		inner_obj.put("type", event.getType());
+      	 		inner_obj.put("repository", event.getRepository());
+      	 		inner_obj.put("rep_patient_id", event.getRepPatientId());
+      	 		inner_obj.put("description", event.getDescription());
+      	 		obj.append("events", inner_obj); 
+					String dateStr = eventDf.format(date);
+					dates.add(dateStr);
+					i++;
+				}
+			}	
+      //	String jsonStr = obj.toString();
+      //	jsonStr = putInDates(jsonStr, dates);
+      //	System.out.println("PatientListEventRestlet : toJSON: " + jsonStr);
+      //	JsonRepresentation json = new JsonRepresentation(jsonStr);
+      	return obj;
+      }
+      catch(org.json.JSONException e)
+   	{
+    		log.throwing(KEY, "toJson()", e);
+    		try{
+    		JSONObject errorObj = new JSONObject();
+    		errorObj.put("error", e.getMessage());
+    		return errorObj;
+    		}
+    		catch (JSONException jsonE)
+    		{
+    			log.log(Level.SEVERE, "Error creating event object!");
+    			return null;
+    		}
+    		
+    		 
+		} 
+
+	}
+	public static ArrayList<Event> getEventsFromCache(PatientCache cache, String primary, String[] events, String userName)
+	{
+		ArrayList<Event> eventList = new ArrayList<Event>();
+		String[] listOfEvents = getEventList();
+		String[] methodNames = getPatientCacheMethodList();
+		String primaryRepos = cache.getPrimaryRepos();
+		try{
+			Class c = Class.forName("org.mitre.medcafe.model.PatientCache");
+
+			for (String event : events)
+			{
+				for (int i = 0; i< listOfEvents.length; i++)
+				{
+					if (event.equals(listOfEvents[i]) && methodNames[i] != null)
+					{
+						java.lang.reflect.Method method = c.getMethod(methodNames[i], new Class[0]);
+						JSONObject obj = (JSONObject) method.invoke(cache, new Object[0]);
+						JSONArray array = obj.getJSONArray("repositoryList");
+						for (int j= 0; j<array.length(); j++)
+						{
+						
+							JSONObject resObj = array.getJSONObject(j);
+							String repository = resObj.getString("repository"); 
+						
+							if (!primary.equals("true") || repository.equals(primaryRepos))
+							{
+
+								ArrayList<Event> newList = getEventObject(resObj, userName, cache.getDatabasePatientId(), cache.getRepoPatientId(repository), repository, event, getIcons().get(event));
+								eventList.addAll(newList);
+							
+							} 
+						}
+						break;		
+					}
+				}
+			}
+		}
+		catch(ClassNotFoundException classE)
+		{
+			classE.printStackTrace();
+		}
+		catch(JSONException jsonE)
+		{
+			jsonE.printStackTrace();
+		}
+		catch(NoSuchMethodException noSuchE)
+		{
+			noSuchE.printStackTrace();
+		}
+		catch(SecurityException secE)
+		{
+			secE.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+		
 		return eventList;
 	}
 	public static String getPersonName(JSONObject person)
@@ -841,5 +993,16 @@ public class Event
 	        log.finer( "Finished retrieval of " + endpoint );
 	        return out.toString();
 	    }
+	  private static String putInDates(String jsonStr, ArrayList<String> dates)
+    {
+    	int i=0;
+    	//new Date (" +  dates[i] + ")
+    	for (String date: dates)
+    	{
+    		jsonStr = jsonStr.replaceAll("\"<:startDate" + i + ":>\"", "new Date (" +  date + ")");
+    		i++;
+    	}
+    	return jsonStr;
+    }
 
 }

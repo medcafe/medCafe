@@ -96,7 +96,7 @@ function processTimeline(callObj, widgetInfo, data)
 		eventSource.clear();
 		var listJSON = "listTimelineJSON.jsp?";
 		var eventList = getTimelineEvents();
-		listJSON = listJSON + eventList;
+		listJSON = listJSON + eventList.substring(1);
 
 		$.getJSON(listJSON, function(data)
 		{

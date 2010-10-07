@@ -1,8 +1,8 @@
-#if ($patient)
+#if ($repositoryList)
 <div class="repository-content">
 	#set ($firstRepository = true)
 	#set ($loopCount = 0)
-	#foreach ($repos in $patient)
+	#foreach ($repos in $repositoryList)
 
 			
 		#if ($repos.announce && $firstRepository == true)

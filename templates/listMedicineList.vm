@@ -1,7 +1,7 @@
-#if ($medicines)
+#if ($repositoryList)
 #set ($printFirst = 0)
 </p><br/><p>
-	#foreach ($repos in $medicines)
+	#foreach ($repos in $repositoryList)
 		#if ($printFirst == 0)
 			#set ($printFirst = 1)	
 			#if ($repos.medications)

@@ -1,8 +1,8 @@
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary">
 <thead></thead><tbody>
-#if ($problems)
+#if ($repositoryList)
 #set ($printFirst = 0)
-	#foreach ($repos in $problems)
+	#foreach ($repos in $repositoryList)
 		#if ($printFirst == 0)
 			#set ($printFirst = 1)	
 			#if ($repos.problem)

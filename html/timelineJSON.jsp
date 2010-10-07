@@ -24,6 +24,7 @@
 	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String[] events  = request.getParameterValues("event");
+
 	if (events == null)
 	{
 		Object eventsObj = session.getAttribute("timelineEvents");
@@ -38,6 +39,7 @@
 	{
 		listEvents += "&event=" + eventVal;
 	}
+
 %>
 
 
@@ -76,7 +78,12 @@
             		<%=eventListVal%></input><br/>
             		<% 
             			}
-            		} %>
+            		} 
+            		
+            		boolean checked = true;
+            			%>
+            			<br/>
+            			<b>Primary Repository</b><input type="checkbox" class="eventChkBox" value=<%=Event.PRIMARY_REPOSITORY%> name="event" checked="<%=checked%>"/>
             		<br/>
             		
          		

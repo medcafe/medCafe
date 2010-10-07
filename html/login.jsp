@@ -99,7 +99,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
          </fieldset>
          </form>
          </div>
-        <center><img style="height:33%" alt="tired doc" src="${images}/doctor_logo.png"/></center>
+        <!--center><img style="height:33%" alt="tired doc" src="${images}/doctor_logo.png"/></center><--->
     </div>
 
     <div style="margin-left:420px;padding:1.5em;border:1px solid black;">

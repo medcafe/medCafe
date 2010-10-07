@@ -1,10 +1,10 @@
-#if ($vaccines)
+#if ($repositoryList)
 <a onclick="alert('Method to add a new immunization goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 
 <div class="repository-content">
 	#set ($firstRepository = true)
 	#set ($loopCount = 0)
-	#foreach ($repos in $vaccines)
+	#foreach ($repos in $repositoryList)
 
 			
 		#if ($repos.announce && $firstRepository == true)
