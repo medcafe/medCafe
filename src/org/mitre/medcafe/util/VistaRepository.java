@@ -509,8 +509,9 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
             closeConnection(conn);
-            return list;
+
         }
+        return list;
     }
 
     public List<Support> getSupportInfo(String id) {
@@ -549,8 +550,9 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
             closeConnection(conn);
-            return list;
+
         }
+        return list;
     }
 
     public List<Medication> getMedications(String id) {
@@ -604,8 +606,9 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
             closeConnection(conn);
-            return list;
+
         }
+        return list;
     }
 
     public List<Immunization> getImmunizations(String id) {
@@ -630,8 +633,9 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
             closeConnection(conn);
-            return list;
+
         }
+        return list;
     }
 
     private List<Result> getVitals(String id, boolean latest) {
@@ -710,7 +714,7 @@ public class VistaRepository extends Repository {
             log.severe("Error retrieving patient vitals.");
             e.printStackTrace(System.err);
         } finally {
-             conn.close();
+             closeConnection(conn);
         }
         return results;
     }
@@ -767,8 +771,9 @@ public class VistaRepository extends Repository {
             log.throwing(KEY, "Error retreiving PatientItems", e);
         } finally {
             closeConnection(conn);
-            return list;
+
         }
+        return list;
     }
 
     private boolean stringExists(String testString) {

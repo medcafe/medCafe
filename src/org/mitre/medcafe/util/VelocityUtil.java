@@ -45,7 +45,7 @@ public class VelocityUtil
         if( node instanceof JSONObject )
         {
             JSONObject jobj = (JSONObject) node;
-            Map child = new HashMap();
+            Map<Object, Object> child = new HashMap<Object, Object>();
             Iterator keys = jobj.keys();
             while(keys.hasNext())
             {
@@ -56,7 +56,7 @@ public class VelocityUtil
         }
         else if( node instanceof JSONArray )
         {
-            List child = new ArrayList();
+            List<Object> child = new ArrayList<Object>();
             //leaf node is an array of JSONObjects which better have a property matching tokens[0]
             JSONArray leaf = (JSONArray)node;
             for(int i = 0; i < leaf.length(); i++)
@@ -76,12 +76,12 @@ public class VelocityUtil
      */
     public static Map json2Map(JSONObject obj) throws JSONException
     {
-        Map root = new HashMap();
+        Map<String, Object> root = new HashMap<String, Object>();
         Iterator keys = obj.keys();
         while(keys.hasNext())
         {
             String key = (String)keys.next();
-            root.put(key, process( obj.get((String)key)));
+            root.put(key, process( obj.get(key)));
         }
         return root;
     }

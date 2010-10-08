@@ -14,6 +14,8 @@ import org.projecthdata.hdata.schemas._2009._06.core.CodedValue;
 
 public class ProcedureCode extends CodedValue{
 
+	public static final long serialVersionUID = 12346L;
+
     public ProcedureCode()
     {
         super();

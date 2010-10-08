@@ -28,23 +28,7 @@ var medCafeWidget =
 				    },
 	        		widgetIndSettings : 
 					{
-			             intro : 
-			             {
-				            id : 1,
-							order : 1,
-							tab_num : 1,
-							column: 1, 
-							repository : 'OurVista',
-							type: 'images',
-							location : 'center',
-							clickUrl :'http://127.0.0.1:8080',
-							name : 'widget name',
-							server : 'http://127.0.0.1:8080/',
-							patient_id :1,
-							rep_patient_id :1,
-							remove :'false',
-							iNettuts: 'true'
-						}
+
 					}	
 			},
 			test: function(txt)
@@ -265,34 +249,37 @@ function saveWidgets(oldPatient)
 	//				}
 	//				});
 					    	var widgetSettings;
-
+			var widgetIDs = medCafeWidget.getAllIds();
+			if (widgetIDs.length > 0)
+			{
             			//url = url + "?";
             			order = 1;
             			tab = 1;
-			$('.tabs').parent().find(".tabContent").each(function(i)
+			$('.tabs').parent().find(".tabHeader").each(function(i)
 			{	
 				var iNettuts = true;
 				var newTab = true;
-				var tabName = $(this).find('.id').attr("id");
-				if ($(this).hasClass("no-iNettuts"))
+				var linkName = $(this).attr("id");
+				
+				var actualTabNum = linkName.split("-")[1];
+				alert (actualTabNum);
+				var tabObject=$('.tabs').parent().find("#tabs-" + actualTabNum);
+
+				if ($(tabObject).hasClass("no-iNettuts"))
 				{
 					iNettuts = false;
 				}	
-				$(this).find('.widget').each(function()
-				{
-    				
-    				var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
+		var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr(widgetIDs[0]));
     				if (widgetSettings == "")
     				{
     					alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
     		
     					return;
     				}
-    				//alert(widgetSettings.tab_num);
-    				tabName = $("#tabs-" +  widgetSettings.tab_num + "-link").find('span').text();
+				    				//alert(widgetSettings.tab_num);
+    				tabName = $(this).find('span').text();
     				//alert (tabName);
-    				if (newTab)
-    				{
+    			
     					widgetTabSettings = {
 						"name" : tabName,
 						"type" : "tab",
@@ -318,8 +305,18 @@ function saveWidgets(oldPatient)
             	});
 
 				order ++;
-				newTab = false;
+
+				$(tabObject).find('.widget').each(function()
+				{
+    				
+    				var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
+    				if (widgetSettings == "")
+    				{
+    					alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
+    		
+    					return;
     				}
+
     				if (iNettuts)
     				{
     					var column = $(this).closest(".column").attr("id").substring(6);
@@ -367,7 +364,7 @@ function saveWidgets(oldPatient)
     				});
     				tab++;
     				});
-    				
+    				}
 
 		//Code to cycle through the widgets and save
 	

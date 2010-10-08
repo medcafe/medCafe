@@ -49,6 +49,7 @@ public class InitServlet extends HttpServlet
     public final static String KEY = InitServlet.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     static{log.setLevel(Level.FINER);}
+    public static final long serialVersionUID = 1L;
 
     /**
      *  Constructor for the PqmServlet object

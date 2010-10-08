@@ -117,7 +117,7 @@ public class Repositories
 
     public static List<String> getRepositoryNames()
     {
-        return new ArrayList(repos.keySet());
+        return new ArrayList<String>(repos.keySet());
     }
 
 

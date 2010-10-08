@@ -783,7 +783,7 @@ public class Event
 		String[] methodNames = getPatientCacheMethodList();
 		String primaryRepos = cache.getPrimaryRepos();
 		try{
-			Class c = Class.forName("org.mitre.medcafe.model.PatientCache");
+			Class<?> c = Class.forName("org.mitre.medcafe.model.PatientCache");
 
 			for (String event : events)
 			{
@@ -860,19 +860,19 @@ public class Event
 	public static HashMap<String,String> getIcons()
 	{
 	    	HashMap<String,String> icons = new HashMap<String,String>();
-	    	String icon = "notes.png";
+	    	String icon = "green-circle.png";
 	    	icons.put(Event.NOTE_TYPE, icon);
-	    	icon = "results.png";
+	    	icon = "gray-circle.png";
 	    	icons.put(Event.FILE_TYPE, icon);
-	    	icon = "doctor-icon.png";
+	    	icon = "dull-blue-circle.png";
 	    	icons.put(Event.APPT_TYPE, icon);
-	    	icon = "immunization-icon.png";
+	    	icon = "dark-green-circle.png";
 	    	//icon = "dull-blue-circle.png";
 	    	icons.put(Event.IMMUNIZATION_TYPE, icon);
-         icon = "doctors_bag.png";
+         icon = "dark-blue-circle.png";
          //      icon = "green-circle.png";
                 icons.put(Event.ENCOUNTER_TYPE, icon);
-         icon = "sadface.png";
+         icon = "red-circle.png";
          icons.put(Event.PROBLEMS_TYPE, icon);
 
 	    	return icons;
@@ -974,7 +974,7 @@ public class Event
 	        Response resp = new Response( req );
 	        ClientInfo clientInfo = req.getClientInfo();
 	        List<Preference<MediaType>> mediaTypes = clientInfo.getAcceptedMediaTypes();
-	        mediaTypes.add( new Preference( MediaType.APPLICATION_JSON, 1.0F) );
+	        mediaTypes.add( new Preference<MediaType>( MediaType.APPLICATION_JSON, 1.0F) );
 	        app.handle(req, resp);
 	        StringWriter out = new StringWriter();
 	        if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable() ) {

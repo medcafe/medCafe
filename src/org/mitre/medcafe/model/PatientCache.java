@@ -399,7 +399,7 @@ public class PatientCache extends TimerTask {
         Response resp = new Response(req);
         ClientInfo clientInfo = req.getClientInfo();
         List<Preference<MediaType>> mediaTypes = clientInfo.getAcceptedMediaTypes();
-        mediaTypes.add(new Preference(MediaType.APPLICATION_JSON, 1.0F));
+        mediaTypes.add(new Preference<MediaType>(MediaType.APPLICATION_JSON, 1.0F));
         app.handle(req, resp);
         StringWriter out = new StringWriter();
         if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable()) {

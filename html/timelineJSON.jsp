@@ -20,6 +20,9 @@
         return;
     }
 	patient_id = cache.getDatabasePatientId();
+
+      	String iconDir = server + "/images/";
+      	
 	System.out.println("timelineJSON.jsp patientId " + patient_id);
 	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
@@ -69,13 +72,15 @@
             			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event" 
             		<%
             			boolean checked= false;
+							String imageFile = Event.getIcons().get(eventListVal);
             			if (Arrays.asList(events).contains(eventListVal))
+
             			{
             		%>
             		checked="<%=checked%>"
             		<%}%>
             		>
-            		<%=eventListVal%></input><br/>
+            		<img src="<%=iconDir%><%=imageFile%>" align=ABSMIDDLE/> <%=eventListVal%></input><br/>
             		<% 
             			}
             		} 

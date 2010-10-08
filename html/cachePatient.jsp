@@ -2,6 +2,11 @@
 
 	String patientId = WebUtils.getRequiredParameter( request, "patient_id" );
 	String primaryRepos = WebUtils.getRequiredParameter(request, "repository");
+	String primarySet = (String) session.getAttribute("primaryRepository");
+	if (primarySet == null)
+		session.setAttribute("primaryRepository", primaryRepos);
+	else
+		primaryRepos = primarySet;
    // String primaryRepos = "OurVista";
     PatientCache cache = new PatientCache( patientId, application, primaryRepos );
     Thread t = new Thread( cache );

@@ -6,10 +6,10 @@ function processTimeline(callObj, widgetInfo, data)
  	var d = Timeline.DateTime.parseGregorianDateTime("2009");
  	
  	var theme = Timeline.ClassicTheme.create();
- 	theme.event.instant.iconWidth = 25;
- 	theme.event.instant.iconHeight = 30;
- 	theme.event.track.height = 30;
- 	
+ /*	theme.event.instant.iconWidth = 10;
+ 	theme.event.instant.iconHeight = 10;
+ 	theme.event.track.height = 15;
+ */	
  	theme.event.bubble.width = 320;
             theme.ether.backgroundColors = [
                 "#FDE5A7",

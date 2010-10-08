@@ -34,6 +34,7 @@ public class EncounterDetail extends Encounter {
     private List<Treatment> treatments;
     private List<Procedure> procedures;
     private List<HealthFactor> healthFactors;
+    public static final long serialVersionUID = 12352L;
 
     public EncounterDetail()
     {

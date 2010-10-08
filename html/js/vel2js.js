@@ -131,11 +131,11 @@ function v2js_listAlertList(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-if (context.alerts) {
+if (context.repositoryList) {
 var printFirst = 0;
 t.p('</p><br><p>	');
-for (var i2=0;  i2<context.alerts.length; i2++) {
-var repos = context.alerts[i2];
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (printFirst == 0) {

@@ -9,6 +9,9 @@ package org.mitre.medcafe.util;
  */
 public class NotImplementedException extends Exception
 {
+
+	public static final long serialVersionUID = 1235L;
+	
 	public NotImplementedException()
 	{
 		super();

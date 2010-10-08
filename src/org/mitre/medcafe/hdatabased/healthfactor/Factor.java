@@ -12,7 +12,8 @@ package org.mitre.medcafe.hdatabased.healthfactor;
 import org.projecthdata.hdata.schemas._2009._06.core.CodedValue;
 
 public class Factor extends CodedValue{
-
+	public static final long serialVersionUID = 12349L;
+   
     public Factor()
     {
         super();
