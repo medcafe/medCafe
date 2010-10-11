@@ -73,8 +73,12 @@ public class PatientImagesResource extends ServerResource {
 
         String endDateStr = form.getFirstValue("end_date");
         if (endDateStr == null)
-        	endDateStr = "01/01/2012";
-
+        {
+        		Date today = new Date();
+        		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        	//	endDateStr = "01/01/2012";
+        		endDateStr = df.format(today);
+			}
         category = form.getFirstValue("filter");
 
         log.finer("PatientImageResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
@@ -242,7 +246,8 @@ public class PatientImagesResource extends ServerResource {
                 inner_obj.put("name", file.getTitle());
                 inner_obj.put("param", server + "/" + imageDir +  file.getFileUrl());
                 inner_obj.put("thumb",  file.getThumbnail());
-
+					 inner_obj.put("file_date", file.getFileDate());
+					 inner_obj.put("category", file.getCategory());
                 obj.append("images", inner_obj);  //append creates an array for you
                 log.finer("PatientImagesResource: toJSON : image directory " + imageFileDir);
 
