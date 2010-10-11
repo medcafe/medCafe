@@ -212,6 +212,8 @@ function populate(url, patient_id)
 
 		   }
 			var previous_id =0;
+			var previous_col = 0;
+			var previous_tab = 0;
 		   if (data.widgets){
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
@@ -236,8 +238,15 @@ function populate(url, patient_id)
 					if (!data.widgets[i].collapsed || data.widgets[i].collapsed == "")
 						data.widgets[i].collapsed == 'false';
 
-                parent.createWidgetContent( data.widgets[i], true );
-
+				   // This allows the widget to be added only after the widget before it
+				   // has been created so that order is maintained.  The only exception
+				   // is for an excessive delay of the previous widget insertion
+						delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1);
+				
+             //   parent.createWidgetContent( data.widgets[i], true );
+					 previous_id = data.widgets[i].id;
+					 previous_tab = data.widgets[i].tab_num;
+					 previous_col = data.widgets[i].column;
 
 		   	}
 		  // 		$(parent).delay(700* data.widgets.length,function()
@@ -313,7 +322,36 @@ function addCreateAssocButton( patient_id, role)
 
 	});
 }
-
+function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num)
+{
+	if (prev_id == 0 || prev_tab != widgetInfo.tab_num || prev_col != widgetInfo.column)
+	{
+		 callObj.createWidgetContent( widgetInfo, true );
+	}
+	else
+	{
+		if (num<50)
+		{
+			if ($("#yellow-widget"+prev_id).length<=0)
+			{
+				//alert("#yellow-widget"+widgetInfo.id + "  length:  " + $("#yellow-widget" + widgetInfo.id).length);
+				$(callObj).delay(100,function()
+				{
+					num++;
+					delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num);
+				});
+			}
+			else
+			{
+				callObj.createWidgetContent( widgetInfo, true );	
+			}	
+		}
+		else
+		{
+			callObj.createWidgetContent( widgetInfo, true );
+		}
+	}
+}
 function addPatientDetail(obj, widgetInfo, data)
 {
 		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";

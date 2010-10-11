@@ -340,6 +340,7 @@ var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('		');
 if (repos.images && repos.repository == "local") {
+t.p('		');
 t.p('			');
 for (var i4=0;  i4<repos.images.length; i4++) {
 var image = repos.images[i4];

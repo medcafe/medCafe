@@ -191,7 +191,7 @@ function bindClose()
 
 
 
-<div class="id" id="<%=title%>"></div>
+<!--<div class="id" id="<%=title%>"></div>-->
 <div id="columns">
 	<div id="column1" class="column inettuts-container"></div>
 	<div id="column2" class="column inettuts-container"></div>
