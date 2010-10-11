@@ -30,7 +30,8 @@
 	String dates = null;
 	String rep = "local";
 	patientId = cache.getRepoPatientId(rep);
-	
+	String user =  request.getRemoteUser();
+ 	/*
 	System.out.println("coverFeed.jsp patient_id " + patientId );
 	// String url = coverflowFile;
 	String url = "/repositories/" + rep +"/patients/" +  patientId + "/images";
@@ -55,7 +56,7 @@
 			append="&";
 	}
 
-	String user =  request.getRemoteUser();
+	//String user =  request.getRemoteUser();
 	url += append + "user=" + user;
 
 	System.out.println("coverFeed.jsp url " + url );
@@ -77,19 +78,25 @@
 
     if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable()) {
         resp.getEntity().write(writer);
-    }
+    } */
 
-    try
-    {
-        JSONObject obj = new JSONObject( String.valueOf(writer));
+    //try
+   // {
+    	  JSONObject obj = cache.getFilteredImages(startDate, endDate, filterCat, user);
+    	 // System.out.println(obj.toString());
+     // JSONObject obj = new JSONObject( String.valueOf(writer));
+     //   System.out.println("Image Object: " + obj.toString());
+     //   System.out.println(" Cache Object: " + cache.getImages().toString());
         StringWriter imageDivs = new StringWriter();
         VelocityUtil.applyTemplate( obj, "listImages.vm", imageDivs);
+       // System.out.println(imageDivs.toString().replaceAll("<:prefix:>", "http://" + Config.getServerUrl() + "/images/patients/" + patientId + "/" ));
+        
         out.write( imageDivs.toString().replaceAll("<:prefix:>", "http://" + Config.getServerUrl() + "/images/patients/" + patientId + "/" ) );
-    }
-    catch(org.json.JSONException e)
-    {
-        System.out.println(  String.valueOf(writer) );
-        throw e;
-    }
+   // }
+   // catch(org.json.JSONException e)
+   // {
+    //    System.out.println(  String.valueOf(writer) );
+    //    throw e;
+   // }
 %>
 

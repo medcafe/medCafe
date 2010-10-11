@@ -1,11 +1,16 @@
 /* Copyright 2010 The MITRE Corporation.  ALL RIGHTS RESERVED. */
 package org.mitre.medcafe.model;
 
-import java.sql.*;
+//import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import org.json.*;
 import org.mitre.medcafe.restlet.*;
 import org.mitre.medcafe.util.*;
@@ -449,6 +454,96 @@ public class PatientCache extends TimerTask {
             log.severe("Interrupted while getting images from patient cache.");
         }
         return this.images;
+    }
+    public JSONObject getFilteredImages(String startDateStr, String endDateStr, 
+    			String filterCat, String user){
+    		JSONObject retObj;
+    		JSONObject obj = getImages();
+    		if ((startDateStr == null ||startDateStr.equals(""))&&(endDateStr == null ||
+    			endDateStr.equals(""))&&(filterCat == null ||filterCat.equals("")))
+    			return obj;
+         if (startDateStr == null)
+        	startDateStr = "01/01/1950";
+        	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        if (endDateStr == null)
+        {
+        		Date today = new Date();
+
+        	//	endDateStr = "01/01/2012";
+        		endDateStr = df.format(today);
+			}
+			Date startDate, endDate;
+			try {
+			startDate = df.parse(startDateStr);
+			endDate = df.parse(endDateStr);
+			}
+			catch (ParseException parseE)
+			{
+				log.severe("Error parsing filter dates, using default dates");
+				endDate = new Date();
+				GregorianCalendar cal = new GregorianCalendar(1950, 1, 1);
+				startDate = cal.getTime();
+			}
+			boolean categories = false;
+			String[] catFilters = new String[0];
+			if (filterCat != null && !filterCat.equals(""))
+			{
+				catFilters = filterCat.split(",");
+				categories = true;
+			}
+			retObj = new JSONObject();
+			SimpleDateFormat fileDateFormat = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
+			try{
+			JSONArray objArray = obj.getJSONArray("repositoryList");
+			for (int i = 0; i < objArray.length(); i++)
+			{
+				JSONObject reposObject = objArray.getJSONObject(i);
+				String repos = reposObject.getString("repository");
+				JSONArray imageArray = reposObject.getJSONArray("images");
+				JSONObject newImages = new JSONObject();
+				for (int j = 0; j < imageArray.length(); j++)
+				{
+					JSONObject imageObj = imageArray.getJSONObject(j);
+					String dateStr = imageObj.getString(MedCafeFile.DATE);
+					Date imageDate = null;
+					try {
+						imageDate = fileDateFormat.parse(dateStr);
+						}
+					catch (ParseException parseE)
+					{
+						log.severe("Error parsing date of image " + imageObj.getString("name"));
+						break;
+					}
+					if (imageDate.compareTo(endDate)<= 0 && imageDate.compareTo(startDate)>=0)
+					{
+						if (categories)
+						{	
+							for (String cat : catFilters)
+							{
+								if (cat.equals(imageObj.getString("category")))
+									newImages.append("images", imageObj);
+									break;
+							 }
+						}
+						else
+						{
+							newImages.append("images", imageObj);
+						}
+					}
+					
+				}
+			
+				newImages.put("repository", repos);
+				retObj.append("repositoryList", newImages);
+					
+			
+			}
+			}
+			catch (JSONException e) {
+                log.severe(e.getMessage());
+                retObj = WebUtils.buildErrorJson("Problem retrieving filtered image list from PatientCache." + e.getMessage());
+            }
+			return retObj;
     }
 
     public JSONObject getMedicalHistory() {

@@ -333,19 +333,33 @@ function v2js_listImages(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-for (var i1=0;  i1<context.images.length; i1++) {
-var image = context.images[i1];
-velocityCount = i1;
-t.p('    <div class="item">        ');
-t.p('        <img class="content" href="<:prefix:>');
+if (context.repositoryList) {
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (repos.images && repos.repository == "local") {
+t.p('			');
+for (var i4=0;  i4<repos.images.length; i4++) {
+var image = repos.images[i4];
+velocityCount = i4;
+t.p('  				<div class="item">    			');
+t.p('        		<img class="content" href="<:prefix:>');
 t.p( image.source);
 t.p('" src="<:prefix:>');
 t.p( image.thumb);
-t.p('"/>        <div class="caption">');
+t.p('"/>        		<div class="caption">');
 t.p( image.name);
-t.p('</div>    </div>');
+t.p('</div>    			</div>    		');
 }
-velocityCount = 0;
+velocityCount = i2;
+t.p('    	');
+}
+t.p('    ');
+}
+
+}
 return t.toString();
 }
 function v2js_listInsertStatements(context) { 

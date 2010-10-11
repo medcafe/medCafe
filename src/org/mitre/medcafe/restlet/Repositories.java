@@ -72,7 +72,7 @@ public class Repositories
                 {
                 	r.setName("medCafeDemoVista");
                 }
-                r.setCredentials( "128.29.109.7", "9201", "OV1234", "OV1234!!" );
+                r.setCredentials( "128.29.109.20", "9201", "OV1234", "OV1234!!" );
                 repos.put(r.getName(), r);
 		System.out.println("Got ourVista connection");
             }

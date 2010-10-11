@@ -138,7 +138,7 @@
 		<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
 		
 			
-			<input type="checkbox" class="filter_checkbox" value="Smoking" id="smoking">Smoking</input>
+			<input type="checkbox" class="filter_checkbox" value="Smoker" id="smoking">Smoking</input>
 			<br/>
 			<input type="checkbox" class="filter_checkbox" value="NonSmoking" id="nonsmoking">Non Smoking</input>
 			<br/>

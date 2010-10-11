@@ -1,7 +1,14 @@
-#foreach( $image in $images )
-    <div class="item">
-        #* <a class="item" href="<:prefix:>${image.param}"><img class="content" src="<:prefix:>${image.thumb}"/></a> *#
-        <img class="content" href="<:prefix:>${image.source}" src="<:prefix:>${image.thumb}"/>
-        <div class="caption">${image.name}</div>
-    </div>
+#if ($repositoryList)
+	#foreach ($repos in $repositoryList)
+		#if ($repos.images &&  $repos.repository == "local")
+		#* currently the only true source is "local" so only display those
+			#foreach( $image in $repos.images )
+  				<div class="item">
+    			#* <a class="item" href="<:prefix:>${image.param}"><img class="content" src="<:prefix:>${image.thumb}"/></a> *#
+        		<img class="content" href="<:prefix:>${image.source}" src="<:prefix:>${image.thumb}"/>
+        		<div class="caption">${image.name}</div>
+    			</div>
+    		#end
+    	#end
+    #end
 #end

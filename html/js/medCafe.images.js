@@ -54,7 +54,7 @@ function filterImages( widgetInfo, startDate, endDate, categories)
 			}
 			else
 			{
-							alert(JSON.stringify(widgetInfo));
+					//alert(JSON.stringify(widgetInfo));
 				//alert("medCafe.images.js filterImages about to refresh through init");
 				$("contentFlow").removeClass("mouseoverCheckElement");
 				//cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});		

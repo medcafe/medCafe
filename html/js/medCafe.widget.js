@@ -262,7 +262,7 @@ function saveWidgets(oldPatient)
 				var linkName = $(this).attr("id");
 				
 				var actualTabNum = linkName.split("-")[1];
-				alert (actualTabNum);
+				//alert (actualTabNum);
 				var tabObject=$('.tabs').parent().find("#tabs-" + actualTabNum);
 
 				if ($(tabObject).hasClass("no-iNettuts"))

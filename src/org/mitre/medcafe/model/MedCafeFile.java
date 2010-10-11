@@ -59,6 +59,7 @@ public class MedCafeFile
 	private String title ="";
 	private String fileUrl ="";
 	private Date fileDate =new Date();
+	private String category = "";
 	
 	public static int levenshtienVal = 5;
 	public static final String PATIENT_ID = "patient_id";
@@ -66,8 +67,11 @@ public class MedCafeFile
 	public static final String THUMBNAIL = "thumbnail";
 	public static final String DATE = "file_date";
 	public static final String FILENAME = "filename";
+	public static final String CATEGORY = "category";
 	
-	public static final String SELECT_FILES = "SELECT id, filename, thumbnail, title, file_date from file where patient_id = ?  ";
+	public static final String SELECT_FILES = "SELECT file.id, filename, thumbnail, title, " + 
+		"file_date, category from file left outer join (file_category  inner join category on file_category.category_id = category.id) on file.id = file_category.file_id " +
+														" where  patient_id = ?";
 	public static final String SELECT_CATEGORY_FILES = "SELECT file.id, filename, thumbnail, title, file_date, category from file, category, file_category " +
 													  	 " where file.id = file_category.file_id and file_category.category_id = category.id " +
 														" and  patient_id = ? and category IN (<%category%>) ";
@@ -288,9 +292,12 @@ public class MedCafeFile
 				String thumbnail = rs.getString(MedCafeFile.THUMBNAIL);
 				String title = rs.getString(MedCafeFile.TITLE);
 				String fileUrl = rs.getString(MedCafeFile.FILENAME);
+				String category = rs.getString(MedCafeFile.CATEGORY);
+				if (category == null)
+					category = "NONE";
 				int id = rs.getInt("id");
 				Date date = rs.getDate(MedCafeFile.DATE);
-				
+				System.out.println( "Date: " + date + " category: " + category);
 				file = new MedCafeFile();		
 				file.setPatientId(patId);
 				file.setId(id);
@@ -298,6 +305,8 @@ public class MedCafeFile
 				file.setThumbnail(thumbnail);
 				file.setTitle(title);	
 				file.setFileUrl(fileUrl);
+				file.setCategory(category);
+				file.setFileDate(date);
 				
 				fileList.add( file);				
 			}
@@ -377,6 +386,14 @@ public class MedCafeFile
 
 	public void setLevenshtienVal(int levenshtienVal) {
 		this.levenshtienVal = levenshtienVal;
+	}
+	public void setCategory(String category)
+	{
+		this.category = category;
+	}
+	public String getCategory()
+	{
+		return category;
 	}
 
 	
