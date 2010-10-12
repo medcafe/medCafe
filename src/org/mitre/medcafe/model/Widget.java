@@ -67,6 +67,7 @@ public class Widget
 	private String label = "";
 	private int colorNum = 1;
 	private String image = "";
+	private String inFocus = null;
 
 
 	//All the other parameters
@@ -91,6 +92,7 @@ public class Widget
 	public static final String COLLAPSED = "collapsed";
 	public static final String COLOR_NUM = "color_num";
 	public static final String IMAGE = "image";
+	public static final String IN_FOCUS = "inFocus";
 
 
 	public static final String SELECT_WIDGET_PARAMS = "SELECT widget_id, param, value from widget_params where username = ? and patient_id = ? and widget_id =? ";
@@ -141,7 +143,8 @@ public class Widget
 		 o.put(Widget.COLLAPSED, this.getCollapsed());
 		 o.put(Widget.LABEL, this.getLabel());
 		 o.put(Widget.IMAGE, this.getImage());
-
+		 if (getInFocus() != null)
+		 	o.put(Widget.IN_FOCUS, this.getInFocus());
 		 
 		 return o;
 
@@ -383,6 +386,8 @@ public class Widget
 					widget.setCollapsed(value);
 				else if (param.equals(Widget.IMAGE))
 					widget.setImage(value);
+				else if (param.equals(Widget.IN_FOCUS))
+					widget.setInFocus(value);
 				else
 					params.put(param, value);
 
@@ -522,6 +527,14 @@ public class Widget
 	public String getImage()
 	{
 		return image;
+	}
+	public String getInFocus()
+	{
+		return inFocus;
+	}
+	public void setInFocus(String inFocus)
+	{
+		this.inFocus = inFocus;
 	}
 	
     public String getColumn() { return this.column; }

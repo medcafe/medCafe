@@ -260,7 +260,7 @@ function saveWidgets(oldPatient)
 				var iNettuts = true;
 				var newTab = true;
 				var linkName = $(this).attr("id");
-				
+				var inFocus = 'true';
 				var actualTabNum = linkName.split("-")[1];
 				//alert (actualTabNum);
 				var tabObject=$('.tabs').parent().find("#tabs-" + actualTabNum);
@@ -268,7 +268,11 @@ function saveWidgets(oldPatient)
 				if ($(tabObject).hasClass("no-iNettuts"))
 				{
 					iNettuts = false;
-				}	
+				}
+				if ($(tabObject).hasClass("ui-tabs-hide"))
+				{
+						inFocus = 'false';
+				}
 		var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr(widgetIDs[0]));
     				if (widgetSettings == "")
     				{
@@ -288,7 +292,8 @@ function saveWidgets(oldPatient)
 						"id" : order,
 						"patient_id" : widgetSettings.patient_id,
 						"remove" : false,
-						"iNettuts" : iNettuts
+						"iNettuts" : iNettuts,
+						"inFocus" : inFocus
 				};
 			
 			    $.ajax({

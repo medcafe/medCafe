@@ -184,11 +184,12 @@ function addAssociatePatient(isIntro)
 
 function populate(url, patient_id)
 {
-
+	var focusedTab = 1;
 	 var server = url + "?patient_id=" + patient_id;
 //	alert ("URL " + url + " id " + patient_id);
 	 $.getJSON(server, function(data)
 	 {
+	 		
 			//alert(JSON.stringify(data));
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
@@ -209,8 +210,13 @@ function populate(url, patient_id)
 		        // alert("adding tab " + i);
 		       // alert(JSON.stringify(data.tabs[i]));
 		        tab_num = parent.addTab(label, "Details", data.tabs[i].iNettuts);
-
+					if (data.tabs[i].inFocus  && data.tabs[i].inFocus=="true")
+					{
+						focusedTab = data.tabs[i].tab_num;
+						//alert ("focused tab is " +focusedTab);
+					}
 		   }
+		
 			var previous_id =0;
 			var previous_col = 0;
 			var previous_tab = 0;
@@ -257,8 +263,10 @@ function populate(url, patient_id)
 					//iNettuts.refresh("yellow-widget" + data.widgets[i].id);
 		 			refreshYellowWidget($(parent), data.widgets[i], 1, true)
 		   	}
-				$(parent).delay(5000, function()
+
+				$(parent).delay(2000, function()
 				{
+				$('#tabs').tabs('select', "#tabs-" + focusedTab);
 				iNettuts.makeSortable();
 				});
 	//	});
