@@ -1,6 +1,7 @@
 package org.mitre.medcafe.restlet;
 
 import org.json.JSONObject ;
+import org.json.JSONException;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
 
@@ -32,6 +33,7 @@ public class PatientResource extends ServerResource {
     /** The sequence of characters that identifies the resource. */
     private String id;
     private String repository;
+    private boolean isSingle;
     
     @Override
     protected void doInit() throws ResourceException {
@@ -39,6 +41,12 @@ public class PatientResource extends ServerResource {
         // /items/{id}.
         this.id = (String) getRequest().getAttributes().get("id");
         this.repository = (String) getRequest().getAttributes().get("repository");
+        String single = (String) getRequest().getAttributes().get("isSingle");
+        if (single != null && single.equals("true"))
+        	isSingle = true;
+        else
+        	isSingle = false;
+        	System.out.println("Is single repository request" + isSingle);
         // Get the item directly from the "persistence layer".
         //this.item = getItems().get(id);
         /* System.out.println("Found PatientResource");
@@ -102,6 +110,24 @@ public class PatientResource extends ServerResource {
         }   */
 
         //convert to JSON
-        return WebUtils.bundleJsonResponse( "patient_data", pat, repository, id );
+        	  JsonRepresentation patJsonRep = WebUtils.bundleJsonResponse("patient_data", pat, repository, id);
+		  if (!isSingle)
+        		return patJsonRep;
+        else
+        {
+        		try {
+        			JSONObject patientData = WebUtils.bundleJsonResponseObject("patient_data", pat, repository, id);
+        	  		JSONObject ret = new JSONObject();	
+ 					ret.append("repositoryList", patientData);  
+ 					System.out.println(ret.toString());
+ 					return new JsonRepresentation(ret);
+ 				}
+ 				catch (JSONException jsonE)
+ 				{
+ 					System.out.println("Error with single repository "+ jsonE.getMessage());
+ 					patJsonRep = new JsonRepresentation(WebUtils.buildErrorJson("Error creating JSON for the patient data"));
+ 				}
+ 				return patJsonRep;
+ 			}     		
     }
 }

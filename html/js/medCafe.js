@@ -415,7 +415,8 @@ function displayImage(callObj, widgetInfo, data)
 					"script" : "processViewerImages",
 					"params" : "", 
 					"iNettuts" : false,
-					"template" : ""
+					"template" : "",
+					"nocache" : "false"
 
 				};
 					//var type= "Viewer";
@@ -453,6 +454,7 @@ function displayImage(callObj, widgetInfo, data)
 						"params" : "",
 						"iNettuts" : false,
 						"template" : ""
+
 
 					};
 				//	var type= "Annotate";

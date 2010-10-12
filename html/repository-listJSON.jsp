@@ -17,19 +17,22 @@
 	String repository = request.getParameter("repository");
 	//String patientId = cache.getRepoPatientId();
 	String patientId = request.getParameter("patient_rep_id");
-	
+	String noCache = (String) request.getParameter("nocache");
 	String listRep =  "/repositories/" + repository + "/patients";
-	if (patientId != null)
+	if (patientId != null && !noCache.equals("true"))
 	{
 		//listRep += "/" + patientId;
 		out.print(cache.getPatientList());
 	}
 	else
 	{
+	if (noCache.equals("true"))
+		listRep += "/" + patientId+ "/singleRep/true";
 	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
+%>
 
-
-		out.print("<tags:IncludeRestlet relurl=\"/repositories/" + repository + "/patients\" mediatype=\"json\"/>");
+		<tags:IncludeRestlet relurl="<%=listRep%>" mediatype="json"/>
+<%
 	}
 
 %>

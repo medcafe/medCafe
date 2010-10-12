@@ -138,7 +138,6 @@ var medCafeWidget =
     			newSettings.tab_num = widgetInfo.tab_num;
     			newSettings.image = widgetInfo.image;
     			newSettings.pdf = widgetInfo.pdf;
-
     			this.setExtWidgetSettings(id,newSettings );   					
 				
 				
@@ -229,15 +228,17 @@ function extendWidgets(id){
 //Make sure that the delete event happens before all other events
 function saveWidgets(oldPatient)
 {
-		var deleteUrl = "deleteWidget.jsp?patient_id=" + oldPatient;
+
+	var deleteUrl = "deleteWidget.jsp?patient_id=" + oldPatient;
+	var saveUrl = "saveWidget.jsp?patient_id=" + oldPatient;
     	//
     	//Get these first before attempting delete
   //  	var ids = medCafeWidget.getAllIds();
-    	$.ajax({
-	           url: deleteUrl,
-	           type: 'POST',
-	           beforeSend: function() { $("#saveStatus").html("Saving").show(); },
-	           success: function(result) {
+   $.ajax({
+	   url: deleteUrl,
+	   type: 'POST',
+	   beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	   success: function(result) {
 	      
 					
 					//Cycle through each to save
@@ -248,80 +249,82 @@ function saveWidgets(oldPatient)
 	//					medCafeWidget.saveWidget("saveWidget.jsp", val);
 	//				}
 	//				});
-					    	var widgetSettings;
-			var widgetIDs = medCafeWidget.getAllIds();
-			if (widgetIDs.length > 0)
-			{
+		var widgetSettings;
+	//	var widgetIDs = medCafeWidget.getAllIds();
+	//	if (widgetIDs.length > 0)
+	//	{
             			//url = url + "?";
-            			order = 1;
-            			tab = 1;
-			$('.tabs').parent().find(".tabHeader").each(function(i)
-			{	
-				var iNettuts = true;
-				var newTab = true;
-				var linkName = $(this).attr("id");
-				var inFocus = 'true';
-				var actualTabNum = linkName.split("-")[1];
+      order = 1;
+      tab = 1;
+		$('.tabs').parent().find(".tabHeader").each(function(i)
+		{	
+			var iNettuts = true;
+			var newTab = true;
+			var linkName = $(this).attr("id");
+			var inFocus = 'true';
+			var actualTabNum = linkName.split("-")[1];
 				//alert (actualTabNum);
-				var tabObject=$('.tabs').parent().find("#tabs-" + actualTabNum);
+			var tabObject=$('.tabs').parent().find("#tabs-" + actualTabNum);
 
-				if ($(tabObject).hasClass("no-iNettuts"))
-				{
-					iNettuts = false;
-				}
-				if ($(tabObject).hasClass("ui-tabs-hide"))
-				{
-						inFocus = 'false';
-				}
-		var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr(widgetIDs[0]));
-    				if (widgetSettings == "")
-    				{
-    					alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
+			if ($(tabObject).hasClass("no-iNettuts"))
+			{
+				iNettuts = false;
+			}
+			if ($(tabObject).hasClass("ui-tabs-hide"))
+			{
+				inFocus = 'false';
+			}
+
+			//var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr(widgetIDs[0]));
+    /*		if (widgetSettings == "")
+    		{
+    			alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
     		
-    					return;
-    				}
-				    				//alert(widgetSettings.tab_num);
-    				tabName = $(this).find('span').text();
+    			return;
+    		} */
+					//alert(widgetSettings.tab_num);
+    		tabName = $(this).find('span').text();
     				//alert (tabName);
     			
-    					widgetTabSettings = {
-						"name" : tabName,
-						"type" : "tab",
-						"order" : order,
-						"tab_num" : tab,
-						"id" : order,
-						"patient_id" : widgetSettings.patient_id,
-						"remove" : false,
-						"iNettuts" : iNettuts,
-						"inFocus" : inFocus
-				};
-			
-			    $.ajax({
-	                url: "saveWidget.jsp?",
-	                type: 'POST',
-	                data: widgetTabSettings,
+			widgetTabSettings = {
+				"name" : tabName,
+				"type" : "tab",
+				"order" : order,
+				"tab_num" : tab,
+				"id" : order,
+			//	"patient_id" : widgetSettings.patient_id,
+				"remove" : false,
+				"iNettuts" : iNettuts,
+				"inFocus" : inFocus
+			};
+			//alert("about to save tab settings " + JSON.stringify(widgetTabSettings));
+			$.ajax({
+	         url: saveUrl,
+	         type: 'POST',
+	         data: widgetTabSettings,
 
        
-	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
-	                success: function(result) {
+	         beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+	  			success: function(result) {
 	                    //alert(result.Result);
 	                    //$("#saveStatus").html(result.Result).show();
-	                }
-            	});
+         	}
+        	});
 
-				order ++;
-
-				$(tabObject).find('.widget').each(function()
-				{
+			order ++;
+			$(tabObject).find('.widget').each(function()
+			{
     				
-    				var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
-    				if (widgetSettings == "")
-    				{
-    					alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
+    			var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
+    			if (widgetSettings == "")
+    			{
+    				alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
     		
-    					return;
-    				}
-
+    				return;
+    			}
+    		
+				if (widgetSettings.type != "Repository" && widgetSettings.type!="OtherDetails")
+				{
     				if (iNettuts)
     				{
     					var column = $(this).closest(".column").attr("id").substring(6);
@@ -343,40 +346,40 @@ function saveWidgets(oldPatient)
     					else
 
     						widgetSettings.collapsed = 'false';
-    					var i;
-    					widgetSettings.color_num = 1;
-    					for (i = 2; i<=6; i++)
-    					{
-    						if ($(this).hasClass('color-' + i))
-    							widgetSettings.color_num = i;
-    					}
-    					widgetSettings.label = $(this).find('.widget-head').find('h3').text(); 
-    				}
+    						var i;
+    						widgetSettings.color_num = 1;
+    						for (i = 2; i<=6; i++)
+    						{
+    							if ($(this).hasClass('color-' + i))
+    								widgetSettings.color_num = i;
+    						}
+							widgetSettings.label = $(this).find('.widget-head').find('h3').text(); 
+						}
     				    				
-    			$.ajax({
-	                url: "saveWidget.jsp",
-	                type: 'POST',
-	                data: widgetSettings,
+						$.ajax({
+    							url: saveUrl,
+								type: 'POST',
+								data: widgetSettings,
 
-	                beforeSend: function() { $("#saveStatus").html("Saving").show(); },
-	                success: function(result) {
+								beforeSend: function() { $("#saveStatus").html("Saving").show(); },
+								success: function(result) {
 	                    //alert(result.Result);
 	                    //$("#saveStatus").html(result.Result).show();
-	                }
-            	});
-   
-    				order++;
-    				});
+								}
+							});
+						order++;
+						}
+					});
     				tab++;
-    				});
-    				}
+				});
+			}
 
 		//Code to cycle through the widgets and save
 	
 		
 					
-	           }
-        });
+		//}
+	});
     
 		//Code to cycle through the widgets and save
 	

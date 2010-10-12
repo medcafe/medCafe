@@ -442,6 +442,10 @@ $(document).ready( function() {
 				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
 				widgetInfo.tab_num;
 			}
+			if (widgetInfo.nocache != undefined && widgetInfo.nocache=="true")
+				serverLink = serverLink + "&nocache=true";
+			else
+				serverLink = serverLink + "&nocache=false";
 			if (widgetInfo.params != undefined && widgetInfo.params !="")
 			{
 				serverLink = serverLink + "&" + widgetInfo.params.split(":")[0] + "="+widgetInfo.params.split(":")[1];

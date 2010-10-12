@@ -297,7 +297,7 @@ public class MedCafeFile
 					category = "NONE";
 				int id = rs.getInt("id");
 				Date date = rs.getDate(MedCafeFile.DATE);
-				System.out.println( "Date: " + date + " category: " + category);
+				//System.out.println( "Date: " + date + " category: " + category);
 				file = new MedCafeFile();		
 				file.setPatientId(patId);
 				file.setId(id);

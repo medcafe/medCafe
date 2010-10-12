@@ -294,6 +294,36 @@ public class WebUtils
             return null;
         }
     }
+     public static JSONObject bundleJsonResponseObject(  String name, Object o, String repository, String patid )
+    {
+        try
+        {
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(o);
+            log.finer(jsonString);
+
+            JSONObject obj = new JSONObject();
+            obj.put("patient_id", patid);
+            obj.put("repository", repository);
+            if(o instanceof Collection)
+            {
+                JSONArray arr = new JSONArray(jsonString);
+                obj.put(name, arr);
+            }
+            else
+            {
+                JSONObject obj2 = new JSONObject(jsonString);
+                obj.put(name, obj2);
+            }
+            return obj;
+        }
+        catch(JSONException e)
+        {
+            log.throwing(KEY, "bundleJsonResponse", e);
+            return null;
+        }
+    }
+
 
     public static JSONObject buildErrorJson(String errorMsg)
     {

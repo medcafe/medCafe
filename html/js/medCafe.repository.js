@@ -28,7 +28,7 @@ function addRepository(callObj, widgetInfo, data)
 						if (!widgetInfo.column)
 							widgetInfo.column = "1";
 					
-						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);			
+						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);			/*
 						
 						//$("#aaa" + tab_num).append(html);
 	  										
@@ -39,7 +39,7 @@ function addRepository(callObj, widgetInfo, data)
 								,"sPaginationType": "full_numbers"
 						} );
 											//$("#example" + patientId).dataTable();
-									
+						*/			
 						$(this).delay(100,function()
 						{
 
@@ -64,14 +64,14 @@ function addRepository(callObj, widgetInfo, data)
 				 	{
 				 		var detailId = $(this).text();
 				 		//alert("calling list repository for rep  " + rep + " detail " + detailId);
-	
+					
 				 		var detailButton = $(this).find('.details');
 			 			$(detailButton).bind("click",{},
 						
 							function(e)
 							{
 							
-								//First check if the current detail tab exists
+				/*				//First check if the current detail tab exists
 								//Then put focus on this tab
 								if ($("#Detail" + detailId).attr('id') )
 								{
@@ -82,8 +82,8 @@ function addRepository(callObj, widgetInfo, data)
 									
 									$('#tabs').tabs('select', '#' + tabId);
 									return false;
-								}
-
+								}   */
+						 
 							var link = widgetInfo.server + "widgets-listJSON.jsp?type=patient_widgets";
 							$.getJSON(link, function(data)
 							{
@@ -95,14 +95,14 @@ function addRepository(callObj, widgetInfo, data)
 									if (widget.name == "Details")
 									{
 										done = true;
-										var newWidget = {
+										var patReposWidget = {
 											"id" : "",
-											"patient_id" : "",
+											"patient_id" : widgetInfo.patient_id,
 											"rep_patient_id" : detailId,
 											"location" : widgetInfo.location,
 											"repository" : widgetInfo.repository,
-											"type" : widget.type,
-											"name" : "Details",
+											"type" : "OtherDetails",
+											"name" : "DetailsOfOtherPatient",
 											"server" : widget.server,
 											"tab_num": widgetInfo.tab_num,
 											"params" : widget.params,
@@ -111,13 +111,17 @@ function addRepository(callObj, widgetInfo, data)
 											"script_file" : widget.script_file,
 											"template" :widget.template,
 											"clickUrl": widget.clickUrl,
-											"jsonProcess": widget.jsonProcess
-											
+											"jsonProcess": widget.jsonProcess,
+											"color_num" :2,
+											"iNettuts" : "true",
+											"collapsed" : "false",
+											"nocache" : "true",
+											"label" : "Details for Other Patient"
 										};
-										newWidget.id = addWidgetNum(newWidget);
+										patReposWidget.id = addWidgetNum(patReposWidget);
 									//	alert("widget.id " + newWidget.id);
-										if (newWidget.id != -1)
-											addWidgetTab(this, newWidget);
+										if (patReposWidget.id != -1)
+											addWidgetTab(this, patReposWidget);
 									}
 								}
 							});

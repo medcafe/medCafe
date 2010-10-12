@@ -24,31 +24,45 @@
 	tab_num value 1
 	**/
 	String userName =  request.getRemoteUser();
-	String patient_id = request.getParameter(Widget.ID);
-		
-	if(e != null)
-	{
-	   try
-	   {
+	String patientId = request.getParameter("patient_id");
+	//System.out.println("PatientID XXX" + patientId + "XXX");
+	if( patientId == null || patientId.equals("undefined"))
+    {  //this should ONLY be the case when the "Save" button is used on the index page.
+        PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+     	 // System.out.println("Cache check");
+        if( cache == null )
+        {  //nobody is logged in
+            System.out.println("No patient selected");
+            response.sendRedirect("introPage.jsp");
+            return;
+        }
+        patientId = cache.getDatabasePatientId();
+    }    
+		if(e != null)
+		{
+	   	try
+	   	{
 	   	 
-	      JSONObject jsonobj = new JSONObject();
-	      while(e.hasMoreElements())
-		  {
-		     String key = "";
-		  	 Object keyObj = e.nextElement();
-		  	 if (keyObj != null)
-		  	 	key = keyObj.toString();
-			 	jsonobj.put( key, request.getParameter(key));
-		  }
-		  System.out.println("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
+	   	   JSONObject jsonobj = new JSONObject();
+	   	   while(e.hasMoreElements())
+			  {
+			     String key = "";
+			  	 Object keyObj = e.nextElement();
+			  	 if (keyObj != null)
+			  	 	key = keyObj.toString();
+				 	jsonobj.put( key, request.getParameter(key));
+			  }
+			 
+			  jsonobj.put(Widget.ID, patientId);
+			  System.out.println("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
 	
-		  Widget.saveWidgets(userName, jsonobj);
-	    }
-	    catch(JSONException je) {
-			System.out.println("Error in creating JSON " + je.getMessage() );
+			  Widget.saveWidgets(userName, jsonobj);
+	   	 }
+	   	 catch(JSONException je) {
+				System.out.println("Error in creating JSON " + je.getMessage() );
 	
-	    }
-  	}
-	
+	   	 }
+  		}
+
 	
 %>
