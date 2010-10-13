@@ -158,7 +158,7 @@ public class VistaRepository extends Repository {
             if (stringExists(filemanPat.getBirthCity())) {
                 Address birthPlace = new Address();
                 birthPlace.setCity(filemanPat.getBirthCity());
-                birthPlace.setStateOrProvince(filemanPat.getBirthStateValue().toString());
+                birthPlace.setStateOrProvince(capitalizeString(filemanPat.getBirthStateValue().toString()));
                 ret.setBirthPlace(birthPlace);
             }
 
@@ -212,7 +212,7 @@ public class VistaRepository extends Repository {
                     race.setCodeSystem("2.16.840.1.113883.6.238");
                     race.setCodeSystemName("CDC Race and Ethnicity");
                     String raceDesc = raceInfo.getRaceInformationValue();
-                    race.setDisplayName(raceDesc);
+                    race.setDisplayName(capitalizeString(raceDesc));
                     String twoChars = raceDesc.substring(0, 2);
                     if (twoChars.equalsIgnoreCase("AM")) {
                         race.setCode("1004-1");
@@ -662,10 +662,18 @@ public class VistaRepository extends Repository {
                 }
                 if (vitals.size()>0) {
                 	if (latest) {
-                    PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new PatientVitalComparator());
+                    PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new MostRecentVitalComparator());
                     vitalQueue.addAll(vitals);
                     vitals = new ArrayList<PatientVitalEvent>();
                     vitals.add(vitalQueue.peek());
+                  }
+                  else
+                  {
+                  	 PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new EarliestVitalComparator());
+                  	 vitalQueue.addAll(vitals);
+                  	 vitals = new ArrayList<PatientVitalEvent>();
+                  	 while (!vitalQueue.isEmpty())
+                  	 	vitals.add(vitalQueue.poll());
                   }
                 }
                 for (PatientVitalEvent vital : vitals) {
@@ -1444,14 +1452,24 @@ public class VistaRepository extends Repository {
 		}
 		return toBeFixed;
 	}
-    private class PatientVitalComparator implements Comparator<PatientVitalEvent> {
+    private class MostRecentVitalComparator implements Comparator<PatientVitalEvent> {
 
-        public PatientVitalComparator() {
+        public MostRecentVitalComparator() {
             super();
         }
 
         public int compare(PatientVitalEvent one, PatientVitalEvent two) {
             return two.getDateTime().compareTo(one.getDateTime());
+        }
+    }
+       private class EarliestVitalComparator implements Comparator<PatientVitalEvent> {
+
+        public EarliestVitalComparator() {
+            super();
+        }
+
+        public int compare(PatientVitalEvent one, PatientVitalEvent two) {
+            return -(two.getDateTime().compareTo(one.getDateTime()));
         }
     }
 }

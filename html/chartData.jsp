@@ -1,8 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
-	String patientId = request.getParameter("patient_id");
-	if (patientId == null)
-		patientId = "1";
+	  PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+       // log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+
+
+	
+		out.print(cache.getVitalDataForChart("temperature"));
+
+
 %>
-<tags:IncludeRestlet relurl="/repositories/medcafe/patients/<%=patientId%>/charts/temperature" mediatype="json"/>

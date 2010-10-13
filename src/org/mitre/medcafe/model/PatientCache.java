@@ -35,6 +35,7 @@ public class PatientCache extends TimerTask {
     protected JSONObject problemList = null;
     protected JSONObject supportList = null;
     protected JSONObject vitalsList = null;
+    protected JSONObject allVitalsList = null;
     protected JSONObject images = null;
     protected JSONObject immuneList = null;
     protected JSONObject encounterList = null;
@@ -51,6 +52,7 @@ public class PatientCache extends TimerTask {
     protected boolean bannerFinished = false;
     private String primaryRepos = "";
     protected HashMap<String, JSONObject> historyMap = null;
+    protected HashMap<String, JSONObject> vitalsMap = null;
 
     //}}}
     //{{{ Constuctors
@@ -110,8 +112,8 @@ public class PatientCache extends TimerTask {
        		JSONObject repository = reps.getJSONObject(i);
         
         		String repositoryName = repository.getString("repository");
-        		System.out.println(repositoryName + " " + primaryRepos);
-        		System.out.println(repository.toString());
+        		//System.out.println(repositoryName + " " + primaryRepos);
+        		//System.out.println(repository.toString());
         		if (repositoryName.equals(primaryRepos))
         		{
         			
@@ -370,7 +372,29 @@ public class PatientCache extends TimerTask {
             }
             log.finer("Done retrieving support list");
             log.finer(supportList.toString());
-                        bannerFinished = true;
+                    //    bannerFinished = true;
+            try {
+
+                allVitalsList = new JSONObject();
+                for (int i = 0; i < reps.length(); i++) {
+                    JSONObject repObj = (JSONObject) reps.get(i);
+                    String repository = repObj.getString("repository");
+                    String repoPatientId = repObj.getString("id");
+
+                    results = getJsonContent(app, "/repositories/" + repository + "/patients/" + repoPatientId + "/vitals/all");
+                    JSONObject vitals = new JSONObject(results);
+                    vitals.put("repository", repository);
+                    allVitalsList.append("repositoryList", vitals);
+                }
+                //System.out.println("PatientCache generating vitals list line 167 JSONObject " + vitalsList.toString());
+            } catch (JSONException e) {
+                log.throwing(KEY, "constructor", e);
+                allVitalsList = WebUtils.buildErrorJson("Problem retrieving all vitals from source." + e.getMessage());
+            }
+            bannerFinished = true;
+
+            log.finer("Done retrieving all vitals from repository");
+            log.finer(allVitalsList.toString());
                       try {
                 encounterList = new JSONObject();
                 for (int i = 0; i < reps.length(); i++) {
@@ -634,7 +658,7 @@ public class PatientCache extends TimerTask {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
-            log.severe("Interrupted while getting vitals list from patient cache.");
+            log.severe("Interrupted while getting support list from patient cache.");
         }
 		  return supportList;
 	 }
@@ -647,7 +671,7 @@ public class PatientCache extends TimerTask {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
-            log.severe("Interrupted while getting vitals list from patient cache.");
+            log.severe("Interrupted while getting encounter list from patient cache.");
         }
 
 		  return encounterList;
@@ -658,6 +682,19 @@ public class PatientCache extends TimerTask {
 
     public void setVitalsList(JSONObject vitalsList) {
         this.vitalsList = vitalsList;
+    }
+    public void setAllVitalsList(JSONObject allVitalsList) {
+    	  this.allVitalsList = allVitalsList;
+    }
+    public JSONObject getAllVitalsList() {
+    	    try {
+            while (!bannerFinished) {
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException intE) {
+            log.severe("Interrupted while getting all vitals list from patient cache.");
+        }
+    	  return allVitalsList;
     }
 
     public String getDatabasePatientId() {
@@ -676,7 +713,7 @@ public class PatientCache extends TimerTask {
                 Thread.sleep(500);
             }
         } catch (InterruptedException intE) {
-            log.severe("Interrupted while getting vitals list from patient cache.");
+            log.severe("Interrupted while getting history list from patient cache.");
         }
 		  return historyMap.get(category);
     }
@@ -810,4 +847,114 @@ public class PatientCache extends TimerTask {
         return age;
 
     }
+    public JSONObject getVitalDataForChart(String vitalType)
+    {	
+    	JSONObject dataObj;
+    	
+ 		try{
+       	while (!bannerFinished) {
+                Thread.sleep(500);
+        	}
+   	} catch (InterruptedException intE) {
+            log.severe("Interrupted while getting vital data for chart from patient cache.");
+    	}
+    	try{
+    		synchronized(this){
+      		if (vitalsMap == null)
+				{
+
+ 					vitalsMap = new HashMap<String, JSONObject>();
+ 					JSONArray repositoryArray = allVitalsList.getJSONArray("repositoryList");
+ 					boolean noVitals = true;
+ 					for (int i = 0; i< repositoryArray.length(); i++)
+ 					{
+ 		  				String repos = repositoryArray.getJSONObject(i).getString("repository");
+ 						if (repos.equals(primaryRepos) && repositoryArray.getJSONObject(i).has("vitals"))
+ 						{
+ 		  					JSONArray vitalArray = repositoryArray.getJSONObject(i).getJSONArray("vitals");
+
+ 		  					for (int j = 0; j< vitalArray.length(); j++)
+ 		  					{
+ 		  						noVitals = false;
+ 								String resultType = vitalArray.getJSONObject(j).getJSONObject("resultType").getString("value");			
+ 
+ 								JSONObject result = new JSONObject();
+ 								JSONArray arrayObj = new JSONArray();
+ 								JSONObject dateRange = vitalArray.getJSONObject(j).getJSONObject("resultDateTime");
+ 								JSONObject dateObj = dateRange.getJSONObject("low");
+ 								int mon, day, year, hour, minute;
+ 								mon = dateObj.getInt("month");
+ 								day = dateObj.getInt("day");
+ 								year = dateObj.getInt("year");
+ 								hour = dateObj.getInt("hour");
+ 								minute = dateObj.getInt("minute");
+ 								GregorianCalendar cal = new GregorianCalendar(year, mon, day, hour, minute);
+ 								arrayObj.put(cal.getTimeInMillis());
+ 								String resultString = vitalArray.getJSONObject(j).getString("resultValue");			String unit = "";
+ 								if (!resultType.equals("B/P"))
+ 								{
+ 									String[] splitResults = resultString.split(" ");
+ 									double resultVal = Double.parseDouble(splitResults[0]);
+ 									arrayObj.put(resultVal);
+ 									if (splitResults.length > 1)
+ 										unit = splitResults[1];
+ 									addVitalsToMap(resultType, unit, arrayObj);
+ 								}
+ 								else
+ 								{
+ 									String[] splitResults = resultString.split("/");
+ 									double systolic = Double.parseDouble(splitResults[0]);
+ 									double diastolic = Double.parseDouble(splitResults[1]);
+ 									arrayObj.put(systolic);
+ 									addVitalsToMap("Systolic", unit, arrayObj);
+ 									arrayObj = new JSONArray();
+ 									arrayObj.put(cal.getTimeInMillis());
+ 									arrayObj.put(diastolic);
+ 									addVitalsToMap("Diastolic", unit, arrayObj);
+ 								}							
+ 							
+
+ 			  				}
+ 			  			}	
+ 			   	}       	
+		   		if (noVitals)
+		   			vitalsMap.put("Error", WebUtils.buildErrorJson( "There are no vitals currently listed for this patient"));
+		   		 
+				}  
+		  
+	   	}
+			dataObj = vitalsMap.get(vitalType);
+			if (dataObj == null)
+				dataObj = vitalsMap.get("Error");
+		}
+		catch (JSONException jsonE)
+		{
+			vitalsMap = null;
+			dataObj = WebUtils.buildErrorJson("Error retrieving JSON for vitals: " + jsonE.getMessage());	
+		}
+		return dataObj;	   	
+    }
+    private void addVitalsToMap(String resultType, String unit, JSONArray arrayObj) throws JSONException
+    {
+    	try{
+    		JSONObject obj = vitalsMap.get(resultType);
+ 								
+ 			if (obj == null)
+ 			{
+ 				obj = new JSONObject();
+ 				obj.put("label", resultType);
+ 				if (!unit.equals(""))
+ 					obj.put("unit", unit);
+ 				vitalsMap.put(resultType, obj);
+ 										
+ 			}		  			
+ 			obj.append("data", arrayObj);
+ 			//System.out.println(obj.toString());
+    	}
+    	catch (JSONException jsonE)
+    	{
+    		throw jsonE;
+    	}
+    }
+    	
 }
