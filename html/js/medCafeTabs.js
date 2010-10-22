@@ -436,7 +436,7 @@ $(document).ready( function() {
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
-			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository;
+			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository + "&widgetId="+widgetInfo.id;
 			if (widgetInfo.type != "Repository")
 			{
 				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +

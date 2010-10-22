@@ -1,7 +1,11 @@
 var alreadyFetched = {};
+var dataArray=[];
 var data = [];
-function processChart(widgetInfo, data)
+function processChart(obj, widgetInfo, data)
 {	
+var chartObj = $('#chartform'+widgetInfo.id);
+
+ processChartButton(chartObj, widgetInfo.id);
 	// fetch one series, adding to what we got
 
    	// find the URL in the link right next to us
@@ -29,39 +33,47 @@ function processChart(widgetInfo, data)
 		
 }
 
-function processChartButton(frm)
+function processChartButton(frm, widgetId)
 {
-	data = [];
-	alreadyFetched = {};
-
+   var index = "placeholder" + widgetId;
+	alreadyFetched[index] = {};
+	dataArray[index] = [];
+   
 	var dataurl = "chartJSON.jsp?"
+	var vitals = $(frm).find("input:checked[name='vitalType']")
 	  //For each checkbox see if it has been checked, record the value.
-   for (var i = 0; i < frm.vitalType.length; i++)
+	  if (vitals.length >0)
+	  {
+   for (var i = 0; i < vitals.length; i++)
    {
-      if (frm.vitalType[i].checked){
-      	if (frm.vitalType[i].value != "B/P")
+     // alert($(vitals[i]).val());
+      	if ($(vitals[i]).val() != "B/P")
       	{
-      		$.getJSON(dataurl+"type="+frm.vitalType[i].value, function(data)
+      		$.getJSON(dataurl+"type="+$(vitals[i]).val(), function(data)
 				{
-					onDataReceived(data);
+					onDataReceived(data, widgetId);
 				 });
 			}
 			else
       	{
       		$.getJSON(dataurl+"type=Systolic", function(data)
 				{
-					onDataReceived(data);
+					onDataReceived(data, widgetId);
 				 });
 				$.getJSON(dataurl+"type=Diastolic", function(data)
 				{
-					onDataReceived(data);
+					onDataReceived(data, widgetId);
 				 });
 				
 			}
       	
-      }
+      
 	}
-
+	}
+	else
+	{
+		onDataReceived([],widgetId);
+	}
 
 }
 function clearCheckBoxes(frm)
@@ -73,49 +85,52 @@ function clearCheckBoxes(frm)
 	}
 }
 
-function onDataReceived(series) 
+function onDataReceived(series, widgetId) 
 {
-
+	var index = "placeholder" + widgetId;
             // extract the first coordinate pair so you can see that
             // data is now an ordinary Javascript object
+  			if (series.data)
+			{
             var firstcoordinate = '(' + series.data[0][0] + ', ' + series.data[0][1] + ')';
 
             // let's add it to our current data
-            if (!alreadyFetched[series.label]) {
-                alreadyFetched[series.label] = true;
-                data.push(series);
+            if (!alreadyFetched[index][series.label]) {
+                alreadyFetched[index][series.label] = true;
+                dataArray[index].push(series);
             }
-			
+    
+			}			
 			var options = {
 		        lines: { show: true },
 		        points: { show: true },
 		        xaxis: { mode: "time",
 		        timeformat: "%m/%d/%y %h:%M"},
 		        selection: { mode: "xy" },
-		        legend: {container: $("#legend")}
+		        legend: {container: $("#legend"+widgetId)}
 		    };
 			
-			var placeholder = $("#placeholder");
-    	//	var overview = $("#overview");
+			var placeholder = $("#placeholder"+widgetId);
+    	//	var overview = $("#overview"+widgetId);
             // and plot all we got
-            $("#placeholder").delay(100,function()
+            $("#placeholder"+ widgetId).delay(100,function()
 			{
 
-            	$.plot(placeholder, data, options);
+            	$.plot(placeholder, dataArray[index], options);
 
 
-	  //          $.plot(overview, data, {
-	//		        legend: { show: true, container: $("#overviewLegend") },
-	//		        points: { show: true },
-	//		        xaxis: { mode: "time",
-	//		        timeformat: "%m/%d/%y %h:%M" },
-	//		        grid: { color: "#999" },
-	//		        selection: { mode: "xy" }
-	 //   		});
+	    /*        $.plot(overview, data, {
+			        legend: { show: true, container: $("#overviewLegend"+widgetId) },
+			        points: { show: true },
+			        xaxis: { mode: "time",
+			        timeformat: "%m/%d/%y %h:%M" },
+			        grid: { color: "#999" },
+			        selection: { mode: "xy" }   
+	  		}); */
 
-	    		$("#placeholder").bind("plotselected", function (event, ranges)
+	    		$("#placeholder"+widgetId).bind("plotselected", function (event, ranges)
 	    		{
-	    			alert("to: " + ranges.xaxis.to + " from: " + ranges.xaxis.from);
+	    			//alert("to: " + ranges.xaxis.to + " from: " + ranges.xaxis.from);
 			        // clamp the zooming to prevent eternal zoom
 			        if (ranges.xaxis.to - ranges.xaxis.from < 0.00001)
 			            ranges.xaxis.to = ranges.xaxis.from + 0.00001;
@@ -123,19 +138,19 @@ function onDataReceived(series)
 			            ranges.yaxis.to = ranges.yaxis.from + 0.00001;
 
 			        // do the zooming
-			        plot = $.plot($("#placeholder"),data,
+			        plot = $.plot($("#placeholder"+widgetId),dataArray[index],
 			                      $.extend(true, {}, options, {
 			                          xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
 			                          yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
 			                      }));
 
 			        // don't fire event on the overview to prevent eternal loop
-		//	        overview.setSelection(ranges, true);
+			      // overview.setSelection(ranges, true);
 			    });
 
-		//	    $("#overview").bind("plotselected", function (event, ranges) {
-	   //     		plot.setSelection(ranges);
-	   //			 });
-
+		/*    $("#overview"+widgetId).bind("plotselected", function (event, ranges) {
+	        		plot.setSelection(ranges);
+	   			 });
+*/
    			  });
 }	

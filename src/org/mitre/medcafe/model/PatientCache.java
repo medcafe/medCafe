@@ -888,7 +888,7 @@ public class PatientCache extends TimerTask {
  								year = dateObj.getInt("year");
  								hour = dateObj.getInt("hour");
  								minute = dateObj.getInt("minute");
- 								GregorianCalendar cal = new GregorianCalendar(year, mon, day, hour, minute);
+ 								GregorianCalendar cal = new GregorianCalendar(year, mon-1, day, hour, minute);
  								arrayObj.put(cal.getTimeInMillis());
  								String resultString = vitalArray.getJSONObject(j).getString("resultValue");			String unit = "";
  								if (!resultType.equals("B/P"))

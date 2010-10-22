@@ -168,12 +168,55 @@
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
-	<name>Charts</name>
+	<name>Chart</name>
 	<type>Chart</type>
 	<image>chart.png</image>
 	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
 	<method></method>
+	<params>type:none</params>
+	<repository>local</repository>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>BP/PulseChart</name>
+	<type>BPChart</type>
+	<image>chart.png</image>
+	<server></server>
+	<clickUrl>chart.jsp</clickUrl>
+	<method></method>
+	<params>type:basic</params>
+	<repository>local</repository>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>HeightWeightChart</name>
+	<type>HeightWeightChart</type>
+	<image>chart.png</image>
+	<server></server>
+	<clickUrl>chart.jsp</clickUrl>
+	<method></method>
+	<params>type:ht/wt</params>
+	<repository>local</repository>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>TemperatureChart</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<server></server>
+	<clickUrl>chart.jsp</clickUrl>
+	<method></method>
+	<params>type:temp</params>
 	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
@@ -238,20 +281,6 @@
 	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
 	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
-</medCafeWidget>
-<medCafeWidget>
-	<name>Charts</name>
-	<type>Chart</type>
-	<image>chart.png</image>
-	<server>chart.jsp</server>
-	<clickUrl>chart.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository></repository>
-	<script>processChart</script>
-	<script_file>medCafe.chart.js</script_file>
-	<jsonProcess>false</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>

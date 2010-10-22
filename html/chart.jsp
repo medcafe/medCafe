@@ -7,7 +7,38 @@
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
 		patientId = "1";
+	String widgetId = request.getParameter("widgetId");
+	if (widgetId == null)
+		widgetId="";
+	String type =request.getParameter("type");
+	String typeString = "";
+	String displayValue = "none";
+	boolean htwt = false;
+	boolean temp = false;
+	boolean basic = false;
+	String buttonText = "Reset Graph";
+	if (type==null || type.equals("none"))
+	{
 
+		type = "none";
+		displayValue = "block";
+		buttonText = "Submit/Reset";
+	}
+	else if (type.equals("ht/wt"))
+	{
+		typeString = "Height and Weight ";
+		htwt = true;
+	}
+	else if (type.equals("temp"))
+	{
+		typeString ="Temperature ";
+		temp = true;
+	}
+	else if (type.equals("basic"))
+	{
+		typeString = "Blood Pressure and Pulse ";
+		basic = true;
+	}
 	//String dataUrl = "chartData.jsp";
 	//if (dataUrl == null)
 	//	dataUrl = "/repositories/medcafe/patients/" + patientId + "/charts/temperature";
@@ -22,31 +53,66 @@
 
  </head>
     <body>
-    <h3>Chart - Patient ID: <%=patientId%></h3>
+    <h3><%=typeString%>Chart - Patient ID: <%=patientId%></h3>
 
-    <div id="placeholder" style="width:300px;height:220px;"></div>
-	<div id="legend"></div>
-	<!--<div id="miniature" style="float:left;margin-left:20px;margin-top:30px">-->
-   <!-- <div id="overview" style="width:80px;height:100px"></div>-->
+    <div id="placeholder<%=widgetId%>" style="width:300px;height:220px;"></div>
+	<div id="legend<%=widgetId%>"></div>
+	<!--<div id="miniature<%=widgetId%>" style="float:left;margin-left:20px;margin-top:30px">
+   <div id="overview<%=widgetId%>" style="width:80px;height:100px"></div>
+   </div> -->
     <p>
-    <FORM NAME="chartform">
+    <FORM NAME="chartform<%=widgetId%>" id="chartform<%=widgetId%>">
+    <div style="display:<%=displayValue%>">
 
-      <input type="checkbox" name="vitalType" value="Temp."> Temperature<br>
-	<input type="checkbox" name="vitalType" value="B/P" > Blood Pressure<br>
+      <input type="checkbox" name="vitalType"
+      <% if (temp)
+
+	{%>
+	 checked="true" 
+	 <%} %> 
+       value="Temp."> Temperature<br>
+	<input type="checkbox" name="vitalType" 
+	<% if (basic) 
+	{%>
+	 checked="true" 
+	 <%} %> 
+	 value="B/P" > Blood Pressure<br>
 	<input type="checkbox" name="vitalType" value="Resp."> Respiration<br>
-	<input type="checkbox" name="vitalType" value="Wt."> Weight<br>
-	<input type="checkbox" name="vitalType" value="Ht."> Height<br>
-	<input type="checkbox" name="vitalType" value="BMI" > Body Mass Index<br>
+	<input type="checkbox" name="vitalType" 
+	<% if (htwt) 
+	{%>
+	 checked="true" 
+	 <%} %>
+	 value="Wt."> Weight<br>
+	<input type="checkbox" name="vitalType" 
+	<% if (htwt) 
+	{%>
+	 checked="true" 
+	 <%} %>
+	 value="Ht."> Height<br>
+	<input type="checkbox" name="vitalType" 
+	<% if (htwt) 
+	{ %>
+	 checked="true" 
+	 <%} %> 
+	 value="BMI" > Body Mass Index<br>
 	<input type="checkbox" name="vitalType" value="Pulse Ox"> Pulse Oxygenation<br>
-	<input type="checkbox" name="vitalType" value="Pulse"> Pulse<br>
-	<input class="dataUpdate" type="button" value="Update graph" onClick="processChartButton(this.form)">
-	<input class="dataUpdate" type="button" value="Clear checkboxes" onClick="clearCheckBoxes(this.form)">
+	<input type="checkbox" name="vitalType" 
+	<% if (basic) 
+	{%>
+	 checked="true" 
+	 <%} %>
+	value="Pulse"> Pulse<br>
+		<input class="dataUpdate" type="button" value="Clear checkboxes" onClick="clearCheckBoxes(this.form)">
+	</div>
+	<input class="dataUpdate" type="button" value="<%=buttonText%>" onClick="processChartButton(this.form,<%=widgetId%>)">
+
 	</FORM>
     </p>
 
 <script id="source" language="javascript" type="text/javascript">
 $(function () {
-   //processChart("","<%=patientId%>","","","","");
+
 
 });
 
