@@ -36,6 +36,7 @@ mgreer	a94a8fe5ccb19ba61c4c0873d391e987982fbbd3	mgreer@mitre.org
 jpiescik	a94a8fe5ccb19ba61c4c0873d391e987982fbbd3	jpiescik@mitre.org
 \.
 
+insert into user_roles select username, 'User' from users;
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT player_pkey PRIMARY KEY (username);
@@ -90,7 +91,7 @@ CREATE TABLE patient_repository_assoc (
     rep_patient_id integer NOT NULL,
    	repository character varying(250) NULL,
    	PRIMARY KEY (patient_id, rep_patient_id,repository )
-   	
+
 );
 
 CREATE TABLE patient_user_assoc (
@@ -158,7 +159,7 @@ CREATE TABLE file_annotations
 	height float NULL,
 	zoom integer NULL,
 	color character varying(50) NULL,
-	shape_type character varying(50) NOT NULL, 
+	shape_type character varying(50) NOT NULL,
 	note text NOT NULL
 );
 
@@ -245,7 +246,7 @@ CREATE TABLE address
 	state character varying(20) NOT NULL,
 	zip character varying(10) NOT NULL,
 	country character varying (200) NOT NULL default 'USA'
-	
+
 );
 
 insert into priority (id, priority, description) values (1, 'Very High', 'Very High Priority -immediate attention.');
@@ -1311,7 +1312,7 @@ insert into file (patient_id, filename, thumbnail, username, title, file_date) v
 
 
 --
--- Data for Name: file_annotations; Type: TABLE DATA; 
+-- Data for Name: file_annotations; Type: TABLE DATA;
 --
 
 INSERT INTO file_annotations (id, patient_id, username, file_id, x_origin, y_origin, shape_x, shape_y, width, height, zoom, color, shape_type, note) VALUES (362, 7, 'mgreer', 6, 193, 0, 311.5, 114.50149, 41.309806999999999, 0, 81, 'rgb(0, 255, 0)', 'circle', 'undefined');
@@ -1409,7 +1410,7 @@ INSERT INTO recent_patients (id, patient_id, username, date_accessed) VALUES (9,
 
 
 --
--- Data for Name: user_bookmark; Type: TABLE DATA; Schema: public; 
+-- Data for Name: user_bookmark; Type: TABLE DATA; Schema: public;
 --
 
 INSERT INTO user_bookmark (user_bookmark_id, username, patientid, name, description, url, note) VALUES (1, 'mgreer', '1', 'Arthritis Foundation', 'Journal Summaries', 'http://www.arthritis.org/journal-summaries.php', 'Journal summaries of arthritis research');
