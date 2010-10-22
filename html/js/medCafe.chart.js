@@ -1,6 +1,14 @@
-var alreadyFetched = {};
-var dataArray=[];
-var data = [];
+var initialized;
+if (initialized == undefined)
+{
+	initialized = true;	
+	var alreadyFetched=[];
+	var dataArray=[];
+	var data = [];
+
+}
+
+
 function processChart(obj, widgetInfo, data)
 {	
 var chartObj = $('#chartform'+widgetInfo.id);
@@ -72,7 +80,8 @@ function processChartButton(frm, widgetId)
 	}
 	else
 	{
-		onDataReceived([],widgetId);
+		var emptydata={};
+		onDataReceived(emptydata,widgetId);
 	}
 
 }
