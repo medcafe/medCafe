@@ -78,6 +78,7 @@ The plugin allso adds the following methods to the plot object:
         var savedhandlers = {};
 
         function onMouseMove(e) {
+        		e.stopPropagation();
             if (selection.active) {
                 plot.getPlaceholder().trigger("plotselecting", [ getSelection() ]);
 
