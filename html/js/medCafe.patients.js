@@ -79,7 +79,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 				{
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
-		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository;
+		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository + "&isIntro=" + isIntro;
 		    		$.get(cacheServer, function(data)
 	 				{
 	 					var indexSrv = server + "/index.jsp";

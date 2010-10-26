@@ -17,7 +17,14 @@ function StringCat()
             ep=new Array();
             oep[1]=ep;
         }
-        ep[0]=what;
+        if (typeof what == "object")
+        {
+        	  ep[0] = printJsonObject(what, 0);
+        }
+        else
+        {
+        	 ep[0]=what;
+ 		  }
         ++l;
     }
 
@@ -53,4 +60,29 @@ function StringCat()
         }
         return sp[0];
     }
+}
+function printJsonObject(jsonObject, nestingLevel)
+{
+	var i;
+	var returnString = "";
+
+	for ( i in jsonObject)
+	{
+			var number = parseInt(i, 10);
+			if (isNaN(number))
+				number = i;
+			else
+				number++;
+	//	alert(i + ":  " +JSON.stringify(jsonObject[i]));
+		returnString = returnString + "<div style=\"text-indent: " + nestingLevel + "em\">";
+		if (typeof jsonObject[i] == "object")
+		{		
+			returnString = returnString + number + ": </div>" + printJsonObject(jsonObject[i], nestingLevel+1);
+		}
+		else
+		{
+			returnString = returnString + number + ": " + jsonObject[i] + " </div>";
+		}
+	}
+	return returnString;
 }

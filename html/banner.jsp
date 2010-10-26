@@ -30,8 +30,8 @@
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p>
                 <table border="0">
-                 <%VelocityUtil.applyTemplate(cache.getPatientList(), "listPatientBio.vm", out); %>
-                 <%VelocityUtil.applyTemplate(cache.getVitalsList(), "listPatientVitals.vm", out); %>
+                 <%VelocityUtil.applyTemplate(cache.retrieveObjectList("patientList"), "listPatientBio.vm", out); %>
+                 <%VelocityUtil.applyTemplate(cache.retrieveObjectList("vitalsList"), "listPatientVitals.vm", out); %>
                 </table>
             </p>
         </div>
@@ -47,7 +47,7 @@
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong>
-            <%VelocityUtil.applyTemplate(cache.getMedicineList(), "listMedicineList.vm", out); %>
+            <%VelocityUtil.applyTemplate(cache.retrieveObjectList("medicineList"), "listMedicineList.vm", out); %>
            <!--> <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide <-->  
              </p>
         </div>
@@ -57,7 +57,7 @@
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Problem List</strong>
     
-            <%VelocityUtil.applyTemplate(cache.getProblemList(), "listProblemList.vm", out);%>
+            <%VelocityUtil.applyTemplate(cache.retrieveObjectList("problemList"), "listProblemList.vm", out);%>
       		</p>
            
         </div>
@@ -74,7 +74,7 @@
     <div class="ui-widget top-panel" id="allergies_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Allergies/Alerts</strong>
-            	<%VelocityUtil.applyTemplate(cache.getAlertList(), "listAlertList.vm", out); %>
+            	<%VelocityUtil.applyTemplate(cache.retrieveObjectList("alertList"), "listAlertList.vm", out); %>
             </p>
         </div>
     </div>

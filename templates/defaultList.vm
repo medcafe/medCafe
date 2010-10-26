@@ -1,0 +1,44 @@
+#if ($repositoryList)
+
+
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#if ($announce)
+		$repos.announce.message
+	#else
+		#foreach ($repos in $repositoryList)
+
+			
+			#if ($repos.announce && $firstRepository == true)
+				$repos.announce.message
+				#set ($firstRepository = false)
+				#set ($loopCount = $loopCount + 1)
+			#end
+			#if (!$repos.announce)
+
+				#if ($firstRepository != true)
+					#if ($loopCount == 1)
+						<div id="collapseInfo$widget_id">
+				
+						<a href="#" class="collapse">More</a>
+						<div style="height: 25px"></div>
+						<div id="add_repos$widget_id" style= "display: none">
+						<p></p>
+					#end
+					<br/>
+					<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+				#end
+				#set ($firstRepository = false)
+				#set ($loopCount = $loopCount + 1)
+				$repos
+			#end
+		#end
+		#if ($loopCount >= 2)
+				</div>
+			</div>
+		#end
+	#end
+</div>
+#end
+

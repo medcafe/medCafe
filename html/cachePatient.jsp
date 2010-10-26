@@ -3,7 +3,12 @@
 	String patientId = WebUtils.getRequiredParameter( request, "patient_id" );
 	String primaryRepos = WebUtils.getRequiredParameter(request, "repository");
 	String primarySet = (String) session.getAttribute("primaryRepository");
-	if (primarySet == null)
+	String isIntroPage = null;
+
+	isIntroPage= request.getParameter("isIntro");
+	if (isIntroPage == null)
+		isIntroPage = "false";
+	if (primarySet == null || isIntroPage != "false")
 		session.setAttribute("primaryRepository", primaryRepos);
 	else
 		primaryRepos = primarySet;

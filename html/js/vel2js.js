@@ -9,6 +9,70 @@ t.p( context.announce.message);
 t.p('</h3>');
 return t.toString();
 }
+function v2js_defaultList(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+t.p('<div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+if (context.announce) {
+t.p('		');
+t.p( context.repos.announce.message);
+t.p('	');
+}
+else {
+t.p('		');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('						');
+if (repos.announce && firstRepository == true) {
+t.p('				');
+t.p( repos.announce.message);
+t.p('				');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('			');
+}
+t.p('			');
+if (!( repos.announce )) {
+t.p('				');
+if (firstRepository != true) {
+t.p('					');
+if (loopCount == 1) {
+t.p('						<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">										<a href="');
+t.p('#" class="collapse">More</a>						<div style="height: 25px"></div>						<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">						<p></p>					');
+}
+t.p('					<br/>					<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>				');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('				');
+t.p( repos);
+t.p('			');
+}
+t.p('		');
+}
+
+t.p('		');
+if (loopCount >= 2) {
+t.p('				</div>			</div>		');
+}
+t.p('	');
+}
+t.p('</div>');
+}
+return t.toString();
+}
 function v2js_head(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -1806,6 +1870,8 @@ t.p('" custom:jsonProcess = "');
 t.p( widget.jsonProcess);
 t.p('" custom:iNettuts = "');
 t.p( widget.iNettuts);
+t.p('" custom:cacheKey = "');
+t.p( widget.cacheKey);
 t.p('"></img>    	<p>');
 t.p( widget.name);
 t.p('</p>    </div><br/>  ');

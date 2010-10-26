@@ -1,6 +1,6 @@
 #foreach( $widget in $widgets )
     <div class="imageContain">
-    	<img src="$widget.image" alt="$widget.name" custom:url="$widget.clickUrl" custom:type="$widget.type" custom:Id="$widget.id" custom:params="$widget.params" custom:repository="$widget.repository" custom:script="$widget.script" custom:script_file="$widget.script_file" custom:template="$widget.template" custom:server="$widget.server" custom:jsonProcess = "$widget.jsonProcess" custom:iNettuts = "$widget.iNettuts"></img>
+    	<img src="$widget.image" alt="$widget.name" custom:url="$widget.clickUrl" custom:type="$widget.type" custom:Id="$widget.id" custom:params="$widget.params" custom:repository="$widget.repository" custom:script="$widget.script" custom:script_file="$widget.script_file" custom:template="$widget.template" custom:server="$widget.server" custom:jsonProcess = "$widget.jsonProcess" custom:iNettuts = "$widget.iNettuts" custom:cacheKey = "$widget.cacheKey"></img>
     	<p>$widget.name</p>
     </div><br/>  
 #end

@@ -76,6 +76,7 @@ public class MedCafeComponent
 	private String template="";
 	private String script="";
 	private String scriptFile="";
+	private String cacheKey = "";
 	private boolean jsonProcess= false;
 	private boolean iNettuts = true;
 	
@@ -97,7 +98,7 @@ public class MedCafeComponent
 	public static final String INETTUTS = "iNettuts";
 	public static final String XML_WIDGET = "medCafeWidget";
 	public static final String INTERNAL_WIDGET = "internal";
-	
+	public static final String CACHE_KEY = "cacheKey";
 	public MedCafeComponent()	
 	{
 		super();
@@ -216,7 +217,10 @@ public class MedCafeComponent
 		    		 		if (templateList.getLength() > 0)
 		    		 			template = templateList.item(0).getTextContent();
 		    		 		
-		    		 		
+		    		 				 		String cacheKey = "";	    		 		
+		    		 		NodeList cacheKeyList = componentElmnt.getElementsByTagName(CACHE_KEY);
+		    		 		if (cacheKeyList.getLength() > 0)
+		    		 			cacheKey = cacheKeyList.item(0).getTextContent();
 		    		 		NodeList paramsList = componentElmnt.getElementsByTagName(PARAMS);
 		    		 		String params ="";
 		    		 		if (paramsList.getLength() > 0)
@@ -236,6 +240,7 @@ public class MedCafeComponent
 		    		 		component.setTemplate(template);
 		    		 		component.setJsonProcess(jsonProcess);
 		    		 		component.setINettuts(iNettuts);
+		    		 		component.setCacheKey(cacheKey);
 		    		 		componentList.add(component);
 		    		 		
 		    		 	}
@@ -383,6 +388,7 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.TEMPLATE, template);
    	 jsonObj.put(MedCafeComponent.JSON_PROCESS, String.valueOf(jsonProcess));
    	 jsonObj.put(MedCafeComponent.INETTUTS, String.valueOf(iNettuts));
+   	 jsonObj.put(MedCafeComponent.CACHE_KEY, cacheKey);
     	 return jsonObj;
 	}
 
@@ -426,6 +432,14 @@ public class MedCafeComponent
 	
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+	public String getCacheKey()
+	{
+		return cacheKey;
+	}
+	public void setCacheKey(String cacheKey)
+	{
+		this.cacheKey = cacheKey;
 	}
 	
 }

@@ -19,10 +19,11 @@
 	String patientId = request.getParameter("patient_rep_id");
 	String noCache = (String) request.getParameter("nocache");
 	String listRep =  "/repositories/" + repository + "/patients";
+	String cacheKey = (String) request.getParameter("cacheKey");
 	if (patientId != null && !noCache.equals("true"))
 	{
 		//listRep += "/" + patientId;
-		out.print(cache.getPatientList());
+		out.print(cache.retrieveObjectList("patientList"));
 	}
 	else
 	{

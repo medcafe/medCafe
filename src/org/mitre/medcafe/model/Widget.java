@@ -293,6 +293,7 @@ public class Widget
 						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
 						  widgetJSON.put(MedCafeComponent.INETTUTS, comp.getINettuts());
 						  widgetJSON.put(MedCafeComponent.PARAMS, comp.getParams());
+						  widgetJSON.put(MedCafeComponent.CACHE_KEY, comp.getCacheKey());
 						  }                		
                     ret.append("widgets", widgetJSON);
 					 }

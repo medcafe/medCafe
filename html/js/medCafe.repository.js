@@ -183,6 +183,7 @@ function addRepository(callObj, widgetInfo, data)
 				{
 					var source = $('#patient_searchFrame').attr("src");
 		    		var server = $("option:selected", this).val();
+		    		//alert(source);
 		    		var pos = source.indexOf("?");
 		    		if (pos > 0)
 		    		{

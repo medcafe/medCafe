@@ -1,0 +1,59 @@
+<DataSources>
+<PatientCache>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}</restlet>
+	<cacheKey>patientList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/images</restlet>
+	<cacheKey>images</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/allergies</restlet>
+	<cacheKey>alertList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/medications</restlet>
+	<cacheKey>medicineList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/problems</restlet>
+	<cacheKey>problemList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/immunizations</restlet>
+	<cacheKey>immuneList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/encounters</restlet>
+	<cacheKey>encounterList</cacheKey>
+	<priority>low</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/supportList</restlet>
+	<cacheKey>supportList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/vitals/all</restlet>
+	<cacheKey>allVitalsList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/vitals/latest</restlet>
+	<cacheKey>vitalsList</cacheKey>
+	<priority>high</priority>
+</DataSource>
+<DataSource>
+	<restlet>/repositories/{repository}/patients/{id}/history/{historyCategory}</restlet>
+	<cacheKey>{historyCategory}history</cacheKey>
+	<priority>high</priority>
+</DataSource>
+</PatientCache>
+</DataSources>

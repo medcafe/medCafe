@@ -9,8 +9,24 @@
 	<method/>
 	<repository>OurVista</repository>
 	<template>listPatientTable</template>
-	<script>addPatientDetail</script>
-	<script_file>medCafe.patients.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>patientList</cacheKey>
+	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>DefaultPatient</name>
+	<type>DefaultPatient</type>
+	<image>defaultPatient.png</image>
+	<server></server>
+   <clickUrl>defaultJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+	<template>defaultList</template>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>patientList</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -24,6 +40,7 @@
 	<repository>local</repository>
 	<script>processImages</script>
 	<script_file>medCafe.images.js</script_file>
+	<cacheKey>images</cacheKey>
 	<jsonProcess>false</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -85,12 +102,13 @@
 	<type>Medications</type>
 	<image>prescription.png</image>
 	<server></server>
-	<clickUrl>prescriptionJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
 	<repository>OurVista</repository>
 	<template>listPatientMedsVert</template>
-	<script>addMedications</script>
-	<script_file>medCafe.medications.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>medicineList</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -99,12 +117,13 @@
 	<type>Allergies</type>
 	<image>allergy.jpg</image>
 	<server></server>
-	<clickUrl>allergyJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
 	<repository>OurVista</repository>
 	<template>listPatientAllergies</template>
-	<script>addAllergies</script>
-	<script_file>medCafe.allergies.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>alertList</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -128,13 +147,14 @@
 	<type>History</type>
 	<image>history.png</image>
 	<server></server>
-	<clickUrl>historyJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
-	<params>type:Personal</params>
+	<params></params>
 	<repository>local</repository>
-	<script>addHistory</script>
-	<script_file>medCafe.history.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
 	<template>listPatientHistoryTable</template>
+	<cacheKey>Personalhistory</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -143,13 +163,14 @@
 	<type>FamilyHistory</type>
 	<image>familyhistory.png</image>
 	<server></server>
-	<clickUrl>historyJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
-	<params>type:Family</params>
+	<params></params>
 	<repository>local</repository>
-	<script>addHistory</script>
-	<script_file>medCafe.history.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
 	<template>listPatientHistoryTable</template>
+	<cacheKey>Familyhistory</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -158,12 +179,13 @@
 	<type>Problem</type>
 	<image>problem.png</image>
 	<server></server>
-	<clickUrl>problemListJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
 	<repository>OurVista</repository>
 	<template>listProblemListTable</template>
-	<script>addProblemList</script>
-	<script_file>medCafe.problemList.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>problemList</cacheKey>
 	<jsonProcess>true</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -178,6 +200,7 @@
 	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
+	<cacheKey>allVitalsList</cacheKey>
 	<jsonProcess>false</jsonProcess>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
@@ -193,6 +216,7 @@
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
@@ -207,6 +231,7 @@
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
@@ -221,6 +246,7 @@
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
@@ -228,13 +254,14 @@
 	<type>Support</type>
 	<image>Address_Book.png</image>
 	<server></server>
-	<clickUrl>supportListJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
 	<repository>OurVista</repository>
-	<script>addSupportInfo</script>
-	<script_file>medCafe.supportInfo.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
 	<template>listSupportInfo</template>
 	<jsonProcess>true</jsonProcess>
+	<cacheKey>supportList</cacheKey>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
@@ -242,13 +269,14 @@
 	<type>Immunizations</type>
 	<image>hypo.png</image>
 	<server></server>
-	<clickUrl>immunizationJSON.jsp</clickUrl>
+	<clickUrl>defaultJSON.jsp</clickUrl>
 	<method></method>
 	<repository>OurVista</repository>
-	<script>addImmunizations</script>
-	<script_file>medCafe.immunizations.js</script_file>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
 	<template>listPatientImmunizations</template>
 	<jsonProcess>true</jsonProcess>
+	<cacheKey>immuneList</cacheKey>
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </patientSpecific>

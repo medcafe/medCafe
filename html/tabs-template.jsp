@@ -72,7 +72,8 @@ $(function(){
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
 				"template" : $(dragObj).find('img').attr("custom:template"),
 				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess"),
-				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts")
+				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts"),
+				"cacheKey" : $(dragObj).find('img').attr("custom:cacheKey")
 			};
 			//	var tabObject = $(this).closest('.tabContent');
 			widgetInfo.column = $(this).attr('id').substring(6);

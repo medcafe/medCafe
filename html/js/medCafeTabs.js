@@ -442,6 +442,8 @@ $(document).ready( function() {
 				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
 				widgetInfo.tab_num;
 			}
+			if (widgetInfo.cacheKey!= undefined && widgetInfo.cacheKey !="")
+				serverLink = serverLink + "&cacheKey=" + widgetInfo.cacheKey;
 			if (widgetInfo.nocache != undefined && widgetInfo.nocache=="true")
 				serverLink = serverLink + "&nocache=true";
 			else

@@ -12,7 +12,7 @@ if (initialized == undefined)
 function processChart(obj, widgetInfo, data)
 {	
 var chartObj = $('#chartform'+widgetInfo.id);
-
+	$("#aaa" + widgetInfo.id).mousemove(function(e) {e.stopPropagation();});
  processChartButton(chartObj, widgetInfo.id);
 	// fetch one series, adding to what we got
 
@@ -96,6 +96,7 @@ function clearCheckBoxes(frm)
 
 function onDataReceived(series, widgetId) 
 {
+
 	var index = "placeholder" + widgetId;
             // extract the first coordinate pair so you can see that
             // data is now an ordinary Javascript object
