@@ -143,6 +143,21 @@
 	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
+	<name>DefaultMedications</name>
+	<type>DefaultMedications</type>
+	<image>defaultPrescription.png</image>
+	<server></server>
+	<clickUrl>defaultJSON.jsp</clickUrl>
+	<method></method>
+	<repository>OurVista</repository>
+	<template>defaultList</template>
+	<script>addDefaultTable</script>
+	<script_file>medCafe.default.js</script_file>
+	<cacheKey>medicineList</cacheKey>
+	<jsonProcess>true</jsonProcess>
+	<iNettuts>true</iNettuts>
+</medCafeWidget>
+<medCafeWidget>
 	<name>History</name>
 	<type>History</type>
 	<image>history.png</image>

@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex .*;
-import java.lang.reflect.*;
+
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -150,9 +150,9 @@ public class Event
 	{
 		return new String[]{Event.SYMPTOMS_TYPE,Event.PROBLEMS_TYPE,Event.APPT_TYPE,Event.HOSPITAL_TYPE,Event.FILE_TYPE,Event.NOTE_TYPE, Event.IMMUNIZATION_TYPE, Event.ENCOUNTER_TYPE};
 	}
-	public static String[] getPatientCacheMethodList()
+	public static String[] getPatientCacheObjectList()
 	{
-		return new String[] {null, "getProblemList", null, null, null, null, "getImmuneList", "getEncounterList"};
+		return new String[] {null, "problemList", null, null, null, null, "immuneList", "encounterList"};
 	}
 
 	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, Application application, JSONObject repositories) throws SQLException, ParseException
@@ -780,32 +780,30 @@ public class Event
 	{
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		String[] listOfEvents = getEventList();
-		String[] methodNames = getPatientCacheMethodList();
+		String[] objectNames = getPatientCacheObjectList();
 		String primaryRepos = cache.getPrimaryRepos();
 		try{
-			Class<?> c = Class.forName("org.mitre.medcafe.model.PatientCache");
 
 			for (String event : events)
 			{
 				for (int i = 0; i< listOfEvents.length; i++)
 				{
-					if (event.equals(listOfEvents[i]) && methodNames[i] != null)
+					if (event.equals(listOfEvents[i]) && objectNames[i] != null)
 					{
-						java.lang.reflect.Method method = c.getMethod(methodNames[i], new Class[0]);
-						JSONObject obj = (JSONObject) method.invoke(cache, new Object[0]);
+					
+						JSONObject obj = cache.retrieveObjectList(objectNames[i]);
 						JSONArray array = obj.getJSONArray("repositoryList");
 						for (int j= 0; j<array.length(); j++)
 						{
-						
+					
 							JSONObject resObj = array.getJSONObject(j);
 							String repository = resObj.getString("repository"); 
 						
 							if (!primary.equals("true") || repository.equals(primaryRepos))
 							{
-
-								ArrayList<Event> newList = getEventObject(resObj, userName, cache.getDatabasePatientId(), cache.getRepoPatientId(repository), repository, event, getIcons().get(event));
+									ArrayList<Event> newList = getEventObject(resObj, userName, cache.getDatabasePatientId(), cache.getRepoPatientId(repository), repository, event, getIcons().get(event));
 								eventList.addAll(newList);
-							
+						
 							} 
 						}
 						break;		
@@ -813,26 +811,12 @@ public class Event
 				}
 			}
 		}
-		catch(ClassNotFoundException classE)
-		{
-			classE.printStackTrace();
-		}
+
 		catch(JSONException jsonE)
 		{
 			jsonE.printStackTrace();
 		}
-		catch(NoSuchMethodException noSuchE)
-		{
-			noSuchE.printStackTrace();
-		}
-		catch(SecurityException secE)
-		{
-			secE.printStackTrace();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+
 			
 		
 		return eventList;
