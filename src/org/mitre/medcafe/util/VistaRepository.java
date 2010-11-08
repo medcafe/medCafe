@@ -416,16 +416,16 @@ public class VistaRepository extends Repository {
      *  sets the passed VistaLinkPooledConnection
      *  @return true if connection worked.  False otherwise.
      */
-    protected synchronized RPCBrokerPooledConnection setConnection() throws OvidDomainException {
+    protected RPCBrokerPooledConnection setConnection() throws OvidDomainException {
         RPCBrokerPooledConnection conn = null;
-
+			synchronized(this) {
         if (rpcConnFactory == null) {
             factorySetUp(credentials);
         }
-
+			
 
         conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
-
+			}
         //       conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
 
         //conn = factory.getConnection();

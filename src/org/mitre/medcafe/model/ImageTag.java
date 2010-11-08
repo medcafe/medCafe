@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 /**
  *  Representation of the text data
@@ -97,35 +98,28 @@ public class ImageTag
 	public static final String SELECT_FILEIDS = "SELECT id, filename from file where ( patient_id=? AND filename=? ) ";
 	public static final String SELECT_TAGS = "SELECT file_id, patient_id, username, x_origin, y_origin, shape_x, shape_y, width, height, zoom, color, shape_type, note from file_annotations where ( patient_id=? AND username=? AND file_id=?) ";
 
-	private static DbConnection dbConn = null;
 	public ImageTag()
 	{
 		super();
 
 	}
 
-	public ImageTag(DbConnection newDbConn)
-	{
-		super();
-		this.dbConn = newDbConn;
-
-	}
 
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 
-	public static void closeConnection() throws SQLException
+	public static void closeConnection(DbConnection dbConn) throws SQLException
 	{
-		dbConn.close();
+		if (dbConn != null)
+			dbConn.close();
 	}
 
 	public JSONObject toJSON() throws JSONException
@@ -150,20 +144,31 @@ public class ImageTag
 
 	public static int getFileId(DbConnection dbConn, int patId, String fileName) throws NumberFormatException, SQLException
 	{
+		ResultSet rs = null;
+		int fileId = 0;
+		try {
 		String selectFileIDQuery = ImageTag.SELECT_FILEIDS;
 		//public static final String SELECT_FILEIDS = "SELECT file_id, filename from file where ( patient_id=? AND filename=? ) ";
 		
 		String err_mess = "Could not get a file Id based on the filename  " + fileName;
 
-		int fileId = 0;
 		System.out.println("ImageTag getFileId patientId " + patId + " fileName " + fileName);
 		 
-		ResultSet rs = dbConn.psExecuteQuery(selectFileIDQuery, err_mess , patId, fileName);
+		rs = dbConn.psExecuteQuery(selectFileIDQuery, err_mess , patId, fileName);
 
 		if (rs.next())
 		{
 			String file_id = rs.getString("id");
 			fileId = Integer.valueOf(file_id);
+		}
+		}
+		catch (SQLException e)
+		{
+			throw e;
+		}
+		finally {
+			DatabaseUtility.close(rs);
+			rs = null;
 		}
 		return fileId;
 	}
@@ -171,10 +176,11 @@ public class ImageTag
 	public static JSONObject deleteAnnotations( String patientId, String userName, String fileName) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
+		DbConnection dbConn = null;
 
 		try
 		{
+			dbConn = setConnection();
 			String deleteQuery = ImageTag.DELETE_TAGS;
 			//public static final String DELETE_TAGS = "DELETE FROM file_annotations where ( patient_id=? AND username=? AND file_id=?) ";
 			
@@ -187,12 +193,18 @@ public class ImageTag
 			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName, fileId);
 
 			if (rtn < 0 )
+			{
+				dbConn.close();
 				return WebUtils.buildErrorJson( "Problem on deleting image tag data from database ." );
-
+			}
+		}
+		catch (SQLException e)
+		{
+			throw e;
 		}
 		finally
 		{
-
+			dbConn.close();
 		}
 		return ret;
 	}
@@ -200,8 +212,8 @@ public class ImageTag
 	public JSONObject saveAnnotations( String userName, JSONObject annotationJSON) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
-		
+		DbConnection dbConn = null;
+		PreparedStatement prep = null;
 		/*patient_id integer NOT NULL,
 		username character varying(50) NOT NULL,
 		file_id  integer NOT NULL,
@@ -218,7 +230,7 @@ public class ImageTag
 		
 		try
 		{
-			  
+			  dbConn = setConnection();
 			
 			String fileName = annotationJSON.getString("image");
 		
@@ -263,12 +275,14 @@ public class ImageTag
 			}
 			//This tag has been marked for removal
 			if (remove.equals(ImageTag.TRUE))
+			{
+				dbConn.close();
 				return ret;
-			
+			}
 			String updateQuery = ImageTag.INSERT_TAGS;
 			//INSERT_WIDGETS = "INSERT INTO table  (file_id, patient_id, username, x_origin, y_origin, shape_x, shape_y, width, height, zoom, color, shape_type  ) values (?,?,?,?,?) ";
 
-			PreparedStatement prep= dbConn.prepareStatement(updateQuery);
+			prep= dbConn.prepareStatement(updateQuery);
 			
 			prep.setInt(1, fileId);
 			prep.setInt(2, patientId);
@@ -289,6 +303,8 @@ public class ImageTag
 			int rtn = prep.executeUpdate();
 			if (rtn < 0)
 			{
+				DatabaseUtility.close(prep);
+				dbConn.close();
 				return WebUtils.buildErrorJson( "Problem on updating annotation data into the database " + prep.toString());
 
 			}
@@ -300,9 +316,14 @@ public class ImageTag
 			return WebUtils.buildErrorJson( "Problem on updating annotation data from database ." + e.getMessage());
 
 		}
+		catch (SQLException e) {
+			throw e;
+		}
 		finally
 		{
-
+			DatabaseUtility.close(prep);
+			dbConn.close();
+			
 		}
 		return ret;
 	}
@@ -315,9 +336,12 @@ public class ImageTag
 		 int patId = Integer.valueOf(patientId);
 		 int fileId = 0;
 		 JSONObject o = new JSONObject();
+		 DbConnection dbConn = null;
+		 PreparedStatement prep = null;
+		 ResultSet rs = null;
 		 try
 		 {
-			dbConn= new DbConnection();
+			dbConn= setConnection();
 
 			fileId =  getFileId(dbConn, patId, fileName);
 			
@@ -326,14 +350,14 @@ public class ImageTag
 				//If no tags - just bring up image
 				return new JSONObject();
 			}
-			PreparedStatement prep= dbConn.prepareStatement(ImageTag.SELECT_TAGS);
+			prep= dbConn.prepareStatement(ImageTag.SELECT_TAGS);
 			prep.setInt(1, patId);
 			prep.setString(2, userName);
 			prep.setInt(3, fileId);
 			
 			System.out.println("ImageTag : retrieveImageTags : query " + prep.toString());
 
-			ResultSet rs =  prep.executeQuery();
+			rs =  prep.executeQuery();
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
 			ImageTag imageTag = new ImageTag();
 			HashMap<String, String> params = new HashMap<String, String>() ;
@@ -371,6 +395,9 @@ public class ImageTag
 		}
 		 finally
 		 {
+		 	DatabaseUtility.close(rs);
+		 	DatabaseUtility.close(prep);
+		 	dbConn.close();
 			 //dbConn.close();
 		 }
 		 return o;

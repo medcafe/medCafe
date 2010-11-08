@@ -86,7 +86,8 @@ public class AuthenticationUtils {
         {
             DatabaseUtility.close(rs);
             DatabaseUtility.close(ps);
-            conn.close();
+            if (conn != null)
+            	    conn.close();
         }
         log.exiting(KEY, "registerUser");
         return OK;

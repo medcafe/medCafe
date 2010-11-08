@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 import org.projecthdata.hdata.schemas._2009._06.condition.Condition;
 
@@ -53,8 +54,6 @@ public class Address
 	private int patientId =0;
 	
 	public static final String ID = "patient_id";
-	
-	private static DbConnection dbConn = null;
 	
 	public static String  STREET ="street";
 	public static String  STREET2 ="street2";
@@ -80,27 +79,22 @@ public class Address
 		super();
 	
 	}
-	public Address(DbConnection conn)	
-	{
-		super();
-		dbConn = conn;
-	
-	}
+
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 	
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 	
-	public static void closeConnection() throws SQLException
+	public static void closeConnection(DbConnection dbConn) throws SQLException
 	{
-		dbConn.close();
+		if (dbConn != null)
+			dbConn.close();
 	}
 	
 	
@@ -179,13 +173,14 @@ public class Address
 	 public static JSONObject getAddress(String patientId)
 	    {
 	    	 JSONObject ret = new JSONObject();
-			 PreparedStatement prep;
+	    	 DbConnection dbConn = null;
+			 PreparedStatement prep = null;
+			 ResultSet rs = null;
 			 int patient_id = Integer.parseInt(patientId);
 			
 			 try 
 			 {
-				 if (dbConn == null)
-					 dbConn= new DbConnection();
+				 dbConn = setConnection();
 				 String sql = Address.SELECT_PATIENT_ADDRESS;
 				     
 				 prep = dbConn.prepareStatement(sql);				
@@ -193,7 +188,7 @@ public class Address
 				
 				 System.out.println("ListAddressResource: getAddress : query " + prep.toString());
 					
-				 ResultSet rs = prep.executeQuery();
+				 rs = prep.executeQuery();
 				 boolean rtnResults = false;
 				 Address address = new Address();
 				 
@@ -250,6 +245,11 @@ public class Address
 				// TODO Auto-generated catch block
 				 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
 			} 
+			finally {
+				DatabaseUtility.close(rs);
+				DatabaseUtility.close(prep);
+				dbConn.close();
+			}
 			
 			 return ret;
 	 }
@@ -259,12 +259,13 @@ public class Address
 			 JSONObject ret = new JSONObject();
 			 
 			 String sql = Address.DELETE_ADDRESS;
-			
+			DbConnection dbConn = null;
+			PreparedStatement prep = null;
+		
 			 try {
-				 if (dbConn == null)
-					dbConn= new DbConnection();
+				dbConn = setConnection();
 					
-				 PreparedStatement prep = dbConn.prepareStatement(sql);	
+				 prep = dbConn.prepareStatement(sql);	
 				 int patient_id = Integer.parseInt(patientId);
 					
 				 prep.setInt(1, patient_id);
@@ -273,6 +274,8 @@ public class Address
 					
 				 if (rtn < 0)
 				 {
+				 	 DatabaseUtility.close(prep);
+				 	 dbConn.close();
 						 return WebUtils.buildErrorJson( "Problem on deletion of current data from database ." );      
 				 }
 					
@@ -356,6 +359,11 @@ public class Address
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return WebUtils.buildErrorJson( "Problem on processing JSON Object for address ." +addresses.toString() + " " + e.getMessage());
+			}
+			finally{
+
+				DatabaseUtility.close(prep);
+				dbConn.close();
 			}
 			 
 			 return ret;

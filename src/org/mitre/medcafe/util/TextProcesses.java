@@ -33,7 +33,7 @@ import javax.servlet.jsp.PageContext;
  */
 public class TextProcesses
 {
-   private static DbConnection dbConn;
+
      
    private HashMap<String,Text> textList = new HashMap<String, Text>();
    
@@ -42,21 +42,7 @@ public class TextProcesses
 	   
    }
    
-   public void init()
-   {
-	   try {
-			if (dbConn == null)
-				dbConn= new DbConnection();
-			
-			//System.out.println("SaveData: init. Got connection " );
-			
-		} 
-	     catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		} 
-   }
+
    
    public Text getTextObject(String title) throws SQLException
    {
@@ -67,69 +53,112 @@ public class TextProcesses
    
    public Text populateTextObject(String userid,  String patientId, String title) throws SQLException
    {
-	   init();
+   	   DbConnection dbConn = null;
+   	   PreparedStatement prep = null;
+   	   ResultSet rs = null;
+   	   Text textObj = null;
+   	   try{
+   	   	  dbConn = new DbConnection();
 	 		
-	   Text textObj =  new Text(userid, patientId);
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT);
-	   int patient_id = Integer.parseInt(patientId);
-	   prep.setString(1, userid);
-	   prep.setInt(2, patient_id);
-	   prep.setString(3, title);
+   	   	  textObj =  new Text(userid, patientId);
+   	   	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT);
+   	   	  int patient_id = Integer.parseInt(patientId);
+   	   	  prep.setString(1, userid);
+   	   	  prep.setInt(2, patient_id);
+   	   	  prep.setString(3, title);
 		
-	   ResultSet rs = prep.executeQuery();
-	   if (rs.next())
-	   {
+   	   	  rs = prep.executeQuery();
+   	   	  if (rs.next())
+   	   	  {
 		 	
-		   String note = rs.getString(1);
-		   textObj =  new Text(userid, patientId, title, note);
+   	   	  	  String note = rs.getString(1);
+   	   	  	  textObj =  new Text(userid, patientId, title, note);
 		  
+   	   	  }
+   	   }
+   	   catch (SQLException e)
+   	   {
+   	     	  throw e;
+   	   }
+   	   finally {
+   	   	   DatabaseUtility.close(rs);
+   	   	   DatabaseUtility.close(prep);
+   	   	   dbConn.close();
 	   }
-		
 	   return textObj;
    }
    
    public TextTemplate populateTemplateObject(String userid,  String title) throws SQLException
    {
-	   init();
-	  		
-	   TextTemplate templateObj =  new TextTemplate(userid);
-	   PreparedStatement prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATE_SELECT);
 	   
-	   prep.setString(1, userid);
-	   prep.setString(2, title);
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+	  ResultSet rs = null;
+	  TextTemplate templateObj = null;
+	  try {
+	  	  dbConn = new DbConnection();
+	  	  templateObj =  new TextTemplate(userid);
+	  	  prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATE_SELECT);
+	   
+	  	  prep.setString(1, userid);
+	  	  prep.setString(2, title);
 	  
-	   ResultSet rs = prep.executeQuery();
-	   if (rs.next())
-	   {
+	  	  rs = prep.executeQuery();
+	  	  if (rs.next())
+	  	  {
 		 	
-		   String note = rs.getString(1);
-		   templateObj =  new TextTemplate(userid, title,  note);
+	  	  	  String note = rs.getString(1);
+	  	  	  templateObj =  new TextTemplate(userid, title,  note);
 		  
+	  	  }
+	  }
+	   catch (SQLException e)
+	   {
+	   	   throw e;
 	   }
+	   finally {
+	   	   DatabaseUtility.close(rs);
+	   	   DatabaseUtility.close(prep);
+	   	   dbConn.close();
+	   }
+	   
 		
 	   return templateObj;
    }
    
    public HashMap<String,Text> populateTextObjects(String userid,  String patientId) throws SQLException
    {
-	   init();
-	   	
-	   Text textObj =  new Text(userid, patientId);
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXTS_SELECT);
-	   int patient_id = Integer.parseInt(patientId);
-	   prep.setString(1, userid);
-	   prep.setInt(2, patient_id);
+	   DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+	  ResultSet rs = null;	
+	  Text textObj = null;
+	  try {
+	  	  dbConn = new DbConnection();
+	  	  textObj =  new Text(userid, patientId);
+	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXTS_SELECT);
+	  	  int patient_id = Integer.parseInt(patientId);
+	  	  prep.setString(1, userid);
+	  	  prep.setInt(2, patient_id);
 		
-	   ResultSet rs = prep.executeQuery();
-	   while (rs.next())
-	   {
+	  	  rs = prep.executeQuery();
+	  	  while (rs.next())
+	  	  {
 		   
-		   String title = rs.getString(1);
-		   String note = rs.getString(2);
-		   textObj =  new Text(userid, patientId, title, note);
-		   textList.put(title, textObj);
-	   }
-		
+	  	  	  String title = rs.getString(1);
+	  	  	  String note = rs.getString(2);
+	  	  	  textObj =  new Text(userid, patientId, title, note);
+	  	  	  textList.put(title, textObj);
+	  	  }
+	  }
+	  catch (SQLException e)
+	  {
+	  	  throw e;
+	  }
+	  finally {
+	  	  DatabaseUtility.close(rs);
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }	
 	   return textList;
    }
    
@@ -137,99 +166,174 @@ public class TextProcesses
    {
 	   HashMap<String,TextTemplate> templateList = new HashMap<String, TextTemplate>();
 	   
-	   init();
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+	  ResultSet rs = null;
+	  TextTemplate templateObj = null;
+	  try {
+	  	  dbConn = new DbConnection();
 	   		
-	   TextTemplate templateObj =  new TextTemplate(userid);
-	   PreparedStatement prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATES_SELECT);
+	  	  templateObj =  new TextTemplate(userid);
+	  	  prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATES_SELECT);
 	   
-	   prep.setString(1, userid);
+	  	  prep.setString(1, userid);
 	 	
-	   ResultSet rs = prep.executeQuery();
-	   while (rs.next())
-	   {
+	  	  rs = prep.executeQuery();
+	  	  while (rs.next())
+	  	  {
 		   
-		   String title = rs.getString(1);
-		   String note = rs.getString(2);
-		   templateObj =  new TextTemplate(userid,  title, note);
-		   templateList.put(title, templateObj);
-	   }
+	  	  	  String title = rs.getString(1);
+	  	  	  String note = rs.getString(2);
+	  	  	  templateObj =  new TextTemplate(userid,  title, note);
+	  	  	  templateList.put(title, templateObj);
+	  	  }
+	  }
+	  catch (SQLException e)
+	  {
+	  	  throw e;
+	  }
+	  finally {
+	  	  DatabaseUtility.close(rs);
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }	
 		
 	   return templateList;
    }
    
    public void saveText(String userid,  String patientId, String title, String text) throws SQLException
    {
-	   init();
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+	  ResultSet rs = null;
+
+	  try {
+	  	  dbConn = new DbConnection();
 	   	
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT_CNT);
+	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT_CNT);
 	   
-	   prep.setString(1, userid);
-	   int patient_id = Integer.parseInt(patientId);
+	  	  prep.setString(1, userid);
+	  	  int patient_id = Integer.parseInt(patientId);
 		  
-	   prep.setInt(2, patient_id);
-	   prep.setString(3, title);
-	   int numberOfRecords = 0;
+	  	  prep.setInt(2, patient_id);
+	  	  prep.setString(3, title);
+	  	  int numberOfRecords = 0;
 	   
-	   ResultSet rs = prep.executeQuery();
-	   if (rs.next())
-	   {
-		   numberOfRecords = rs.getInt(1);
-	   }
+	  	  rs = prep.executeQuery();
+	  	  if (rs.next())
+	  	  {
+	  	  	  numberOfRecords = rs.getInt(1);
+	  	  }
 	   
-	   if (numberOfRecords == 0)
-		   insertText(userid, patientId, title, text);
-	   else
-		   updateText(userid, patientId, title, text);
+	  	  if (numberOfRecords == 0)
+	  	  	  insertText(userid, patientId, title, text);
+	  	  else
+	  	  	  updateText(userid, patientId, title, text);
+	  }
+	    catch (SQLException e)
+	  {
+	  	  throw e;
+	  }
+	  finally {
+	  	  DatabaseUtility.close(rs);
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }
+	  
    }
    
    
    private void insertText(String userid,  String patientId, String title, String text) throws SQLException
    {
-	   init();
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+
+
+	  try {
+	  	  dbConn = new DbConnection();
 	   
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_INSERT);
-	   prep.setString(1, userid);
-	   int patient_id = Integer.parseInt(patientId);
+	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_INSERT);
+	  	  prep.setString(1, userid);
+	  	  int patient_id = Integer.parseInt(patientId);
 		
-	   prep.setInt(2, patient_id);
-	   prep.setString(3, title);
-	   prep.setString(4, text);
+	  	  prep.setInt(2, patient_id);
+	  	  prep.setString(3, title);
+	  	  prep.setString(4, text);
 	     
-	   int noUpdated = prep.executeUpdate();
-	   System.out.println("SaveData: InsertText: number updated  " + noUpdated );
+	  	  int noUpdated = prep.executeUpdate();
+	  	  System.out.println("SaveData: InsertText: number updated  " + noUpdated );
+	   }
+	    catch (SQLException e)
+	  {
+	  	  throw e;
+	  }
+	  finally {
+
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }
    }
    
    private void updateText(String userid,  String patientId, String title, String text) throws SQLException
    {
-	   init();
-	   
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_UPDATE);
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
+	  ResultSet rs = null;
 
-	   prep.setString(1, text);
-	   prep.setString(2, userid);
-	   int patient_id = Integer.parseInt(patientId);
+	  try {
+	  	  dbConn = new DbConnection();
+	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_UPDATE);
+
+	  	  prep.setString(1, text);
+	  	  prep.setString(2, userid);
+	  	  int patient_id = Integer.parseInt(patientId);
 		
-	   prep.setInt(3, patient_id);
-	   prep.setString(4, title);
+	  	  prep.setInt(3, patient_id);
+	  	  prep.setString(4, title);
 	      
-	   int noUpdated = prep.executeUpdate();
-	   System.out.println("SaveData: UpdateText: update: number updated  " + noUpdated );
+	  	  int noUpdated = prep.executeUpdate();
+	  	  System.out.println("SaveData: UpdateText: update: number updated  " + noUpdated );
+	    }
+	    catch (SQLException e)
+	   {
+	  	  throw e;
+	   }
+	  finally {
+	  	  DatabaseUtility.close(rs);
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }
    }
    
    public void deleteText(String userid,  String patientId, String title, String text) throws SQLException
    {
-	   init();
-	   
-	   PreparedStatement prep = dbConn.prepareStatement(Text.SAVE_TEXT_DELETE);
+	  DbConnection dbConn = null;
+	  PreparedStatement prep = null;
 
-	   prep.setString(1, userid);
-	   int patient_id = Integer.parseInt(patientId);
+
+	  try {
+	  	  dbConn = new DbConnection();
+	   
+	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_DELETE);
+
+	  	  prep.setString(1, userid);
+	  	  int patient_id = Integer.parseInt(patientId);
 		
-	   prep.setInt(2, patient_id);
-	   prep.setString(3, title);
+	  	  prep.setInt(2, patient_id);
+	  	  prep.setString(3, title);
 	      
-	   int noUpdated = prep.executeUpdate();
-	   System.out.println("SaveData: DeleteText: delete: number updated  " + noUpdated );
+	  	  int noUpdated = prep.executeUpdate();
+	  	  System.out.println("SaveData: DeleteText: delete: number updated  " + noUpdated );
+	   }
+	    catch (SQLException e)
+	   {
+	  	  throw e;
+	   }
+	  finally {
+
+	  	  DatabaseUtility.close(prep);
+	  	  dbConn.close();
+	  }
    }
 }
 

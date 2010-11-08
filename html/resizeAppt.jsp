@@ -7,10 +7,11 @@
     //this is for preventing sql-injection attacks only
     Integer.parseInt( minuteDelta );
     JSONObject ret = new JSONObject();
+    DbConnection conn = null;
     try
     {
         int id = Integer.parseInt(apptId);
-        DbConnection conn = new DbConnection();
+        conn = new DbConnection();
         String query = "update schedule set end_time = end_time+interval '" + minuteDelta + " minutes' where id=?";
         int count = conn.psExecuteUpdate( query, "", id );
         if( count == -1 )
@@ -25,6 +26,8 @@
     }
     finally
     {
+    	if (conn != null)
+    		conn.close();
         out.write(String.valueOf(ret));
     }
 %>

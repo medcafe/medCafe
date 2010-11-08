@@ -3,7 +3,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
 
 
-	DbConnection conn = new DbConnection();
+	
     JSONObject rtnObj = new JSONObject();
 	//Get the patient Id
     String patientId = request.getParameter(Constants.PATIENT_ID);
@@ -16,7 +16,7 @@
     	//String lastName = request.getParameter(Patient.LAST_NAME);
     	System.out.println("addPatientRepositoryAssoc.jsp patient id " + patientId + " repository " + patientRepId);
 	
-		Patient patient = new Patient(conn);
+		Patient patient = new Patient();
 		//Set the name parts
 		patient.parseFullName(fullName);
 		
@@ -88,6 +88,5 @@
 	    
 	}
 	//Add the local entry
-	
-	//patient.closeConnection();
+
 %>

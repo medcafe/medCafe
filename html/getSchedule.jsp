@@ -23,5 +23,7 @@
         o.put( "allDay", false );
         ret.put(o);
     }
+    DatabaseUtility.close(rs);
+    conn.close();
     out.write(String.valueOf(ret));
 %>

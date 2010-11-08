@@ -48,6 +48,7 @@ import org.mitre.medcafe.restlet.PatientListResource;
 import org.mitre.medcafe.restlet.Repositories;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.Text;
 import org.mitre.medcafe.util.WebUtils;
 import org.restlet.Application;
@@ -113,7 +114,6 @@ public class Event
 	public static final String ENCOUNTER_TYPE = "Encounters";
 	public final static String NA = "Resource not available";
 
-	private static DbConnection dbConn = null;
 	public Event()
 	{
 		super();
@@ -122,20 +122,37 @@ public class Event
 
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 
-	public static void closeConnection() throws SQLException
+		public static void closeConnections(DbConnection dbConn, PreparedStatement prep, ResultSet rs) 
 	{
-		dbConn.close();
-		dbConn = null;
+		DatabaseUtility.close(prep);
+		DatabaseUtility.close(rs);
+		
+		if (dbConn != null)
+			dbConn.close();
+		
+	}
+		public static void closeConnections(DbConnection dbConn) 
+	{
+		
+		closeConnections(dbConn, null, null);
+		
+	}
+	public static void closeConnections(DbConnection dbConn, PreparedStatement prep)
+	{
+		closeConnections(dbConn, prep, null);
+	}
+	public static void closeConnections(DbConnection dbConn, ResultSet rs)
+	{
+		closeConnections(dbConn, null, rs);
 	}
 
 	public JSONObject toJSON() throws JSONException
@@ -160,8 +177,6 @@ public class Event
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		System.out.println("Event : retrieveEvents: getIcons start " );
 
-		try
-		 {
 			HashMap<String,String> icons = getIcons();
 			System.out.println("Event : retrieveEvents: getIcons " + icons.size());
 
@@ -222,13 +237,8 @@ public class Event
 			}
 			System.out.println("Event : retrieveEvents: finished ");
 
-		 }
-		 finally
-		 {
+	
 
-			 //dbConn.close();
-			 //dbConn = null;
-		 }
 		 return eventList;
 
 	}
@@ -251,19 +261,23 @@ public class Event
     	return select;
 	}
 
-	private static ArrayList<Event> retrieveEventsFromLocal(String sql,String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, String icon, String type) throws SQLException, ParseException
+	private static ArrayList<Event> retrieveEventsFromLocal(String sql,String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, String icon, String type) throws SQLException
 	{
 		ArrayList<Event> eventList = new ArrayList<Event>();
 
 
 			int patId = Integer.valueOf(patientId);
-			if (dbConn == null)
-				dbConn= new DbConnection();
+			DbConnection dbConn = null;
+			PreparedStatement prep = null;
+			ResultSet rs = null;
 
-			PreparedStatement prep=null;
+		try {
+			dbConn = setConnection();
+
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			Date startDate = null;
 			Date endDate = null;
+
 
 			int startDatePos = 2, endDatePos = 2;
 
@@ -283,7 +297,7 @@ public class Event
 
 			prep.setString(1, userName);
 			prep.setInt(2, patId);
-			ResultSet rs =  prep.executeQuery();
+			rs =  prep.executeQuery();
 
 			System.out.println("Medcafe Event JSON Events retrieveEvents sql" + prep.toString());
 
@@ -316,6 +330,17 @@ public class Event
 				eventList.add( event);
 
 			}
+		}
+		catch (SQLException e)
+		{
+			throw e;
+		}
+
+		finally {
+			
+		 closeConnections(dbConn, prep, rs);
+		
+		}
 		 return eventList;
 
 	}

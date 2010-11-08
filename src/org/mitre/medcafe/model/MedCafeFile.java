@@ -39,6 +39,7 @@ import org.mitre.medcafe.restlet.PatientListResource;
 import org.mitre.medcafe.restlet.Repositories;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
 
@@ -90,7 +91,6 @@ public class MedCafeFile
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	public static final String SQL_DATE_FORMAT = "YYYY-MM-DD";
 	
-	private static DbConnection dbConn = null;
 	public MedCafeFile()	
 	{
 		super();
@@ -99,20 +99,20 @@ public class MedCafeFile
 	
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 	
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 	
-	public static void closeConnection() throws SQLException
+	public static void closeConnection(DbConnection dbConn) throws SQLException
 	{
-		dbConn.close();
-		dbConn = null;
+		if (dbConn != null)
+			dbConn.close();
+
 	}
 	
 	public JSONObject toJSON() throws JSONException
@@ -127,7 +127,7 @@ public class MedCafeFile
 	public static JSONObject deleteFiles( String patientId, String userName) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
+		DbConnection dbConn = setConnection();
 		
 		try 
 		{
@@ -139,12 +139,14 @@ public class MedCafeFile
 			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName);	
 			
 			if (rtn < 0 )
-				return WebUtils.buildErrorJson( "Problem on deleting file data from database ." );
-			
+				{
+					dbConn.close();
+					return WebUtils.buildErrorJson( "Problem on deleting file data from database ." );
+				}
 		}
 		finally
 		{
-		
+			dbConn.close();
 		}
 		return ret;
 	}
@@ -152,8 +154,8 @@ public class MedCafeFile
 	public static JSONObject saveFiles( String userName, JSONObject widgetJSON) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
-		
+		DbConnection dbConn = setConnection();
+		PreparedStatement prep = null;
 		try 
 		{
 			
@@ -164,7 +166,7 @@ public class MedCafeFile
 			
 			String updateQuery = MedCafeFile.INSERT_FILES;
 			
-			PreparedStatement prep= dbConn.prepareStatement(updateQuery);
+			prep= dbConn.prepareStatement(updateQuery);
 			
 			//INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
 		
@@ -192,7 +194,8 @@ public class MedCafeFile
 		}
 		finally
 		{
-		
+			DatabaseUtility.close(prep);
+			dbConn.close();
 		}
 		return ret;
 	}
@@ -201,12 +204,13 @@ public class MedCafeFile
 	public static ArrayList<MedCafeFile> retrieveFiles(String userName, String patientId, String startDateStr, String endDateStr, String categoryList, boolean levenshtein) throws SQLException, ParseException
 	{
 		ArrayList<MedCafeFile> fileList = new ArrayList<MedCafeFile>();
-		
+		DbConnection dbConn = null;
+		PreparedStatement prep = null;
+		ResultSet rs = null;
 		try 
 		 {
 			int patId = Integer.valueOf(patientId);
-			if (dbConn == null)
-				dbConn= new DbConnection();
+			dbConn = setConnection();
 	
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			Date startDate = null;
@@ -264,7 +268,7 @@ public class MedCafeFile
 			
 			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + sqlQuery);
             
-			PreparedStatement prep= dbConn.prepareStatement(sqlQuery);
+			prep= dbConn.prepareStatement(sqlQuery);
 					
 			if (startDate != null)
 			{
@@ -281,7 +285,7 @@ public class MedCafeFile
 			prep.setInt(1, patId);
 			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
 	           
-			ResultSet rs =  prep.executeQuery();
+			rs =  prep.executeQuery();
 
 			 
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
@@ -324,7 +328,9 @@ public class MedCafeFile
 		 }
 		 finally
 		 {
-			 
+			 DatabaseUtility.close(rs);
+			 DatabaseUtility.close(prep);
+			 dbConn.close(); 
 			 //dbConn.close();
 		 }
 		 return fileList;

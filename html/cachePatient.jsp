@@ -13,8 +13,10 @@
 	else
 		primaryRepos = primarySet;
    // String primaryRepos = "OurVista";
+   System.out.println("creating new PatientCache");
     PatientCache cache = new PatientCache( patientId, application, primaryRepos );
     Thread t = new Thread( cache );
+    System.out.println("Thread started");
     t.start();
     // cache.run();
     session.setAttribute(PatientCache.KEY, cache);

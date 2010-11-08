@@ -2,6 +2,8 @@
 <html>
 <%
 	String imageName = request.getParameter("image");
+	String widgetId = request.getParameter("widgetId");
+	
 	if (imageName == null)
 		imageName = "images/patient1/chest-xray.jpg";
 	String tabNum = request.getParameter("tab_num");
@@ -45,7 +47,7 @@
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
         <div class="wrapper">
             
-            <div id="viewerImageName"><%=imageName%></div>
+            <div id="viewerImageName<%=widgetId%>"><%=imageName%></div>
             <div id="viewer<%=tabNum%>" class="viewer"></div>
             <br />
             

@@ -27,7 +27,7 @@ public class PatientCache extends TimerTask {
     public final static Logger log = Logger.getLogger(KEY);
 
     static {
-        // log.setLevel(Level.FINER);
+         log.setLevel(Level.FINER);
     }
     //{{{ Members
     protected String databasePatientId = null;
@@ -66,7 +66,7 @@ public class PatientCache extends TimerTask {
         ResultSet rs = null;
         try {
             conn = new DbConnection();
-            loadRepositoryInfo(conn);
+            loadRepositoryInfo();
 
             rs = conn.psExecuteQuery(query, "Looking up repository info", new Integer(databasePatientId));
             while (rs.next()) {
@@ -80,15 +80,17 @@ public class PatientCache extends TimerTask {
             throw new RuntimeException(e);
         } finally {
             //If this is closed - causes issues later
-            //DatabaseUtility.close(rs);
-            //conn.close();
+            DatabaseUtility.close(rs);
+            conn.close();
+            rs = null;
+            conn = null;
         }
     }
 
-    public void loadRepositoryInfo(DbConnection conn) {
+    public void loadRepositoryInfo() {
         //get repository/local IDs
         //String query = "select * from patient where id=?";
-        Patient patient = new Patient(conn);
+        Patient patient = new Patient();
         JSONObject repositoryList = patient.listRepositories(databasePatientId);
         ArrayList<JSONObject> repos = new ArrayList<JSONObject>();
         try {
@@ -155,6 +157,7 @@ public class PatientCache extends TimerTask {
                 while (dataSourceQueue.size() > 0) {
 
                     MedCafeDataSource currentSource = dataSourceQueue.poll();
+                    log.finer("Starting retrieval of " + currentSource.getCacheKey());
                     while (prevPriority < currentSource.getPriority()) {
                         finished[prevPriority] = true;
                         prevPriority++;

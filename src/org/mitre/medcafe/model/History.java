@@ -35,6 +35,7 @@ import java.util.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 
 /**
@@ -70,33 +71,46 @@ public class History
 
 	private final static String INSERT_PATIENT_SYMPTOM_HISTORY = "insert into patient_symptom_list (patient_id, symptom_id, note) values (?, ?,'')";
 
-	private static DbConnection dbConn = null;
+
 	public History()	
 	{
 		super();
 	
 	}
-	public History(DbConnection conn)	
-	{
-		super();
-		dbConn = conn;
-	
-	}
+
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 	
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 	
-	public static void closeConnection() throws SQLException
+	public static void closeConnections(DbConnection dbConn, PreparedStatement prep, ResultSet rs) 
 	{
-		dbConn.close();
+		DatabaseUtility.close(prep);
+		DatabaseUtility.close(rs);
+		
+		if (dbConn != null)
+			dbConn.close();
+		
+	}
+		public static void closeConnections(DbConnection dbConn) 
+	{
+		
+		closeConnections(dbConn, null, null);
+		
+	}
+	public static void closeConnections(DbConnection dbConn, PreparedStatement prep)
+	{
+		closeConnections(dbConn, prep, null);
+	}
+	public static void closeConnections(DbConnection dbConn, ResultSet rs)
+	{
+		closeConnections(dbConn, null, rs);
 	}
 	
 	public static JSONObject getProblemList(String patient_id, String username)
@@ -119,13 +133,15 @@ public class History
 	public static JSONObject getHistory(String patientId, String category,  Date startDate, Date endDate)
 	 {
 		 JSONObject ret = new JSONObject();
-		 PreparedStatement prep;
+
 		 int patient_id = Integer.parseInt(patientId);
-		
+		 DbConnection dbConn = null;
+		 PreparedStatement prep = null;
+		 ResultSet rs = null;
 		 try 
 		 {
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
+
+			 dbConn = setConnection();
 			 String sql = History.SELECT_PATIENT_HISTORY;
 			 	
 			 if (startDate != null)
@@ -169,7 +185,7 @@ public class History
 			 }
 			 System.out.println("Patient: getPatientHistory : query " + prep.toString());
 			    
-			 ResultSet rs = prep.executeQuery();
+			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
 			 
 			 while (rs.next())
@@ -208,6 +224,10 @@ public class History
 			 
 			 if (!rtnResults)
 		      {
+		      	closeConnections(dbConn, prep, rs);
+		      	dbConn = null;
+		      	prep = null;
+		      	rs = null;
 		        	return WebUtils.buildErrorJson( "There is no patient history listed for patient " + patient_id );
 		      	  
 		      }
@@ -215,28 +235,38 @@ public class History
 		 catch (SQLException e) 
 		 {
 				// TODO Auto-generated catch block
+
+				
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      	     
 		 } catch (JSONException e) {
+
 			// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
 		} 
-		
+		finally {
+		      	closeConnections(dbConn, prep, rs);
+		      	dbConn = null;
+		      	prep = null;
+		      	rs = null;
+		 }
 		 return ret;
 	 }
 	 public static JSONObject getHistoryCategories()
 	 {
 		 JSONObject ret = new JSONObject();
-		 PreparedStatement prep;
+		 PreparedStatement prep = null;
+		 DbConnection dbConn = null;
+		 ResultSet rs = null;
 			 try 
 		 {
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
+
+			 dbConn = setConnection();
 			 String sql = History.SELECT_HISTORY_CATEGORIES;
 			 prep = dbConn.prepareStatement(sql);
 			 System.out.println("History: getHistoryCategories : query " + prep.toString());
 			    
-			 ResultSet rs = prep.executeQuery();
+			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
 			 
 			 while (rs.next())
@@ -253,21 +283,32 @@ public class History
 			 
 			 if (!rtnResults)
 		      {
+		      	closeConnections(dbConn, prep, rs);
+		      	dbConn = null;
+		      	prep = null;
+		      	rs = null;
 		        	return WebUtils.buildErrorJson( "There are no history categories" );
 		      	  
 		      }
 		 }
 		 catch (SQLException e) 
 		 {
+
 				// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      	     
 		 } catch (JSONException e) {
+
 			// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
 		} 
-		
-		 return ret;
+		finally {
+			closeConnections(dbConn, prep, rs);
+		  	dbConn = null;
+		  	prep = null;
+		  	rs = null;
+		}
+		return ret;
 	 }
 	
 	public int getPatientId() {
@@ -284,12 +325,12 @@ public class History
 		 System.out.println("History: saveHistory : patient id " + patientId);
 		 
 		 String sql = DELETE_SYMPTOMS;
-		
+		 DbConnection dbConn  = null;
+		 PreparedStatement prep = null;
 		 try {
-			 if (dbConn == null)
-				dbConn= new DbConnection();
-				
-			 PreparedStatement prep = dbConn.prepareStatement(sql);	
+
+			dbConn = setConnection();	
+			prep = dbConn.prepareStatement(sql);	
 			 int patient_id = Integer.parseInt(patientId);
 				
 			 prep.setInt(1, patient_id);
@@ -298,7 +339,11 @@ public class History
 				
 			 if (rtn < 0)
 			 {
-					 return WebUtils.buildErrorJson( "Problem on deletion of current data from database ." );      
+			     	closeConnections(dbConn, prep);
+		      	dbConn = null;
+		      	prep = null;
+
+			   	 return WebUtils.buildErrorJson( "Problem on deletion of current data from database ." );      
 			 }
 				
 			 if (symptomIds != null)
@@ -325,30 +370,37 @@ public class History
 		} catch (SQLException e) {
 				// TODO Auto-generated catch block
 			// TODO Auto-generated catch block
-			 
+
+
 			System.out.println("History: saveHistory : problem on SQL  " + e.getMessage());
-			
+
 			return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      
 		}
-		 
-		 return ret;
+		finally {
+      	closeConnections(dbConn, prep);
+      	dbConn = null;
+      	prep = null;
+
+		}
+
+		return ret;
 		 
 	}
 	
 	 public static JSONObject getSymptomHistory(String patientId)
 	 {
 		 JSONObject ret = new JSONObject();
-		 PreparedStatement prep;
+		 PreparedStatement prep = null;
 		 DbConnection dbConn = null;
+		 ResultSet rs = null;
 		 try 
 		 {
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
 
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
-			 ResultSet rs = null;
+
+
+			 dbConn = setConnection();
+
 			 //First check if patient records already exist
 			 String sql = SELECT_PATIENT_SYMPTOM_HISTORY_COUNT;
 			 ArrayList<Integer> symptomIds = new ArrayList<Integer>();
@@ -452,20 +504,32 @@ public class History
 			  
 			 if (!rtnResults)
 		      {
+		      	closeConnections(dbConn, prep, rs);
+		      	dbConn = null;
+		      	prep = null;
+		      	rs = null;
 		        	return WebUtils.buildErrorJson( "There is no medical history listed " );
 		      	  
 		      }
 		 }
 		 catch (SQLException e) 
 		 {
+ 
 				// TODO Auto-generated catch block
+
 			 return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      	     
 		 } catch (JSONException e) {
+
 			// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
 		} 
-		
+		finally {
+			closeConnections(dbConn, prep, rs);
+		   dbConn = null;
+		   prep = null;
+		   rs = null;
+		}	
 		 return ret;
 	 }
 }

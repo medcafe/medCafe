@@ -36,19 +36,19 @@
             </p>
         </div>
     </div>
-<!--->    <div class="ui-widget top-panel" id="patient_history">
+<!--    <div class="ui-widget top-panel" id="patient_history">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Past Medical History</strong>
             <div id="listPatientHistory"></div>
             </p>
         	</div>
     </div>  
-<--->
+-->
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong>
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("medicineList"), "listMedicineList.vm", out); %>
-           <!--> <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide <-->  
+           <!-- <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide -->  
              </p>
         </div>
     </div>
@@ -62,7 +62,7 @@
            
         </div>
     </div>
-<!--->
+<!--
     <div class="ui-widget top-panel" id="family_history">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Family/Social History</strong>
@@ -70,7 +70,7 @@
 
         </div>
     </div>
-<--->
+-->
     <div class="ui-widget top-panel" id="allergies_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Allergies/Alerts</strong>

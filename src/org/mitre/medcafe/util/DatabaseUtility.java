@@ -57,7 +57,7 @@ public class DatabaseUtility {
         }
 
         try { conn.close(); } catch (SQLException e) {
-            log.log(Level.WARNING,"Connecion close error", e);
+            log.log(Level.WARNING,"Connection close error", e);
         }
     }
 

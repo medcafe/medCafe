@@ -104,7 +104,7 @@ public class MedCafeDataSource implements Comparable<MedCafeDataSource>
 				<repository>OurVista</repository>
 			 */
 		     String config_dir = Constants.BASE_PATH + "WEB-INF/";
-		     File file = new File(config_dir, "DataSource.xml");
+		     File file = new File(config_dir, "CacheDataSource.xml");
 		     Document dataSourceDoc = XMLProcessing.createXMLDoc(file);
 		     NodeList typeNodes = null;
 		     Node typeNode = null;  
@@ -175,7 +175,7 @@ public class MedCafeDataSource implements Comparable<MedCafeDataSource>
 		 } 
 		 finally
 		 {
-			 
+
 			 
 		 }
 		 return sourceQueue;

@@ -111,18 +111,20 @@ public class Bookmark
 	{
 		ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>();
 		DbConnection dbConn = null;
+		PreparedStatement prep = null;
+		ResultSet rs = null;
 		try 
 		{
 		   dbConn= new DbConnection();
 		   System.out.println("BookmarK: getBookmarks : got connection " );
            
-		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK_ALL);
+		   prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK_ALL);
 		   prep.setString(1, userid);
 		   prep.setString(2, patientId);
 		   
 		   System.out.println("BookmarK: getBookmarks : query " + prep.toString());
            
-		   ResultSet rs = prep.executeQuery();
+		   rs = prep.executeQuery();
 		   Bookmark bookmark = new Bookmark();
 		   
 		   while (rs.next())
@@ -139,22 +141,42 @@ public class Bookmark
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			dbConn.close();
+
 		}
+		finally {
+			DatabaseUtility.close(rs);
+			DatabaseUtility.close(prep);
+			if (dbConn != null)
+				dbConn.close();
+		}
+		
 		return bookmarks;
 		
 	}
 	
-	public static boolean deleteBookmarks(DbConnection dbConn, String userid, String patientId) throws SQLException
+	public static boolean deleteBookmarks(String userid, String patientId) throws SQLException
 	{
-		 System.out.println("Bookmark: deleteBookmarks : got connection " );
+		DbConnection dbConn = null;
+		PreparedStatement prep = null;
+		int rtnVal = -1;
+		try {
+			dbConn = new DbConnection();
+			System.out.println("Bookmark: deleteBookmarks : got connection " );
 		  
-		 PreparedStatement prep = dbConn.prepareStatement(Bookmark.DELETE_BOOKMARK);
-		 prep.setString(1, userid);
-		 prep.setString(2, patientId);
-		 int rtnVal = prep.executeUpdate();
-		 System.out.println("Bookmark: deleteBookmarks : rtnVal " + rtnVal );
-		  
+			prep = dbConn.prepareStatement(Bookmark.DELETE_BOOKMARK);
+			prep.setString(1, userid);
+			prep.setString(2, patientId);
+			rtnVal = prep.executeUpdate();
+			System.out.println("Bookmark: deleteBookmarks : rtnVal " + rtnVal );
+		}
+		catch (SQLException e)
+		{
+			throw e;
+		}
+		finally {
+			DatabaseUtility.close(prep);
+			dbConn.close();
+		}
 		 if (rtnVal > -1)
 			 return true;
 		 else
@@ -163,19 +185,21 @@ public class Bookmark
 	public static boolean updateBookmarks(String userid, String patientId, ArrayList<Bookmark> bookmarks)
 	{
 		DbConnection dbConn = null;
+		PreparedStatement prep = null;
 		try 
 		{
 		   dbConn= new DbConnection();
 		   System.out.println("Bookmark: updateBookmarks : got connection " );
-		   boolean deleteSuccess = deleteBookmarks(dbConn, userid, patientId);
+		   boolean deleteSuccess = deleteBookmarks(userid, patientId);
 		   if (!deleteSuccess)
 		   {
-			   dbConn.close();
+		   	   if (dbConn != null)
+		   	   	   dbConn.close();
 			   return false;
 		   }
 		   //public static final String INSERT_BOOKMARK = "SELECT name, url, description, note from user_bookmark where username = ? and patientId = ? ";
 			
-		   PreparedStatement prep = dbConn.prepareStatement(Bookmark.INSERT_BOOKMARK);  
+		   prep = dbConn.prepareStatement(Bookmark.INSERT_BOOKMARK);  
 		  
 		   for (Bookmark bookmark: bookmarks)
 		   {
@@ -214,8 +238,13 @@ public class Bookmark
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			dbConn.close();
+	
 			return false;
+		}
+		finally {
+			DatabaseUtility.close(prep);
+			if (dbConn != null)
+				dbConn.close();
 		}
 		return true;
 		

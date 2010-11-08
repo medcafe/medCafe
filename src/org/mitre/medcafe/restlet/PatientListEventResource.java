@@ -100,8 +100,8 @@ public class PatientListEventResource extends ServerResource {
             System.out.println("PatientImageResource toJSON end date " + endDateStr );
 
             Application app = this.getApplication();
-            DbConnection conn = conn = new DbConnection();
-            Patient patient = new Patient(conn);
+
+            Patient patient = new Patient();
             JSONObject repositories = patient.listRepositories(id);
            
         	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes, app, repositories);

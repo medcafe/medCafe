@@ -36,6 +36,7 @@ import org.mitre.medcafe.restlet.PatientListResource;
 import org.mitre.medcafe.restlet.Repositories;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
 
@@ -100,7 +101,6 @@ public class Widget
 	public static final String INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
 	public static final String DELETE_WIDGETS = "DELETE FROM widget_params where ( patient_id=? AND username=?) ";
 
-	private static DbConnection dbConn = null;
 	public Widget()
 	{
 		super();
@@ -109,19 +109,23 @@ public class Widget
 
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+	return new DbConnection();
 	}
 
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+
+		return new DbConnection();
 	}
 
-	public static void closeConnection() throws SQLException
+	public static void closeConnections(DbConnection dbConn, PreparedStatement prep, ResultSet rs) throws SQLException
 	{
-		dbConn.close();
+		DatabaseUtility.close(prep);
+		DatabaseUtility.close(rs);
+		if (dbConn != null)
+			dbConn.close();
+
 	}
 
 	public JSONObject toJSON() throws JSONException
@@ -153,8 +157,8 @@ public class Widget
 	public static JSONObject deleteWidgets( String patientId, String userName) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
 
+		DbConnection dbConn = null;
 		/**
 		key id value 1
 		patient_id value 1
@@ -167,6 +171,7 @@ public class Widget
 		**/
 		try
 		{
+			dbConn = setConnection();
 			String deleteQuery = Widget.DELETE_WIDGETS;
 			int rtn = 0;
 			int patient_id = Integer.parseInt(patientId);
@@ -175,13 +180,18 @@ public class Widget
 			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, userName);
 
 			if (rtn < 0 )
+			{
+				closeConnections(dbConn, null, null);
+				dbConn = null;
 				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
-
+			}
 		}
 		finally
 		{
-
+		closeConnections(dbConn, null, null);
+		dbConn = null;
 		}
+
 		return ret;
 	}
 
@@ -190,8 +200,8 @@ public class Widget
 		System.out.println("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
 
 		JSONObject ret = new JSONObject();
-		setConnection();
-
+		DbConnection dbConn = null;
+      PreparedStatement prep = null;
 		/**
 		key id value 1
 		patient_id value 1
@@ -204,6 +214,7 @@ public class Widget
 		**/
 		try
 		{
+			dbConn = setConnection();
 			String idStr = widgetJSON.getString(Widget.WIDGET_ID);
 			int id = Integer.parseInt(idStr);
 
@@ -220,7 +231,7 @@ public class Widget
 
 			String updateQuery = Widget.INSERT_WIDGETS;
 
-			PreparedStatement prep= dbConn.prepareStatement(updateQuery);
+			prep= dbConn.prepareStatement(updateQuery);
 
 			//INSERT_WIDGETS = "INSERT INTO widget_params  ( widget_id, patient_id, username, param, value ) values (?,?,?,?,?) ";
 
@@ -248,6 +259,7 @@ public class Widget
 		}
 		catch (JSONException e) {
 
+
 			// TODO Auto-generated catch block
 			System.out.println("Widget : saveWidgets Problem on updating widget data from database ." + e.getMessage());
 
@@ -257,7 +269,11 @@ public class Widget
 		finally
 		{
 
+			closeConnections(dbConn, prep, null);
+			dbConn = null;
+			prep = null;
 		}
+
 		return ret;
 	}
 
@@ -314,21 +330,24 @@ public class Widget
 	public static HashMap<String, Widget> retrieveWidgets(String userName, String patientId) throws SQLException
 	{
 		 HashMap<String, Widget> widgetList = new HashMap<String, Widget>();
-		 DbConnection dbConn = null;
-
+	//	 DbConnection dbConn = null;
+		 
 		 int patId = Integer.valueOf(patientId);
-
+		 DbConnection dbConn = null;
+		 ResultSet rs = null;
+		 PreparedStatement prep = null;
 		 try
 		 {
-			dbConn= new DbConnection();
-
-			PreparedStatement prep= dbConn.prepareStatement(Widget.SELECT_WIDGETS);
+		   log.severe("Connection being set . . .  waiting");
+		   dbConn = setConnection();
+		   log.severe("Connection is set, preparing statement");
+			prep= dbConn.prepareStatement(Widget.SELECT_WIDGETS);
 			prep.setString(1, userName);
 			prep.setInt(2, patId);
 
 			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
 
-			ResultSet rs =  prep.executeQuery();
+			rs =  prep.executeQuery();
 			int lastId = 0;
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
 			Widget widget = new Widget();
@@ -398,13 +417,17 @@ public class Widget
 		 }
 		 catch (SQLException e)
 		 {
-			dbConn.close();
+		   log.severe("Databse Connection ERRROR: Can't make connection " + e.getMessage());
 
 			throw e;
 		 }
 		 finally
 		 {
-			 dbConn.close();
+
+		 	closeConnections(dbConn, prep, rs);
+		 	rs = null;
+		 	prep = null;
+		 	dbConn = null;
 		 }
 		 return widgetList;
 

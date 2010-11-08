@@ -32,17 +32,21 @@ public class DbConnection
         throws SQLException
     {
         try {
+        		log.severe("getting context");
             InitialContext cxt = new InitialContext();
             if ( cxt == null ) {
                throw new SQLException("Uh oh -- no context!");
             }
-
+				log.severe("getting dataSource");
             DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/medcafe" );
-
+			   log.severe("datasource retrieved; getting connection");
             if ( ds == null ) {
                throw new SQLException("Data source not found!");
             }
+            synchronized(this){
             conn = ds.getConnection();
+            log.severe("connection retrieved");
+            }
         }
         catch (NamingException e)
         {
@@ -87,7 +91,7 @@ public class DbConnection
      *
      * @exception  SQLException  Description of the Exception
      */
-    public void close()
+    public synchronized void close()
     {
         DatabaseUtility.close(stmt);
         DatabaseUtility.close(conn);

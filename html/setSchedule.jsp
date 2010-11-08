@@ -3,7 +3,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
 
 
-	DbConnection conn = new DbConnection();
+
 
 	//Get the patient Id
     String patientId = request.getParameter(Constants.PATIENT_ID);
@@ -25,7 +25,7 @@
 
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-	Schedule sched = new Schedule(conn);
+	Schedule sched = new Schedule();
 	JSONObject appointTime = new JSONObject();
 
 	if (apptTimeStr == null)
@@ -74,7 +74,7 @@
 	int rtn = 0;
 	int patient_id = Integer.parseInt(patientId);
 
-	JSONObject patientData = Patient.getPatient(patient_id, conn);
+	JSONObject patientData = Patient.getPatient(patient_id);
 
 	if (patientData.get(Patient.ID) == null)
 	{
@@ -99,5 +99,5 @@
 	JSONObject rtnJson = sched.addAppointment(appointTime);
 	// System.out.println("Returned JSON from insert into database " + rtnJson.toString());
 	// System.out.println("setSchedule.jsp added appointment " + appointTime.toString());
-	conn.close();
+
 %>

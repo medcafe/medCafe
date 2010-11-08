@@ -36,7 +36,7 @@
 	String zoom = request.getParameter(ImageTag.ZOOM);
 	String fileName = request.getParameter("image");
 
-	DbConnection dbConn= new DbConnection();
+
 	if(e != null)
 	{
 	   try
@@ -53,13 +53,13 @@
 		  }
 		  
 		  System.out.println("saveViewImage.jsp about to Save View Image for jsonObj  " +jsonobj.toString() );
-		  ImageTag imageTag = new ImageTag(dbConn);
+		  ImageTag imageTag = new ImageTag();
 		  imageTag.saveAnnotations(userName, jsonobj);
 		  
 	    }
 	    catch(JSONException je) {
 			System.out.println("Error in creating JSON " + je.getMessage() );
-			dbConn.close();
+
 	    }
   	}
 	

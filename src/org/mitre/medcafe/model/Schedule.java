@@ -35,6 +35,7 @@ import java.util.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 
 /**
@@ -83,31 +84,25 @@ public class Schedule
 	public static final int TIME_ONLY_FORMAT_TYPE = 1;
 	public static final int DATE_TIME_FORMAT_TYPE = 2;
 
-	private static DbConnection dbConn = null;
+
 	public Schedule()
 	{
 		super();
 
 	}
-	public Schedule(DbConnection conn)
-	{
-		super();
-		dbConn = conn;
 
-	}
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 
-	public static void closeConnection() throws SQLException
+	public static void closeConnection(DbConnection dbConn) throws SQLException
 	{
 		dbConn.close();
 	}
@@ -155,7 +150,7 @@ public class Schedule
 	{
 		System.out.println("Schedule addAppointment start");
 		JSONObject ret = new JSONObject();
-		setConnection();
+		DbConnection dbConn = setConnection();
 
 		//Get the patient Name
 		try
@@ -179,8 +174,10 @@ public class Schedule
 			int rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , username, patient_id, fname, lname, appt_dateStr, appt_timeStr, end_timeStr);
 
 			if (rtn < 0 )
+			{
+				dbConn.close();		
 				return WebUtils.buildErrorJson( "Problem on inserting schedule data into the database ." );
-
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			return WebUtils.buildErrorJson( "Add Appointment : Problem on patient id " + e.getMessage() );
@@ -190,15 +187,17 @@ public class Schedule
 		}
 		finally
 		{
-
+			dbConn.close();
 		}
 		return ret;
 	}
 	public static JSONObject getNextAvailAppointment( String patientId, String dateStr, String timeStr) throws SQLException
 	{
 
-		setConnection();
+		DbConnection dbConn = setConnection();
 		 JSONObject o = new JSONObject();
+		 PreparedStatement prep = null;
+		 ResultSet rs = null;
 		//Get the patient Name
 		try
 		{
@@ -206,7 +205,7 @@ public class Schedule
 
 			String selectSql = Schedule.SELECT_AVAILABLE_APPOINTMENT;
 
-			PreparedStatement prep = dbConn.prepareStatement(selectSql);
+			prep = dbConn.prepareStatement(selectSql);
 	        try {
 
 				Date date = new java.util.Date();
@@ -224,7 +223,7 @@ public class Schedule
 				prep.setDate(1, sqlDate);
 				//prep.setDate(2, sqlTime);
 				//System.out.println("Schedule: getNextAvailAppointment : query " + prep.toString());
-				ResultSet rs = prep.executeQuery();
+				rs = prep.executeQuery();
 				boolean hasAppoint = false;
 				while (rs.next())
 				{
@@ -300,7 +299,12 @@ public class Schedule
 				//addAppointment(o);
 				int rtn = 0;
 				if (rtn < 0 )
+				{
+					DatabaseUtility.close(rs);
+					DatabaseUtility.close(prep);
+					dbConn.close();
 					return WebUtils.buildErrorJson( "Problem on getting appointment data from database." );
+				}
 			}
 			catch (ParseException e)
 			{
@@ -314,7 +318,9 @@ public class Schedule
 		}
 		finally
 		{
-
+			DatabaseUtility.close(rs);
+			DatabaseUtility.close(prep);
+			dbConn.close();
 		}
 		return o;
 	}
@@ -338,7 +344,7 @@ public class Schedule
 	public static JSONObject deleteAppointment( String patientId, String dateTime) throws SQLException
 	{
 		JSONObject ret = new JSONObject();
-		setConnection();
+		DbConnection dbConn = setConnection();
 
 		try
 		{
@@ -350,12 +356,14 @@ public class Schedule
 			rtn = dbConn.psExecuteUpdate(deleteQuery, err_mess , patient_id, dateTime);
 
 			if (rtn < 0 )
+			{
+				dbConn.close();
 				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
-
+			}
 		}
 		finally
 		{
-
+			dbConn.close();
 		}
 		return ret;
 	}

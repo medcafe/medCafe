@@ -1,7 +1,7 @@
 function processViewerImages(callObj, widgetInfo, data)
 {
 	//$("#tabs-" + widgetInfo.tab_num).html(data );
-		var server = $('#viewerImageName').text();
+		var server = $('#viewerImageName'+widgetInfo.id).text();
 		//alert (server);
            	 
         $("#viewer" + widgetInfo.tab_num).iviewer(

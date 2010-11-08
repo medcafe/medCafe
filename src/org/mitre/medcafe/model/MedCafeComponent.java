@@ -245,10 +245,11 @@ public class MedCafeComponent
 		    		 		
 		    		 	}
 		     }
+
 		 } 
 		 finally
 		 {
-			 
+			
 			 
 		 }
 		 return componentList;

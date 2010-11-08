@@ -5,10 +5,11 @@
     String apptId = WebUtils.getRequiredParameter(request, "id");
     //this is for preventing sql-injection attacks only
     JSONObject ret = new JSONObject();
+    DbConnection conn = null;
     try
     {
         int id = Integer.parseInt(apptId);
-        DbConnection conn = new DbConnection();
+        conn = new DbConnection();
         String query = Schedule.DELETE_APPOINTMENT_BY_ID;
         int count = conn.psExecuteUpdate( query, "Could not delete appointment", id );
         if( count == -1 )
@@ -22,6 +23,7 @@
     }
     finally
     {
+    	conn.close();
         out.write(String.valueOf(ret));
     }
 %>

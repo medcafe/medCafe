@@ -3,7 +3,7 @@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
 
 
-	DbConnection conn = new DbConnection();
+
     
 	//Get the patient Id
     String patientId = request.getParameter(Constants.PATIENT_ID);
@@ -15,7 +15,7 @@
 	String role = request.getParameter("role");
     if (role == null)
 		role = "physician";
-	Patient patient = new Patient(conn);
+	Patient patient = new Patient();
 	//First check if this is a current patient
 	
 	String userName =  request.getRemoteUser();
@@ -28,6 +28,6 @@
 			out.write(rtnObj.toString());
 			
 	}
-	//patient.closeConnection();
+
 	
 %>

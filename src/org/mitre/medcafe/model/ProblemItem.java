@@ -35,6 +35,7 @@ import java.util.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.DbConnection;
+import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
 
 /**
@@ -62,33 +63,28 @@ public class ProblemItem
 	public static final String DELETE_PROBLEM= "DELETE FROM ";
 	public static final String SELECT_ORDER_BY = " order by priority.priority ASC, date_entered DESC";	
 	
-	private static DbConnection dbConn = null;
+	//private static DbConnection dbConn = null;
 	public ProblemItem()	
 	{
 		super();
 	
 	}
-	public ProblemItem(DbConnection conn)	
-	{
-		super();
-		dbConn = conn;
-	
-	}
+
 	public static DbConnection setConnection() throws SQLException
 	{
-		if (dbConn == null)
-			dbConn= new DbConnection();
-		return dbConn;
+
+		return new DbConnection();
 	}
 	
 	public static DbConnection getConnection() throws SQLException
 	{
-		return dbConn;
+		return new DbConnection();
 	}
 	
-	public static void closeConnection() throws SQLException
+	public static void closeConnection(DbConnection dbConn) throws SQLException
 	{
-		dbConn.close();
+		if (dbConn != null)
+			dbConn.close();
 	}
 	
 	public static JSONObject getProblemList(String patient_id, String username)
@@ -111,13 +107,14 @@ public class ProblemItem
 	public static JSONObject getProblemList(String patientId, String username,  Date startDate, Date endDate)
 	 {
 		 JSONObject ret = new JSONObject();
-		 PreparedStatement prep;
+		 PreparedStatement prep = null;
+		 DbConnection dbConn = null;
+		 ResultSet rs = null;
 		 int patient_id = Integer.parseInt(patientId);
 		
 		 try 
 		 {
-			 if (dbConn == null)
-				 dbConn= new DbConnection();
+		 	 dbConn = setConnection();
 			 String sql = ProblemItem.SELECT_PROBLEM_LIST;
 			 	
 			 if (startDate != null)
@@ -161,7 +158,7 @@ public class ProblemItem
 			 }
 			 System.out.println("ProblemItem: getProblemList : query " + prep.toString());
 			    
-			 ResultSet rs = prep.executeQuery();
+			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
 			 
 			 while (rs.next())
@@ -198,6 +195,9 @@ public class ProblemItem
 			 
 			 if (!rtnResults)
 		      {
+		      	        DatabaseUtility.close(rs);
+		      	        DatabaseUtility.close(prep);
+		      	        dbConn.close();
 		        	return WebUtils.buildErrorJson( "There is no patient history listed for patient " + patient_id );
 		      	  
 		      }
@@ -211,6 +211,13 @@ public class ProblemItem
 			// TODO Auto-generated catch block
 			 return WebUtils.buildErrorJson( "Problem on building JSON Object ." + e.getMessage());		      	
 		} 
+		finally
+		{
+			DatabaseUtility.close(rs);
+			DatabaseUtility.close(prep);
+			dbConn.close();
+		}
+		
 		
 		 return ret;
 	 }
