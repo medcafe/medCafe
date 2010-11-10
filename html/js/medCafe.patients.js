@@ -190,24 +190,22 @@ function populate(url, patient_id)
 	 $.getJSON(server, function(data)
 	 {
 	 		
-			//alert(JSON.stringify(data));
+
 	 	   //If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
 		   		var tab_num = parent.addTab("New", "chart", true);
 
-		   	//	parent.iNettuts.refresh("yellow-widget-" + tab_num);
-				// parent.iNettuts.makeSortable();
 
 		   		return;
 		   }
-		  // alert(JSON.stringify(data));
+
 		   //put the new tabs in
 		
 		   for(i=0; i< data.tabs.length; i++)
 		   {
                 var label = data.tabs[i].name;
-		        // alert("adding tab " + i);
+
 		       // alert(JSON.stringify(data.tabs[i]));
 		        tab_num = parent.addTab(label, "Details", data.tabs[i].iNettuts);
 					if (data.tabs[i].inFocus  && data.tabs[i].inFocus=="true")
@@ -224,19 +222,7 @@ function populate(url, patient_id)
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
 		   	{
-		   	                  // var link = "";
-                // var label = data.widgets[i].name;
-                // //var label = "Label" + i;
-                // var type =  data.widgets[i].type;
-                // var widgetInfo.repository =  data.widgets[i].repository;
-                // var tab_num =  data.widgets[i].order;
-                // var location =  data.widgets[i].location;
-                // var server =  data.widgets[i].server;
-                // var repPatientId =  data.widgets[i].rep_patient_id;
-                // var params = "";
-
-                // parent.createWidgetContent(patient_id, server, label, type ,tab_num, params, widgetInfo.repository, repPatientId);
-                // alert("about to run createWidgetContent for a widget of type " + data.widgets[i].type );
+		
 					if (!data.widgets[i].label || data.widgets[i].label == "")
 						data.widgets[i].label = data.widgets[i].name;
 					if (!data.widgets[i].color_num || data.widgets[i].color_num == "")
@@ -249,18 +235,16 @@ function populate(url, patient_id)
 				   // is for an excessive delay of the previous widget insertion
 						delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1);
 				
-             //   parent.createWidgetContent( data.widgets[i], true );
+   
 					 previous_id = data.widgets[i].id;
 					 previous_tab = data.widgets[i].tab_num;
 					 previous_col = data.widgets[i].column;
 
 		   	}
-		  // 		$(parent).delay(700* data.widgets.length,function()
-		//{
+	
 				for (i=0; i<data.widgets.length; i++)
 				{
-					//alert(i + "  : " + data.widgets[i].id);
-					//iNettuts.refresh("yellow-widget" + data.widgets[i].id);
+		
 		 			refreshYellowWidget($(parent), data.widgets[i], 1, true)
 		   	}
 
@@ -269,7 +253,7 @@ function populate(url, patient_id)
 				$('#tabs').tabs('select', "#tabs-" + focusedTab);
 				iNettuts.makeSortable();
 				});
-	//	});
+
 		   }
 	});
 }
@@ -360,63 +344,4 @@ function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo
 		}
 	}
 }
-function addPatientDetail(obj, widgetInfo, data)
-{
-		var html = "<div class=\"" + widgetInfo.type +  widgetInfo.patient_id + "\"></div>";
-/*	var link =  "repository-listJSON.jsp?repository=" + widgetInfo.repository  +"&patient_id="  + widgetInfo.rep_patient_id;
 
-	$.getJSON(link, function(data)
-	{
-	*/
-
-		//	var dataObject = eval('(' + data + ')');
-	/*		if (data.announce)
-            {
-              	  //alert("announce");
-                  updateAnnouncements(data);
-                  return;
-            }  */
-		//	var html = v2js_listPatientTable( data );
-
-			var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
-	  		// $("#aaa" + tab_num).append(html);
-	  		if (!widgetInfo.tab_num)
-				widgetInfo.tab_num = "2";
-			if (!widgetInfo.column)
-				widgetInfo.column = "1";
-
-			$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
-			$(obj).delay(500, function ()
-			{ 
-	
-			$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
-						  $(this).text("Less");
-                    $(this).css({backgroundPosition: '-52px 0'});
-                     $(this).parent().find("#add_repos" +widgetInfo.id).show();
-                    return false;
-                },function () {
-                		$(this).text("More");
-                      $(this).css({backgroundPosition: ''});
-                     $(this).parent().find("#add_repos" +widgetInfo.id).hide();
-                    return false;
-                });
-            });
-	  		//$("#tabs-2 #column2").append(html);
-
-			//Delay to let DOM refresh before adding table styling
-		//	$(obj).delay(500,function()
-		//	{
-					//alert( $("#example" + patientId).text());
-
-				// $("#"+ widgetInfo.type + widgetInfo.rep_patient_id).dataTable( {
-				// 	"bJQueryUI": true,
-				// 	"aaSortingFixed": [[ 0, 'asc' ]],
-				// 	"aoColumns": [
-				// 			{ "bVisible": false },
-				// 				null,
-				// 				null ]
-				// } );
-				setHasContent(widgetInfo.tab_num);
-/*			} );
-	});  */
-}

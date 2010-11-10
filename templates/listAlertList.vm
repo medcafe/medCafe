@@ -1,6 +1,6 @@
 #if ($repositoryList)
 #set ($printFirst = 0)
-</p><br><p>
+</p><br/><p>
 	#foreach ($repos in $repositoryList)
 		#if ($printFirst == 0)
 			#set ($printFirst = 1)	

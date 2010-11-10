@@ -2,6 +2,7 @@ function addDefaultTable(callObj, widgetInfo, data)
 {
 	
 	// creates the widget display inside an iNettuts container
+	//alert("v2js_"+widgetInfo.template + " " + widgetInfo.name);
 	var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
 
 // check for invalid tab and column numbers and use defaults if they don't exist;

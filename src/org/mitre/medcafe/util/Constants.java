@@ -28,6 +28,7 @@ public class Constants {
 	
 	public static final String GENERAL_WIDGETS = "general_widgets";
 	public static final String PATIENT_WIDGETS = "patient_widgets";
+	public static final String INTERNAL_WIDGETS = "internal_widgets";
 	public static final String OUR_VISTA = "OurVista";
 	public static final String HDATA = "OurHdata";
 	
@@ -42,5 +43,10 @@ public class Constants {
 	public static final String  LOCAL_REPOSITORY="local";
 	
 	public static final String PATIENT_ID = "patient_id";
+	public static final String DEFAULT_SCRIPT = "addDefaultTable";
+	public static final String DEFAULT_CLICK_URL = "defaultJSON.jsp";
+	public static final boolean DEFAULT_JSON_PROCESS = true;
+	public static final boolean DEFAULT_INETTUTS = true;
+	public static final String DEFAULT_SCRIPT_FILE = "medCafe.default.js";
 	
 }

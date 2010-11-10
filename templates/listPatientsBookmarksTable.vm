@@ -1,11 +1,11 @@
 #set( $count=0)
-
+	<a onclick="alert('Method to add a new allergy goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 #if(!$bookmarks)
 	<i>No bookmarks defined for this patient.</i>
 #else
     #foreach( $bookmark in $bookmarks )
         <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>
-        <a href="$bookmark.url" title="$bookmark.description" target="_blank">$bookmark.name</a>
+        <a href="$bookmark.url" title="$bookmark.description" target="_blank" class="qtip">$bookmark.name</a>
         <a onclick="alert('this should delete this bookmark')" href="#" class="ui-icon ui-icon-trash"  style="float: right; margin-left: .3em;"></a>
         <br clear="all"/>
     #end

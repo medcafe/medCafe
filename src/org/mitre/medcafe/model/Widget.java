@@ -80,7 +80,7 @@ public class Widget
 	public static final String WIDGET_ID = "id";
 	public static final String TAB_ORDER = "order";
 	public static final String LOCATION = "location";
-	public static final String REPOSITORY = "repository";
+	//public static final String REPOSITORY = "repository";
 	public static final String TYPE = "type";
 	public static final String NAME = "name";
 	public static final String SERVER = "server";
@@ -134,7 +134,7 @@ public class Widget
 		 o.put(Widget.ID, this.getPatientId());
 		 o.put(Widget.WIDGET_ID, this.getId());
 		 o.put(Widget.TYPE, this.getType());
-		 o.put(Widget.REPOSITORY, this.getRepository());
+		// o.put(Widget.REPOSITORY, this.getRepository());
 		 o.put(Widget.LOCATION, this.getLocation());
 		 o.put(Widget.TAB_ORDER, this.getTabOrder());
 		 o.put(Widget.NAME, this.getName());
@@ -384,8 +384,8 @@ public class Widget
 					widget.setType(value);
 				else if (param.equals(Widget.LOCATION))
 					widget.setLocation(value);
-				else if (param.equals(Widget.REPOSITORY))
-					widget.setRepository(value);
+			//	else if (param.equals(Widget.REPOSITORY))
+			//		widget.setRepository(value);
 				else if (param.equals(Widget.NAME))
 					widget.setName(value);
 				else if (param.equals(Widget.SERVER))
@@ -449,13 +449,13 @@ public class Widget
 		this.location = location;
 	}
 
-	public String getRepository() {
+/*	public String getRepository() {
 		return repository;
 	}
 
 	public void setRepository(String repository) {
 		this.repository = repository;
-	}
+	} */
 
 	public String getType() {
 		return type;

@@ -436,7 +436,7 @@ $(document).ready( function() {
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
-			var serverLink =  widgetInfo.server + widgetInfo.clickUrl + "?repository=" + widgetInfo.repository + "&widgetId="+widgetInfo.id;
+			var serverLink =  widgetInfo.clickUrl + "?widgetId="+widgetInfo.id;
 			if (widgetInfo.type != "Repository")
 			{
 				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
@@ -448,6 +448,7 @@ $(document).ready( function() {
 				serverLink = serverLink + "&nocache=true";
 			else
 				serverLink = serverLink + "&nocache=false";
+				//alert(widgetInfo.params);
 			if (widgetInfo.params != undefined && widgetInfo.params !="")
 			{
 				serverLink = serverLink + "&" + widgetInfo.params.split(":")[0] + "="+widgetInfo.params.split(":")[1];
@@ -458,7 +459,7 @@ $(document).ready( function() {
 			}
 
 			//alert('serverLink ' + serverLink);
-
+			//alert(JSON.stringify(widgetInfo));
 			$.get(serverLink, function(data)
 			{
 

@@ -1,5 +1,5 @@
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary">
-<thead></thead><tbody>
+
 #if ($repositoryList)
 #set ($printFirst = 0)
 	#foreach ($repos in $repositoryList)
@@ -9,15 +9,15 @@
 				#foreach(  $problemDetail in $repos.problem )
 	   	<tr>
 	  		<td> $problemDetail.problemName </td>
-			<td>
-			<div class="ui-corner-all" id="detail">
+			<td class="ui-corner-all">
+
 				${problemDetail.problemDate.low.month}/${problemDetail.problemDate.low.day}/${problemDetail.problemDate.low.year}
-			</div></td> 
+			</td> 
 	   		</tr>
 	   		#end
 	   	#end
 		#end
 	#end
 #end
-</tbody>
+
 </table>

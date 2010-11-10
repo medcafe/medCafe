@@ -3,7 +3,7 @@
 <%@ page import="java.util.logging.*" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
 <html>
 <%!
     public final static String KEY = "/index.jsp";
@@ -98,7 +98,7 @@
 
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.selection.js"></script>
-	<script>
+	<script type="text/javascript">
  	   Timeline_ajax_url="http://${server}/js/timeline/simile-ajax-api.js";
 	   Timeline_urlPrefix='http://${server}/js/timeline/';
        Timeline_parameters='bundle=true';
@@ -117,7 +117,7 @@
     <link rel="stylesheet" href="http://127.0.0.1:8080/medcafe/js/timeline/styles/graphics.css" type="text/css"-->
 
 
-	<script>
+	<script type="text/javascript">
         var outerLayout;
 		var repositoryPatientJSON = {};
 
@@ -138,8 +138,7 @@
 
 		function getHeader()
 		{
-		/*	listHistory("listPatientHistory", "<%=cache.getDatabasePatientId()%>","<%=cache.getPrimaryRepos()%>", "${server}", "Personal");
-        	listHistory("listFamilyHistory", "<%=cache.getDatabasePatientId()%>", "<%=cache.getPrimaryRepos()%>", "${server}", "Family");  */
+
 		}
 
 		function initialize(repositoryJSON)
@@ -200,17 +199,17 @@
 	<div id="accordion">
     	<h3><a href="#">General Widgets</a></h3>
     	<div>
-			<p>
+		
 				<div id="generalWidgets"></div>
 				<!-- iframe height="400" frameborder="0" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe-->
-			</p>
+		
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
-    		<p>
+    	
     			<div id="patientWidgets"></div>
 				<!--iframe height="400" frameborder="0" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe-->
-			</p>
+		
     	</div>
 	</div>
 </div>
@@ -228,13 +227,13 @@
         <h6><a href="#" >Schedule</a></h6>
         <div id="calendar"  class="widget-content"></div>
         <hr width="50%"/>
-        <span>
+      
             <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
                 <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
             </a>
             <div id="search-engines" class="hidden"></div>
             <%-- <button id="addTabBtn">Add Tab</button> --%>
-        </span>
+       
         <a href="logout.jsp">Logout</a>
 	</div>
 </div>

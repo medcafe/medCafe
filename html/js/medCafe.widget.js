@@ -126,11 +126,11 @@ var medCafeWidget =
     			}
     
     			newSettings.id = widgetInfo.id;
-    			newSettings.repository = widgetInfo.repository;
+    			//newSettings.repository = widgetInfo.repository;
     			newSettings.type = widgetInfo.type;
     
     			newSettings.name = widgetInfo.name;
-    			newSettings.server = widgetInfo.server;
+    			//newSettings.server = widgetInfo.server;
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;

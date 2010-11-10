@@ -9,7 +9,7 @@ t.p( context.announce.message);
 t.p('</h3>');
 return t.toString();
 }
-function v2js_defaultList(context) { 
+function v2js_basicDataView(context) { 
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
@@ -197,7 +197,7 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.repositoryList) {
 var printFirst = 0;
-t.p('</p><br><p>	');
+t.p('</p><br/><p>	');
 for (var i2=0;  i2<context.repositoryList.length; i2++) {
 var repos = context.repositoryList[i2];
 velocityCount = i2;
@@ -1372,6 +1372,8 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 var count = 0;
+t.p('	<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>');
 if (!( context.bookmarks )) {
 t.p('	<i>No bookmarks defined for this patient.</i>');
 }
@@ -1384,7 +1386,7 @@ t.p('        <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; mar
 t.p( bookmark.url);
 t.p('" title="');
 t.p( bookmark.description);
-t.p('" target="_blank">');
+t.p('" target="_blank" class="qtip">');
 t.p( bookmark.name);
 t.p('</a>        <a onclick="alert(\'this should delete this bookmark\')" href="');
 t.p('#" class="ui-icon ui-icon-trash"  style="float: right; margin-left: .3em;"></a>        <br clear="all"/>    ');
@@ -1458,7 +1460,7 @@ function v2js_listProblemList(context) {
 var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
-t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary"><thead></thead><tbody>');
+t.p('<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemListSummary">');
 if (context.repositoryList) {
 var printFirst = 0;
 t.p('	');
@@ -1476,13 +1478,13 @@ var problemDetail = repos.problem[i5];
 velocityCount = i5;
 t.p('	   	<tr>	  		<td> ');
 t.p( problemDetail.problemName);
-t.p(' </td>			<td>			<div class="ui-corner-all" id="detail">				');
+t.p(' </td>			<td class="ui-corner-all">				');
 t.p( problemDetail.problemDate.low.month);
 t.p('/');
 t.p( problemDetail.problemDate.low.day);
 t.p('/');
 t.p( problemDetail.problemDate.low.year);
-t.p('			</div></td> 	   		</tr>	   		');
+t.p('			</td> 	   		</tr>	   		');
 }
 velocityCount = i2;
 t.p('	   	');
@@ -1493,7 +1495,7 @@ t.p('	');
 }
 
 }
-t.p('</tbody></table>');
+t.p('</table>');
 return t.toString();
 }
 function v2js_listProblemListTable(context) { 
@@ -1856,17 +1858,13 @@ t.p('" custom:Id="');
 t.p( widget.id);
 t.p('" custom:params="');
 t.p( widget.params);
-t.p('" custom:repository="');
-t.p( widget.repository);
-t.p('" custom:script="');
+t.p('"  custom:script="');
 t.p( widget.script);
 t.p('" custom:script_file="');
 t.p( widget.script_file);
 t.p('" custom:template="');
 t.p( widget.template);
-t.p('" custom:server="');
-t.p( widget.server);
-t.p('" custom:jsonProcess = "');
+t.p('"  custom:jsonProcess = "');
 t.p( widget.jsonProcess);
 t.p('" custom:iNettuts = "');
 t.p( widget.iNettuts);

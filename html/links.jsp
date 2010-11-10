@@ -15,9 +15,9 @@ $(document).ready( function() {
 	String user =  request.getRemoteUser();
 	String sql = "SELECT username, title, url, description FROM link where username =?";
 	DbConnection dbConn = null;
-	PreparedStatement prep = null
-	ResultSet rs - null;
-	StringBuffer = null;
+	PreparedStatement prep = null;
+	ResultSet rs = null;
+	StringBuffer strBuf = null;
 	try {
 		dbConn= new DbConnection();
 		prep=dbConn.prepareStatement(sql);

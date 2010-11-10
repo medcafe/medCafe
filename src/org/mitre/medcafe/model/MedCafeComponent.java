@@ -67,10 +67,9 @@ public class MedCafeComponent
 	private String order ="";
 	private String type ="";
 	private String image ="";
-	private String server ="";
+	//private String server ="";
 	private String clickUrl ="";
-	private String method ="";
-	private String repository ="";
+	//private String repository ="";
 	private String params ="";
 	private String tempDir ="";
 	private String template="";
@@ -84,10 +83,9 @@ public class MedCafeComponent
 	public static final String ORDER = "order";
 	public static final String TYPE = "type";
 	public static final String IMAGE = "image";
-	public static final String SERVER = "server";
+	//public static final String SERVER = "server";
 	public static final String CLICK_URL = "clickUrl";
-	public static final String METHOD = "method";
-	public static final String REPOSITORY = "repository";
+	//public static final String REPOSITORY = "repository";
 	public static final String PARAMS = "params";
 	public static final String PATIENT = "patientSpecific";
 	public static final String GENERAL = "general";
@@ -99,10 +97,11 @@ public class MedCafeComponent
 	public static final String XML_WIDGET = "medCafeWidget";
 	public static final String INTERNAL_WIDGET = "internal";
 	public static final String CACHE_KEY = "cacheKey";
+	
 	public MedCafeComponent()	
 	{
 		super();
-	
+		setDefaults();
 	}
 	
 	
@@ -119,7 +118,6 @@ public class MedCafeComponent
 				<image>coverflow.png</image>
 				<server></server>
 				<clickUrl>coverflow-flash/index.jsp</clickUrl>
-				<method></method>
 				<repository>OurVista</repository>
 			 */
 		     String config_dir = Constants.BASE_PATH + "WEB-INF/";
@@ -185,62 +183,57 @@ public class MedCafeComponent
 		    		 		String componentType = typeList.item(0).getTextContent();
 		    		 		
 		    		 		NodeList imageList = componentElmnt.getElementsByTagName(IMAGE);
-		    		 		String image = imageList.item(0).getTextContent();
-		    		 		
-		    		 		NodeList srvList = componentElmnt.getElementsByTagName(SERVER);
-		    		 		String server = srvList.item(0).getTextContent();
+		    		 		if (imageList.getLength()>0)
+		    		 			component.setImage(imageList.item(0).getTextContent());
+		    		 		 else if (!type.equals(MedCafeComponent.INTERNAL_WIDGET))
+		    		 		 	throw new ParseException("Error on parsing xml document : could not find an image node for " + name + " widget", 0);
+		    		 		//NodeList srvList = componentElmnt.getElementsByTagName(SERVER);
+		    		 		//String server = srvList.item(0).getTextContent();
 		    		 		
 		    		 		NodeList clickUrlList = componentElmnt.getElementsByTagName(CLICK_URL);
-		    		 		String clickUrl = clickUrlList.item(0).getTextContent();
+		    		 		if (clickUrlList.getLength()>0)
+		    		 			component.setClickUrl(clickUrlList.item(0).getTextContent());
 		    		 		
-		    		 		NodeList methodList = componentElmnt.getElementsByTagName(METHOD);
-		    		 		String method = methodList.item(0).getTextContent();
-		    		 		
-		    		 		NodeList repList = componentElmnt.getElementsByTagName(REPOSITORY);
-		    		 		String repository = repList.item(0).getTextContent();
+		    		 		//NodeList repList = componentElmnt.getElementsByTagName(REPOSITORY);
+		    		 	//	String repository = repList.item(0).getTextContent();
 		    		 		
 		    		 		NodeList scriptList = componentElmnt.getElementsByTagName(SCRIPT);
-		    		 		String script = scriptList.item(0).getTextContent();
+		    		 		if (scriptList.getLength()>0)
+		    		 			component.setScript(scriptList.item(0).getTextContent());
 		    		 		
 		    		 		NodeList scriptFileList = componentElmnt.getElementsByTagName(SCRIPT_FILE);
-		    		 		String scriptFile = scriptFileList.item(0).getTextContent();
+		    		 		if (scriptFileList.getLength()>0)
+		    		 			component.setScriptFile(scriptFileList.item(0).getTextContent());
 		    		 		
 		    		 		NodeList jsonProcessList = componentElmnt.getElementsByTagName(JSON_PROCESS);
-		    		 		boolean jsonProcess = Boolean.valueOf(jsonProcessList.item(0).getTextContent());
+		    		 		if (jsonProcessList.getLength()>0)
+		    		 			component.setJsonProcess(Boolean.valueOf(jsonProcessList.item(0).getTextContent()));
 		    		 		
 		    		 				 		
 		    		 		NodeList iNettutsList = componentElmnt.getElementsByTagName(INETTUTS);
-		    		 		boolean iNettuts = Boolean.valueOf(iNettutsList.item(0).getTextContent());
+		    		 		if (iNettutsList.getLength()>0)
+		    		 			component.setINettuts(Boolean.valueOf(iNettutsList.item(0).getTextContent()));
 		    		 		
-		    		 		String template = "";	    		 		
+    		 		
 		    		 		NodeList templateList = componentElmnt.getElementsByTagName(TEMPLATE);
 		    		 		if (templateList.getLength() > 0)
-		    		 			template = templateList.item(0).getTextContent();
+		    		 			component.setTemplate(templateList.item(0).getTextContent());
 		    		 		
-		    		 				 		String cacheKey = "";	    		 		
+    		 		
 		    		 		NodeList cacheKeyList = componentElmnt.getElementsByTagName(CACHE_KEY);
 		    		 		if (cacheKeyList.getLength() > 0)
-		    		 			cacheKey = cacheKeyList.item(0).getTextContent();
+		    		 			component.setCacheKey(cacheKeyList.item(0).getTextContent());
 		    		 		NodeList paramsList = componentElmnt.getElementsByTagName(PARAMS);
-		    		 		String params ="";
+
 		    		 		if (paramsList.getLength() > 0)
-		    		 			params = paramsList.item(0).getTextContent();
+		    		 			component.setParams(paramsList.item(0).getTextContent());
 		    		 		
 		    		 		component.setName(name);
 		    		 		component.setType(componentType);
-		    		 		component.setImage(image);
-		    		 		component.setMethod(method);
-		    		 		component.setRepository(repository);
-		    		 		component.setClickUrl(clickUrl);
-		    		 		component.setServer(server);
+		    		 		//component.setImage(image);
+		    		 		//component.setRepository(repository);
+		    		 		//component.setServer(server);
 		    		 		component.setTempDir(tempDir);
-		    		 		component.setParams(params);
-		    		 		component.setScript(script);
-		    		 		component.setScriptFile(scriptFile);
-		    		 		component.setTemplate(template);
-		    		 		component.setJsonProcess(jsonProcess);
-		    		 		component.setINettuts(iNettuts);
-		    		 		component.setCacheKey(cacheKey);
 		    		 		componentList.add(component);
 		    		 		
 		    		 	}
@@ -323,13 +316,13 @@ public class MedCafeComponent
 		this.image = image;
 	}
 
-	public String getServer() {
+	/*public String getServer() {
 		return server;
 	}
 
 	public void setServer(String server) {
 		this.server = server;
-	}
+	} */
 
 	public String getClickUrl() {
 		return clickUrl;
@@ -339,21 +332,13 @@ public class MedCafeComponent
 		this.clickUrl = clickUrl;
 	}
 
-	public String getMethod() {
-		return method;
-	}
-
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	public String getRepository() {
+	/*public String getRepository() {
 		return repository;
 	}
 
 	public void setRepository(String repository) {
 		this.repository = repository;
-	}
+	}*/
 
 	public static String getCLICK_URL() {
 		return CLICK_URL;
@@ -379,10 +364,9 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.NAME, name);
 		 jsonObj.put(MedCafeComponent.IMAGE, tempDir + image);
 		 jsonObj.put(MedCafeComponent.CLICK_URL, clickUrl);
-		 jsonObj.put(MedCafeComponent.SERVER, server);
-		 jsonObj.put(MedCafeComponent.METHOD, method);
+		// jsonObj.put(MedCafeComponent.SERVER, server);
 		 jsonObj.put(MedCafeComponent.TYPE, type);
-		 jsonObj.put(MedCafeComponent.REPOSITORY, repository);
+		// jsonObj.put(MedCafeComponent.REPOSITORY, repository);
 		 jsonObj.put(MedCafeComponent.PARAMS, params);
 		 jsonObj.put(MedCafeComponent.SCRIPT, script);
 		 jsonObj.put(MedCafeComponent.SCRIPT_FILE, scriptFile);
@@ -441,6 +425,15 @@ public class MedCafeComponent
 	public void setCacheKey(String cacheKey)
 	{
 		this.cacheKey = cacheKey;
+	}
+	public void setDefaults()
+	{
+	
+		script = Constants.DEFAULT_SCRIPT;
+		clickUrl = Constants.DEFAULT_CLICK_URL;
+		jsonProcess = Constants.DEFAULT_JSON_PROCESS;
+		iNettuts = Constants.DEFAULT_INETTUTS;
+		scriptFile = Constants.DEFAULT_SCRIPT_FILE;
 	}
 	
 }

@@ -4,80 +4,50 @@
 	<name>Details</name>
 	<type>Detail</type>
 	<image>patient.png</image>
-	<server></server>
 	<clickUrl>repository-listJSON.jsp</clickUrl>
-	<method/>
-	<repository>OurVista</repository>
 	<template>listPatientTable</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<cacheKey>patientList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>DefaultPatient</name>
 	<type>DefaultPatient</type>
 	<image>defaultPatient.png</image>
-	<server></server>
-   <clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
-	<template>defaultList</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
+	<template>basicDataView</template>
 	<cacheKey>patientList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Images</name>
 	<type>Image</type>
 	<image>coverflow.png</image>
-	<server></server>
-            <clickUrl>contentFlow.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
+   <clickUrl>contentFlow.jsp</clickUrl>
 	<script>processImages</script>
 	<script_file>medCafe.images.js</script_file>
 	<cacheKey>images</cacheKey>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
 	<type>Filter</type>
 	<image>slider-small.png</image>
-	<server></server>
 	<clickUrl>filterTools.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
 	<script>processFilter</script>
 	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
 	<type>EditorNonIFrame</type>
 	<image>pages-icon.png</image>
-	<server></server>
 	<clickUrl>editor.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
 	<script>processEditor</script>
 	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Timeline</name>
 	<type>Timeline</type>
 	<image>timeline.png</image>
-	<server></server>
 	<clickUrl>timelineJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
 	<script>processTimeline</script>
 	<script_file>medCafe.timeline.js</script_file>
 	<jsonProcess>false</jsonProcess>
@@ -87,212 +57,120 @@
 	<name>Bookmarks</name>
 	<type>Bookmarks</type>
 	<image>bookmark.png</image>
-	<server></server>
 	<clickUrl>bookmarksJSON.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
 	<template>listPatientsBookmarksTable</template>
 	<script>addBookmarks</script>
 	<script_file>medCafe.bookmarks.js</script_file>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Medications</name>
 	<type>Medications</type>
 	<image>prescription.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
 	<template>listPatientMedsVert</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<cacheKey>medicineList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Allergies</name>
 	<type>Allergies</type>
 	<image>allergy.jpg</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
 	<template>listPatientAllergies</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<cacheKey>alertList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Symptoms</name>
 	<type>Symptoms</type>
 	<image>clipboard-checkbox.jpg</image>
-	<server></server>
 	<clickUrl>listHistoryTemplate.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
 	<script>processSymptoms</script>
 	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>DefaultMedications</name>
 	<type>DefaultMedications</type>
 	<image>defaultPrescription.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
-	<template>defaultList</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
+	<template>basicDataView</template>
 	<cacheKey>medicineList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>History</name>
 	<type>History</type>
 	<image>history.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<template>listPatientHistoryTable</template>
 	<cacheKey>Personalhistory</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>FamilyHistory</name>
-	<type>FamilyHistory</type>
+	<type>History</type>
 	<image>familyhistory.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<template>listPatientHistoryTable</template>
 	<cacheKey>Familyhistory</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Problem</name>
 	<type>Problem</type>
 	<image>problem.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
 	<template>listProblemListTable</template>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<cacheKey>problemList</cacheKey>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Chart</name>
 	<type>Chart</type>
 	<image>chart.png</image>
-	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
-	<method></method>
 	<params>type:none</params>
-	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<cacheKey>allVitalsList</cacheKey>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>BP/PulseChart</name>
-	<type>BPChart</type>
+	<type>Chart</type>
 	<image>chart.png</image>
-	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
-	<method></method>
 	<params>type:basic</params>
-	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
 	<cacheKey>allVitalsList</cacheKey>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>HeightWeightChart</name>
-	<type>HeightWeightChart</type>
+	<type>Chart</type>
 	<image>chart.png</image>
-	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
-	<method></method>
 	<params>type:ht/wt</params>
-	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
 	<cacheKey>allVitalsList</cacheKey>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>TemperatureChart</name>
 	<type>Chart</type>
 	<image>chart.png</image>
-	<server></server>
 	<clickUrl>chart.jsp</clickUrl>
-	<method></method>
 	<params>type:temp</params>
-	<repository>local</repository>
 	<script>processChart</script>
 	<script_file>medCafe.chart.js</script_file>
 	<jsonProcess>false</jsonProcess>
 	<cacheKey>allVitalsList</cacheKey>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>SupportInfo</name>
 	<type>Support</type>
 	<image>Address_Book.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<template>listSupportInfo</template>
-	<jsonProcess>true</jsonProcess>
 	<cacheKey>supportList</cacheKey>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Immunizations</name>
 	<type>Immunizations</type>
 	<image>hypo.png</image>
-	<server></server>
-	<clickUrl>defaultJSON.jsp</clickUrl>
-	<method></method>
-	<repository>OurVista</repository>
-	<script>addDefaultTable</script>
-	<script_file>medCafe.default.js</script_file>
 	<template>listPatientImmunizations</template>
-	<jsonProcess>true</jsonProcess>
 	<cacheKey>immuneList</cacheKey>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </patientSpecific>
 <general>
@@ -300,84 +178,56 @@
 	<name>OpenVISTA</name>
 	<type>Repository</type>
 	<image>openvista.gif</image>
-	<server></server>
 	<clickUrl>repository-listJSON.jsp</clickUrl>
-	<method>medcafe.add('','OurVista')</method>
 	<params>repository:OurVista</params>
-	<repository>OurVista</repository>
 	<script>addRepository</script>
 	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>hData</name>
 	<type>Repository</type>
 	<image>hData.png</image>
-	<server></server>
 	<clickUrl>repository-listJSON.jsp</clickUrl>
-	<method>medcafe.add('','OurHdata')</method>
 	<params>repository:OurHdata</params>
-	<repository>OurHdata</repository>
 	<script>addRepository</script>
 	<script_file>medCafe.repository.js</script_file>
 	<template>listPatientsTable</template>
-	<jsonProcess>true</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>AddHistory</name>
 	<type>AddHistory</type>
 	<image>clipboard-checkbox.jpg</image>
-	<server></server>
 	<clickUrl>listHistoryTemplate.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
 	<script>processSymptoms</script>
 	<script_file>medCafe.symptoms.js</script_file>
 	<template>listHistoryTemplate</template>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Editor</name>
 	<type>EditorNonIFrame</type>
 	<image>pages-icon.png</image>
-	<server></server>
 	<clickUrl>editor.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
 	<script>processEditor</script>
 	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
 	<type>Filter</type>
 	<image>slider-small.png</image>
-	<server></server>
 	<clickUrl>filterTools.jsp</clickUrl>
-	<method></method>
-	<repository>local</repository>
 	<script>processFilter</script>
 	<script_file>medCafe.filter.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>true</iNettuts>
 </medCafeWidget>
 </general>
 <internal>
 <medCafeWidget>
 	<name>Viewer</name>
 	<type>Viewer</type>
-	<image></image>
-	<server></server>
 	<clickUrl>viewer.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
 	<script>processViewerImages</script>
 	<script_file>medCafe.viewer.js</script_file>
 	<jsonProcess>false</jsonProcess>
@@ -386,12 +236,7 @@
 <medCafeWidget>
 	<name>Image</name>
 	<type>SingleImage</type>
-	<image></image>
-	<server></server>
 	<clickUrl>singleImage.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
 	<script>displayImage</script>
 	<script_file>medCafe.js</script_file>
 	<jsonProcess>false</jsonProcess>
@@ -400,12 +245,7 @@
 <medCafeWidget>
 	<name>Annotate</name>
 	<type>Annotate</type>
-	<image></image>
-	<server></server>
 	<clickUrl>viewerDrawFrame.jsp</clickUrl>
-	<method></method>
-	<params></params>
-	<repository>local</repository>
 	<script>addChart</script>
 	<script_file>medCafe.js</script_file>
 	<jsonProcess>false</jsonProcess>

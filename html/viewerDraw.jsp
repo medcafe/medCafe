@@ -162,7 +162,7 @@
             </div>	
             <br />
           				</div>
- 		</div>
+ 		
      
    
         		<canvas id="canvas" width="300" height="310"></canvas>
@@ -182,11 +182,11 @@
 			
 						</div>
 						<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')">
-							<div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24"></img>
+							<div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24">
 							</div>
 						</div> 
 						<div class="ctr_btn" id="btn_1" onclick="setCPDrawAction(1)" onMouseDown="setControlLook(1, '#CCCCCC')" onMouseOver="setControlLook(1, '#EEEEEE')" onMouseOut="setControlLook(1, '#FFFFFF')">
-							<div class="circle"><img src="images/circle.png" alt="circle" height="22" width="22"></img>
+							<div class="circle"><img src="images/circle.png" alt="circle" height="22" width="22">
 							</div>
 						</div> 
 						<div class="ctr_btn" id="btn_2" onclick="setCPDrawAction(2)" onMouseDown="setControlLook(2, '#CCCCCC')" onMouseOver="setControlLook(2, '#EEEEEE')" onMouseOut="setControlLook(2, '#FFFFFF')">clear
@@ -196,7 +196,7 @@
 						</div> 
 	
 		 				<button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
-				<!--		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button> <--->
+				<!--		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button> -->
 					</div>
 					</div>
 

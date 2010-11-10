@@ -28,12 +28,12 @@
     </div>
     <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p>
+           
                 <table border="0">
                  <%VelocityUtil.applyTemplate(cache.retrieveObjectList("patientList"), "listPatientBio.vm", out); %>
                  <%VelocityUtil.applyTemplate(cache.retrieveObjectList("vitalsList"), "listPatientVitals.vm", out); %>
                 </table>
-            </p>
+           
         </div>
     </div>
 <!--    <div class="ui-widget top-panel" id="patient_history">
@@ -55,10 +55,10 @@
 
      <div class="ui-widget top-panel">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Problem List</strong>
+           <strong>Problem List</strong>
     
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("problemList"), "listProblemList.vm", out);%>
-      		</p>
+      		
            
         </div>
     </div>
