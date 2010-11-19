@@ -451,7 +451,11 @@ $(document).ready( function() {
 				//alert(widgetInfo.params);
 			if (widgetInfo.params != undefined && widgetInfo.params !="")
 			{
-				serverLink = serverLink + "&" + widgetInfo.params.split(":")[0] + "="+widgetInfo.params.split(":")[1];
+				var paramArray= widgetInfo.params.split("&");
+				var index;
+				for (index = 0; index < paramArray.length; index++)
+				
+					serverLink = serverLink + "&" + paramArray[index].split(":")[0] + "="+paramArray[index].split(":")[1];
 				//alert(serverLink); 
 			}
 			if (widgetInfo.image && widgetInfo.image!="") {
