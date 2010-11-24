@@ -1325,8 +1325,10 @@ t.p( vitalDetail.resultDateTime.low.year);
 t.p('@');
 t.p( vitalDetail.resultDateTime.low.hour);
 t.p(':					');
-if (vitalDetail.resultDateTime.low.minute == 0) {
-t.p('						00					');
+if (vitalDetail.resultDateTime.low.minute < 10) {
+t.p('						0');
+t.p( vitalDetail.resultDateTime.low.minute);
+t.p('					');
 }
 else {
 t.p('						');

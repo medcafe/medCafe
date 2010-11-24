@@ -12,11 +12,11 @@
 					Vitals on</td>
 					<td>${vitalDetail.resultDateTime.low.month}/${vitalDetail.resultDateTime.low.day}/
 					${vitalDetail.resultDateTime.low.year}@${vitalDetail.resultDateTime.low.hour}:
-					#if ($vitalDetail.resultDateTime.low.minute == 0)
-						00
+					#if ($vitalDetail.resultDateTime.low.minute <10)
+						0${vitalDetail.resultDateTime.low.minute}
 					#else
 						${vitalDetail.resultDateTime.low.minute}
-					#end	
+					#end
 					</td></tr>
 					#set ($print = 1)
 				#end
