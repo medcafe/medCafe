@@ -31,11 +31,14 @@ public class hDataRepositoryTest extends hDataRepository {
     @Before
     public void setUp() throws Exception {
         boolean gotOne = false;
+        HashMap<String, String> credMap = new HashMap<String, String>();
         String host = "192.168.56.102";
         if( InetAddress.getByName(host).isReachable(3000) )
         {
+        		credMap.put("hostURL", "http://"+host);
+        		credMap.put("port", "8080");
             setName("JeffhData");
-            setCredentials( "http://" + host + ":8080" );
+            setCredentials( credMap );
             gotOne = true;
         }
         else
@@ -44,7 +47,9 @@ public class hDataRepositoryTest extends hDataRepository {
             if( InetAddress.getByName(host).isReachable(3000) )
             {
                 setName("OurHdata");
-                setCredentials( "http://" + host + ":8080" );
+                credMap.put("hostURL", "http://" + host);
+                credMap.put("port", "8080");
+                setCredentials( credMap );
                 gotOne = true;
             }
         }

@@ -451,7 +451,7 @@ $(document).ready( function() {
 				//alert(widgetInfo.params);
 			if (widgetInfo.params != undefined && widgetInfo.params !="")
 			{
-				var paramArray= widgetInfo.params.split("&");
+				var paramArray= widgetInfo.params.split(";");
 				var index;
 				for (index = 0; index < paramArray.length; index++)
 				

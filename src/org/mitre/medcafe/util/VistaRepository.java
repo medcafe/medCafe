@@ -56,6 +56,7 @@ public class VistaRepository extends Repository {
 
     public final static String KEY = VistaRepository.class.getName();
     public final static Logger log = Logger.getLogger(KEY);
+
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
@@ -393,11 +394,11 @@ public class VistaRepository extends Repository {
         }
     }
 
-    public void factorySetUp(String[] creds) {
+    public void factorySetUp() {
         try {
-            rpcConnFactory = new RPCBrokerPooledConnectionFactory(creds[0], creds[1], creds[2], creds[3]);
+            rpcConnFactory = new RPCBrokerPooledConnectionFactory(credentials.get(Repository.HOST_URL), credentials.get(Repository.PORT), credentials.get(Repository.ACCESS_CODE), credentials.get(Repository.VERIFY_CODE));
         } catch (Exception e) {
-            log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(creds));
+            log.severe("Connection to repository failed.  Credentials were " + credentials.toString());
         }
     }
 
@@ -420,17 +421,18 @@ public class VistaRepository extends Repository {
         RPCBrokerPooledConnection conn = null;
 			synchronized(this) {
         if (rpcConnFactory == null) {
-            factorySetUp(credentials);
+
+        		
+        		 
+            factorySetUp();
         }
 			
 
         conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
 			}
-        //       conn = new RPCBrokerConnection(credentials[0], Integer.parseInt(credentials[1]), credentials[2], credentials[3]);
 
-        //conn = factory.getConnection();
         if (conn == null) {
-            log.severe("Connection to repository failed.  Credentials were " + Arrays.toString(credentials));
+            log.severe("Connection to repository failed.  Credentials were " + credentials.toString());
             return null;
         }
         return conn;
@@ -456,11 +458,26 @@ public class VistaRepository extends Repository {
      *@param credentials New credentials property.
      */
     @Override
-    public void setCredentials(String... credentials) {
-        if (credentials.length < 4) {
-            throw new RuntimeException("Invalid number of credentials.  You must proivide <host> <port> <ovid-access-code> <ovid-verify-code>");
-        }
-        this.credentials = credentials;
+    public void setCredentials(HashMap<String, String> credMap) {
+
+    		if (credMap.get(Repository.HOST_URL)== null || credMap.get(Repository.HOST_URL).equals(""))
+    		{
+    			throw new RuntimeException("Must include hostURL for OpenVista database");
+    		}	
+    		if (credMap.get(Repository.PORT)== null || credMap.get(Repository.PORT).equals(""))
+    		{
+    			throw new RuntimeException("Must include port for OpenVista database");
+    		}
+    		if (credMap.get(Repository.ACCESS_CODE)== null || credMap.get(Repository.ACCESS_CODE).equals(""))
+    		{
+    			throw new RuntimeException("Must include access code for OpenVista database");
+    		}
+    		if (credMap.get(Repository.VERIFY_CODE)== null || credMap.get(Repository.VERIFY_CODE).equals(""))
+    		{
+    			throw new RuntimeException("Must include verify code for OpenVista database");
+    		}
+
+         credentials = credMap;
     }
 
     public List<Allergy> getAllergies(String id) {

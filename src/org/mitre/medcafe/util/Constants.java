@@ -22,7 +22,7 @@ public class Constants {
 	
 	public final static String MEDCAFE_USER ="medcafe.user";
 	public static String BASE_PATH ="";
-
+   public static String CONFIG_DIR = BASE_PATH + "WEB-INF/";
 	public static final String COPY_TEMPLATE = "copyTemplate";
 	public static final String POPULATE_TEXT = "popText";
 	

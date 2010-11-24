@@ -38,7 +38,7 @@ public class hDataRepository extends Repository
     public final static String KEY = hDataRepository.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
-
+	 private String hDataUrl = "";
     public hDataRepository()
     {
         type = "hData";
@@ -52,7 +52,7 @@ public class hDataRepository extends Repository
         {
             JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.patient_information");
             Unmarshaller u = jc.createUnmarshaller();
-            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/patientinformation/12345.xml" );
+            URL url = new URL( hDataUrl + "/hData-REST/resources/hDataRecord/patient/patientinformation/12345.xml" );
             URLConnection conn = url.openConnection();
             Patient p = (Patient)u.unmarshal(conn.getInputStream() );
             return p;
@@ -80,7 +80,7 @@ public class hDataRepository extends Repository
         {
             JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.allergy");
             Unmarshaller u = jc.createUnmarshaller();
-            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/adversereactions/allergies/937321.xml" );
+            URL url = new URL( hDataUrl  + "/hData-REST/resources/hDataRecord/patient/adversereactions/allergies/937321.xml" );
             URLConnection conn = url.openConnection();
             Allergy p = (Allergy)u.unmarshal(conn.getInputStream() );
             List<Allergy> ret = new ArrayList<Allergy>();
@@ -101,7 +101,7 @@ public class hDataRepository extends Repository
         {
             JAXBContext jc = JAXBContext.newInstance("org.projecthdata.hdata.schemas._2009._06.medication");
             Unmarshaller u = jc.createUnmarshaller();
-            URL url = new URL( credentials[0] + "/hData-REST/resources/hDataRecord/patient/medications/IBU-200-12312.xml" );
+            URL url = new URL( hDataUrl  + "/hData-REST/resources/hDataRecord/patient/medications/IBU-200-12312.xml" );
             URLConnection conn = url.openConnection();
             Medication p = (Medication)u.unmarshal(conn.getInputStream() );
             List<Medication> ret = new ArrayList<Medication>();
@@ -174,5 +174,18 @@ public class hDataRepository extends Repository
 		// TODO Auto-generated method stub
 		return null;
 	}
+    public void setCredentials(HashMap<String, String> credMap)
+    {
+    	    if (credMap.get(Repository.HOST_URL)== null || credMap.get(Repository.HOST_URL).equals(""))
+    		{
+    			throw new RuntimeException("Must include hostURL for hData");
+    		}	
+    		if (credMap.get(Repository.PORT)== null || credMap.get(Repository.PORT).equals(""))
+    		{
+    			throw new RuntimeException("Must include port for hData database");
+    		}
+		hDataUrl = credMap.get(Repository.HOST_URL) + ":" + credMap.get(Repository.PORT);
+    	credentials = credMap;
+    }
 
 }

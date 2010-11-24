@@ -82,13 +82,13 @@ public class InitServlet extends HttpServlet
         String base_path = config.getServletContext().getRealPath( "/" );
         Constants.BASE_PATH = base_path;
 
-        String config_dir = base_path + "WEB-INF/";
-        Config.init( config_dir );
+        Constants.CONFIG_DIR = base_path + "WEB-INF/";
+        Config.init( Constants.CONFIG_DIR );
         // Config.setProperty( "BasePath", base_path );
 
         /* Configure velocity */
         Properties p = new Properties();
-        p.setProperty("file.resource.loader.path", config_dir + "templates" );
+        p.setProperty("file.resource.loader.path", Constants.CONFIG_DIR + "templates" );
         p.setProperty("runtime.log", base_path + "../../logs/velocity_example.log");
         VelocityUtil.init(p);
         /*
@@ -117,7 +117,13 @@ public class InitServlet extends HttpServlet
         System.out.println("Server Name in Config " + Config.getServerUrl());
 
         /* set up repositories */
+        try{
         Repositories.setDefaultRepositories();
+        }
+        catch (Exception e)
+        {
+        		log.severe("Error reading Repositories.xml file: " + e.getMessage());
+        }
         log.exiting(KEY, "init()");
     }
 

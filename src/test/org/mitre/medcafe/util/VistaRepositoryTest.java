@@ -32,6 +32,7 @@ public class VistaRepositoryTest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
+    	  HashMap<String, String> credMap = new HashMap<String, String>();
         repo = new VistaRepository();
         boolean gotOne = false;
         String host = "192.168.56.101";
@@ -39,7 +40,11 @@ public class VistaRepositoryTest {
         if( InetAddress.getByName(host).isReachable(3000) )
         {
             repo.setName("JeffVista");
-            repo.setCredentials( host, "8002", "OV1234", "OV1234!!" );
+            credMap.put("hostURL", host);
+            credMap.put("port", "9201");
+            credMap.put("accessCode", "OV1234");
+            credMap.put("verifyCode", "OV1234!!");
+            repo.setCredentials( credMap );
             // setCredentials( host, "8002", "PU1234", "PU5678!!" );
             gotOne = true;
         }
@@ -49,7 +54,11 @@ public class VistaRepositoryTest {
             if( InetAddress.getByName(host).isReachable(3000) )
             {
                 repo.setName("OurVista");
-                repo.setCredentials( "128.29.109.7", "8002", "OV1234", "OV1234!!" );
+                credMap.put("hostURL", host);
+            	 credMap.put("port", "9201");
+            	 credMap.put("accessCode", "OV1234");
+            	 credMap.put("verifyCode", "OV1234!!");
+            	 repo.setCredentials( credMap );
                 gotOne = true;
             }
         }

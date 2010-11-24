@@ -15,12 +15,23 @@ import org.mitre.medcafe.hdatabased.encounter.*;
 
 import com.medsphere.fileman.FMRecord;
 
+
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
  *  or other
  */
 public abstract class Repository
 {
+	public static final String HOST_URL = "hostURL";
+	public static final String PORT = "port";
+	public static final String ACCESS_CODE = "accessCode";
+	public static final String VERIFY_CODE = "verifyCode";
+	public static final String CREDENTIALS = "credentials";
+	public static final String HOST = "host";
+	public static final String REPOSITORY_TYPE = "type";
+	public static final String REPOSITORY_NAME = "name";
+	public static final String REPOSITORY_ITEM = "repository";
+	public static final String REPOSITORIES = "repositories";
 
     /**
      *  Given a patient id, get the patient info
@@ -88,14 +99,14 @@ public abstract class Repository
     /**
      * Credentials property.
      */
-    protected String[] credentials = null;
+    protected HashMap<String,String> credentials = null;
 
     /**
      * Get credentials property.
      *
      *@return Credentials property.
      */
-    public String[] getCredentials() {
+    public HashMap<String,String> getCredentials() {
     	return this.credentials;
     }
 
@@ -104,18 +115,12 @@ public abstract class Repository
      *
      *@param credentials New credentials property.
      */
-    public void setCredentials(String... credentials) {
-    	this.credentials = credentials;
+    public void setCredentials(HashMap<String, String> credMap)
+    {
+    	credentials = credMap;
     }
 
-    /**
-     * Set credentials property.
-     *
-     *@param credentials New credentials property.
-     */
-     public void setCredentialsArray(String[] credentials) {
-    	this.credentials = credentials;
-    }
+
 
     /**
      * Name property.
