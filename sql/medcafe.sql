@@ -249,6 +249,32 @@ CREATE TABLE address
 
 );
 
+CREATE TABLE template (
+	template_id SERIAL PRIMARY KEY,
+    name character varying(200) NOT NULL,
+    creator character varying(50) NOT NULL,
+    description text NULL,
+    date_created date NOT NULL DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE template_widget_params (
+	id SERIAL PRIMARY KEY,
+	widget_id integer NOT NULL,
+    template_id integer NOT NULL,
+    patient_id integer NOT NULL,
+    username character varying(50) NOT NULL,
+    param character varying(50) NOT NULL,
+   	value character varying(500) NOT NULL
+);
+
+ALTER TABLE ONLY template_widget_params
+    ADD CONSTRAINT template_widget_params_FK FOREIGN KEY (template_id) REFERENCES TEMPLATE (template_id) MATCH FULL;
+
+CREATE TABLE category (
+	id SERIAL PRIMARY KEY,
+	category character varying(500) NOT NULL,
+    description character varying(1000) NOT NULL
+);
 insert into priority (id, priority, description) values (1, 'Very High', 'Very High Priority -immediate attention.');
 insert into priority (id, priority, description) values (2, 'High', 'High Priority - action required in short term');
 insert into priority (id, priority, description) values (3, 'Medium', 'Medium Priority - ongoing monitoring recommended');

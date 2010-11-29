@@ -85,6 +85,7 @@
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
  	<script type="text/javascript" src="${js}/medCafe.images.js"></script>
+ 	<script type="text/javascript" src="${js}/medCafe.templates.js"></script>
  	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
  	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
  	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white medCafe"></script>
@@ -182,6 +183,7 @@
     <div id="head"></div>
     <div id="dialog" >Are you sure you want to close?</div>
 	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
+    <div id="copyTemplateDialog" >You are about to override all tabs for this patient. Would you like to continue?</div>
     <div id="associatePatientDialog"></div>
 
 <div class="ui-layout-center ui-corner-all no-copy">
