@@ -14,7 +14,7 @@ function copyAndRetrieve(server, patient, template_id)
 						parent.closeAllTabs("tabs");
 						//populate(url, patient);
 						var templateServer = "copyTemplate.jsp?patient_id=" + patient+"&template_id=" + template_id;
-		    			alert("medCafe.templates.js copyAndRetrieve about to call " + templateServer);
+		    			//alert("medCafe.templates.js copyAndRetrieve about to call " + templateServer);
 		    			$.get(templateServer, function(data)
 	 					{
 								parent.window.location.replace("index.jsp");

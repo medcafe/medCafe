@@ -110,12 +110,12 @@ function processMenuClick(menuLabel, patientId)
 		 {
 		 	 
 		     var settings = medCafeWidget.getExtWidgetSettings(val);
-		     alert("menus.js settings val " + val  + " tab num " + settings.tab_num);
+		     //alert("menus.js settings val " + val  + " tab num " + settings.tab_num);
 		 });
 	}
 	else if (menuLabel == "Test Template")
 	{
-		alert("menus.js Getting test template for patient " + patientId );
+		//alert("menus.js Getting test template for patient " + patientId );
 		//Code to load the test template 
 		copyAndRetrieve("",patientId, 1);
 		
