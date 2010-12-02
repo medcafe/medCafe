@@ -91,7 +91,6 @@ function processMenuClick(menuLabel, patientId)
 	}
 	else if (menuLabel == "Save")
 	{
-		alert("menus.js Saving for patient " + patientId );
 		 saveWidgets(patientId);
 	}
 	else if (menuLabel == "Close Tabs")
@@ -120,6 +119,15 @@ function processMenuClick(menuLabel, patientId)
 		copyAndRetrieve("",patientId, 1);
 		
 		
+	}
+	else if (menuLabel.indexOf("View") > -1)
+	{
+		var templateName = menuLabel.split(" ")[1];
+		displayTemplate(patientId, templateName);
+	}
+	else
+	{
+		copyAndRetrieve("",patientId, menuLabel);	
 	}
 }
 

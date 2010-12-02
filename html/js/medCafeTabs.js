@@ -161,10 +161,10 @@ $(document).ready( function() {
 				,
 				closeAllTabs : function(tab_name) {
 
-							$("#tabs").find("li:has(a)").each(function(i)
+							$("#" + tab_name).find("li:has(a)").each(function(i)
 						 	{
 						 		var index = $(this).attr('custom:index');
-								$("#tabs").tabs("remove",index);
+								$("#" + tab_name).tabs("remove",index);
 			   				});
 
 				},
@@ -222,11 +222,26 @@ $(document).ready( function() {
 
 		//alert("medCafeTabs addTab start");
 		//First check if tab already exists
+		var tab_set ="tabs";
+		return addAnyTab(label, type, iNettuts, tab_set);
+	}
+
+	function addAnyTab(label, type, iNettuts, tab_set)
+	{
+		if (tab_set === undefined)
+		{	
+			tab_set ="tabs";
+		}
+		
+		//In most cases tab_key will be "tabs-"
+		var tab_key = tab_set + "-";
+		
 		var tab_num = 0;
 		var tab_id = 0;
 		if (label != "new" && label !="New")
 		{
-		$('.tabs').parent().find(".tabContent").each(function(i)
+		//$('.tabs').parent().find(".tabContent").each(function(i)
+		$('#' + tab_set).parent().find(".tabContent").each(function(i)	
 		{
 			var tabObj = $(this).find(".id");
 			var tabId = $(tabObj).attr("id");
@@ -234,7 +249,7 @@ $(document).ready( function() {
 			{
 				var tab_id = $(this).attr('id');
 				tab_num = tab_id.split("-")[1];
-				$('#tabs').tabs('select', "#tabs-" + tab_num);
+				$('#' + tab_set).tabs('select', "#" + tab_key + tab_num);
 				if (cf != undefined)
 					cf.resize();
 
@@ -242,11 +257,11 @@ $(document).ready( function() {
 
 		});
 
-
 		//If the tab_number is greater than 0 then it has been found already - just return	-1
 		if (tab_num != 0) return -1;
 		}
-		$('.tabs').parent().find(".tabContent").each(function(i)
+		//$('.tabs').parent().find(".tabContent").each(function(i)
+		$('#' + tab_set).parent().find(".tabContent").each(function(i)
 		{
 			tab_id = $(this).attr('id');
 		});
@@ -258,31 +273,56 @@ $(document).ready( function() {
 		}
 		else
 			tab_num = 1;
-		var hrefBase = "tabs-" + tab_num;
+		var hrefBase = tab_key+ tab_num;
 
-		//alert("medCafeTabs addTab current tab num " + tab_num + "  hrefBase " + hrefBase);
-
+		
 		//Add a new Tab
-		$('#tabs').tabs("add","#" + hrefBase,label);
-		//alert("medCafeTabs addTab current tab num " + tab_num + "  hrefBase " + hrefBase);
+		$('#' + tab_set).tabs("add","#" + hrefBase,label);
+		//alert("medCafeTabs addTab line 277 current tab key '#" + tab_key + tab_num +"'  hrefBase " + hrefBase);
 
-		$("#tabs-" + tab_num).addClass('tabContent');
+		$("#" + tab_key + tab_num).addClass('tabContent');
 		//Load the widget template
 		if (iNettuts != false && iNettuts != "false")
 		{
-			$("#tabs-" + tab_num ).load("tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
+			var testThis = "#" + tab_key + tab_num;
+			//alert("medCafeTabs addTab line 284 test this " + $("#" + tab_key + tab_num).length);
+			 var exists = $("#" + tab_key + tab_num).length;
+			 if (exists > 0)
+			 {
+			 	var url = "tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type;
+			 	//For some reason the "load" doesn't work for templateTabs
+			 	if (tab_set === "templateTabs")
+			 	{
+				 	$.get(url, function(data){				
+				 			//Make sure to clear this out first
+				 			$("#" + tab_key + tab_num).html(data);
+										
+					});
+				}
+				else
+				{
+					$("#" + tab_key + tab_num ).load(url);
+				}
+			 }
+			 else
+			 {
+			 	alert("Tab does not exist at this time");
+			 	return -1;
+			 }
+		
 		}
 		else
 		{
-			$("#tabs-" + tab_num).addClass('no-iNettuts');
+			$("#" + tab_key + tab_num).addClass('no-iNettuts');
 		}
 		//alert("medCafeTabs: addTab tabs-template.jsp?tab_num=" + tab_num + "&title=" + label + "&type=" + type);
 		//$("#tabs-" + tab_num).
 	
-		$('#tabs').tabs('select', "#tabs-" + tab_num);
+		$('#' + tab_set).tabs('select', "#" +  tab_key + tab_num);
+		
 		return tab_num;
 	}
-
+	
   function addWidgetNum(widgetInfo)
 	{
 
@@ -348,7 +388,7 @@ $(document).ready( function() {
 		//widgetInfo.tab_num = addTab(widgetInfo.name, type);
 		//if (widgetInfo.tab_num < 0)
 		//	return;
-		createWidgetContent(widgetInfo);
+		createWidgetContent(widgetInfo, true);
 
 	}
 
@@ -388,8 +428,18 @@ $(document).ready( function() {
 
 	}
 
-	function addWidgetTab(callObj, widgetInfo, group)
+	function addWidgetTab(callObj, widgetInfo, group, tab_set)
 	{
+		var tab_key = "tabs-";
+		
+		if (tab_set === undefined)
+		{
+		}
+		else
+		{
+			tab_key = tab_set + "-";
+		}
+		
 		var pos;
 		var windowLabel="";
 		if (widgetInfo.image != undefined)
@@ -431,7 +481,7 @@ $(document).ready( function() {
 			{
 				if (windowLabel == "")
 					windowLabel = widgetInfo.name;
-				widgetInfo.tab_num = addTab(windowLabel, widgetInfo.type, widgetInfo.iNettuts);
+				widgetInfo.tab_num = addAnyTab(windowLabel, widgetInfo.type, widgetInfo.iNettuts, tab_set);
 			}
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
@@ -462,11 +512,11 @@ $(document).ready( function() {
 				serverLink = serverLink + "&image=" + widgetInfo.image;
 			}
 
+			
 			//alert('serverLink ' + serverLink);
 			//alert(JSON.stringify(widgetInfo));
 			$.get(serverLink, function(data)
 			{
-
 
 				//Check to see if any error message
 				// $("#aaa" + tab_num).append(data);
@@ -477,16 +527,21 @@ $(document).ready( function() {
                         widgetInfo.tab_num = "2";
                         if (widgetInfo.iNettuts != false && widgetInfo.iNettuts != 'false')
                         {
-                    $("#tabs-"+ widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));
+                        var testId = "#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column;
+                        var test = $("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).html();
+                        //alert("medCafeTabs line 500 populating widgets tab_set " + testId);
+				
+                    $("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));
                     }
                     else
                     {
                  
-                     	$("#tabs-"+ widgetInfo.tab_num).append(v2js_head(widgetInfo) + data +v2js_tail(widgetInfo));
+                     	$("#" + tab_key + widgetInfo.tab_num).append(v2js_head(widgetInfo) + data +v2js_tail(widgetInfo));
                     }
 				}
 			// alert("should have added content now");
 			//	iNettuts.makeSortable();
+			
 				setHasContent(widgetInfo.id);
 			//	alert("tab_num " + widgetInfo.tab_num);
 			  // alert (JSON.stringify(widgetInfo));
@@ -497,11 +552,11 @@ $(document).ready( function() {
 					var dataObject = JSON.parse(  data);
 					dataObject.widget_id = widgetInfo.id;
 					//dataObject.tabNum = widgetInfo.tab_num
-					processScripts(callObj, widgetInfo, dataObject);
+					processScripts(callObj, widgetInfo, dataObject, tab_set);
 				}
 				else
 				{
-					processScripts(callObj, widgetInfo, data);
+					processScripts(callObj, widgetInfo, data, tab_set);
 				}
 			medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		
@@ -593,10 +648,10 @@ $(document).ready( function() {
 		}
 	}
 
-	function processScripts(callObj, widgetInfo, data)
+	function processScripts(callObj, widgetInfo, data, tab_name)
 	{
+		
 		var type = widgetInfo.type;
-
 
 			//if (typeof addAllergies == 'undefined')
 			if (typeof window[widgetInfo.script] == 'undefined')
@@ -605,12 +660,12 @@ $(document).ready( function() {
                 //	$.getScript('js/medCafe.allergies.js', function()
                 $.getScript('js/' + widgetInfo.script_file, function()
                     {
-                        window[widgetInfo.script](callObj, widgetInfo, data);
+                        window[widgetInfo.script](callObj, widgetInfo, data, tab_name);
                     });
 			}
 			else
 			{
-				window[widgetInfo.script](callObj, widgetInfo, data);
+				window[widgetInfo.script](callObj, widgetInfo, data, tab_name);
 			}
 
 

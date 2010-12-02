@@ -91,6 +91,13 @@ $(document).ready( function() {
 			});
 		});
 
+		$.get('templateMenuContent.jsp', function(data){
+			$('#template').menu({
+				content: data
+			});
+		});
+		
+		
 		$('.ui-layout-center').each(function()
 	        {
 	             this.addEventListener("touchmove", stopTouchMove, false);
@@ -113,16 +120,17 @@ $(document).ready( function() {
 	   }
 	}
 	//Code to create widgets content
-	function createWidgetContent(widgetInfo, group)
+	function createWidgetContent(widgetInfo, group, tab_set)
 	{
+	
+		//this might not be set for case of drag/ drop
+		if (tab_set === undefined) tab_set = "tabs";
+		
 	 $(this).delay(200,function()
 	 {
 
-
-
-
 			{
-				addWidgetTab(this, widgetInfo, group);
+				addWidgetTab(this, widgetInfo, group, tab_set);
 			}
 		
 
@@ -269,7 +277,11 @@ $(document).ready( function() {
 						      //Put in code to goto saveText.jsp Delete
 						      $(this).dialog("destroy");
 						   }
-						}
+						},
+						close: function() {
+                    		 $(this).dialog("destroy");			
+						     
+              			}
 					});
 
 		$("#dialog" + id).dialog("open");
@@ -532,11 +544,11 @@ function initClose()
 }
 
 
-function closeAllTabs(tab_num)
+function closeAllTabs(tab_name)
 {
 
 		var indexList = new Array();
-		$("#tabs").find("li:has(a)").each(function(i)
+		$("#" + tab_name).find("li:has(a)").each(function(i)
 		{
 			indexList[i] = $(this).attr('custom:index');
 
@@ -545,7 +557,7 @@ function closeAllTabs(tab_num)
 		//Make sure that the last tab is closed first
 		for (i=indexList.length-1; i > -1 ;i--)
 		{
-			$("#tabs").tabs("remove",indexList[i]);
+			$("#" + tab_name).tabs("remove",indexList[i]);
 		}
 
 

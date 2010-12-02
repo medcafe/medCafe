@@ -184,30 +184,45 @@ function addAssociatePatient(isIntro)
 
 function populate(url, patient_id)
 {
-	var focusedTab = 1;
+	
 	 var server = url + "?patient_id=" + patient_id;
 //	alert ("URL " + url + " id " + patient_id);
+	populateTabs(server,"tabs");
+	
+}
+
+function populateTemplate(patient_id, template_id)
+{
+	var url = "retrieveTemplate.jsp"
+	var server = url + "?template_id=" + template_id + "&patient_id=" + patient_id;
+	populateTabs(server, "templateTabs");
+	
+}
+
+function populateTabs(server, tab_set)
+{
+	 var focusedTab = 1;
 	 $.getJSON(server, function(data)
 	 {
 	 		
-
-	 	   //If no tabs are defined then just return.
+			//If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
-		   		var tab_num = parent.addTab("New", "chart", true);
-
+		   		
+		   		var tab_num = parent.addAnyTab("New", "chart", true, tab_set );
 
 		   		return;
 		   }
-
+			 
 		   //put the new tabs in
-		
+			
 		   for(i=0; i< data.tabs.length; i++)
 		   {
+		   		
                 var label = data.tabs[i].name;
 
 		       // alert(JSON.stringify(data.tabs[i]));
-		        tab_num = parent.addTab(label, "Details", data.tabs[i].iNettuts);
+		        tab_num = parent.addAnyTab(label, "Details", data.tabs[i].iNettuts,tab_set);
 					if (data.tabs[i].inFocus  && data.tabs[i].inFocus=="true")
 					{
 						focusedTab = data.tabs[i].tab_num;
@@ -219,10 +234,12 @@ function populate(url, patient_id)
 			var previous_col = 0;
 			var previous_tab = 0;
 		   if (data.widgets){
+		   	
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
 		   	{
 		
+					
 					if (!data.widgets[i].label || data.widgets[i].label == "")
 						data.widgets[i].label = data.widgets[i].name;
 					if (!data.widgets[i].color_num || data.widgets[i].color_num == "")
@@ -233,7 +250,7 @@ function populate(url, patient_id)
 				   // This allows the widget to be added only after the widget before it
 				   // has been created so that order is maintained.  The only exception
 				   // is for an excessive delay of the previous widget insertion
-						delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1);
+						delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1, tab_set);
 				
    
 					 previous_id = data.widgets[i].id;
@@ -250,14 +267,13 @@ function populate(url, patient_id)
 
 				$(parent).delay(2000, function()
 				{
-				$('#tabs').tabs('select', "#tabs-" + focusedTab);
-				iNettuts.makeSortable();
+					$('#'+ tab_set).tabs('select', "#" + tab_set+ "-" + focusedTab);
+					iNettuts.makeSortable();
 				});
 
 		   }
 	});
 }
-
 function addScheduleButton( patient_id)
 {
 
@@ -314,11 +330,13 @@ function addCreateAssocButton( patient_id, role)
 
 	});
 }
-function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num)
+function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num, tab_set)
 {
+	 //alert("medCafe.patient.js delayFor WidgetCreation prev_id " + prev_id);
+		
 	if (prev_id == 0 || prev_tab != widgetInfo.tab_num || prev_col != widgetInfo.column)
 	{
-		 callObj.createWidgetContent( widgetInfo, true );
+		 callObj.createWidgetContent( widgetInfo, true, tab_set );
 	}
 	else
 	{
@@ -330,17 +348,17 @@ function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo
 				$(callObj).delay(100,function()
 				{
 					num++;
-					delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num);
+					delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num, tab_set);
 				});
 			}
 			else
 			{
-				callObj.createWidgetContent( widgetInfo, true );	
+				callObj.createWidgetContent( widgetInfo, true , tab_set);	
 			}	
 		}
 		else
 		{
-			callObj.createWidgetContent( widgetInfo, true );
+			callObj.createWidgetContent( widgetInfo, true, tab_set );
 		}
 	}
 }

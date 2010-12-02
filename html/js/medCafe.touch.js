@@ -157,7 +157,7 @@ $.fn.medcafeTouch = function(options) {
 								  		
 						}
 						//Tab already has content Create a new Tab
-						createWidgetContent(widgetInfo);
+						createWidgetContent(widgetInfo, true);
 
       					clearWidgets();
 			   });

@@ -59,7 +59,8 @@ public class Template extends Widget
 	public static final String DELETE_TEMPLATE_WIDGETS = "DELETE FROM template_widget_params where ( template_id = ?  AND username=?) ";
 
 	public static final String COPY_TEMPLATES = "INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,username, param, value from template_widget_params where username = ? and template_id = ? ) ";
-	public static final String SELECT_TEMPLATES = "SELECT widget_id, param, value from template where username = ? and template_id = ? and widget_id =? ";
+	public static final String SELECT_TEMPLATE = "SELECT template_id, name from template where name = ? ";
+	public static final String SELECT_TEMPLATES = "SELECT template_id, name from template ";
 	public static final String INSERT_TEMPLATES = "INSERT INTO template  ( widget_id, template_id, patient_id, username, param, value ) values (?,?,-1,?,?,?) ";
 	public static final String DELETE_TEMPLATES = "DELETE FROM template where ( template_id = ?  AND username=?) ";
 	
@@ -77,6 +78,68 @@ public class Template extends Widget
 		 return o;
 	}
 
+	public static JSONObject getTemplates(String userName) throws SQLException 
+	{
+		JSONObject o = new JSONObject();
+		ArrayList<String> templateList = new ArrayList<String>();
+		
+		DbConnection dbConn = null;
+		PreparedStatement prep = null;
+		
+		try
+		{
+			dbConn = setConnection();
+			
+			String selectQuery = Template.SELECT_TEMPLATES;
+			prep= dbConn.prepareStatement(selectQuery);	
+			
+			ResultSet rs = prep.executeQuery();
+			while (rs.next())
+			{
+				String templateName = rs.getString(2);
+				templateList.add(templateName);
+				
+			}
+			o.put("Templates", templateList);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on retrieving template from database ." );
+		
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on retrieving template from database ." );
+			
+		}
+		finally
+		{
+
+			closeConnections(dbConn, prep, null);
+			dbConn = null;
+			prep = null;
+		}
+		return o;
+	}
+	
+	private static int getTemplateId(DbConnection dbConn, PreparedStatement prep, String templateName) throws SQLException
+	{
+		String selectQuery = Template.SELECT_TEMPLATE;
+		prep= dbConn.prepareStatement(selectQuery);	
+		prep.setString(1, templateName);
+		ResultSet rs = prep.executeQuery();
+		int template_id = 0;
+		if (rs.next())
+		{
+			template_id = rs.getInt(1);
+		}
+		else
+		{
+			throw new SQLException("Template SQL Error: Could not find template by name " + templateName);
+		}
+		return template_id;
+	}
+	
 	public static JSONObject copyTemplate(String templateId, String patientId, String userName) throws SQLException 
 	{
 		//Copy the template table data into widget table 
@@ -98,13 +161,14 @@ public class Template extends Widget
 		try
 		{
 			dbConn = setConnection();
-			int template_id = Integer.parseInt(templateId);
+			
 
 			int patient_id = Integer.parseInt(patientId);
 			String err_mess = "Could not update the widgets for patient  " + patient_id;
 			//INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,username, param, value from template_widget_params where username = ? and template_id = ? ) ";
 			String copyQuery = Template.COPY_TEMPLATES;
-
+			int template_id = getTemplateId(dbConn, prep, templateId);
+			
 			prep= dbConn.prepareStatement(copyQuery);
 			prep.setInt(1, patient_id);
 			prep.setString(2, userName);
@@ -282,12 +346,13 @@ public class Template extends Widget
 
 	
 
-	public static HashMap<String, Template> retrieveTemplateWidgets(String userName, String patientId) throws SQLException
+	public static HashMap<String, Template> retrieveTemplateWidgets(String userName, String templateId, String patientId) throws SQLException
 	{
 		 HashMap<String, Template> widgetList = new HashMap<String, Template>();
 	//	 DbConnection dbConn = null;
 		 
 		 int patId = Integer.valueOf(patientId);
+		
 		 DbConnection dbConn = null;
 		 ResultSet rs = null;
 		 PreparedStatement prep = null;
@@ -296,9 +361,12 @@ public class Template extends Widget
 		   log.severe("Connection being set . . .  waiting");
 		   dbConn = setConnection();
 		   log.severe("Connection is set, preparing statement");
-			prep= dbConn.prepareStatement(Template.SELECT_TEMPLATE_WIDGETS);
+			
+		   int tempId = getTemplateId(dbConn, prep, templateId);
+			
+		   	prep= dbConn.prepareStatement(Template.SELECT_TEMPLATE_WIDGETS);
 			prep.setString(1, userName);
-			prep.setInt(2, patId);
+			prep.setInt(2, tempId);
 
 			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
 
@@ -372,7 +440,7 @@ public class Template extends Widget
 		 }
 		 catch (SQLException e)
 		 {
-		   log.severe("Databse Connection ERRROR: Can't make connection " + e.getMessage());
+		   log.severe("Databse Connection ERROR: Can't make connection " + e.getMessage());
 
 			throw e;
 		 }
@@ -388,6 +456,55 @@ public class Template extends Widget
 
 	}
 
+	public static JSONObject listTemplateWidgets(String userName, String templateId, String patientId) throws SQLException
+	{
+		JSONObject ret = new JSONObject();
+		try
+		{
+		
+
+			HashMap<String, Template> widgetList = retrieveTemplateWidgets(userName, templateId, patientId);
+			//split out the tabs
+
+			HashMap<String, MedCafeComponent> compList = MedCafeComponent.getComponentHash();
+
+			//Sort by the tab_order
+			TreeMap<Integer, Template> sortedWidgets = new TreeMap<Integer, Template>();
+			for (Template widget: widgetList.values())
+				sortedWidgets.put(widget.getTabOrder(), widget);
+			for (Template widget: sortedWidgets.values())
+			{
+				JSONObject widgetJSON = widget.toJSON();
+				if( widget.getType().equals("tab") )
+                    ret.append("tabs", widgetJSON);
+                else
+                {
+						  MedCafeComponent comp = compList.get(widget.getName());
+						  if (comp!= null) {
+						  widgetJSON.put(MedCafeComponent.SCRIPT, comp.getScript());
+						  widgetJSON.put(MedCafeComponent.SCRIPT_FILE, comp.getScriptFile());
+						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
+						  widgetJSON.put(MedCafeComponent.CLICK_URL, comp.getClickUrl());
+						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
+						  widgetJSON.put(MedCafeComponent.INETTUTS, comp.getINettuts());
+						  widgetJSON.put(MedCafeComponent.PARAMS, comp.getParams());
+						  widgetJSON.put(MedCafeComponent.CACHE_KEY, comp.getCacheKey());
+						  }                		
+                    ret.append("widgets", widgetJSON);
+					 }
+			}
+		}
+		catch (SQLException e)
+		{
+			return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
+		}
+		catch (JSONException e)
+		{
+			return WebUtils.buildErrorJson( "Problem on building JSON Data ." + e.getMessage());
+		}
+
+		return ret;
+	}
 
 
 	public int getTemplateId() {

@@ -1,6 +1,6 @@
-function processTimeline(callObj, widgetInfo, data)
+function processTimeline(callObj, widgetInfo, data, tab_set)
 {	
-	$('#tabs').tabs('select', "#tabs-" + widgetInfo.tab_num);
+	$('#' + tab_set).tabs('select', "#tabs-" + widgetInfo.tab_num);
 	
 	var eventSource = new Timeline.DefaultEventSource();
  	var d = Timeline.DateTime.parseGregorianDateTime("2009");
