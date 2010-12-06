@@ -13,7 +13,7 @@
 
 	<title>Droppable Between Panes</title>
 
-	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
@@ -22,9 +22,9 @@
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" >
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
 
-	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
-	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
 	<script type="text/javascript" src="${js}/custom.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
@@ -320,6 +320,7 @@
 
 
 </body>
+	<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 

@@ -9,7 +9,7 @@
 	server = server + "repository-listJSON.jsp";
 %>
 <head>
-<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>
 <script>

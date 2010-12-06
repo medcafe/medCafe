@@ -13,7 +13,7 @@
 
 	<title>Droppable Between Panes</title>
 
-	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
@@ -296,6 +296,7 @@
 
 
 </body>
+	<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
 		<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 

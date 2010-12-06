@@ -8,10 +8,10 @@
         <link type="text/css" href="${css}/ui.theme.css" rel="stylesheet" />
         <link type="text/css" href="${css}/droppable-tabs.css" rel="stylesheet" />
 
-        <script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+        <script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
         <script type="text/javascript" src="${js}/jquery.layout.js"></script>
         <script type="text/javascript" src="${js}/custom.js"></script>
-        <script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+        <script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
     </head>
     <body>
         <div class="ui-widget"><tags:IncludeRestlet relurl="/repositories"/></div>

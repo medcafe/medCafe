@@ -408,10 +408,16 @@ function loadWidgetData( divId, type)
   				var html = v2js_listWidgets( data );  			
     	
     			$("#" + divId).append(html);
+    			var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+ 		if (isiPad)
+ 		{
+			 
     			$('#' + divId).each(function()
 	        	{
 	            	 this.addEventListener("touchmove", stopTouchMove, false);
 	        	});
+		 }
 	        	
     			$(this).delay(500,function()
 				{						

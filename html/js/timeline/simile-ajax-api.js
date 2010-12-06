@@ -186,7 +186,7 @@ if (typeof SimileAjax == "undefined") {
             "graphics.css"
         ];
         if (!("jQuery" in window) && !("$" in window)) {
-        	javascriptFiles.unshift("jquery-1.3.2.min.js");
+        	javascriptFiles.unshift("jquery-1.4.4.min.js");
         }
         
         if (typeof SimileAjax_urlPrefix == "string") {

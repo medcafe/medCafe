@@ -121,7 +121,7 @@ var iNettuts = {
                             .find(settings.contentSelector).hide();
                     return false;
                 },function () {
-                    $(this).css({backgroundPosition: ''})
+                    $(this).css({backgroundPosition: '-52px 0'})
                         .parents(settings.widgetSelector)
                             .find(settings.contentSelector).show();
                     return false;
@@ -260,7 +260,7 @@ var iNettuts = {
 	                            .find(settings.contentSelector).hide();
 	                    return false;
 	                },function () {
-	                    $(this).css({backgroundPosition: ''})
+	                    $(this).css({backgroundPosition: '-52px 0'})
 	                        .parents(settings.widgetSelector)
 	                            .find(settings.contentSelector).show();
 	                    return false;

@@ -38,7 +38,7 @@
 
 	<title>medCafe</title>
 
-	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
@@ -46,15 +46,16 @@
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
-	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
+	
 	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
 	<link rel="Stylesheet" href="${css}/ui.slider.extras.css" type="text/css" />
 	<link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
-	<link type="text/css" rel="stylesheet" href="${css}/annotation.css" />
-	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+
+	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
-	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
+		<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
 	<script type="text/javascript" src="js/widgets/inettuts.js"></script>
      	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 
@@ -64,6 +65,7 @@
 	<script type="text/javascript" language="javascript" src="${js}/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<script src="${js}/treeview/jquery.treeview.js" type="text/javascript"></script>
+	<!--[if IE]><script type="text/javascript" src="${js}/excanvas.js"></script><![endif]-->
 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
  	<script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
@@ -78,10 +80,7 @@
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
     <script type="text/javascript" src="${js}/medCafe.patients.js"></script>
-	<script type="text/javascript" src="${js}/medCafe.history.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.repository.js"></script>
-	<script type="text/javascript" src="${js}/medCafe.problemList.js"></script>
-	<script type="text/javascript" src="${js}/medCafe.supportInfo.js"></script>
 	<script type="text/javascript" src="${js}/medCafeSouthTabs.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.touch.js"></script>
  	<script type="text/javascript" src="${js}/medCafe.images.js"></script>

@@ -27,7 +27,7 @@ function addRepository(callObj, widgetInfo, data)
 							
 						} );
 						
-						setHasContent(widgetInfo.order);
+						//setHasContent(widgetInfo.order);
 
 		
 	}

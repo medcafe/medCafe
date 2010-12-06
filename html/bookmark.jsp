@@ -46,7 +46,7 @@
  }
 </script>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="js/vel2jstools.js"></script>
 	<script type="text/javascript" src="js/vel2js.js"></script>
 	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>

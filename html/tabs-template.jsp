@@ -19,7 +19,7 @@
 %>
 <script>
 
-var hasContent = false;
+//var hasContent = false;
 
 $(function(){
 
@@ -31,104 +31,80 @@ $(function(){
       drop: function(event, ui)
       {
 
-      		var hasContentObj = $(this).find("#hasContent");
-      		var hasContent = $(hasContentObj).attr("custom:hasContent");
+
+      		var dragObj = $(ui.draggable);
       		var img = $(dragObj).find('img');
+
 
 			if (img.length == 0)
 			{
-				alert("this is not a draggable object");
-				//This is not a droppable object
+			
 				return;
 			}
 
-			var dragObj = $(ui.draggable)
-       		var widgetId = $(ui.draggable).html();
+			
+       		var widgetId = $(dragObj).html();
 
        		//Make
-			var link = $(dragObj).find('img').attr("custom:url")
-			//alert("tabs-template.jsp drag Obj " + $(dragObj).html());
+			var link = $(img).attr("custom:url")
+			
 			if (typeof(link) == "undefined")
 			{
 				return;
 			}
 
-     
+
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var widgetInfo = {
 			
 				"patient_id" : "<%=patientId%>",
 				"rep_patient_id" : "",
 				"location" : "<%=location%>",
-				//"repository" : $(dragObj).find('img').attr("custom:repository"),
-				"type" : $(dragObj).find('img').attr("custom:type"),
+				
+				"type" : $(img).attr("custom:type"),
 				"name" : $(dragObj).find('p').text(),
-				"clickUrl" : $(dragObj).find('img').attr("custom:url"),
-				//"server" : $(dragObj).find('img').attr("custom:server"),
+				"clickUrl" : $(img).attr("custom:url"),
+		
 				"tab_num": "<%=tabNum%>",
-				"params" : $(dragObj).find('img').attr("custom:params"),
+				"params" : $(img).attr("custom:params"),
 				"column" : "1",
-				"script" : $(dragObj).find('img').attr("custom:script"),
-				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
-				"template" : $(dragObj).find('img').attr("custom:template"),
-				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess"),
-				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts"),
-				"cacheKey" : $(dragObj).find('img').attr("custom:cacheKey")
+				"script" : $(img).attr("custom:script"),
+				"script_file" : $(img).attr("custom:script_file"),
+				"template" : $(img).attr("custom:template"),
+				"jsonProcess" : $(img).attr("custom:jsonProcess"),
+				"iNettuts" : $(img).attr("custom:iNettuts"),
+				"cacheKey" : $(img).attr("custom:cacheKey")
 			};
-			//	var tabObject = $(this).closest('.tabContent');
+
+			
 			widgetInfo.column = $(this).attr('id').substring(6);
 			widgetInfo.collapsed = 'false';
 			widgetInfo.label = widgetInfo.name;
 			widgetInfo.color_num = 2;
+	widgetInfo.tab_num = $(this).parent().parent().attr('id').substring(5);
 	
-			var repPatientJSON;
-
-			$.getJSON(serverLink,function(data)
-			{
-					repPatientJSON = data;
-					var len = repPatientJSON.repositories.length;
-					var x;
-
-					for (x in repPatientJSON.repositories)
-					{
-						test = repPatientJSON.repositories[x].repository;
-						if (test == widgetInfo.repository)
-						{
-							  widgetInfo.rep_patient_id = repPatientJSON.repositories[x].id;
-							  //repPatientId = repPatientJSON.repositories[x].id;
-							  //alert("tabs-template.jsp getRepId rep id: " + repPatientId);
-						}
-
-					}
+	
+					
+		
 					var new_id = addWidgetNum(widgetInfo)
 					if (new_id > 0)
 					{
 						widgetInfo.id = new_id;
 
-					// if (hasContent == "false")
-					// {
-					// 	//No content : Use the current Tab
-						//addChart(this, link, "<%=tabNum%>");
+				
 						if (widgetInfo.iNettuts == false || widgetInfo.iNettuts == "false")
 						{
 							widgetInfo.tab_num = -1;
 							
 						}
-
+		
 						
 						createWidgetContent(widgetInfo);
-						$(hasContentObj).attr("custom:hasContent",true);
+					
 
-						// renameTab("<%=tabNum%>",text);
-					// }
-					// else
-					// {
-					// 	//Tab already has content Create a new Tab
-					// 	createLink(patientId,link, text, type ,params, repository, repPatientId);
-					// }
 
 		   	}
-		   });
+		 
 		   
 		   }
     });
@@ -144,6 +120,7 @@ function filterType()
 	var srcName = "js/filterDate<%=type%>.js";
 	if (typeof filterDate<%=type%> == 'undefined')
 	{
+		try{
 		$.getScript(srcName, function(){
 
 			//alert("tabs_template.jsp : binding the FILTER_DATE filterDate<%=type%>");
@@ -156,6 +133,10 @@ function filterType()
 			});
 
 		});
+		}
+		catch (e)
+		{
+		}
 	}
 	else
 	{
@@ -177,7 +158,7 @@ function bindClose()
 			{
 
 				var tabNum = "<%=tabNum%>";
-
+				
 				if (tabNum == tabSelected)
 				{
 					//alert("close tab " + tabNum + "  " + tabSelected);

@@ -8,9 +8,9 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Category Filter</title>
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.4.4.js"></script>
 	
-	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
 	
 	<script type="text/javascript">
 		$(function(){

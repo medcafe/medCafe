@@ -37,9 +37,8 @@
 }
 </style>
 
-<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
-<script type="text/javascript" src="${js}/ui.core.js"></script>
-<script type="text/javascript" src="${js}/ui.draggable.js"></script>
+<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
+<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
 <script type="text/javascript" src="${js}/vel2js.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
  <script type="text/javascript" src="${js}/jScrollTouch.js"></script>
@@ -58,11 +57,20 @@
   				var html = v2js_listWidgets( data );  			
     	
     			$("#test").append(html);
+
+    			    		if (isiPad)
+ 		{
     			$('#test').each(function()
 	        	{
+	        		
+
+			 
+    			
 	            	 this.addEventListener("touchmove", stopTouchMove, false);
+	
+		
 	        	});
-	        	
+	        	 }
     			$(this).delay(500,function()
 				{						
 		    			var imageButton = $("#test").find('.imageContain');
@@ -75,6 +83,7 @@
 							});	
 							
 						$("#test").jScrollTouch({height:'380',width:'140'});
+						alert("jScrollTouch");
 				});  		
 			});
 	});
@@ -89,7 +98,7 @@
 </script>
 </head>
 <body>
-<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+<link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
 <link type="text/css" href="css/custom.css" rel="stylesheet" />
 <div id="test" ></div>
 </body>

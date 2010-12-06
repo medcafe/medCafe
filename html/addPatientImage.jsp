@@ -11,7 +11,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
 	<title>medCafe Add Images</title>
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="js/medCafe.images.js"></script>
 </head>
 <body>

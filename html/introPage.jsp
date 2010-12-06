@@ -5,14 +5,15 @@
  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<link type="text/css" href="${css}/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
 <link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 <link href="css/inettuts.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${js}/jquery-1.3.2.js"></script>
+	<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
+<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 <script type="text/javascript" src="${js}/medCafe.repository.js"></script>
 <script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
-	<script type="text/javascript" src="${js}/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
 <%
 	String repositoryUrl ="/repositories";
 %>
@@ -22,7 +23,7 @@ $(function(){
 
 	listRepositories("true");
 	listRecentPatients();
-	var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"searchRepositoryPatient.jsp\"></iframe>";
+	var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"http://${server}/searchRepositoryPatient.jsp\"></iframe>";
 	
 	var $dialog = $("#associatePatientDialog")
 		.html(associatePatient)

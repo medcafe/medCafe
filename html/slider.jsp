@@ -38,14 +38,14 @@
 	}
 	</style>
 	<title>Demo Page: Using Progressive Enhancement to Convert a Select Box Into an Accessible jQuery UI Slider</title>
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="js/ui.all-1.7.1.js"></script>
+	<script type="text/javascript" src="js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
  	<script type="text/javascript" src="js/vel2js.js"></script>
     <script type="text/javascript" src="js/vel2jstools.js"></script>
     <link type="text/css" href="css/custom.css" rel="stylesheet" />
     
-	<link type="text/css" href="css/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
 	<style type="text/css">
 		body {font-size: 62.5%; font-family:"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif; }

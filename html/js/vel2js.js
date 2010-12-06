@@ -119,7 +119,7 @@ t.p('            </div>        </span>        <div id="dialog');
 t.p( context.id);
 t.p('">            <div id="modalaaa');
 t.p( context.id);
-t.p('">            </div>        	</div>        	<div id="hasContent" custom:hascontent="false">        	</div>    	</div>    </div></div>');
+t.p('">            </div>        	</div>    	</div>    </div></div>');
 return t.toString();
 }
 function v2js_listAddress(context) { 
@@ -1619,7 +1619,7 @@ t.p( patient.last_name);
 t.p('</option>');
 }
 velocityCount = 0;
-t.p('</search>');
+t.p('</select>');
 return t.toString();
 }
 function v2js_listStartDates(context) { 

@@ -3,5 +3,5 @@
 #foreach( $patient in $patients )
     <option value="$patient.id">$patient.first_name $patient.last_name</option>
 #end
-</search>
+</select>
 

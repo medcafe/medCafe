@@ -95,8 +95,9 @@ $(document).ready( function() {
 		// init the Sortables
 		$(".tabs").sortable({
 			connectWith:	$(".tabs")
-		,	placeholder:	'tabs-placeholder'
+
 		,	cursor:			'move'
+
 		//	use a helper-clone that is append to 'body' so is not 'contained' by a pane
 		,	helper:			function (evt, ui) {
 
@@ -104,9 +105,9 @@ $(document).ready( function() {
 			return newObject.appendTo('body').show();
 
 		}
-		,	over:			function (evt, ui) {
+		/*,	over:			function (evt, ui) {
 								var
-									$target_UL	= $(ui.placeholder).parent()
+									$target_UL	= $(ui.placeholder)
 								,	targetWidth	= $target_UL.width()
 								,	helperWidth	= ui.helper.width()
 								,	padding		= parseInt( ui.helper.css('paddingLeft') )
@@ -122,13 +123,12 @@ $(document).ready( function() {
 									var id = $(ui.item);
 									draggedId = $(ui.item).attr('id');
 
-							}
+							}*/
 		});
 
 
 		$("#body")
 				.tabs({change: function () {}})
-				.find(".ui-tabs-nav")
 				.sortable({})
 			;
 
@@ -136,7 +136,7 @@ $(document).ready( function() {
 
 			closeTab : function(index, tabNum) {
 
-							$("#tabs").tabs("remove",index);
+							$("#tabs").tabs("remove","tabs-" +tabNum);
 							triggerCloseTab(tabNum);
 
 							var newIndex = index -1;
@@ -175,8 +175,7 @@ $(document).ready( function() {
 						function(e){
 							 var index = $(this).parent().attr('custom:index');
 							 var id = $(this).parent().attr('id');
-							 var tab_num = id.substring(5,6);
-
+							 var tab_num = id.split("-")[1];
 							 $("#dialog").dialog({
 					            autoOpen: false,
 					            modal:true,
@@ -200,7 +199,7 @@ $(document).ready( function() {
 
 		}
 
-		medCafeTabs.initClose();
+		//medCafeTabs.initClose();
 
 
 	});
@@ -395,20 +394,20 @@ $(document).ready( function() {
 	function setHasContent(tab_num)
 	{
 
-			var widgetObj = $("#widget-content" + tab_num);
-			var hasContentObj = widgetObj.find("#hasContent");
-      		var hasContent = $(hasContentObj).attr("custom:hasContent");
-     		$(hasContentObj).attr("custom:hasContent",true);
+			//var widgetObj = $("#widget-content" + tab_num);
+		//	var hasContentObj = widgetObj.find("#hasContent");
+      		//var hasContent = $(hasContentObj).attr("custom:hasContent");
+     		//$(hasContentObj).attr("custom:hasContent",true);
 
 	}
 
 	function setNoContent(tab_num)
 	{
 
-			var widgetObj = $("#widget-content" + tab_num);
-			var hasContentObj = widgetObj.find("#hasContent");
-      		var hasContent = $(hasContentObj).attr("custom:hasContent");
-     		$(hasContentObj).attr("custom:hasContent",false);
+		//	var widgetObj = $("#widget-content" + tab_num);
+	//		var hasContentObj = widgetObj.find("#hasContent");
+      	//	var hasContent = $(hasContentObj).attr("custom:hasContent");
+     	//	$(hasContentObj).attr("custom:hasContent",false);
 
 	}
 	function closeAllTabs(tab_num)
@@ -540,7 +539,9 @@ $(document).ready( function() {
                     }
 				}
 			// alert("should have added content now");
-			//	iNettuts.makeSortable();
+
+				//setHasContent(widgetInfo.id);
+
 			
 				setHasContent(widgetInfo.id);
 			//	alert("tab_num " + widgetInfo.tab_num);

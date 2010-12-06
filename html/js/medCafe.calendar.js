@@ -114,13 +114,13 @@
 		//Create controls
 		$('#activityStartDate').datepicker({
 				showOn: 'button',
-				buttonImage: './smoothness/images/calendar.gif',
+				buttonImage: './images/calendar.gif',
 				dateFormat: 'mm/dd/yy',
 				buttonImageOnly: true
 			});
 		$('#activityEndDate').datepicker({
 				showOn: 'button',
-				buttonImage: './smoothness/images/calendar.gif',
+				buttonImage: './images/calendar.gif',
 				dateFormat: 'mm/dd/yy',
 				buttonImageOnly: true
 			});

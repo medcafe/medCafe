@@ -63,7 +63,8 @@ $(document).ready( function() {
 
 			 		$.getScript('js/medCafe.repository.js', function()
 					{
-			 			listRepository(server, rep);
+						var widgetInf = { type: "Repository", params: "repository:"+ rep};
+			 			listRepository(widgetInf);
 			 		});
 				}
 		}
@@ -100,11 +101,22 @@ $(document).ready( function() {
 		
 		$('.ui-layout-center').each(function()
 	        {
-	             this.addEventListener("touchmove", stopTouchMove, false);
+	        	var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+ 		if (isiPad)
+ 		{
+			 this.addEventListener("touchmove", stopTouchMove, false);
+		 }
+	            
 	        });
 		$('.ui-layout-east').each(function()
 	        {
-	             this.addEventListener("touchmove", stopTouchMove, false);
+	            var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+ 		if (isiPad)
+ 		{
+			 this.addEventListener("touchmove", stopTouchMove, false);
+		 }
 	        });
 
 		extendWidgets();
@@ -168,7 +180,7 @@ $(document).ready( function() {
 			} );  */
 
 			//iNettuts.makeSortable();
-			setHasContent(widgetInfo.tab_num);
+			//setHasContent(widgetInfo.tab_num);
 
 			//Try to add a scroll
 			//$("#aaa" + tab_num).jScrollTouch({height:'380',width:'800'});
@@ -191,7 +203,7 @@ $(document).ready( function() {
 			} );
 
 			//iNettuts.makeSortable();
-			setHasContent(tab_num);
+			//setHasContent(tab_num);
 		} );
 	}
 
@@ -294,7 +306,7 @@ $(document).ready( function() {
 		{
 			//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;
 		}
-
+	
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
 
@@ -333,6 +345,7 @@ $(document).ready( function() {
 		    $("#clone").draggable().trigger(e);
 		    $('#clone').show();
 	    }
+
 
 	}
 
@@ -394,7 +407,7 @@ function displayImage(callObj, widgetInfo, data)
 
 			 $(this).delay(100,function()
 			 {
-			 	setHasContent(widgetInfo.tab_num);
+			 	//setHasContent(widgetInfo.tab_num);
 				//Code for zoom
 			 	var options =
 	            {

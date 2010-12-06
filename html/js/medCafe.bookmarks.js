@@ -10,7 +10,7 @@ function addBookmarks(callObj, widgetInfo, data)
         $("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
 
         //TODO make bookmarks editable
-        setHasContent(widgetInfo.order);
+       // setHasContent(widgetInfo.order);
 
         //set up tooltips
         $('.qtip a[href][title]').qtip({
