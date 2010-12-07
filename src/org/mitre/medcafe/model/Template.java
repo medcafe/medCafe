@@ -200,17 +200,30 @@ public class Template extends Widget
 	
 	public static JSONObject retrieveTemplateCopy(String templateId, String patientId, String userName) throws SQLException
 	{
-		//Delete any existing widgets from widget table
-		deleteWidgets(patientId,userName);
-	
-		//Copy the template table data into widget table 
-		copyTemplate(templateId, patientId, userName);
+		try
+		{
+			//Delete any existing widgets from widget table
+			deleteWidgets(patientId,userName);
 		
-		//Retrieve the new widget list
-		JSONObject widgets = listWidgets( userName, patientId);
-		
-		//Retrieve the widgets
-		return widgets;
+			//Copy the template table data into widget table 
+			JSONObject successObj = copyTemplate(templateId, patientId, userName);
+			
+			//Retrieve the new widget list
+			//JSONObject widgets = listWidgets( userName, patientId);
+			
+			//Retrieve the widgets
+			return successObj;
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block 
+			return WebUtils.buildErrorJson( "Problem on copying template widget data from database ."  + e.getMessage());
+			
+		}
+		finally
+		{
+
+			
+		}
 	}
 	
 	public static JSONObject retrieveTemplate(String templateId, String patientId, String userName)

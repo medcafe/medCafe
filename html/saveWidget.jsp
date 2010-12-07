@@ -50,6 +50,8 @@
 			  	 Object keyObj = e.nextElement();
 			  	 if (keyObj != null)
 			  	 	key = keyObj.toString();
+			  	 	System.out.println("saveWidget.jsp key  " +key + " value " + request.getParameter(key));
+	
 				 	jsonobj.put( key, request.getParameter(key));
 			  }
 			 

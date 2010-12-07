@@ -1,4 +1,4 @@
-function processSymptoms(callObj, widgetInfo, data)
+function processSymptoms(callObj, widgetInfo, data, tab_set)
 {
 
 				//	var dataObject = eval('(' + data + ')');
@@ -23,7 +23,7 @@ function processSymptoms(callObj, widgetInfo, data)
 					$('#saveButton').click(function() {
   							
   						var saveLink = "saveHistory.jsp?patient_id=" + widgetInfo.patient_id;
-  						var checkedVals = $("#yellow-widget" + widgetInfo.id).find("input:checked");
+  						var checkedVals = $("#medCafeWidget-"+tab_set + widgetInfo.id).find("input:checked");
 		
   						for (i=0; i < checkedVals.length; i++)
   						{

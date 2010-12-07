@@ -204,6 +204,7 @@ function populateTabs(server, tab_set)
 	 var focusedTab = 1;
 	 $.getJSON(server, function(data)
 	 {
+	 		if (tab_set === undefined) tab_set="tabs";
 	 		
 			//If no tabs are defined then just return.
 		   if (!data.tabs)
@@ -233,7 +234,7 @@ function populateTabs(server, tab_set)
 			var previous_id =0;
 			var previous_col = 0;
 			var previous_tab = 0;
-		   if (data.widgets){
+			if (data.widgets){
 		   	
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
@@ -246,11 +247,13 @@ function populateTabs(server, tab_set)
 						data.widgets[i].color_num == 2;
 					if (!data.widgets[i].collapsed || data.widgets[i].collapsed == "")
 						data.widgets[i].collapsed == 'false';
-
+					if (data.widgets[i].tab_set === undefined)
+						data.widgets[i].tab_set = tab_set;
 				   // This allows the widget to be added only after the widget before it
 				   // has been created so that order is maintained.  The only exception
 				   // is for an excessive delay of the previous widget insertion
-						delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1, tab_set);
+						
+					delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1, tab_set);
 				
    
 					 previous_id = data.widgets[i].id;
@@ -261,9 +264,9 @@ function populateTabs(server, tab_set)
 	
 				for (i=0; i<data.widgets.length; i++)
 				{
-		
-		 			refreshYellowWidget($(parent), data.widgets[i], 1, true)
-		   	}
+					
+		 			refreshYellowWidget($(parent), data.widgets[i], 1, true, tab_set);
+		   		}
 
 				$(parent).delay(2000, function()
 				{
@@ -342,7 +345,7 @@ function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo
 	{
 		if (num<50)
 		{
-			if ($("#yellow-widget"+prev_id).length<=0)
+			if ($("#medCafeWidget-"+tab_set+prev_id).length<=0)
 			{
 				//alert("#yellow-widget"+widgetInfo.id + "  length:  " + $("#yellow-widget" + widgetInfo.id).length);
 				$(callObj).delay(100,function()

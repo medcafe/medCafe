@@ -83,9 +83,6 @@ function processTimeline(callObj, widgetInfo, data, tab_set)
             });
               
    });
-   
-  
-   
        
    //Submit the form on changes to checkbox     
    $(".eventChkBox").change(function ()
@@ -107,7 +104,7 @@ function processTimeline(callObj, widgetInfo, data, tab_set)
 		});
 		     
 	});
-	  		        
+	$("#filter-controls").html("");
    setupFilterHighlightControls(document.getElementById("filter-controls"), tl, [0,1], theme);
  		 	
 }

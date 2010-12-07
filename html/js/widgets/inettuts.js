@@ -163,21 +163,28 @@ var iNettuts = {
 
     },
 
-    refresh : function (id) {
-        // alert("Running iNettuts refresh()");
-
+    refresh : function (id, tab_set) {
+       
         var iNettuts = this,
             $ = this.jQueryWidgets,
             settings = this.settings;
-
+		//gail
+		if (tab_set === undefined)
+		{
+			tab_set = "tabs";
+		}
+		
         $(settings.widgetSelector, $(settings.columns)).each(function () {
 
+			 
 	      	//alert("this id " + this.id);
 	      	//Only refresh for the recently moved tab
+	            
 	      	if (this.id === id)
 	      	{
+	      		
 	            var thisWidgetSettings = iNettuts.getWidgetSettings(this.id);
-	      
+	      		
 	        	if (thisWidgetSettings.editable) {
 
 	            	//Want to be able to identify the <a> and refresh the method - without readding
@@ -189,11 +196,12 @@ var iNettuts = {
 
 	                var events = $(editButton).data("events");
 	                //
-	                var tabNum = id.substring("yellow-widget".length,id.length);
-
+	                var len = "medCafeWidget-".length+tab_set.length;
+	                
+	                var tabNum = id.substring(len,id.length);
+					 
 	                $(editButton).mousedown().toggle(function(){
-
-		                    $(this).css({backgroundPosition: '-66px 0', width: '55px'})
+							 $(this).css({backgroundPosition: '-66px 0', width: '55px'})
 		                        .parents(settings.widgetSelector)
 		                            .find('.edit-box').show().find('input').focus();
 		                    return true;

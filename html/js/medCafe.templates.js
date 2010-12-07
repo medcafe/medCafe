@@ -8,6 +8,8 @@ function copyAndRetrieve(server, patient, template_id)
 				modal:true,
 				resizable: true,
 				title: "Close Tab",
+				maxWidth: 600,
+				minWidth: 600,
 				buttons : {
 					"Yes" : function() {
 						parent.$("#copyTemplateDialog").dialog("destroy");
@@ -51,6 +53,8 @@ function displayTemplate(patient_id, template_id)
 						 title: "Templates",
 						 height: marginHDialog,
 						 width: marginWDialog,
+						 maxWidth: 600,
+						 minWidth: 600,
 						 buttons : {
 						    "Close" : function() {
 						   

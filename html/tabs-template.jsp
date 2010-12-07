@@ -89,6 +89,7 @@ $(function(){
 					var new_id = addWidgetNum(widgetInfo)
 					if (new_id > 0)
 					{
+						
 						widgetInfo.id = new_id;
 
 				
@@ -103,7 +104,7 @@ $(function(){
 					
 
 
-		   	}
+		   			}
 		 
 		   
 		   }

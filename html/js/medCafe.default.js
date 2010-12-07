@@ -21,7 +21,7 @@ function addDefaultTable(callObj, widgetInfo, data, tab_set)
 	$(callObj).delay(500, function ()    //attach handlers for more/less functionality
 													 // if data exists from additional repositories
 	{ 
-		$('#collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {
+		$('#' + tab_key + widgetInfo.tab_num + ' #collapseInfo' + widgetInfo.id).find('a.collapse').toggle(function () {			
 			$(this).text("Less");
      		$(this).css({backgroundPosition: '-52px 0'});
         	$(this).parent().find("#add_repos" +widgetInfo.id).show();

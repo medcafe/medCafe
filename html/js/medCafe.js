@@ -99,25 +99,24 @@ $(document).ready( function() {
 		});
 		
 		
+		var isiPad = navigator.userAgent.match(/iPad/i) != null;
 		$('.ui-layout-center').each(function()
 	        {
-	        	var isiPad = navigator.userAgent.match(/iPad/i) != null;
-
- 		if (isiPad)
- 		{
-			 this.addEventListener("touchmove", stopTouchMove, false);
-		 }
+	        	
+		 		if (isiPad)
+		 		{
+					 this.addEventListener("touchmove", stopTouchMove, false);
+				}
 	            
 	        });
 		$('.ui-layout-east').each(function()
 	        {
-	            var isiPad = navigator.userAgent.match(/iPad/i) != null;
-
- 		if (isiPad)
- 		{
-			 this.addEventListener("touchmove", stopTouchMove, false);
-		 }
-	        });
+	           
+		 		if (isiPad)
+		 		{
+					 this.addEventListener("touchmove", stopTouchMove, false);
+				}
+			});
 
 		extendWidgets();
 	});
@@ -306,7 +305,7 @@ $(document).ready( function() {
 		{
 			//console.log('medCafe: startWidgetDrag : start isiPad ' + isiPad + " for patient " +patient_id) ;
 		}
-	
+
 	    var iFramePos = $('#' + frameId).position();
 	    //Need to replace this with better way to determine position
 
@@ -441,7 +440,8 @@ function displayImage(callObj, widgetInfo, data)
 					"params" : "", 
 					"iNettuts" : false,
 					"template" : "",
-					"nocache" : "false"
+					"nocache" : "false",
+					"tab_set" : "tabs"
 
 				};
 					//var type= "Viewer";
@@ -478,7 +478,8 @@ function displayImage(callObj, widgetInfo, data)
 					   "script" : "addChart",
 						"params" : "",
 						"iNettuts" : false,
-						"template" : ""
+						"template" : "",
+						"tab_set": "tabs"
 
 
 					};

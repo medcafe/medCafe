@@ -31,8 +31,7 @@
 	String user_name =  request.getRemoteUser();
 	//Retrieve Widgets
 	
-	JSONObject copySuccess =  Template.copyTemplate(templateId, patientId, user_name);
+	JSONObject widgets =  Template.retrieveTemplateCopy(templateId, patientId, user_name);
 	
 
 %>
-<%=copySuccess.toString()%>

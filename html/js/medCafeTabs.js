@@ -333,6 +333,7 @@ $(document).ready( function() {
 			$('.widget').each(function()
 			{
 				var widgetLabel = $(this).find('.id').attr("id");
+				
 			//	var widgetLabel = $(this).attr("id");
 				var testLabel  = widgetInfo.name+widgetInfo.rep_patient_id;
 			   var yellows = $(this);
@@ -342,7 +343,10 @@ $(document).ready( function() {
 				var widget_idName = yellows.attr('id');
 				if (widget_idName != undefined)
 				{
-				var id = widget_idName.substring(13)*1;
+				var len = "medCafeWidget-tabs".length;
+				
+				var id = widget_idName.substring(len)*1;
+				
 				if (id > max_id)
 				{
 					max_id = id;
@@ -367,8 +371,10 @@ $(document).ready( function() {
 
 						//alert ("top " + pos.top + " left " + pos.left + " id " + $(this).attr('id') + " class " + $(this).attr('class'));
 						paneObject.scrollTop(pos.top);
-						widget_id = widget_idName.substring(13);
-
+						var len = "medCafeWidget-tabs".length;
+						widget_id = widget_idName.substring(len);
+						//alert("medCafeTabs.js line 378 addWidgetNum widget_id " + widget_id);
+				
 					}
 
 				}
@@ -429,16 +435,16 @@ $(document).ready( function() {
 
 	function addWidgetTab(callObj, widgetInfo, group, tab_set)
 	{
-		var tab_key = "tabs-";
 		
 		if (tab_set === undefined)
 		{
-		}
-		else
-		{
-			tab_key = tab_set + "-";
+			tab_set = "tabs";
 		}
 		
+		var tab_key = tab_set + "-";
+		
+		//set the tab_set
+		widgetInfo.tab_set  = tab_set;
 		var pos;
 		var windowLabel="";
 		if (widgetInfo.image != undefined)
@@ -526,10 +532,7 @@ $(document).ready( function() {
                         widgetInfo.tab_num = "2";
                         if (widgetInfo.iNettuts != false && widgetInfo.iNettuts != 'false')
                         {
-                        var testId = "#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column;
-                        var test = $("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).html();
-                        //alert("medCafeTabs line 500 populating widgets tab_set " + testId);
-				
+                       
                     $("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));
                     }
                     else
@@ -544,7 +547,7 @@ $(document).ready( function() {
 
 			
 				setHasContent(widgetInfo.id);
-			//	alert("tab_num " + widgetInfo.tab_num);
+					//	alert("tab_num " + widgetInfo.tab_num);
 			  // alert (JSON.stringify(widgetInfo));
 			  //alert("JSONProcess ? " + widgetInfo.jsonProcess);
 				if (widgetInfo.jsonProcess == "true" || widgetInfo.jsonProcess == true)
@@ -589,35 +592,40 @@ $(document).ready( function() {
 				} );  */
 		});
 		if (group != true && group != "true")
-      {
-
-		refreshYellowWidget(callObj, widgetInfo, 1, group);
-      }
+      	{
+			refreshYellowWidget(callObj, widgetInfo, 1, group, tab_set);
+      	}
       }		
 
 	}
-	function refreshYellowWidget(callObj, widgetInfo, num, group)
-	{
-		if (num<50)
+	
+	function refreshYellowWidget(callObj, widgetInfo, num, group, tab_set)
+	{ 
+				
+		
+		var iterations = 50;
+		if (num<iterations)
 		{
-			if ($("#yellow-widget"+widgetInfo.id).length<=0)
+			if ($("#medCafeWidget-"+widgetInfo.tab_set+widgetInfo.id).length<=0)
 			{
+				
 				//alert("#yellow-widget"+widgetInfo.id + "  length:  " + $("#yellow-widget" + widgetInfo.id).length);
 				$(callObj).delay(100,function()
 				{
 					num++;
-					refreshYellowWidget(callObj, widgetInfo, num);
+					//group wasn't used here - why?
+					refreshYellowWidget(callObj, widgetInfo, num, group, tab_set);
 				});
 			}
 			else
 			{
-				iNettuts.refresh("yellow-widget" + widgetInfo.id);
+				iNettuts.refresh("medCafeWidget-"+tab_set + widgetInfo.id, tab_set);
 				
 				if (widgetInfo.collapsed == 'true' || widgetInfo.collapsed == true)
 				{
  
 
-	            	var collapseButton = $("#yellow-widget" + widgetInfo.id).find('.collapse');
+	            	var collapseButton = $("#medCafeWidget-"+tab_set + widgetInfo.id).find('.collapse');
 						
 						
 	                $(collapseButton).click();
@@ -649,7 +657,7 @@ $(document).ready( function() {
 		}
 	}
 
-	function processScripts(callObj, widgetInfo, data, tab_name)
+	function processScripts(callObj, widgetInfo, data, tab_set)
 	{
 		
 		var type = widgetInfo.type;
@@ -661,12 +669,12 @@ $(document).ready( function() {
                 //	$.getScript('js/medCafe.allergies.js', function()
                 $.getScript('js/' + widgetInfo.script_file, function()
                     {
-                        window[widgetInfo.script](callObj, widgetInfo, data, tab_name);
+                        window[widgetInfo.script](callObj, widgetInfo, data, tab_set);
                     });
 			}
 			else
 			{
-				window[widgetInfo.script](callObj, widgetInfo, data, tab_name);
+				window[widgetInfo.script](callObj, widgetInfo, data, tab_set);
 			}
 
 

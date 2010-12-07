@@ -1,5 +1,5 @@
 
-<div class="widget color-$color_num" id="yellow-widget$id">
+<div class="widget color-$color_num" id="medCafeWidget-$tab_set$id">
 <div id = ${name}${rep_patient_id} class = "id">
 
     	<div style="cursor: move;" class="widget-head"> 

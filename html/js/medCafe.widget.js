@@ -23,7 +23,8 @@ var medCafeWidget =
 							patient_id :1,
 							rep_patient_id :1,
 							remove :'false',
-							iNettuts: 'true'
+							iNettuts: 'true',
+							tab_set:'tabs'
 
 				    },
 	        		widgetIndSettings : 
@@ -52,6 +53,8 @@ var medCafeWidget =
 		            extSettings = this.extSettings;
 		       
 		       	var rtnSettings =  (id&&extSettings.widgetIndSettings[id]) ? $.extend({},extSettings.widgetDefault,extSettings.widgetIndSettings[id]) : extSettings.widgetDefault;
+    			//alert("medCafe.widget.js getExtWidgetSettings for id " +  id + " widget settings set " + extSettings.widgetIndSettings[id] +" line 57 stringify " + JSON.stringify(rtnSettings));
+    			
     			
     			return rtnSettings;
     			
@@ -77,13 +80,14 @@ var medCafeWidget =
     			
     			//Make sure to extend to add the new values
     			//alert (id);
+    			
     			this.extSettings.widgetIndSettings[id] = $.extend({}, this.extSettings.widgetIndSettings[id], newSettings);
-		       // alert(JSON.stringify(this.extSettings.widgetIndSettings[id]));
-    		}
+		          
+		    }
     		,
 		    removeWidgetSettings : function ( widget_id) {
     		
-    			var id = "yellow-widget" + widget_id;
+    			var id = "medCafeWidget-tabs" + widget_id;
 				var newSettings = this.getExtWidgetSettings(id);
     			if (!newSettings)
     			{
@@ -116,16 +120,19 @@ var medCafeWidget =
     		,
     		populateExtWidgetSettings : function ( widgetInfo )
     		{   			
-    			var id = "yellow-widget" + widgetInfo.id;
-		
-    			var newSettings = this.getExtWidgetSettings(id);
-		
-    			if (!newSettings)
+    			//var widgetInfo = newWidgetInfo;
+    			
+    			var id = "medCafeWidget-"+ widgetInfo.tab_set + widgetInfo.id;
+				
+				var newSettings = this.getExtWidgetSettings(id);
+				
+				if (!newSettings)
     			{
     				alert("Could not set values ");
     			}
     
     			newSettings.id = widgetInfo.id;
+    			
     			//newSettings.repository = widgetInfo.repository;
     			newSettings.type = widgetInfo.type;
     
@@ -134,12 +141,16 @@ var medCafeWidget =
     			newSettings.patient_id = widgetInfo.patient_id;
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;
+    			
     			newSettings.iNettuts = widgetInfo.iNettuts;
     			newSettings.tab_num = widgetInfo.tab_num;
     			newSettings.image = widgetInfo.image;
     			newSettings.pdf = widgetInfo.pdf;
+    			newSettings.tab_set = widgetInfo.tab_set;
+    			
     			this.setExtWidgetSettings(id,newSettings );   					
-				
+				//alert("medCafe.widget.js line 145 populateExtWidgetSettings id " + newSettings.id); 
+    			
 				
     			/*
 							id : 1,
@@ -316,14 +327,15 @@ function saveWidgets(oldPatient)
 			{
     				
     			var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr("id"));
+    			
     			if (widgetSettings == "")
     			{
     				alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
     		
     				return;
     			}
-    		
-				if (widgetSettings.type != "Repository" && widgetSettings.type!="OtherDetails")
+    		  
+    		  	if (widgetSettings.type != "Repository" && widgetSettings.type!="OtherDetails")
 				{
     				if (iNettuts)
     				{
@@ -354,6 +366,8 @@ function saveWidgets(oldPatient)
     								widgetSettings.color_num = i;
     						}
 							widgetSettings.label = $(this).find('.widget-head').find('h3').text(); 
+							
+    		
 						}
     				    				
 						$.ajax({
