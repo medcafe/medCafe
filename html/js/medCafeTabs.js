@@ -548,7 +548,7 @@ $(document).ready( function() {
 			
 				setHasContent(widgetInfo.id);
 					//	alert("tab_num " + widgetInfo.tab_num);
-			  // alert (JSON.stringify(widgetInfo));
+			   //alert ("medCafeTabs line 551 " + JSON.stringify(widgetInfo));
 			  //alert("JSONProcess ? " + widgetInfo.jsonProcess);
 				if (widgetInfo.jsonProcess == "true" || widgetInfo.jsonProcess == true)
 				{

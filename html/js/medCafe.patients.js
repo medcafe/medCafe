@@ -271,7 +271,10 @@ function populateTabs(server, tab_set)
 				$(parent).delay(2000, function()
 				{
 					$('#'+ tab_set).tabs('select', "#" + tab_set+ "-" + focusedTab);
-					iNettuts.makeSortable();
+					if (tab_set != "templateTabs")
+					{
+						iNettuts.makeSortable();
+					}
 				});
 
 		   }
