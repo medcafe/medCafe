@@ -274,6 +274,7 @@ $(document).ready( function() {
 						 title: "Editor Tab",
 						 height: marginHDialog,
 						 width: marginWDialog,
+						 minWidth: 800,
 						 buttons : {
 						    "Close" : function() {
 						     //Have to Destroy as otherwise
