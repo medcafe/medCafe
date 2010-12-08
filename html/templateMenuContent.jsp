@@ -11,8 +11,24 @@
 	JSONArray templateList =  (JSONArray)templateObj.get("Templates");
 	StringBuffer sb = new StringBuffer("");
 %>
+<div id="dialogBlock" style= "display:none">
+<div id="dialogCreateTemplate" title="Create new template">
+				<p class="validateTips">Use only alphanumeric characters with no spaces.</p>
+			
+				<form>
+				<fieldset>
+					<label for="templateName">Name for new template</label>
+					<input type="text" name="templateName" id="templateName" value="New" class="text ui-widget-content ui-corner-all" />
+			
+				</fieldset>
+				</form>
+</div>
+</div>
 <ul>
-			<li><a href="#">Copy</a>
+	
+			<li><a href="#">Create Template</a>
+			
+			<li><a href="#">Use Template</a>
 			<ul>
 			<% 
 				for (int i = 0; i < templateList.length(); i++)

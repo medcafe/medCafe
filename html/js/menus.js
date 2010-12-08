@@ -120,6 +120,10 @@ function processMenuClick(menuLabel, patientId)
 		
 		
 	}
+	else if (menuLabel.indexOf("Create Template") > -1)
+	{
+		copyToTemplate();
+	}
 	else if (menuLabel.indexOf("View") > -1)
 	{
 		var templateName = menuLabel.split(" ")[1];

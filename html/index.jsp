@@ -184,6 +184,7 @@
     <div id="head"></div>
     <div id="dialog" >Are you sure you want to close?</div>
 	<div id="dialogTemplate" ></div>
+
 	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
     <div id="copyTemplateDialog" >You are about to override all tabs for this patient. Would you like to continue?</div>
     <div id="associatePatientDialog"></div>

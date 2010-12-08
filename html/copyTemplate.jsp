@@ -5,6 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%	
+	String action = request.getParameter("action");
+	if (action == null)
+		action = "CopyTemplate";
+	System.out.println("copyTemplate.jsp getting action " + action );
+	
 	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if( patientId == null || patientId.equals("undefined"))
     { 
@@ -25,13 +30,20 @@
 	{	
 		return;
 	}
-		
+	
+	String description = request.getParameter("description");
+	if (description == null)
+	{	
+		description="";
+	}	
 	System.out.println("copyTemplate.jsp getting patient id " + patientId );
 	
 	String user_name =  request.getRemoteUser();
 	//Retrieve Widgets
-	
-	JSONObject widgets =  Template.retrieveTemplateCopy(templateId, patientId, user_name);
-	
-
+	JSONObject rtnObj = null;
+	if (action.equals("CopyTemplate"))
+		rtnObj =  Template.retrieveTemplateCopy(templateId, patientId, user_name);
+	else
+		rtnObj = Template.copyToTemplate(patientId,user_name,templateId,description);
+		
 %>

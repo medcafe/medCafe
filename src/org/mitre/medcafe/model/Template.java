@@ -58,6 +58,9 @@ public class Template extends Widget
 	public static final String INSERT_TEMPLATE_WIDGETS = "INSERT INTO template_widget_params  ( widget_id, template_id, patient_id, username, param, value ) values (?,?,-1,?,?,?) ";
 	public static final String DELETE_TEMPLATE_WIDGETS = "DELETE FROM template_widget_params where ( template_id = ?  AND username=?) ";
 
+	public static final String CREATE_TEMPLATES = "INSERT INTO template_widget_params (template_id, widget_id,patient_id,username, param, value)  ( SELECT ?, widget_id, patient_id ,username, param, value from widget_params where username = ? and patient_id = ? ) ";
+	public static final String CREATE_TEMPLATE = "INSERT INTO template (name,creator, description)  values (?,?,?) ";
+	
 	public static final String COPY_TEMPLATES = "INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,username, param, value from template_widget_params where username = ? and template_id = ? ) ";
 	public static final String SELECT_TEMPLATE = "SELECT template_id, name from template where name = ? ";
 	public static final String SELECT_TEMPLATES = "SELECT template_id, name from template ";
@@ -138,6 +141,83 @@ public class Template extends Widget
 			throw new SQLException("Template SQL Error: Could not find template by name " + templateName);
 		}
 		return template_id;
+	}
+	
+	public static JSONObject copyToTemplate(String patientId, String userName, String templateName, String description) throws SQLException 
+	{
+		//Copy the template table data into widget table 
+		System.out.println("Template : copyTemplate about to execute copy  " );
+
+		JSONObject o = new JSONObject();
+		DbConnection dbConn = null;
+		PreparedStatement prep = null;
+		/**
+		key id value 1
+		patient_id value 1
+		server value http://127.0.0.1
+		clickUrl value http://127.0.0.1:8080
+		repository value OurVista
+		type value images
+		location value center
+		tab_num value 1
+		**/
+		try
+		{
+			dbConn = setConnection();
+			
+			if (description == null)
+				description = "";
+			
+			int patient_id = Integer.parseInt(patientId);
+			String err_mess = "Could not create the template using  " + patient_id;
+			//INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,username, param, value from template_widget_params where username = ? and template_id = ? ) ";
+			
+			String createTemplate = Template.CREATE_TEMPLATE;
+			prep= dbConn.prepareStatement(createTemplate);
+			prep.setString(1, templateName);
+			prep.setString(2, userName);
+			prep.setString(3, description);
+			int rtn = prep.executeUpdate();
+			if (rtn < 0 )
+			{
+				System.out.println("Template : copyToTemplate " + err_mess);
+
+				closeConnections(dbConn, null, null);
+				dbConn = null;
+				return WebUtils.buildErrorJson( "Problem on creating template " + templateName  );
+			}
+			String copyQuery = Template.CREATE_TEMPLATES;
+			int template_id = getTemplateId(dbConn, prep, templateName);
+			
+			prep= dbConn.prepareStatement(copyQuery);
+			prep.setInt(1, template_id);
+			prep.setString(2, userName);
+			prep.setInt(3, patient_id);
+			
+			System.out.println("Template : copyToTemplate about to execute batch copy " + prep.toString());
+
+			rtn = prep.executeUpdate();
+			if (rtn < 0 )
+			{
+				System.out.println("Template : copyToTemplate template widgets " + err_mess);
+
+				closeConnections(dbConn, null, null);
+				dbConn = null;
+				return WebUtils.buildErrorJson( "Problem on copying template widget data from database ." );
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return WebUtils.buildErrorJson( "Problem on copying template widget data from database ." );
+			
+		}
+		finally
+		{
+
+			closeConnections(dbConn, prep, null);
+			dbConn = null;
+			prep = null;
+		}
+		return o;
 	}
 	
 	public static JSONObject copyTemplate(String templateId, String patientId, String userName) throws SQLException 
