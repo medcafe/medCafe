@@ -53,15 +53,15 @@ public class Template extends Widget
 	//Parameters that are common to all Widgets
 	private int templateId =0;
 	
-	public static final String SELECT_TEMPLATE_WIDGET_PARAMS = "SELECT widget_id, param, value from template_widget_params where username = ? and template_id = ? and widget_id =? ";
-	public static final String SELECT_TEMPLATE_WIDGETS = "SELECT id, widget_id, param, value from template_widget_params where username = ? and template_id = ? ORDER BY widget_id ";
+	//public static final String SELECT_TEMPLATE_WIDGET_PARAMS = "SELECT widget_id, param, value from template_widget_params where username = ? and template_id = ? and widget_id =? ";
+	public static final String SELECT_TEMPLATE_WIDGETS = "SELECT id, widget_id, param, value from template_widget_params where  template_id = ? ORDER BY widget_id ";
 	public static final String INSERT_TEMPLATE_WIDGETS = "INSERT INTO template_widget_params  ( widget_id, template_id, patient_id, username, param, value ) values (?,?,-1,?,?,?) ";
 	public static final String DELETE_TEMPLATE_WIDGETS = "DELETE FROM template_widget_params where ( template_id = ?  AND username=?) ";
 
 	public static final String CREATE_TEMPLATES = "INSERT INTO template_widget_params (template_id, widget_id,patient_id,username, param, value)  ( SELECT ?, widget_id, patient_id ,username, param, value from widget_params where username = ? and patient_id = ? ) ";
 	public static final String CREATE_TEMPLATE = "INSERT INTO template (name,creator, description)  values (?,?,?) ";
 	
-	public static final String COPY_TEMPLATES = "INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,username, param, value from template_widget_params where username = ? and template_id = ? ) ";
+	public static final String COPY_TEMPLATES = "INSERT INTO widget_params (widget_id,patient_id,username, param, value)  ( SELECT widget_id, ? ,?, param, value from template_widget_params where  template_id = ? ) ";
 	public static final String SELECT_TEMPLATE = "SELECT template_id, name from template where name = ? ";
 	public static final String SELECT_TEMPLATES = "SELECT template_id, name from template ";
 	public static final String INSERT_TEMPLATES = "INSERT INTO template  ( widget_id, template_id, patient_id, username, param, value ) values (?,?,-1,?,?,?) ";
@@ -458,8 +458,8 @@ public class Template extends Widget
 		   int tempId = getTemplateId(dbConn, prep, templateId);
 			
 		   	prep= dbConn.prepareStatement(Template.SELECT_TEMPLATE_WIDGETS);
-			prep.setString(1, userName);
-			prep.setInt(2, tempId);
+			//prep.setString(1, userName);
+			prep.setInt(1, tempId);
 
 			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
 
