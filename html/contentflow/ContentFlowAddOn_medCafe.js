@@ -158,7 +158,7 @@ new ContentFlowAddOn ('medCafe', {
 			   	"script" : "displayImage",
 			   	"tab_num" : -1,
 			   	"clickUrl" : "singleImage.jsp",
-			   	"iNettuts" : false,
+			   	"isINettuts" : false,
 			   	"jsonProcess" : false,
 			   	//"repository" : widgetInfo.repository,
 			   	"rep_patient_id" : widgetInfo.rep_patient_id,

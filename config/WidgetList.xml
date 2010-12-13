@@ -51,7 +51,7 @@
 	<script>processTimeline</script>
 	<script_file>medCafe.timeline.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>false</iNettuts>
+	<isINettuts>false</isINettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Bookmarks</name>
@@ -231,7 +231,7 @@
 	<script>processViewerImages</script>
 	<script_file>medCafe.viewer.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>false</iNettuts>
+	<isINettuts>false</isINettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Image</name>
@@ -240,7 +240,7 @@
 	<script>displayImage</script>
 	<script_file>medCafe.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>false</iNettuts>
+	<isINettuts>false</isINettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Annotate</name>
@@ -249,7 +249,7 @@
 	<script>addChart</script>
 	<script_file>medCafe.js</script_file>
 	<jsonProcess>false</jsonProcess>
-	<iNettuts>false</iNettuts>
+	<isINettuts>false</isINettuts>
 </medCafeWidget>
 </internal>
 </medCafeWidgets>

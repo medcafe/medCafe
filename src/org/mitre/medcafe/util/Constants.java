@@ -46,7 +46,7 @@ public class Constants {
 	public static final String DEFAULT_SCRIPT = "addDefaultTable";
 	public static final String DEFAULT_CLICK_URL = "defaultJSON.jsp";
 	public static final boolean DEFAULT_JSON_PROCESS = true;
-	public static final boolean DEFAULT_INETTUTS = true;
+	public static final boolean DEFAULT_IS_INETTUTS = true;
 	public static final String DEFAULT_SCRIPT_FILE = "medCafe.default.js";
 	
 }

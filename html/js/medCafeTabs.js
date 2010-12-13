@@ -93,43 +93,14 @@ $(document).ready( function() {
 
   		var draggedId;
 		// init the Sortables
-		$(".tabs").sortable({
-			connectWith:	$(".tabs")
-
-		,	cursor:			'move'
-
-		//	use a helper-clone that is append to 'body' so is not 'contained' by a pane
-		,	helper:			function (evt, ui) {
-
-			var newObject = $(ui).clone(true);
-			return newObject.appendTo('body').show();
-
-		}
-		/*,	over:			function (evt, ui) {
-								var
-									$target_UL	= $(ui.placeholder)
-								,	targetWidth	= $target_UL.width()
-								,	helperWidth	= ui.helper.width()
-								,	padding		= parseInt( ui.helper.css('paddingLeft') )
-												+ parseInt( ui.helper.css('paddingRight') )
-												+ parseInt( ui.helper.css('borderLeftWidth') )
-												+ parseInt( ui.helper.css('borderRightWidth') )
-								;
-								//if (( (helperWidth + padding) - targetWidth ) > 20)
-									ui.helper
-										.height('auto')
-										.width( targetWidth - padding )
-									;
-									var id = $(ui.item);
-									draggedId = $(ui.item).attr('id');
-
-							}*/
-		});
+		$(".tabs").sortable({ }
+			
+		);
 
 
 		$("#body")
 				.tabs({change: function () {}})
-				.sortable({})
+				.sortable('refresh')
 			;
 
 		 medCafeTabs = {
@@ -216,16 +187,16 @@ $(document).ready( function() {
 	}
 
 
-	function addTab(label, type, iNettuts)
+	function addTab(label, type, isINettuts)
 	{
 
 		//alert("medCafeTabs addTab start");
 		//First check if tab already exists
 		var tab_set ="tabs";
-		return addAnyTab(label, type, iNettuts, tab_set);
+		return addAnyTab(label, type, isINettuts, tab_set);
 	}
 
-	function addAnyTab(label, type, iNettuts, tab_set)
+	function addAnyTab(label, type, isINettuts, tab_set)
 	{
 		if (tab_set === undefined)
 		{	
@@ -281,7 +252,7 @@ $(document).ready( function() {
 
 		$("#" + tab_key + tab_num).addClass('tabContent');
 		//Load the widget template
-		if (iNettuts != false && iNettuts != "false")
+		if (isINettuts != false && isINettuts != "false")
 		{
 			var testThis = "#" + tab_key + tab_num;
 			//alert("medCafeTabs addTab line 284 test this " + $("#" + tab_key + tab_num).length);
@@ -318,7 +289,7 @@ $(document).ready( function() {
 		//$("#tabs-" + tab_num).
 	
 		$('#' + tab_set).tabs('select', "#" +  tab_key + tab_num);
-		
+		$('#' + tab_set).sortable('refresh');
 		return tab_num;
 	}
 	
@@ -486,7 +457,7 @@ $(document).ready( function() {
 			{
 				if (windowLabel == "")
 					windowLabel = widgetInfo.name;
-				widgetInfo.tab_num = addAnyTab(windowLabel, widgetInfo.type, widgetInfo.iNettuts, tab_set);
+				widgetInfo.tab_num = addAnyTab(windowLabel, widgetInfo.type, widgetInfo.isINettuts, tab_set);
 			}
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
@@ -530,7 +501,7 @@ $(document).ready( function() {
                         widgetInfo.column = "1";
                     if (!widgetInfo.tab_num)
                         widgetInfo.tab_num = "2";
-                        if (widgetInfo.iNettuts != false && widgetInfo.iNettuts != 'false')
+                        if (widgetInfo.isINettuts != false && widgetInfo.isINettuts != 'false')
                         {
                        
                     $("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo));

@@ -439,7 +439,7 @@ function displayImage(callObj, widgetInfo, data)
 					"script_file" : "medCafe.viewer.js",
 					"script" : "processViewerImages",
 					"params" : "", 
-					"iNettuts" : false,
+					"isINettuts" : false,
 					"template" : "",
 					"nocache" : "false",
 					"tab_set" : "tabs"
@@ -448,7 +448,7 @@ function displayImage(callObj, widgetInfo, data)
 					//var type= "Viewer";
 					//var label = imageTitle +"Viewer";
 
-					var newTab_num = addTab(newWidget.name+": " + imageTitle, newWidget.type, newWidget.iNettuts);
+					var newTab_num = addTab(newWidget.name+": " + imageTitle, newWidget.type, newWidget.isINettuts);
 					if (newTab_num < 0)
 						return;
 					newWidget.tab_num = newTab_num;
@@ -478,7 +478,7 @@ function displayImage(callObj, widgetInfo, data)
 						"script_file" : "medCafe.js",
 					   "script" : "addChart",
 						"params" : "",
-						"iNettuts" : false,
+						"isINettuts" : false,
 						"template" : "",
 						"tab_set": "tabs"
 
@@ -487,7 +487,7 @@ function displayImage(callObj, widgetInfo, data)
 				//	var type= "Annotate";
 				//	var label = imageTitle +"Annotate";
 
-					var newTab_num = addTab(newWidget.name + ": " + imageTitle, newWidget.type, newWidget.iNettuts);
+					var newTab_num = addTab(newWidget.name + ": " + imageTitle, newWidget.type, newWidget.isINettuts);
 					newWidget.tab_num = newTab_num;
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;

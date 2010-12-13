@@ -23,7 +23,7 @@ var medCafeWidget =
 							patient_id :1,
 							rep_patient_id :1,
 							remove :'false',
-							iNettuts: 'true',
+							isINettuts: 'true',
 							tab_set:'tabs'
 
 				    },
@@ -142,7 +142,7 @@ var medCafeWidget =
     			newSettings.rep_patient_id = widgetInfo.rep_patient_id;
     			newSettings.clickUrl = widgetInfo.clickUrl;
     			
-    			newSettings.iNettuts = widgetInfo.iNettuts;
+    			newSettings.isINettuts = widgetInfo.isINettuts;
     			newSettings.tab_num = widgetInfo.tab_num;
     			newSettings.image = widgetInfo.image;
     			newSettings.pdf = widgetInfo.pdf;
@@ -269,7 +269,7 @@ function saveWidgets(oldPatient)
       tab = 1;
 		$('.tabs').parent().find(".tabHeader").each(function(i)
 		{	
-			var iNettuts = true;
+			var isINettuts = true;
 			var newTab = true;
 			var linkName = $(this).attr("id");
 			var inFocus = 'true';
@@ -279,7 +279,7 @@ function saveWidgets(oldPatient)
 
 			if ($(tabObject).hasClass("no-iNettuts"))
 			{
-				iNettuts = false;
+				isINettuts = false;
 			}
 			if ($(tabObject).hasClass("ui-tabs-hide"))
 			{
@@ -305,7 +305,7 @@ function saveWidgets(oldPatient)
 				"id" : order,
 			//	"patient_id" : widgetSettings.patient_id,
 				"remove" : false,
-				"iNettuts" : iNettuts,
+				"isINettuts" : isINettuts,
 				"inFocus" : inFocus
 			};
 			//alert("about to save tab settings " + JSON.stringify(widgetTabSettings));
@@ -337,7 +337,7 @@ function saveWidgets(oldPatient)
     		  
     		  	if (widgetSettings.type != "Repository" && widgetSettings.type!="OtherDetails")
 				{
-    				if (iNettuts)
+    				if (isINettuts)
     				{
     					var column = $(this).closest(".column").attr("id").substring(6);
  						widgetSettings.column = column;
@@ -346,7 +346,7 @@ function saveWidgets(oldPatient)
  
     				widgetSettings.order = order;
     				widgetSettings.id = order;
-    				if (widgetSettings.iNettuts != 'false' && widgetSettings.iNettuts !=false)
+    				if (widgetSettings.isINettuts != 'false' && widgetSettings.isINettuts !=false)
  					{   	
  								
     					var collapseObj = $(this).find('.collapse');

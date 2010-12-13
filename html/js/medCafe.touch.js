@@ -118,7 +118,7 @@ $.fn.medcafeTouch = function(options) {
 				"script_file" : $(dragObj).find('img').attr("custom:script_file"),
 				"template" : $(dragObj).find('img').attr("custom:template"),
 				"jsonProcess" : $(dragObj).find('img').attr("custom:jsonProcess"),
-				"iNettuts" : $(dragObj).find('img').attr("custom:iNettuts"),
+				"isINettuts" : $(dragObj).find('img').attr("custom:isINettuts"),
 				"collapsed" : 'false',
 				"label" : $(dragObj).find('p').text(),
 				"color_num" : 2
@@ -134,7 +134,7 @@ $.fn.medcafeTouch = function(options) {
 					widgetInfo.tab_num = $(this).closest('.tabContent').attr('id').substring(5);
 					console.log("medCafe.touch.js " + widgetInfo.repository + " column " + widgetInfo.column + " tab_num "  + widgetInfo.tab_num + " clickUrl " + widgetInfo.clickUrl + " type " + widgetInfo.type + " patient Id " + widgetInfo.patient_id); 
 					
-					if (widgetInfo.iNettuts == false || widgetInfo.iNettuts == 'false')
+					if (widgetInfo.isINettuts == false || widgetInfo.isINettuts == 'false')
 						widgetInfo.tab_num = -1;
 					widgetInfo.id = addWidgetNum(widgetInfo);
 

@@ -72,7 +72,7 @@ $(function(){
 				"script_file" : $(img).attr("custom:script_file"),
 				"template" : $(img).attr("custom:template"),
 				"jsonProcess" : $(img).attr("custom:jsonProcess"),
-				"iNettuts" : $(img).attr("custom:iNettuts"),
+				"isINettuts" : $(img).attr("custom:isINettuts"),
 				"cacheKey" : $(img).attr("custom:cacheKey")
 			};
 
@@ -93,7 +93,7 @@ $(function(){
 						widgetInfo.id = new_id;
 
 				
-						if (widgetInfo.iNettuts == false || widgetInfo.iNettuts == "false")
+						if (widgetInfo.isINettuts == false || widgetInfo.isINettuts == "false")
 						{
 							widgetInfo.tab_num = -1;
 							

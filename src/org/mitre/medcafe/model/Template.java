@@ -512,8 +512,8 @@ public class Template extends Widget
 					widget.setColumn(value);
 				else if (param.equals(Template.TAB_NUMBER))
 					widget.setTab_num(value);
-				else if (param.equals(Template.INETTUTS))
-					widget.setINettuts(value);
+				else if (param.equals(Template.IS_INETTUTS))
+					widget.setIsINettuts(value);
 				else if (param.equals(Template.COLOR_NUM))
 					widget.setColorNum(value);
 				else if (param.equals(Template.LABEL))
@@ -579,7 +579,7 @@ public class Template extends Widget
 						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
 						  widgetJSON.put(MedCafeComponent.CLICK_URL, comp.getClickUrl());
 						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
-						  widgetJSON.put(MedCafeComponent.INETTUTS, comp.getINettuts());
+						  widgetJSON.put(MedCafeComponent.IS_INETTUTS, comp.getIsINettuts());
 						  widgetJSON.put(MedCafeComponent.PARAMS, comp.getParams());
 						  widgetJSON.put(MedCafeComponent.CACHE_KEY, comp.getCacheKey());
 						  }                		

@@ -77,7 +77,7 @@ public class MedCafeComponent
 	private String scriptFile="";
 	private String cacheKey = "";
 	private boolean jsonProcess= false;
-	private boolean iNettuts = true;
+	private boolean isINettuts = true;
 	
 	public static final String NAME = "name";
 	public static final String ORDER = "order";
@@ -93,7 +93,7 @@ public class MedCafeComponent
 	public static final String SCRIPT_FILE = "script_file";
 	public static final String TEMPLATE = "template";
 	public static final String JSON_PROCESS = "jsonProcess";
-	public static final String INETTUTS = "iNettuts";
+	public static final String IS_INETTUTS = "isINettuts";
 	public static final String XML_WIDGET = "medCafeWidget";
 	public static final String INTERNAL_WIDGET = "internal";
 	public static final String CACHE_KEY = "cacheKey";
@@ -210,9 +210,9 @@ public class MedCafeComponent
 		    		 			component.setJsonProcess(Boolean.valueOf(jsonProcessList.item(0).getTextContent()));
 		    		 		
 		    		 				 		
-		    		 		NodeList iNettutsList = componentElmnt.getElementsByTagName(INETTUTS);
+		    		 		NodeList iNettutsList = componentElmnt.getElementsByTagName(IS_INETTUTS);
 		    		 		if (iNettutsList.getLength()>0)
-		    		 			component.setINettuts(Boolean.valueOf(iNettutsList.item(0).getTextContent()));
+		    		 			component.setIsINettuts(Boolean.valueOf(iNettutsList.item(0).getTextContent()));
 		    		 		
     		 		
 		    		 		NodeList templateList = componentElmnt.getElementsByTagName(TEMPLATE);
@@ -350,11 +350,11 @@ public class MedCafeComponent
 	public void setJsonProcess(boolean jsonProcess) {
 		this.jsonProcess = jsonProcess;
 	}
-	public boolean getINettuts() {
-		return iNettuts;
+	public boolean getIsINettuts() {
+		return isINettuts;
 	}
-	public void setINettuts(boolean iNettuts) {
-		this.iNettuts = iNettuts;
+	public void setIsINettuts(boolean isINettuts) {
+		this.isINettuts = isINettuts;
 	}
 
 	public JSONObject toJSON() throws JSONException 
@@ -372,7 +372,7 @@ public class MedCafeComponent
 		 jsonObj.put(MedCafeComponent.SCRIPT_FILE, scriptFile);
 		 jsonObj.put(MedCafeComponent.TEMPLATE, template);
    	 jsonObj.put(MedCafeComponent.JSON_PROCESS, String.valueOf(jsonProcess));
-   	 jsonObj.put(MedCafeComponent.INETTUTS, String.valueOf(iNettuts));
+   	 jsonObj.put(MedCafeComponent.IS_INETTUTS, String.valueOf(isINettuts));
    	 jsonObj.put(MedCafeComponent.CACHE_KEY, cacheKey);
     	 return jsonObj;
 	}
@@ -432,7 +432,7 @@ public class MedCafeComponent
 		script = Constants.DEFAULT_SCRIPT;
 		clickUrl = Constants.DEFAULT_CLICK_URL;
 		jsonProcess = Constants.DEFAULT_JSON_PROCESS;
-		iNettuts = Constants.DEFAULT_INETTUTS;
+		isINettuts = Constants.DEFAULT_IS_INETTUTS;
 		scriptFile = Constants.DEFAULT_SCRIPT_FILE;
 	}
 	

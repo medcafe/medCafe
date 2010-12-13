@@ -63,7 +63,7 @@ public class Widget
 	private String server ="";
 	protected String tab_num = null;
 	protected String column = null;
-	private String iNettuts = "true";
+	private String isINettuts = "true";
 	private String collapsed = "false";
 	private String label = "";
 	private int colorNum = 1;
@@ -88,7 +88,7 @@ public class Widget
 	public static final String TRUE = "true";
 	public static final String TAB_NUMBER = "tab_num";
 	public static final String COLUMN = "column";
-	public static final String INETTUTS = "iNettuts";
+	public static final String IS_INETTUTS = "isINettuts";
 	public static final String LABEL = "label";
 	public static final String COLLAPSED = "collapsed";
 	public static final String COLOR_NUM = "color_num";
@@ -142,7 +142,7 @@ public class Widget
 		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 		 o.put(Widget.TAB_NUMBER, this.getTab_num());
 		 o.put(Widget.COLUMN, this.getColumn());
-		 o.put(Widget.INETTUTS, this.getINettuts());
+		 o.put(Widget.IS_INETTUTS, this.getIsINettuts());
 		 o.put(Widget.COLOR_NUM, this.getColorNum());
 		 o.put(Widget.COLLAPSED, this.getCollapsed());
 		 o.put(Widget.LABEL, this.getLabel());
@@ -307,7 +307,7 @@ public class Widget
 						  widgetJSON.put(MedCafeComponent.TEMPLATE, comp.getTemplate());
 						  widgetJSON.put(MedCafeComponent.CLICK_URL, comp.getClickUrl());
 						  widgetJSON.put(MedCafeComponent.JSON_PROCESS, comp.getJsonProcess());
-						  widgetJSON.put(MedCafeComponent.INETTUTS, comp.getINettuts());
+						  widgetJSON.put(MedCafeComponent.IS_INETTUTS, comp.getIsINettuts());
 						  widgetJSON.put(MedCafeComponent.PARAMS, comp.getParams());
 						  widgetJSON.put(MedCafeComponent.CACHE_KEY, comp.getCacheKey());
 						  }                		
@@ -396,8 +396,8 @@ public class Widget
 					widget.setColumn(value);
 				else if (param.equals(Widget.TAB_NUMBER))
 					widget.setTab_num(value);
-				else if (param.equals(Widget.INETTUTS))
-					widget.setINettuts(value);
+				else if (param.equals(Widget.IS_INETTUTS))
+					widget.setIsINettuts(value);
 				else if (param.equals(Widget.COLOR_NUM))
 					widget.setColorNum(value);
 				else if (param.equals(Widget.LABEL))
@@ -509,12 +509,12 @@ public class Widget
 	public String getRepPatientId() {
 		return repPatientId;
 	}
-	public String getINettuts() {
-		return iNettuts;
+	public String getIsINettuts() {
+		return isINettuts;
 	}
-	public void setINettuts(String iNettuts)
+	public void setIsINettuts(String isINettuts)
 	{
-		this.iNettuts = iNettuts;
+		this.isINettuts = isINettuts;
 	}
 
 	public void setRepPatientId(String repPatientId) {
