@@ -50,7 +50,9 @@
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
+	<script type="text/javascript" src="${js}/jquery.spinner.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.patients.js"></script>
+
 
 	<script>
 	var outerLayout;

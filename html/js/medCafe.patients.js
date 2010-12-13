@@ -77,13 +77,23 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 				//alert("medCafe.patient.js setOnSelect isIntro true ");
 				$("#list_names").change(function()
 				{
+					$("#searchPatients").spinner(
+					{
+						img: server + '/images/ajax-loader.gif',
+						position: 'center',
+						height: 100,
+						width: 100,
+						hide: true }); 
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository + "&isIntro=" + isIntro;
 		    		$.get(cacheServer, function(data)
 	 				{
 	 					var indexSrv = server + "/index.jsp";
-	 					parent.window.location.replace(indexSrv);
+	 					parent.window.location.replace(indexSrv, function()
+	 					{
+	 					$("#searchPatients").spinner("remove");
+	 					});
 	 					//populate(indexSrv, src);
 	 				});
 
@@ -97,6 +107,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 
 				$("#list_names").change(function()
 				{
+					
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 					retrieve( server, src, oldPatient, repository);
@@ -135,12 +146,21 @@ function retrieve(server, patient, oldPatient, repository)
 							parent.$("#saveDialog").dialog("destroy");
 							//Cannot use the cached Patient as this may have been already reset
 							parent.saveWidgets(oldPatient);
-
+								$("#searchPatients").spinner(
+					{
+						img: server + '/images/ajax-loader.gif',
+						position: 'center',
+						height: 100,
+						width: 100,
+						hide: true }); 
 							//
 							var cacheServer = "cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    				$.get(cacheServer, function(data)
 	 						{
-								parent.window.location.replace("index.jsp");
+								parent.window.location.replace("index.jsp", function()
+								{
+									$("#searchPatients").spinner("remove");
+								});
 
 								//addScheduleButton(patient);
 								//addCreateAssocButton(patient,"physician");
@@ -150,11 +170,21 @@ function retrieve(server, patient, oldPatient, repository)
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
 						parent.closeAllTabs("tabs");
+							$("#searchPatients").spinner(
+					{
+						img: server + '/images/ajax-loader.gif',
+						position: 'center',
+						height: 100,
+						width: 100,
+						hide: true }); 
 						//populate(url, patient);
 						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    			$.get(cacheServer, function(data)
 	 					{
-								parent.window.location.replace("index.jsp");
+								parent.window.location.replace("index.jsp", function()
+								{
+									$("#searchPatients").spinner("remove");
+								});
 								//addScheduleButton(patient);
 								//addCreateAssocButton(patient,"physician");
 						});
@@ -223,7 +253,7 @@ function populateTabs(server, tab_set)
                 var label = data.tabs[i].name;
 
 		       // alert(JSON.stringify(data.tabs[i]));
-		        tab_num = parent.addAnyTab(label, "Details", data.tabs[i].iNettuts,tab_set);
+		        tab_num = parent.addAnyTab(label, "Details", data.tabs[i].isINettuts,tab_set);
 					if (data.tabs[i].inFocus  && data.tabs[i].inFocus=="true")
 					{
 						focusedTab = data.tabs[i].tab_num;
