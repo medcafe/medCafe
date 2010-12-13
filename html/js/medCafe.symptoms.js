@@ -1,5 +1,10 @@
 function processSymptoms(callObj, widgetInfo, data, tab_set)
 {
+	if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 
 				//	var dataObject = eval('(' + data + ')');
 					//alert("data " + data);
@@ -9,7 +14,7 @@ function processSymptoms(callObj, widgetInfo, data, tab_set)
 							widgetInfo.column = "1";
 					
 					var html = v2js_inettutsHead(widgetInfo) + data +v2js_inettutsTail(widgetInfo);
-					$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);
+					$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 					$('#templateList').html("");
 				
 			  		//	var html = v2js_listHistoryTemplate( data );  

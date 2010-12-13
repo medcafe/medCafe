@@ -1,6 +1,10 @@
-function addRepository(callObj, widgetInfo, data)
+function addRepository(callObj, widgetInfo, data, tab_set)
 	{
-	
+	if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 		var html;
 	
 						updateAnnouncements(data);
@@ -15,7 +19,7 @@ function addRepository(callObj, widgetInfo, data)
 						if (!widgetInfo.column)
 							widgetInfo.column = "1";
 					
-						$("#tabs-" + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);		
+						$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);		
 						
 	
 						$(this).delay(100,function()
@@ -77,7 +81,7 @@ function addRepository(callObj, widgetInfo, data)
 											"clickUrl": widget.clickUrl,
 											"jsonProcess": widget.jsonProcess,
 											"color_num" :2,
-											"iNettuts" : "true",
+											"isINettuts" : "true",
 											"collapsed" : "false",
 											"nocache" : "true",
 											"label" : "Details for Other Patient"

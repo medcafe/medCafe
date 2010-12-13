@@ -9,11 +9,16 @@ if (initialized == undefined)
 }
 
 
-function processChart(obj, widgetInfo, data)
+function processChart(obj, widgetInfo, data, tab_set)
 {	
+		if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 var chartObj = $('#chartform'+widgetInfo.id);
 	$("#aaa" + widgetInfo.id).mousemove(function(e) {e.stopPropagation();});
- processChartButton(chartObj, widgetInfo.id);
+ processChartButton(chartObj, widgetInfo.id, tab_key+widgetInfo.tab_num);
 	// fetch one series, adding to what we got
 
    	// find the URL in the link right next to us
@@ -41,7 +46,7 @@ var chartObj = $('#chartform'+widgetInfo.id);
 		
 }
 
-function processChartButton(frm, widgetId)
+function processChartButton(frm, widgetId, tabSelect)
 {
    var index = "placeholder" + widgetId;
 	alreadyFetched[index] = {};
@@ -59,18 +64,18 @@ function processChartButton(frm, widgetId)
       	{
       		$.getJSON(dataurl+"type="+$(vitals[i]).val(), function(data)
 				{
-					onDataReceived(data, widgetId);
+					onDataReceived(data, widgetId, tabSelect);
 				 });
 			}
 			else
       	{
       		$.getJSON(dataurl+"type=Systolic", function(data)
 				{
-					onDataReceived(data, widgetId);
+					onDataReceived(data, widgetId, tabSelect);
 				 });
 				$.getJSON(dataurl+"type=Diastolic", function(data)
 				{
-					onDataReceived(data, widgetId);
+					onDataReceived(data, widgetId, tabSelect);
 				 });
 				
 			}
@@ -81,7 +86,7 @@ function processChartButton(frm, widgetId)
 	else
 	{
 		var emptydata={};
-		onDataReceived(emptydata,widgetId);
+		onDataReceived(emptydata,widgetId, tabSelect);
 	}
 
 }
@@ -94,7 +99,7 @@ function clearCheckBoxes(frm)
 	}
 }
 
-function onDataReceived(series, widgetId) 
+function onDataReceived(series, widgetId, tabSelect) 
 {
 
 	var index = "placeholder" + widgetId;
@@ -120,7 +125,7 @@ function onDataReceived(series, widgetId)
 		        legend: {container: $("#legend"+widgetId)}
 		    };
 			
-			var placeholder = $("#placeholder"+widgetId);
+			var placeholder = $('#' + tabSelect + " #placeholder"+widgetId);
     	//	var overview = $("#overview"+widgetId);
             // and plot all we got
             $("#placeholder"+ widgetId).delay(100,function()
@@ -138,7 +143,7 @@ function onDataReceived(series, widgetId)
 			        selection: { mode: "xy" }   
 	  		}); */
 
-	    		$("#placeholder"+widgetId).bind("plotselected", function (event, ranges)
+	    		$('#' + tabSelect + " #placeholder"+widgetId).bind("plotselected", function (event, ranges)
 	    		{
 	    			//alert("to: " + ranges.xaxis.to + " from: " + ranges.xaxis.from);
 			        // clamp the zooming to prevent eternal zoom
@@ -148,7 +153,7 @@ function onDataReceived(series, widgetId)
 			            ranges.yaxis.to = ranges.yaxis.from + 0.00001;
 
 			        // do the zooming
-			        plot = $.plot($("#placeholder"+widgetId),dataArray[index],
+			        plot = $.plot($('#' + tabSelect + " #placeholder"+widgetId),dataArray[index],
 			                      $.extend(true, {}, options, {
 			                          xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
 			                          yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
