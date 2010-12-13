@@ -119,11 +119,15 @@ var iNettuts = {
                     $(this).css({backgroundPosition: '-38px 0'})
                         .parents(settings.widgetSelector)
                             .find(settings.contentSelector).hide();
+                            $(this).parents(settings.widgetSelector)
+                            .find(settings.contentSelector).addClass("collapsed");
                     return false;
                 },function () {
                     $(this).css({backgroundPosition: '-52px 0'})
                         .parents(settings.widgetSelector)
                             .find(settings.contentSelector).show();
+                    $(this).parents(settings.widgetSelector)
+                            .find(settings.contentSelector).removeClass("collapsed");
                     return false;
                 }).prependTo($(settings.handleSelector,this));
             }
@@ -266,11 +270,15 @@ var iNettuts = {
 	                    $(this).css({backgroundPosition: '-38px 0'})
 	                        .parents(settings.widgetSelector)
 	                            .find(settings.contentSelector).hide();
+	                    $(this).parents(settings.widgetSelector)
+                            .find(settings.contentSelector).addClass("collapsed");
 	                    return false;
 	                },function () {
 	                    $(this).css({backgroundPosition: '-52px 0'})
 	                        .parents(settings.widgetSelector)
 	                            .find(settings.contentSelector).show();
+	                     $(this).parents(settings.widgetSelector)
+                            .find(settings.contentSelector).removeClass("collapsed");
 	                    return false;
 	                });
 	            }
@@ -325,7 +333,10 @@ var iNettuts = {
                 });
 
                 if (notSortable == '')
+                {
+
                 	return $('div.column > div');
+                }	
                 return $('> div:not(' + notSortable + ')', settings.columns);
             })();
 
@@ -334,7 +345,7 @@ var iNettuts = {
         }).mousedown(function (e) {
                                                        ////**************
             $sortableItems.css({width:''});
-           // $(this).parent().css({
+           //$(this).parent().css({
              //   width: $(this).parent().width() + 'px'
            // });
 
@@ -369,7 +380,8 @@ var iNettuts = {
                 $(ui.item).css({width:''}).removeClass('dragIcon');
                 //Show the content when finished dragging
                 $(this).find(settings.contentSelector).each(function () {
-                           	$(this).show();
+                				     if (!$(this).hasClass("collapsed"))
+                           		$(this).show();
                             });
                             //Make sure that all sizes reset
 
