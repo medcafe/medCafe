@@ -80,7 +80,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
 
         <!-- login -->
         <div id="login" style="width:400px">
-         <form class="cmxform" id="loginForm" method="post" action="${base}/j_security_check" >
+         <form class="cmxform" id="loginForm" method="post" action="<%= response.encodeURL("j_security_check") %>" >
          <fieldset>
            <legend>User Login</legend>
            <p>
