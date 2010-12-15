@@ -140,15 +140,24 @@ function addSaveClick(arr)
   						
 	  		var saveLink = "saveText.jsp?";
 	  		var enterTitle = $('#enterTitle').val();
-	  		//var notes = $('form[name="editorNotesForm"] input[name="form[info1]"]').text();
-	  		var notes = arr["notes"].get_content();
-	  		
-	  		saveLink = saveLink + "title=" + enterTitle + "&form[info1]=" + notes + "&action=Save";
-	  		//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')
-			$.get(saveLink, function(data)
+	  		var regexp = /^[a-zA-Z]([0-9A-Za-z_ -])+$/i;
+	  		var bValid = regexp.test(enterTitle)? true: false;
+	  		if (bValid)
+	  		{
+		  		//var notes = $('form[name="editorNotesForm"] input[name="form[info1]"]').text();
+		  		var notes = arr["notes"].get_content();
+		  		
+		  		saveLink = saveLink + "title=" + enterTitle + "&form[info1]=" + notes + "&action=Save";
+		  		//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')
+				$.get(saveLink, function(data)
+				{
+					$("#editorDialog").dialog("destroy");		
+				});
+			}
+			else
 			{
-				$("#editorDialog").dialog("destroy");		
-			});
+				alert("This title contains invalid characters. Please fix and resubmit.");
+			}
 	});
 
 }
