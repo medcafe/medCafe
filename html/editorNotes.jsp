@@ -31,7 +31,10 @@
 	{
 		TextTemplate templateObj =  processText.populateTemplateObject(user,  title);
 		if (templateObj != null)
+		{
 			note = templateObj.getText();
+			note = CharEncoding.forHTML(note);
+		}
 		else
 			System.out.println("EditorNotes.jsp no template object found " ) ; 
 	}
@@ -39,7 +42,10 @@
 	{
 		Text textObj =  processText.populateTextObject(user, patientId, title);
 		if (textObj != null)
+		{
 			note = textObj.getText();
+			note = CharEncoding.forHTML(note);
+		}
 		else
 			System.out.println("EditorNotes.jsp no textObj found " ) ; 
 	}

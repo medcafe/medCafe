@@ -29,10 +29,11 @@
 	for (String titleNew: textObjs.keySet())
 	{
 		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  String titleSafe = CharEncoding.forHTML(titleNew);
 		  sbuff.append("<option value=\"" + titleUrl + "\"");
 		  if (titleNew.equals(title))
 		  	sbuff.append(" \"selected=true\" ");
-		  sbuff.append(">" + titleNew + "</option>");
+		  sbuff.append(">" + titleSafe + "</option>");
 	}
 	sbuff.append("");
 
@@ -41,10 +42,11 @@
   	for (String titleNew: templateObjs.keySet())
 	{
 		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  String titleSafe = CharEncoding.forHTML(titleNew);
 		  sbuffTemplate.append("<option value=\"" + titleUrl + "\"");
 		  if (titleNew.equals(title))
 		  	sbuffTemplate.append(" \"selected=true\" ");
-		  sbuffTemplate.append(">" + titleNew + "</option>");
+		  sbuffTemplate.append(">" + titleSafe + "</option>");
 	}
   	
 %>

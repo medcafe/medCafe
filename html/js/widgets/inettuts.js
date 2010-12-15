@@ -100,7 +100,18 @@ var iNettuts = {
                     return false;
                 }).appendTo($(settings.handleSelector,this));
                 $('<div class="edit-box" style="display:none;"/>')
-                    .append('<ul><li class="item"><label>Change the title?</label><input value="' + $('h3',this).text() + '"/></li>')
+                    .append(function(){
+                    	var regexp = /^[a-zA-Z]([0-9A-Za-z_])+$/i;
+                    	var bValid = regexp.test($('h3',this).text())? true: false;
+                    	if (bValid)
+                    		return '<ul><li class="item"><label>Change the title?</label><input value="' + $('h3',this).text() + '"/></li>';
+						else
+						{
+							alert("This text is not valid");
+							return false;
+						}                  
+                    })
+                    //('<ul><li class="item"><label>Change the title?</label><input value="' + $('h3',this).text() + '"/></li>')
                     .append((function(){
                         var colorList = '<li class="item"><label>Available colors:</label><ul class="colors">';
                         $(thisWidgetSettings.colorClasses).each(function () {
@@ -285,10 +296,25 @@ var iNettuts = {
 
             }
         });
-
+		var bAlert = true;
         $('.edit-box').each(function () {
             $('input',this).keyup(function () {
-                $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
+            
+            			//var testText = $(this).parents(settings.widgetSelector).find('h3').text();
+                    	var testText = $(this).val();
+                    	var regexp = /^[a-zA-Z]([0-9A-Za-z_])+$/i;
+                    	var bValid = regexp.test(testText)? true: false;
+                    	if (bValid)
+                    		 $(this).parents(settings.widgetSelector).find('h3').text( $(this).val().length>20 ? $(this).val().substr(0,20)+'...' : $(this).val() );
+						else
+						{
+							
+							if (bAlert){  alert("This is not a valid name " );bAlert= false; }
+							
+							$(this).val() =$(this).parents(settings.widgetSelector).find('h3').text();
+						}                  
+
+               
             });
             $('ul.colors li',this).click(function () {
 
