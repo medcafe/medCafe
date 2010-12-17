@@ -135,7 +135,7 @@ $(document).ready( function() {
 	{
 	
 		//this might not be set for case of drag/ drop
-		if (tab_set === undefined) tab_set = "tabs";
+		if (tab_set == undefined) tab_set = "tabs";
 		
 	 $(this).delay(200,function()
 	 {
@@ -152,8 +152,13 @@ $(document).ready( function() {
 	}
 
 
-	function addChart(callObj, widgetInfo, imageTitle)
+	function addChart(callObj, widgetInfo, data, tab_set)
 	{
+		if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 		var server =  widgetInfo.image ;
 	 	//alert("image " + imageName + " patientID " + patientId + " tab-num " + tab_num);
 	 	var imageTitle = server;
@@ -356,10 +361,11 @@ $(document).ready( function() {
   }
 
 
-function displayImage(callObj, widgetInfo, data)
+function displayImage(callObj, widgetInfo, data, tab_set)
 {
 	//Delay to let the DOM refresh
-
+	if (tab_set == null)
+		tab_set = "tabs";
 
 	 var server =  widgetInfo.image ;
 	 //alert("image " + imageName + " patientID " + patientId + " tab-num " + tab_num);
@@ -420,9 +426,9 @@ function displayImage(callObj, widgetInfo, data)
 
 	            }
 
-				$(".jqzoom" + widgetInfo.tab_num).jqzoom(options);
+				$("."+tab_set + "jqzoom" + widgetInfo.id).jqzoom(options);
 
-				$("#viewerButton" + widgetInfo.tab_num).bind("click",{},
+				$("#" + tab_set + "viewerButton" + widgetInfo.id).bind("click",{},
 				function(e)
 				{
 				var newWidget = {
@@ -441,8 +447,8 @@ function displayImage(callObj, widgetInfo, data)
 					"params" : "", 
 					"isINettuts" : false,
 					"template" : "",
-					"nocache" : "false",
-					"tab_set" : "tabs"
+					"nocache" : "false"
+	
 
 				};
 					//var type= "Viewer";
@@ -456,12 +462,12 @@ function displayImage(callObj, widgetInfo, data)
 					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
 					newWidget.clickUrl = "viewer.jsp";
 					newWidget.image = server;
-					createWidgetContent(newWidget);
+					createWidgetContent(newWidget, false, tab_set);
 
 
 				});
 
-				$("#editButton" + widgetInfo.tab_num).bind("click",{},
+				$("#" + tab_set + "editButton" + widgetInfo.id).bind("click",{},
 				function(e)
 				{
 					var newWidget = {
@@ -479,8 +485,7 @@ function displayImage(callObj, widgetInfo, data)
 					   "script" : "addChart",
 						"params" : "",
 						"isINettuts" : false,
-						"template" : "",
-						"tab_set": "tabs"
+						"template" : ""
 
 
 					};
@@ -491,9 +496,10 @@ function displayImage(callObj, widgetInfo, data)
 					newWidget.tab_num = newTab_num;
 					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
 					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
+					newWidget.id = addWidgetNum(newWidget);
 				   newWidget.clickUrl = "viewerDrawFrame.jsp"
 				 //	addChart(this, newWidget, imageTitle);
-					createWidgetContent(newWidget);
+					createWidgetContent(newWidget, false, tab_set);
 					//createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
 
 				});

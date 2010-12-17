@@ -3,7 +3,10 @@
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	String imageName = request.getParameter("image");
-
+	String tab_set = request.getParameter("tab_set");
+	if (tab_set == null)
+		tab_set = "tabs";
+	String widgetId = request.getParameter("widgetId");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
  	String imageTitle = imageName;
@@ -24,14 +27,14 @@
 %>
 
     <body>
-     <div id="content"><input id="viewerButton<%=tab_num%>" type="button" value="Viewer"/>
+     <div id="<%=tab_set%>content<%=widgetId%>"><input id="<%=tab_set%>viewerButton<%=widgetId%>" type="button" value="Viewer"/>
+		 <input id="<%=tab_set%>editButton<%=widgetId%>" type="button" value="Annotate"/>
 
-					 <div id="content">
-					 <input id="editButton<%=tab_num%>" type="button" value="Annotate"/>
-					<a href="<%=imageName%>" class="jqzoom<%=tab_num%>" style="" title="<%=imageTitle%>">
+			
+					<a href="<%=imageName%>" class="<%=tab_set%>jqzoom<%=widgetId%>" style="" title="<%=imageTitle%>">
 					<img src="<%=imageName%>"  title="<%=imageTitle%>" width="300" style="border: 1px solid #666;">
 					</a>
-     				 </div>
+     	
 					</div>
 
     </body>

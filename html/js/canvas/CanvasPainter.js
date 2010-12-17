@@ -70,6 +70,7 @@ var CanvasPainter = CanvasWidget.extend({
 
 	constructor: function(canvasName, canvasInterfaceName, position, width, height) {
 		this.canvasName = canvasName;
+		this.canvas = document.getElementById(canvasName);
 		this.canvasInterface = document.getElementById(canvasInterfaceName);
 		this.contextI = this.canvasInterface.getContext("2d");	
 		this.inherit(canvasName, position);
@@ -149,7 +150,7 @@ var CanvasPainter = CanvasWidget.extend({
 		});
 			
 		var html = createHiddenValues(currShape, shapesCount);
-		$("#canvas").append(html);
+		$("#" + this.canvasName).append(html);
 		}
 		else 
 		{
@@ -232,7 +233,7 @@ var CanvasPainter = CanvasWidget.extend({
 	},
 	clearShapes: function() {
 		
-		$('#canvas').html("");
+		$('#'+ this.canvasName).html("");
 	},
 	//Setter Methods
 	setColor: function(color) {

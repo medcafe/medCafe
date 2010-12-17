@@ -2,6 +2,10 @@
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
+	String tab_set = request.getParameter("tab_set");
+	if (tab_set ==null)
+		tab_set = "tabs";
+	String widgetId = request.getParameter("widgetId");
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
@@ -23,8 +27,8 @@
 %>
 
     <body>
-     <iframe frameborder="0" id="iframe<%=tab_num%>" name="iframe<%=tab_num%>" width="720" height="350" 
-     src="viewerDraw.jsp?<%=tab_num%>&patient_id=<%=patient_id%>&rep_patient_id=<%=rep_patient_id%>&image=<%=imageName%>"/>
+     <iframe frameborder="0" id="<%=tab_set%>iframe<%=widgetId%>" name="<%=tab_set%>iframe<%=widgetId%>" width="720" height="350" 
+     src="viewerDraw.jsp?tab_num=<%=tab_num%>&patient_id=<%=patient_id%>&rep_patient_id=<%=rep_patient_id%>&image=<%=imageName%>&tab_set=<%=tab_set%>&widgetId=<%=widgetId%>"/>
 
 
 

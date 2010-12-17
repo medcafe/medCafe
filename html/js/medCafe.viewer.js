@@ -1,40 +1,50 @@
-function processViewerImages(callObj, widgetInfo, data)
+function processViewerImages(callObj, widgetInfo, data, tab_set)
 {
+	if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 	//$("#tabs-" + widgetInfo.tab_num).html(data );
-		var server = $('#viewerImageName'+widgetInfo.id).text();
+		var server = $('#' + tab_set + "viewerImageName"+widgetInfo.id).text();
 		//alert (server);
-           	 
-        $("#viewer" + widgetInfo.tab_num).iviewer(
+          	 
+        $("#" +tab_set+ "viewer" + widgetInfo.id).iviewer(
         {
             src: server
         });       
 
 }
 
-function initializeViewer(patientId, fileId, dir, server)
+function initializeViewer(patientId, fileId, dir, server, tab_set, widgetId)
 {
+				if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+	var tab_key = tab_set + "-";
 
 				  //var pos = $('#viewer').position();
-				  var pos = $("#viewer").offset();  
-  				  var width = $("#viewer").width();
-  				  var height = $("#viewer").height();
+				  var pos = $("#" + tab_set + "viewer" + widgetId).offset();  
+  				  var width = $("#" + tab_set + "viewer" + widgetId).width();
+  				  var height = $("#" + tab_set + "viewer" + widgetId).height();
 				 var fullFile = dir + server;
-				  var canvasObj = document.getElementById("canvas"); 
+				  var canvasObj = document.getElementById(tab_set + "canvas" + widgetId); 
 				  //$("#canvas").width(width);
 				  canvasObj.setAttribute("width", width);
 				  canvasObj.setAttribute("height", height);
-				  var canvasInterfaceObj = document.getElementById("canvasInterface");
+				  var canvasInterfaceObj = document.getElementById(tab_set + "canvasInterface" + widgetId);
 				  canvasInterfaceObj.setAttribute("width", width);
 				  canvasInterfaceObj.setAttribute("height", height); 
                 //  $("#canvasInterface").width(width);
                   
-                  $("#canvas").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );           
-                  $("#canvasInterface").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
-                  $("#chooserWidgets").css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
+                  $("#" + tab_set + "canvas" + widgetId).css( { "left": (pos.left) + "px", "top":pos.top + "px" } );           
+                  $("#" + tab_set + "canvasInterface" + widgetId).css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
+                  $("#" + tab_set + "chooserWidgets" + widgetId).css( { "left": (pos.left) + "px", "top":pos.top + "px" } );
                   
-                  canvasPainter = new CanvasPainter("canvas", "canvasInterface", {x: pos.left , y: pos.top}, width, height);
+                  canvasPainter = new CanvasPainter(tab_set + "canvas"+ widgetId, tab_set + "canvasInterface" + widgetId, {x: pos.left , y: pos.top}, width, height);
 				  var rtnObj;
-				  var viewer = $("#viewer").iviewer(
+				  var viewer = $("#" + tab_set + "viewer" + widgetId).iviewer(
                        {
                        src: fullFile,
                        canvas: canvasPainter,
@@ -50,7 +60,7 @@ function initializeViewer(patientId, fileId, dir, server)
                     	//Set up the mouse events
                     	canvasPainter.canvasInterface.removeEventListener("mousedown", canvasPainter.mouseDownActionPerformed.bindAsEventListener(canvasPainter), false);
   						$("<img>").mousedown(function(e){ return rtnObj.drag_start(e); })
-                    	document.getElementById("canvas");
+                    	document.getElementById(tab_set + "canvas" + widgetId);
   					});
   					
 		    		$('#saveViewButton').click(function() {
@@ -120,8 +130,13 @@ function initializeViewer(patientId, fileId, dir, server)
 				 
 }
 
-function retrieveViewerData(patientId, fileId, dir, server)
+function retrieveViewerData(patientId, fileId, dir, server, tab_set, widgetId)
 {
+		if (tab_set === undefined)
+	{
+		tab_set ="tabs";
+	}
+
 
 	var serverLink = "annotateImageJSON.jsp?patient_id=" + patientId + "&image=" +server;
 	//Get the shapes in JSONFormat
@@ -136,8 +151,8 @@ function retrieveViewerData(patientId, fileId, dir, server)
 			return;
 		}
 		var html = v2js_listImageTags( data );  
-		$("#canvas").html(html);
-		initializeViewer(patientId, fileId, dir, server);
+		$("#" + tab_set + "canvas" + widgetId).html(html);
+		initializeViewer(patientId, fileId, dir, server, tab_set, widgetId);
 	});
 }
 

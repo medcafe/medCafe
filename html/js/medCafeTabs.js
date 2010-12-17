@@ -407,7 +407,7 @@ $(document).ready( function() {
 	function addWidgetTab(callObj, widgetInfo, group, tab_set)
 	{
 		
-		if (tab_set === undefined)
+		if (tab_set == undefined)
 		{
 			tab_set = "tabs";
 		}
@@ -475,6 +475,7 @@ $(document).ready( function() {
 			else
 				serverLink = serverLink + "&nocache=false";
 				//alert(widgetInfo.params);
+			serverLink = serverLink + "&tab_set="+tab_set;
 			if (widgetInfo.params != undefined && widgetInfo.params !="")
 			{
 				var paramArray= widgetInfo.params.split(";");

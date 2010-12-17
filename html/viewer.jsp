@@ -3,9 +3,12 @@
 <%
 	String imageName = request.getParameter("image");
 	String widgetId = request.getParameter("widgetId");
-	
+	String tab_set = request.getParameter("tab_set");
+	if (tab_set == null)
+		tab_set = "tabs";
 	if (imageName == null)
 		imageName = "images/patient1/chest-xray.jpg";
+   imageName = imageName.replaceFirst("4", "35");
 	String tabNum = request.getParameter("tab_num");
 	
 %>
@@ -14,17 +17,17 @@
         <title>jquery.iviewer test</title>
         <script type="text/javascript">
             var $ = jQuery;
-            /*$(document).ready(function(){
+          /*  $(document).ready(function(){
             	  var server = "<%=imageName%>";
             	 
-                  $("#viewer").iviewer(
+                  $("#<%=tab_set%>viewer<%=widgetId%>").iviewer(
                        {
                        src: server
                   });
                   
                  
                 
-            });*/
+            }); */
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
         <style>
@@ -47,8 +50,8 @@
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
         <div class="wrapper">
             
-            <div id="viewerImageName<%=widgetId%>"><%=imageName%></div>
-            <div id="viewer<%=tabNum%>" class="viewer"></div>
+            <div id="<%=tab_set%>viewerImageName<%=widgetId%>"><%=imageName%></div>
+            <div id="<%=tab_set%>viewer<%=widgetId%>" class="viewer"></div>
             <br />
             
         </div>

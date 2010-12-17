@@ -128,7 +128,7 @@ function onDataReceived(series, widgetId, tabSelect)
 			var placeholder = $('#' + tabSelect + " #placeholder"+widgetId);
     	//	var overview = $("#overview"+widgetId);
             // and plot all we got
-            $("#placeholder"+ widgetId).delay(100,function()
+            $('#' + tabSelect + " #placeholder"+ widgetId).delay(100,function()
 			{
 
             	$.plot(placeholder, dataArray[index], options);

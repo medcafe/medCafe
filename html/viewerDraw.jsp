@@ -2,6 +2,10 @@
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
+	String widgetId = request.getParameter("widgetId");
+	String tab_set = request.getParameter("tab_set");
+	if (tab_set ==null)
+		tab_set = "tabs";
 	String imageName = request.getParameter("image");
 	if (imageName == null)
 		imageName = "images/patients/1/chest-xray-marked.jpg";
@@ -12,6 +16,7 @@
 	 	imageTitle = imageTitle.substring(pos);
 
 	 }
+	 String tab_num = request.getParameter("tab_num");
 	String patientId =  request.getParameter("patient_id");
 		
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
@@ -48,17 +53,17 @@
 	canvas {
 		border: 1px solid #AAAAAA;
 	}
-	#canvas {
+	#<%=tab_set%>canvas<%=widgetId%> {
 		position: absolute;
 		left: 90px;
 		top: 10px;
 	}
-	#canvasInterface {
+	#<%=tab_set%>canvasInterface<%=widgetId%> {
 		position: absolute;
 		left: 90px;
 		top: 10px;
 	}
-	#noCanvas {
+	#<%=tab_set%>noCanvas<%=widgetId%> {
 		position: absolute;
 		left: 90px;
 		top: 100px;
@@ -66,14 +71,14 @@
 		height: 400px;
 		font-size: 16px;
 	}
-	#chooserWidgets {
+	#<%=tab_set%>chooserWidgets<%=widgetId%> {
 		display: block;
 		position: absolute;
 		left: 0px;
 		width: 300px;
 		top: 10px;
 	}
-	#chooserWidgets canvas {
+	#<%=tab_set%>chooserWidgets<%=widgetId%> canvas {
 		margin-bottom: 10px;
 	}
 	#controls {
@@ -134,7 +139,7 @@
 			
 			
             $(document).ready(function(){
-            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageTitle%>');
+            	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageTitle%>', '<%=tab_set%>', '<%=widgetId%>', '<%=tab_num%>');
             });	 
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
@@ -158,18 +163,18 @@
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
        <div class="wrapper">
             
-            <div id="viewer" class="viewer"> 
+            <div id="<%=tab_set%>viewer<%=widgetId%>" class="viewer"> 
             </div>	
             <br />
           				</div>
  		
      
    
-        		<canvas id="canvas" width="300" height="310"></canvas>
-				<canvas id="canvasInterface" width="300" height="310"></canvas>
+        		<canvas id="<%=tab_set%>canvas<%=widgetId%>" width="300" height="310"></canvas>
+				<canvas id="<%=tab_set%>canvasInterface<%=widgetId%>" width="300" height="310"></canvas>
 		
 
-				<div id="chooserWidgets">
+				<div id="<%=tab_set%>chooserWidgets<%=widgetId%>">
 					<div id="controls">
 							
 						<div id="customWidget">
