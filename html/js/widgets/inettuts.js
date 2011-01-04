@@ -71,8 +71,21 @@ var iNettuts = {
                         $(this).parents(settings.widgetSelector).animate({
                             opacity: 0
                         },function () {
+                        	var current_tab = $(this).closest(".tabContent").attr('id').substring(5);
+                       		$("#tabs-"+current_tab+ " #column1").css("min-height", "100px");
+                       		$("#tabs-"+current_tab+ " #column2").css("min-height", "100px");
                             $(this).wrap('<div/>').parent().slideUp(function () {
                                 $(this).remove();
+                                
+                                		if ($("#tabs-" + current_tab + " #column1").height() > $("#tabs-" + current_tab+ " #column2").height())
+                                {
+                                		$("#tabs-" + current_tab + " #column2").css("min-height", $("#tabs-" + current_tab + " #column1").height());
+                                }
+                                else
+                                {
+                                		$("#tabs-" + current_tab + " #column1").css("min-height", $("#tabs-" + current_tab + " #column2").height());
+                                }
+                                
 
                             });
                         });
@@ -242,9 +255,21 @@ var iNettuts = {
 	                        $(this).parents(settings.widgetSelector).animate({
 	                            opacity: 0
 	                        },function () {
-
+                        	var current_tab = $(this).closest(".tabContent").attr('id').substring(5);
+                       		$("#tabs-"+current_tab+ " #column1").css("min-height", "100px");
+                       		$("#tabs-"+current_tab+ " #column2").css("min-height", "100px");
 	                            $(this).wrap('<div/>').parent().slideUp(function () {
 	                                $(this).remove();
+                                
+                                		if ($("#tabs-" + current_tab + " #column1").height() > $("#tabs-" + current_tab+ " #column2").height())
+                                {
+                                		$("#tabs-" + current_tab + " #column2").css("min-height", $("#tabs-" + current_tab + " #column1").height());
+                                }
+                                else
+                                {
+                                		$("#tabs-" + current_tab + " #column1").css("min-height", $("#tabs-" + current_tab + " #column2").height());
+                                }
+                                
 
 
 	                            });

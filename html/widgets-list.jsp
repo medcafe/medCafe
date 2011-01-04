@@ -53,7 +53,7 @@
 			
 		    $.getJSON("<%=listWidgets%>", function(data)
 		    {
-		    	
+		    	alert(JSON.stringify(data));
   				var html = v2js_listWidgets( data );  			
     	
     			$("#test").append(html);

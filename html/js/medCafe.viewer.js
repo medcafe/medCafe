@@ -11,7 +11,8 @@ function processViewerImages(callObj, widgetInfo, data, tab_set)
           	 
         $("#" +tab_set+ "viewer" + widgetInfo.id).iviewer(
         {
-            src: server
+            src: server,
+            zoom: "fit"
         });       
 
 }

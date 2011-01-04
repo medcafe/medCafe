@@ -81,7 +81,7 @@ $(function(){
 			widgetInfo.collapsed = 'false';
 			widgetInfo.label = widgetInfo.name;
 			widgetInfo.color_num = 2;
-	widgetInfo.tab_num = $(this).parent().parent().attr('id').substring(5);
+	widgetInfo.tab_num = $(this).closest(".tabContent").attr('id').substring(5);
 	
 	
 					
@@ -180,4 +180,3 @@ function bindClose()
 	<div id="column2" class="column inettuts-container"></div>
 	<div style="clear:both"/>
 </div>
-

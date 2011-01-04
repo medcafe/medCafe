@@ -16,7 +16,19 @@
 	 	imageTitle = imageTitle.substring(pos);
 
 	 }
-	
+	 imageName = imageTitle;
+	String patientId =  request.getParameter("patient_id");
+		
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+  
+	String dir = "images/patients/" + patientId + "/";	
 	 
 
 
@@ -29,13 +41,14 @@
     <body>
      <div id="<%=tab_set%>content<%=widgetId%>"><input id="<%=tab_set%>viewerButton<%=widgetId%>" type="button" value="Viewer"/>
 		 <input id="<%=tab_set%>editButton<%=widgetId%>" type="button" value="Annotate"/>
-
+		 <br>
+	<div>
 			
-					<a href="<%=imageName%>" class="<%=tab_set%>jqzoom<%=widgetId%>" style="" title="<%=imageTitle%>">
-					<img src="<%=imageName%>"  title="<%=imageTitle%>" width="300" style="border: 1px solid #666;">
+					<a href="<%=dir%><%=imageName%>" class="<%=tab_set%>jqzoom<%=widgetId%> jqzoom" style="" title="<%=imageName%>">
+					<img src="<%=dir%><%=imageName%>" width="300" style="border: 1px solid #666;" title="<%=imageName%>">
 					</a>
      	
 					</div>
-
+</div>
     </body>
 </html>

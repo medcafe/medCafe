@@ -23,7 +23,7 @@ public class DbConnection
 
     public final static String KEY = DbConnection.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    //static{log.setLevel(Level.FINER);}
     private Connection conn = null;
     private Statement stmt = null;
 
@@ -32,20 +32,20 @@ public class DbConnection
         throws SQLException
     {
         try {
-        		log.severe("getting context");
+        		log.finer("getting context");
             InitialContext cxt = new InitialContext();
             if ( cxt == null ) {
                throw new SQLException("Uh oh -- no context!");
             }
-				log.severe("getting dataSource");
+				log.finer("getting dataSource");
             DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/medcafe" );
-			   log.severe("datasource retrieved; getting connection");
+			   log.finer("datasource retrieved; getting connection");
             if ( ds == null ) {
                throw new SQLException("Data source not found!");
             }
             synchronized(this){
             conn = ds.getConnection();
-            log.severe("connection retrieved");
+            log.finer("connection retrieved");
             }
         }
         catch (NamingException e)

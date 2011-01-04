@@ -608,7 +608,15 @@ $(document).ready( function() {
 				}
 				if (group != true && group != "true")
 					iNettuts.makeSortable();
-			
+				//alert(widgetInfo.tab_num + " " + widgetInfo.column + " " + $("#" + tab_set+ "-"+widgetInfo.tab_num + " #column"+widgetInfo.column).height());
+				var other_col = widgetInfo.column % 2 + 1;
+
+				if (($("#" + tab_set+ "-"+widgetInfo.tab_num + " #column"+widgetInfo.column).height()) > ($("#"+tab_set + "-" + widgetInfo.tab_num + " #column"+other_col).height()))
+				{
+					$("#" + tab_set+"-"+widgetInfo.tab_num + " #column" + other_col).css("min-height", $("#" + tab_set+ "-"+widgetInfo.tab_num + " #column"+widgetInfo.column).height()+"px");
+					//alert("min-height " + $("#" + tab_set+ "-"+widgetInfo.tab_num + " #column"+widgetInfo.column).height()+"px");
+					//alert(widgetInfo.column + "(" + $("#" + tab_set+ "-"+widgetInfo.tab_num + " #column"+widgetInfo.column).height()+") is taller than " + other_col+ "(" +$("#"+tab_set+ "-" + widgetInfo.tab_num + " #column"+other_col).height()+ ")" );
+					}
 			}
 		}
 		else

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	String imageName = request.getParameter("image");
 	String widgetId = request.getParameter("widgetId");
@@ -7,9 +8,21 @@
 	if (tab_set == null)
 		tab_set = "tabs";
 	if (imageName == null)
-		imageName = "images/patient1/chest-xray.jpg";
-   imageName = imageName.replaceFirst("4", "35");
+		imageName = "chest-xray.jpg";
+
 	String tabNum = request.getParameter("tab_num");
+	String patientId =  request.getParameter("patient_id");
+		
+	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+    if( cache == null )
+    {  //nobody is logged in
+        //log.warning("No patient selected");
+        response.sendRedirect("introPage.jsp");
+        return;
+    }
+    patientId = cache.getDatabasePatientId();
+  
+	String dir = "images/patients/" + patientId + "/";	
 	
 %>
     <head>
@@ -18,7 +31,7 @@
         <script type="text/javascript">
             var $ = jQuery;
           /*  $(document).ready(function(){
-            	  var server = "<%=imageName%>";
+            	  var server = "<%=dir%><%=imageName%>";
             	 
                   $("#<%=tab_set%>viewer<%=widgetId%>").iviewer(
                        {
@@ -50,8 +63,8 @@
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
         <div class="wrapper">
             
-            <div id="<%=tab_set%>viewerImageName<%=widgetId%>"><%=imageName%></div>
-            <div id="<%=tab_set%>viewer<%=widgetId%>" class="viewer"></div>
+            <div id="<%=tab_set%>viewerImageName<%=widgetId%>"><%=dir%><%=imageName%></div>
+            <div id="<%=tab_set%>viewer<%=widgetId%>"  class="viewer"></div>
             <br />
             
         </div>

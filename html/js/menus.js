@@ -64,7 +64,7 @@ function processMenuClick(menuLabel, patientId)
 				}
 			},
 			close: function() {
-				tabNameObj.val( "New" ).removeClass( "ui-state-error" );
+				tabNameObj.removeClass( "ui-state-error" );
 			}
 		});
 	

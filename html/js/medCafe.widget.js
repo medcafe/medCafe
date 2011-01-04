@@ -409,7 +409,7 @@ function removeWidget(id)
 	medCafeWidget.removeWidgetSettings(id);
 }
 
-function loadWidgetData( divId, type)
+function loadWidgetData(divId, type)
 {
 		
 			var isiPad = navigator.userAgent.match(/iPad/i) != null;
@@ -418,10 +418,12 @@ function loadWidgetData( divId, type)
 			
 		    $.getJSON(serverUrl, function(data)
 		    {
-		    	
+	
   				var html = v2js_listWidgets( data );  			
-    	
-    			$("#" + divId).append(html);
+    	 		$(this).delay(200,function()
+	 			{
+	  				$("#" + divId).append(html);
+    			});
     			var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
  		if (isiPad)

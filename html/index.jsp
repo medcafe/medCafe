@@ -39,7 +39,7 @@
 	<title>medCafe</title>
 
 	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-  	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
+
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
@@ -115,7 +115,7 @@
     <script src="http://127.0.0.1:8080/medcafe/js/timeline/scripts/l10n/en/timeline.js" onerror="" type="text/javascript"></script>
     <script src="http://127.0.0.1:8080/medcafe/js/timeline/scripts/l10n/en/labellers.js" onerror="" type="text/javascript"></script>
     <link rel="stylesheet" href="http://127.0.0.1:8080/medcafe/js/timeline/styles/graphics.css" type="text/css"-->
-
+  	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 
 	<script type="text/javascript">
         var outerLayout;

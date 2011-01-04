@@ -187,6 +187,7 @@ new ContentFlowAddOn ('medCafe', {
             	label = newWidgetSettings.image.substring(pos + 1);
             else
             	label = newWidgetSettings.image;
+            newWidgetSettings.image = label;
             //newWidgetSettings.tab_num = addTab(label, newWidgetSettings.type, newWidgetSettings.iNettuts); 
             createWidgetContent(newWidgetSettings, false);
         },

@@ -420,8 +420,9 @@ public class Event
 				 JSONObject infoObj = immObj.getJSONObject("medicationInformation");
 				 infoObj = infoObj.getJSONObject("manufacturedMaterial");
 				 String immTitle = infoObj.getString("freeTextBrandName");
-				 String descTemp = immObj.getString("narrative");
 				 String desc = "";
+				 try {
+				 String descTemp = immObj.getString("narrative");
 				 int index = 0;
 				 while (index != -1)
 				 {
@@ -437,7 +438,11 @@ public class Event
 				 		index = newIndex;
 				 	}
 				 }
-
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 	log.finer("No narrative in immunization record of patient # " + repPatientId + " for " + immTitle);
+				 }
 				 try {
 				 	desc = desc+ "<br>Refused:  " + immObj.getBoolean("refusal");
 				 }
@@ -506,13 +511,26 @@ public class Event
 				 probObj = (JSONObject) jsonProbs.get(i);
 
 				 String probTitle = probObj.getString("problemName");
-				 String active = probObj.getString("narrative");
+				 String active = "A";
+				 try {
+				 active = probObj.getString("narrative");
+				 }
+				 catch (JSONException jsonE)
+				 {
+				 	log.finer("No narrative for patient " + repPatientId + " for problem " + probTitle);
+				 }
 				 if (active.equals("A"))
 				 	probTitle = probTitle + " - ACTIVE";
 				 else
 				 	probTitle = probTitle + " - INACTIVE";
+				 	try
+				 	{
 				 event.setDescription("ICD9 Code: " + probObj.getJSONObject("problemCode").getString("code"));
-		
+					}
+					catch (JSONException jsonE)
+					{
+						log.finer("No problem code for " + repPatientId + " and problem " + probTitle);
+					}
 
 				 JSONObject dateObj = probObj.getJSONObject("problemDate").getJSONObject("low");
 				 //System.out.println("Event getEventObject dateObj " + dateObj.toString());
