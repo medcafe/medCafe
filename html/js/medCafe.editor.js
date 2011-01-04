@@ -146,8 +146,9 @@ function addSaveClick(arr)
 	  		{
 		  		//var notes = $('form[name="editorNotesForm"] input[name="form[info1]"]').text();
 		  		var notes = arr["notes"].get_content();
-		  		
+		  		notes = encodeURI(notes);
 		  		saveLink = saveLink + "title=" + enterTitle + "&form[info1]=" + notes + "&action=Save";
+		  		
 		  		//$('div#myDiv form[name="myForm"] fieldset.myField input[name="myInput"]')
 				$.get(saveLink, function(data)
 				{

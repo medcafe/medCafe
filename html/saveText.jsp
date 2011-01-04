@@ -5,9 +5,11 @@
 <%@ page import = "java.io.UnsupportedEncodingException"%>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
-	System.out.println("SaveText.jsp: start");
 	
 	String formData = request.getParameter("form[info1]");
+	
+	System.out.println("SaveText.jsp: form data " + formData);
+	
 	String action = request.getParameter("action");
 	
   	String user =  request.getRemoteUser();
