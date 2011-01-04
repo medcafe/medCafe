@@ -8,7 +8,7 @@ catch ( NullPointerException e) {
 }
 if( loginResult.equals( AuthenticationUtils.OK ))
 {
-    response.sendRedirect( "/index.jsp" );
+    response.sendRedirect( "index.jsp" );
     return;
 }
 %>

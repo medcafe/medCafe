@@ -3,9 +3,9 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
 %><html>
 <head>
     <link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+    <script type="text/javascript" src="${js}/jquery-1.4.4.js">"></script>
+    <script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
+    <script type="text/javascript" src="${js}/jquery.validate.js"></script>
     <style type="text/css">
         label { width: 10em; float: left; }
         label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
@@ -52,8 +52,10 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
         {%>
             <center><div class="ui-state-error ui-corner-all" style="padding:1em;width:350px;text-align:center;">
                 <%=message%>
+                <p><a href="./">Try again</a></p>
             </div></center>
-        <%}%>
+        <%}
+        else {%>
         <!-- registration -->
         <div id="registration" class="ui-dialog-content ui-widget-content" style="background: none; border: 0;display:none">
              <form class="cmxform" id="registrationForm" method="post" action="registrationProcess.jsp" enctype="x-www-form-urlencoded" >
@@ -99,6 +101,7 @@ String message = WebUtils.getOptionalParameter(request, "message", null);
          </fieldset>
          </form>
          </div>
+         <%}%>
         <!--center><img style="height:33%" alt="tired doc" src="${images}/doctor_logo.png"/></center><--->
     </div>
 
