@@ -1,4 +1,4 @@
-
+var tips;
 		function updateTips( t ) {
 			tips
 				.text( t )
@@ -33,12 +33,12 @@
 
 function processMenuClick(menuLabel, patientId)
 {
-	
+		
 	if (menuLabel == "Add Tab")
 	{
-		var tabNameObj = $( "#tabName" ),
-
-			tips = $( ".validateTips" );		
+		var tabNameObj = $( "#tabName" );
+			tips = $( ".validateTips" );
+		
 	$( "#dialog-newTab" ).dialog( "destroy" );
 		$( "#dialog-newTab" ).dialog({
 			autoOpen: false,
@@ -70,7 +70,18 @@ function processMenuClick(menuLabel, patientId)
 	
 	
 
-		$( "#dialog-newTab" ).dialog( "open" );
+		$( "#dialog-newTab" ).dialog( "open");
+
+		$("#dialog-newTab").keydown(function(e){
+
+                  if (e.keyCode == 13) { 
+                  	e.stopPropagation();
+                  	e.preventDefault();               
+                       $('.ui-dialog-buttonpane').find("button:contains('Add New Tab')").trigger('click');
+                  }
+
+		
+		});
 		//Code to add an empty tab
 		//var tab_num = addTab("new","chart", true);
 		//Make sure that tab is refreshed to add relevant scripts/ events
