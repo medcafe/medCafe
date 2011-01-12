@@ -93,14 +93,13 @@ $(document).ready( function() {
 
   		var draggedId;
 		// init the Sortables
-		$(".tabs").sortable({ }
+		$(".tabs").sortable({handle:'li'}
 			
 		);
 
 
 		$("#body")
-				.tabs({change: function () {}})
-				.sortable('refresh')
+				.tabs({change: function () {}}).sortable('refresh')
 			;
 
 		 medCafeTabs = {

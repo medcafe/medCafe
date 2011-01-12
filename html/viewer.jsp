@@ -9,7 +9,15 @@
 		tab_set = "tabs";
 	if (imageName == null)
 		imageName = "chest-xray.jpg";
+	else
+	{
+		int pos = imageName.lastIndexOf("/") + 1;
+	 if (pos > 0)
+	 {
+	 	imageName = imageName.substring(pos);
 
+	 }
+	}
 	String tabNum = request.getParameter("tab_num");
 	String patientId =  request.getParameter("patient_id");
 		

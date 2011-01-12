@@ -11,11 +11,12 @@
                 <label>Change the title?</label>
                 <input value="$label"/>
             </li>
-        </ul>
+   
         <li class="item">
             <label>Available colors:</label>
             <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>
         </li>
+        </ul>
     </div>
     <div class="widget-content no-copy" id="widget-content$id">
         <span>

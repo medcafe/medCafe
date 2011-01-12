@@ -106,7 +106,7 @@ t.p('#" class="remove">CLOSE</a><a href="');
 t.p('#" class="edit">EDIT</a><a href="');
 t.p('#" class="maximize">MAXIMIZE</a>    	</div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
 t.p( context.label);
-t.p('"/>            </li>        </ul>        <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>    </div>    <div class="widget-content no-copy" id="widget-content');
+t.p('"/>            </li>           <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>        </ul>    </div>    <div class="widget-content no-copy" id="widget-content');
 t.p( context.id);
 t.p('">        <span>            <div id="aaa');
 t.p( context.id);
