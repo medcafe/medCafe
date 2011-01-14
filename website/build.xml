@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="ROOT" default="compile" basedir=".">
+
+    <target name="setProps" depends="init" description="Sets the various properties - custom ones should be in build.props.">
+        <property file="build.props" />
+        <dirname property="antfile.dir" file="${ant.file}"/>
+        <property name="warfile" value="${ant.project.name}.war" description="name of war file to build" />
+        <property name="config" value="config" description="location of WEB-INF" />
+        <property name="html" value="html" description="location of HTML pages"/>
+        <property name="webxml" value="${config}/web.xml" description="name of file to use as web.xml" />
+        <property name="webApp" value="${ant.project.name}" description="name of webapp to deploy as" />
+        <property name="release" value="v0_00" />
+        <!-- <echoproperties /> -->
+    </target>
+
+    <target name="init">
+        <tstamp />
+        <echo message="Build file: ${DSTAMP}, ${TSTAMP}" />
+    </target>
+
+    <target name="clean" depends="setProps" description="Deletes javadocs, the build directory, and any derived archive files (jars, wars, etc.)">
+        <delete dir="${doc}" />
+        <delete dir="${build}" />
+        <delete>
+            <fileset dir="." includes="${ant.project.name}*.zip" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="${ant.project.name}*.war" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="${ant.project.name}*.jar" />
+        </delete>
+        <delete>
+            <fileset dir="." includes="*.aar" />
+        </delete>
+    </target>
+
+    <target name="war" depends="init, setProps" description="Builds the war file for the application.  Will do compilation and build jar files first, if necessary.">
+        <!-- create a release file -->
+        <echo file="html/release.txt" message="Release: ${release} " />
+        <echo file="html/release.txt" append="true" message="Build date, time: ${DSTAMP}, ${TSTAMP}" />
+        <war warfile="${warfile}" webxml="${webxml}">
+            <fileset dir="${html}" />
+            <webinf dir="${config}">
+                <exclude name="context.xml"/>
+                <exclude name="web.xml"/>
+            </webinf>
+        </war>
+    </target>
+
+</project>
