@@ -7,12 +7,11 @@
             <p>Being an <a href="http://mitre.org/about/ffrdcs.html" target="blank">FFRDC</a>, MITRE has released this code under an open source license with the hope that others will explore and expand our solution and approach and build a fully-functioning EHR from it.</p>
           <h3>What To Explore Next:</h3>
 			<ul>
-                <li><a href="about.html">Advantages</a></li>
-                <li><a href="about.html#ccod">Design Principles</a></li>
-                <li><a href="screenshots.html">Screenshots</a></li>
-                <li><a href="medcafe">Live Demo</a></li>
+                <li><a href="about.jsp#advantages">Advantages</a></li>
+                <li><a href="about.jsp#design">Design Principles</a></li>
+                <li><a href="screenshots.jsp">Screenshots</a></li>
+                <li><a href="/medcafe">Live Demo</a></li>
             </ul>
-
         </div><!-- end content -->
 <jsp:include page="news.html"/>
     	<div class="clear"></div>
