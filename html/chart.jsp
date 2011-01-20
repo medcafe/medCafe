@@ -10,6 +10,10 @@
 	String widgetId = request.getParameter("widgetId");
 	if (widgetId == null)
 		widgetId="";
+	String tab_num = request.getParameter("tab_num");
+	String tab_set = request.getParameter("tab_set");
+	if (tab_set == null)
+		tab_set = "tabs";
 	String type =request.getParameter("type");
 	String typeString = "";
 	String displayValue = "none";
@@ -105,7 +109,7 @@
 	value="Pulse"> Pulse<br>
 		<input class="dataUpdate" type="button" value="Clear checkboxes" onClick="clearCheckBoxes(this.form)">
 	</div>
-	<input class="dataUpdate" type="button" value="<%=buttonText%>" onClick="processChartButton(this.form,<%=widgetId%>)">
+	<input class="dataUpdate" type="button" value="<%=buttonText%>" onClick="processChartButton(this.form,<%=widgetId%>,'<%=tab_set%>-<%=tab_num%>')">
 
 	</FORM>
     </p>

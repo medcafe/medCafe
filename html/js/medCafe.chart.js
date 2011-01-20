@@ -16,7 +16,7 @@ function processChart(obj, widgetInfo, data, tab_set)
 		tab_set ="tabs";
 	}
 	var tab_key = tab_set + "-";
-var chartObj = $('#chartform'+widgetInfo.id);
+var chartObj = $('#'+tab_set + ' #chartform'+widgetInfo.id);
 	$("#aaa" + widgetInfo.id).mousemove(function(e) {e.stopPropagation();});
  processChartButton(chartObj, widgetInfo.id, tab_key+widgetInfo.tab_num);
 	// fetch one series, adding to what we got
@@ -55,7 +55,8 @@ function processChartButton(frm, widgetId, tabSelect)
 	var dataurl = "chartJSON.jsp?"
 	var vitals = $(frm).find("input:checked[name='vitalType']")
 	  //For each checkbox see if it has been checked, record the value.
-	  if (vitals.length >0)
+
+	  if (vitals.length != NaN && vitals.length >0)
 	  {
    for (var i = 0; i < vitals.length; i++)
    {
@@ -64,6 +65,8 @@ function processChartButton(frm, widgetId, tabSelect)
       	{
       		$.getJSON(dataurl+"type="+$(vitals[i]).val(), function(data)
 				{
+					if (data == null)
+						data={};
 					onDataReceived(data, widgetId, tabSelect);
 				 });
 			}
@@ -71,10 +74,14 @@ function processChartButton(frm, widgetId, tabSelect)
       	{
       		$.getJSON(dataurl+"type=Systolic", function(data)
 				{
+					if (data == null)
+						data={};
 					onDataReceived(data, widgetId, tabSelect);
 				 });
 				$.getJSON(dataurl+"type=Diastolic", function(data)
 				{
+					if (data == null)
+						data={};
 					onDataReceived(data, widgetId, tabSelect);
 				 });
 				
