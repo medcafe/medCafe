@@ -127,7 +127,7 @@
 
         $("#west-sections").addClass("ui-accordion ui-widget ui-helper-reset")
         .find("h6")
-            .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
+            .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom fg-button-icon-right")
             .prepend('<span class="ui-icon ui-icon-triangle-1-e"/>')
             .click(function() {
                 $(this).toggleClass("ui-accordion-header-active").toggleClass("ui-state-active")
