@@ -7,13 +7,6 @@
     <div id="main">
 		<div id="fullcontent">
 			<h2>Licenses</h2>
-			<div class="menu">
-                <ul style="margin-bottom:0px;">
-                    <li><a href="#1">Javascript</a></li>
-                    <li><a href="#2">Java</a></li>
-                </ul>
-			</div>
-			<br clear="all"/>
             <a name="1"></a><h3>Javascript</h3>
             <table>
                 <thead>

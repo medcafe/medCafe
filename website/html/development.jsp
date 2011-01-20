@@ -14,7 +14,7 @@
             <p>Instructions for obtaining source code will be here.</p>
             <p><a href="#top">Top</a></p>
             <%--  --%>
-            <a name="1"></a><h3>Plugin Guilde</h3>
+            <a name="1"></a><h3>Plugin Guide</h3>
             <p>The Plugin Guide, or instructions on how to get it will be here.</p>
             <p><a href="#top">Top</a></p>
         </div><!-- end content -->

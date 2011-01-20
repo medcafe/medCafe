@@ -338,6 +338,6 @@ span.required {
     border solid black 2px;
     width:250px;
     padding: 10px;
-    float:left;
+    float:right;
     margin-right:15px;
 }

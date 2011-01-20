@@ -12,15 +12,15 @@
                     <li><a href="#4">Java Libraries</a></li>
                 </ul>
 			</div>
-            <a name="1"></a><h3>The MITRE Corproation</h3>
-            <p>This work was completed under a MITRE Corporation internal research project.  Without their support this would not have been possible. </p>
-            <p><a href="#top">Top</a></p>
+            <img src="images/image1.gif" alt="MITRE logo" style="float:left;"/>
+            <a name="1"></a>
+            <p>This work is the result of a MITRE internal research project.  Without their support this would not have been possible. </p>
             <%-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --%>
-            <a name="2"></a><h3>jQuery<sup>1</sup></h3>
+            <a name="2"></a><h3>jQuery<sup><a href="#note">1</a></sup></h3>
             <p>Much of the fuctionality in this system is possible because of the <a href="jquery.com">jQuery</a> and <a href="http://jquery-ui.com">jQuery-UI</a> projects.</p>
             <p><a href="#top">Top</a></p>
             <%-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --%>
-            <a name="3"></a><h3>jQuery Plugins<sup>1</sup></h3>
+            <a name="3"></a><h3>jQuery Plugins<sup><a href="#note">1</a></sup></h3>
             <p>The following jQuery plugins were used to provide additional functionality for the user interface
                 <ul>
                     <li><a href="http://www.filamentgroup.com/lab/update_jquery_ui_slider_from_a_select_element_now_with_aria_support//">UI Slider</a></li>
@@ -38,9 +38,8 @@
                     <li><a href="http://www.filamentgroup.com/lab/update_jquery_ui_slider_from_a_select_element_now_with_aria_support">UISlider</a></li>
                 </ul>
             </p>
-            <p><a href="#top">Top</a></p>
             <%-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --%>
-            <a name="4"></a><h3>Jave Libraries<sup>1</sup></h3>
+            <a name="4"></a><h3>Jave Libraries<sup><a href="#note">1</a></sup></h3>
             <p>The following java libraries were used to provide additional functionality for the back end
                 <ul>
                     <li><a href="http://code.google.com/p/google-gson/">Google JSON</a></li>
@@ -50,7 +49,7 @@
                     <li><a href="http://www.projecthdata.org">hData</a></li>
                 </ul>
             </p>
-            <p><a href="#top">Top</a></p>
+            <a name="note"/>
             <p><sup>1</sup>The licenses for all the included pieces can be found <a href="licenses.jsp">here</a>.
         </div><!-- end content -->
     	<div class="clear"></div>
