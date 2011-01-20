@@ -104,9 +104,7 @@ $.fn.medcafeTouch = function(options) {
 				var widgetInfo = {
 			
 				"patient_id" : patientId,
-				"rep_patient_id" : "",
 				"location" : "center",
-				"repository" : $(dragObj).find('img').attr("custom:repository"),
 				"type" : $(dragObj).find('img').attr("custom:type"),
 				"name" : $(dragObj).find('p').text(),
 				"clickUrl" : $(dragObj).find('img').attr("custom:url"),
@@ -139,28 +137,12 @@ $.fn.medcafeTouch = function(options) {
 					widgetInfo.id = addWidgetNum(widgetInfo);
 
 	
-            	var serverLink = "retrievePatientRepositoryAssoc.jsp";
-				var repPatientJSON;
-				$.getJSON(serverLink,function(data)
-				{		      	  	  
-						repPatientJSON = data;	  
-						var len = repPatientJSON.repositories.length;
-						var x;
-						for (x in repPatientJSON.repositories)
-						{	  		
-							test = repPatientJSON.repositories[x].repository;
-							if (test == widgetInfo.repository)
-							{
-								  widgetInfo.rep_patient_id = repPatientJSON.repositories[x].id;
-								  console.log("medCafe.touch.js getRepId rep id: " + widgetInfo.rep_patient_id);
-							}
-								  		
-						}
+
 						//Tab already has content Create a new Tab
 						createWidgetContent(widgetInfo, true);
 
       					clearWidgets();
-			   });
+
 				}
 				
 			});		   

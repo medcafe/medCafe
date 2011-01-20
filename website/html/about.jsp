@@ -25,7 +25,7 @@
             <h4>TODO</h4>
             <p>Stuff for UDOP</p>
             <h4>Best of breed components</h4>
-            <p>Because the components are independent of each other, they can be replaced on a case by case basis, or even deployed side by side.  This prevents vendor lock-in to a certain user interface.  Consider: if a UI is purchased and part of it is not suitable for your needs, you can replace just part of the entire thing.  Or, UI's dedicated to certain specialties can be added to a generic interface to server a subset of users.</p>
+            <p>Because the components are independent of each other, they can be replaced on a case by case basis, or even deployed side by side.  This prevents vendor lock-in to a certain user interface.  Consider: if a UI is purchased and part of it is not suitable for your needs, you can replace just part of the entire thing.  Or, UI's dedicated to certain specialties can be added to a generic interface to serve a subset of users.</p>
             <h4>Easy to specialize</h4>
             <p>If you have a need to set up access for just a certain specialty, just the components that are needed can be deployed – no more need to field a one-size-fits-all solution, the vast majority of which you don't need.</p>
             <h4>Smooth transition</h4>

@@ -305,7 +305,7 @@ $(document).ready( function() {
 				var widgetLabel = $(this).find('.id').attr("id");
 				
 			//	var widgetLabel = $(this).attr("id");
-				var testLabel  = widgetInfo.name+widgetInfo.rep_patient_id;
+				var testLabel  = widgetInfo.name+widgetInfo.patient_id;
 			   var yellows = $(this);
 			//	var yellows= $(this).find('.widget');
 				if (yellows!="undefined")
@@ -461,10 +461,10 @@ $(document).ready( function() {
 
 			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
 			//alert("Server: " +widgetInfo.server + " url: " + widgetInfo.clickUrl);
-			var serverLink =  widgetInfo.clickUrl + "?widgetId="+widgetInfo.id;
+			var serverLink =  widgetInfo.clickUrl + "?widgetId="+widgetInfo.id+"&tab_set="+widgetInfo.tab_set;
 			if (widgetInfo.type != "Repository")
 			{
-				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&patient_rep_id=" + widgetInfo.rep_patient_id + "&tab_num=" +
+				serverLink =  serverLink + "&patient_id=" + widgetInfo.patient_id + "&tab_num=" +
 				widgetInfo.tab_num;
 			}
 			if (widgetInfo.cacheKey!= undefined && widgetInfo.cacheKey !="")

@@ -82,7 +82,7 @@ t.p( context.tab_set);
 t.p( context.id);
 t.p('">	<div id = ');
 t.p( context.name);
-t.p( context.rep_patient_id);
+t.p( context.patient_id);
 t.p(' class = "id">');
 return t.toString();
 }
@@ -97,7 +97,7 @@ t.p( context.tab_set);
 t.p( context.id);
 t.p('"><div id = ');
 t.p( context.name);
-t.p( context.rep_patient_id);
+t.p( context.patient_id);
 t.p(' class = "id">    	<div style="cursor: move;" class="widget-head">         <a href="');
 t.p('#" class="collapse">COLLAPSE</a><h3>');
 t.p( context.label);

@@ -78,6 +78,7 @@ public class MedCafeComponent
 	private String cacheKey = "";
 	private boolean jsonProcess= false;
 	private boolean isINettuts = true;
+	private String componentClass="";
 	
 	public static final String NAME = "name";
 	public static final String ORDER = "order";
@@ -97,6 +98,7 @@ public class MedCafeComponent
 	public static final String XML_WIDGET = "medCafeWidget";
 	public static final String INTERNAL_WIDGET = "internal";
 	public static final String CACHE_KEY = "cacheKey";
+	public static final String COMPONENT_CLASS = "componentClass";
 	
 	public MedCafeComponent()	
 	{
@@ -234,6 +236,7 @@ public class MedCafeComponent
 		    		 		//component.setRepository(repository);
 		    		 		//component.setServer(server);
 		    		 		component.setTempDir(tempDir);
+		    		 		component.setComponentClass(type);
 		    		 		componentList.add(component);
 		    		 		
 		    		 	}
@@ -374,6 +377,8 @@ public class MedCafeComponent
    	 jsonObj.put(MedCafeComponent.JSON_PROCESS, String.valueOf(jsonProcess));
    	 jsonObj.put(MedCafeComponent.IS_INETTUTS, String.valueOf(isINettuts));
    	 jsonObj.put(MedCafeComponent.CACHE_KEY, cacheKey);
+   	 jsonObj.put(MedCafeComponent.COMPONENT_CLASS, componentClass);
+   	 
     	 return jsonObj;
 	}
 
@@ -425,6 +430,14 @@ public class MedCafeComponent
 	public void setCacheKey(String cacheKey)
 	{
 		this.cacheKey = cacheKey;
+	}
+	public void setComponentClass(String componentClass)
+	{
+		this.componentClass = componentClass;
+	}
+	public String getComponentClass()
+	{
+		return componentClass;
 	}
 	public void setDefaults()
 	{

@@ -58,7 +58,6 @@ $(function(){
 			var widgetInfo = {
 			
 				"patient_id" : "<%=patientId%>",
-				"rep_patient_id" : "",
 				"location" : "<%=location%>",
 				
 				"type" : $(img).attr("custom:type"),

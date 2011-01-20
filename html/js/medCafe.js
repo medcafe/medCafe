@@ -168,28 +168,9 @@ $(document).ready( function() {
 	 		imageTitle = imageTitle.substring(pos, imageTitle.length);
 
 	 	}
-		//alert("medCafeTabs " +  tab_num + " about to call setHasContent  set to " + true  );
 
-		//alert("callObj " + callObj);
-		//Delay to let the DOM refresh
-	/*	$(callObj).delay(200,function()
-		{
-			//iNettuts.refresh("yellow-widget" + widgetInfo.id);
-
-			$("#tabs-" + widgetInfo.tab_num).append('<iframe frameborder="0" id="iframe'+ widgetInfo.tab_num+ '" name="iframe'+ widgetInfo.tab_num+ '" width="720" height="350"/>');
-			$(callObj).delay(100,function()
-			{
-				$('#iframe'+ widgetInfo.tab_num).attr('src', widgetInfo.clickUrl +"?tab_num=" + widgetInfo.tab_num + "&patient_id=" + widgetInfo.patient_id + "&rep_patient_id="  + widgetInfo.rep_patient_id+ "&image=" + imageTitle);
-
-			} );  */
-
-			//iNettuts.makeSortable();
-			//setHasContent(widgetInfo.tab_num);
-
-			//Try to add a scroll
-			//$("#aaa" + tab_num).jScrollTouch({height:'380',width:'800'});
 			medCafeWidget.populateExtWidgetSettings(widgetInfo);
-		//} );
+
 	}
 
 	function addCoverflow(callObj, server, tab_num, patientId, patientRepId)
@@ -198,7 +179,7 @@ $(document).ready( function() {
 		//Delay to let the DOM refresh
 		$(callObj).delay(100,function()
 		{
-			//iNettuts.refresh("yellow-widget" + tab_num);
+
 
 			$("#aaa" + tab_num).append('<iframe id="iframe'+ tab_num+ '" name="iframe'+ tab_num+ '" width="800" height="400"/>');
 			$(callObj).delay(100,function()
@@ -206,8 +187,7 @@ $(document).ready( function() {
 				$('#iframe'+ tab_num).attr('src', server +"?tab_num=" + tab_num + "&patient_id=" + patientRepId);
 			} );
 
-			//iNettuts.makeSortable();
-			//setHasContent(tab_num);
+
 		} );
 	}
 
@@ -376,36 +356,7 @@ function displayImage(callObj, widgetInfo, data, tab_set)
 	 	imageTitle = imageTitle.substring(pos, imageTitle.length);
 
 	 }
-//	 var fileType = "";
-//	 pos = server.lastIndexOf(".") + 1;
-//	 if (pos > 0)
-//	 {
-//	 	fileType = server.substring(pos);
-//	 }
-//	 
-	
-	//if (fileType != "pdf")
-//	{
-//		 if ( tab_num == -1)
-//		 {
-//		  	tab_num = addTab(imageTitle, "Image", false);
-//		 }
-	 
-	  /*   var text = "<div id=\"content\">\n<input id=\"viewerButton" + tab_num + "\" type=\"button\" value=\"Viewer\"/>\n" +
 
-					 "<div id=\"content\">\n<input id=\"editButton" + tab_num + "\" type=\"button\" value=\"Annotate\"/>\n" +
-					"<a href=\"" + server +"\" class=\"jqzoom" + tab_num + "\" style=\"\" title=\"" + imageTitle +"\">\n" +
-					"<img src=\"" + server + "\"  title=\""+ imageTitle + "\" width=\"300\" style=\"border: 1px solid #666;\">\n" +
-					"</a>" + 
-     				 "</div>\n" +
-					"</div>\n";
-
-		
-         var viewerText =  "\n<div id=\"viewer\" class=\"viewer\"></div>\n";  */
-
-        // iNettuts.refresh("yellow-widget" + tab_num);
-		 //$("#aaa" + tab_num).append("<img src='" + server+ "?image=<%=server%>' alt='"+ imageName+ "' width='400'/>");
-		 //alert("medCafe.js addTab text to add to aaa" + tab_num + " " + text);
 
 		  $(this).delay(500,function()
 		 {
@@ -433,8 +384,6 @@ function displayImage(callObj, widgetInfo, data, tab_set)
 				{
 				var newWidget = {
 					"patient_id" : widgetInfo.patient_id,
-					"rep_patient_id" : widgetInfo.rep_patient_id,
-					"repository" : "local",
 					"type" : "Viewer",
 					"name" : "Viewer",
 					"server" : "",
@@ -472,8 +421,6 @@ function displayImage(callObj, widgetInfo, data, tab_set)
 				{
 					var newWidget = {
 						"patient_id" : widgetInfo.patient_id,
-						"rep_patient_id" : widgetInfo.rep_patient_id,
-						"repository" : "local",
 						"type" : "Annotate",
 						"name" : "Annotate", 
 						"server" : "",
@@ -489,18 +436,16 @@ function displayImage(callObj, widgetInfo, data, tab_set)
 
 
 					};
-				//	var type= "Annotate";
-				//	var label = imageTitle +"Annotate";
+
 
 					var newTab_num = addTab(newWidget.name + ": " + imageTitle, newWidget.type, newWidget.isINettuts);
 					newWidget.tab_num = newTab_num;
-					//var link =  "annotate.jsp?tab_num=" + newTab_num + "&imageName=" + server;
-					//var link = "viewerDraw.jsp?tab_num=" + newTab_num + "&image=" + imageTitle + "&patient_id=" + patientId;
+
 					newWidget.id = addWidgetNum(newWidget);
 				   newWidget.clickUrl = "viewerDrawFrame.jsp"
-				 //	addChart(this, newWidget, imageTitle);
+
 					createWidgetContent(newWidget, false, tab_set);
-					//createWidgetContent(patientId,link, label, type ,newTab_num, "","","");
+
 
 				});
 
@@ -508,37 +453,8 @@ function displayImage(callObj, widgetInfo, data, tab_set)
 			  } );
 
 
-		  });//2nd delay
-/*	
-	}
-	else
-	{    */
-			/*	var widgetInfo = {
-					"patient_id" : patientId,
-					"rep_patient_id" : patientId,
-					"repository" : "local",
-					"type" : "Viewer",
-					"name" : imageTitle+"Viewer",
-					"server" : "",
-					"tab_num": "",
-					"image" : imageName,
-					"column" : 1,
-					"jsonProcess" : false,
-					"params" : ""
+		  });
 
-				};   */
-					//var type= "Viewer";
-					//var label = imageTitle +"Viewer";
-
-			
-		/*			widgetInfo.id = addWidgetNum(widgetInfo);
-					//var link = "viewer.jsp?tab_num=" + newTab_num + "&image=" + server;
-					widgetInfo.clickUrl = "viewer.jsp";
-					widgetInfo.image = server;
-					createWidgetContent(widgetInfo);   */
-			/*		window.open(imageName, name);
-
-	}   */
 }
 
 function initClose()

@@ -19,7 +19,7 @@
 	
 	 
 	String patient_id = request.getParameter("patient_id");
-	String rep_patient_id = request.getParameter("rep_patient_id");
+
 
 	String tab_num = request.getParameter("tab_num");	
 
@@ -28,7 +28,7 @@
 
     <body>
      <iframe frameborder="0" id="<%=tab_set%>iframe<%=widgetId%>" name="<%=tab_set%>iframe<%=widgetId%>" width="720" height="350" 
-     src="viewerDraw.jsp?tab_num=<%=tab_num%>&patient_id=<%=patient_id%>&rep_patient_id=<%=rep_patient_id%>&image=<%=imageName%>&tab_set=<%=tab_set%>&widgetId=<%=widgetId%>"/>
+     src="viewerDraw.jsp?tab_num=<%=tab_num%>&patient_id=<%=patient_id%>&image=<%=imageName%>&tab_set=<%=tab_set%>&widgetId=<%=widgetId%>"/>
 
 
 

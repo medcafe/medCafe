@@ -53,11 +53,11 @@ public class Widget
 	//Parameters that are common to all Widgets
 	private int patientId =0;
 	private int id =0;
-	private String repPatientId = "";
+	//private String repPatientId = "";
 
 	private int tabOrder =0;
 	private String location = Constants.CENTER_PANE;
-	private String repository = "";
+	//private String repository = "";
 	private String type ="";
 	private String name ="";
 	private String server ="";
@@ -139,7 +139,7 @@ public class Widget
 		 o.put(Widget.TAB_ORDER, this.getTabOrder());
 		 o.put(Widget.NAME, this.getName());
 		 o.put(Widget.SERVER, this.getServer());
-		 o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
+		// o.put(Widget.REP_PATIENT_ID, this.getRepPatientId());
 		 o.put(Widget.TAB_NUMBER, this.getTab_num());
 		 o.put(Widget.COLUMN, this.getColumn());
 		 o.put(Widget.IS_INETTUTS, this.getIsINettuts());
@@ -310,6 +310,7 @@ public class Widget
 						  widgetJSON.put(MedCafeComponent.IS_INETTUTS, comp.getIsINettuts());
 						  widgetJSON.put(MedCafeComponent.PARAMS, comp.getParams());
 						  widgetJSON.put(MedCafeComponent.CACHE_KEY, comp.getCacheKey());
+						  widgetJSON.put(MedCafeComponent.COMPONENT_CLASS, comp.getComponentClass());
 						  }                		
                     ret.append("widgets", widgetJSON);
 					 }
@@ -390,8 +391,8 @@ public class Widget
 					widget.setName(value);
 				else if (param.equals(Widget.SERVER))
 					widget.setServer(value);
-				else if (param.equals(Widget.REP_PATIENT_ID))
-					widget.setRepPatientId(value);
+				//else if (param.equals(Widget.REP_PATIENT_ID))
+				//	widget.setRepPatientId(value);
 				else if (param.equals(Widget.COLUMN))
 					widget.setColumn(value);
 				else if (param.equals(Widget.TAB_NUMBER))
@@ -506,9 +507,9 @@ public class Widget
 		this.server = server;
 	}
 
-	public String getRepPatientId() {
-		return repPatientId;
-	}
+	//public String getRepPatientId() {
+	//	return repPatientId;
+	//}
 	public String getIsINettuts() {
 		return isINettuts;
 	}
@@ -517,9 +518,9 @@ public class Widget
 		this.isINettuts = isINettuts;
 	}
 
-	public void setRepPatientId(String repPatientId) {
+/*	public void setRepPatientId(String repPatientId) {
 		this.repPatientId = repPatientId;
-	}
+	} */
 	public void setCollapsed(String collapsed)
 	{
 		this.collapsed = collapsed;

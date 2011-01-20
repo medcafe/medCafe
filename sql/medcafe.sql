@@ -340,34 +340,28 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 7, 'gaily', 'name', 'Summary');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'order', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'type', 'Allergies');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'name', 'Allergies');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'rep_patient_id', '7');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'server', '');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'clickUrl', 'allergyJSON.jsp');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'tab_num', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'gaily', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'order', '3');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'type', 'Medications');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'clickUrl', 'prescriptionJSON.jsp');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'server', '');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'tab_num', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'gaily', 'rep_patient_id', '7');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'order', '4');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'type', 'Bookmarks');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'clickUrl', 'bookmarksJSON.jsp');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'tab_num', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'gaily', 'server', '');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'gaily', 'rep_patient_id', '7');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 2, 'gaily', 'order', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 2, 'gaily', 'type', 'tab');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 2, 'gaily', 'tab_num', '1');
@@ -409,8 +403,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'rep_patient_id', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 6, 'mgreer', 'order', '1');
@@ -423,8 +415,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'mgreer', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'mgreer', 'rep_patient_id', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'server', '');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'mgreer', 'clickUrl', 'prescriptionJSON.jsp');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'remove', 'false');
@@ -435,8 +425,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'mgreer', 'server', '');
@@ -452,8 +440,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'rep_patient_id', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'mgreer', 'server', '');
@@ -463,8 +449,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 6, 'mgreer', 'server', '');
@@ -479,8 +463,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'type', 'EditorNonIFrame');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'rep_patient_id', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'name', 'Editor');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'mgreer', 'server', '');
@@ -490,8 +472,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'rep_patient_id', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 2, 'mgreer', 'server', '');
@@ -501,8 +481,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'rep_patient_id', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 2, 'mgreer', 'server', '');
@@ -512,8 +490,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'rep_patient_id', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 2, 'mgreer', 'server', '');
@@ -528,8 +504,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES ( 2, 3, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'mgreer', 'server', '');
@@ -539,8 +513,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'mgreer', 'server', '');
@@ -555,8 +527,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 3, 'mgreer', 'server', '');
@@ -571,8 +541,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'rep_patient_id', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'mgreer', 'server', '');
@@ -593,8 +561,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 5, 'mgreer', 'remove', 'false');
@@ -606,8 +572,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'mgreer', 'server', '');
@@ -619,8 +583,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'mgreer', 'server', '');
@@ -640,8 +602,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 4, 'mgreer', 'server', '');
@@ -651,8 +611,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'order', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 4, 'mgreer', 'server', '');
@@ -662,8 +620,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'type', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'order', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'rep_patient_id', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'name', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 4, 'mgreer', 'server', '');
@@ -683,11 +639,7 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'mgreer', 'name', 'Details');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'mgreer', 'rep_patient_id', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'mgreer', 'server', '');
@@ -698,8 +650,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'rep_patient_id', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 10, 'mgreer', 'server', '');
@@ -714,8 +664,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 5, 'mgreer', 'server', '');
@@ -725,8 +673,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'order', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 5, 'mgreer', 'server', '');
@@ -738,8 +684,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'mgreer', 'server', '');
@@ -749,8 +693,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'type', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'name', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 8, 'mgreer', 'server', '');
@@ -760,8 +702,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'order', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 8, 'mgreer', 'server', '');
@@ -771,8 +711,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'order', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 8, 'mgreer', 'server', '');
@@ -782,8 +720,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'rep_patient_id', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 2, 'jpiescik', 'server', '');
@@ -803,8 +739,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 8, 'jpiescik', 'server', '');
@@ -814,8 +748,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'type', 'Immunizations');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'rep_patient_id', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'name', 'Immunizations');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 8, 'jpiescik', 'server', '');
@@ -830,8 +762,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'rep_patient_id', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 10, 'jpiescik', 'server', '');
@@ -841,8 +771,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'rep_patient_id', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 10, 'jpiescik', 'server', '');
@@ -857,8 +785,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 5, 'jpiescik', 'server', '');
@@ -868,8 +794,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 5, 'jpiescik', 'server', '');
@@ -884,8 +808,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'type', 'Support');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'name', 'SupportInfo');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 4, 'jpiescik', 'server', '');
@@ -895,8 +817,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 4, 'jpiescik', 'server', '');
@@ -906,8 +826,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 4, 'jpiescik', 'server', '');
@@ -922,8 +840,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'rep_patient_id', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'jpiescik', 'server', '');
@@ -933,8 +849,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'type', 'Immunizations');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'rep_patient_id', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'name', 'Immunizations');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'jpiescik', 'server', '');
@@ -949,8 +863,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 3, 'jpiescik', 'server', '');
@@ -960,8 +872,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 3, 'jpiescik', 'server', '');
@@ -976,8 +886,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'jpiescik', 'server', '');
@@ -987,8 +895,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'jpiescik', 'server', '');
@@ -998,8 +904,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'jpiescik', 'server', '');
@@ -1014,8 +918,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'rep_patient_id', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 6, 'jpiescik', 'server', '');
@@ -1025,8 +927,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'rep_patient_id', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 6, 'jpiescik', 'server', '');
@@ -1041,8 +941,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 7, 'jpiescik', 'server', '');
@@ -1052,8 +950,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'rep_patient_id', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 7, 'jpiescik', 'server', '');
@@ -1063,8 +959,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'rep_patient_id', '');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 7, 'jpiescik', 'server', '');
@@ -1079,8 +973,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'rep_patient_id', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 1, 'mgreer', 'server', '');
@@ -1090,8 +982,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'type', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'rep_patient_id', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'name', 'Medications');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 1, 'mgreer', 'server', '');
@@ -1101,8 +991,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'type', 'Image');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'name', 'Images');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 1, 'mgreer', 'server', '');
@@ -1112,8 +1000,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 1, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 1, 'mgreer', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 1, 'mgreer', 'order', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 1, 'mgreer', 'rep_patient_id', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 1, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 9, 'mgreer', 'tab_num', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 9, 'mgreer', 'remove', 'false');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (1, 9, 'mgreer', 'order', '1');
@@ -1124,8 +1010,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'order', '2');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (2, 9, 'mgreer', 'server', '');
@@ -1135,8 +1019,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'order', '4');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (4, 9, 'mgreer', 'server', '');
@@ -1146,8 +1028,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'type', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'order', '3');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'name', 'Problem');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (3, 9, 'mgreer', 'server', '');
@@ -1157,8 +1037,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'type', 'Chart');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'order', '6');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'name', 'Charts');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (6, 9, 'mgreer', 'server', '');
@@ -1173,8 +1051,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'type', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'order', '8');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'name', 'Bookmarks');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (8, 9, 'mgreer', 'server', '');
@@ -1184,8 +1060,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'type', 'Detail');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'order', '7');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'name', 'Details');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'column', '1');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (7, 9, 'mgreer', 'server', '');
@@ -1195,8 +1069,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'type', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'order', '10');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'repository', 'OurVista');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'name', 'Allergies');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (10, 9, 'mgreer', 'server', '');
@@ -1206,8 +1078,6 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'type', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'order', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'rep_patient_id', '9');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'name', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (9, 9, 'mgreer', 'server', '');
@@ -1221,13 +1091,10 @@ INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'location', 'center');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'type', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'order', '5');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'rep_patient_id', '1');
-INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'repository', 'local');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'name', 'Symptoms');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'column', '2');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'server', '');
 INSERT INTO widget_params (widget_id, patient_id, username, param, value) VALUES (5, 1, 'mgreer', 'clickUrl', 'listHistoryTemplate.jsp');
-
 
 insert into category (category, description)  values ('NONE','No category specified');
 insert into category (category, description)  values ('Smoker','Is active smoker');

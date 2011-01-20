@@ -95,3 +95,7 @@
     text-indent: 18px;
     outline: none;
 }
+	.fg-button { clear:left; margin:0 4px 4px 20px; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
+		 a.fg-button { float:left;  }
+		 	.fg-button-icon-right { padding-right: 2.1em; }
+		 	.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }

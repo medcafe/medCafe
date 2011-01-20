@@ -506,8 +506,8 @@ public class Template extends Widget
 					widget.setName(value);
 				else if (param.equals(Template.SERVER))
 					widget.setServer(value);
-				else if (param.equals(Template.REP_PATIENT_ID))
-					widget.setRepPatientId(value);
+				//else if (param.equals(Template.REP_PATIENT_ID))
+				//	widget.setRepPatientId(value);
 				else if (param.equals(Template.COLUMN))
 					widget.setColumn(value);
 				else if (param.equals(Template.TAB_NUMBER))

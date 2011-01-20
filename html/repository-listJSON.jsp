@@ -16,11 +16,11 @@
 	//String repository = cache.getRepository();
 	String repository = request.getParameter("repository");
 	//String patientId = cache.getRepoPatientId();
-	String patientId = request.getParameter("patient_rep_id");
+	String patientId = request.getParameter("rep_patient_id");
 	String noCache = (String) request.getParameter("nocache");
 	String listRep =  "/repositories/" + repository + "/patients";
 	String cacheKey = (String) request.getParameter("cacheKey");
-	if (patientId != null && !noCache.equals("true"))
+	if (repository == null)
 	{
 		//listRep += "/" + patientId;
 		out.print(cache.retrieveObjectList("patientList"));

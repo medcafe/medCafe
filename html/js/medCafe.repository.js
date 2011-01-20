@@ -65,15 +65,13 @@ function addRepository(callObj, widgetInfo, data, tab_set)
 										done = true;
 										var patReposWidget = {
 											"id" : "",
-											"patient_id" : widgetInfo.patient_id,
-											"rep_patient_id" : detailId,
+											"patient_id" : detailId,
 											"location" : widgetInfo.location,
-											//"repository" : widgetInfo.repository,
 											"type" : "OtherDetails",
 											"name" : "DetailsOfOtherPatient",
 											//"server" : widget.server,
 											"tab_num": widgetInfo.tab_num,
-											"params" : widgetInfo.params,
+											"params" : widgetInfo.params+";rep_patient_id:"+detailId,
 											"column" : widgetInfo.column,
 											"script" : widget.script,
 											"script_file" : widget.script_file,

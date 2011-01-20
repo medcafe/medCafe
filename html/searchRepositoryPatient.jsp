@@ -91,7 +91,7 @@
   				serverLink = serverLink + append + inputVals[i].name + "=" + inputVals[i].value;
   				append = "&";
   		}
-  		//addPatientRepositoryAssoc.jsp?patient_rep_id=9&repository=OurVista
+
 		serverLink = serverLink + "&repository=" + repository;
 		
 		$.getJSON(serverLink,function(data)
@@ -144,7 +144,7 @@
          <p>
         	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;" id="searchPatientParams">
 			<table>
-			<!--tr><td>Patient Repository Id</td><td><input type="text" name="patient_rep_id" value="10"></input></td></tr-->
+
 			<tr><td>Repository</td><td><div id="listRepositories"></div></td></tr>
 			<tr><td>First Name</td><td><input type="text" name="first_name" value=""/></td></tr>
 			<tr><td>Middle Initial</td><td><input type="text" name="middle_initial" value=""/></td></tr>
