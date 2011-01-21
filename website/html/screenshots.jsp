@@ -16,7 +16,6 @@
                     $('#gallery').galleria({
                         height: 600,
                         transition: "fade"
-
                     });
                 });
             </script>

@@ -19,7 +19,7 @@
             <p>Total flexibility is not always the best thing and other concerns, such as patient safety, will likely require restrictions.  The infrastructure provided allows that sort of control as well, however that is a governance issue the implementing organization will have to put into place depending on the needs specific to them.</p>
             <h4>Small pieces</h4>
             <p>The user interface is comprised of an overarching framework and a set of small, independent pieces called components or widgets.  The components can access any available data and can provide any service to the user.</p>
-            <img src="images/architecture.png" width="300" height="115" alt="medCafe architecture" style="float:right"/>
+            <img src="images/architecture.png" width="300" height="165" alt="medCafe architecture" style="float:right"/>
             <h4>Consistent access to data</h4>
             <p>For each data source format, a translator is provided to convert that data source into a standard format.  While this takes extra initial work, the result is that every front end component can be used for every data source format and every data source has immediate access to multiple ways of publishing that data.</p>
             <p><a href="#top">Top</a></p>

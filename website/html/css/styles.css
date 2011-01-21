@@ -5,6 +5,7 @@ body {
     /* font-size: 12px; */
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 * {
     margin: 0;
@@ -71,12 +72,14 @@ li ol, li ul {
     margin: 0 auto;
     padding: 0;
     width: 960px;
+    text-align: center;
 }
 #container-inner {
     background: none repeat scroll 0 0 #FFFFFF;
     margin: 0 auto;
     padding: 0;
     width: 920px;
+    text-align: left;
 }
 #header {
     height: 88px;
@@ -328,16 +331,21 @@ span.required {
 	margin: 0 20px 10px 0;
 	display: inline;
 	float: left;
-	}
+}
 
 .menu {
     -moz-border-radius: 16px;
 	-khtml-border-radius: 16px;
 	-webkit-border-radius: 16px;
 	background-color: #dddddd;
-    border solid black 2px;
+    border: solid black 2px;
     width:250px;
     padding: 10px;
     float:right;
     margin-right:15px;
 }
+
+img { margin: 0 10px; }
+
+a img { border: none; }
+
