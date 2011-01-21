@@ -23,7 +23,7 @@
             <h4>Consistent access to data</h4>
             <p>For each data source format, a translator is provided to convert that data source into a standard format.  While this takes extra initial work, the result is that every front end component can be used for every data source format and every data source has immediate access to multiple ways of publishing that data.</p>
             <p><a href="#top">Top</a></p>
-			<a name="advantages"></a><h3>Advantages</h3>
+			<a name="advantages"></a><h3>Benefits</h3>
 			<p>Added together building a system in this manner provides the following benefits:</p>
             <h4>Patient-specific view of the health record</h4>
             <p>This allows the end user to configure their interface on a per patient basis so that the information most pertinent to the current patient is what the clinician will see.  This also has the benefit of allowing the physician to quickly remember what was discussed during the last encounter because that information is what will be seen first upon re-engaging them.  Of course, generic templates for the user interfaces can be provided ensuring a quick start for new patients. </p>
