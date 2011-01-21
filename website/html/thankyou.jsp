@@ -49,6 +49,8 @@
                     <li><a href="http://www.projecthdata.org">hData</a></li>
                 </ul>
             </p>
+            <h3>Theme</h3>
+            <p>The theme for this website is courtesy of <a href="http://www.oaksideboardshop.co.uk/" title="Theme courtesy of Oak Sideboard">Oak Sideboard</a> by way of <a href="http://www.openwebdesign.org/design/5859/yellow-flower/">Open Web Design</a>.</p>
             <a name="note"/>
             <p><sup>1</sup>The licenses for all the included pieces can be found <a href="licenses.jsp">here</a>.
         </div><!-- end content -->
