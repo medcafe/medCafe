@@ -5,21 +5,20 @@
 			<h2>Welcome to our website</h2>
              
             <p><img src="images/medCafe_logo.png" class="alignleft" alt="logo" />
-            medCafe demonstrates new, more efficient ways for a physician to interact with patient records.
+            medCafe demonstrates new, more efficient ways for to interact with health care records.
             Using an intuitive interface, a physician can build exactly the patient record he wants to see.
             Built for flexibility, medCafe demonstrates how a physician need no longer be constrained by an EHR system.
-            medCafe enables a healthcare worker to view data from multiple sources and EHR systems, all in one interface.
-            </p>
-           
+            <br/>
+            <b>medCafe is designed to change the way clinicians view healthcare records</b></p>
             <h3>medCafe Approach: Advantages for the Physician</h3>
             <p>
-            <ul><li>Adapt to clinician's individual needs and patient circumstances. Providing clinicians with the right tools and right resources at the right time</li>
-             	<li>Rapidly reacquire what was most important the last time you saw a patient</li>
-				<li>Allow users to quickly build, modify, and customize their personal patient interaction record</li>
-				<li>Use templates to mirror common patient use cases</li>
-				<li>Connect seamlessly to multiple patient record repositories</li>
-				<li>Designed for flexibility and adaptability.  Designed to change and evolve with changing needs</li>
-				<li><b>Demonstrates a more efficient way for physicians to interact with patient record</b></li>
+            <ul><li>Provides clinicians with the right tools and right resources at the right time</li>
+             	<li>Allow users to quickly build, modify, and customize the patient record</li>
+             	<li>Can save the record, to be able to immediately view on next patient visit</li>
+				<li>Can view data from multiple sources and EHR systems, all in one interface</li>
+				<li>Templates for common use cases : Allows for quick start or build and share personal templates</li>
+				<li>Designed to change and evolve with changing patient needs</li>
+				<li><b>Demonstrates a more efficient way for physicians to view patient data</b></li>
             </ul>
             </p>
             
@@ -43,7 +42,7 @@
             <p>Being an <a href="http://mitre.org/about/ffrdcs.html" target="blank">FFRDC</a>, MITRE has released this code under an open source license with the hope that others will explore and expand our solution and approach and build a fully-functioning EHR from it.</p>
           <h3>What To Explore Next:</h3>
 			<ul>
-                <li><a href="about.jsp#advantages">Advantages</a></li>
+                <li><a href="about.jsp#advantages">Benefits</a></li>
                 <li><a href="about.jsp#design">Design Principles</a></li>
                 <li><a href="screenshots.jsp">Screenshots</a></li>
                 <li><a href="/medcafe">Live Demo</a></li>
