@@ -425,7 +425,8 @@ $(document).ready( function() {
 			if (pos > 0)
 				windowLabel = windowLabel.substring(pos+1);
 		}
-		if (widgetInfo.type =="SingleImage" && pos > 0 && widgetInfo.image.substring(widgetInfo.image.lastIndexOf("." )+1) == 'pdf')
+
+		if (widgetInfo.type =="SingleImage" && widgetInfo.image.substring(widgetInfo.image.lastIndexOf("." )+1) == 'pdf')
 		{
 		  
 			widgetInfo.pdf = true;
@@ -433,7 +434,8 @@ $(document).ready( function() {
 			pos = windowLabel.lastIndexOf("/");
 			if (pos > 0)
 				windowLabel = windowLabel.substring(pos+1);
-			widgetInfo.windowObj = window.open(widgetInfo.image, windowLabel);
+			var dir = "images/patients/" + widgetInfo.patient_id + "/"
+			widgetInfo.windowObj = window.open(dir+widgetInfo.image, windowLabel);
 			widgetInfo.windowObj.focus();
 			medCafeWidget.populateExtWidgetSettings(widgetInfo);
 		}
