@@ -1,5 +1,6 @@
 #!/bin/bash
-for f in `find . -name "*gif"`
+#for f in `find . -name "*gif"`
+for f in `find . -name "*pdf"`
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name
