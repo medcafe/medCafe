@@ -221,35 +221,30 @@
 
 <div class="ui-layout-west  ui-corner-all">
     <div id="west-sections" class="ui-layout-content">
-        <h6 id="patient-search"><center><a href="#">Patient Search</a></center></h6>
-        <div class="widget" id="intro" >
-            <div class="widget-content">
-                <p>
-                    <object  height="200" width="240" id="patient_searchFrame" data="http://${server}/searchPatients.jsp"><PARAME name-frameborder value=0></object>
-                </p>
-            </div>
-        </div>
-        <h6><center><a href="#" >Schedule</a></center></h6>
-        <div id="calendar"  class="widget-content"></div>
-         <h6 id="#"><center><a href="#">Options</a></center></h6>
-         <div>
-
-      
-            <a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
-                <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
-            </a>
-            <div id="search-engines" class="hidden"></div>
-            <%-- <button id="addTabBtn">Add Tab</button> --%>
+    	<h6 id="patient-search"><center><a href="#">Patient Search</a></center></h6>
+		<div class="widget" id="intro" >
+			<div class="widget-content">
+         	<p>
+           		<object  height="200" width="240" id="patient_searchFrame" data="http://${server}/searchPatients.jsp"><PARAME name-frameborder value=0></object>
+            </p>
+			</div>
+		</div>
+      <h6><center><a href="#" >Schedule</a></center></h6>
+      <div id="calendar"  class="widget-content"></div>
+      <h6 id="#"><center><a href="#">Options</a></center></h6>
+      <div>
+			<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
+         <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
+         </a>
+         <div id="search-engines" class="hidden"></div>
+          	<%-- <button id="addTabBtn">Add Tab</button> --%>
        
-       		<a tabindex="1" href="#template_list" 
-       			class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="template">
-                <span class="ui-icon ui-icon-triangle-1-s"></span>Templates
-            </a>
-            
-            <div id="template_list" class="hidden"></div>
-       	 <a tabindex="2" href="logout.jsp" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">Logout</a>	
-
-        </div
+       	<a tabindex="1" href="#template_list" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="template">
+         <span class="ui-icon ui-icon-triangle-1-s"></span>Templates
+        	</a>
+         <div id="template_list" class="hidden"></div>
+       	<a tabindex="2" href="logout.jsp" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">Logout</a>
+		</div>
 	</div>
 </div>
 <div class="ui-layout-north" id="banner2">

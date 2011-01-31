@@ -118,7 +118,7 @@
         this.img_object.y = 0;
         
         //init object
-        this.img_object.object = $(me  + " > <img>").load(function(){
+        this.img_object.object = $("<img>").load(function(){
             me.img_object.display_width = me.img_object.orig_width = this.width;
             me.img_object.display_height = me.img_object.orig_height = this.height;
             $(this)
