@@ -3,45 +3,33 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 	 android:layout_width="fill_parent" android:layout_height="wrap_content" 
-		android:orientation="vertical"> 
+		android:orientation="vertical" android:background="@color/White"> 
 
-		<LinearLayout android:layout_width="fill_parent" 
-	 	 android:layout_height="wrap_content" android:orientation="vertical"> 
-	 	 	 	 
-	 	 <TextView android:layout_width="wrap_content" 
-		 	 android:layout_height="wrap_content" android:id="@+id/repository" android:textSize="20sp" 
-	android:padding="5dp"/> 
-		 	 
-		 	 <TextView android:layout_width="wrap_content" 
-		 	 android:layout_height="wrap_content" android:id="@+id/patient_id" android:textSize="16sp" 
-	android:padding="5dp" /> 
-	 	 
-	 	
+	
 			<TextView android:layout_width="fill_parent" 
 			 	 android:layout_height="wrap_content" android:id="@+id/medication" android:textSize="14sp" 
-				android:padding="5dp"  /> 
+				android:padding="5dp"   android:textColor="@color/Black"/> 
+			
+		  <TextView android:layout_width="fill_parent" 
+		 	 android:layout_height="wrap_content" android:id="@+id/effectiveTime" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black" /> 	
 			
 		 <TextView android:layout_width="fill_parent" 
 		 	 android:layout_height="wrap_content" android:id="@+id/deliveryMethod" android:textSize="14sp" 
-			android:padding="5dp"  /> 
+			android:padding="5dp" android:textColor="@color/Black" /> 
 			
 		 <TextView android:layout_width="fill_parent" 
 		 	 android:layout_height="wrap_content" android:id="@+id/patientInstructions" android:textSize="14sp" 
-			android:padding="5dp"  /> 
+			android:padding="5dp" android:textColor="@color/Black" /> 
 		 
-		  <TextView android:layout_width="fill_parent" 
-		 	 android:layout_height="wrap_content" android:id="@+id/effectiveTime" android:textSize="14sp" 
-			android:padding="5dp"  /> 
-		 
+ 
 		  <TextView android:layout_width="fill_parent" 
 		 	 android:layout_height="wrap_content" android:id="@+id/narrative" android:textSize="14sp" 
-			android:padding="5dp"  /> 
-			
+			android:padding="5dp"  android:textColor="@color/Black"/> 
+
 		  <TextView android:layout_width="fill_parent" 
 		 	 android:layout_height="wrap_content" android:id="@+id/dose" android:textSize="14sp" 
-			android:padding="5dp"  /> 
-	</LinearLayout> 
-			 	
+			android:padding="5dp"  android:textColor="@color/Black"/> 
 </LinearLayout> 
 
 

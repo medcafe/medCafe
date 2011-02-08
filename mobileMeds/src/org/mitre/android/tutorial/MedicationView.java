@@ -10,8 +10,7 @@ public class MedicationView extends LinearLayout {
 	
 	private Medication medication = null; 
 	 
-	 TextView repositoryView = null; 
-	 TextView patientNameView = null; 
+ 
 	 TextView narrativeView = null; 
 	 TextView medicationView = null; 
 	 TextView instructionsView = null; 
@@ -23,22 +22,22 @@ public class MedicationView extends LinearLayout {
 	 	 super(context); 
 	 	 LayoutInflater.from(context).inflate(R.layout.medication, this); 
 	 	 
-	 	repositoryView = (TextView) findViewById(R.id.repository); 
-	 	patientNameView = (TextView) findViewById(R.id.patient_id); 
+
+
 	 	narrativeView = (TextView) findViewById(R.id.narrative); 
 	 	medicationView = (TextView) findViewById(R.id.medication); 
 	 	instructionsView = (TextView) findViewById(R.id.patientInstructions); 
 	 	deliveryView = (TextView) findViewById(R.id.deliveryMethod); 
 	 	effectiveTimeView = (TextView) findViewById(R.id.effectiveTime); 
 	 	doseView = (TextView) findViewById(R.id.dose); 
+
 	        //repeat with other views	 	 
 	 } 
 	 
 	 public MedicationView(Context context, Medication medication) { 
 	 	 this(context); 
 	 	 this.medication = medication; 
-	 	 this.repositoryView.setText(medication.getRepository()); 
-	 	 this.patientNameView.setText(medication.getPatient_name()); 
+
 	 	 this.narrativeView.setText(medication.getNarrative()); 
 	 	 this.medicationView.setText(medication.getMedication()); 
 	 	 this.instructionsView.setText(medication.getPatientInstructions()); 
@@ -48,14 +47,7 @@ public class MedicationView extends LinearLayout {
 		 	 //repeat with other views... 
 	 } 
 	 
-	 public void setRepository(String repository){
-		 repositoryView.setText(repository);
-		}
-	 
-	 
-	 public void setPatientName(String patientName){
-		 patientNameView.setText(patientName);
-		}
+
 	 
 	  public void setNarrative(String narrative){
 		  narrativeView.setText(narrative);
@@ -80,5 +72,32 @@ public class MedicationView extends LinearLayout {
 	  public void setInstructions(String instructions){
 		  instructionsView.setText(instructions);
 		}
+	  public void adjustView()
+	  {
+
+			 changeHeightAndWidth(narrativeView);
+			 changeHeightAndWidth(medicationView);
+			 changeHeightAndWidth(instructionsView);
+			 changeHeightAndWidth(deliveryView);
+			 changeHeightAndWidth(effectiveTimeView);
+			 changeHeightAndWidth(doseView);
+
+	  }
+	  public void changeHeightAndWidth(TextView current)
+	  {
+		  if (current != null)
+		  {
+			  if (current.getText() == null || current.getText().equals(""))
+			  {
+				  current.setVisibility(GONE);
+
+			  }
+			  else
+			  {
+				  current.setVisibility(VISIBLE);
+
+			  }
+		  }
+	  }
 	  
 }

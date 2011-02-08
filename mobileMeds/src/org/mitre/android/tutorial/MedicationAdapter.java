@@ -53,15 +53,15 @@ public class MedicationAdapter extends BaseAdapter {
         }
         Medication medication = medications.get(position);
       
-        holder.item.setRepository(medication.getRepository());
+
         holder.item.setNarrative(medication.getNarrative());
-        holder.item.setPatientName(medication.getPatient_name());
+     
         holder.item.setEffectiveTime(medication.getEffectiveTime());
         holder.item.setDelivery(medication.getDeliveryMethod());
         holder.item.setDose(medication.getDose());
         holder.item.setMedication(medication.getMedication());
         holder.item.setInstructions(medication.getPatientInstructions());
-        
+        holder.item.adjustView();
         return convertView;
 	}
 	

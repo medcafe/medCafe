@@ -24,8 +24,7 @@ public class Medication{
 	
 	public static String[] MED_KEYS = new String[]{REPOSITORY_TYPE, PATIENT_NAME_TYPE,INSTRUCTIONS_TYPE,DELIVERY_TYPE,NARRATIVE_TYPE,EFFECTIVE_TIME_TYPE, MEDICATION_TYPE   };
 	
-	private String repository="OurVista";
-	private String patient_name="Patient M";
+
 	private String patientInstructions;
 	private String deliveryMethod;
 	private String narrative;
@@ -46,19 +45,7 @@ public class Medication{
 	public void setMedication(String medication) {
 		this.medication = medication;
 	}
-	public String getRepository() {
-		return repository;
-	}
-	public void setRepository(String repository) {
-		this.repository = repository;
-	}
-	public String getPatient_name() {
-		return patient_name;
-	}
-	public void setPatient_name(String patientName) {
-		patient_name = patientName;
-	}
-	
+
 	public String getPatientInstructions() {
 		return patientInstructions;
 	}
@@ -87,8 +74,7 @@ public class Medication{
 	@Override
 	public String toString()
 	{
-		return "Repository: " + repository + " Patient: " + patient_name +  
-				" Medication: " + medication + " Delivery Method : " + deliveryMethod +
+		return "Medication: " + medication + " Delivery Method : " + deliveryMethod +
 				" Patient Instructions " + patientInstructions + " Effective Time " + effectiveTime;
 		
 	}
