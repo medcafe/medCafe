@@ -2,4 +2,8 @@
 <resources>
     <string name="hello">Hello World, Twit!</string>
     <string name="app_name">Medications</string>
+    <string name="dose">dose</string>
+    <color name="PaleYellow">#fde5a7</color>
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFF</color>
 </resources>

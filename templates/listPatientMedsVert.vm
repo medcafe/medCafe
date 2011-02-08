@@ -33,7 +33,11 @@
 
 
 			#foreach( $medication in $repos.medications )
-    			<b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
+				#if($medication.medicationInformation.manufacturedMaterial.freeTextBrandName)
+    				<b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
+    			#else
+    				<b>$medication.narrative</b><br/>
+    			#end
         		## <li>Manufacturer Info: $medication.medicationInformation.manufacturedMaterial.freeTextBrandName
         		#if($medication.effectiveTime.value)
             	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  $medication.effectiveTime.value<br clear="all"/>
