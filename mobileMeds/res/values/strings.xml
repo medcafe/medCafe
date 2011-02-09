@@ -6,4 +6,5 @@
     <color name="PaleYellow">#fde5a7</color>
     <color name="Black">#000000</color>
     <color name="White">#FFFFFF</color>
+    <string name="photo">Photo</string>
 </resources>

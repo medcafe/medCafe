@@ -3,6 +3,7 @@ package org.mitre.android.tutorial;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.MalformedChunkCodingException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,15 +24,16 @@ import org.json.JSONObject;
 
 
 
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TableLayout.LayoutParams;
+import android.widget.ImageView;
+
 
 
 public class MedCafeMedication extends ListActivity {
@@ -37,6 +41,7 @@ public class MedCafeMedication extends ListActivity {
 	 private static final String TAG = "MedicationApp";
 	private static final String MEDCAFE = "http://medcafe.org/medcafe/c/repositories/OurVista/patients/7/medications";
 	private static final String MEDCAFE_MEDS = "http://medcafe.mitre.org:8081/medcafe/c/repositories/OurVista/patients/7/medications";
+	private static final String MEDCAFE_PHOTO = "http://medcafe.org/medcafe/images/patients/rosie.jpg";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,7 @@ public class MedCafeMedication extends ListActivity {
 		private String patient_name;
 		private String patient_id;
 		public static final String OBJ_NAME = "medications";
+		private Bitmap bMap;
 		
     	@Override
 		protected Long doInBackground(URL... params) {
@@ -108,7 +114,12 @@ public class MedCafeMedication extends ListActivity {
 			setContentView(R.layout.main);
 			TextView patientView = (TextView)findViewById(R.id.patient_id);
 			TextView repositoryView = (TextView)findViewById(R.id.repository);
-
+			ImageView photoView = (ImageView)findViewById(R.id.imageView1);
+			if (bMap != null)
+			{
+				photoView.setImageBitmap(bMap);
+			}
+				
 			MedicationAdapter ma = new MedicationAdapter(MedCafeMedication.this, medArray);
 			if (patient_name != null)
 				patientView.setText(patient_name);
@@ -122,7 +133,29 @@ public class MedCafeMedication extends ListActivity {
 		 private  void process(String url)
 		 {
 		    	Log.d(TAG,url);
-		   	 
+                HttpGet request = null;
+                request = new HttpGet(MEDCAFE_PHOTO);
+                try {
+                HttpClient client = new DefaultHttpClient();
+                HttpResponse photoResponse = (HttpResponse) client.execute(request);
+                Log.d(TAG,"Responses :" + photoResponse.getStatusLine().getReasonPhrase() + " " + photoResponse.getStatusLine().getStatusCode() );
+                if (photoResponse.getEntity() == null)
+                Log.d(TAG, null);
+                else
+                	Log.d(TAG, "" + photoResponse.getEntity().getContentLength());
+                BufferedHttpEntity entity = new BufferedHttpEntity(photoResponse.getEntity());
+
+                InputStream is = entity.getContent();
+                bMap = BitmapFactory.decodeStream(is);
+                } catch (IOException e) 
+                {
+                	bMap = null;
+
+		    	                                Log.d("TAG", "Unable to get photo " + e.getMessage());
+
+		    	}
+                
+  	 
 		        HttpClient httpclient = new DefaultHttpClient();
 
 		 
@@ -144,7 +177,7 @@ public class MedCafeMedication extends ListActivity {
 			        	//Log.d(TAG, builder.toString());
 			        }
 			       }
-			       catch(Exception err){
+			       catch(MalformedChunkCodingException err){
 			    	   Log.d(TAG, " " + err.getMessage() + " caught ");
 			    	//   String result = builder.toString();
 			    	/*   for (int i=0; i < result.length(); i=i+80)
@@ -252,7 +285,7 @@ public class MedCafeMedication extends ListActivity {
 	        while(keys.hasNext())
 	        {
 	            String key = (String)keys.next();
-	            Log.d(TAG, key);
+	          //  Log.d(TAG, key);
 	            process( key, json.get(key));
 	        }
 	        
@@ -284,7 +317,7 @@ public class MedCafeMedication extends ListActivity {
 				value = (String) valueObject;
 			}
 
-			Log.d(TAG, key + " " + value);
+			//Log.d(TAG, key + " " + value);
 			try {
 			if (key.equals(Medication.REPOSITORY_TYPE))
 			{
@@ -294,14 +327,20 @@ public class MedCafeMedication extends ListActivity {
 			else if (key.equals(Medication.PATIENT_NAME_TYPE))
 			{
 
-				patient_name = "Clinical M Patient";
+				patient_name = "Pharmacy Patient";
 				patient_id = value;
 			}
 			else if (key.equals(Medication.DELIVERY_TYPE))
 			{
-				Log.d(TAG, jobj.toString() + " " + jobj.getString("value"));
+				//Log.d(TAG, jobj.toString() + " " + jobj.getString("value"));
 				if (jobj!=null && !jobj.getString("value").equals(""))
 					medObj.setDeliveryMethod(jobj.getString("value"));
+			}
+			else if (key.equals(Medication.DOSE_TYPE))
+			{
+				//Log.d(TAG, jobj.toString() + " " + jobj.getString("value"));
+				if (jobj!=null && !jobj.getString("value").equals(""))
+					medObj.setDose(jobj.getString("value"));
 			}
 			else if (key.equals(Medication.EFFECTIVE_TIME_TYPE))
 			{
