@@ -20,9 +20,9 @@ public class Medication{
 	public static String NARRATIVE_TYPE = "narrative";
 	public static String EFFECTIVE_TIME_TYPE = "effectiveTime";
 	public static String MEDICATION_TYPE = "freeTextBrandName";
-	public static String DOSE = "value";
+	public static String DOSE_TYPE = "dose";
 	
-	public static String[] MED_KEYS = new String[]{REPOSITORY_TYPE, PATIENT_NAME_TYPE,INSTRUCTIONS_TYPE,DELIVERY_TYPE,NARRATIVE_TYPE,EFFECTIVE_TIME_TYPE, MEDICATION_TYPE   };
+	public static String[] MED_KEYS = new String[]{REPOSITORY_TYPE, PATIENT_NAME_TYPE,INSTRUCTIONS_TYPE,DELIVERY_TYPE,NARRATIVE_TYPE,EFFECTIVE_TIME_TYPE, MEDICATION_TYPE, DOSE_TYPE   };
 	
 
 	private String patientInstructions;

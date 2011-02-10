@@ -1,5 +1,6 @@
 package org.mitre.android.tutorial;
 import android.content.Context;
+import android.view.View;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ public class MedicationView extends LinearLayout {
 
     public MedicationView(Context context) { 
 	 	 super(context); 
-	 	 LayoutInflater.from(context).inflate(R.layout.medication, this); 
+	 	 LayoutInflater.from(context).inflate(R.layout.medication2, this); 
 	 	 
 
 
@@ -74,27 +75,34 @@ public class MedicationView extends LinearLayout {
 		}
 	  public void adjustView()
 	  {
+		  Context context = getContext();
+			
+		    View narrativeLayout =  findViewById(R.id.narrativeLayout);
 
-			 changeHeightAndWidth(narrativeView);
-			 changeHeightAndWidth(medicationView);
-			 changeHeightAndWidth(instructionsView);
-			 changeHeightAndWidth(deliveryView);
-			 changeHeightAndWidth(effectiveTimeView);
-			 changeHeightAndWidth(doseView);
+			 changeHeightAndWidth(narrativeView, narrativeLayout);
+			 View instructionsLayout = findViewById(R.id.patientInstructionsLayout);
+
+			 changeHeightAndWidth(instructionsView, instructionsLayout);
+			  View deliveryLayout =  findViewById(R.id.deliveryMethodLayout);
+			 changeHeightAndWidth(deliveryView, deliveryLayout);
+			  View effectiveTimeLayout =  findViewById(R.id.effectiveTimeLayout);
+			 changeHeightAndWidth(effectiveTimeView, effectiveTimeLayout);
+			  View doseLayout =  findViewById(R.id.doseLayout);
+			 changeHeightAndWidth(doseView, doseLayout);
 
 	  }
-	  public void changeHeightAndWidth(TextView current)
+	  public void changeHeightAndWidth(TextView current, View layout)
 	  {
 		  if (current != null)
 		  {
 			  if (current.getText() == null || current.getText().equals(""))
 			  {
-				  current.setVisibility(GONE);
+				  layout.setVisibility(GONE);
 
 			  }
 			  else
 			  {
-				  current.setVisibility(VISIBLE);
+				  layout.setVisibility(VISIBLE);
 
 			  }
 		  }

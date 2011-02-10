@@ -138,7 +138,7 @@ public class MedCafeMedication extends ListActivity {
                 try {
                 HttpClient client = new DefaultHttpClient();
                 HttpResponse photoResponse = (HttpResponse) client.execute(request);
-                Log.d(TAG,"Responses :" + photoResponse.getStatusLine().getReasonPhrase() + " " + photoResponse.getStatusLine().getStatusCode() );
+               // Log.d(TAG,"Responses :" + photoResponse.getStatusLine().getReasonPhrase() + " " + photoResponse.getStatusLine().getStatusCode() );
                 if (photoResponse.getEntity() == null)
                 Log.d(TAG, null);
                 else
@@ -168,7 +168,7 @@ public class MedCafeMedication extends ListActivity {
 		            response = httpclient.execute(httpget);
 	
 		            InputStreamReader reader = new InputStreamReader (response.getEntity().getContent());
-		            Log.d(TAG,"Responses :" + response.getStatusLine().getReasonPhrase() + " " + response.getStatusLine().getStatusCode() );
+		           // Log.d(TAG,"Responses :" + response.getStatusLine().getReasonPhrase() + " " + response.getStatusLine().getStatusCode() );
 			        int jsonChar= 0;
 			        StringBuilder builder = new StringBuilder();
 			       try { 
@@ -287,6 +287,7 @@ public class MedCafeMedication extends ListActivity {
 	            String key = (String)keys.next();
 	          //  Log.d(TAG, key);
 	            process( key, json.get(key));
+	            //Log.d(TAG, key);
 	        }
 	        
 	        String[] rtnStrings = new String[nameStrings.size()];
