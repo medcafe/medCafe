@@ -106,7 +106,7 @@ t.p('#" class="remove">CLOSE</a><a href="');
 t.p('#" class="edit">EDIT</a><a href="');
 t.p('#" class="maximize">MAXIMIZE</a>    	</div>    <div class="edit-box" style="display: none;">        <ul>            <li class="item">                <label>Change the title?</label>                <input value="');
 t.p( context.label);
-t.p('"/>            </li>           <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>        </ul>    </div>    <div class="widget-content no-copy" id="widget-content');
+t.p('"/>            </li>           <li class="item">            <label>Available colors:</label>            <ul class="colors"><li class="color-1"></li><li class="color-2"></li><li class="color-3"></li><li class="color-4"></li><li class="color-5"></li><li class="color-6"></li></ul>        </li>        </ul>    </div>    <div class="ui-widget-content widget-content no-copy" id="widget-content');
 t.p( context.id);
 t.p('">        <span>            <div id="aaa');
 t.p( context.id);
@@ -1584,6 +1584,43 @@ t.p('			</div>		</div>	');
 }
 t.p('	</div>');
 }
+return t.toString();
+}
+function v2js_listProblemListTableLocal(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+var count = 0;
+if (context.patientProblem) {
+t.p('	');
+for (var i2=0;  i2<context.patientProblem.length; i2++) {
+var problem = context.patientProblem[i2];
+velocityCount = i2;
+t.p('				');
+if (count == 0) {
+t.p('			<table cellpadding="0" cellspacing="0" border="0" class="display" id="problemList');
+t.p( problem.patient_id);
+t.p('">			<thead><tr><th>Problem Title</th><th>Note</th><th>Priority</th></tr></thead><tbody>		');
+}
+t.p('		<tr class="gradeX">		<td value="');
+t.p( problem.title);
+t.p('">');
+t.p( problem.title);
+t.p('</td>		<td value="');
+t.p( problem.note);
+t.p('">');
+t.p( problem.note);
+t.p('</td>		<td value="');
+t.p( problem.priority);
+t.p('">');
+t.p( problem.priority);
+t.p('</td>		</tr>		');
+count = ( count + 1 );
+t.p('			');
+}
+
+}
+t.p('</tbody><table>');
 return t.toString();
 }
 function v2js_listRepositorySelect(context) { 

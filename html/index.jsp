@@ -38,8 +38,9 @@
 
 	<title>medCafe</title>
 
-	<link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-
+	<!-- link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.9.custom.css" rel="stylesheet" /-->
+	<link type="text/css" href="${css_theme}" rel="stylesheet" />
+	
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
@@ -55,10 +56,10 @@
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
-		<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
+	<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
 	<script type="text/javascript" src="js/widgets/inettuts.js"></script>
-     	<link href="css/inettuts.css" rel="stylesheet" type="text/css" />
-
+    <link href="css/inettuts.css" rel="stylesheet" type="text/css" />
+	
 	<script type="text/javascript" src="${js}/medCafe.js"></script>
 	<script type="text/javascript" src="${js}/medCafeTabs.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
@@ -178,16 +179,16 @@
     </style>
 
 </head>
-<body ontouchmove="BlockMove(event);">
+<body ontouchmove="BlockMove(event);" class="ui-widget-content">
 
 
     <div id="head"></div>
     <div id="dialog" >Are you sure you want to close?</div>
 	<div id="dialogTemplate" ></div>
 
-	<div id="saveDialog" >You are about to close all tabs for this patient. Would you like to save changes?</div>
-    <div id="copyTemplateDialog" >You are about to override all tabs for this patient. Would you like to continue?</div>
-    <div id="associatePatientDialog"></div>
+	<div id="saveDialog" style="visibility:hidden;" >You are about to close all tabs for this patient. Would you like to save changes?</div>
+    <div id="copyTemplateDialog" style="visibility:hidden;">You are about to override all tabs for this patient. Would you like to continue?</div>
+    <div id="associatePatientDialog" style="visibility:hidden;"></div>
 
 <div class="ui-layout-center ui-corner-all no-copy">
 	<div id="announcements"></div>

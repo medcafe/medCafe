@@ -31,9 +31,9 @@ body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border
     float: left;
 }
 #columns .widget .widget-content {
-    background: white;
+    /*background: white;
     padding: 0 5px;
-    color: black;
+    color: black;*/
     -moz-border-radius-bottomleft: 2px;
     -moz-border-radius-bottomright: 2px;
     -webkit-border-bottom-left-radius: 2px;
