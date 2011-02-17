@@ -140,6 +140,11 @@ function processMenuClick(menuLabel, patientId)
 		var templateName = menuLabel.split(" ")[1];
 		displayTemplate(patientId, templateName);
 	}
+	else if (menuLabel.indexOf("Preferences") > -1)
+	{
+		
+		showPreferences();
+	}
 	else
 	{
 		copyAndRetrieve("",patientId, menuLabel);	

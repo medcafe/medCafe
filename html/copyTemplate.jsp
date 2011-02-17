@@ -10,20 +10,19 @@
 		action = "CopyTemplate";
 	System.out.println("copyTemplate.jsp getting action " + action );
 	
-	String patientId = request.getParameter(Constants.PATIENT_ID);
-	if( patientId == null || patientId.equals("undefined"))
-    { 
-        PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
-     	 // System.out.println("Cache check");
-        if( cache == null )
-        {  //nobody is logged in
+	String patientId = null;
+	
+    PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
+     // System.out.println("Cache check");
+     if( cache == null )
+     {  //nobody is logged in
             System.out.println("No patient selected");
             response.sendRedirect("introPage.jsp");
             return;
-        }
-        patientId = cache.getDatabasePatientId();
-        System.out.println(patientId);
-    }
+     }
+     patientId = cache.getDatabasePatientId();
+     System.out.println(patientId);
+    
 	
 	String templateId = request.getParameter("template_id");
 	if (templateId == null)

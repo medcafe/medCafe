@@ -267,6 +267,12 @@ CREATE TABLE template_widget_params (
    	value character varying(500) NOT NULL
 );
 
+CREATE TABLE preferences(
+ 	id SERIAL PRIMARY KEY,
+ 	key character varying(50) NOT NULL,
+ 	value character varying(500) NOT NULL,
+ 	username character varying(50) NOT NULL);
+ 	
 ALTER TABLE ONLY template_widget_params
     ADD CONSTRAINT template_widget_params_FK FOREIGN KEY (template_id) REFERENCES TEMPLATE (template_id) MATCH FULL;
 

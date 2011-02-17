@@ -98,6 +98,11 @@ $(document).ready( function() {
 			});
 		});
 		
+		$('#prefs').click(function () {
+			
+			processMenuClick("Preferences",1);
+        });
+            
 		
 		var isiPad = navigator.userAgent.match(/iPad/i) != null;
 		$('.ui-layout-center').each(function()
