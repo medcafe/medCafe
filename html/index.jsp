@@ -30,15 +30,15 @@
 	if (patientId == null)
 		patientId = "1";
     */
+    
 	// Object repositoryIdObjs = 	session.getAttribute("repPatientIds");
-
+	String cssLink = "<!-- link type=\"text/css\" href=\"css/custom-theme/jquery-ui-1.8.6.custom.css\" rel=\"stylesheet\" />";
 %>
 <head>
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
 	<title>medCafe</title>
-
 	<!-- link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.9.custom.css" rel="stylesheet" /-->
 	<link type="text/css" href="${css_theme}" rel="stylesheet" />
 

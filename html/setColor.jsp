@@ -33,7 +33,7 @@
 		}
 		String webApp =  (String)getServletContext().getAttribute("base");
 		  
-	 	getServletContext().setAttribute("css_theme",  webApp + "/" + themeValue);
+	 	session.setAttribute(Constants.CSS_THEME,  webApp + "/" + themeValue);  
 	    String newTheme = (String)getServletContext().getAttribute("css_theme");
 	  	DatabaseUtility.close(rs);
 	}
@@ -68,8 +68,8 @@
 		prep.setString(2, userName);
 		prep.setString(3, "theme");
 		int rtn = prep.executeUpdate();
-		String webApp =  (String)getServletContext().getAttribute("base");	  
-		getServletContext().setAttribute("css_theme",  webApp + "/" + themeValue);
+		String webApp =  (String)getServletContext().getAttribute("base");	
+		session.setAttribute(Constants.CSS_THEME,  webApp + "/" + themeValue);  
 	}
     
     conn.close();

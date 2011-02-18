@@ -22,14 +22,26 @@
 	<context-param>
 	    <description>This is the server name</description>
     	<param-name>server.host</param-name>
+    	<!-- param-value>66.170.239.130:8080</param-value-->
+    	<!-- param-value>1.1.22.100:8080</param-value-->
     	<param-value>127.0.0.1:8080</param-value>
 	</context-param>
 
     <!-- Listener for cleaning up data sources on shutdown -->
     <listener>
         <listener-class>org.mitre.medcafe.servlets.RepositoryListener</listener-class>
-    </listener> -->
+    </listener> 
 
+ 	<filter>
+        <filter-name>ThemeFilter</filter-name>
+        <filter-class>org.mitre.medcafe.servlets.ThemeFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ThemeFilter</filter-name>
+        <url-pattern>/introPage.jsp</url-pattern>
+    </filter-mapping>
+    
     <!-- Restlet adapter -->
     <servlet>
        <servlet-name>RestletServlet</servlet-name>

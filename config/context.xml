@@ -1,17 +1,17 @@
 <Context crossContext="true" reloadable="true" debug="1">
    <Resource name="jdbc/medcafe" auth="Container"
           type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
-          url="jdbc:postgresql://127.0.0.1:5432/medcafe"
-          username="jchoyt" password="ou812ic" maxActive="100" maxIdle="10" maxWait="-1"/>
+          url="jdbc:postgresql://127.0.0.1:5432/medCafe"
+          username="postgres" password="alba" maxActive="100" maxIdle="10" maxWait="-1"/>
 
       <!-- Realm for mmrc -->
 
       <Realm className="org.apache.catalina.realm.JDBCRealm"
             debug="99"
             driverName="org.postgresql.Driver"
-            connectionURL="jdbc:postgresql:medcafe"
-            connectionName="jchoyt"
-            connectionPassword="ou812ic"
+            connectionURL="jdbc:postgresql:medCafe"
+            connectionName="postgres"
+            connectionPassword="alba"
             userTable="users"
             userNameCol="username"
             userCredCol="password"
@@ -21,4 +21,3 @@
         />
 
 </Context>
-

@@ -3,7 +3,7 @@
 String message = WebUtils.getOptionalParameter(request, "message", null);
 %><html>
 <head>
-    <link type="text/css" href="${css_theme}" rel="stylesheet" />
+    <link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
     <script type="text/javascript" src="${js}/jquery-1.4.4.js">"></script>
     <script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="${js}/jquery.validate.js"></script>
