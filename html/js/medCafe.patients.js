@@ -83,7 +83,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 						position: 'center',
 						height: 100,
 						width: 100,
-						hide: true }); 
+						hide: true });
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository + "&isIntro=" + isIntro;
@@ -107,7 +107,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 
 				$("#list_names").change(function()
 				{
-					
+
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 					retrieve( server, src, oldPatient, repository);
@@ -134,6 +134,7 @@ function retrieve(server, patient, oldPatient, repository)
 		var url = "retrievePatient.jsp";
 		//var url = "index.jsp";
 		//alert(server + " " + patient + " " + oldPatient);
+		parent.$("#saveDialog").css("visibility", "visible");
 		parent.$("#saveDialog").dialog({
 				autoOpen: false,
 				modal:true,
@@ -144,6 +145,7 @@ function retrieve(server, patient, oldPatient, repository)
 							//Have to Destroy as otherwise
 							//the Dialog will not be reinitialized on open
 							parent.$("#saveDialog").dialog("destroy");
+							parent.$("#saveDialog").css("visibility", "hidden");
 							//Cannot use the cached Patient as this may have been already reset
 							parent.saveWidgets(oldPatient);
 								$("#searchPatients").spinner(
@@ -152,7 +154,7 @@ function retrieve(server, patient, oldPatient, repository)
 						position: 'center',
 						height: 100,
 						width: 100,
-						hide: true }); 
+						hide: true });
 							//
 							var cacheServer = "cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    				$.get(cacheServer, function(data)
@@ -169,6 +171,7 @@ function retrieve(server, patient, oldPatient, repository)
 					},
 					"No" : function() {
 						parent.$("#saveDialog").dialog("destroy");
+                        parent.$("#saveDialog").css("visibility", "hidden");
 						parent.closeAllTabs("tabs");
 							$("#searchPatients").spinner(
 					{
@@ -176,7 +179,7 @@ function retrieve(server, patient, oldPatient, repository)
 						position: 'center',
 						height: 100,
 						width: 100,
-						hide: true }); 
+						hide: true });
 						//populate(url, patient);
 						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
 		    			$.get(cacheServer, function(data)
@@ -193,6 +196,7 @@ function retrieve(server, patient, oldPatient, repository)
 					,
 					"Cancel" : function() {
 						parent.$("#saveDialog").dialog("destroy");
+                        parent.$("#saveDialog").css("visibility", "hidden");
 					}
 				}
 		});
@@ -214,11 +218,11 @@ function addAssociatePatient(isIntro)
 
 function populate(url, patient_id)
 {
-	
+
 	 var server = url + "?patient_id=" + patient_id;
 //	alert ("URL " + url + " id " + patient_id);
 	populateTabs(server,"tabs");
-	
+
 }
 
 function populateTemplate(patient_id, template_id)
@@ -226,7 +230,7 @@ function populateTemplate(patient_id, template_id)
 	var url = "retrieveTemplate.jsp"
 	var server = url + "?template_id=" + template_id + "&patient_id=" + patient_id;
 	populateTabs(server, "templateTabs");
-	
+
 }
 
 function populateTabs(server, tab_set)
@@ -235,21 +239,21 @@ function populateTabs(server, tab_set)
 	 $.getJSON(server, function(data)
 	 {
 	 		if (tab_set === undefined) tab_set="tabs";
-	 		
+
 			//If no tabs are defined then just return.
 		   if (!data.tabs)
 		   {
-		   		
+
 		   		var tab_num = parent.addAnyTab("New", "chart", true, tab_set );
 
 		   		return;
 		   }
-			 
+
 		   //put the new tabs in
-			
+
 		   for(i=0; i< data.tabs.length; i++)
 		   {
-		   		
+
                 var label = data.tabs[i].name;
 
 		       // alert(JSON.stringify(data.tabs[i]));
@@ -260,17 +264,17 @@ function populateTabs(server, tab_set)
 						//alert ("focused tab is " +focusedTab);
 					}
 		   }
-		
+
 			var previous_id =0;
 			var previous_col = 0;
 			var previous_tab = 0;
 			if (data.widgets){
-		   	
+
 		   	//next put the widgets on the tabs
 		   	for(i=0; i< data.widgets.length; i++)
 		   	{
-		
-					
+
+
 					if (!data.widgets[i].label || data.widgets[i].label == "")
 						data.widgets[i].label = data.widgets[i].name;
 					if (!data.widgets[i].color_num || data.widgets[i].color_num == "")
@@ -282,19 +286,19 @@ function populateTabs(server, tab_set)
 				   // This allows the widget to be added only after the widget before it
 				   // has been created so that order is maintained.  The only exception
 				   // is for an excessive delay of the previous widget insertion
-						
+
 					delayForWidgetCreation(parent, previous_id, previous_tab, previous_col, data.widgets[i], 1, tab_set);
-				
-   
+
+
 					 previous_id = data.widgets[i].id;
 					 previous_tab = data.widgets[i].tab_num;
 					 previous_col = data.widgets[i].column;
 
 		   	}
-	
+
 				for (i=0; i<data.widgets.length; i++)
 				{
-					
+
 		 			refreshYellowWidget($(parent), data.widgets[i], 1, true, tab_set);
 		   		}
 
@@ -369,7 +373,7 @@ function addCreateAssocButton( patient_id, role)
 function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo, num, tab_set)
 {
 	 //alert("medCafe.patient.js delayFor WidgetCreation prev_id " + prev_id);
-		
+
 	if (prev_id == 0 || prev_tab != widgetInfo.tab_num || prev_col != widgetInfo.column)
 	{
 		 callObj.createWidgetContent( widgetInfo, true, tab_set );
@@ -389,8 +393,8 @@ function delayForWidgetCreation(callObj, prev_id, prev_tab, prev_col, widgetInfo
 			}
 			else
 			{
-				callObj.createWidgetContent( widgetInfo, true , tab_set);	
-			}	
+				callObj.createWidgetContent( widgetInfo, true , tab_set);
+			}
 		}
 		else
 		{

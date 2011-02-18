@@ -1,12 +1,12 @@
 function copyToTemplate()
 {
-	
+
 	var templateNameObj = $( "#templateName" ),
 			allFields = $( [] ).add( templateNameObj ),
 			tips = $( ".validateTips" );
-			
+
 	$( "#dialogCreateTemplate" ).dialog( "destroy" );
-	
+
 	$( "#dialogCreateTemplate" ).dialog({
 			autoOpen: false,
 			height: 300,
@@ -14,14 +14,14 @@ function copyToTemplate()
 			modal: true,
 			buttons: {
 				"Create Template": function() {
-					
+
 					var bValid = true;
 
 					var templateName = templateNameObj.val();
 					bValid = bValid && checkLength( templateNameObj, "templateName", 3, 16 );
 
 					bValid = bValid && checkRegexp( templateNameObj, /^[a-zA-Z]([0-9A-Za-z_])+$/i, "Template name may consist of a-z, 0-9, underscores, begin with a letter." );
-					
+
 					if ( bValid ) {
 
 						var templateServer = "copyTemplate.jsp?template_id=" + templateName +"&action=CreateTemplate";
@@ -30,7 +30,7 @@ function copyToTemplate()
 	 					{
 								//parent.window.location.replace("index.jsp");
 								//Some sort of success message data is the JSON rtn Object
-								
+
 						});
 						//Code to copy To Template
 						$( this ).dialog( "close" );
@@ -44,16 +44,17 @@ function copyToTemplate()
 				templateNameObj.val( "Template" ).removeClass( "ui-state-error" );
 			}
 		});
-	
-		
+
+
 		$("#dialogCreateTemplate").dialog( "open" );
 }
 
 function copyAndRetrieve(server, patient, template_id)
 {
-		
+
 		//var url = "index.jsp";
 		//alert(server + " " + patient + " " + oldPatient);
+		parent.$("#copyTemplateDialog").css("visibility", "hidden");
 		parent.$("#copyTemplateDialog").dialog({
 				autoOpen: false,
 				modal:true,
@@ -64,6 +65,7 @@ function copyAndRetrieve(server, patient, template_id)
 				buttons : {
 					"Yes" : function() {
 						parent.$("#copyTemplateDialog").dialog("destroy");
+						parent.$("#copyTemplateDialog").css("visibility", "visible");
 						parent.closeAllTabs("tabs");
 						//populate(url, patient);
 						var templateServer = "copyTemplate.jsp?patient_id=" + patient+"&template_id=" + template_id + "&action=CopyTemplate";
@@ -77,6 +79,7 @@ function copyAndRetrieve(server, patient, template_id)
 					,
 					"No" : function() {
 						parent.$("#copyTemplateDialog").dialog("destroy");
+						parent.$("#copyTemplateDialog").css("visibility", "visible");
 					}
 				}
 		});
@@ -88,14 +91,14 @@ function displayTemplate(patient_id, template_id)
 
 	$('#dialogTemplate').html('');
 	$("#dialogTemplate").append("<div id='templateTabs'><ul class=\"tabs\" id =\"templateTabHolder\"></ul></div>");
-	
+
 	var $tabs = $('#templateTabs').tabs();
-	
+
 	populateTemplate(patient_id, template_id);
-	
+
 	var marginHDialog = 25; marginWDialog  = 25;
 	marginHDialog = $(window).height()-marginHDialog;
-		
+
 	var marginWDialog = $(window.body).width()-marginWDialog;
 	$("#dialogTemplate").dialog({
 						 autoOpen: false,
@@ -107,21 +110,20 @@ function displayTemplate(patient_id, template_id)
 						 minWidth: 600,
 						 buttons : {
 						    "Close" : function() {
-						   
+
 						   	 //Put in code to make sure that template code is removed
 						     $(this).dialog("destroy");
 						     $('#dialogTemplate').html('');
-						     
+
 						   }
 						},
 						close: function() {
-                    		 $(this).dialog("destroy");						     
+                    		 $(this).dialog("destroy");
                     		 $('#dialogTemplate').html('');
-						     
+
               			}
 					});
 
 		$("#dialogTemplate").dialog("open");
 }
 
-     

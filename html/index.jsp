@@ -192,7 +192,7 @@
     <div id="preferencesDialog" ></div>
 
     <div id="copyTemplateDialog" style="visibility:hidden;">You are about to override all tabs for this patient. Would you like to continue?</div>
-    <div id="associatePatientDialog" style="visibility:hidden;"></div>
+    <div id="associatePatientDialog"></div>
 
 <div class="ui-layout-center ui-corner-all no-copy">
 	<div id="announcements"></div>
