@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
 <%@ page import="java.util.*" %>
@@ -28,12 +29,12 @@
     </div>
     <div class="ui-widget top-panel" id="patient_bio">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-           
+
                 <table border="0">
                  <%VelocityUtil.applyTemplate(cache.retrieveObjectList("patientList"), "listPatientBio.vm", out); %>
                  <%VelocityUtil.applyTemplate(cache.retrieveObjectList("vitalsList"), "listPatientVitals.vm", out); %>
                 </table>
-           
+
         </div>
     </div>
 <!--    <div class="ui-widget top-panel" id="patient_history">
@@ -42,13 +43,13 @@
             <div id="listPatientHistory"></div>
             </p>
         	</div>
-    </div>  
+    </div>
 -->
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong>
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("medicineList"), "listMedicineList.vm", out); %>
-           <!-- <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide -->  
+           <!-- <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide -->
              </p>
         </div>
     </div>
@@ -56,10 +57,10 @@
      <div class="ui-widget top-panel">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
            <strong>Problem List</strong>
-    
+
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("problemList"), "listProblemList.vm", out);%>
-      		
-           
+
+
         </div>
     </div>
 <!--

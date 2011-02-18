@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.util;
 
 import org.json.JSONObject;
@@ -42,7 +57,7 @@ public abstract class Repository
      *  Given a patient name, get the patient id
      */
     public abstract Map<String, String> getPatientByName(String family, String given, String middle);
-    
+
     /**
      *  Get a list of patient identifiers
      */
@@ -153,21 +168,21 @@ public abstract class Repository
 
     }
     public abstract Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
-    
+
     public abstract Collection<EncounterDetail> getPatientEncounters(String id) throws NotImplementedException;
-    
+
     public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
     public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
-    
+
     /* don't currently have history in OpenVista or hData; this refers back to data on the local database system
        on a live system, this would need to be rewritten for each repository class in order to access that repository   */
-       
+
     public JSONObject getHistory(String patientId, String category,  Date startDate, Date endDate)
     {
     	int id = org.mitre.medcafe.model.Patient.getLocalId(getName(),patientId);
     	String local_id = String.valueOf(id);
     	return History.getHistory(local_id, category, startDate, endDate);
-    } 
-    
+    }
+
 
 }

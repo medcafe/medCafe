@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.restlet;
 
 import java.sql.PreparedStatement;
@@ -48,12 +63,12 @@ public class ListAddressResource extends ServerResource {
     	System.out.println("Found ListAddressResource html ");
 
     	StringBuffer startBuf = new StringBuffer();
-    	
+
     	return new StringRepresentation( startBuf.toString());
-    	
+
 
     }
-    
+
     @Get("json")
     public JsonRepresentation toJson(){
         try
@@ -61,23 +76,23 @@ public class ListAddressResource extends ServerResource {
         	System.out.println("Found ListAddressResource json ");
 
        	  	JSONObject obj = Address.getAddress(patientId);
-           
+
             log.finer( obj.toString());
             // System.out.println("ListWidgetResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
-           
+
         }
         catch(Exception e)
         {
         	log.throwing(KEY, "toJson()", e);
-        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + e.getMessage() ));		
-         
+        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + e.getMessage() ));
+
         }
     }
-   
-   
-   
-	 
-    
-	
+
+
+
+
+
+
 }

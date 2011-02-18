@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <!DOCTYPE html>
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
@@ -16,18 +17,18 @@
 	 	imageTitle = imageTitle.substring(pos);
 
 	 }
-	
-	 
+
+
 	String patient_id = request.getParameter("patient_id");
 
 
-	String tab_num = request.getParameter("tab_num");	
+	String tab_num = request.getParameter("tab_num");
 
-	
+
 %>
 
     <body>
-     <iframe frameborder="0" id="<%=tab_set%>iframe<%=widgetId%>" name="<%=tab_set%>iframe<%=widgetId%>" width="720" height="350" 
+     <iframe frameborder="0" id="<%=tab_set%>iframe<%=widgetId%>" name="<%=tab_set%>iframe<%=widgetId%>" width="720" height="350"
      src="viewerDraw.jsp?tab_num=<%=tab_num%>&patient_id=<%=patient_id%>&image=<%=imageName%>&tab_set=<%=tab_set%>&widgetId=<%=widgetId%>"/>
 
 

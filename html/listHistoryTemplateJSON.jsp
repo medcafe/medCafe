@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
@@ -21,7 +22,7 @@
 	        return;
 	    }
 	    repositoryIds = cache.getRepositories();
-    
+
 		System.out.println("listHistoryTemplateJSON: got repository ID  " + repositoryIds.toString() );
 		JSONArray repArray = repositoryIds.getJSONArray("repositories");
 		if (repArray != null)
@@ -39,25 +40,25 @@
 				}
 			}
 		}
-		
+
 	}
-	
+
 	System.out.println("listHistoryTemplateJSON: got patient rep Id " + patientRepId );
-	
+
 	String patientId = null;
-	
+
 	Object patientObj = session.getAttribute("patient");
 	System.out.println("listHistoryTemplateJSON: got patient from session object " + patientObj );
-	
+
 	if (patientObj != null)
 		 	patientId = patientObj.toString();
-	
+
 	//if (patientId != null)
 		 jspUrl =  "/history/templates/patients/" + patientRepId;
-	
+
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;
-	
+
 	System.out.println("listHistoryTemplateJSON: url " + jspUrl);
 %>
 

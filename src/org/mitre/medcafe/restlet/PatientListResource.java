@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.restlet;
 
 import java.util.logging.Level;
@@ -24,12 +39,12 @@ public class PatientListResource extends ServerResource {
     private final static String FIRST_NAME = "first_name";
     private final static String LAST_NAME = "last_name";
     private final static String MIDDLE_INITIAL = "middle_initial";
-    
+
     /** The sequence of characters that identifies the resource. */
     private String repository;
 
     /* If any info given on name of patient - use these attributes for searching for patient Ids*/
-    
+
     private String firstName;
     private String lastName;
     private String middleInitial;
@@ -39,12 +54,12 @@ public class PatientListResource extends ServerResource {
     @Override
     protected void doInit() throws ResourceException {
         this.repository = (String) getRequest().getAttributes().get("repository");
-        
+
         Form form = getRequest().getResourceRef().getQueryAsForm();
         firstName = form.getFirstValue(FIRST_NAME);
         lastName = form.getFirstValue(LAST_NAME);
         middleInitial = form.getFirstValue(MIDDLE_INITIAL);
-         
+
         System.out.println("Found Repository: " + this.repository);
     }
 
@@ -67,7 +82,7 @@ public class PatientListResource extends ServerResource {
         {
         	patients = r.getPatients( );
         }
-        
+
         if( patients == null )
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
@@ -77,9 +92,9 @@ public class PatientListResource extends ServerResource {
         {
         	String err_mess =  "There are no patients currently listed for  " + repository;
         	if (nameCriteria)
-        		err_mess =  "There are no patients currently listed for  " + repository + " with family name " + 
+        		err_mess =  "There are no patients currently listed for  " + repository + " with family name " +
         					lastName + " given name " + firstName + " and middle initial " + middleInitial;
-        	
+
             return new JsonRepresentation(WebUtils.buildErrorJson(err_mess ));
         }
         //convert to JSON

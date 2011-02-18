@@ -1,5 +1,5 @@
 /*
- *  Copyright 2008 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,16 +58,16 @@ public class XMLProcessing
     public XMLProcessing()
     { }
 
-   
+
     public static String getNodeValue(Document doc, String nodeName)
     {
-    	
+
     	Node node = doc.getFirstChild();
     	node = getNode( node, nodeName);
     	String registrationid = node.getTextContent();
     	return registrationid;
     }
-   
+
     private static Node getNode(Node root, String name)
     {
     	NodeList ns = root.getChildNodes();
@@ -89,22 +89,22 @@ public class XMLProcessing
     	}
     	return root;
     }
-    
+
     public static Document createXMLDoc(File file) throws ParserConfigurationException, SAXException, IOException
     {
-    	
+
     	  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     	  DocumentBuilder db = dbf.newDocumentBuilder();
     	  Document doc = db.parse(file);
     	  doc.getDocumentElement().normalize();
-    	 
+
     	  return doc;
     }
-    
+
     public static Document createXMLDoc(String response)
     {
     	System.out.println("XMLProcessing about to process the following " + response);
-    	
+
     	InputStream is = new java.io.ByteArrayInputStream(response.getBytes());
     	javax.xml.parsers.DocumentBuilderFactory factory =
             javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -115,13 +115,13 @@ public class XMLProcessing
             builder = factory.newDocumentBuilder();
         }
         catch (javax.xml.parsers.ParserConfigurationException ex) {
-        }  
+        }
         Document doc=null;
 		try {
 			doc = builder.parse(is);
 		    is.close();
-		    
-		} 
+
+		}
 		catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

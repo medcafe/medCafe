@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.util;
 
 // import org.mitre.hdata.hrf.core.*;
@@ -422,11 +437,11 @@ public class VistaRepository extends Repository {
 			synchronized(this) {
         if (rpcConnFactory == null) {
 
-        		
-        		 
+
+
             factorySetUp();
         }
-			
+
 
         conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
 			}
@@ -463,7 +478,7 @@ public class VistaRepository extends Repository {
     		if (credMap.get(Repository.HOST_URL)== null || credMap.get(Repository.HOST_URL).equals(""))
     		{
     			throw new RuntimeException("Must include hostURL for OpenVista database");
-    		}	
+    		}
     		if (credMap.get(Repository.PORT)== null || credMap.get(Repository.PORT).equals(""))
     		{
     			throw new RuntimeException("Must include port for OpenVista database");
@@ -1442,7 +1457,7 @@ public class VistaRepository extends Repository {
    	return capitalizeString(toBeFixed, false);
    }
 	private String capitalizeString(String toBeFixed, boolean medString)
-	{	
+	{
 		if (toBeFixed != null && !toBeFixed.equals("")){
 			String returnString = "";
 			toBeFixed = toBeFixed.toLowerCase();

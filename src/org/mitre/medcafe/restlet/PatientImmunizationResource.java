@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.restlet;
 
 
@@ -35,12 +50,12 @@ public class PatientImmunizationResource extends ServerResource {
         }
         try {
  	       List<Immunization> immunizations = r.getImmunizations( id );
- 	       
+
  	       if( immunizations == null )
  	       {
  	           return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
  	       }
- 	       
+
  	       if( immunizations.size() == 0)
  	       {
  	           return new JsonRepresentation(WebUtils.buildErrorJson( "There are no immunizations currently listed for patient " + id + " in repository " + repository ));
@@ -52,10 +67,10 @@ public class PatientImmunizationResource extends ServerResource {
  	       catch (IOException IOe)
  	       {
  	       	System.out.println("Couldn't print");
- 	       }  
+ 	       }
  	       return WebUtils.bundleJsonResponse( "immunizations", immunizations, repository, id );
  	   }
-    
+
     	catch (NotImplementedException notImpE)
     	{
     		return new JsonRepresentation(WebUtils.buildErrorJson(notImpE.getMessage()));

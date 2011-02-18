@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -8,13 +9,13 @@
 	String listWidgets = server + "/widgets-listJSON.jsp";
 	System.out.println("listWidgets " + listWidgets);
 	String type = request.getParameter("type");
-	
+
 	if (type == null)
 		type = Constants.GENERAL_WIDGETS;
-		
+
 	if (type.equals(Constants.PATIENT_WIDGETS))
 		listWidgets = server + "/widgets-listJSON.jsp?type=" + Constants.PATIENT_WIDGETS;
-	
+
 	String frameId = type + "Frame";
 	String patientId = request.getParameter("patient_id");
 	if (patientId == null)
@@ -25,7 +26,7 @@
 	}
 	if (patientId == null)
 		patientId = "1";
-	
+
 %>
 <head>
 <meta name = "viewport" content = "user-scalable = no, width =device-width">
@@ -47,51 +48,51 @@
 <script type="text/javascript">
 
     $(document).ready( function() {
-		    
+
 			var isiPad = navigator.userAgent.match(/iPad/i) != null;
 			//console.log('Is this an iPad...' + isiPad);
-			
+
 		    $.getJSON("<%=listWidgets%>", function(data)
 		    {
 		    	alert(JSON.stringify(data));
-  				var html = v2js_listWidgets( data );  			
-    	
+  				var html = v2js_listWidgets( data );
+
     			$("#test").append(html);
 
     			    		if (isiPad)
  		{
     			$('#test').each(function()
 	        	{
-	        		
 
-			 
-    			
+
+
+
 	            	 this.addEventListener("touchmove", stopTouchMove, false);
-	
-		
+
+
 	        	});
 	        	 }
     			$(this).delay(500,function()
-				{						
+				{
 		    			var imageButton = $("#test").find('.imageContain');
 
 						$(imageButton).mousedown(function(event) {
-								
-								parent.clearWidgets();		
+
+								parent.clearWidgets();
 	  							parent.startWidgetDrag($(this),"<%=frameId%>",  isiPad, event );
 	  							return false;
-							});	
-							
+							});
+
 						$("#test").jScrollTouch({height:'380',width:'140'});
 						alert("jScrollTouch");
-				});  		
+				});
 			});
 	});
 	function stopTouchMove(event)
 	{
 	   var isiPad = navigator.userAgent.match(/iPad/i) != null;
 	   if (isiPad)
-	   {   
+	   {
 		  event.preventDefault();
 	   }
 	}

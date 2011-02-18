@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
@@ -6,12 +7,12 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
-	
+
   	String user =  request.getRemoteUser();
   	//Use the user login to save the text
 	String[] symptomIds = request.getParameterValues("symptom_check") ;
 	System.out.println("History: saveHistory : symptomsId " + symptomIds.length);
-					
+
   	String patientId = null;
   	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
@@ -21,7 +22,7 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-		
+
 	if (patientId == null)
 	{
 		return;
@@ -29,6 +30,6 @@
 
 	JSONObject rtnObj = History.saveHistory(patientId, symptomIds);
 	System.out.println("History: saveHistory : return " + rtnObj.toString());
-	
+
 	response.sendRedirect("listHistoryTemplate.jsp");
 %>

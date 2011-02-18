@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
@@ -67,22 +82,22 @@ public class ListDatesResource extends ServerResource {
 
         String filterStartDateStr = form.getFirstValue("filter_start_date");
         String filterEndDateStr = form.getFirstValue("filter_end_date");
-        
+
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try {
 			startDate = df.parse(startDateStr);
 			endDate = df.parse(endDateStr);
-			
+
 			if (filterStartDateStr != null)
 			{
 				filterStartDate = df.parse(filterStartDateStr);
-				
+
 			}
-			
+
 			if (filterEndDateStr != null)
 			{
 				filterEndDate = df.parse(filterEndDateStr);
-				
+
 			}
         }
         catch (ParseException e)
@@ -94,7 +109,7 @@ public class ListDatesResource extends ServerResource {
         if (intervalType == null)
         	intervalType = MONTHS;
 
-       
+
     }
 
     @Get("html")
@@ -234,7 +249,7 @@ public class ListDatesResource extends ServerResource {
                     {
                     	Calendar cal = new GregorianCalendar();
                     	cal.setTime(filterStartDate);
-                    
+
                     	if (cal.get(Calendar.YEAR) == year)
                     	{
                     		int mon = cal.get(Calendar.MONTH);
@@ -242,17 +257,17 @@ public class ListDatesResource extends ServerResource {
                     		inner_obj.put("startSelected", mon);
                     	}
                     }
-                    
+
                     if (filterEndDate != null)
                     {
                     	Calendar cal = new GregorianCalendar();
                     	cal.setTime(filterEndDate);
-                    
+
                     	if (cal.get(Calendar.YEAR) == year)
                     	{
                     		int mon = cal.get(Calendar.MONTH);
                     		mon = mon + 1;
-                    		
+
                     		inner_obj.put("endSelected",mon);
                     	}
                     }

@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <!DOCTYPE html>
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
@@ -18,7 +19,7 @@
 	 }
 	 String tab_num = request.getParameter("tab_num");
 	String patientId =  request.getParameter("patient_id");
-		
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -27,11 +28,11 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-  
+
 	String dir = "images/patients/" + patientId + "/";
-		
+
 	String fileId = request.getParameter("file_id");
-	
+
 %>
     <head>
     <style type="text/css">
@@ -92,10 +93,10 @@
 		overflow: hidden;
 		width: 30px;
 		height: 22px;
-		cursor: pointer; 
-		padding-left: 3px; 
+		cursor: pointer;
+		padding-left: 3px;
 		margin-bottom: 2px;
-		border:1px solid #AAAAAA; 
+		border:1px solid #AAAAAA;
 		background:#FFFFFF;
 	}
 	#cpainterInfo {
@@ -108,8 +109,8 @@
 		width: 200px;
 		left: 800px;
 	}
-	
-	
+
+
 </style>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>jquery.iviewer test</title>
@@ -130,17 +131,17 @@
 	    <script type="text/javascript" src="js/color-picker/colorpicker-layout.js"></script>
 		<script type="text/javascript" src="js/medCafe.viewer.js"></script>
 		<script type="text/javascript" src="${js}/vel2jstools.js"></script>
-		<script type="text/javascript" src="${js}/vel2js.js"></script>	
-		
+		<script type="text/javascript" src="${js}/vel2js.js"></script>
+
         <script type="text/javascript">
             var $ = jQuery;
             var canvasPainter;
 			var curAction = 0;
-			
-			
+
+
             $(document).ready(function(){
             	 retrieveViewerData('<%=patientId%>', '<%=fileId%>', '<%=dir%>', '<%=imageTitle%>', '<%=tab_set%>', '<%=widgetId%>', '<%=tab_num%>');
-            });	 
+            });
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
         <style>
@@ -151,7 +152,7 @@
                 border: 1px solid black;
                 position: relative;
             }
-            
+
             .wrapper
             {
                 overflow: hidden;
@@ -159,24 +160,24 @@
         </style>
     </head>
     <body>
-        
+
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
        <div class="wrapper">
-            
-            <div id="<%=tab_set%>viewer<%=widgetId%>" class="viewer"> 
-            </div>	
+
+            <div id="<%=tab_set%>viewer<%=widgetId%>" class="viewer">
+            </div>
             <br />
           				</div>
- 		
-     
-   
+
+
+
         		<canvas id="<%=tab_set%>canvas<%=widgetId%>" width="300" height="310"></canvas>
 				<canvas id="<%=tab_set%>canvasInterface<%=widgetId%>" width="300" height="310"></canvas>
-		
+
 
 				<div id="<%=tab_set%>chooserWidgets<%=widgetId%>">
 					<div id="controls">
-							
+
 						<div id="customWidget">
 							<div id="colorSelector2">
 								<div style="background-color: #00ff00">
@@ -184,22 +185,22 @@
 							</div>
 				    		<div id="colorpickerHolder2">
 							</div>
-			
+
 						</div>
 						<div class="ctr_btn" id="btn_0" onclick="setCPDrawAction(0)" onMouseDown="setControlLook(0, '#CCCCCC')" onMouseOver="setControlLook(0, '#EEEEEE')" onMouseOut="setControlLook(0, '#FFFFFF')">
 							<div class="rect"><img src="images/square.png" alt="rectangle" height="22" width="24">
 							</div>
-						</div> 
+						</div>
 						<div class="ctr_btn" id="btn_1" onclick="setCPDrawAction(1)" onMouseDown="setControlLook(1, '#CCCCCC')" onMouseOver="setControlLook(1, '#EEEEEE')" onMouseOut="setControlLook(1, '#FFFFFF')">
 							<div class="circle"><img src="images/circle.png" alt="circle" height="22" width="22">
 							</div>
-						</div> 
+						</div>
 						<div class="ctr_btn" id="btn_2" onclick="setCPDrawAction(2)" onMouseDown="setControlLook(2, '#CCCCCC')" onMouseOver="setControlLook(2, '#EEEEEE')" onMouseOut="setControlLook(2, '#FFFFFF')">clear
-						</div> 
+						</div>
 			<br>
 						<div class="ctr_btn" id="btn_9" onclick="canvasAnimator.newAnimation();" onMouseDown="setControlLook(9, '#CCCCCC')" onMouseOver="setControlLook(9, '#EEEEEE')" onMouseOut="setControlLook(9, '#FFFFFF')">new
-						</div> 
-	
+						</div>
+
 		 				<button value="Save" style="{z-index:999}" id="saveViewButton">Save</button>
 				<!--		<button value="Move" style="{z-index:999}" id="moveImageButton">Move</button> -->
 					</div>

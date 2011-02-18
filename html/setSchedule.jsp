@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*,org.mitre.medcafe.model.*, org.json.*, java.util.*,java.text.*,java.sql.*" %><%@
     taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
@@ -17,7 +18,7 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-  
+
 	//Check if a time- duration is specified if not
 	//Retrieve the earliest available appointment and give 30 minutes
 	String apptDateStr = request.getParameter(Schedule.APPT_DATE);

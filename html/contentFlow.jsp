@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%
 	String server = "" ;
@@ -7,7 +8,7 @@
 	String patientId = request.getParameter(Constants.PATIENT_ID);
 	if (patientId == null)
 		patientId = "1";
-		
+
 	String append = "~";
 	String delim = "=";
 	//coverFeed.jsp?filter=dates=<start_date>_<end_date>~filter=filter1,filter2
@@ -31,7 +32,7 @@
 			coverflowFile += append + "dates" +  delim  + startDate;
 	if (endDate != null)
 			coverflowFile +=  "_" + endDate;
-			
+
 	if ( (filterCat != null) && (!filterCat.equals("")) )
 			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 
@@ -53,7 +54,7 @@
             <div class="loadIndicator"><div class="indicator"></div></div>
 
             <div class="flow" id="flowFile">
-               
+
             </div>
             <div class="globalCaption"></div>
             <div class="scrollbar">
@@ -63,7 +64,7 @@
 			<div style="visibility:hidden" id="cfStartDate"><%=startDate%></div>
 			<div style="display :none;" id="cfEndDate"><%=endDate%></div>
 			<div style="display :none;" id="cfFilterCat"><%=filterCat%></div>
-			 
+
         </div>
     </body>
 </html>

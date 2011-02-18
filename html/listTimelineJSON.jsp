@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*, java.util.*, java.text.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -11,7 +12,7 @@
 	String server = Config.getServerUrl() ;
 		PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
 		// String server = (String) session.getAttribute("server");
-	
+
     if( cache == null )
     {  //nobody is logged in
         response.sendRedirect("introPage.jsp");
@@ -21,7 +22,7 @@
 
 	String user =  request.getRemoteUser();
 
-	
+
 	MedCafeFilter filter = null;
 	GregorianCalendar cal = new GregorianCalendar();
 	Date endDate = cal.getTime();
@@ -36,12 +37,12 @@
 		SimpleDateFormat df = new SimpleDateFormat(MedCafeFilter.DATE_FORMAT);
 		startDate = df.parse(filter.getStartDate(), new ParsePosition(0));
 		endDate = df.parse(filter.getEndDate(), new ParsePosition(0));
-	}	
-	
+	}
+
 	String primary = "false";
 	String[] eventArray  = request.getParameterValues("event");
 	String[] events;
-	
+
 	if (eventArray == null)
 		events=new String[]{};
 	else
@@ -65,9 +66,9 @@
 				if (i != index)
 				{
 					events[j] = eventArray[i];
-					j++;	
+					j++;
 				}
-			}	
+			}
 		}
 		else
 		{
@@ -77,7 +78,7 @@
 
 	session.setAttribute("timelineEvents", events);
 
-	
+
 	out.print(Event.getJsonEventsFromCache(cache, primary, events, startDate, endDate, server, user));
 	//System.out.println("listTimelineJSON.jsp jspUrl " + jspUrl);
 %>

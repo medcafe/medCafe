@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.restlet;
 
 import org.xml.sax.SAXException;
@@ -39,16 +54,16 @@ public class Repositories
      */
     public static void setDefaultRepositories() throws ParseException, ParserConfigurationException, SAXException, IOException
     {
-    	 try 
+    	 try
     	 {
-    	 	 
+
 		 File file = new File(Constants.CONFIG_DIR, REPOSITORY_SETUP);
 		 Document repositoryDoc = XMLProcessing.createXMLDoc(file);
 		 NodeList repositoryNodes = null;
-		 Node repositoryNode = null;  
+		 Node repositoryNode = null;
 		 Element repositoryElmnt = null;
-		     
-	     
+
+
 	    	 repositoryNodes = repositoryDoc.getElementsByTagName(Repository.REPOSITORIES);
 	    	 if (repositoryNodes.getLength() > 0)
 	    	 {
@@ -58,10 +73,10 @@ public class Repositories
 	    	 {
 	    		 throw new ParseException("Error on parsing xml document : could not find any nodes", 0);
 	     	 }
-		     		     
+
 	     	System.out.println("Repositories setDefaultRepositories got repositories");
-	     
-	     	if (repositoryNode.getNodeType() == Node.ELEMENT_NODE) 
+
+	     	if (repositoryNode.getNodeType() == Node.ELEMENT_NODE)
 	    	{
 	    	  repositoryElmnt = (Element) repositoryNode;
 	     	}
@@ -70,17 +85,17 @@ public class Repositories
 	    		throw new ParseException("Error on parsing xml document : could not find any elements", 0);
 			}
 			repositoryNodes = repositoryElmnt.getElementsByTagName(Repository.REPOSITORY_ITEM);
-		     
+
 			System.out.println("Repositories setDefaultRepositories number of components " + repositoryNodes.getLength());
 			repos = new HashMap<String, Repository>();
 			Repository r = null;
 	     	System.out.println("Number of repositories: " + repositoryNodes.getLength());
 	     	for (int i=0 ; i < repositoryNodes.getLength(); i++)
 	     	{
-	     
+
     		 	Node node = repositoryNodes.item(i);
-    		 	if (node.getNodeType() == Node.ELEMENT_NODE) 
-    		 	{ 	
+    		 	if (node.getNodeType() == Node.ELEMENT_NODE)
+    		 	{
     		 		repositoryElmnt = (Element) node;
     		 		NodeList typeList = repositoryElmnt.getElementsByTagName(Repository.REPOSITORY_TYPE);
     		 		String reposType = "";
@@ -97,7 +112,7 @@ public class Repositories
 	  		 				if (hostList.getLength()>0)
 	  		 				{
 	  		 					host = hostList.item(0).getTextContent();
-	  		 					HashMap<String, String> credMap = new HashMap<String, String>();	    
+	  		 					HashMap<String, String> credMap = new HashMap<String, String>();
 	  		 					NodeList creds = repositoryElmnt.getElementsByTagName(Repository.CREDENTIALS);
 	  		 					if (creds.getLength()>0)
 	  		 					{
@@ -125,7 +140,7 @@ public class Repositories
          	   				{
          	       				repos.put(r.getName(), r);
          	       				System.out.println("Got " + reposName + " connection");
-              
+
          		  				}
         						}catch (Exception e) {}
         						}
@@ -168,7 +183,7 @@ public class Repositories
 
 		   	}
 		   	}finally{}
-		 	
+
     }
 
     public static void onShutdown()

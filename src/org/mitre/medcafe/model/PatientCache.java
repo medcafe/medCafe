@@ -1,4 +1,18 @@
-/* Copyright 2010 The MITRE Corporation.  ALL RIGHTS RESERVED. */
+/*
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.mitre.medcafe.model;
 
 //import java.sql.*;
@@ -176,7 +190,7 @@ public class PatientCache extends TimerTask {
                                 String historyCacheKey = new String(currentSource.getCacheKey());
                                 historyCacheKey = historyCacheKey.replaceAll("\\{historyCategory\\}", categoryArray.getString(k));
                                 putJSONListObject(app, histRestletString, reps, historyCacheKey);
-                               
+
                                 dataSourcePriorityMap.put(historyCacheKey, currentSource.getPriority());
                             }
                         } catch (JSONException jsonE) {
@@ -188,8 +202,8 @@ public class PatientCache extends TimerTask {
                     }
                 }
 
-         
-                
+
+
             } catch (ParseException parseE) {
                 log.severe("Error parsing DataSource.xml file: " + parseE.getMessage());
 
@@ -205,11 +219,11 @@ public class PatientCache extends TimerTask {
             }
             catch (IOException ioE) {
             	log.severe("IO exception accessing DataSource.xml file: " + ioE.getMessage());
-            } 
-            
-           
+            }
+
+
         }
-		 for (int i = 0; i < finished.length; i++) 
+		 for (int i = 0; i < finished.length; i++)
        	finished[i] = true;
 
         log.exiting(KEY, "run()");
@@ -280,15 +294,15 @@ public class PatientCache extends TimerTask {
 
 
         }
-        
+
         JSONObject ret = patientDataHash.get(cacheKey);
 
 
         if (ret == null) {
-        		ret = WebUtils.buildErrorJson("Timed out retrieving " + cacheKey + " from source.");	
+        		ret = WebUtils.buildErrorJson("Timed out retrieving " + cacheKey + " from source.");
         		//System.out.println("PatientCache retrieve Objects - " + cacheKey + " ret is:" + ret.toString());
             return ret;
-				
+
         } else {
         		//System.out.println("PatientCache retrieve Objects - " + cacheKey + ":  " + ret.toString());
             return ret;

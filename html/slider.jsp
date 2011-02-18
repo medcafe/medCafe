@@ -1,32 +1,33 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%
 	String url = "listDates.jsp";
 	String append = "?";
 	String startDate = request.getParameter("start_date");
-	
+
 	String endDate = request.getParameter("end_date");
-	
+
 	String intervalType = request.getParameter("interval_type");
-	
+
 	if (startDate != null)
 	{
 			url += append + "start_date=" + startDate;
 			append= "&";
 	}
-	
+
 	if (endDate != null)
 	{
 			url += append + "end_date=" + endDate;
 			append= "&";
 	}
-	
+
 	if (intervalType != null)
 	{
 			url += append + "interval_type=" + intervalType;
 	}
-	
-%>    
+
+%>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
 	<meta http-equiv="content-type"  name = "viewport" content = "user-scalable = no, width =device-width"/>
@@ -44,31 +45,31 @@
  	<script type="text/javascript" src="js/vel2js.js"></script>
     <script type="text/javascript" src="js/vel2jstools.js"></script>
     <link type="text/css" href="css/custom.css" rel="stylesheet" />
-    
-	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
+
+	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
 	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
 	<style type="text/css">
 		body {font-size: 62.5%; font-family:"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif; }
-		fieldset { border:0; margin: 6em; height: 12em;}	
+		fieldset { border:0; margin: 6em; height: 12em;}
 		label {font-weight: normal; float: left; margin-right: .5em; font-size: 1.1em;}
 		select {margin-right: 1em; float: left;}
 		.ui-slider {clear: both; top: 5em;}
 	</style>
 	<script type="text/javascript">
 		$(function(){
-		
+
 			$.getJSON("<%=url%>", function(data)
 			{
-  			
-	  			var html = v2js_listDates( data );  
-	  			
+
+	  			var html = v2js_listDates( data );
+
 	  			$("#valueAA").append(html);
 	    		$("#valueBB").append(html);
-				
+
 				$('select#valueAA, select#valueBB').selectToUISlider({
 					labels: 12
 				});
-				
+
 				$('#slider_button').click(function()
 				 {
 				 	//for some reason cannot call trigger('FILTER_DATE') directly
@@ -77,35 +78,35 @@
 				 	//var values = $('select#valueAA').slider('option','values');
 				 	var valueA = $('select#valueAA').val();
 				 	//add a day to the date
-				 	
+
 				 	var pos = valueA.indexOf("/");
 				 	startDate =  valueA.substring(0,pos) + "/01" +  valueA.substring(pos);
-				 	
-				 	
+
+
 				 	var valueB = $('select#valueBB').val();
 				 	pos = valueB.indexOf("/");
 				 	endDate =  valueB.substring(0,pos) + "/01" +  valueB.substring(pos);
-				 	
+
 				    parent.triggerFilter(startDate, endDate);
-				   
+
 				});
-			
-				
-				
+
+
+
 				$('#slider_button_unfilter').click(function()
 				 {
 				 	//for some reason cannot call trigger('FILTER_DATE') directly
 				 	var startDate = "";
 				 	var endDate = "";
-				 
+
 				    parent.triggerFilter(startDate, endDate);
-				   
+
 				});
 			});
-		
-			
+
+
 		});
-		
+
 	</script>
 </head>
 
@@ -113,8 +114,8 @@
 	<div id="container" class="scroll">
 		<fieldset><label for="valueAA">From:</label><select name="valueAA" id="valueAA"></select>
 		<label for="valueBB">To: </label><select name="valueBB" id="valueBB"></select></fieldset>
-	
-		
+
+
 		<button value="Filter" id="slider_button">Filter</button>
 		<button value="Remove Filter" id="slider_button_unfilter">Remove Filter</button>
 	</div>

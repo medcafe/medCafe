@@ -12,11 +12,23 @@
 	</repository>
 
 	<repository>
-		<name>JeffVista</name>
+		<name>MainVista</name>
 		<type>org.mitre.medcafe.util.VistaRepository</type>
 		<host>192.168.56.101</host>
 		<credentials>
 			<hostURL>192.168.56.101</hostURL>
+			<port>9201</port>
+			<accessCode>SM1234</accessCode>
+			<verifyCode>SM1234!!</verifyCode>
+		</credentials>
+	</repository>
+
+	<repository>
+		<name>AltVista</name>
+		<type>org.mitre.medcafe.util.VistaRepository</type>
+		<host>192.168.56.102</host>
+		<credentials>
+			<hostURL>192.168.56.102</hostURL>
 			<port>9201</port>
 			<accessCode>SM1234</accessCode>
 			<verifyCode>SM1234!!</verifyCode>

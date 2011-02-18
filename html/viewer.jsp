@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <!DOCTYPE html>
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
@@ -20,7 +21,7 @@
 	}
 	String tabNum = request.getParameter("tab_num");
 	String patientId =  request.getParameter("patient_id");
-		
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -29,9 +30,9 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-  
-	String dir = "images/patients/" + patientId + "/";	
-	
+
+	String dir = "images/patients/" + patientId + "/";
+
 %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,14 +41,14 @@
             var $ = jQuery;
           /*  $(document).ready(function(){
             	  var server = "<%=dir%><%=imageName%>";
-            	 
+
                   $("#<%=tab_set%>viewer<%=widgetId%>").iviewer(
                        {
                        src: server
                   });
-                  
-                 
-                
+
+
+
             }); */
         </script>
         <link rel="stylesheet" href="css/jquery.iviewer.css" />
@@ -59,7 +60,7 @@
                 border: 1px solid black;
                 position: relative;
             }
-            
+
             .wrapper
             {
                 overflow: hidden;
@@ -67,14 +68,14 @@
         </style>
     </head>
     <body>
-        
+
         <!-- wrapper div is needed for opera because it shows scroll bars for reason -->
         <div class="wrapper">
-            
+
             <div id="<%=tab_set%>viewerImageName<%=widgetId%>"><%=dir%><%=imageName%></div>
             <div id="<%=tab_set%>viewer<%=widgetId%>"  class="viewer"></div>
             <br />
-            
+
         </div>
     </body>
 </html>

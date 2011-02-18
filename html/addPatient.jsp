@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import = "org.mitre.medcafe.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -24,7 +25,7 @@
   	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
-  	
+
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
 	<script type="text/javascript" language="javascript" src="${js}/jquery.delay.js"></script>
@@ -52,7 +53,7 @@
 		   		});
         });
 
-       
+
 	</script>
     <%--  {{{ css --%>
     <style type='text/css'>

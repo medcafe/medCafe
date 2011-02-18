@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
@@ -19,7 +20,7 @@
 
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     String currentPatient = "-1";
-    
+
     //This may be the case as may be on intro page where the patient has not, as yet been selected
     if (cache != null)
     {
@@ -98,8 +99,8 @@
 		<div id="addSchedule"></div>
 		<div id="addPatient"></div>
 		<div id="associatePatient"></div>
-		
-		
+
+
 </form>
 </div>
 </div>

@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <!DOCTYPE html>
 <html>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
@@ -18,7 +19,7 @@
 	 }
 	 imageName = imageTitle;
 	String patientId =  request.getParameter("patient_id");
-		
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -27,15 +28,15 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-  
-	String dir = "images/patients/" + patientId + "/";	
-	 
+
+	String dir = "images/patients/" + patientId + "/";
 
 
 
-	String tab_num = request.getParameter("tab_num");	
 
-	
+	String tab_num = request.getParameter("tab_num");
+
+
 %>
 
     <body>
@@ -43,11 +44,11 @@
 		 <input id="<%=tab_set%>editButton<%=widgetId%>" type="button" value="Annotate"/>
 		 <br>
 	<div>
-			
+
 					<a href="<%=dir%><%=imageName%>" class="<%=tab_set%>jqzoom<%=widgetId%> jqzoom" style="" title="<%=imageName%>">
 					<img src="<%=dir%><%=imageName%>" width="300" style="border: 1px solid #666;" title="<%=imageName%>">
 					</a>
-     	
+
 					</div>
 </div>
     </body>

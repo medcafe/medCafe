@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="java.util.Arrays" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -10,7 +11,7 @@
 <meta name = "viewport" content = "user-scalable = yes, width =device-width">
 <%
 	String[] eventList =  Event.getEventList();
-	
+
 	String server = "http://" + Config.getServerUrl() ;
 	String patient_id = request.getParameter(Constants.PATIENT_ID);
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
@@ -22,7 +23,7 @@
 	patient_id = cache.getDatabasePatientId();
 
       	String iconDir = server + "/images/";
-      	
+
 	System.out.println("timelineJSON.jsp patientId " + patient_id);
 	String listEvents = server + "/listTimelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
 	String refreshUrl = server + "/timelineJSON.jsp?" + Constants.PATIENT_ID + "=" + patient_id;
@@ -33,11 +34,11 @@
 		Object eventsObj = session.getAttribute("timelineEvents");
 		if (eventsObj != null)
 			events = (String[])eventsObj;
-			
+
 	}
 	if (events == null)
 		events=new String[]{};
-		
+
 	for (String eventVal: events)
 	{
 		listEvents += "&event=" + eventVal;
@@ -49,8 +50,8 @@
 <script>
  var tl;
 	$(function(){
-              
-   
+
+
  		});
 </script>
 
@@ -69,7 +70,7 @@
             				if (eventListVal == "Problems"  || eventListVal == "Immunizations" || eventListVal == "Encounters")
             				{
             		%>
-            			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event" 
+            			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event"
             		<%
             			boolean checked= false;
 							String imageFile = Event.getIcons().get(eventListVal);
@@ -80,18 +81,18 @@
             		checked="<%=checked%>"
             		<%}%>
             		>
-            		<img src="<%=iconDir%><%=imageFile%>" align=ABSMIDDLE/> <%=eventListVal%></input><br/>
-            		<% 
+            		<img src="<%=iconDir%><%=imageFile%>" align="ABSMIDDLE"/> <%=eventListVal%></input><br/>
+            		<%
             			}
-            		} 
-            		
+            		}
+
             		boolean checked = true;
             			%>
             			<br/>
             			<b>Primary Repository</b><input type="checkbox" class="eventChkBox" value=<%=Event.PRIMARY_REPOSITORY%> name="event" checked="<%=checked%>"/>
             		<br/>
-            		
-         		
+
+
             	</form>
             </p>
          </div>

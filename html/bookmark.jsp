@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -9,40 +10,40 @@
 
 	String server = "http://" + Config.getServerUrl() ;
 	String patient_id = request.getParameter("patient_id");
-	
+
 	if (patient_id == null)
 		patient_id = Constants.DEFAULT_PATIENT;
-  
+
 	String listBookmarks = server + "/bookmarksJSON.jsp";
-	
+
 	String repository = request.getParameter("repository");
 	if (repository == null)
 		repository = Constants.DEFAULT_REPOSITORY;
-	
+
 	listBookmarks = listBookmarks + "?repository=" + repository + "&patient_id=" + patient_id;
-	System.out.println("bookmark.jsp get link "  + listBookmarks); 
+	System.out.println("bookmark.jsp get link "  + listBookmarks);
 %>
 
 <script>
  var tl;
  function onLoad() {
-              
+
     var eventUrl = "<%=listBookmarks%>";
 	$.getJSON(eventUrl, function(data)
  	{
- 			var html = v2js_listPatientsBookmarksTable( data );  	  					
-						
-			var patientId = "<%=patient_id%>";				
+ 			var html = v2js_listPatientsBookmarksTable( data );
+
+			var patientId = "<%=patient_id%>";
 			$("#Bookmarks").append(html);
-	  										
+
 			$("#Bookmarks" + patientId).dataTable( {
 								"aaSorting": [[ 0, "desc" ]]
 			} );
-			
+
 			initButtons();
-              
+
     });
-            
+
  }
 </script>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />

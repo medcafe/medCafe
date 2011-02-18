@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%
 	String imageName = request.getParameter("imageName");
 	if (imageName == null)
@@ -9,7 +10,7 @@
 	<html>
 	<head>
 		<title>Image Annotations</title>
-		
+
 	</head>
 	<body>
 		<div>

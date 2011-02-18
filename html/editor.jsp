@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
@@ -5,7 +6,7 @@
 <%@ page import = "java.net.URLEncoder"%>
 <%
 	String patientId = null;
-	
+
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -15,20 +16,20 @@
     }
     patientId = cache.getDatabasePatientId();
     //System.out.println("Editor.jsp get Patient Id from cache " + patientId);
-    
-	String tab_num = request.getParameter("tab_num");		
+
+	String tab_num = request.getParameter("tab_num");
 	String user =  request.getRemoteUser();
-  	
-	TextProcesses processText = new TextProcesses();	
+
+	TextProcesses processText = new TextProcesses();
 	HashMap<String,Text> textObjs =  processText.populateTextObjects(user, patientId);
 	String note = "";
 	String title = request.getParameter("title");
 	Text textObj = null;
-		
+
   	StringBuffer sbuff= new StringBuffer("");
 	for (String titleNew: textObjs.keySet())
 	{
-		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8");
 		  String titleSafe = CharEncoding.forHTML(titleNew);
 		  sbuff.append("<option value=\"" + titleUrl + "\"");
 		  if (titleNew.equals(title))
@@ -41,14 +42,14 @@
 	StringBuffer sbuffTemplate= new StringBuffer("");
   	for (String titleNew: templateObjs.keySet())
 	{
-		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8"); 
+		  String titleUrl = URLEncoder.encode(titleNew, "UTF-8");
 		  String titleSafe = CharEncoding.forHTML(titleNew);
 		  sbuffTemplate.append("<option value=\"" + titleUrl + "\"");
 		  if (titleNew.equals(title))
 		  	sbuffTemplate.append(" \"selected=true\" ");
 		  sbuffTemplate.append(">" + titleSafe + "</option>");
 	}
-  	
+
 %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-ch" lang="fr-ch">
 <head>
@@ -73,12 +74,12 @@
 
 <div id="main" style="width:800px;" class="scroll">
  <form>
-    <p>                      
+    <p>
     	Select Title : <select name="title" id="title"><option></option>
     		<%=sbuff.toString() %>
     	</select>
     </p>
-    <p>                      
+    <p>
     	Select Template : <select name="template" id="template"><option></option>
     		<%=sbuffTemplate.toString() %>
     	</select>
@@ -86,10 +87,10 @@
      <noscript>
     	<input type="submit" name="action" value="Populate Note" />
   	</noscript>
-    
+
 </form>
 <div class="scroll" id="editNote">Test</div>
-<div id="editorDialog" style="display:none">Are you sure you want to delete this Note?</div>    
-<div id="changeTextDialog" style="display:none">Continuing will result in loss of changes. Do you wish to continue?</div>    
+<div id="editorDialog" style="display:none">Are you sure you want to delete this Note?</div>
+<div id="changeTextDialog" style="display:none">Continuing will result in loss of changes. Do you wish to continue?</div>
 </body>
 </html>

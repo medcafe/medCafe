@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
@@ -10,7 +11,7 @@
 <%
 	//Web utils get the widgetSettings
 	//Put the String to JSON data
-	//Save the JSON Object to the database	
+	//Save the JSON Object to the database
 	System.out.println("saveWidget.jsp in Save Widget start " );
 	Enumeration e = request.getParameterNames();
 	/**
@@ -37,12 +38,12 @@
             return;
         }
         patientId = cache.getDatabasePatientId();
-    }    
+    }
 		if(e != null)
 		{
 	   	try
 	   	{
-	   	 
+
 	   	   JSONObject jsonobj = new JSONObject();
 	   	   while(e.hasMoreElements())
 			  {
@@ -51,20 +52,20 @@
 			  	 if (keyObj != null)
 			  	 	key = keyObj.toString();
 			  	 	System.out.println("saveWidget.jsp key  " +key + " value " + request.getParameter(key));
-	
+
 				 	jsonobj.put( key, request.getParameter(key));
 			  }
-			 
+
 			  jsonobj.put(Widget.ID, patientId);
 			  System.out.println("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
-	
+
 			  Widget.saveWidgets(userName, jsonobj);
 	   	 }
 	   	 catch(JSONException je) {
 				System.out.println("Error in creating JSON " + je.getMessage() );
-	
+
 	   	 }
   		}
 
-	
+
 %>

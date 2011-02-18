@@ -1,5 +1,5 @@
 /*
- *  Copyright 2008 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,7 @@ public class InitServlet extends HttpServlet
         getServletContext().setAttribute("images",  webapp + "/images");
         getServletContext().setAttribute("js",  webapp + "/js");
         getServletContext().setAttribute("css",  webapp + "/css");
-        getServletContext().setAttribute("css_theme",  webapp + "/css/ui-darkness/jquery-ui-1.8.9.custom.css");
+        getServletContext().setAttribute("css_theme",  webapp + "/css/custom-theme/jquery-ui-1.8.6.custom.css");
         getServletContext().setAttribute("server",  Config.getServerUrl());
         System.out.println("Attributes set in InitServlet");
 

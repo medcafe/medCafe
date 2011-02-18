@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
@@ -10,7 +11,7 @@
 <%
 	//Web utils get the widgetSettings
 	//Put the String to JSON data
-	//Save the JSON Object to the database	
+	//Save the JSON Object to the database
 	//System.out.println("saveWidget.jsp in Save Widget start " );
 	Enumeration e = request.getParameterNames();
 	/*
@@ -26,7 +27,7 @@
 	public static final String TYPE = "shape_type";
 	public static final String NOTE = "note";
 	public static final String TRUE = "true";
-	
+
 	*/
 	String userName =  request.getRemoteUser();
 	String patient_id = request.getParameter(ImageTag.ID);
@@ -41,7 +42,7 @@
 	{
 	   try
 	   {
-	   	 
+
 	      JSONObject jsonobj = new JSONObject();
 	      while(e.hasMoreElements())
 		  {
@@ -51,17 +52,17 @@
 		  	 	key = keyObj.toString();
 			 	jsonobj.put( key, request.getParameter(key));
 		  }
-		  
+
 		  System.out.println("saveViewImage.jsp about to Save View Image for jsonObj  " +jsonobj.toString() );
 		  ImageTag imageTag = new ImageTag();
 		  imageTag.saveAnnotations(userName, jsonobj);
-		  
+
 	    }
 	    catch(JSONException je) {
 			System.out.println("Error in creating JSON " + je.getMessage() );
 
 	    }
   	}
-	
-	
+
+
 %>

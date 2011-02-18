@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
 <%
 	String tabNum = WebUtils.getOptionalParameter(request, "tab_num", "2");
@@ -38,16 +39,16 @@ $(function(){
 
 			if (img.length == 0)
 			{
-			
+
 				return;
 			}
 
-			
+
        		var widgetId = $(dragObj).html();
 
        		//Make
 			var link = $(img).attr("custom:url")
-			
+
 			if (typeof(link) == "undefined")
 			{
 				return;
@@ -56,14 +57,14 @@ $(function(){
 
 			var serverLink = "retrievePatientRepositoryAssoc.jsp";
 			var widgetInfo = {
-			
+
 				"patient_id" : "<%=patientId%>",
 				"location" : "<%=location%>",
-				
+
 				"type" : $(img).attr("custom:type"),
 				"name" : $(dragObj).find('p').text(),
 				"clickUrl" : $(img).attr("custom:url"),
-		
+
 				"tab_num": "<%=tabNum%>",
 				"params" : $(img).attr("custom:params"),
 				"column" : "1",
@@ -75,37 +76,37 @@ $(function(){
 				"cacheKey" : $(img).attr("custom:cacheKey")
 			};
 
-			
+
 			widgetInfo.column = $(this).attr('id').substring(6);
 			widgetInfo.collapsed = 'false';
 			widgetInfo.label = widgetInfo.name;
 			widgetInfo.color_num = 2;
 	widgetInfo.tab_num = $(this).closest(".tabContent").attr('id').substring(5);
-	
-	
-					
-		
+
+
+
+
 					var new_id = addWidgetNum(widgetInfo)
 					if (new_id > 0)
 					{
-						
+
 						widgetInfo.id = new_id;
 
-				
+
 						if (widgetInfo.isINettuts == false || widgetInfo.isINettuts == "false")
 						{
 							widgetInfo.tab_num = -1;
-							
+
 						}
-		
-						
+
+
 						createWidgetContent(widgetInfo);
-					
+
 
 
 		   			}
-		 
-		   
+
+
 		   }
     });
 
@@ -158,7 +159,7 @@ function bindClose()
 			{
 
 				var tabNum = "<%=tabNum%>";
-				
+
 				if (tabNum == tabSelected)
 				{
 					//alert("close tab " + tabNum + "  " + tabSelected);

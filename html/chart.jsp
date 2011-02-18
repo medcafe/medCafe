@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -72,39 +73,39 @@
       <% if (temp)
 
 	{%>
-	 checked="true" 
-	 <%} %> 
+	 checked="true"
+	 <%} %>
        value="Temp."> Temperature<br>
-	<input type="checkbox" name="vitalType" 
-	<% if (basic) 
+	<input type="checkbox" name="vitalType"
+	<% if (basic)
 	{%>
-	 checked="true" 
-	 <%} %> 
+	 checked="true"
+	 <%} %>
 	 value="B/P" > Blood Pressure<br>
 	<input type="checkbox" name="vitalType" value="Resp."> Respiration<br>
-	<input type="checkbox" name="vitalType" 
-	<% if (htwt) 
+	<input type="checkbox" name="vitalType"
+	<% if (htwt)
 	{%>
-	 checked="true" 
+	 checked="true"
 	 <%} %>
 	 value="Wt."> Weight<br>
-	<input type="checkbox" name="vitalType" 
-	<% if (htwt) 
+	<input type="checkbox" name="vitalType"
+	<% if (htwt)
 	{%>
-	 checked="true" 
+	 checked="true"
 	 <%} %>
 	 value="Ht."> Height<br>
-	<input type="checkbox" name="vitalType" 
-	<% if (htwt) 
+	<input type="checkbox" name="vitalType"
+	<% if (htwt)
 	{ %>
-	 checked="true" 
-	 <%} %> 
+	 checked="true"
+	 <%} %>
 	 value="BMI" > Body Mass Index<br>
 	<input type="checkbox" name="vitalType" value="Pulse Ox"> Pulse Oxygenation<br>
-	<input type="checkbox" name="vitalType" 
-	<% if (basic) 
+	<input type="checkbox" name="vitalType"
+	<% if (basic)
 	{%>
-	 checked="true" 
+	 checked="true"
 	 <%} %>
 	value="Pulse"> Pulse<br>
 		<input class="dataUpdate" type="button" value="Clear checkboxes" onClick="clearCheckBoxes(this.form)">

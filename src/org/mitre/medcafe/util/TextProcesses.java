@@ -1,5 +1,5 @@
 /*
- *  Copyright 2008 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,29 +31,29 @@ import javax.servlet.jsp.PageContext;
 /**
  *  Class to allow for saving of the information in each of the widgets
  *
- * @author     ghamilton	
+ * @author     ghamilton
  * @created    Feb 24, 2010
  */
 public class TextProcesses
 {
 
-     
+
    private HashMap<String,Text> textList = new HashMap<String, Text>();
-   
+
    public TextProcesses()
    {
-	   
-   }
-   
 
-   
+   }
+
+
+
    public Text getTextObject(String title) throws SQLException
    {
 	   Text textObj = textList.get(title);
-	   
+
 	   return textObj;
    }
-   
+
    public Text populateTextObject(String userid,  String patientId, String title) throws SQLException
    {
    	   DbConnection dbConn = null;
@@ -62,21 +62,21 @@ public class TextProcesses
    	   Text textObj = null;
    	   try{
    	   	  dbConn = new DbConnection();
-	 		
+
    	   	  textObj =  new Text(userid, patientId);
    	   	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT);
    	   	  int patient_id = Integer.parseInt(patientId);
    	   	  prep.setString(1, userid);
    	   	  prep.setInt(2, patient_id);
    	   	  prep.setString(3, title);
-		
+
    	   	  rs = prep.executeQuery();
    	   	  if (rs.next())
    	   	  {
-		 	
+
    	   	  	  String note = rs.getString(1);
    	   	  	  textObj =  new Text(userid, patientId, title, note);
-		  
+
    	   	  }
    	   }
    	   catch (SQLException e)
@@ -90,10 +90,10 @@ public class TextProcesses
 	   }
 	   return textObj;
    }
-   
+
    public TextTemplate populateTemplateObject(String userid,  String title) throws SQLException
    {
-	   
+
 	  DbConnection dbConn = null;
 	  PreparedStatement prep = null;
 	  ResultSet rs = null;
@@ -102,17 +102,17 @@ public class TextProcesses
 	  	  dbConn = new DbConnection();
 	  	  templateObj =  new TextTemplate(userid);
 	  	  prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATE_SELECT);
-	   
+
 	  	  prep.setString(1, userid);
 	  	  prep.setString(2, title);
-	  
+
 	  	  rs = prep.executeQuery();
 	  	  if (rs.next())
 	  	  {
-		 	
+
 	  	  	  String note = rs.getString(1);
 	  	  	  templateObj =  new TextTemplate(userid, title,  note);
-		  
+
 	  	  }
 	  }
 	   catch (SQLException e)
@@ -124,16 +124,16 @@ public class TextProcesses
 	   	   DatabaseUtility.close(prep);
 	   	   dbConn.close();
 	   }
-	   
-		
+
+
 	   return templateObj;
    }
-   
+
    public HashMap<String,Text> populateTextObjects(String userid,  String patientId) throws SQLException
    {
 	   DbConnection dbConn = null;
 	  PreparedStatement prep = null;
-	  ResultSet rs = null;	
+	  ResultSet rs = null;
 	  Text textObj = null;
 	  try {
 	  	  dbConn = new DbConnection();
@@ -142,11 +142,11 @@ public class TextProcesses
 	  	  int patient_id = Integer.parseInt(patientId);
 	  	  prep.setString(1, userid);
 	  	  prep.setInt(2, patient_id);
-		
+
 	  	  rs = prep.executeQuery();
 	  	  while (rs.next())
 	  	  {
-		   
+
 	  	  	  String title = rs.getString(1);
 	  	  	  String note = rs.getString(2);
 	  	  	  textObj =  new Text(userid, patientId, title, note);
@@ -161,30 +161,30 @@ public class TextProcesses
 	  	  DatabaseUtility.close(rs);
 	  	  DatabaseUtility.close(prep);
 	  	  dbConn.close();
-	  }	
+	  }
 	   return textList;
    }
-   
+
    public HashMap<String,TextTemplate> populateTemplateObjects(String userid) throws SQLException
    {
 	   HashMap<String,TextTemplate> templateList = new HashMap<String, TextTemplate>();
-	   
+
 	  DbConnection dbConn = null;
 	  PreparedStatement prep = null;
 	  ResultSet rs = null;
 	  TextTemplate templateObj = null;
 	  try {
 	  	  dbConn = new DbConnection();
-	   		
+
 	  	  templateObj =  new TextTemplate(userid);
 	  	  prep = dbConn.prepareStatement(TextTemplate.SAVE_TEXT_TEMPLATES_SELECT);
-	   
+
 	  	  prep.setString(1, userid);
-	 	
+
 	  	  rs = prep.executeQuery();
 	  	  while (rs.next())
 	  	  {
-		   
+
 	  	  	  String title = rs.getString(1);
 	  	  	  String note = rs.getString(2);
 	  	  	  templateObj =  new TextTemplate(userid,  title, note);
@@ -199,11 +199,11 @@ public class TextProcesses
 	  	  DatabaseUtility.close(rs);
 	  	  DatabaseUtility.close(prep);
 	  	  dbConn.close();
-	  }	
-		
+	  }
+
 	   return templateList;
    }
-   
+
    public void saveText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	  DbConnection dbConn = null;
@@ -212,22 +212,22 @@ public class TextProcesses
 
 	  try {
 	  	  dbConn = new DbConnection();
-	   	
+
 	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_SELECT_CNT);
-	   
+
 	  	  prep.setString(1, userid);
 	  	  int patient_id = Integer.parseInt(patientId);
-		  
+
 	  	  prep.setInt(2, patient_id);
 	  	  prep.setString(3, title);
 	  	  int numberOfRecords = 0;
-	   
+
 	  	  rs = prep.executeQuery();
 	  	  if (rs.next())
 	  	  {
 	  	  	  numberOfRecords = rs.getInt(1);
 	  	  }
-	   
+
 	  	  if (numberOfRecords == 0)
 	  	  	  insertText(userid, patientId, title, text);
 	  	  else
@@ -242,10 +242,10 @@ public class TextProcesses
 	  	  DatabaseUtility.close(prep);
 	  	  dbConn.close();
 	  }
-	  
+
    }
-   
-   
+
+
    private void insertText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	  DbConnection dbConn = null;
@@ -254,15 +254,15 @@ public class TextProcesses
 
 	  try {
 	  	  dbConn = new DbConnection();
-	   
+
 	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_INSERT);
 	  	  prep.setString(1, userid);
 	  	  int patient_id = Integer.parseInt(patientId);
-		
+
 	  	  prep.setInt(2, patient_id);
 	  	  prep.setString(3, title);
 	  	  prep.setString(4, text);
-	     
+
 	  	  int noUpdated = prep.executeUpdate();
 	  	  System.out.println("SaveData: InsertText: number updated  " + noUpdated );
 	   }
@@ -276,7 +276,7 @@ public class TextProcesses
 	  	  dbConn.close();
 	  }
    }
-   
+
    private void updateText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	  DbConnection dbConn = null;
@@ -290,10 +290,10 @@ public class TextProcesses
 	  	  prep.setString(1, text);
 	  	  prep.setString(2, userid);
 	  	  int patient_id = Integer.parseInt(patientId);
-		
+
 	  	  prep.setInt(3, patient_id);
 	  	  prep.setString(4, title);
-	      
+
 	  	  int noUpdated = prep.executeUpdate();
 	  	  System.out.println("SaveData: UpdateText: update: number updated  " + noUpdated );
 	    }
@@ -307,7 +307,7 @@ public class TextProcesses
 	  	  dbConn.close();
 	  }
    }
-   
+
    public void deleteText(String userid,  String patientId, String title, String text) throws SQLException
    {
 	  DbConnection dbConn = null;
@@ -316,15 +316,15 @@ public class TextProcesses
 
 	  try {
 	  	  dbConn = new DbConnection();
-	   
+
 	  	  prep = dbConn.prepareStatement(Text.SAVE_TEXT_DELETE);
 
 	  	  prep.setString(1, userid);
 	  	  int patient_id = Integer.parseInt(patientId);
-		
+
 	  	  prep.setInt(2, patient_id);
 	  	  prep.setString(3, title);
-	      
+
 	  	  int noUpdated = prep.executeUpdate();
 	  	  System.out.println("SaveData: DeleteText: delete: number updated  " + noUpdated );
 	   }

@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
 <%@ page import="java.util.logging.*" %>
@@ -40,14 +41,14 @@
 
 	<!-- link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.9.custom.css" rel="stylesheet" /-->
 	<link type="text/css" href="${css_theme}" rel="stylesheet" />
-	
+
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/treeview/screen.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jqzoom.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
-	
+
 	<link type="text/css" rel="stylesheet" href="${css}/fg.menu.css" />
 	<link type="text/css" rel="stylesheet" href="${css}/fullcalendar.css" />
 	<link rel="Stylesheet" href="${css}/ui.slider.extras.css" type="text/css" />
@@ -56,10 +57,10 @@
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
 	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
-	<link href="css/inettuts.js.css" rel="stylesheet" type-"text/css"/>
+	<link href="css/inettuts.js.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="js/widgets/inettuts.js"></script>
     <link href="css/inettuts.css" rel="stylesheet" type="text/css" />
-	
+
 	<script type="text/javascript" src="${js}/medCafe.js"></script>
 	<script type="text/javascript" src="${js}/medCafeTabs.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>
@@ -159,7 +160,7 @@
   			event.preventDefault() ;
  		}
 
-		
+
 
  		loadWidgetData(  "generalWidgets", "<%=Constants.GENERAL_WIDGETS%>");
  		loadWidgetData( "patientWidgets", "<%=Constants.PATIENT_WIDGETS%>");
@@ -189,7 +190,7 @@
 
 	<div id="saveDialog" style="visibility:hidden;" >You are about to close all tabs for this patient. Would you like to save changes?</div>
     <div id="preferencesDialog" ></div>
-    
+
     <div id="copyTemplateDialog" style="visibility:hidden;">You are about to override all tabs for this patient. Would you like to continue?</div>
     <div id="associatePatientDialog" style="visibility:hidden;"></div>
 
@@ -208,17 +209,17 @@
 	<div id="accordion">
     	<h3><a href="#">General Widgets</a></h3>
     	<div>
-		
+
 				<div id="generalWidgets"></div>
 				<!-- iframe height="400" frameborder="0" width="155" name="widgetframe" id="general_widgetsFrame" src="http://${server}/widgets-list.jsp"></iframe-->
-		
+
 		</div>
 		<h3><a href="#">Patient Specific</a></h3>
     	<div>
-    	
+
     			<div id="patientWidgets"></div>
 				<!--iframe height="400" frameborder="0" width="155" name="patientWidgetframe" id="patient_widgetsFrame" src="http://${server}/widgets-list.jsp?type=patient_widgets"></iframe-->
-		
+
     	</div>
 	</div>
 </div>
@@ -242,7 +243,7 @@
          </a>
          <div id="search-engines" class="hidden"></div>
           	<%-- <button id="addTabBtn">Add Tab</button> --%>
-       
+
        	<a tabindex="1" href="#template_list" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="template">
          <span class="ui-icon ui-icon-triangle-1-s"></span>Templates
         	</a>

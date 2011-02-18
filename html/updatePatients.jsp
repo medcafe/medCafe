@@ -1,3 +1,4 @@
+<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
@@ -5,7 +6,7 @@
 
 	String server = "http://" + Config.getServerUrl() + "/";
 	String user =  request.getRemoteUser();
-	String repository = request.getParameter("repository");	
+	String repository = request.getParameter("repository");
 	server = server + "repository-listJSON.jsp";
 %>
 <head>
@@ -14,24 +15,24 @@
 <script type="text/javascript" src="${js}/vel2js.js"></script>
 <script>
 
-$(document).ready( function() 
+$(document).ready( function()
 {
 	update("<%=server%>", "<%=repository%>");
-	
+
 });
 
 function update( server, repId)
-{	
+{
 		//For testing purposes
-		
+
 		var serverLink =  server + "?repository=" + repId;
 		$.getJSON(serverLink, function(data)
 		{
-		
-			var output = v2js_listInsertStatements( data ); 
+
+			var output = v2js_listInsertStatements( data );
 			$("#output").append(output);
 		});
-		
+
 }
 </script>
 </head>
