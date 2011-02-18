@@ -16,6 +16,9 @@
 package org.mitre.medcafe.util;
 
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -334,6 +337,56 @@ public class TextProcesses
 	  	  DatabaseUtility.close(prep);
 	  	  dbConn.close();
 	  }
+   }
+   
+   public static HashMap<String,String> getCSSFiles(File dir)
+   {
+	
+	   FileFilter fileFilter = new FileFilter() {
+	   	    public boolean accept(File file) {
+	   	        return file.isDirectory();
+	   	    }
+	   	};
+   	
+	   	FilenameFilter filter = new FilenameFilter() {
+	   	    public boolean accept(File dir, String name) {
+	   	        return name.startsWith("jquery-ui-");
+	   	    }
+	   	};
+	   	
+	   	File[] subDirs = dir.listFiles(fileFilter);
+
+	   	HashMap<String,String> cssFiles = new HashMap<String,String>();
+	   	System.out.println("TextProcesses getCSSFiles no of files " + subDirs.length);
+	   	if (subDirs == null) {
+	   	    // Either dir does not exist or is not a directory
+	   	} else {
+   	    for (File subDir: subDirs)
+   	    {
+   	    	System.out.println("TextProcesses getCSSFiles subDir " + subDir.getName());
+   		   	
+   	        // Get filename of file or directory
+   	    	String[] subFiles = subDir.list(filter);
+   	    	System.out.println("TextProcesses getCSSFiles subDir # " + subFiles.length);
+   		   	
+   	    	for (String subFile: subFiles)
+   	    	{
+   	    		cssFiles.put(subDir.getName(), subDir.getName() + Constants.FILE_SEPARATOR  + subFile);
+   	    	}
+   	    	
+   	       
+   	    }
+   	}
+
+   	
+   	for (String fileName: cssFiles.keySet())
+   	{
+   		System.out.println("TextProcesses getCSSFiles fileName " + fileName);
+   	   	
+   	}
+   	
+    return cssFiles;
+
    }
 }
 
