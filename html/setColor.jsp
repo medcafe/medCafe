@@ -43,15 +43,33 @@
 		if (themeValue == null)
 			return;
 			
-		String query = "update preferences set value = ? where username=? and key=?";
-		prep = conn.prepareStatement(query);
-	   	prep.setString(1, themeValue);
+	 	String query = "select value from preferences where key=? and username=?";
+	    prep = conn.prepareStatement(query);
+	    prep.setString(1, "theme");
 	    prep.setString(2, userName);
-	    prep.setString(3, "theme");
-	    int rtn = prep.executeUpdate();
-	    String webApp =  (String)getServletContext().getAttribute("base");	  
-	 	getServletContext().setAttribute("css_theme",  webApp + "/" + themeValue);
-	   
+	    
+	    ResultSet rs = prep.executeQuery();
+		
+		if (rs.next()) //Do update
+		{
+
+			query = "update preferences set value = ? where username=? and key=?";
+			
+	   	}
+	   	else
+	   	{
+	   	//insert into preferences (key, username, value) values ('theme', 'guest','css/
+	   	
+	   			query = "insert into preferences ( value, username, key) values (?,?,?)";
+
+	   	}
+	   	prep = conn.prepareStatement(query);
+	   	prep.setString(1, themeValue);
+		prep.setString(2, userName);
+		prep.setString(3, "theme");
+		int rtn = prep.executeUpdate();
+		String webApp =  (String)getServletContext().getAttribute("base");	  
+		getServletContext().setAttribute("css_theme",  webApp + "/" + themeValue);
 	}
     
     conn.close();
