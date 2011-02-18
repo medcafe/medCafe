@@ -56,7 +56,7 @@ function saveTheme()
 	var savePrefs= "setColor.jsp?theme_value=" + theme;
 	$.get(savePrefs, function(data)
 	{
-		
+		parent.window.location.replace("index.jsp");
 	});
 	
 }
