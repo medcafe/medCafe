@@ -51,15 +51,14 @@ public class ThemeFilter implements Filter
 	        	PreparedStatement prep=null;
 	        	String userName = ((HttpServletRequest)request).getRemoteUser();	
 	        	     
-	        	String query = "select value from preferences where key=? and username=?";
+	        	String query = "select  value from preferences where key=? and username=?";
 	        	//Default to a custom CSS that this is deployed with
 	        	String themeValue = Constants.DEFAULT_CSS_THEME;
 	        	prep = conn.prepareStatement(query);
 	        	prep.setString(1, "theme");
 	        	prep.setString(2, userName);
 	        		  
-	        	System.out.println("ThemeFilter : doFilter prep statement " + prep.toString());
-	            
+	        	
 	        	ResultSet rs = prep.executeQuery();
 	        			
 	        	if (rs.next())
@@ -68,7 +67,11 @@ public class ThemeFilter implements Filter
 	        	}
 	        	String webApp =(String) filterConfig.getServletContext().getAttribute("base");
 	        			  
-	        	session.setAttribute(Constants.CSS_THEME,  webApp + "/" + themeValue);
+	        	String dir = themeValue.substring(0, themeValue.lastIndexOf(Constants.FILE_SEPARATOR));
+	        	session.setAttribute(Constants.CSS_THEME,  webApp +Constants.FILE_SEPARATOR + themeValue);
+	        	session.setAttribute(Constants.CSS_WIDGET,  webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE );
+	        	System.out.println("ThemeFilter : doFilter css widget " + webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE);
+	            
 	        	DatabaseUtility.close(rs);
 	        	
 			} catch (SQLException e) {

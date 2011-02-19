@@ -111,7 +111,7 @@ public class InitServlet extends HttpServlet
         getServletContext().setAttribute("images",  webapp + "/images");
         getServletContext().setAttribute("js",  webapp + "/js");
         getServletContext().setAttribute("css",  webapp + "/css");
-        getServletContext().setAttribute("css_theme",  webapp + "/css/custom-theme/jquery-ui-1.8.6.custom.css");
+
         getServletContext().setAttribute("server",  Config.getServerUrl());
         System.out.println("Attributes set in InitServlet");
 

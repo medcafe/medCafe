@@ -41,7 +41,8 @@
 	<title>medCafe</title>
 	<!-- link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.9.custom.css" rel="stylesheet" /-->
 	<link type="text/css" href="${css_theme}" rel="stylesheet" />
-
+	<link type="text/css" href="${css_widget}" rel="stylesheet" />
+	
 	<link type="text/css" href="${css}/demo_page.css" rel="stylesheet" />
 	<link type="text/css" href="${css}/demo_table.css" rel="stylesheet" />
   	<link type="text/css" rel="stylesheet" href="${css}/treeview/jquery.treeview.css" />

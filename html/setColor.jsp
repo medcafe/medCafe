@@ -1,4 +1,4 @@
-<%@ page import="org.mitre.medcafe.util.*, java.sql.*" %><%@
+<%@ page import="org.mitre.medcafe.util.*, java.sql.*, java.io.File" %><%@
     taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %><%
 
@@ -68,8 +68,20 @@
 		prep.setString(2, userName);
 		prep.setString(3, "theme");
 		int rtn = prep.executeUpdate();
-		String webApp =  (String)getServletContext().getAttribute("base");	
-		session.setAttribute(Constants.CSS_THEME,  webApp + "/" + themeValue);  
+		String webApp =  (String)getServletContext().getAttribute("base");
+			
+		String dir = themeValue.substring(0, themeValue.lastIndexOf(Constants.FILE_SEPARATOR));
+	    session.setAttribute(Constants.CSS_THEME,  webApp +Constants.FILE_SEPARATOR + themeValue);
+	    String widgetFileName =  Constants.BASE_PATH + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE;
+	 
+	    File testFile = new File(widgetFileName);
+	    boolean exists =  testFile.exists();
+	    if (exists)
+		    session.setAttribute(Constants.CSS_WIDGET,  webApp + Constants.FILE_SEPARATOR +  dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE  );
+		else
+			session.setAttribute(Constants.CSS_WIDGET, webApp + Constants.FILE_SEPARATOR + "css/custom-theme" + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE );
+			
+			
 	}
     
     conn.close();

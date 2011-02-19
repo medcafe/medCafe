@@ -388,5 +388,12 @@ public class TextProcesses
     return cssFiles;
 
    }
+   
+   public static boolean fileExists(String fileName)
+   {
+	   
+	   File testFile = new File(fileName);
+	   return testFile.exists();
+   }
 }
 

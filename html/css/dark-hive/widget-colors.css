@@ -1,0 +1,25 @@
+/* Colors for widget header*/
+.color-1 {background:#92DDFA;}
+.color-2 {background:#2381AE;}
+.color-3 {background:#C3CAE0;}
+.color-4 {background:#A78FAC;}
+.color-5 {background:#FBE8DA;}
+.color-6 {background:#E1F2FA;}
+.color-7 {background:#381f00;}
+.color-8 {background:#817865;}
+.color-1 h3 	,
+.color-2 h3 {color:#FFF;},
+.color-4 h3,
+.color-3 h3
+	{color:#000;}
+.color-6 h3,
+.color-5 h3
+	{color:#000;}
+/* End Colors */
+.ui-layout-resizer { /* all 'resizer-bars' */
+		background: #2381AE;
+	}
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */
+		background: #92DDFA;
+	}
