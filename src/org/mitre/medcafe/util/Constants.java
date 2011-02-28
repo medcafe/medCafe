@@ -63,5 +63,9 @@ public class Constants {
 	public static final boolean DEFAULT_JSON_PROCESS = true;
 	public static final boolean DEFAULT_IS_INETTUTS = true;
 	public static final String DEFAULT_SCRIPT_FILE = "medCafe.default.js";
-
+	public static final String DEFAULT_CSS_THEME = "css/custom-theme/jquery-ui-1.8.6.custom.css";
+	public static final String CSS_THEME = "css_theme";
+	public static final String CSS_WIDGET = "css_widget";
+	public static final String CSS_WIDGET_FILE = "widget-colors.css";
+	
 }
