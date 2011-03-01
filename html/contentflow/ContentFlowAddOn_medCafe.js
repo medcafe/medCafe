@@ -21,7 +21,10 @@
  * 6. Reload your page :-)
  *
  */
+ var processingImageList=[];
 var patientId = "";
+
+
 new ContentFlowAddOn ('medCafe', {
 
     /* 
@@ -138,7 +141,8 @@ new ContentFlowAddOn ('medCafe', {
          * called after the active item is clicked.
          */
         onclickActiveItem: function (item) {
-        	
+
+
             var url, target;
 
             if (url = item.content.getAttribute('href')) {
@@ -150,7 +154,7 @@ new ContentFlowAddOn ('medCafe', {
             else if (url = item.content.getAttribute('src')) {
                 target = item.content.getAttribute('target');
             }
-
+			
 			   var newWidgetSettings = {
 			   	"name" : "Image",
 			   	"type" : "SingleImage",
@@ -179,6 +183,14 @@ new ContentFlowAddOn ('medCafe', {
                     //window.location.href = url;
                 }
             }
+            var entry = newWidgetSettings.image;
+            for (var i = 0; i< processingImageList.length; i++)
+            {
+            	
+            	if (processingImageList[i] == entry)
+            		return;
+            }
+            processingImageList.push(entry);
             var pos = newWidgetSettings.image.lastIndexOf('/');
             var label;
             if (pos>0)
@@ -188,6 +200,12 @@ new ContentFlowAddOn ('medCafe', {
             newWidgetSettings.image = label;
             //newWidgetSettings.tab_num = addTab(label, newWidgetSettings.type, newWidgetSettings.iNettuts); 
             createWidgetContent(newWidgetSettings, false);
+            $(this).delay(1500, function()  {
+				for (var i=0; i< processingImageList.length; i++)
+					if(processingImageList[i] ==entry)
+						processingImageList[i]="";
+						});
+    
         },
         
         /*

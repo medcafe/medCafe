@@ -283,6 +283,7 @@ function populateTabs(server, tab_set)
 						data.widgets[i].collapsed == 'false';
 					if (data.widgets[i].tab_set === undefined)
 						data.widgets[i].tab_set = tab_set;
+						data.widgets[i].id = nextWidgetNum++;
 				   // This allows the widget to be added only after the widget before it
 				   // has been created so that order is maintained.  The only exception
 				   // is for an excessive delay of the previous widget insertion

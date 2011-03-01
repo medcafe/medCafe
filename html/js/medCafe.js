@@ -1,4 +1,6 @@
 var addListeners = true;
+var nextWidgetNum = 1;
+
 $(document).ready( function() {
 		var tabSelectedId;
 

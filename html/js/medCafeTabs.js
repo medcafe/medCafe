@@ -93,13 +93,14 @@ $(document).ready( function() {
 
   		var draggedId;
 		// init the Sortables
-		$(".tabs").sortable({handle:'li'}
+		$(".tabs").sortable({ }
 			
 		);
 
 
 		$("#body")
-				.tabs({change: function () {}}).sortable('refresh')
+				.tabs({change: function () {}})
+				.sortable('refresh')
 			;
 
 		 medCafeTabs = {
@@ -297,8 +298,9 @@ $(document).ready( function() {
 
 
 		var widget_id = 0;
-		var max_id = 0;
-	
+
+
+
 		//	$(this).find('.id').each(function()
 			$('.widget').each(function()
 			{
@@ -316,11 +318,7 @@ $(document).ready( function() {
 				var len = "medCafeWidget-tabs".length;
 				
 				var id = widget_idName.substring(len)*1;
-				
-				if (id > max_id)
-				{
-					max_id = id;
-				}
+
 				
 				if (widgetLabel == testLabel)
 				{
@@ -355,7 +353,7 @@ $(document).ready( function() {
 		if (widget_id != 0)
 			return -1;
 
-		return max_id*1 + 1;
+		return nextWidgetNum++;
 	}
 
 	function createLink(widgetInfo)
