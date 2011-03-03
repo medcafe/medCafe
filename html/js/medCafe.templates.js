@@ -54,7 +54,7 @@ function copyAndRetrieve(server, patient, template_id)
 
 		//var url = "index.jsp";
 		//alert(server + " " + patient + " " + oldPatient);
-		parent.$("#copyTemplateDialog").css("visibility", "hidden");
+		parent.$("#copyTemplateDialog").css("visibility", "visible");
 		parent.$("#copyTemplateDialog").dialog({
 				autoOpen: false,
 				modal:true,
