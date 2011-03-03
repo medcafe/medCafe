@@ -14,7 +14,7 @@
 			</div>
             <img src="images/image1.gif" alt="MITRE logo" style="float:left;"/>
             <a name="1"></a>
-            <p>This work is the result of a MITRE internal research project.  Without their support this would not have been possible. </p>
+            <p>This work is the result of a MITRE internal research project.  The project leveraged work from open source projects. </p>
             <%-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --%>
             <a name="2"></a><h3>jQuery<sup><a href="#note">1</a></sup></h3>
             <p>Much of the fuctionality in this system is possible because of the <a href="http://jquery.com">jQuery</a> and <a href="http://jquery-ui.com">jQuery-UI</a> projects.</p>
