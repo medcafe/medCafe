@@ -1,0 +1,2211 @@
+<feed
+	xml:base="https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/"
+	xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns="http://www.w3.org/2005/Atom">
+	<title type="text">SyncPatient</title>
+	<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient
+	</id>
+	<updated>2011-03-03T20:53:13Z</updated>
+	<link rel="self" title="SyncPatient" href="SyncPatient" />
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'd4df6f8f-aa3a-432b-a2e9-0c8434cb73b2')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'd4df6f8f-aa3a-432b-a2e9-0c8434cb73b2')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">d4df6f8f-aa3a-432b-a2e9-0c8434cb73b2
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1946</d:YearOfBirth>
+				<d:State>TX</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'255205aa-d73a-41fc-b1b0-0c8b2af96453')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'255205aa-d73a-41fc-b1b0-0c8b2af96453')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">255205aa-d73a-41fc-b1b0-0c8b2af96453
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1967</d:YearOfBirth>
+				<d:State>LA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'68be94de-0e8b-405b-aa96-0c8d1f264715')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'68be94de-0e8b-405b-aa96-0c8d1f264715')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">68be94de-0e8b-405b-aa96-0c8d1f264715
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1953</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'403c1ccc-1bec-4454-9add-0c90c96a7373')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'403c1ccc-1bec-4454-9add-0c90c96a7373')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">403c1ccc-1bec-4454-9add-0c90c96a7373
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1944</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'6f5fac2e-49fd-4daa-8a2c-0c926afab3fd')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'6f5fac2e-49fd-4daa-8a2c-0c926afab3fd')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">6f5fac2e-49fd-4daa-8a2c-0c926afab3fd
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1970</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b17fdfcc-812f-49c4-8e86-0c947a07acc6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b17fdfcc-812f-49c4-8e86-0c947a07acc6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b17fdfcc-812f-49c4-8e86-0c947a07acc6
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1977</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'4adc546f-9e60-43e9-a9ec-0c95ad17f164')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'4adc546f-9e60-43e9-a9ec-0c95ad17f164')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">4adc546f-9e60-43e9-a9ec-0c95ad17f164
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1983</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'9f07f5ce-bdbf-4d42-992d-0c99f8294dc8')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'9f07f5ce-bdbf-4d42-992d-0c99f8294dc8')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">9f07f5ce-bdbf-4d42-992d-0c99f8294dc8
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1930</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'6ca58821-6734-4ca7-a2d8-0c9d13a616fc')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'6ca58821-6734-4ca7-a2d8-0c9d13a616fc')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">6ca58821-6734-4ca7-a2d8-0c9d13a616fc
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1964</d:YearOfBirth>
+				<d:State>ID</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'bf7dfa6c-b2d3-4519-9213-0c9dc6cff018')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'bf7dfa6c-b2d3-4519-9213-0c9dc6cff018')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">bf7dfa6c-b2d3-4519-9213-0c9dc6cff018
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1938</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'465fc296-5d33-41ad-bddb-0ca027c3c645')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'465fc296-5d33-41ad-bddb-0ca027c3c645')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">465fc296-5d33-41ad-bddb-0ca027c3c645
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1973</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'f2c73276-242f-4207-83b3-0cac97691986')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'f2c73276-242f-4207-83b3-0cac97691986')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">f2c73276-242f-4207-83b3-0cac97691986
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1965</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'a80f26d5-5313-4aa3-89aa-0cb397ec8c0a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'a80f26d5-5313-4aa3-89aa-0cb397ec8c0a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">a80f26d5-5313-4aa3-89aa-0cb397ec8c0a
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1939</d:YearOfBirth>
+				<d:State>TX</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'099f3e72-5270-42d2-b73e-0cb43d2d7e28')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'099f3e72-5270-42d2-b73e-0cb43d2d7e28')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">099f3e72-5270-42d2-b73e-0cb43d2d7e28
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1990</d:YearOfBirth>
+				<d:State>MI</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'71ebd7c3-9c75-4445-9404-0cb75518f47e')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'71ebd7c3-9c75-4445-9404-0cb75518f47e')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">71ebd7c3-9c75-4445-9404-0cb75518f47e
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1954</d:YearOfBirth>
+				<d:State>MS</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'94584dc8-b8c2-45bf-b5bd-0cb97b3c7ac3')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'94584dc8-b8c2-45bf-b5bd-0cb97b3c7ac3')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">94584dc8-b8c2-45bf-b5bd-0cb97b3c7ac3
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1921</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'00874abb-c86e-49dd-9b14-0cb9d2921457')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'00874abb-c86e-49dd-9b14-0cb9d2921457')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">00874abb-c86e-49dd-9b14-0cb9d2921457
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1968</d:YearOfBirth>
+				<d:State>WA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'142b5a16-5956-4716-98e6-0cba75850c04')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'142b5a16-5956-4716-98e6-0cba75850c04')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">142b5a16-5956-4716-98e6-0cba75850c04
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1934</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8b8bd8c0-74c2-4639-94f1-0cbc138f2121')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8b8bd8c0-74c2-4639-94f1-0cbc138f2121')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8b8bd8c0-74c2-4639-94f1-0cbc138f2121
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1986</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b9faf892-361d-4828-9571-0cbcb4bc60d9')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b9faf892-361d-4828-9571-0cbcb4bc60d9')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b9faf892-361d-4828-9571-0cbcb4bc60d9
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1935</d:YearOfBirth>
+				<d:State>AZ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'f3baa00c-437e-45db-8e92-0cd088aa5286')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'f3baa00c-437e-45db-8e92-0cd088aa5286')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">f3baa00c-437e-45db-8e92-0cd088aa5286
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1940</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c0d5a5f7-a2c8-4d13-bf15-0cd53c14ac22')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c0d5a5f7-a2c8-4d13-bf15-0cd53c14ac22')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c0d5a5f7-a2c8-4d13-bf15-0cd53c14ac22
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1959</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'710fca87-5689-4edd-b2f0-0cd789c84c1c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'710fca87-5689-4edd-b2f0-0cd789c84c1c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">710fca87-5689-4edd-b2f0-0cd789c84c1c
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1963</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'1eb2f2e2-9e34-4957-ac85-0cdc2b5c025b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'1eb2f2e2-9e34-4957-ac85-0cdc2b5c025b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">1eb2f2e2-9e34-4957-ac85-0cdc2b5c025b
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1954</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'9434b819-5a3f-43af-97af-0ce407ed1125')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'9434b819-5a3f-43af-97af-0ce407ed1125')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">9434b819-5a3f-43af-97af-0ce407ed1125
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1941</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'418c5a70-7361-4486-9e4b-0ce9ab672833')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'418c5a70-7361-4486-9e4b-0ce9ab672833')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">418c5a70-7361-4486-9e4b-0ce9ab672833
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1927</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'24c88744-2e58-495f-aa85-0ced82b6094f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'24c88744-2e58-495f-aa85-0ced82b6094f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">24c88744-2e58-495f-aa85-0ced82b6094f
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1983</d:YearOfBirth>
+				<d:State>NH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'5f83b0b3-28ab-4a8a-a218-0cee56f5bb93')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'5f83b0b3-28ab-4a8a-a218-0cee56f5bb93')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">5f83b0b3-28ab-4a8a-a218-0cee56f5bb93
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1935</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'06eea1f3-3889-4fe5-aa4f-0cf4459370bf')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'06eea1f3-3889-4fe5-aa4f-0cf4459370bf')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">06eea1f3-3889-4fe5-aa4f-0cf4459370bf
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1949</d:YearOfBirth>
+				<d:State>AZ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'804fa9da-5298-46ec-a015-0cf47a870f46')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'804fa9da-5298-46ec-a015-0cf47a870f46')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">804fa9da-5298-46ec-a015-0cf47a870f46
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1969</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'f14be126-2b09-46fc-acf7-0cf49ce6e3dd')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'f14be126-2b09-46fc-acf7-0cf49ce6e3dd')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">f14be126-2b09-46fc-acf7-0cf49ce6e3dd
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1983</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'9ba65b9e-abcf-4f58-8d27-0cfe630a3caf')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'9ba65b9e-abcf-4f58-8d27-0cfe630a3caf')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">9ba65b9e-abcf-4f58-8d27-0cfe630a3caf
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1953</d:YearOfBirth>
+				<d:State>MI</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'14aa2b26-81b4-4b26-88c8-0d03ed6dcdce')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'14aa2b26-81b4-4b26-88c8-0d03ed6dcdce')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">14aa2b26-81b4-4b26-88c8-0d03ed6dcdce
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1950</d:YearOfBirth>
+				<d:State>WA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c55b1dec-ce9d-4ea0-9bc3-0d03fbf4fe0b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c55b1dec-ce9d-4ea0-9bc3-0d03fbf4fe0b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c55b1dec-ce9d-4ea0-9bc3-0d03fbf4fe0b
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1960</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'dff43e47-5228-4126-9b1a-0d05018cfbdc')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'dff43e47-5228-4126-9b1a-0d05018cfbdc')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">dff43e47-5228-4126-9b1a-0d05018cfbdc
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1975</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'0ec94b7f-0d3b-4eeb-8e5f-0d0512767ed6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'0ec94b7f-0d3b-4eeb-8e5f-0d0512767ed6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">0ec94b7f-0d3b-4eeb-8e5f-0d0512767ed6
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1963</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'ff107e9f-36e9-42b7-94ea-0d05efc06083')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'ff107e9f-36e9-42b7-94ea-0d05efc06083')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">ff107e9f-36e9-42b7-94ea-0d05efc06083
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1957</d:YearOfBirth>
+				<d:State>TN</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8b907697-b0c2-4a59-91d2-0d0c6555e8f3')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8b907697-b0c2-4a59-91d2-0d0c6555e8f3')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8b907697-b0c2-4a59-91d2-0d0c6555e8f3
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1963</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'6cfe46bc-679a-471d-8bc0-0d10bf2e8d51')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'6cfe46bc-679a-471d-8bc0-0d10bf2e8d51')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">6cfe46bc-679a-471d-8bc0-0d10bf2e8d51
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1948</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'64382e52-2124-4900-9f00-0d295dcba742')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'64382e52-2124-4900-9f00-0d295dcba742')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">64382e52-2124-4900-9f00-0d295dcba742
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1932</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c82d5bf7-68a5-4d9e-a1d0-0d2b9b08da1c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c82d5bf7-68a5-4d9e-a1d0-0d2b9b08da1c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c82d5bf7-68a5-4d9e-a1d0-0d2b9b08da1c
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1961</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'5adb1d72-da7b-4bc5-bd96-0d325d7c5b5a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'5adb1d72-da7b-4bc5-bd96-0d325d7c5b5a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">5adb1d72-da7b-4bc5-bd96-0d325d7c5b5a
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1984</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'f716f2c6-174a-47dd-8979-0d377e0a4ce4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'f716f2c6-174a-47dd-8979-0d377e0a4ce4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">f716f2c6-174a-47dd-8979-0d377e0a4ce4
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1984</d:YearOfBirth>
+				<d:State>IL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c2b49bd6-fe45-4e79-b1ce-0d3a65d97fa4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c2b49bd6-fe45-4e79-b1ce-0d3a65d97fa4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c2b49bd6-fe45-4e79-b1ce-0d3a65d97fa4
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1982</d:YearOfBirth>
+				<d:State>WY</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'17943be7-ccba-4637-83af-0d3b4f90f1a4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'17943be7-ccba-4637-83af-0d3b4f90f1a4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">17943be7-ccba-4637-83af-0d3b4f90f1a4
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1952</d:YearOfBirth>
+				<d:State>PA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'dd55be68-3cc9-448a-88f4-0d3dfca20e67')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'dd55be68-3cc9-448a-88f4-0d3dfca20e67')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">dd55be68-3cc9-448a-88f4-0d3dfca20e67
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1948</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'784702ac-e42a-4d0a-bd2a-0d3f45dbd74a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'784702ac-e42a-4d0a-bd2a-0d3f45dbd74a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">784702ac-e42a-4d0a-bd2a-0d3f45dbd74a
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1930</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'093d9767-6803-46c0-a5af-0d3fddc7a82c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'093d9767-6803-46c0-a5af-0d3fddc7a82c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">093d9767-6803-46c0-a5af-0d3fddc7a82c
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1958</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'3037e6a5-52fc-4779-98fa-0d41698f2e20')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'3037e6a5-52fc-4779-98fa-0d41698f2e20')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">3037e6a5-52fc-4779-98fa-0d41698f2e20
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1992</d:YearOfBirth>
+				<d:State>MN</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'2d3afd05-c2c2-4557-bece-0d42635e948a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'2d3afd05-c2c2-4557-bece-0d42635e948a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">2d3afd05-c2c2-4557-bece-0d42635e948a
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1937</d:YearOfBirth>
+				<d:State>OH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'ede46d60-c37d-4dac-a0dc-0d4572d2411c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'ede46d60-c37d-4dac-a0dc-0d4572d2411c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">ede46d60-c37d-4dac-a0dc-0d4572d2411c
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1944</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'9fc9779f-2f4e-4511-919e-0d47eab6df63')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'9fc9779f-2f4e-4511-919e-0d47eab6df63')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">9fc9779f-2f4e-4511-919e-0d47eab6df63
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1947</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c41f9b9a-cebe-4df5-8941-0d49bbd25abb')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c41f9b9a-cebe-4df5-8941-0d49bbd25abb')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c41f9b9a-cebe-4df5-8941-0d49bbd25abb
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1990</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'5e341006-a85e-4ae3-b17e-0d4f2161dbe1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'5e341006-a85e-4ae3-b17e-0d4f2161dbe1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">5e341006-a85e-4ae3-b17e-0d4f2161dbe1
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1975</d:YearOfBirth>
+				<d:State>NV</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8748dd27-4026-4a6a-8777-0d5d4c01b0d4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8748dd27-4026-4a6a-8777-0d5d4c01b0d4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8748dd27-4026-4a6a-8777-0d5d4c01b0d4
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1982</d:YearOfBirth>
+				<d:State>TX</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'98091e6f-a4c3-4282-b41d-0d5db9547f5d')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'98091e6f-a4c3-4282-b41d-0d5db9547f5d')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">98091e6f-a4c3-4282-b41d-0d5db9547f5d
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1961</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'41d72d59-efcb-4f0a-85d8-0d5dfe73a224')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'41d72d59-efcb-4f0a-85d8-0d5dfe73a224')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">41d72d59-efcb-4f0a-85d8-0d5dfe73a224
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1964</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8eae4592-4876-4335-beb7-0d614ef89223')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8eae4592-4876-4335-beb7-0d614ef89223')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8eae4592-4876-4335-beb7-0d614ef89223
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1970</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'0c9024a7-1e3b-4a81-b022-0d68d769f56e')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'0c9024a7-1e3b-4a81-b022-0d68d769f56e')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">0c9024a7-1e3b-4a81-b022-0d68d769f56e
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1925</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'0c2098c6-603c-46ab-af19-0d71a031503a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'0c2098c6-603c-46ab-af19-0d71a031503a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">0c2098c6-603c-46ab-af19-0d71a031503a
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1982</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'63d93a62-78cb-4bdc-b895-0d77c7d88750')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'63d93a62-78cb-4bdc-b895-0d77c7d88750')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">63d93a62-78cb-4bdc-b895-0d77c7d88750
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1987</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'91fede60-808f-400c-91f8-0d77ed35e460')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'91fede60-808f-400c-91f8-0d77ed35e460')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">91fede60-808f-400c-91f8-0d77ed35e460
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1956</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'29e26ea3-eda9-420c-8a35-0d7b2526b260')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'29e26ea3-eda9-420c-8a35-0d7b2526b260')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">29e26ea3-eda9-420c-8a35-0d7b2526b260
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1980</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c7ba0e53-be20-491d-a26e-0d8510d81a67')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c7ba0e53-be20-491d-a26e-0d8510d81a67')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c7ba0e53-be20-491d-a26e-0d8510d81a67
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1963</d:YearOfBirth>
+				<d:State>IL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'58b83b4a-cc94-46ac-9cb5-0d86c6c5229c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'58b83b4a-cc94-46ac-9cb5-0d86c6c5229c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">58b83b4a-cc94-46ac-9cb5-0d86c6c5229c
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1921</d:YearOfBirth>
+				<d:State>NY</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'7c823131-8e63-4079-9da8-0d8ba063882b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'7c823131-8e63-4079-9da8-0d8ba063882b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">7c823131-8e63-4079-9da8-0d8ba063882b
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1929</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'6ed30344-62ef-444c-9e01-0d8c82323db5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'6ed30344-62ef-444c-9e01-0d8c82323db5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">6ed30344-62ef-444c-9e01-0d8c82323db5
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1979</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'ae333234-f4fa-4bf6-ba40-0d8d52708551')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'ae333234-f4fa-4bf6-ba40-0d8d52708551')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">ae333234-f4fa-4bf6-ba40-0d8d52708551
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1974</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'7378e711-3086-4a65-82fe-0d8db07155fe')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'7378e711-3086-4a65-82fe-0d8db07155fe')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">7378e711-3086-4a65-82fe-0d8db07155fe
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1979</d:YearOfBirth>
+				<d:State>NV</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'66564ab3-8530-432b-8d34-0d8e0bbd350d')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'66564ab3-8530-432b-8d34-0d8e0bbd350d')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">66564ab3-8530-432b-8d34-0d8e0bbd350d
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1951</d:YearOfBirth>
+				<d:State>NV</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'3ce9000a-fab5-4f6c-bdcf-0d93fb8b2b2d')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'3ce9000a-fab5-4f6c-bdcf-0d93fb8b2b2d')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">3ce9000a-fab5-4f6c-bdcf-0d93fb8b2b2d
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1924</d:YearOfBirth>
+				<d:State>NY</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'6b5d996a-cf70-4db7-a724-0d98bafa9ccd')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'6b5d996a-cf70-4db7-a724-0d98bafa9ccd')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">6b5d996a-cf70-4db7-a724-0d98bafa9ccd
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1961</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b8a2e4ab-214e-4700-a796-0dab4b191440')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b8a2e4ab-214e-4700-a796-0dab4b191440')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b8a2e4ab-214e-4700-a796-0dab4b191440
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1979</d:YearOfBirth>
+				<d:State>MA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'fecb3fae-02df-408d-ba64-0dac87c867da')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'fecb3fae-02df-408d-ba64-0dac87c867da')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">fecb3fae-02df-408d-ba64-0dac87c867da
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1937</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'2e6b6fe8-272d-4d50-9ed6-0dac98ecf051')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'2e6b6fe8-272d-4d50-9ed6-0dac98ecf051')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">2e6b6fe8-272d-4d50-9ed6-0dac98ecf051
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1964</d:YearOfBirth>
+				<d:State>NJ</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'11fa5c6b-1be0-4cd5-853d-0db79ea7aa9c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'11fa5c6b-1be0-4cd5-853d-0db79ea7aa9c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">11fa5c6b-1be0-4cd5-853d-0db79ea7aa9c
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1991</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'ad82ebe6-88e3-4e82-bcf8-0dbd534b4ff7')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'ad82ebe6-88e3-4e82-bcf8-0dbd534b4ff7')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">ad82ebe6-88e3-4e82-bcf8-0dbd534b4ff7
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1923</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'1975af5f-d967-4fdc-8869-0dbe45e4bf09')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'1975af5f-d967-4fdc-8869-0dbe45e4bf09')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">1975af5f-d967-4fdc-8869-0dbe45e4bf09
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1980</d:YearOfBirth>
+				<d:State>OH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'acf7ce2c-184e-4469-bdd3-0dbe9b09a44b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'acf7ce2c-184e-4469-bdd3-0dbe9b09a44b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">acf7ce2c-184e-4469-bdd3-0dbe9b09a44b
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1927</d:YearOfBirth>
+				<d:State>NY</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'a29e0aff-7e56-4709-85a8-0dc112bacc27')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'a29e0aff-7e56-4709-85a8-0dc112bacc27')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">a29e0aff-7e56-4709-85a8-0dc112bacc27
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1935</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'586c3d51-2d1d-47fb-a353-0dc3004c5c52')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'586c3d51-2d1d-47fb-a353-0dc3004c5c52')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">586c3d51-2d1d-47fb-a353-0dc3004c5c52
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1984</d:YearOfBirth>
+				<d:State>NY</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'1beb1274-1e57-43e2-8cf0-0dca08bcb806')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'1beb1274-1e57-43e2-8cf0-0dca08bcb806')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">1beb1274-1e57-43e2-8cf0-0dca08bcb806
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1958</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'cbba0b2a-b11e-4a26-b44d-0dcb879319de')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'cbba0b2a-b11e-4a26-b44d-0dcb879319de')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">cbba0b2a-b11e-4a26-b44d-0dcb879319de
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1970</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b76712da-31ac-4a1c-85d6-0dcd13936e31')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b76712da-31ac-4a1c-85d6-0dcd13936e31')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b76712da-31ac-4a1c-85d6-0dcd13936e31
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1959</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b3357141-f41e-4137-a124-0dd653bce052')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b3357141-f41e-4137-a124-0dd653bce052')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b3357141-f41e-4137-a124-0dd653bce052
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1976</d:YearOfBirth>
+				<d:State>NH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'5fa7d9a5-9d3c-4cac-bd25-0dd65629a8a5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'5fa7d9a5-9d3c-4cac-bd25-0dd65629a8a5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">5fa7d9a5-9d3c-4cac-bd25-0dd65629a8a5
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1956</d:YearOfBirth>
+				<d:State>NC</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'bb5e8204-6780-42fd-a531-0dd965f5c712')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'bb5e8204-6780-42fd-a531-0dd965f5c712')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">bb5e8204-6780-42fd-a531-0dd965f5c712
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1946</d:YearOfBirth>
+				<d:State>CA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'438336bf-6382-4575-b3fd-0dddbeb0efda')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'438336bf-6382-4575-b3fd-0dddbeb0efda')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">438336bf-6382-4575-b3fd-0dddbeb0efda
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1987</d:YearOfBirth>
+				<d:State>NV</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'5ad70384-5787-46f2-a8c0-0de0b26c11ac')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'5ad70384-5787-46f2-a8c0-0de0b26c11ac')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">5ad70384-5787-46f2-a8c0-0de0b26c11ac
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1938</d:YearOfBirth>
+				<d:State>OH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8742c105-8e13-4b23-9f43-0de0f706a80b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8742c105-8e13-4b23-9f43-0de0f706a80b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8742c105-8e13-4b23-9f43-0de0f706a80b
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1973</d:YearOfBirth>
+				<d:State>MO</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'36881e23-c4cf-4777-ac25-0de1527226a5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'36881e23-c4cf-4777-ac25-0de1527226a5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">36881e23-c4cf-4777-ac25-0de1527226a5
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1954</d:YearOfBirth>
+				<d:State>SD</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'a0b3c29f-674a-4e33-830d-0de2e50217be')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'a0b3c29f-674a-4e33-830d-0de2e50217be')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">a0b3c29f-674a-4e33-830d-0de2e50217be
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1956</d:YearOfBirth>
+				<d:State>NH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'8ff50a82-2de7-48c2-a338-0df2698c9ac9')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'8ff50a82-2de7-48c2-a338-0df2698c9ac9')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">8ff50a82-2de7-48c2-a338-0df2698c9ac9
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1971</d:YearOfBirth>
+				<d:State>WA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'c26b0e97-76c4-4065-abc7-0df6dc79fc2f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'c26b0e97-76c4-4065-abc7-0df6dc79fc2f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">c26b0e97-76c4-4065-abc7-0df6dc79fc2f
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1992</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'609815cb-e954-4211-86e1-0df746b40437')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'609815cb-e954-4211-86e1-0df746b40437')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">609815cb-e954-4211-86e1-0df746b40437
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1964</d:YearOfBirth>
+				<d:State>OH</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'b69b49d9-1c20-410e-acf1-0dfb4536d310')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'b69b49d9-1c20-410e-acf1-0dfb4536d310')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">b69b49d9-1c20-410e-acf1-0dfb4536d310
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1960</d:YearOfBirth>
+				<d:State>FL</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'af3a1ba6-f661-481b-b547-0e05316535c6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'af3a1ba6-f661-481b-b547-0e05316535c6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">af3a1ba6-f661-481b-b547-0e05316535c6
+				</d:PatientGuid>
+				<d:Gender>F</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1966</d:YearOfBirth>
+				<d:State>TX</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'9c5fbcaa-0a65-4b86-8a04-0e06b66f72ba')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'9c5fbcaa-0a65-4b86-8a04-0e06b66f72ba')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">9c5fbcaa-0a65-4b86-8a04-0e06b66f72ba
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1959</d:YearOfBirth>
+				<d:State>WV</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'20bf2409-3c63-4aca-b789-0e080bf6b883')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'20bf2409-3c63-4aca-b789-0e080bf6b883')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">20bf2409-3c63-4aca-b789-0e080bf6b883
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1962</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncPatient(guid'2aa72500-af36-4401-9c2e-0e0acb5f22d4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:53:13Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncPatient"
+			href="SyncPatient(guid'2aa72500-af36-4401-9c2e-0e0acb5f22d4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncPatient"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:PatientGuid m:type="Edm.Guid">2aa72500-af36-4401-9c2e-0e0acb5f22d4
+				</d:PatientGuid>
+				<d:Gender>M</d:Gender>
+				<d:YearOfBirth m:type="Edm.Int16">1960</d:YearOfBirth>
+				<d:State>VA</d:State>
+			</m:properties>
+		</content>
+	</entry>
+</feed>

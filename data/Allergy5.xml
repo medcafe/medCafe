@@ -1,0 +1,2778 @@
+<feed
+	xml:base="https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/"
+	xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns="http://www.w3.org/2005/Atom">
+	<title type="text">SyncAllergy</title>
+	<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy
+	</id>
+	<updated>2011-03-03T20:38:15Z</updated>
+	<link rel="self" title="SyncAllergy" href="SyncAllergy" />
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'd5f6824f-b1b0-4e19-839f-bcbf94febb8f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'd5f6824f-b1b0-4e19-839f-bcbf94febb8f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">d5f6824f-b1b0-4e19-839f-bcbf94febb8f
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">9b36ff9b-1570-4506-bd66-138da1e45967
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>12948000112</d:MedicationNdcCode>
+				<d:MedicationName>BiDil (hydrALAZINE-isosorbide dinitrate) oral
+					tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'cf6dea76-8b4e-4849-8413-bd23643d5b79')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'cf6dea76-8b4e-4849-8413-bd23643d5b79')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">cf6dea76-8b4e-4849-8413-bd23643d5b79
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">d163c571-a5a7-40ad-b1a4-d2a9a20927a9
+				</d:PatientGuid>
+				<d:AllergyType>Other nuts</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'2db7b4ea-469a-4a7e-98a3-bd62b3696e05')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'2db7b4ea-469a-4a7e-98a3-bd62b3696e05')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">2db7b4ea-469a-4a7e-98a3-bd62b3696e05
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">c603b880-4f4e-4455-8938-87485eec9eb5
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00405476803</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'a001203a-20ff-44e1-be64-bdcca49ae400')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'a001203a-20ff-44e1-be64-bdcca49ae400')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">a001203a-20ff-44e1-be64-bdcca49ae400
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">3fb110f1-8ba2-472e-a567-36d85d4c602d
+				</d:PatientGuid>
+				<d:AllergyType>Animal Dander (Contact)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b3c0fee0-f4d8-419a-b175-be2e8f730b74')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b3c0fee0-f4d8-419a-b175-be2e8f730b74')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b3c0fee0-f4d8-419a-b175-be2e8f730b74
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">a40681ed-5818-4a8b-9e2e-c85ec2b3dafd
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00364272701</d:MedicationNdcCode>
+				<d:MedicationName>Enalapril Maleate (enalapril) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'5e597892-9bc5-442b-8052-bfa91c393a23')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'5e597892-9bc5-442b-8052-bfa91c393a23')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">5e597892-9bc5-442b-8052-bfa91c393a23
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">5bf838fb-eae2-4cfb-abfa-570bfad622b1
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>65726042527</d:MedicationNdcCode>
+				<d:MedicationName>Lovaza (omega-3 polyunsaturated fatty acids) oral
+					capsule</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'86cea24e-19a3-492f-a6ef-bfabbb073999')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'86cea24e-19a3-492f-a6ef-bfabbb073999')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">86cea24e-19a3-492f-a6ef-bfabbb073999
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">5d4971f6-b2e1-49d5-acaa-9145b91145b0
+				</d:PatientGuid>
+				<d:AllergyType>Dust (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2004</d:StartYear>
+				<d:ReactionName>Itchiness</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e2c5771d-ab93-4c33-8756-bfb04d6641c1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e2c5771d-ab93-4c33-8756-bfb04d6641c1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e2c5771d-ab93-4c33-8756-bfb04d6641c1
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">17c5b551-bb28-4798-b11e-479722d8892d
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00046080981</d:MedicationNdcCode>
+				<d:MedicationName>Antabuse (disulfiram) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'094467e3-7985-43c2-a924-bfd4301c7b42')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'094467e3-7985-43c2-a924-bfd4301c7b42')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">094467e3-7985-43c2-a924-bfd4301c7b42
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">909ee92a-1649-423b-8f63-2bba841b5a9a
+				</d:PatientGuid>
+				<d:AllergyType>Dust Mites (Contact)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Wheezing</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'2156f768-aa1d-4c26-ae73-bfe739853b4c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'2156f768-aa1d-4c26-ae73-bfe739853b4c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">2156f768-aa1d-4c26-ae73-bfe739853b4c
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e4d7a59c-c8e0-4d89-965f-f099c79016f9
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2000</d:StartYear>
+				<d:ReactionName>Wheezing</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>13411016109</d:MedicationNdcCode>
+				<d:MedicationName>Zocor (simvastatin) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'f189f0b5-29f4-45b1-8170-c05c6ad2893a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'f189f0b5-29f4-45b1-8170-c05c6ad2893a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">f189f0b5-29f4-45b1-8170-c05c6ad2893a
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e9354915-a09a-4f47-80fb-baf655263d5b
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Shortness of breath</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>64248011710</d:MedicationNdcCode>
+				<d:MedicationName>Bactrim DS (sulfamethoxazole-trimethoprim) oral
+					tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b6985290-d500-40c1-8b07-c1c12acf04f5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b6985290-d500-40c1-8b07-c1c12acf04f5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b6985290-d500-40c1-8b07-c1c12acf04f5
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">f571e23e-fdbc-4bc0-b2a5-99ecbf725b7e
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00006001528</d:MedicationNdcCode>
+				<d:MedicationName>Prinivil (lisinopril) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'c986a1bf-25d4-4fbe-b0a0-c1c767c1539a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'c986a1bf-25d4-4fbe-b0a0-c1c767c1539a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">c986a1bf-25d4-4fbe-b0a0-c1c767c1539a
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">242926ff-e926-412a-aad4-466a9d8f86b9
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">1983</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>67800012110</d:MedicationNdcCode>
+				<d:MedicationName>Bexxar I 131 Therapeutic (iodine I 131
+					tositumomab) intravenous kit</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'114a303a-e2d9-4bd2-8d80-c286cb1154d1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'114a303a-e2d9-4bd2-8d80-c286cb1154d1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">114a303a-e2d9-4bd2-8d80-c286cb1154d1
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">8715fbdd-06ed-4104-aca9-2318000f66b2
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Runny nose</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00093005801</d:MedicationNdcCode>
+				<d:MedicationName>TraMADOL Hydrochloride (traMADOL) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e4a986d6-ca83-47a8-ab5d-c2a7ac9b7b75')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e4a986d6-ca83-47a8-ab5d-c2a7ac9b7b75')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e4a986d6-ca83-47a8-ab5d-c2a7ac9b7b75
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">1a674744-e76e-4e57-be06-a99f14153651
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00247141414</d:MedicationNdcCode>
+				<d:MedicationName>Augmentin (amoxicillin-clavulanate) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'591c863f-77dd-4ffc-ae27-c2bff188e8f1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'591c863f-77dd-4ffc-ae27-c2bff188e8f1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">591c863f-77dd-4ffc-ae27-c2bff188e8f1
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7c37c5df-ba45-4057-a053-d5b311841987
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00008001901</d:MedicationNdcCode>
+				<d:MedicationName>Phenergan (promethazine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3328ffba-f3e6-4b61-a576-c3147a847259')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3328ffba-f3e6-4b61-a576-c3147a847259')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3328ffba-f3e6-4b61-a576-c3147a847259
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e1c33101-3fde-4fe7-bbfb-67787b2dbf36
+				</d:PatientGuid>
+				<d:AllergyType>Pollen (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Wheezing</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'f52e2577-9ad8-4ad0-a0f3-c35af0a8afea')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'f52e2577-9ad8-4ad0-a0f3-c35af0a8afea')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">f52e2577-9ad8-4ad0-a0f3-c35af0a8afea
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e09fe2ad-56de-46fc-8443-d9421e6530bd
+				</d:PatientGuid>
+				<d:AllergyType>Dairy</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'4d74d428-cf4f-47bd-8d3a-c38da3879aa1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'4d74d428-cf4f-47bd-8d3a-c38da3879aa1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">4d74d428-cf4f-47bd-8d3a-c38da3879aa1
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">27e4bf53-0e9e-4bd5-a19a-c76e2062d1dd
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00536332101</d:MedicationNdcCode>
+				<d:MedicationName>Aspirin Enteric Coated (aspirin) oral enteric
+					coated tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'03d5387f-6b5c-4371-9242-c47fc21c4670')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'03d5387f-6b5c-4371-9242-c47fc21c4670')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">03d5387f-6b5c-4371-9242-c47fc21c4670
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">3b7e8c6f-de27-4c01-9cb0-c083ba0fa650
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Pain/cramping</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00677001710</d:MedicationNdcCode>
+				<d:MedicationName>Aspirin oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'ecb27b32-b6df-4fc9-bdc9-c5113d99e54b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'ecb27b32-b6df-4fc9-bdc9-c5113d99e54b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">ecb27b32-b6df-4fc9-bdc9-c5113d99e54b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">8742c105-8e13-4b23-9f43-0de0f706a80b
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">1997</d:StartYear>
+				<d:ReactionName>Loss of consciousness</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00047064832</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'24dbddaf-6878-42be-9d7d-c57593f31a84')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'24dbddaf-6878-42be-9d7d-c57593f31a84')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">24dbddaf-6878-42be-9d7d-c57593f31a84
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">1acfa204-3909-4503-a7ab-8d1ed012260e
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00185075701</d:MedicationNdcCode>
+				<d:MedicationName>SulfADIAZINE oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'4ef3b454-7b36-4160-855c-c584fb416ba6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'4ef3b454-7b36-4160-855c-c584fb416ba6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">4ef3b454-7b36-4160-855c-c584fb416ba6
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">d05e5ec5-0055-40ea-b97e-b312e8ce3414
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">1970</d:StartYear>
+				<d:ReactionName>Difficulty speaking or swallowing</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00007336620</d:MedicationNdcCode>
+				<d:MedicationName>Compazine (prochlorperazine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'7b40f60f-ebae-444e-8e72-c598adfbd531')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'7b40f60f-ebae-444e-8e72-c598adfbd531')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">7b40f60f-ebae-444e-8e72-c598adfbd531
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">bf3cff2d-5c64-42e1-9576-2480773f0a47
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Very Mild</d:SeverityName>
+				<d:MedicationNdcCode>00093715593</d:MedicationNdcCode>
+				<d:MedicationName>Simvastatin oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'391e3c73-03b6-4ef1-9b35-c5a539bff542')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'391e3c73-03b6-4ef1-9b35-c5a539bff542')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">391e3c73-03b6-4ef1-9b35-c5a539bff542
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">9b36ff9b-1570-4506-bd66-138da1e45967
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00004026301</d:MedicationNdcCode>
+				<d:MedicationName>Demadex (torsemide) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'9749e91c-8d4c-4c18-8fea-c5b2259f8591')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'9749e91c-8d4c-4c18-8fea-c5b2259f8591')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">9749e91c-8d4c-4c18-8fea-c5b2259f8591
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">950d1330-f6a3-404a-9f02-bfae1269949c
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2008</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00054464721</d:MedicationNdcCode>
+				<d:MedicationName>Viramune (nevirapine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'06d3d571-1d5f-4776-bee4-c5f26aaee9f5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'06d3d571-1d5f-4776-bee4-c5f26aaee9f5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">06d3d571-1d5f-4776-bee4-c5f26aaee9f5
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">471c3b19-5538-4fc9-bf19-a3d3e5aaa84c
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Itchiness</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00044072703</d:MedicationNdcCode>
+				<d:MedicationName>Vicodin (acetaminophen-hydrocodone) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'8457e7d1-5d25-4e32-81c1-c62aa855726f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'8457e7d1-5d25-4e32-81c1-c62aa855726f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">8457e7d1-5d25-4e32-81c1-c62aa855726f
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e09fe2ad-56de-46fc-8443-d9421e6530bd
+				</d:PatientGuid>
+				<d:AllergyType>Seafood</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'efb1cdb3-c2af-4dac-8ca8-c73fa92dbdd6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'efb1cdb3-c2af-4dac-8ca8-c73fa92dbdd6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">efb1cdb3-c2af-4dac-8ca8-c73fa92dbdd6
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">70ece255-341c-4a7c-b895-8ea24a46739e
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00026851348</d:MedicationNdcCode>
+				<d:MedicationName>Cipro (ciprofloxacin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'13e1bc4c-9e39-4890-aeaf-c754a0bd1919')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'13e1bc4c-9e39-4890-aeaf-c754a0bd1919')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">13e1bc4c-9e39-4890-aeaf-c754a0bd1919
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">81e981b6-be2c-4ce4-a2ab-ce81be89d086
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>49999064920</d:MedicationNdcCode>
+				<d:MedicationName>Bactrim DS (sulfamethoxazole-trimethoprim) oral
+					tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'6997ede1-6527-457c-8b30-c8abb55dbd85')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'6997ede1-6527-457c-8b30-c8abb55dbd85')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">6997ede1-6527-457c-8b30-c8abb55dbd85
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">613f403c-f35c-4c6f-acea-b6f5577fa7c5
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00002254902</d:MedicationNdcCode>
+				<d:MedicationName>Morphine Sulfate (morphine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'1088af74-f148-4e32-a5c4-c90d1569c2a6')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'1088af74-f148-4e32-a5c4-c90d1569c2a6')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">1088af74-f148-4e32-a5c4-c90d1569c2a6
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">23892ee9-7716-4fbe-a79b-f8f427111381
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Very Mild</d:SeverityName>
+				<d:MedicationNdcCode>00054815524</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b5e3f4b6-5a3d-49f3-b442-c937e1774a54')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b5e3f4b6-5a3d-49f3-b442-c937e1774a54')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b5e3f4b6-5a3d-49f3-b442-c937e1774a54
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">d56b09c1-e659-496d-a90c-3b3c8cac7d63
+				</d:PatientGuid>
+				<d:AllergyType>Dust (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Runny nose</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e26c7294-0563-42e0-9239-c93b8f38ebcc')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e26c7294-0563-42e0-9239-c93b8f38ebcc')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e26c7294-0563-42e0-9239-c93b8f38ebcc
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">0107df73-d175-4ed3-bf8b-c9491ad8d609
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00047064832</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3d8ff06e-641d-4b0e-999c-c9bf9f0c0f60')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3d8ff06e-641d-4b0e-999c-c9bf9f0c0f60')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3d8ff06e-641d-4b0e-999c-c9bf9f0c0f60
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7c0ef22e-6f5a-45cc-8dbd-2058b0015123
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00247189300</d:MedicationNdcCode>
+				<d:MedicationName>Celexa (citalopram) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'c4d1d3c2-987c-4816-8e57-c9ccdf4bae44')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'c4d1d3c2-987c-4816-8e57-c9ccdf4bae44')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">c4d1d3c2-987c-4816-8e57-c9ccdf4bae44
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">999239f7-b25e-417c-b90a-15b6851b38f9
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Itchiness</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00002254902</d:MedicationNdcCode>
+				<d:MedicationName>Morphine Sulfate (morphine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b95902ed-6200-41c5-8b46-ca7278b4c5b7')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b95902ed-6200-41c5-8b46-ca7278b4c5b7')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b95902ed-6200-41c5-8b46-ca7278b4c5b7
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">d12d7f03-4996-4604-aa15-9af8f1b054e7
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>52959018520</d:MedicationNdcCode>
+				<d:MedicationName>Lortab 5/500 (acetaminophen-hydrocodone) oral
+					tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'535631aa-6798-4ecc-a739-ca8080bbf738')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'535631aa-6798-4ecc-a739-ca8080bbf738')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">535631aa-6798-4ecc-a739-ca8080bbf738
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">4d6459fd-aeac-4a27-a710-0ad018e3ed88
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00069305050</d:MedicationNdcCode>
+				<d:MedicationName>Zithromax (azithromycin) oral capsule
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'a7db066c-4618-426a-8a2f-ca98f5b50143')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'a7db066c-4618-426a-8a2f-ca98f5b50143')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">a7db066c-4618-426a-8a2f-ca98f5b50143
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">613f403c-f35c-4c6f-acea-b6f5577fa7c5
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Itchiness</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00045065960</d:MedicationNdcCode>
+				<d:MedicationName>Ultram (traMADOL) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e4a2ac3c-6ccf-44c7-91b2-ca98fa22dcb0')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e4a2ac3c-6ccf-44c7-91b2-ca98fa22dcb0')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e4a2ac3c-6ccf-44c7-91b2-ca98fa22dcb0
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">4d3c81a4-5b16-47e1-9824-735ce738ac20
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2006</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00405476803</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'fd5fb591-1557-4305-ab97-cbf54cbb1872')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'fd5fb591-1557-4305-ab97-cbf54cbb1872')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">fd5fb591-1557-4305-ab97-cbf54cbb1872
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">8b09800d-c078-4cba-a5bc-e2c3be1aa1bb
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Shortness of breath</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00029600713</d:MedicationNdcCode>
+				<d:MedicationName>Amoxil (amoxicillin) oral capsule
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'298c2f1d-d9c2-4147-a2b2-ccb95ae509e5')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'298c2f1d-d9c2-4147-a2b2-ccb95ae509e5')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">298c2f1d-d9c2-4147-a2b2-ccb95ae509e5
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">2ba35a2a-38d4-4ff8-8e45-067438e2b690
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00071015523</d:MedicationNdcCode>
+				<d:MedicationName>Lipitor (atorvastatin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'f92ec9c7-4f4a-4533-ae52-cdbb955b48b2')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'f92ec9c7-4f4a-4533-ae52-cdbb955b48b2')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">f92ec9c7-4f4a-4533-ae52-cdbb955b48b2
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">8269e005-8e0e-4084-80d7-f04e84ccf903
+				</d:PatientGuid>
+				<d:AllergyType>Dust (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">1991</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'bd46c20e-8f97-4d50-b0fd-ce110ad9dddf')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'bd46c20e-8f97-4d50-b0fd-ce110ad9dddf')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">bd46c20e-8f97-4d50-b0fd-ce110ad9dddf
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">3ef06071-ddec-4205-8fe2-b482cebb304f
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>54569548900</d:MedicationNdcCode>
+				<d:MedicationName>Zetia (ezetimibe) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3035489d-3c65-4def-a777-cf5697a867f8')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3035489d-3c65-4def-a777-cf5697a867f8')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3035489d-3c65-4def-a777-cf5697a867f8
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">156630b4-4083-47cb-ac70-d0da0f595959
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00047064824</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3a83e6e6-686c-4bbd-a626-cf62eeff597e')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3a83e6e6-686c-4bbd-a626-cf62eeff597e')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3a83e6e6-686c-4bbd-a626-cf62eeff597e
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">db3d71aa-fa96-47cc-a986-39de95bf9bcb
+				</d:PatientGuid>
+				<d:AllergyType>Insect Stings (Contact)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'280d0679-86a3-42d9-b231-d05c4d343aff')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'280d0679-86a3-42d9-b231-d05c4d343aff')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">280d0679-86a3-42d9-b231-d05c4d343aff
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">b154a290-ac27-4daa-9c7e-92c4e034c474
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Tongue swelling</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00143126501</d:MedicationNdcCode>
+				<d:MedicationName>Lisinopril oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b64cabca-19aa-4f74-a1c5-d09c8f259a37')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b64cabca-19aa-4f74-a1c5-d09c8f259a37')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b64cabca-19aa-4f74-a1c5-d09c8f259a37
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">860a3df4-d854-442a-ab0c-9832731c9851
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Wheezing</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00074245202</d:MedicationNdcCode>
+				<d:MedicationName>Dilaudid-5 (hydromorphone) oral liquid
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'af588c75-75da-4190-b6af-d0d5fd6b39b7')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'af588c75-75da-4190-b6af-d0d5fd6b39b7')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">af588c75-75da-4190-b6af-d0d5fd6b39b7
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">cbd598cc-be26-43e1-af10-65a45154ff75
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00071080324</d:MedicationNdcCode>
+				<d:MedicationName>Neurontin (gabapentin) oral capsule
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'dd2ab604-4259-47c1-bb6d-d13619dab1e4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'dd2ab604-4259-47c1-bb6d-d13619dab1e4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">dd2ab604-4259-47c1-bb6d-d13619dab1e4
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">296f380f-b29b-492b-80dd-3af711c34bf4
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Pain/cramping</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00071018024</d:MedicationNdcCode>
+				<d:MedicationName>Pyridium (phenazopyridine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'40c2f94a-1c39-4236-b5a0-d27b77263e93')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'40c2f94a-1c39-4236-b5a0-d27b77263e93')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">40c2f94a-1c39-4236-b5a0-d27b77263e93
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7d6aba9a-8e2d-4a07-b8b0-b3b7f81eeab5
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00071015523</d:MedicationNdcCode>
+				<d:MedicationName>Lipitor (atorvastatin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'dea5ea81-398a-4db7-a057-d28011f0c87e')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'dea5ea81-398a-4db7-a057-d28011f0c87e')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">dea5ea81-398a-4db7-a057-d28011f0c87e
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">5b5802cd-afbf-4ca4-a645-1d7082dd2b8c
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00074964290</d:MedicationNdcCode>
+				<d:MedicationName>Trilipix (fenofibric acid) oral delayed release
+					capsule</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'9e261b89-e7d2-4315-b6cd-d2b6d83bcdfd')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'9e261b89-e7d2-4315-b6cd-d2b6d83bcdfd')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">9e261b89-e7d2-4315-b6cd-d2b6d83bcdfd
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">bd93ebc9-420e-45aa-a58f-dbf76a2e13d1
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Pain/cramping</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00405476803</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'db6cea6b-67e6-4131-ac56-d2bd31299b2c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'db6cea6b-67e6-4131-ac56-d2bd31299b2c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">db6cea6b-67e6-4131-ac56-d2bd31299b2c
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">8dc4a398-476d-43b4-ad89-c97ee2ef820a
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00083002730</d:MedicationNdcCode>
+				<d:MedicationName>Tegretol (carbamazepine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'd5d9f042-4897-4ad7-95aa-d2cacfd31e11')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'd5d9f042-4897-4ad7-95aa-d2cacfd31e11')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">d5d9f042-4897-4ad7-95aa-d2cacfd31e11
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">b14146f7-0883-4d7c-9b26-cceaf59169c6
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>54868155201</d:MedicationNdcCode>
+				<d:MedicationName>Advil (ibuprofen) oral suspension
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'f76d51d9-d173-48e6-aa78-d38faa8a0221')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'f76d51d9-d173-48e6-aa78-d38faa8a0221')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">f76d51d9-d173-48e6-aa78-d38faa8a0221
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">427977cd-ad9a-4e02-bd3e-c510d823fcfa
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>49999087330</d:MedicationNdcCode>
+				<d:MedicationName>Crestor (rosuvastatin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'5c669f51-b47b-4c38-95b9-d3d382f295a9')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'5c669f51-b47b-4c38-95b9-d3d382f295a9')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">5c669f51-b47b-4c38-95b9-d3d382f295a9
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">c0466c53-6263-49b7-bb44-d6e272c8c01d
+				</d:PatientGuid>
+				<d:AllergyType>Animal Dander (Contact)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Respiratory Distress</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'56cb056c-93a6-4646-b346-d48b2bfb8407')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'56cb056c-93a6-4646-b346-d48b2bfb8407')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">56cb056c-93a6-4646-b346-d48b2bfb8407
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">cf3df155-b2e3-4a0e-9f46-b982dc13ba05
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Respiratory Distress</d:ReactionName>
+				<d:SeverityName>Very Mild</d:SeverityName>
+				<d:MedicationNdcCode>58016056490</d:MedicationNdcCode>
+				<d:MedicationName>Prinivil (lisinopril) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'98d6bbcd-658f-44e2-a437-d4bdfd1d5b47')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'98d6bbcd-658f-44e2-a437-d4bdfd1d5b47')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">98d6bbcd-658f-44e2-a437-d4bdfd1d5b47
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7d6aba9a-8e2d-4a07-b8b0-b3b7f81eeab5
+				</d:PatientGuid>
+				<d:AllergyType>Mold (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Loss of consciousness</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'4f7e2966-1b02-4d93-b0f4-d4f29ea5342f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'4f7e2966-1b02-4d93-b0f4-d4f29ea5342f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">4f7e2966-1b02-4d93-b0f4-d4f29ea5342f
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">a7a03536-878f-4a22-a044-776fe9af1478
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00054815524</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e7ae6a17-9fec-4a1d-998b-d502496a9c9f')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e7ae6a17-9fec-4a1d-998b-d502496a9c9f')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e7ae6a17-9fec-4a1d-998b-d502496a9c9f
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">6c389df9-87b2-47e2-a3ab-4375bd0840b2
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2004</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00054024324</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'6d1afd1f-20a4-4e67-895b-d503d59cb8cb')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'6d1afd1f-20a4-4e67-895b-d503d59cb8cb')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">6d1afd1f-20a4-4e67-895b-d503d59cb8cb
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">59d1f5e4-9e00-47d1-afeb-9d9865ad7118
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2009</d:StartYear>
+				<d:ReactionName>Bloating/gas</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>49884079265</d:MedicationNdcCode>
+				<d:MedicationName>Questran Light Packets (cholestyramine) oral
+					powder for reconstitution</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'93a0dd37-acd1-49c9-ae8f-d6a60b180f45')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'93a0dd37-acd1-49c9-ae8f-d6a60b180f45')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">93a0dd37-acd1-49c9-ae8f-d6a60b180f45
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">5eae7de0-5e21-4631-b086-b4b3596cef18
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00591040501</d:MedicationNdcCode>
+				<d:MedicationName>Lisinopril oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'4f1031f7-fa8d-4170-bf29-d6aab01b9c0b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'4f1031f7-fa8d-4170-bf29-d6aab01b9c0b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">4f1031f7-fa8d-4170-bf29-d6aab01b9c0b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">755f177d-2748-4dc2-ac9c-6e90a54cc12a
+				</d:PatientGuid>
+				<d:AllergyType>Dairy</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'9d933b47-96ff-4404-abf8-d6e348658421')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'9d933b47-96ff-4404-abf8-d6e348658421')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">9d933b47-96ff-4404-abf8-d6e348658421
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">999239f7-b25e-417c-b90a-15b6851b38f9
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Shortness of breath</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00003013850</d:MedicationNdcCode>
+				<d:MedicationName>Sulfamethoxazole-Trimethoprim oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'19d1a7aa-a00a-4446-b5e2-d8a87d49b9aa')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'19d1a7aa-a00a-4446-b5e2-d8a87d49b9aa')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">19d1a7aa-a00a-4446-b5e2-d8a87d49b9aa
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">101dcad2-069d-4891-837d-6115467198b2
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Tongue swelling</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00093008805</d:MedicationNdcCode>
+				<d:MedicationName>Sulfamethoxazole-Trimethoprim oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'082fbd47-5f13-49c0-93a3-d8d3546e2ffa')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'082fbd47-5f13-49c0-93a3-d8d3546e2ffa')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">082fbd47-5f13-49c0-93a3-d8d3546e2ffa
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">c0466c53-6263-49b7-bb44-d6e272c8c01d
+				</d:PatientGuid>
+				<d:AllergyType>Wheat</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Bloating/gas</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'7efb25cb-90ae-4406-a33b-d8ead75585ed')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'7efb25cb-90ae-4406-a33b-d8ead75585ed')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">7efb25cb-90ae-4406-a33b-d8ead75585ed
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">98e7e6b0-f74d-4742-a0c1-67c8e50c42df
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Tongue swelling</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00047064832</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'9a09a9b7-06d9-4b8e-a69d-d8fe9abce5e3')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'9a09a9b7-06d9-4b8e-a69d-d8fe9abce5e3')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">9a09a9b7-06d9-4b8e-a69d-d8fe9abce5e3
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">f89efa12-a45c-4bd6-8d86-b3ec979fd576
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00054024324</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'8fa387a8-e136-4f01-8269-da3e4c750209')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'8fa387a8-e136-4f01-8269-da3e4c750209')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">8fa387a8-e136-4f01-8269-da3e4c750209
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">2e45a16f-b59e-4215-b8a2-aafeb70309ee
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00074632611</d:MedicationNdcCode>
+				<d:MedicationName>Erythromycin Base (erythromycin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'8c5af525-7781-4811-8398-da84b58bf9e4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'8c5af525-7781-4811-8398-da84b58bf9e4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">8c5af525-7781-4811-8398-da84b58bf9e4
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">dee8717d-5891-4313-8399-96b76d56b70a
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Runny nose</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00093104801</d:MedicationNdcCode>
+				<d:MedicationName>Metformin Hydrochloride (metformin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'd7fdcfdb-878f-41c6-8475-db12c9152299')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'd7fdcfdb-878f-41c6-8475-db12c9152299')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">d7fdcfdb-878f-41c6-8475-db12c9152299
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">2ffafbba-69ca-4d43-a0d9-4644a5a49fb6
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Dizziness/Lightheadedness</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00115367701</d:MedicationNdcCode>
+				<d:MedicationName>Hydrochlorothiazide oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'7c6e6845-c654-49d5-acac-db50c1fbcaeb')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'7c6e6845-c654-49d5-acac-db50c1fbcaeb')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">7c6e6845-c654-49d5-acac-db50c1fbcaeb
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">98046f62-256c-400c-a34b-70ae40994037
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00044072802</d:MedicationNdcCode>
+				<d:MedicationName>Vicodin ES (acetaminophen-hydrocodone) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'48f06c0b-eedf-44bd-a6c6-db79a8325662')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'48f06c0b-eedf-44bd-a6c6-db79a8325662')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">48f06c0b-eedf-44bd-a6c6-db79a8325662
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7c37c5df-ba45-4057-a053-d5b311841987
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00024033504</d:MedicationNdcCode>
+				<d:MedicationName>Demerol HCl (meperidine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'02ec9415-cc7e-4c71-b84b-dbc49dd9436c')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'02ec9415-cc7e-4c71-b84b-dbc49dd9436c')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">02ec9415-cc7e-4c71-b84b-dbc49dd9436c
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">0410805e-7c22-44ea-97c8-5307fcbc30c8
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Chest Pain</d:ReactionName>
+				<d:SeverityName>Severe</d:SeverityName>
+				<d:MedicationNdcCode>00247143730</d:MedicationNdcCode>
+				<d:MedicationName>Glucophage (metformin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'bd13981e-e1a7-4217-b030-dc5e94986856')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'bd13981e-e1a7-4217-b030-dc5e94986856')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">bd13981e-e1a7-4217-b030-dc5e94986856
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">513009df-a44a-4bb7-8133-ee9d4de5cad3
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Pain/cramping</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00349100750</d:MedicationNdcCode>
+				<d:MedicationName>Doxycycline Hyclate (doxycycline) oral capsule
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'2d2cba51-e661-4301-8f77-dc5f93ebd7a4')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'2d2cba51-e661-4301-8f77-dc5f93ebd7a4')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">2d2cba51-e661-4301-8f77-dc5f93ebd7a4
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">ad165c04-5af0-4588-8d1b-16a02d483fca
+				</d:PatientGuid>
+				<d:AllergyType>Dust Mites (Contact)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2009</d:StartYear>
+				<d:ReactionName>Runny nose</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'bc41950f-e85e-4fb2-a76d-dc83f3524640')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'bc41950f-e85e-4fb2-a76d-dc83f3524640')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">bc41950f-e85e-4fb2-a76d-dc83f3524640
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">3fb110f1-8ba2-472e-a567-36d85d4c602d
+				</d:PatientGuid>
+				<d:AllergyType>Dairy</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Bloating/gas</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'51552f3f-1d19-4a1a-95a4-dd402e3fa169')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'51552f3f-1d19-4a1a-95a4-dd402e3fa169')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">51552f3f-1d19-4a1a-95a4-dd402e3fa169
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">9ae6d4c3-bc69-462c-953f-9ad75c2ce923
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00573017220</d:MedicationNdcCode>
+				<d:MedicationName>Advil Pediatric (ibuprofen) oral suspension
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'fc86faee-7e05-4b18-854e-dd850beb589b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'fc86faee-7e05-4b18-854e-dd850beb589b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">fc86faee-7e05-4b18-854e-dd850beb589b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">39b3e0c4-05e4-46b2-944e-8c7ef790e648
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00047064824</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3f3541d9-ceb1-4879-a9a3-de0da584c31b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3f3541d9-ceb1-4879-a9a3-de0da584c31b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3f3541d9-ceb1-4879-a9a3-de0da584c31b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">32148848-c416-4414-b20e-e82412573af4
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00182011610</d:MedicationNdcCode>
+				<d:MedicationName>Pen-V (penicillin) oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'5efb708a-3890-4ab3-9579-de76d6a8951b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'5efb708a-3890-4ab3-9579-de76d6a8951b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">5efb708a-3890-4ab3-9579-de76d6a8951b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">5dd9f027-b156-4c40-9975-8e3facc15ca0
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>54868418300</d:MedicationNdcCode>
+				<d:MedicationName>Zithromax Z-Pak (azithromycin) oral capsule
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'5d023a03-acef-4c60-8d51-de9526b0b285')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'5d023a03-acef-4c60-8d51-de9526b0b285')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">5d023a03-acef-4c60-8d51-de9526b0b285
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">e1c33101-3fde-4fe7-bbfb-67787b2dbf36
+				</d:PatientGuid>
+				<d:AllergyType>Dust (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Wheezing</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'b27b3cfd-9357-47bd-aa1f-df19f1f17d45')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'b27b3cfd-9357-47bd-aa1f-df19f1f17d45')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">b27b3cfd-9357-47bd-aa1f-df19f1f17d45
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">98046f62-256c-400c-a34b-70ae40994037
+				</d:PatientGuid>
+				<d:AllergyType>Seafood</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Vomiting</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'490cac20-74fb-44de-9d1e-df3048d8e857')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'490cac20-74fb-44de-9d1e-df3048d8e857')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">490cac20-74fb-44de-9d1e-df3048d8e857
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">83bdf3aa-e1cb-41fd-a890-c1bef7c7d46b
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00047064824</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'bb1e382a-a309-473c-a19c-e0573d3c6252')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'bb1e382a-a309-473c-a19c-e0573d3c6252')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">bb1e382a-a309-473c-a19c-e0573d3c6252
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">ee084e60-19d4-430f-b94f-9b7570d3cd1e
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Facial swelling</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00025183141</d:MedicationNdcCode>
+				<d:MedicationName>Flagyl (metronidazole) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'e47ccc4d-cbcb-40d7-bf2a-e10b48630ed2')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'e47ccc4d-cbcb-40d7-bf2a-e10b48630ed2')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">e47ccc4d-cbcb-40d7-bf2a-e10b48630ed2
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">7d6aba9a-8e2d-4a07-b8b0-b3b7f81eeab5
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Difficulty speaking or swallowing</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00047064832</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'c680972d-9faa-47a3-880e-e351320dc2fd')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'c680972d-9faa-47a3-880e-e351320dc2fd')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">c680972d-9faa-47a3-880e-e351320dc2fd
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">4d6459fd-aeac-4a27-a710-0ad018e3ed88
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00047064832</d:MedicationNdcCode>
+				<d:MedicationName>Penicillin V Potassium (penicillin) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'9575797d-1542-47c7-9b49-e4665299c7d2')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'9575797d-1542-47c7-9b49-e4665299c7d2')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">9575797d-1542-47c7-9b49-e4665299c7d2
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">af05ec20-2012-4831-b95d-5d6d047e7106
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Tachycardia</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>59630050310</d:MedicationNdcCode>
+				<d:MedicationName>Sular (nisoldipine) oral tablet, extended release
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'cb966ab2-b4d3-4bd9-9eb8-e4afdc271b93')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'cb966ab2-b4d3-4bd9-9eb8-e4afdc271b93')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">cb966ab2-b4d3-4bd9-9eb8-e4afdc271b93
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">0107df73-d175-4ed3-bf8b-c9491ad8d609
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Patchy swelling-skin</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>64248011710</d:MedicationNdcCode>
+				<d:MedicationName>Bactrim DS (sulfamethoxazole-trimethoprim) oral
+					tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'f158cfc0-b03c-451d-96ba-e519422650a0')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'f158cfc0-b03c-451d-96ba-e519422650a0')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">f158cfc0-b03c-451d-96ba-e519422650a0
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">909ee92a-1649-423b-8f63-2bba841b5a9a
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Bloating/gas</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>11523716302</d:MedicationNdcCode>
+				<d:MedicationName>Claritin (loratadine) oral syrup
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'cc51b896-f464-4f0b-9a63-e5e4e081f981')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'cc51b896-f464-4f0b-9a63-e5e4e081f981')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">cc51b896-f464-4f0b-9a63-e5e4e081f981
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">999239f7-b25e-417c-b90a-15b6851b38f9
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Nausea</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>00054024324</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'1b364788-0e84-4bb0-a3aa-e7b3e07589c1')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'1b364788-0e84-4bb0-a3aa-e7b3e07589c1')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">1b364788-0e84-4bb0-a3aa-e7b3e07589c1
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">56f03b6b-e7ef-4a40-be55-470736c99d37
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2011</d:StartYear>
+				<d:ReactionName>Conjunctivitis</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00024138105</d:MedicationNdcCode>
+				<d:MedicationName>Novocain (procaine) injectable solution
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'7f3bb82e-9c28-48d8-b1ba-e7c482011c0a')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'7f3bb82e-9c28-48d8-b1ba-e7c482011c0a')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">7f3bb82e-9c28-48d8-b1ba-e7c482011c0a
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">4d6459fd-aeac-4a27-a710-0ad018e3ed88
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00054815524</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'3f3a3da5-cd16-4ceb-b3fa-e7f93e00d3ef')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'3f3a3da5-cd16-4ceb-b3fa-e7f93e00d3ef')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">3f3a3da5-cd16-4ceb-b3fa-e7f93e00d3ef
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">1ba9656b-9260-41af-b7a4-90f6a8d9eaa6
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Cough</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00006010654</d:MedicationNdcCode>
+				<d:MedicationName>Prinivil (lisinopril) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'6cd78deb-75d5-44b5-987c-e81479c2c987')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'6cd78deb-75d5-44b5-987c-e81479c2c987')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">6cd78deb-75d5-44b5-987c-e81479c2c987
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">59c04734-a4bf-458f-88a0-63994fdae0e0
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Modest</d:SeverityName>
+				<d:MedicationNdcCode>54868486701</d:MedicationNdcCode>
+				<d:MedicationName>Niaspan ER (niacin) oral tablet, extended release
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'74060794-167a-464e-8671-e86a86075a88')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'74060794-167a-464e-8671-e86a86075a88')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">74060794-167a-464e-8671-e86a86075a88
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">b7c6704a-6c4c-4e01-be89-e54a95e64440
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Itchiness</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00223172702</d:MedicationNdcCode>
+				<d:MedicationName>Sulfasalazine oral tablet</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'4573af2c-19e7-4af9-a24f-e897e76e216d')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'4573af2c-19e7-4af9-a24f-e897e76e216d')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">4573af2c-19e7-4af9-a24f-e897e76e216d
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">27e4bf53-0e9e-4bd5-a19a-c76e2062d1dd
+				</d:PatientGuid>
+				<d:AllergyType>Seafood</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2007</d:StartYear>
+				<d:ReactionName>Rash - generalized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'6ec6eb4f-9e25-4172-84e1-e9cec8629c01')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'6ec6eb4f-9e25-4172-84e1-e9cec8629c01')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">6ec6eb4f-9e25-4172-84e1-e9cec8629c01
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">9f251f1e-0559-4917-8781-3538317c86f2
+				</d:PatientGuid>
+				<d:AllergyType>Medication</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Rash - localized</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode>00054024324</d:MedicationNdcCode>
+				<d:MedicationName>Codeine Sulfate (codeine) oral tablet
+				</d:MedicationName>
+			</m:properties>
+		</content>
+	</entry>
+	<entry>
+		<id>https://api.datamarket.azure.com/Data.ashx/PracticeFusion/MedicalResearchData/SyncAllergy(guid'fd0bed88-ab24-4108-9ac8-ea808e640e2b')
+		</id>
+		<title type="text"></title>
+		<updated>2011-03-03T20:38:15Z</updated>
+		<author>
+			<name />
+		</author>
+		<link rel="edit" title="SyncAllergy"
+			href="SyncAllergy(guid'fd0bed88-ab24-4108-9ac8-ea808e640e2b')" />
+		<category term="PracticeFusion.MedicalResearchData.SyncAllergy"
+			scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+		<content type="application/xml">
+			<m:properties>
+				<d:AllergyGuid m:type="Edm.Guid">fd0bed88-ab24-4108-9ac8-ea808e640e2b
+				</d:AllergyGuid>
+				<d:PatientGuid m:type="Edm.Guid">56cd5993-4185-4164-b3aa-118c0dc6041b
+				</d:PatientGuid>
+				<d:AllergyType>Dust (Inhaled)</d:AllergyType>
+				<d:StartYear m:type="Edm.Int16">2010</d:StartYear>
+				<d:ReactionName>Hives</d:ReactionName>
+				<d:SeverityName>Mild</d:SeverityName>
+				<d:MedicationNdcCode></d:MedicationNdcCode>
+				<d:MedicationName m:null="true" />
+			</m:properties>
+		</content>
+	</entry>
+</feed>
