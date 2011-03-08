@@ -22,11 +22,11 @@ var iNettuts = {
         },
         widgetIndividual : {
             intro : {
-                movable: false,
+                movable: true,
                 removable: true,
                 collapsible: true,
                 editable: true,
-                resizable: false
+                resizable: true
             }
         }
     },

@@ -432,8 +432,10 @@ function loadWidgetData(divId, type)
 	  							startWidgetDrag($(this),divId,  isiPad, event );
 	  							return false;
 							});	
-							
+				      if (isiPad)
+				      {
 						$("#" + divId).jScrollTouch({height:'380',width:'140'});
+						}
 				});  		
 			});
 }

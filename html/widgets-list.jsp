@@ -82,9 +82,11 @@
 	  							parent.startWidgetDrag($(this),"<%=frameId%>",  isiPad, event );
 	  							return false;
 							});
-
+						if (isiPad)
+						{
 						$("#test").jScrollTouch({height:'380',width:'140'});
 						alert("jScrollTouch");
+						}
 				});
 			});
 	});

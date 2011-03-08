@@ -62,7 +62,7 @@ public class Patient
 	public static final String SEARCH_BY_REPOSITORY = " and patient_repository_assoc.repository = ? ";
 
 	public static final String SEARCH_PATIENT = "SELECT id, first_name, last_name from patient where  last_name = ? and first_name = ? and rep_patient_id = ? ";
-	public static final String SEARCH_PATIENTS_BY_ID = "SELECT DISTINCT id, first_name, last_name, patient.repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient.repository=patient_repository_assoc.repository";
+	public static final String SEARCH_PATIENTS_BY_ID = "SELECT DISTINCT id, first_name, last_name, photo, patient.repository from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and patient.id = ? and patient.repository=patient_repository_assoc.repository";
 
 	public static final String SEARCH_PATIENTS_BY_FIRST_NAME = "SELECT DISTINCT id, first_name, last_name from patient,patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and lower(first_name) like lower(?) ";
 	public static final String SEARCH_PATIENTS_BY_LAST_NAME = "SELECT DISTINCT id, first_name, last_name from patient, patient_repository_assoc where patient_repository_assoc.patient_id = patient.id and lower(last_name) like lower(?) ";
@@ -93,6 +93,7 @@ public class Patient
 
 	public static final String FIRST_NAME= "first_name";
 	public static final String LAST_NAME = "last_name";
+	public static final String PHOTO = "photo";
 	public static final String ID = "id";
 	public static final String REP_ID = "patient_rep_id";
 	public static final String NO_PATIENT = "No Patient";
@@ -776,9 +777,11 @@ public class Patient
 
 			        String fName = rs.getString("first_name");
 			        String lName = rs.getString("last_name");
+			        String photo = rs.getString("photo");
 			        ret.put(Patient.ID, id);
 			        ret.put(Patient.FIRST_NAME, fName);
 			        ret.put(Patient.LAST_NAME, lName);
+			        ret.put(Patient.PHOTO, photo);
 		     }
 
 			 if (!rtnResults)
