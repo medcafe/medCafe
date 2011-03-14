@@ -109,6 +109,7 @@ public class PatientResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
+        JsonRepresentation patJsonRep = null;
         if (r == null)
         {
         	 System.out.println("PatientResource : toJSON: Cannot find the repository " + repository);
@@ -125,7 +126,14 @@ public class PatientResource extends ServerResource {
         }   */
 
         //convert to JSON
-        	  JsonRepresentation patJsonRep = WebUtils.bundleJsonResponse("patient_data", pat, repository, id);
+        if (pat != null)
+        {
+        	  patJsonRep = WebUtils.bundleJsonResponse("patient_data", pat, repository, id);
+        }
+        else
+        {
+            return new JsonRepresentation(WebUtils.buildErrorJson( "There is no patient info for patient " + id + " in repository " + repository ));
+        }
 		  if (!isSingle)
         		return patJsonRep;
         else

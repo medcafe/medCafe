@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="OvidUnitTestSuite" verbose="1">
+    <test name="FullUnitTest">
+        <groups>
+            <run>
+                <exclude name="acceptance">
+                </exclude>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="com.medsphere.fileman.*"/>
+            <package name="com.medsphere.ovid.*"/>
+            <package name="com.medsphere.common.*"/>
+        </packages>
+    </test>
+    <test name="JUnitTests" junit="true">
+         <classes>
+            <class name="org.medsphere.ovid.test.unit.junit.OvidJUnitTestSuite"/>
+        </classes>
+    </test>
+</suite>

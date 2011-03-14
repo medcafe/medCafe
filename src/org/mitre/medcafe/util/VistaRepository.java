@@ -52,11 +52,16 @@ import org.mitre.medcafe.hdatabased.procedure.ProcedureCode;
 import org.mitre.medcafe.hdatabased.treatment.Treatment;
 import org.mitre.medcafe.hdatabased.treatment.TreatmentType;
 
-import com.medsphere.vistarpc.RPCBrokerConnection;
-import com.medsphere.vistarpc.factory.RPCPooledConnection;
-import com.medsphere.vistarpc.factory.RPCBrokerPooledConnection;
+//import com.medsphere.vistarpc.RPCBrokerConnection;
+//import com.medsphere.vistarpc.factory.RPCPooledConnection;
+//import com.medsphere.vistarpc.factory.RPCBrokerPooledConnection;
 import com.medsphere.vistarpc.RPCException;
-import com.medsphere.vistarpc.factory.RPCBrokerPooledConnectionFactory;
+//import com.medsphere.vistarpc.factory.RPCBrokerPooledConnectionFactory;
+import com.medsphere.vistarpc.RPCConnection;
+import org.medsphere.connection.VistaConnectionProperties;
+import org.medsphere.connection.VistaConnectionException;
+import org.medsphere.datasource.ServiceLocator;
+
 
 import java.util.Collection;
 import java.util.ArrayList;
@@ -75,9 +80,9 @@ public class VistaRepository extends Repository {
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
-    protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
-
-    public VistaRepository() {
+   // protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
+	protected VistaConnectionProperties connectionProps=null;
+	    public VistaRepository() {
         type = "VistA";
     }
 
@@ -85,19 +90,22 @@ public class VistaRepository extends Repository {
      *  Given a patient id, get the patient info
      */
     public Patient getPatient(String id) {
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             FMPatientContact filemanPat = null;
             FMPatientContact[] patList = null;
             PatientRepository patientRepository = null;
 
             conn = setConnection();
+            
             if (conn != null) {
+            	log.severe("Connection successful");
                 patientRepository = new PatientRepository(conn);
                 Collection<String> iens = new ArrayList<String>();
                 iens.add(id);
                 Collection<FMPatientContact> patColl = patientRepository.getContacts(iens);
                 if (patColl.size() == 0) {
+                log.severe("no results returned");
                     return null;
                 }
                 patList = patColl.toArray(new FMPatientContact[0]);
@@ -109,6 +117,10 @@ public class VistaRepository extends Repository {
                 log.finer("\t" +field.getName() + ": " + filemanPat.getValue(field.getName()));
                 }
                 }   */
+            }
+            else
+            {
+            	log.severe("Connection unsuccessful");
             }
 
 
@@ -186,7 +198,8 @@ public class VistaRepository extends Repository {
                 MaritalStatus marStatus = new MaritalStatus();
                 marStatus.setCodeSystem("2.16.840.1.113883.5.2");
                 marStatus.setCodeSystemName("HL7 MaritalStatusCode");
-
+					 if (fmMarStatus.getName() != null)
+					 {
                 char letter = fmMarStatus.getName().charAt(0);
                 switch (letter) {
                     case 'D':
@@ -214,9 +227,12 @@ public class VistaRepository extends Repository {
 
                         break;
                 }
+                }
                 if (!unknown) {
                     ret.setMaritialStatus(marStatus);
                 }
+                
+                
             }
 
             //Race
@@ -360,7 +376,7 @@ public class VistaRepository extends Repository {
      */
     public Map<String, String> getPatients() {
         Map<String, String> ret = new HashMap<String, String>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -387,7 +403,7 @@ public class VistaRepository extends Repository {
      */
     public Map<String, String> getPatientByName(String family, String given, String middle) {
         Map<String, String> ret = new HashMap<String, String>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -409,7 +425,7 @@ public class VistaRepository extends Repository {
         }
     }
 
-    public void factorySetUp() {
+/*    public void factorySetUp() {
         try {
             rpcConnFactory = new RPCBrokerPooledConnectionFactory(credentials.get(Repository.HOST_URL), credentials.get(Repository.PORT), credentials.get(Repository.ACCESS_CODE), credentials.get(Repository.VERIFY_CODE));
         } catch (Exception e) {
@@ -426,43 +442,67 @@ public class VistaRepository extends Repository {
         /*  if (conn != null) {
         closeConnection();
         }  */
-    }
-
+/*    }
+*/
     /**
      *  sets the passed VistaLinkPooledConnection
      *  @return true if connection worked.  False otherwise.
      */
-    protected RPCBrokerPooledConnection setConnection() throws OvidDomainException {
-        RPCBrokerPooledConnection conn = null;
+     public void propertySetUp(){
+     connectionProps = new VistaConnectionProperties();
+     connectionProps.put("brokerType", "RPC Broker");
+     connectionProps.put("server", credentials.get(Repository.HOST_URL));
+     connectionProps.put("port", credentials.get(Repository.PORT));
+     connectionProps.put("accessCode", credentials.get(Repository.ACCESS_CODE));
+     connectionProps.put("verifyCode", credentials.get(Repository.VERIFY_CODE));
+     }
+    protected RPCConnection setConnection() throws OvidDomainException {
+        RPCConnection conn = null;
 			synchronized(this) {
-        if (rpcConnFactory == null) {
+        if (connectionProps == null) {
 
 
 
-            factorySetUp();
+            propertySetUp();
         }
+		  try{
 
-
-        conn = (RPCBrokerPooledConnection) rpcConnFactory.getConnection();
+        conn = ServiceLocator.getInstance().getDataSource(connectionProps).getConnection();
+        conn.setContext(FMUtil.FM_RPC_CONTEXT);
+			}
+			catch(VistaConnectionException rpcE)
+			{
+				log.severe("Connection to repository failed. Credentials were " + credentials.toString());
+				return null;
+			}
+			catch(RPCException rpcE)
+			{
+				log.severe("Error setting context on connection: " + rpcE.getMessage());
+				closeConnection(conn);
+				return null;
+			}
 			}
 
-        if (conn == null) {
-            log.severe("Connection to repository failed.  Credentials were " + credentials.toString());
-            return null;
-        }
+      
         return conn;
     }
 
     /**
      *  closes the passed RPCBrokerConnection
      */
-    protected void closeConnection(RPCBrokerPooledConnection conn) {
+    protected void closeConnection(RPCConnection conn) {
         if (conn != null) {
 
             log.finer("closing connection");
             // conn.returnToPool();
-
-            conn.returnToPool();
+				try{
+            conn.close();
+            }
+            catch(RPCException rpcE)
+            {
+            	log.severe("Error closing RPC connection: " + rpcE.getMessage());
+            }
+            conn = null;
 
         }
     }
@@ -497,7 +537,7 @@ public class VistaRepository extends Repository {
 
     public List<Allergy> getAllergies(String id) {
         List<Allergy> list = new ArrayList<Allergy>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -548,7 +588,7 @@ public class VistaRepository extends Repository {
 
     public List<Support> getSupportInfo(String id) {
         List<Support> list = new ArrayList<Support>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -589,7 +629,7 @@ public class VistaRepository extends Repository {
 
     public List<Medication> getMedications(String id) {
         List<Medication> list = new ArrayList<Medication>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -645,7 +685,7 @@ public class VistaRepository extends Repository {
 
     public List<Immunization> getImmunizations(String id) {
         List<Immunization> list = new ArrayList<Immunization>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -671,7 +711,7 @@ public class VistaRepository extends Repository {
     }
 
     private List<Result> getVitals(String id, boolean latest) {
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         List<Result> results = new ArrayList<Result>();
        // RPCBrokerConnection conn = null;
         try {
@@ -769,7 +809,7 @@ public class VistaRepository extends Repository {
 
     public List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String id) {
         List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> list = new ArrayList<org.projecthdata.hdata.schemas._2009._06.condition.Condition>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {
@@ -883,7 +923,7 @@ public class VistaRepository extends Repository {
 
     public Collection<FMRecord> getTimeLineInfo(String ien) {
         Collection<FMRecord> list = new ArrayList<FMRecord>();
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
 
         try {
             conn = setConnection();
@@ -920,7 +960,7 @@ public class VistaRepository extends Repository {
 
     public Collection<EncounterDetail> getPatientEncounters(String id) {
         Collection<PatientVisit> ret;
-        RPCBrokerPooledConnection conn = null;
+        RPCConnection conn = null;
         try {
             conn = setConnection();
             if (conn != null) {

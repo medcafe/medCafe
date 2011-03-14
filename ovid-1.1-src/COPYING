@@ -1,0 +1,20 @@
+OVID and its associated APIs are a development framework for programatically
+interfacing MUMPS and Java-based applications and services.
+
+Copyright (C) 2007-2011 Medsphere Systems Corporation
+
+This library is free software; you can redistribute it and/or modify it under 
+the terms of the GNU Lesser General Public License version 2.1 as published 
+by the Free Software Foundation.
+
+This library is distributed in the hope that it will be useful, but WITHOUT 
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more 
+details.
+
+You should have received a copy of the GNU Lesser General Public License 
+along with this library; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+You can contact Medsphere Systems Corporation headquarters at 1917 Palomar 
+Oaks Way, Carlsbad, Ca. 92008 or at legal@medsphere.com.

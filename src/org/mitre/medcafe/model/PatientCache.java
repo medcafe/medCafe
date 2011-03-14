@@ -239,7 +239,7 @@ public class PatientCache extends TimerTask {
         app.handle(req, resp);
         StringWriter out = new StringWriter();
 
-
+			//log.severe("Response " + resp.getStatus() + " " + resp.getEntity());
         if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable()) {
             try {
                 resp.getEntity().write(out);
@@ -681,6 +681,7 @@ public class PatientCache extends TimerTask {
                 String restletString = new String(restlet);
                 restletString = restletString.replaceAll("\\{repository\\}", repository);
                 restletString = restletString.replaceAll("\\{id\\}", repoPatientId);
+                log.severe(restlet + " " + restletString + cacheKey);
                 String results = getJsonContent(app, restletString);
                 JSONObject dataObject = new JSONObject(results);
 

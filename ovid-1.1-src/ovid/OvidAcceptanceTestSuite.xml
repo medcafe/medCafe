@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="OvidAcceptanceTestSuite" verbose="1">
+
+<!--
+    <parameter name="broker-host" value="cbvmqadevtest01.medsphere.com"/>
+    <parameter name="broker-port" value="9210"/>
+    <parameter name="broker-type" value="com.medsphere.flowsheet.security.CIABrokerConnectionType"/>
+    <parameter name="access-code" value="FU12345" />
+    <parameter name="verify-code" value="FU12345!!" />
+    <parameter name="fmaccess-code" value="FS12345" />
+    <parameter name="fmverify-code" value="FS12345!!" />
+    <parameter name="uci" value="EHRD" />
+
+    <parameter name="broker-host" value="localhost"/>
+    <parameter name="broker-port" value="9201"/>
+    <parameter name="broker-type" value="com.medsphere.flowsheet.security.RPCBrokerConnectionType"/>
+    <parameter name="access-code" value="DB1234" />
+    <parameter name="verify-code" value="DB1234!!" />
+    <parameter name="fmaccess-code" value="OV1234" />
+    <parameter name="fmverify-code" value="OV1234!!" />
+    <parameter name="uci" value="openvista" />
+
+
+    <parameter name="broker-host" value="cbvmqadevtest01.medsphere.com"/>
+    <parameter name="broker-port" value="9300"/>
+    <parameter name="broker-type" value="com.medsphere.flowsheet.security.RPCBrokerConnectionType"/>
+    <parameter name="access-code" value="SM123456" />
+    <parameter name="verify-code" value="SM123456!!" />
+    <parameter name="fmaccess-code" value="OV1234" />
+    <parameter name="fmverify-code" value="OV1234!!" />
+    <parameter name="uci" value="openvista" />
+-->
+    <test name="FullAcceptanceTest">
+        <groups>
+            <run>
+                <include name="acceptance" >
+                </include>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.medsphere.ovid.test.acceptance.*" />
+        </packages>
+    </test>
+</suite>
