@@ -16,7 +16,7 @@ import java.io.*;
 
 /**
  * Filter to put the theme value that the user has saved
- *  
+ *
  */
 public class ThemeFilter implements Filter
 {
@@ -27,7 +27,7 @@ public class ThemeFilter implements Filter
 
     //{{{ Members
     private FilterConfig filterConfig = null;
-   
+
     /**
      * Checks to see if the character is dead or not.  If they are, redirect any attempted action to dead.jsp.
      *
@@ -42,40 +42,41 @@ public class ThemeFilter implements Filter
         String endpoint = ((HttpServletRequest)request).getRequestURI();
         log.finer("processing " + endpoint );
         HttpSession session = ((HttpServletRequest)request).getSession(false);
-        if (session != null) 
+        if (session != null)
         {
         	DbConnection conn;
 			try {
 				conn = new DbConnection();
-			
+
 	        	PreparedStatement prep=null;
-	        	String userName = ((HttpServletRequest)request).getRemoteUser();	
-	        	     
+	        	String userName = ((HttpServletRequest)request).getRemoteUser();
+
 	        	String query = "select  value from preferences where key=? and username=?";
 	        	//Default to a custom CSS that this is deployed with
 	        	String themeValue = Constants.DEFAULT_CSS_THEME;
 	        	prep = conn.prepareStatement(query);
 	        	prep.setString(1, "theme");
 	        	prep.setString(2, userName);
-	        		  
-	        	
+
+
 	        	ResultSet rs = prep.executeQuery();
-	        			
+
 	        	if (rs.next())
 	        	{
 	        		themeValue = rs.getString("value");
 	        	}
 	        	String webApp =(String) filterConfig.getServletContext().getAttribute("base");
-	        			  
+
 	        	String dir = themeValue.substring(0, themeValue.lastIndexOf(Constants.FILE_SEPARATOR));
 	        	session.setAttribute(Constants.CSS_THEME,  webApp +Constants.FILE_SEPARATOR + themeValue);
 	        	session.setAttribute(Constants.CSS_WIDGET,  webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE );
 	        	System.out.println("ThemeFilter : doFilter css widget " + webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE);
-	            
+
 	        	DatabaseUtility.close(rs);
-	        	
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				log.throwing( KEY, "doFilter", e );
 				throw new ServletException("Problem with setting CSS theme");
 			}
         }
@@ -85,7 +86,7 @@ public class ThemeFilter implements Filter
             filterConfig.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             return;
         }
-        
+
         chain.doFilter(request, response);
     }
 

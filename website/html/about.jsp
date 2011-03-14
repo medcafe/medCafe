@@ -7,7 +7,7 @@
 			<div class="menu">
                 <ul style="margin-bottom:0px;">
                     <li><a href="#design">Design Principles</a></li>
-                    <li><a href="#advantages">Advantages</a></li>
+                    <li><a href="#advantages">Benefits</a></li>
                     <li><a href="#ideas">Ideas Explored</a></li>
                 </ul>
 			</div>
