@@ -121,6 +121,7 @@
         this.img_object.object = $("<img>").load(function(){
             me.img_object.display_width = me.img_object.orig_width = this.width;
             me.img_object.display_height = me.img_object.orig_height = this.height;
+           
             $(this)
             		.css("position","absolute")
                  //auto otherwise
@@ -325,12 +326,21 @@
             {
                 new_zoom = this.settings.zoom_max;
             }
-
-            var old_x = -parseInt(this.img_object.object.css("left"),10) +
+            var old_x;
+            var old_y;
+				if (this.img_object.object != null)
+				{
+            old_x = -parseInt(this.img_object.object.css("left"),10) +
                                         Math.round(this.settings.width/2);
-            var old_y = -parseInt(this.img_object.object.css("top"),10) + 
-                                        Math.round(this.settings.height/2);
-
+            old_y = -parseInt(this.img_object.object.css("top"),10) + Math.round(this.settings.height/2);
+           // alert ("left: " + this.parents(".ui-tabs").find(".tabContent:not(:.ui-tabs-hide)").css("left") + " object: " + this.img_object.object.css("left"));
+             //           alert ("top: " +this.container.css("top") + " object: " + this.img_object.object.css("top"));
+				}
+				else
+				{
+					old_x =- parseInt(this.container.css("left"),10) + Math.round(this.settings.width/2);
+					old_y = -parseInt(this.container.css("top"),10) + Math.round(this.settings.height/2);
+				}
             var new_width = $iv.scaleValue(this.img_object.orig_width, new_zoom);
             var new_height = $iv.scaleValue(this.img_object.orig_height, new_zoom);
             var new_x = $iv.scaleValue( $iv.descaleValue(old_x, this.current_zoom), new_zoom);
@@ -419,8 +429,8 @@
         
         update_container_info: function()
         {
-            this.settings.height = this.container.height();
-            this.settings.width = this.container.width();
+        	this.settings.height = this.container.parents(".ui-tabs").height();
+            this.settings.width = this.container.parents(".ui-tabs").width();
         },
         
         /**

@@ -560,15 +560,31 @@
             {
                 new_zoom = this.settings.zoom_max;
             }
-
-			var old_xorig = -parseFloat(this.img_object.object.css("left"));
-            var old_yorig = -parseFloat(this.img_object.object.css("top"));
+            var old_xorig;
+            var old_yorig;
+            var old_x;
+            var old_y;
             
-            var old_x = -parseInt(this.img_object.object.css("left"),10) +
+			if (this.img_object.object != null)
+			{
+					old_xorig = -parseFloat(this.img_object.object.css("left"));
+            	 old_yorig = -parseFloat(this.img_object.object.css("top"));
+            
+            	old_x = -parseInt(this.img_object.object.css("left"),10) +
                                         Math.round(this.settings.width/2);
-            var old_y = -parseInt(this.img_object.object.css("top"),10) + 
+            	old_y = -parseInt(this.img_object.object.css("top"),10) + 
                                         Math.round(this.settings.height/2);
-
+			}
+			else
+			{
+								old_xorig = -parseFloat(this.container.css("left"));
+            	 old_yorig = -parseFloat(this.container.css("top"));
+            
+            	old_x = -parseInt(this.container.css("left"),10) +
+                                        Math.round(this.settings.width/2);
+            	old_y = -parseInt(this.container.css("top"),10) + 
+                                        Math.round(this.settings.height/2);
+			}
             var new_width = $iv.scaleValue(this.img_object.orig_width, new_zoom);
             var new_height = $iv.scaleValue(this.img_object.orig_height, new_zoom);
             var new_x = $iv.scaleValue( $iv.descaleValue(old_x, this.current_zoom), new_zoom);
