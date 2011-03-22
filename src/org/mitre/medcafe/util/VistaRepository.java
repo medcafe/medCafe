@@ -61,6 +61,10 @@ import com.medsphere.vistarpc.RPCConnection;
 import org.medsphere.connection.VistaConnectionProperties;
 import org.medsphere.connection.VistaConnectionException;
 import org.medsphere.datasource.ServiceLocator;
+import org.medsphere.lifecycle.LifecycleManager;
+import org.medsphere.lifecycle.LifecycleListener;
+import org.medsphere.auth.SubjectCache;
+
 
 
 import java.util.Collection;
@@ -455,6 +459,13 @@ public class VistaRepository extends Repository {
      connectionProps.put("port", credentials.get(Repository.PORT));
      connectionProps.put("accessCode", credentials.get(Repository.ACCESS_CODE));
      connectionProps.put("verifyCode", credentials.get(Repository.VERIFY_CODE));
+     LifecycleManager.getInstance().addListener(new LifecycleListener() {
+    public void shutdown() {
+        // On application shutdown, close any subjects in the cache
+        SubjectCache.getInstance().dispose();
+    }
+});
+
      }
     protected RPCConnection setConnection() throws OvidDomainException {
         RPCConnection conn = null;

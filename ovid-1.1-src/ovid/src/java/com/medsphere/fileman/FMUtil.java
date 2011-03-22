@@ -23,11 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class FMUtil {
-	 
-	 /* We are using the older version of the OpenVista virtual machine so we need these entries */
-	// public static final String FM_RPC_NAME = "MSC FILEMAN RESOURCE";
-   // public static final String FM_RPC_CONTEXT = "MSC FM RESOURCE USER";
-    /* if using the newer version of the virtual machine, change to these entries */
+
     public static final String FM_RPC_NAME = "MSCVBFM ENTRY";
     public static final String FM_RPC_CONTEXT = "MSCV FM RESOURCE USER";
     private static DecimalFormat fmDatePartFormat = new DecimalFormat("0000000");
