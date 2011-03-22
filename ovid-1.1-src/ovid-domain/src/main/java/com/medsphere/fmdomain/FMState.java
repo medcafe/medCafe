@@ -1,20 +1,17 @@
 /*
- * Copyright (C) 2007-2009  Medsphere Systems Corporation
- * All rights reserved.
+ *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
  *
- * This source code contains the intellectual property
- * of its copyright holder(s), and is made available
- * under a license. If you do not know the terms of
- * the license, please stop and do not read further.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Please read LICENSES for detailed information about
- * the license this source code file is available under.
- * Questions should be directed to legal@medsphere.com
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- */
-
-/*
- * container class of fileman State information
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.medsphere.fmdomain;
