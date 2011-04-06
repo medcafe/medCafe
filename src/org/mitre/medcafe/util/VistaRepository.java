@@ -15,15 +15,19 @@
  */
 package org.mitre.medcafe.util;
 
+
 // import org.mitre.hdata.hrf.core.*;
 import com.medsphere.fileman.*;
 import com.medsphere.fmdomain.*;
 import com.medsphere.ovid.domain.ov.*;
+import com.medsphere.ovid.model.domain.*;
 import com.medsphere.ovid.model.domain.patient.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.*;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;
 import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
@@ -36,6 +40,7 @@ import org.projecthdata.hdata.schemas._2009._06.provider.*;
 import org.projecthdata.hdata.schemas._2009._06.comment.*;
 import org.projecthdata.hdata.schemas._2009._06.encounter.EncounterType;
 import org.projecthdata.hdata.schemas._2009._06.result.*;
+import org.projecthdata.hdata.schemas._2009._06.core.Informant;
 
 
 import org.mitre.medcafe.hdatabased.encounter.EncounterDetail;
@@ -64,7 +69,10 @@ import org.medsphere.datasource.ServiceLocator;
 import org.medsphere.lifecycle.LifecycleManager;
 import org.medsphere.lifecycle.LifecycleListener;
 import org.medsphere.auth.SubjectCache;
-
+import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 
 import java.util.Collection;
@@ -80,13 +88,18 @@ public class VistaRepository extends Repository {
 
     public final static String KEY = VistaRepository.class.getName();
     public final static Logger log = Logger.getLogger(KEY);
-
+    private TreeSet<AllergyAgent> vistaAgents;
+    private TreeSet<FMSignSymptom> vistaReactions;
+    private ReentrantReadWriteLock vistaAgentLock = null;
+    private ReentrantReadWriteLock vistaReactionLock = null;
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
-   // protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
-	protected VistaConnectionProperties connectionProps=null;
-	    public VistaRepository() {
+    // protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
+    protected VistaConnectionProperties connectionProps = null;
+
+    public VistaRepository(HashMap<String, String> credMap) {
+        super(credMap);
         type = "VistA";
     }
 
@@ -101,15 +114,15 @@ public class VistaRepository extends Repository {
             PatientRepository patientRepository = null;
 
             conn = setConnection();
-            
+
             if (conn != null) {
-            	log.severe("Connection successful");
+                log.finer("Connection successful");
                 patientRepository = new PatientRepository(conn);
                 Collection<String> iens = new ArrayList<String>();
                 iens.add(id);
                 Collection<FMPatientContact> patColl = patientRepository.getContacts(iens);
                 if (patColl.size() == 0) {
-                log.severe("no results returned");
+                    log.severe("no results returned");
                     return null;
                 }
                 patList = patColl.toArray(new FMPatientContact[0]);
@@ -121,10 +134,8 @@ public class VistaRepository extends Repository {
                 log.finer("\t" +field.getName() + ": " + filemanPat.getValue(field.getName()));
                 }
                 }   */
-            }
-            else
-            {
-            	log.severe("Connection unsuccessful");
+            } else {
+                log.severe("Connection unsuccessful");
             }
 
 
@@ -202,41 +213,40 @@ public class VistaRepository extends Repository {
                 MaritalStatus marStatus = new MaritalStatus();
                 marStatus.setCodeSystem("2.16.840.1.113883.5.2");
                 marStatus.setCodeSystemName("HL7 MaritalStatusCode");
-					 if (fmMarStatus.getName() != null)
-					 {
-                char letter = fmMarStatus.getName().charAt(0);
-                switch (letter) {
-                    case 'D':
-                        marStatus.setCode("D");
-                        marStatus.setDisplayName("Divorced");
-                        break;
-                    case 'M':
-                        marStatus.setCode("M");
-                        marStatus.setDisplayName("Married");
-                        break;
-                    case 'W':
-                        marStatus.setCode("W");
-                        marStatus.setDisplayName("Widowed");
-                        break;
-                    case 'N':
-                        marStatus.setCode("S");
-                        marStatus.setDisplayName("Never Married");
-                        break;
-                    case 'S':
-                        marStatus.setCode("L");
-                        marStatus.setDisplayName("Legally Separated");
-                        break;
-                    case 'U':
-                        unknown = true;
+                if (fmMarStatus.getName() != null) {
+                    char letter = fmMarStatus.getName().charAt(0);
+                    switch (letter) {
+                        case 'D':
+                            marStatus.setCode("D");
+                            marStatus.setDisplayName("Divorced");
+                            break;
+                        case 'M':
+                            marStatus.setCode("M");
+                            marStatus.setDisplayName("Married");
+                            break;
+                        case 'W':
+                            marStatus.setCode("W");
+                            marStatus.setDisplayName("Widowed");
+                            break;
+                        case 'N':
+                            marStatus.setCode("S");
+                            marStatus.setDisplayName("Never Married");
+                            break;
+                        case 'S':
+                            marStatus.setCode("L");
+                            marStatus.setDisplayName("Legally Separated");
+                            break;
+                        case 'U':
+                            unknown = true;
 
-                        break;
-                }
+                            break;
+                    }
                 }
                 if (!unknown) {
                     ret.setMaritialStatus(marStatus);
                 }
-                
-                
+
+
             }
 
             //Race
@@ -429,72 +439,61 @@ public class VistaRepository extends Repository {
         }
     }
 
-/*    public void factorySetUp() {
-        try {
-            rpcConnFactory = new RPCBrokerPooledConnectionFactory(credentials.get(Repository.HOST_URL), credentials.get(Repository.PORT), credentials.get(Repository.ACCESS_CODE), credentials.get(Repository.VERIFY_CODE));
-        } catch (Exception e) {
-            log.severe("Connection to repository failed.  Credentials were " + credentials.toString());
-        }
+    /*    public void factorySetUp() {
+    try {
+    rpcConnFactory = new RPCBrokerPooledConnectionFactory(credentials.get(Repository.HOST_URL), credentials.get(Repository.PORT), credentials.get(Repository.ACCESS_CODE), credentials.get(Repository.VERIFY_CODE));
+    } catch (Exception e) {
+    log.severe("Connection to repository failed.  Credentials were " + credentials.toString());
     }
+    }*/
 
-    @Override
-    public void onShutdown() {
-        if (rpcConnFactory != null) {
-            rpcConnFactory.emptyPool();
-        }
-        rpcConnFactory = null;
-        /*  if (conn != null) {
-        closeConnection();
-        }  */
-/*    }
-*/
+    /*    }
+     */
     /**
      *  sets the passed VistaLinkPooledConnection
      *  @return true if connection worked.  False otherwise.
      */
-     public void propertySetUp(){
-     connectionProps = new VistaConnectionProperties();
-     connectionProps.put("brokerType", "RPC Broker");
-     connectionProps.put("server", credentials.get(Repository.HOST_URL));
-     connectionProps.put("port", credentials.get(Repository.PORT));
-     connectionProps.put("accessCode", credentials.get(Repository.ACCESS_CODE));
-     connectionProps.put("verifyCode", credentials.get(Repository.VERIFY_CODE));
-     LifecycleManager.getInstance().addListener(new LifecycleListener() {
-    public void shutdown() {
-        // On application shutdown, close any subjects in the cache
-        SubjectCache.getInstance().dispose();
-    }
-});
+    public void propertySetUp() {
+        connectionProps = new VistaConnectionProperties();
+        connectionProps.put("brokerType", "RPC Broker");
+        connectionProps.put("server", credentials.get(Repository.HOST_URL));
+        connectionProps.put("port", credentials.get(Repository.PORT));
+        connectionProps.put("accessCode", credentials.get(Repository.ACCESS_CODE));
+        connectionProps.put("verifyCode", credentials.get(Repository.VERIFY_CODE));
+        LifecycleManager.getInstance().addListener(new LifecycleListener() {
 
-     }
+            public void shutdown() {
+                // On application shutdown, close any subjects in the cache
+                SubjectCache.getInstance().dispose();
+            }
+        });
+
+    }
+
     protected RPCConnection setConnection() throws OvidDomainException {
         RPCConnection conn = null;
-			synchronized(this) {
-        if (connectionProps == null) {
+        synchronized (this) {
+            if (connectionProps == null) {
 
 
 
-            propertySetUp();
+                propertySetUp();
+            }
+            try {
+
+                conn = ServiceLocator.getInstance().getDataSource(connectionProps).getConnection();
+                conn.setContext(FMUtil.FM_RPC_CONTEXT);
+            } catch (VistaConnectionException rpcE) {
+                log.severe("Connection to repository failed. Credentials were " + credentials.toString());
+                return null;
+            } catch (RPCException rpcE) {
+                log.severe("Error setting context on connection: " + rpcE.getMessage());
+                closeConnection(conn);
+                return null;
+            }
         }
-		  try{
 
-        conn = ServiceLocator.getInstance().getDataSource(connectionProps).getConnection();
-        conn.setContext(FMUtil.FM_RPC_CONTEXT);
-			}
-			catch(VistaConnectionException rpcE)
-			{
-				log.severe("Connection to repository failed. Credentials were " + credentials.toString());
-				return null;
-			}
-			catch(RPCException rpcE)
-			{
-				log.severe("Error setting context on connection: " + rpcE.getMessage());
-				closeConnection(conn);
-				return null;
-			}
-			}
 
-      
         return conn;
     }
 
@@ -506,12 +505,10 @@ public class VistaRepository extends Repository {
 
             log.finer("closing connection");
             // conn.returnToPool();
-				try{
-            conn.close();
-            }
-            catch(RPCException rpcE)
-            {
-            	log.severe("Error closing RPC connection: " + rpcE.getMessage());
+            try {
+                conn.close();
+            } catch (RPCException rpcE) {
+                log.severe("Error closing RPC connection: " + rpcE.getMessage());
             }
             conn = null;
 
@@ -526,24 +523,20 @@ public class VistaRepository extends Repository {
     @Override
     public void setCredentials(HashMap<String, String> credMap) {
 
-    		if (credMap.get(Repository.HOST_URL)== null || credMap.get(Repository.HOST_URL).equals(""))
-    		{
-    			throw new RuntimeException("Must include hostURL for OpenVista database");
-    		}
-    		if (credMap.get(Repository.PORT)== null || credMap.get(Repository.PORT).equals(""))
-    		{
-    			throw new RuntimeException("Must include port for OpenVista database");
-    		}
-    		if (credMap.get(Repository.ACCESS_CODE)== null || credMap.get(Repository.ACCESS_CODE).equals(""))
-    		{
-    			throw new RuntimeException("Must include access code for OpenVista database");
-    		}
-    		if (credMap.get(Repository.VERIFY_CODE)== null || credMap.get(Repository.VERIFY_CODE).equals(""))
-    		{
-    			throw new RuntimeException("Must include verify code for OpenVista database");
-    		}
+        if (credMap.get(Repository.HOST_URL) == null || credMap.get(Repository.HOST_URL).equals("")) {
+            throw new RuntimeException("Must include hostURL for OpenVista database");
+        }
+        if (credMap.get(Repository.PORT) == null || credMap.get(Repository.PORT).equals("")) {
+            throw new RuntimeException("Must include port for OpenVista database");
+        }
+        if (credMap.get(Repository.ACCESS_CODE) == null || credMap.get(Repository.ACCESS_CODE).equals("")) {
+            throw new RuntimeException("Must include access code for OpenVista database");
+        }
+        if (credMap.get(Repository.VERIFY_CODE) == null || credMap.get(Repository.VERIFY_CODE).equals("")) {
+            throw new RuntimeException("Must include verify code for OpenVista database");
+        }
 
-         credentials = credMap;
+        credentials = credMap;
     }
 
     public List<Allergy> getAllergies(String id) {
@@ -551,24 +544,26 @@ public class VistaRepository extends Repository {
         RPCConnection conn = null;
         try {
             conn = setConnection();
+
             if (conn != null) {
-                log.finer("Connection made...");
-                PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
-                log.finer("HERE!! " + r.toString());
-                Collection<IsAPatientItem> vista_list = r.getAllergies(id, false);
+
+                PatientAllergyRepository r = new PatientAllergyRepository(conn);
+
+                Collection<FMPatient_Allergies> vista_list = r.getAllergiesForPatientIEN(id, false);
+    
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Allergy type
-                for (IsAPatientItem a : vista_list) {
+                for (FMPatient_Allergies a : vista_list) {
                     Allergy allergy = new Allergy();  //hData type
-                    PatientAllergy pa = (PatientAllergy) a;  //vista (ovid) type
+
                     //populate
 
                     Product c = new Product();
-                    c.setValue(capitalizeString(pa.getMessage()));
+                    c.setValue(capitalizeString(a.getReactant()));
                     allergy.setProduct(c);
                     //set time for adverse reaction
-                    if (pa.getDateTime() != null) {
+                    if (a.getOriginationDateTime() != null) {
                         GregorianCalendar cal = new GregorianCalendar();
-                        cal.setTime(pa.getDateTime());
+                        cal.setTime(a.getOriginationDateTime());
                         DatatypeFactory factory = DatatypeFactory.newInstance();
                         DateRange d = new DateRange();
                         d.setLow(factory.newXMLGregorianCalendar(cal));
@@ -576,25 +571,273 @@ public class VistaRepository extends Repository {
                     }
 
                     Reaction re = new Reaction();
-                    re.setValue(capitalizeString(pa.getSigns()));
+
+                    String symptoms = "";
+                    for (FMPatientAllergyReaction react : a.getReactions().values()) {
+                        if (!symptoms.equals("")) {
+                            symptoms = symptoms + "; ";
+                        }
+                        symptoms = symptoms + react.getReactionValue();
+                    }
+                    re.setValue(capitalizeString(symptoms));
                     allergy.setReaction(re);
+                    String code = "";
+                    String val = "";
+                    if (a.getAllergy().equals(FMPatient_Allergies.FOOD_ALLERGY)) {
+                        code = "414285001";
+                        val = "food allergy";
+                    } else if (a.getAllergy().equals(FMPatient_Allergies.DRUG_ALLERGY)) {
+                        code = "416098002";
+                        val = "drug allergy";
+                    } else {
+                        code = "419199007";
+                        val = "allergy to substance";
+                    }
+                    AdverseEventType advEventType = new AdverseEventType();
 
+                    advEventType.setCode(code);
+                    advEventType.setDisplayName(val);
+                    advEventType.setCodeSystem("2.16.840.1.113883.6.96");
+                    advEventType.setCodeSystemName("SNOMED CT");
+                    allergy.setAdverseEventType(advEventType);
+                    String narr = "";
+                    if (a.getComments() != null) {
+                        for (FMPatientAllergyComment comment : a.getComments().values()) {
+                            if (!narr.equals("")) {
+                                narr = narr + "; ";
+                            }
+                            narr = narr + comment.getComments();
+                        }
+                    }
+                    allergy.setNarrative(narr);
+                    List<Informant> infoSource = allergy.getInformationSource();
+                    Informant source = new Informant();
 
-                    // System.out.println(pa.toString());
+                    List<Person> contact = source.getContact();
+                    Person person = new Person();
+                    Name personName = setPersonsName(capitalizeString(a.getOriginatorName()));
+                    person.setName(personName);
+                    contact.add(person);
+                    infoSource.add(source);
+
+     
                     //add to the list
                     list.add(allergy);
                 }
             } else {
                 log.warning("BAD CONNECTION");
+
             }
 
-        } catch (Throwable e) {
-            log.throwing(KEY, "Error retreiving PatientItems", e);
-        } finally {
+        } catch (OvidDomainException ovidE) {
+            log.severe("Error making connection");
+        } catch (DatatypeConfigurationException dataE) {
+            log.severe("Error with data type configuration");
+        }  finally {
             closeConnection(conn);
 
         }
         return list;
+    }
+
+    public boolean updateAllergies(String patientId, Collection<Allergy> allergies) {
+        boolean success = true;
+        RPCConnection conn = null;
+        try {
+            conn = setConnection();
+            Collection<Allergy> insertList = new ArrayList<Allergy>();
+            PatientAllergyRepository patAllergyRepo = new PatientAllergyRepository(conn);
+            Collection<FMPatient_Allergies> fmAllergyList = patAllergyRepo.getAllergiesForPatientIEN(patientId, true);
+            HashMap<String, FMPatient_Allergies> fmAllergyMap = new HashMap<String, FMPatient_Allergies>();
+            for (FMPatient_Allergies fmAll : fmAllergyList) {
+                fmAllergyMap.put(fmAll.getReactant().toUpperCase(), fmAll);
+            }
+            for (Allergy allergy : allergies) {
+
+                FMPatient_Allergies fmAllergy = fmAllergyMap.get(allergy.getProduct().getValue().toUpperCase());
+                if (fmAllergy != null) {
+
+
+
+                    String reactionList = allergy.getReaction().getValue();
+
+                    String[] reacts = reactionList.split(";");
+                    for (int i = 0; i< reacts.length; i++) {
+                      
+         
+                        HashMap reactionMap = fmAllergy.getReactionLookup();
+
+                        FMPatientAllergyReaction fmReact = new FMPatientAllergyReaction();
+                        fmReact.setDateEntered(allergy.getAdverseEventDate().getLow().toGregorianCalendar().getTime());
+                        FMSignSymptom fmSigns = new FMSignSymptom(reacts[i].trim());
+
+                        vistaReactionLock.readLock().lock();
+                        try{
+                        FMSignSymptom returnSign = vistaReactions.floor(fmSigns);
+
+                        if (returnSign != null && (returnSign.getName().compareToIgnoreCase(reacts[i].trim()) == 0)
+                                && reactionMap.get(returnSign.getIEN()) == null) {
+                            fmReact.setReactionIEN(returnSign);
+                            fmAllergy.addReactions(fmReact);
+
+                        }
+    
+                      }
+                        finally
+                        {
+                            vistaReactionLock.readLock().unlock();
+                        }
+
+                    }
+                    String[] comments = allergy.getNarrative().split(";");
+                    for (int i = 0; i<comments.length; i++) {
+                        HashMap commentMap = fmAllergy.getCommentLookup();
+                        if (commentMap.get(comments[i].trim().toLowerCase()) == null) {
+                            FMPatientAllergyComment fmComment = new FMPatientAllergyComment();
+                            GregorianCalendar cal = new GregorianCalendar();
+                            fmComment.setCommentDate(cal.getTime());
+                            fmComment.setComments(comments[i].trim());
+                            fmAllergy.addComments(fmComment);
+                        }
+                    }
+                    if (allergy.getAdverseEventType().getCode().equals("414285001")
+                            && !fmAllergy.getAllergyType().equals(FMPatient_Allergies.FOOD_ALLERGY)) //food allergy
+                    {
+                        fmAllergy.setAllergyType(FMPatient_Allergies.FOOD_ALLERGY);
+                    } else if (allergy.getAdverseEventType().getCode().equals("416098002")
+                            && !fmAllergy.getAllergyType().equals(FMPatient_Allergies.DRUG_ALLERGY)) {
+
+                        fmAllergy.setAllergyType(FMPatient_Allergies.DRUG_ALLERGY);
+                    } else if (allergy.getAdverseEventType().getCode().equals("419199007")
+                            && (fmAllergy.getAllergyType().equals(FMPatient_Allergies.DRUG_ALLERGY)
+                            || fmAllergy.getAllergyType().equals(FMPatient_Allergies.FOOD_ALLERGY))) {
+                        fmAllergy.setAllergyType(FMPatient_Allergies.OTHER_ALLERGY);
+                    }
+                    patAllergyRepo.updateAllergy(fmAllergy);
+
+
+                } else {
+                    log.severe("Can't modify " + allergy.getProduct().getDisplayName()
+                            + " no match found.");
+                    insertList.add(allergy);
+                }
+
+
+
+            }
+            if (insertList.size() == 0) {
+                success = true;
+            } else {
+                success = insertAllergies(patientId, insertList);
+            }
+        } catch (OvidDomainException ovidE) {
+            log.severe("Error inserting patient allergies.");
+            success = false;
+        } finally {
+            closeConnection(conn);
+            return success;
+        }
+
+    }
+
+    public boolean insertAllergies(String patientId, Collection<Allergy> allergies) {
+        boolean success = true;
+        RPCConnection conn = null;
+        try {
+            conn = setConnection();
+            PatientAllergyRepository patAllergyRepo = new PatientAllergyRepository(conn);
+            for (Allergy allergy : allergies) {
+                try {
+                    FMPatient_Allergies fmAllergy = new FMPatient_Allergies();
+                    fmAllergy.setPatient(Integer.parseInt(patientId));
+
+
+                    AllergyAgent lookupAgent = new AllergyAgent();
+                    lookupAgent.setDisplayName(allergy.getProduct().getValue());
+                    vistaAgentLock.readLock().lock();
+                    AllergyAgent returnAgent = vistaAgents.floor(lookupAgent);
+                    // if the specified allergy exists in the table, proceed to build allergy record;
+                    if (returnAgent.getDisplayName().compareToIgnoreCase(lookupAgent.getDisplayName())==0) {
+        
+                        fmAllergy.setAllergy(returnAgent.getLookupFile().getFilenum(), returnAgent.getAllergenRecord().getIEN());
+                        fmAllergy.setReactant(returnAgent.getDisplayName().toUpperCase());
+
+                        // Originator has to be in the new person file, and since we aren't currently using that value
+                        // the originator is hard coded in
+                        fmAllergy.setOriginator(42);
+                        FMPatientAllergyComment comment = new FMPatientAllergyComment();
+                        comment.setComments(allergy.getNarrative());
+                        fmAllergy.addComments(comment);
+                        String reactionList = allergy.getReaction().getValue();
+                        String[] reacts = reactionList.split(";");
+                        for (String react : reacts) {
+                            FMPatientAllergyReaction fmReact = new FMPatientAllergyReaction();
+                            fmReact.setDateEntered(allergy.getAdverseEventDate().getLow().toGregorianCalendar().getTime());
+                            FMSignSymptom fmSigns = new FMSignSymptom(react.trim());
+                            vistaReactionLock.readLock().lock();
+                            try {
+                            FMSignSymptom returnSign = vistaReactions.floor(fmSigns);
+                            if (returnSign != null && returnSign.getName().compareToIgnoreCase(react.trim())==0) {
+                                fmReact.setReactionIEN(returnSign);
+                                fmAllergy.addReactions(fmReact);
+                            }
+                            }
+                            finally
+                            {
+                                vistaReactionLock.readLock().unlock();
+                            }
+                        }
+                        // Origination date must be set, if not returned default to current day
+                        if (allergy.getAdverseEventDate()!= null && allergy.getAdverseEventDate().getLow() != null)
+                        {
+                            fmAllergy.setOriginationDateTime(allergy.getAdverseEventDate().getLow().toGregorianCalendar().getTime());
+                        }
+                        else
+                        {
+                            GregorianCalendar cal = new GregorianCalendar();
+                            fmAllergy.setOriginationDateTime(cal.getTime());
+                        }
+                        //Observed or historical field must be set; hData doesn't pass that information so default to historical
+                        fmAllergy.setObservedOrHist("h");
+                        if (allergy.getAdverseEventType().getCode().equals("414285001")) //food allergy
+                        {
+                            fmAllergy.setAllergyType(FMPatient_Allergies.FOOD_ALLERGY);
+                        } else if (allergy.getAdverseEventType().getCode().equals("416098002")) {
+
+                            fmAllergy.setAllergyType(FMPatient_Allergies.DRUG_ALLERGY);
+                        } else if (allergy.getAdverseEventType().getCode().equals("419199007")) {
+                            fmAllergy.setAllergyType(FMPatient_Allergies.OTHER_ALLERGY);
+                        }
+                        patAllergyRepo.addAllergy(fmAllergy);
+      
+
+                    } else {
+                        log.severe("Can't insert allergy to " + allergy.getProduct().getDisplayName()
+                                + " no match found.");
+                        success = false;
+                    }
+                } catch (ModifiedKeyFileManFieldException modE) {
+                    log.severe("Can't change id or reactant in existing field");
+                    success = false;
+                } catch (InvalidFileManFieldValueException invalE) {
+                    log.severe(invalE.getMessage());
+                    success = false;
+                } catch (InsertFileManRecordException insertE) {
+                    log.severe(insertE.getMessage() + " for patient id: " + patientId + ", allergen: " + allergy.getProduct().getDisplayName());
+                    success = false;
+                }
+                finally{
+                    vistaAgentLock.readLock().unlock();
+                }
+            }
+        } catch (OvidDomainException ovidE) {
+            log.severe("Error inserting patient allergies.");
+            success = false;
+        } finally {
+            closeConnection(conn);
+            return success;
+        }
+
     }
 
     public List<Support> getSupportInfo(String id) {
@@ -724,7 +967,7 @@ public class VistaRepository extends Repository {
     private List<Result> getVitals(String id, boolean latest) {
         RPCConnection conn = null;
         List<Result> results = new ArrayList<Result>();
-       // RPCBrokerConnection conn = null;
+        // RPCBrokerConnection conn = null;
         try {
             conn = setConnection();
             //conn = new RPCBrokerConnection("medcafe.mitre.org", 9201, "OV1234", "OV1234!!");
@@ -732,7 +975,7 @@ public class VistaRepository extends Repository {
                 log.finer("Connection made . . .");
                 conn.setContext("MSC PATIENT DASHBOARD");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
-                log.finer("HERE!! " + r.toString());
+  
                 GregorianCalendar calendar = new GregorianCalendar();
 
                 calendar.roll(Calendar.YEAR, -100);
@@ -740,24 +983,23 @@ public class VistaRepository extends Repository {
                 Collection<IsAPatientItem> vitalItems = r.getVitals(id, earlyDate, new Date());
                 Collection<PatientVitalEvent> vitals = new ArrayList<PatientVitalEvent>();
                 for (IsAPatientItem vitalItem : vitalItems) {
-                		PatientVitalEvent item = (PatientVitalEvent) vitalItem;
+                    PatientVitalEvent item = (PatientVitalEvent) vitalItem;
                     vitals.add(item);
                 }
-                if (vitals.size()>0) {
-                	if (latest) {
-                    PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new MostRecentVitalComparator());
-                    vitalQueue.addAll(vitals);
-                    vitals = new ArrayList<PatientVitalEvent>();
-                    vitals.add(vitalQueue.peek());
-                  }
-                  else
-                  {
-                  	 PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new EarliestVitalComparator());
-                  	 vitalQueue.addAll(vitals);
-                  	 vitals = new ArrayList<PatientVitalEvent>();
-                  	 while (!vitalQueue.isEmpty())
-                  	 	vitals.add(vitalQueue.poll());
-                  }
+                if (vitals.size() > 0) {
+                    if (latest) {
+                        PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new MostRecentVitalComparator());
+                        vitalQueue.addAll(vitals);
+                        vitals = new ArrayList<PatientVitalEvent>();
+                        vitals.add(vitalQueue.peek());
+                    } else {
+                        PriorityQueue<PatientVitalEvent> vitalQueue = new PriorityQueue<PatientVitalEvent>(vitals.size(), new EarliestVitalComparator());
+                        vitalQueue.addAll(vitals);
+                        vitals = new ArrayList<PatientVitalEvent>();
+                        while (!vitalQueue.isEmpty()) {
+                            vitals.add(vitalQueue.poll());
+                        }
+                    }
                 }
                 for (PatientVitalEvent vital : vitals) {
 
@@ -786,8 +1028,8 @@ public class VistaRepository extends Repository {
                             }
                             result.setNarrative(indicator);
                             results.add(result);
-                            if (stringExists(detail.getBmi())){
-                            		result = new Result();
+                            if (stringExists(detail.getBmi())) {
+                                result = new Result();
                                 result.setResultValue(detail.getBmi());
                                 resultType = new ResultType();
                                 resultType.setValue("BMI");
@@ -800,12 +1042,12 @@ public class VistaRepository extends Repository {
                     }
                 }
             }
-				//conn.close();
+            //conn.close();
         } catch (Throwable e) {
-            log.severe("Error retrieving patient vitals.");
-            e.printStackTrace(System.err);
+            log.severe("VistaRepository: Error retrieving patient vitals.");
+
         } finally {
-             closeConnection(conn);
+            closeConnection(conn);
         }
         return results;
     }
@@ -826,7 +1068,7 @@ public class VistaRepository extends Repository {
             if (conn != null) {
                 log.finer("Connection made...");
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
-                log.finer("HERE!! " + r.toString());
+              
                 Collection<PatientProblem> vista_list = r.getProblems(id);
                 // an ArrayList of PatientProblem objects is returned -  converty to hData Condition type
                 for (PatientProblem p : vista_list) {
@@ -849,8 +1091,6 @@ public class VistaRepository extends Repository {
                     problem.setProblemName(p.getMessage());
                     problem.setNarrative(p.getStatus());
 
-                    //System.out.println(problem.toString());
-                    // System.out.println(pa.toString());
                     //add to the list
                     list.add(problem);
                 }
@@ -1015,7 +1255,7 @@ public class VistaRepository extends Repository {
 
                 List<HealthFactor> healthFactors = encounter.getHealthFactors();
                 populateHealthFactorList(healthFactors, visit);
-                //System.out.println(visit);
+    
                 visits.add(encounter);
 
             }
@@ -1503,38 +1743,35 @@ public class VistaRepository extends Repository {
         }
 
     }
-   private String capitalizeString(String toBeFixed)
-   {
-   	return capitalizeString(toBeFixed, false);
-   }
-	private String capitalizeString(String toBeFixed, boolean medString)
-	{
-		if (toBeFixed != null && !toBeFixed.equals("")){
-			String returnString = "";
-			toBeFixed = toBeFixed.toLowerCase();
-			String delimiters = ",/.;:-_()&!? []{}0123456789";
-			StringTokenizer parts = new StringTokenizer(toBeFixed, delimiters, true);
-			while (parts.hasMoreTokens())
-			{
-				String word = parts.nextToken();
-				if (delimiters.contains(word))
-				{
-					returnString = returnString + word;
-				}
-				else
-				{
-					returnString = returnString + word.substring(0,1).toUpperCase() + word.substring(1);
-				}
-			}
-			if (!medString)
-				return returnString;
-			else {
-				returnString = returnString.replace("Mg", "mg");
-				return returnString.replace("Ml", "mL");
-			}
-		}
-		return toBeFixed;
-	}
+
+    private String capitalizeString(String toBeFixed) {
+        return capitalizeString(toBeFixed, false);
+    }
+
+    private String capitalizeString(String toBeFixed, boolean medString) {
+        if (toBeFixed != null && !toBeFixed.equals("")) {
+            String returnString = "";
+            toBeFixed = toBeFixed.toLowerCase();
+            String delimiters = ",/.;:-_()&!? []{}0123456789";
+            StringTokenizer parts = new StringTokenizer(toBeFixed, delimiters, true);
+            while (parts.hasMoreTokens()) {
+                String word = parts.nextToken();
+                if (delimiters.contains(word)) {
+                    returnString = returnString + word;
+                } else {
+                    returnString = returnString + word.substring(0, 1).toUpperCase() + word.substring(1);
+                }
+            }
+            if (!medString) {
+                return returnString;
+            } else {
+                returnString = returnString.replace("Mg", "mg");
+                return returnString.replace("Ml", "mL");
+            }
+        }
+        return toBeFixed;
+    }
+
     private class MostRecentVitalComparator implements Comparator<PatientVitalEvent> {
 
         public MostRecentVitalComparator() {
@@ -1545,7 +1782,8 @@ public class VistaRepository extends Repository {
             return two.getDateTime().compareTo(one.getDateTime());
         }
     }
-       private class EarliestVitalComparator implements Comparator<PatientVitalEvent> {
+
+    private class EarliestVitalComparator implements Comparator<PatientVitalEvent> {
 
         public EarliestVitalComparator() {
             super();
@@ -1555,5 +1793,107 @@ public class VistaRepository extends Repository {
             return -(two.getDateTime().compareTo(one.getDateTime()));
         }
     }
-}
 
+    public Collection<Reaction> generateAllergyReactionList() {
+        if (vistaReactionLock == null)
+        {
+        		vistaReactionLock = new ReentrantReadWriteLock();
+        }
+        RPCConnection conn = null;
+        try {
+            conn = setConnection();
+            if (conn != null) {
+                SignSymptomRepository symptomRepository = new SignSymptomRepository(conn);
+                TreeSet<FMSignSymptom> tempTree = symptomRepository.getAllSignsSymptoms(true);
+                 vistaReactionLock.writeLock().lock();
+                try {
+                vistaReactions = tempTree;
+                }
+                finally
+                {
+                vistaReactionLock.writeLock().unlock();
+                }
+                vistaReactionLock.readLock().lock();
+                Collection<Reaction> reactColl;
+                try{
+                String message = "Number of reactions is " + vistaReactions.size();
+                log.finer(message);
+                reactColl = new ArrayList<Reaction>();
+
+                for (FMSignSymptom symptom : vistaReactions) {
+                    Reaction react = new Reaction();
+                    react.setDisplayName(symptom.getName());
+                    reactColl.add(react);
+
+                }
+                }
+                finally{
+                	vistaReactionLock.readLock().unlock();
+                }
+                return reactColl;
+            } else {
+                log.warning("BAD CONNECTION");
+            }
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving Allergy Reaction List", e);
+        } finally {
+            closeConnection(conn);
+
+        }
+
+        return null;
+    }
+
+    public Collection<Product> generateAllergyReactantList() {
+        RPCConnection conn = null;
+        if (vistaAgentLock == null)
+        {
+        		vistaAgentLock = new ReentrantReadWriteLock();
+        }
+        try {
+            conn = setConnection();
+            if (conn != null) {
+                AllergyAgentRepository agentRepository = new AllergyAgentRepository(conn);
+                TreeSet<AllergyAgent> tempTree = agentRepository.getAllAllergyAgents();
+                vistaAgentLock.writeLock().lock();
+                try {
+                vistaAgents = tempTree;
+                }
+                finally
+                {
+                vistaAgentLock.writeLock().unlock();
+                }
+                vistaAgentLock.readLock().lock();
+                Collection<Product> prodColl;
+                try{
+                String message = "Number of allergy agents is " + vistaAgents.size();
+                log.finer(message);
+                prodColl = new ArrayList<Product>();
+
+                for (AllergyAgent agent : vistaAgents) {
+                    Product prod = new Product();
+                    prod.setDisplayName(agent.getDisplayName());
+                    prod.setValue(agent.getAllergen().getName());
+                    prodColl.add(prod);
+
+                }
+                }
+                finally
+                {
+                	vistaAgentLock.readLock().unlock();
+                }
+                return prodColl;
+            } else {
+                log.warning("BAD CONNECTION");
+            }
+
+        } catch (Throwable e) {
+            log.throwing(KEY, "Error retreiving Allergy Agent List", e);
+        } finally {
+            closeConnection(conn);
+                 }
+
+        return null;
+    }
+}

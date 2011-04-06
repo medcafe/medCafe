@@ -18,10 +18,11 @@ import org.projecthdata.hdata.schemas._2009._06.core.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
 
-public class hDataRepositoryTest extends hDataRepository {
+public class hDataRepositoryTest {
 
     public final static String KEY = hDataRepositoryTest.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
+        private static hDataRepository repo = null;
     // static{log.setLevel(Level.FINER);}
 
     /**
@@ -37,23 +38,27 @@ public class hDataRepositoryTest extends hDataRepository {
         {
         		credMap.put("hostURL", "http://"+host);
         		credMap.put("port", "8080");
-            setName("JeffhData");
-            setCredentials( credMap );
+
+				repo = new hDataRepository(credMap);
+				repo.setName("JeffhData");
             gotOne = true;
+            
         }
         else
         {
             host="128.29.109.25";
             if( InetAddress.getByName(host).isReachable(3000) )
             {
-                setName("OurHdata");
+    
                 credMap.put("hostURL", "http://" + host);
                 credMap.put("port", "8080");
-                setCredentials( credMap );
+               	repo = new hDataRepository(credMap);
+               	repo.setName("OurHdata");
                 gotOne = true;
             }
         }
-        log.finer( "Using " + getName() );
+        if (repo != null)
+        	log.finer( "Using " + repo.getName() );
 
         assertTrue( gotOne );
         // long start = System.currentTimeMillis();
@@ -86,7 +91,7 @@ public class hDataRepositoryTest extends hDataRepository {
     @Test
     public void testGetPatient() throws Exception
     {
-        Patient pat = getPatient("00000000001");
+        Patient pat = repo.getPatient("00000000001");
         assertFalse( "Patient was not found.", pat == null );
         // JSONObject p = new JSONObject(pat);
         Gson gson = new Gson();
@@ -101,7 +106,7 @@ public class hDataRepositoryTest extends hDataRepository {
     @Test
     public void testGetAllergies() throws Exception
     {
-        List<Allergy> list = getAllergies("7");
+        List<Allergy> list = repo.getAllergies("7");
         assertFalse( "Nothing returned from getAllergies()" , list == null );
         assertTrue( "need some allergies in there", list.size() > 0 );
         Gson gson = new Gson();
@@ -114,7 +119,7 @@ public class hDataRepositoryTest extends hDataRepository {
     @Test
     public void testGetMedications() throws Exception
     {
-        List<Medication> list = getMedications("7");
+        List<Medication> list = repo.getMedications("7");
         assertFalse( "Nothing returned from getMedications()" , list == null );
         assertTrue( "need some medications in there", list.size() > 0 );
         Gson gson = new Gson();

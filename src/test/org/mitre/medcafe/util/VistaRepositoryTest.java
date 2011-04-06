@@ -33,37 +33,41 @@ public class VistaRepositoryTest {
     @BeforeClass
     public static void setUp() throws Exception {
     	  HashMap<String, String> credMap = new HashMap<String, String>();
-        repo = new VistaRepository();
+
         boolean gotOne = false;
         String host = "192.168.56.101";
 
         if( InetAddress.getByName(host).isReachable(3000) )
         {
-            repo.setName("JeffVista");
+
             credMap.put("hostURL", host);
             credMap.put("port", "9201");
             credMap.put("accessCode", "OV1234");
             credMap.put("verifyCode", "OV1234!!");
-            repo.setCredentials( credMap );
+               repo = new VistaRepository(credMap);
             // setCredentials( host, "8002", "PU1234", "PU5678!!" );
             gotOne = true;
+				repo.setName("JeffVista");
         }
         else
         {
             host = "128.29.109.7";  //"medcafe.mitre.org";
             if( InetAddress.getByName(host).isReachable(3000) )
             {
-                repo.setName("OurVista");
+
                 credMap.put("hostURL", host);
             	 credMap.put("port", "9201");
             	 credMap.put("accessCode", "OV1234");
             	 credMap.put("verifyCode", "OV1234!!");
-            	 repo.setCredentials( credMap );
+        			repo = new VistaRepository(credMap);
+        			repo.setName("OurVista");
                 gotOne = true;
             }
         }
-        log.finer( "Using " + repo.getName() );
-
+        if (repo != null)
+        {
+        	log.finer( "Using " + repo.getName() );
+			}
         assertTrue( gotOne );
         // long start = System.currentTimeMillis();
         // boolean success = setConnection();

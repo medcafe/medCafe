@@ -64,10 +64,14 @@ public class DrugRepository extends OvidSecureRepository {
 
     /**
      * Get all drugs with a blank inactive date.
+     * with or without synonyms
      * @return
      * @throws OvidDomainException
      */
-    public Collection<FMDrug> getActiveDrugList() throws OvidDomainException {
+     public Collection<FMDrug> getActiveDrugList() throws OvidDomainException{
+     	 return getActiveDrugList(false);
+     }
+    public Collection<FMDrug> getActiveDrugList(boolean getSynonyms) throws OvidDomainException {
         Collection<FMDrug> list = new ArrayList<FMDrug>();
 
         try {
@@ -95,7 +99,12 @@ public class DrugRepository extends OvidSecureRepository {
                     throw new OvidDomainException(results.getError());
                 }
                 while (results.next()) {
-                    list.add(new FMDrug(results));
+                		FMDrug d = new FMDrug(results);
+                		if (getSynonyms)
+                		{
+                		getSynonymForDrug(d);
+                		}
+                    list.add(d);
                 }
             }
         } catch (ResException e) {

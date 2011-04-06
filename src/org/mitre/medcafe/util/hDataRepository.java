@@ -15,6 +15,7 @@
  */
 package org.mitre.medcafe.util;
 
+
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,8 +55,9 @@ public class hDataRepository extends Repository
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
 	 private String hDataUrl = "";
-    public hDataRepository()
+    public hDataRepository(HashMap<String, String> credMap)
     {
+    	  super(credMap);
         type = "hData";
     }
 
@@ -107,7 +109,10 @@ public class hDataRepository extends Repository
             return null;
         }
     }
-
+    public boolean insertAllergies(String patientId, Collection<Allergy> allergies) throws NotImplementedException
+    {
+        throw new NotImplementedException();
+    }
     /**
      *  Get a set of medications specific to a patient
      */
@@ -202,5 +207,13 @@ public class hDataRepository extends Repository
 		hDataUrl = credMap.get(Repository.HOST_URL) + ":" + credMap.get(Repository.PORT);
     	credentials = credMap;
     }
+    public Collection<Reaction> generateAllergyReactionList()
+    {
+        return null;
+    }
 
+    public Collection<Product> generateAllergyReactantList()
+    {
+        return null;
+    }
 }
