@@ -5,6 +5,7 @@ package org.mitre.medcafe.servlets;
 
 import java.sql.*;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 import javax.servlet.http.*;
 import javax.servlet.*;
 
@@ -38,7 +39,7 @@ public class ThemeFilter implements Filter
         throws IOException, ServletException
     {
         log.finer("filter running");
-        System.out.println("ThemeFilter : do Filter start");
+        log.finer("ThemeFilter : do Filter start");
         String endpoint = ((HttpServletRequest)request).getRequestURI();
         log.finer("processing " + endpoint );
         HttpSession session = ((HttpServletRequest)request).getSession(false);
@@ -70,7 +71,7 @@ public class ThemeFilter implements Filter
 	        	String dir = themeValue.substring(0, themeValue.lastIndexOf(Constants.FILE_SEPARATOR));
 	        	session.setAttribute(Constants.CSS_THEME,  webApp +Constants.FILE_SEPARATOR + themeValue);
 	        	session.setAttribute(Constants.CSS_WIDGET,  webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE );
-	        	System.out.println("ThemeFilter : doFilter css widget " + webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE);
+	        	log.finer("ThemeFilter : doFilter css widget " + webApp + Constants.FILE_SEPARATOR + dir + Constants.FILE_SEPARATOR + Constants.CSS_WIDGET_FILE);
 
 	        	DatabaseUtility.close(rs);
 

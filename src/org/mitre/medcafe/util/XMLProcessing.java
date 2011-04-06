@@ -32,6 +32,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,6 +54,10 @@ import org.xml.sax.SAXException;
 
 public class XMLProcessing
 {
+    public final static String KEY = XMLProcessing.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
+
     /**
      *  Constructor for the AllTablesListTag object
      */
@@ -103,7 +109,7 @@ public class XMLProcessing
 
     public static Document createXMLDoc(String response)
     {
-    	System.out.println("XMLProcessing about to process the following " + response);
+    	log.finer("XMLProcessing about to process the following " + response);
 
     	InputStream is = new java.io.ByteArrayInputStream(response.getBytes());
     	javax.xml.parsers.DocumentBuilderFactory factory =

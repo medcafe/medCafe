@@ -8,7 +8,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %><%!
     public final static String KEY = "/retrievePatientRepositoryAssoc.jsp";
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}%>
+    //static{log.setLevel(Level.FINER);}%>
 <%
 
 	//String patientId = request.getParameter("patient_id");
@@ -21,7 +21,7 @@
     }
     JSONObject repositoryIds = cache.getRepositories();
 
-	System.out.println("retrievePatientRepositoryAssoc.jsp JSON Object " + repositoryIds.toString());
+	log.finer("retrievePatientRepositoryAssoc.jsp JSON Object " + repositoryIds.toString());
 %>
 <%=repositoryIds.toString()%>
 

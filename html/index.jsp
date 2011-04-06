@@ -9,7 +9,7 @@
 <%!
     public final static String KEY = "/index.jsp";
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}%><%
+    //static{log.setLevel(Level.FINER);}%><%
     PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in

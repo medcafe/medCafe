@@ -5,7 +5,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %><%!
     public final static String KEY = "/repository-listJSON.jsp";
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}%><%
+    //static{log.setLevel(Level.FINER);}%><%
     PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
     if( cache == null )
     {  //nobody is logged in
@@ -30,7 +30,7 @@
 	{
 	if (noCache.equals("true"))
 		listRep += "/" + patientId+ "/singleRep/true";
-	System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
+	//System.out.println("repository-listJSON.jsp: list Rep  " + listRep);
 %>
 
 		<tags:IncludeRestlet relurl="<%=listRep%>" mediatype="json"/>

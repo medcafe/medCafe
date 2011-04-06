@@ -54,7 +54,7 @@ public class ListPatientWidgetResource extends ServerResource {
     // @Get("html")
     public Representation toHtml(){
 
-    	// System.out.println("Found ListWidgetResource html ");
+
 
     	StringBuffer startBuf = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
@@ -95,14 +95,7 @@ public class ListPatientWidgetResource extends ServerResource {
         try
         {
 
-        	/*	var link = $(this).find('img').attr("custom:url");
-				var type = $(this).find('img').attr("custom:type");
-				var html = $(this).find('img').attr("custom:html");
-				var method = $(this).find('img').attr("custom:method");
-				var patientId = $(this).find('img').attr("custom:Id");
-			*/
-        	// System.out.println("ListWidgetResource JSON start");
-        	//String server = "http://" + Config.getServerUrl() + "/";
+
         	String server = "";
         	String[] widgetName = new String[]{"Details", "Images", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Charts", "Dates","SupportInfo","Immunizations"};
         	String[] type = new String[]{"Detail","Image", "Slider","Editor","Timeline","Bookmarks","Medications","Allergies","History","Problem", "Chart", "Date","Support","Immunizations"};
@@ -118,7 +111,7 @@ public class ListPatientWidgetResource extends ServerResource {
 
         	String tempDir = "images/";
             JSONObject obj = new JSONObject();
-            // System.out.println("ListWidgetResource JSON start 1");
+
             for(String widget: widgetName)
             {
 
@@ -134,8 +127,8 @@ public class ListPatientWidgetResource extends ServerResource {
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
             }
-            log.finer( obj.toString());
-        //System.out.println("ListWidgetResource JSON " +  obj.toString());
+            log.finer( "ListPatientWidgetResource: " + obj.toString());
+
             return new JsonRepresentation(obj);
         }
         catch(Exception e)
@@ -150,17 +143,16 @@ public class ListPatientWidgetResource extends ServerResource {
         try
         {
 
-        	// System.out.println("ListWidgetResource JSON start");
-        	//String server = "http://" + Config.getServerUrl() + "/";
+        	
         	String tempDir = "images/";
 
         	ArrayList<MedCafeComponent> compList = MedCafeComponent.retrieveComponents(MedCafeComponent.PATIENT, tempDir);
         	int i=0;
 
-        	System.out.println("ListPatientWidgetResource JSON general widgets number of components " + compList.size());
+        	log.finer("ListPatientWidgetResource JSON general widgets number of components " + compList.size());
 
             JSONObject obj = new JSONObject();
-            // System.out.println("ListWidgetResource JSON start 1");
+ 
             for(MedCafeComponent component: compList)
             {
 
@@ -170,14 +162,14 @@ public class ListPatientWidgetResource extends ServerResource {
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                  i++;
             }
-            log.finer( obj.toString());
-            //System.out.println("ListWidgetResource JSON " +  obj.toString());
+            log.finer("ListPatientWidgetResource: " +  obj.toString());
+
             return new JsonRepresentation(obj);
         }
         catch(JSONException je)
         {
             log.throwing(KEY, "toJson()", je);
-            return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + je.getMessage() ));
+            return new JsonRepresentation(WebUtils.buildErrorJson( "Problem on creation of JSON for component: Error " + je.getMessage() ));
 
         }
         catch(Exception e)

@@ -57,7 +57,7 @@ public class ListHistoryTemplateResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found ListHistoryTemplateResource html ");
+    	log.finer("Found ListHistoryTemplateResource html ");
 
     	StringBuffer startBuf = new StringBuffer();
 
@@ -70,19 +70,19 @@ public class ListHistoryTemplateResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-        	System.out.println("Found ListHistoryTemplateResource json ");
+        	log.finer("Found ListHistoryTemplateResource json ");
 
        	  	JSONObject obj = History.getSymptomHistory(patientId);
 
-            log.finer( obj.toString());
-            // System.out.println("ListWidgetResource JSON " +  obj.toString());
+            log.finer( "ListHistoryTemplateResource: " + obj.toString());
+
             return new JsonRepresentation(obj);
 
         }
         catch(Exception e)
         {
         	log.throwing(KEY, "toJson()", e);
-        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for component: Error " + e.getMessage() ));
+        	return new JsonRepresentation(WebUtils.buildErrorJson( "Problem on creation of JSON for component: Error " + e.getMessage() ));
 
         }
     }

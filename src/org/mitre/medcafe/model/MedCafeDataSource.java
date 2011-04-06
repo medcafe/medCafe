@@ -60,7 +60,7 @@ public class MedCafeDataSource implements Comparable<MedCafeDataSource>
 {
 	public final static String KEY = MedCafeComponent.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	static{log.setLevel(Level.SEVERE);}
 
 	//Parameters that are common to all MedCafe Files
 	private String restlet ="";
@@ -128,7 +128,7 @@ public class MedCafeDataSource implements Comparable<MedCafeDataSource>
 		    	 
 		     }
 		     
-		     System.out.println("MedCafeDataSource retrieveDataSource got node type " + type);
+		     log.finer("MedCafeDataSource retrieveDataSource got node type " + type);
 		     
 		     if (typeNode.getNodeType() == Node.ELEMENT_NODE) 
 		    	  typeElmnt = (Element) typeNode;
@@ -137,7 +137,7 @@ public class MedCafeDataSource implements Comparable<MedCafeDataSource>
 				
 		     NodeList dataSourceNodes = typeElmnt.getElementsByTagName(MedCafeDataSource.DATA_SOURCE);
 		     
-		     System.out.println("MedCafeDataSource retrieveDataSource number of sources " + dataSourceNodes.getLength());
+		     log.finer("MedCafeDataSource retrieveDataSource number of sources " + dataSourceNodes.getLength());
 		     
 		     for (int i=0 ; i < dataSourceNodes.getLength(); i++)
 		     {

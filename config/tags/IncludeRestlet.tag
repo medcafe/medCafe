@@ -1,4 +1,7 @@
-<%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*,java.util.*" %><%@
+<%@ tag import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*,java.util.*, java.util.logging.*" %><%!
+    public final static String KEY = "/IncludeRestlet.tag";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%><%@
     attribute name="relurl" required="true" rtexprvalue="true" %><%@
     attribute name="mediatype" required="false" %><%@
     attribute name="restVerb" required="false" %><%
@@ -10,7 +13,7 @@
     }
     else mtype = MediaType.valueOf(mediatype);
 
-	System.out.println( "IncludeRestletTag: http://" +  Config.getServerUrl() + "/" + relurl +" method " + restVerb);
+	log.finer( "IncludeRestletTag: http://" +  Config.getServerUrl() + "/" + relurl +" method " + restVerb);
 	Method method = Method.GET;
 	if( restVerb == null )
     {
@@ -21,7 +24,7 @@
 		method = new Method(restVerb);
 	}
 
-	System.out.println("IncludeRestletTag: Method " + method.getName());
+	log.finer("IncludeRestletTag: Method " + method.getName());
 
     MedcafeApplication app = (MedcafeApplication)application.getAttribute("org.restlet.ext.servlet.ServerServlet.application");
     if( app == null )
@@ -29,7 +32,7 @@
         out.write("Could not connect to data restlets.");
         return;
     }
-    // System.out.println( relurl +" as " + mediatype);
+    log.finer( relurl +" as " + mediatype);
 
     Request req = new Request( method, relurl );
     Response resp = new Response( req );
@@ -42,30 +45,30 @@
     for(Preference<MediaType> pref : mediaTypes)
         System.out.println( String.valueOf(pref) );
 
-    //System.out.println( "Preferred Variant: " + clientInfo.getPreferredVariant() );
+    
     // req.setClientInfo(new ClientInfo( mtype ) );
     app.handle(req, resp);
 
 	if (method.equals(Method.GET))
 	{
-		//System.out.println( "\tMethod is GET " );
+		log.finer( "IncludeRestlet.tag\tMethod is GET " );
 
 	    if (resp.getStatus().isSuccess() && resp.getEntity().isAvailable() ) {
-	        System.out.println( "IncludeRestlet.tag success and entity available" );
+	        log.finer( "IncludeRestlet.tag success and entity available" );
 
 	        resp.getEntity().write(out);
 	    }
 	    else
 	    {
 	        out.write("Resource not available");
-	        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
-	        System.out.println( "\tFound resource?  " + resp.getStatus().isSuccess() );
-	        System.out.println( "\tIs the entity available?  " + resp.getEntity().isAvailable() );
+	        log.severe( "IncludeRestlet.tag was not able to find the resource" );
+	        log.severe( "\tFound resource?  " + resp.getStatus().isSuccess() );
+	        log.severe( "\tIs the entity available?  " + resp.getEntity().isAvailable() );
 	    }
 	}
 	else
 	{
-		//System.out.println( "\tMethod is NOT a GET " );
+		log.finer( "IncludeRestlet.tag\tMethod is NOT a GET " );
 
 		if (resp.getStatus().isSuccess())
 		{
@@ -76,8 +79,8 @@
 		else
 		{
 			out.write("Resource not available");
-	        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
-	        System.out.println( "\tFound resource?  " + resp.getStatus().isSuccess() );
+	        log.severe( "IncludeRestlet.tag was not able to find the resource" );
+	        log.severe( "\tFound resource?  " + resp.getStatus().isSuccess() );
 		}
 	}
 
@@ -93,9 +96,9 @@
     else
     {
         out.write("Resource not available");
-        System.out.println( "IncludeRestlet.tag was not able to find the resource" );
-        System.out.println( "\tFound resource?  " + resource.getStatus().isSuccess() );
-        System.out.println( "\tIs the entity available?  " + resource.getResponseEntity().isAvailable() );
+        log.severe( "IncludeRestlet.tag was not able to find the resource" );
+        log.severe( "\tFound resource?  " + resource.getStatus().isSuccess() );
+        log.severe( "\tIs the entity available?  " + resource.getResponseEntity().isAvailable() );
     }
      */
 %>

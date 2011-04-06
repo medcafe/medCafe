@@ -62,11 +62,11 @@ public class PatientListEventResource extends ServerResource {
      */
     @Override
     protected void doInit() throws ResourceException {
-       System.out.println("Found Patient List Event resource: " );
+       log.finer("Found Patient List Event Resource: " );
        // Get the "type" attribute value taken from the URI template
        Form form = getRequest().getResourceRef().getQueryAsForm();
        id = (String)getRequest().getAttributes().get(PATIENT_ID);
-       System.out.println("PatientImageResource JSON init patientId " +  id );
+       log.finer("PatientListEventResource JSON init patientId " +  id );
 
        String startDateStr = form.getFirstValue("start_date");
        if (startDateStr == null)
@@ -76,7 +76,7 @@ public class PatientListEventResource extends ServerResource {
        if (endDateStr == null)
        	endDateStr = "2012,2,15";
 
-       System.out.println("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
+       log.finer("PatientListEventResource JSON init startDate " +  startDateStr + " endDate " + endDateStr );
        userName = form.getFirstValue(USER_ID);
 
        eventTypes = form.getValuesArray("event");
@@ -109,10 +109,10 @@ public class PatientListEventResource extends ServerResource {
         	DateFormat df = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
 
             String startDateStr = df.format(startDate);
-            System.out.println("PatientImageResource toJSON start date " + startDateStr );
+            log.finer("PatientListEventResource toJSON start date " + startDateStr );
 
             String endDateStr = df.format(endDate);
-            System.out.println("PatientImageResource toJSON end date " + endDateStr );
+            log.finer("PatientListEventResource toJSON end date " + endDateStr );
 
             Application app = this.getApplication();
 
@@ -121,7 +121,7 @@ public class PatientListEventResource extends ServerResource {
 
         	ArrayList<Event> events = Event.retrieveEvents(userName, id, startDateStr, endDateStr, eventTypes, app, repositories);
 
-        	System.out.println("PatientListEventRestlet : toJSON: event list " + events.size());
+        	log.finer("PatientListEventResource : toJSON: event list " + events.size());
         	ArrayList<String> dates = new ArrayList<String>();
             JSONObject obj = new JSONObject();
             String server = Config.getServerUrl() ;
@@ -157,7 +157,7 @@ public class PatientListEventResource extends ServerResource {
             }
         	String jsonStr = obj.toString();
         	jsonStr = putInDates(jsonStr, dates);
-        	System.out.println("PatientListEventRestlet : toJSON: " + jsonStr);
+        	log.finer("PatientListEventResource : toJSON: " + jsonStr);
         	JsonRepresentation json = new JsonRepresentation(jsonStr);
             return json;
         }

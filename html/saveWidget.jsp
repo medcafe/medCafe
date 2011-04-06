@@ -2,17 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
+<%@ page import = "java.util.logging.Logger, java.util.logging.Level"%>
 <%@ page import = "java.net.URLEncoder"%>
 <%@ page import = "java.io.UnsupportedEncodingException"%>
 <%@ page import = "org.mitre.medcafe.util.*"%>
 <%@ page import = "org.mitre.medcafe.model.*"%>
 <%@ page import = "org.json.JSONObject" %>
-<%@ page import = "org.json.JSONException" %>
+<%@ page import = "org.json.JSONException" %><%!
+    public final static String KEY = "/saveWidget.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%>
 <%
 	//Web utils get the widgetSettings
 	//Put the String to JSON data
 	//Save the JSON Object to the database
-	System.out.println("saveWidget.jsp in Save Widget start " );
+	log.finer("saveWidget.jsp in Save Widget start " );
 	Enumeration e = request.getParameterNames();
 	/**
 	key id value 1
@@ -33,7 +37,7 @@
      	 // System.out.println("Cache check");
         if( cache == null )
         {  //nobody is logged in
-            System.out.println("No patient selected");
+            log.severe("No patient selected");
             response.sendRedirect("introPage.jsp");
             return;
         }
@@ -51,18 +55,18 @@
 			  	 Object keyObj = e.nextElement();
 			  	 if (keyObj != null)
 			  	 	key = keyObj.toString();
-			  	 	System.out.println("saveWidget.jsp key  " +key + " value " + request.getParameter(key));
+			  	 	log.finer("saveWidget.jsp key  " +key + " value " + request.getParameter(key));
 
 				 	jsonobj.put( key, request.getParameter(key));
 			  }
 
 			  jsonobj.put(Widget.ID, patientId);
-			  System.out.println("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
+			  log.finer("saveWidget.jsp about to Save Widget for jsonObj  " +jsonobj.toString() );
 
 			  Widget.saveWidgets(userName, jsonobj);
 	   	 }
 	   	 catch(JSONException je) {
-				System.out.println("Error in creating JSON " + je.getMessage() );
+				log.severe("saveWidget.jsp: Error in creating JSON " + je.getMessage() );
 
 	   	 }
   		}

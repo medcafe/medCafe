@@ -2,12 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
     taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page import = "java.util.*"%>
-<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
+<%@ page import = "java.util.logging.Logger, java.util.logging.Level"%>
+<%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%><%!
+    public final static String KEY = "/editorNotes.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%>
 <%
 
 	String title = request.getParameter("title");
 	String tab_num = request.getParameter("tab_num");
-	System.out.println("EditorNotes.jsp start " ) ;
+	//System.out.println("EditorNotes.jsp start " ) ;
 
 	String patientId = null;
 	PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);
@@ -18,7 +22,7 @@
         return;
     }
     patientId = cache.getDatabasePatientId();
-    System.out.println("EditorNotes.jsp patient id  "  + patientId) ;
+    //System.out.println("EditorNotes.jsp patient id  "  + patientId) ;
 
 	String action  = request.getParameter("action");
 	if (action == null)

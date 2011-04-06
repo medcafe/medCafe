@@ -1,5 +1,10 @@
 <%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import = "org.mitre.medcafe.util.*, org.mitre.medcafe.model.*"%>
+<%@ page import = "java.util.logging.Logger, java.util.logging.Level"%>
+<%!
+    public final static String KEY = "/tabs-template.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%>
 <%
 	String tabNum = WebUtils.getOptionalParameter(request, "tab_num", "2");
 	String title = WebUtils.getOptionalParameter(request, "title", "Title");
@@ -15,7 +20,7 @@
     }
     String patientId = cache.getDatabasePatientId();
 
-	System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
+	//System.out.println("tabs-template.jsp type " + type + " patient id " + patientId );
 
 %>
 <script>

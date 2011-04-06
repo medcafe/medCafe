@@ -40,7 +40,7 @@ public class Patient
 {
 	 public final static String KEY = Patient.class.getName();
 	    public final static Logger log = Logger.getLogger( KEY );
-	    static{log.setLevel(Level.FINER);}
+	    static{log.setLevel(Level.SEVERE);}
 
 	private String id = "";
 	private String firstName = "";
@@ -191,14 +191,14 @@ public class Patient
 			{
 				ret = checkExists(patient_rep_id, repository);
 
-				System.out.print("Patient: associatePatientRepository patient exists already JSON data  " + ret.toString() );
+				log.severe("Patient: associatePatientRepository patient exists already JSON data  " + ret.toString() );
 
 				if (ret.get("exists").equals("true"))
 					return ret;
 
 				//First create a new patient
 				ret = insertPatient(patient_rep_id);
-				System.out.print("Patient: associatePatientRepository got JSON Object " + ret.toString());
+				log.finer("Patient: associatePatientRepository got JSON Object " + ret.toString());
 				patientId = ret.getString(Patient.ID);
 
 			}
@@ -207,7 +207,7 @@ public class Patient
 
 			}
 
-			System.out.print("Patient: associatePatientRepository patient exists so about to insert association " );
+			log.finer("Patient: associatePatientRepository patient exists so about to insert association " );
 
 			int patient_id = Integer.parseInt(patientId);
 			int patientRepId = Integer.parseInt(patient_rep_id);
@@ -228,7 +228,7 @@ public class Patient
 				return WebUtils.buildErrorJson( "Problem on creating an association for patient."  + patient_id  );
 			}
 			ret = checkExists(patient_rep_id, repository);
-			System.out.print("Patient: associatePatientRepository patient added successfully " + ret.toString() );
+			log.finer("Patient: associatePatientRepository patient added successfully " + ret.toString() );
 
 
 		}
@@ -622,7 +622,7 @@ public class Patient
 	{
 		 
 
-		 System.out.println("Patient: getPatients : got connection " );
+		 log.finer("Patient: getPatients : got connection " );
 
 		 PreparedStatement prep= null;
 
@@ -641,7 +641,7 @@ public class Patient
 				 {
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep = dbConn.prepareStatement(sql);
 
 				 prep.setString(1, userName);
@@ -658,7 +658,7 @@ public class Patient
 				 {
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep = dbConn.prepareStatement(sql);
 
 				 prep.setString(1, userName);
@@ -676,7 +676,7 @@ public class Patient
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
 				 prep = dbConn.prepareStatement(sql);
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep.setString(1, userName);
 				 prep.setString(2, "%"+searchStringLast+"%");
 				 prep.setString(3, "%"+searchStringFirst+"%");
@@ -696,7 +696,7 @@ public class Patient
 				 {
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep = dbConn.prepareStatement(sql);
 
 				 prep.setString(1, "%"+searchStringLast+"%");
@@ -713,7 +713,7 @@ public class Patient
 				 {
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep = dbConn.prepareStatement(sql);
 
 				 prep.setString(1, "%"+searchStringFirst+"%");
@@ -730,7 +730,7 @@ public class Patient
 				 {
 					 sql = sql + Patient.SEARCH_BY_REPOSITORY;
 				 }
-				 System.out.println("Patient: getPatients : SQL " + sql);
+				 log.finer("Patient: getPatients : SQL " + sql);
 				 prep = dbConn.prepareStatement(sql);
 
 				 prep.setString(1, "%"+searchStringLast+"%");
@@ -754,7 +754,7 @@ public class Patient
 	 {
 
 
-		 System.out.println("Patient: getPatients : got connection " );
+		 log.finer("Patient: getPatients : got connection " );
 		 boolean rtnResults = false;
 		 JSONObject ret = new JSONObject();
 		
@@ -824,7 +824,7 @@ public class Patient
 	 public static JSONObject getRecentPatients(String userName)
 	 {
 		 DbConnection dbConn = null;
-		 System.out.println("Patient: getRecentPatients : got connection " );
+		 log.finer("Patient: getRecentPatients : got connection " );
 		 boolean rtnResults = false;
 		 JSONObject ret = new JSONObject();
 
@@ -892,7 +892,7 @@ public class Patient
 
 public static int getLocalId(String repository, String rep_patient_id)
 	 {
-		 System.out.println("Patient: getLocalId : got connection " );
+		 log.finer("Patient: getLocalId : got connection " );
 		 boolean rtnResults = false;
 		DbConnection dbConn = null;
 		 PreparedStatement prep = null;
@@ -939,7 +939,7 @@ public static int getLocalId(String repository, String rep_patient_id)
 	 public static JSONObject addRecentPatients(String userName, String patientId )
 	 {
 	 	DbConnection dbConn = null;
-		 System.out.println("Patient: addRecentPatients : got connection " );
+		 log.finer("Patient: addRecentPatients : got connection " );
 
 		 JSONObject ret = new JSONObject();
 
@@ -1051,7 +1051,7 @@ public static int getLocalId(String repository, String rep_patient_id)
 				 prep.setString(2, category);
 
 			 }
-			 System.out.println("Patient: getPatientHistory : query " + prep.toString());
+			 log.finer("Patient: getPatientHistory : query " + prep.toString());
 
 			 rs = prep.executeQuery();
 			 boolean rtnResults = false;

@@ -18,6 +18,9 @@ package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
 import org.projecthdata.hdata.schemas._2009._06.immunization.*;
@@ -28,7 +31,9 @@ import org.restlet.resource.*;
 
 
 public class PatientImmunizationResource extends ServerResource {
-
+    public final static String KEY = PatientImmunizationResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
     /** The sequence of characters that identifies the resource. */
     String id;
     String repository;
@@ -62,11 +67,11 @@ public class PatientImmunizationResource extends ServerResource {
  	       }
  	       //convert to JSON
  	      try{
- 	       System.out.println(WebUtils.bundleJsonResponse("immunizations",immunizations,repository,id).getText());
+ 	       log.finer("PatientImmunizationResource:  " + WebUtils.bundleJsonResponse("immunizations",immunizations,repository,id).getText());
  	       }
  	       catch (IOException IOe)
  	       {
- 	       	System.out.println("Couldn't print");
+ 	       	
  	       }
  	       return WebUtils.bundleJsonResponse( "immunizations", immunizations, repository, id );
  	   }

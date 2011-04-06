@@ -18,8 +18,12 @@ package org.mitre.medcafe.restlet;
 import com.google.gson.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import org.json.JSONObject;
 import org.mitre.medcafe.util.*;
+
 
 
 
@@ -28,6 +32,10 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
 public class PatientEncounterResource extends ServerResource {
+
+    public final static String KEY = PatientEncounterResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
 
     /** The sequence of characters that identifies the resource. */
     String id;
@@ -58,13 +66,12 @@ public class PatientEncounterResource extends ServerResource {
                 return new JsonRepresentation(WebUtils.buildErrorJson("There are no encounters listed for patient " + id + " in repository " + repository));
             }
             //convert to JSON
-     /*  try{
-            System.out.println(WebUtils.bundleJsonResponse("encounters", encounters,repository,id).getText());
-            }
-            catch (IOException IOe)
-            {
-            System.out.println("Couldn't print");
-            }   */
+			try{
+            log.finer("PatientEncounterResource: " + WebUtils.bundleJsonResponse("encounters", encounters,repository,id).getText());
+				}
+				catch (IOException ioE)
+				{
+				}
             return WebUtils.bundleJsonResponse("encounters", encounters, repository, id);
         } catch (NotImplementedException notImplE) {
             return new JsonRepresentation(WebUtils.buildErrorJson(notImplE.getMessage()));

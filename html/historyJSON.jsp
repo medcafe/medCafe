@@ -2,9 +2,14 @@
 <%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ page import = "java.util.logging.Logger, java.util.logging.Level"%>
+<%!
+    public final static String KEY = "/historyJSON.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%>
 <%
 
-	System.out.println("historyJSON: url start");
+	log.finer("historyJSON: url start");
 		String type = request.getParameter("type");
 
     PatientCache cache = (PatientCache) session.getAttribute(PatientCache.KEY);

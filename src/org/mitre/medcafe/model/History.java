@@ -46,7 +46,7 @@ public class History
 {
 	public final static String KEY = History.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	static{log.setLevel(Level.SEVERE);}
 
 	//Parameters that are common to all Widgets
 	private int patientId =0;
@@ -183,7 +183,7 @@ public class History
 				 prep.setString(2, category);
 							
 			 }
-			 System.out.println("Patient: getPatientHistory : query " + prep.toString());
+			 log.finer("History: getHistory : query " + prep.toString());
 			    
 			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
@@ -264,7 +264,7 @@ public class History
 			 dbConn = setConnection();
 			 String sql = History.SELECT_HISTORY_CATEGORIES;
 			 prep = dbConn.prepareStatement(sql);
-			 System.out.println("History: getHistoryCategories : query " + prep.toString());
+			 log.finer("History: getHistoryCategories : query " + prep.toString());
 			    
 			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
@@ -322,7 +322,7 @@ public class History
 	public static JSONObject saveHistory(String patientId, String[] symptomIds)
 	{
 		 JSONObject ret = new JSONObject();
-		 System.out.println("History: saveHistory : patient id " + patientId);
+		 log.finer("History: saveHistory : patient id " + patientId);
 		 
 		 String sql = DELETE_SYMPTOMS;
 		 DbConnection dbConn  = null;
@@ -360,7 +360,7 @@ public class History
 						
 					}
 					String queries = prep.toString();
-					System.out.println("History: saveHistory : about to execute queries " + queries);
+					log.finer("History: saveHistory : about to execute queries " + queries);
 					 
 					int[] rtnRes = prep.executeBatch();
 					
@@ -372,7 +372,7 @@ public class History
 			// TODO Auto-generated catch block
 
 
-			System.out.println("History: saveHistory : problem on SQL  " + e.getMessage());
+			log.severe("History: saveHistory : problem on SQL  " + e.getMessage());
 
 			return WebUtils.buildErrorJson( "Problem on selecting data from database ." + e.getMessage());
 	      
@@ -407,7 +407,7 @@ public class History
 			 
 			 if (patientId == null)
 			 {
-				 System.out.println("History: getHistory : patient not found  ");
+				 log.severe("History: getHistory : patient not found  ");
 				 
 				 sql = SELECT_TEMPLATE_HISTORY;
 				 prep = dbConn.prepareStatement(sql);
@@ -416,7 +416,7 @@ public class History
 			 else
 			 {
 				 
-				 System.out.println("ListHistoryTemplateResource: getHistory : patient found  " + patientId);
+				 log.finer("History: getHistory : patient found  " + patientId);
 					
 				 prep = dbConn.prepareStatement(sql);
 				 int patient_id = Integer.parseInt(patientId);
@@ -424,13 +424,13 @@ public class History
 				 prep.setInt(1,patient_id);
 				 
 				 int count = 0;
-				 System.out.println("ListHistoryTemplateResource: getHistory : get the number of records " + count);
+				 log.finer("History: getHistory : get the number of records " + count);
 					
 				 rs = prep.executeQuery();
 				 if (rs.next())
 				 {
 					 count = rs.getInt(1);  
-					 System.out.println("ListHistoryTemplateResource: getHistory : count is " + count);
+					 log.finer("History: getHistory : count is " + count);
 						
 				 }
 				 if (count > 0)
@@ -450,12 +450,12 @@ public class History
 				 prep = dbConn.prepareStatement(sql);
 				 
 			 }
-			 System.out.println("ListHistoryTemplateResource: getHistory : about to execute query " + prep.toString());
+			 log.finer("ListHistoryTemplateResource: getHistory : about to execute query " + prep.toString());
 				
 			 rs = prep.executeQuery();
 			 boolean rtnResults = false;
 			
-			 System.out.println("ListHistoryTemplateResource: getHistory : query " + prep.toString());
+			 log.finer("ListHistoryTemplateResource: getHistory : query " + prep.toString());
 			 
 			 JSONObject catObj =null;
 			 

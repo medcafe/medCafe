@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.*;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -38,6 +39,9 @@ public class TextProcesses
 {
 
 
+    public final static String KEY = TextProcesses.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}
    private HashMap<String,Text> textList = new HashMap<String, Text>();
 
    public TextProcesses()
@@ -264,7 +268,7 @@ public class TextProcesses
 	  	  prep.setString(4, text);
 
 	  	  int noUpdated = prep.executeUpdate();
-	  	  System.out.println("SaveData: InsertText: number updated  " + noUpdated );
+	  	  log.finer("SaveData: InsertText: number updated  " + noUpdated );
 	   }
 	    catch (SQLException e)
 	  {
@@ -295,7 +299,7 @@ public class TextProcesses
 	  	  prep.setString(4, title);
 
 	  	  int noUpdated = prep.executeUpdate();
-	  	  System.out.println("SaveData: UpdateText: update: number updated  " + noUpdated );
+	  	  log.finer("SaveData: UpdateText: update: number updated  " + noUpdated );
 	    }
 	    catch (SQLException e)
 	   {
@@ -326,7 +330,7 @@ public class TextProcesses
 	  	  prep.setString(3, title);
 
 	  	  int noUpdated = prep.executeUpdate();
-	  	  System.out.println("SaveData: DeleteText: delete: number updated  " + noUpdated );
+	  	  log.finer("SaveData: DeleteText: delete: number updated  " + noUpdated );
 	   }
 	    catch (SQLException e)
 	   {
@@ -357,17 +361,17 @@ public class TextProcesses
 	   	File[] subDirs = dir.listFiles(fileFilter);
 
 	   	HashMap<String,String> cssFiles = new HashMap<String,String>();
-	   	System.out.println("TextProcesses getCSSFiles no of files " + subDirs.length);
+	   	log.finer("TextProcesses getCSSFiles no of files " + subDirs.length);
 	   	if (subDirs == null) {
 	   	    // Either dir does not exist or is not a directory
 	   	} else {
    	    for (File subDir: subDirs)
    	    {
-   	    	System.out.println("TextProcesses getCSSFiles subDir " + subDir.getName());
+   	    	log.finer("TextProcesses getCSSFiles subDir " + subDir.getName());
    		   	
    	        // Get filename of file or directory
    	    	String[] subFiles = subDir.list(filter);
-   	    	System.out.println("TextProcesses getCSSFiles subDir # " + subFiles.length);
+   	    	log.finer("TextProcesses getCSSFiles subDir # " + subFiles.length);
    		   	
    	    	for (String subFile: subFiles)
    	    	{
@@ -381,7 +385,7 @@ public class TextProcesses
    	
    	for (String fileName: cssFiles.keySet())
    	{
-   		System.out.println("TextProcesses getCSSFiles fileName " + fileName);
+   		log.finer("TextProcesses getCSSFiles fileName " + fileName);
    	   	
    	}
    	

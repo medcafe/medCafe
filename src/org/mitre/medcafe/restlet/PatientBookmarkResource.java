@@ -62,7 +62,7 @@ public class PatientBookmarkResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found PatientBookmarkResource html ");
+    	log.finer("Found PatientBookmarkResource html ");
     	ArrayList<Bookmark> bookmarks = Bookmark.getBookmarks( user, id);
 
     	StringBuffer startBuf = new StringBuffer("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"tableBookmarks" + id + "\">" +
@@ -80,7 +80,7 @@ public class PatientBookmarkResource extends ServerResource {
     				 					"<td value=\"" + url + "\">" + url + "</td>" +
     				 					"<td value=\"" + description + "\">" + description + "</td></tr>");
 
-             System.out.println("PatientBookmarkResource: toJSON : name " + bookmark.getName());
+             log.finer("PatientBookmarkResource: toJSON : name " + bookmark.getName());
 
          }
     	return new StringRepresentation( startBuf.toString() + patientBookmarks.toString()
@@ -111,8 +111,8 @@ public class PatientBookmarkResource extends ServerResource {
                 obj.append("bookmarks", inner_obj);  //append creates an array for you
 
             }
-            log.finer( obj.toString());
-            System.out.println("PatientImageResource JSON " +  obj.toString());
+            //log.finer( obj.toString());
+            log.finer("PatientBookmarkResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)

@@ -51,7 +51,7 @@ public class MedCafeFile
 {
 	public final static String KEY = MedCafeFile.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	static{log.setLevel(Level.SEVERE);}
 
 	//Parameters that are common to all MedCafe Files
 	private int patientId =0;
@@ -266,7 +266,7 @@ public class MedCafeFile
 				 
 			sqlQuery = sqlQuery + SORT_BY;
 			
-			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + sqlQuery);
+			log.finer("MedCafeFile JSON Files retrieveFiles sql " + sqlQuery);
             
 			prep= dbConn.prepareStatement(sqlQuery);
 					
@@ -283,7 +283,7 @@ public class MedCafeFile
 			}
 
 			prep.setInt(1, patId);
-			System.out.println("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
+			log.finer("MedCafeFile JSON Files retrieveFiles sql " + prep.toString());
 	           
 			rs =  prep.executeQuery();
 

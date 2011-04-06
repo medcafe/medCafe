@@ -46,7 +46,7 @@ public class ProblemItem
 {
 	public final static String KEY = ProblemItem.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	//static{log.setLevel(Level.FINER);}
 
 	//Parameters that are common to all Widgets
 	private int patientId =0;
@@ -156,7 +156,7 @@ public class ProblemItem
 				 prep.setString(2, username);
 							
 			 }
-			 System.out.println("ProblemItem: getProblemList : query " + prep.toString());
+			 log.finer("ProblemItem: getProblemList : query " + prep.toString());
 			    
 			 rs = prep.executeQuery();
 			 boolean rtnResults = false;

@@ -1,6 +1,10 @@
 <%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*, org.mitre.medcafe.model.*" %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%
+<%@ page import = "java.util.logging.Logger, java.util.logging.Level"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%!
+    public final static String KEY = "/contentFlow.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%><%
 	String server = "" ;
 	MedCafeFilter filter = null;
 	Object filterObj = session.getAttribute("filter");
@@ -17,7 +21,7 @@
 	String startDate = request.getParameter("start_date");
 	String endDate = request.getParameter("end_date");
 	String filterCat = request.getParameter("filterCat");
-	System.out.println("coverflow flash: index.jsp filterCat from params " +  filterCat );
+	log.finer("coverflow flash: index.jsp filterCat from params " +  filterCat );
 
 	if (filterObj != null)
 	{
@@ -25,7 +29,7 @@
 		startDate = filter.getStartDate();
 		endDate = filter.getEndDate();
 		filterCat = filter.catToString();
-		System.out.println("contentflow/index.jsp filter " + filter.toJSON());
+		log.finer("contentflow/index.jsp filter " + filter.toJSON());
 	}
 
 	if (startDate != null)
@@ -36,8 +40,8 @@
 	if ( (filterCat != null) && (!filterCat.equals("")) )
 			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 
-	System.out.println("contentflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
-    System.out.println("contentflow flash: index.jsp url " +  coverflowFile );
+	log.finer("contentflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
+    log.finer("contentflow flash: index.jsp url " +  coverflowFile );
 
 	//coverflowFile = "coverFeedGen.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/images";

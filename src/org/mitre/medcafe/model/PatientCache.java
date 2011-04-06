@@ -41,7 +41,7 @@ public class PatientCache extends TimerTask {
     public final static Logger log = Logger.getLogger(KEY);
 
     static {
-         log.setLevel(Level.FINER);
+         log.setLevel(Level.SEVERE);
     }
     //{{{ Members
     protected String databasePatientId = null;
@@ -117,8 +117,7 @@ public class PatientCache extends TimerTask {
                 JSONObject repository = reps.getJSONObject(i);
 
                 String repositoryName = repository.getString("repository");
-                //System.out.println(repositoryName + " " + primaryRepos);
-                //System.out.println(repository.toString());
+                
                 if (repositoryName.equals(primaryRepos)) {
 
                     repos.add(0, repository);
@@ -130,11 +129,11 @@ public class PatientCache extends TimerTask {
             for (JSONObject repository : repos) {
                 repositories.append("repositories", repository);
             }
-            System.out.println(repositories.toString());
+            log.finer(repositories.toString());
         } catch (JSONException jsonE) {
-            System.out.println("Error accessing JSON Array to order repository");
+            log.severe("PatientCache: Error accessing JSON Array to order repository");
         }
-        System.out.println("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
+        log.finer("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
 
     }
 
@@ -154,7 +153,7 @@ public class PatientCache extends TimerTask {
 
         JSONArray reps = new JSONArray();
         try {
-            System.out.println("PatientCache run repository JSONObject " + repositories.toString());
+            log.finer("PatientCache run repository JSONObject " + repositories.toString());
 
             reps = repositories.getJSONArray("repositories");
         } catch (JSONException e1) {
@@ -300,11 +299,11 @@ public class PatientCache extends TimerTask {
 
         if (ret == null) {
         		ret = WebUtils.buildErrorJson("Timed out retrieving " + cacheKey + " from source.");
-        		//System.out.println("PatientCache retrieve Objects - " + cacheKey + " ret is:" + ret.toString());
+        		log.finer("PatientCache retrieve Objects - " + cacheKey + " ret is:" + ret.toString());
             return ret;
 
         } else {
-        		//System.out.println("PatientCache retrieve Objects - " + cacheKey + ":  " + ret.toString());
+        		log.finer("PatientCache retrieve Objects - " + cacheKey + ":  " + ret.toString());
             return ret;
 
 
@@ -654,7 +653,7 @@ public class PatientCache extends TimerTask {
 
             }
             obj.append("data", arrayObj);
-            //System.out.println(obj.toString());
+            log.finer("Patient Cache: addVitalsToMap " + obj.toString());
 
 
         } catch (JSONException jsonE) {
@@ -681,7 +680,7 @@ public class PatientCache extends TimerTask {
                 String restletString = new String(restlet);
                 restletString = restletString.replaceAll("\\{repository\\}", repository);
                 restletString = restletString.replaceAll("\\{id\\}", repoPatientId);
-                log.severe(restlet + " " + restletString + cacheKey);
+                log.finer(restlet + " " + restletString + cacheKey);
                 String results = getJsonContent(app, restletString);
                 JSONObject dataObject = new JSONObject(results);
 
@@ -697,7 +696,7 @@ public class PatientCache extends TimerTask {
 
 
             }
-            //System.out.println("PatientCache generating " + cacheKey + " line 141 JSONObject " + medicineList.toString());
+           
         } catch (JSONException e) {
             log.throwing(KEY, "constructor", e);
             objectList = WebUtils.buildErrorJson("Problem retrieving " + cacheKey + " from source." + e.getMessage());

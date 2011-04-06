@@ -60,7 +60,7 @@ public class MedCafeComponent
 {
 	public final static String KEY = MedCafeComponent.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	static{log.setLevel(Level.SEVERE);}
 
 	//Parameters that are common to all MedCafe Files
 	private String name ="";
@@ -157,7 +157,7 @@ public class MedCafeComponent
 		    	 
 		     }
 		     
-		     System.out.println("MedCafeComponent retrieveComponents got node type " + type);
+		     log.finer("MedCafeComponent retrieveComponents got node type " + type);
 		     
 		     if (typeNode.getNodeType() == Node.ELEMENT_NODE) 
 		    	  typeElmnt = (Element) typeNode;
@@ -166,7 +166,7 @@ public class MedCafeComponent
 				
 		     NodeList componentNodes = typeElmnt.getElementsByTagName(MedCafeComponent.XML_WIDGET);
 		     
-		     System.out.println("MedCafeComponent retrieveComponents number of components " + componentNodes.getLength());
+		     log.finer("MedCafeComponent retrieveComponents number of components " + componentNodes.getLength());
 		     
 		     for (int i=0 ; i < componentNodes.getLength(); i++)
 		     {

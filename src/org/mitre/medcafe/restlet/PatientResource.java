@@ -19,7 +19,8 @@ import org.json.JSONObject ;
 import org.json.JSONException;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import com.google.gson.*;
 import org.projecthdata.hdata.schemas._2009._06.patient_information.Patient;
 import java.io.IOException;
@@ -44,6 +45,9 @@ public class PatientResource extends ServerResource {
 
     /** The underlying Item object. */
     //Patient item;
+ public final static String KEY = PatientResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
 
     /** The sequence of characters that identifies the resource. */
     private String id;
@@ -61,16 +65,9 @@ public class PatientResource extends ServerResource {
         	isSingle = true;
         else
         	isSingle = false;
-        	System.out.println("Is single repository request" + isSingle);
-        // Get the item directly from the "persistence layer".
-        //this.item = getItems().get(id);
-        /* System.out.println("Found PatientResource");
-        for(Variant v : getVariants())
-        {
-            System.out.println(String.valueOf(v));
-        } */
+        	log.finer("Is single repository request: " + isSingle);
 
-        //setExisting(this.item != null);
+
     }
 
     /*
@@ -112,18 +109,18 @@ public class PatientResource extends ServerResource {
         JsonRepresentation patJsonRep = null;
         if (r == null)
         {
-        	 System.out.println("PatientResource : toJSON: Cannot find the repository " + repository);
+        	 log.finer("PatientResource : toJSON: Cannot find the repository " + repository);
         	 return new JsonRepresentation(WebUtils.buildErrorJson( "Could not find the repository " + repository ));
         }
         Patient pat = r.getPatient( id );
     //convert to JSON
-      /* try{
-        System.out.println(WebUtils.bundleJsonResponse("patient_data",pat,repository,id).getText());
+       try{
+         log.finer("PatientResource: " + WebUtils.bundleJsonResponse("patient_data",pat,repository,id).getText());
         }
         catch (IOException IOe)
         {
-        	System.out.println("Couldn't print");
-        }   */
+
+        }   
 
         //convert to JSON
         if (pat != null)
@@ -142,12 +139,12 @@ public class PatientResource extends ServerResource {
         			JSONObject patientData = WebUtils.bundleJsonResponseObject("patient_data", pat, repository, id);
         	  		JSONObject ret = new JSONObject();
  					ret.append("repositoryList", patientData);
- 					System.out.println(ret.toString());
+ 					log.finer("PatientResource: " + ret.toString());
  					return new JsonRepresentation(ret);
  				}
  				catch (JSONException jsonE)
  				{
- 					System.out.println("Error with single repository "+ jsonE.getMessage());
+ 					log.severe("Error with single repository "+ jsonE.getMessage());
  					patJsonRep = new JsonRepresentation(WebUtils.buildErrorJson("Error creating JSON for the patient data"));
  				}
  				return patJsonRep;

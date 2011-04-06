@@ -52,7 +52,7 @@ public class PatientChartResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found PatientResource html ");
+    	log.finer("Found PatientChartResource html ");
 
     	StringBuffer startBuf = new StringBuffer("Test output");
     	StringBuffer patientImages = new StringBuffer();
@@ -67,7 +67,7 @@ public class PatientChartResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-        	System.out.println("PatientChartResource JSON start");
+        	log.finer("PatientChartResource JSON start");
 
         	String[] xValues = new String[]{"1261380000000","1261385000000","1261425000000",
 					"1261480000000", "1261485000000","1261490000000","1261584970731"};
@@ -89,8 +89,8 @@ public class PatientChartResource extends ServerResource {
                 i++;
             }
 
-            log.finer( obj.toString());
-            System.out.println("PatientChartResource JSON " + getString( obj));
+
+            log.finer("PatientChartResource JSON " + getString( obj));
             JsonRepresentation rep = new JsonRepresentation(getString( obj));
 
             return rep;
@@ -156,7 +156,7 @@ public class PatientChartResource extends ServerResource {
 
             try {
 				sb.append(jsonArray.get(i));
-				System.out.println("PatientChartResource: join JSON Object " + jsonArray.get(i));
+				log.finer("PatientChartResource: join JSON Object " + jsonArray.get(i));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

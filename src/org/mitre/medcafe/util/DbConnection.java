@@ -212,7 +212,7 @@ public class DbConnection
                 else throw new RuntimeException( "This method does not handle " + param.getClass() + " yet." );
                 i++;
             }
-            System.out.println("DBConnection: psExecuteQuery:  about to execute query : " + ps.toString());
+            log.finer("DBConnection: psExecuteQuery:  about to execute query : " + ps.toString());
 
             rs = ps.executeQuery();
             crs.populate(rs);

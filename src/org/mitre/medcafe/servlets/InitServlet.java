@@ -48,7 +48,7 @@ public class InitServlet extends HttpServlet
 
     public final static String KEY = InitServlet.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    static{log.setLevel(Level.FINER);}
+    //static{log.setLevel(Level.FINER);}
     public static final long serialVersionUID = 1L;
 
     /**
@@ -106,16 +106,16 @@ public class InitServlet extends HttpServlet
         else webapp = "/" + webapp;
         Config.setWebapp( webapp );
         Config.setWebserver( serverName );
-        System.out.println("Server Name set in InitServlet " + serverName);
+        log.finer("Server Name set in InitServlet " + serverName);
         getServletContext().setAttribute("base",  webapp );
         getServletContext().setAttribute("images",  webapp + "/images");
         getServletContext().setAttribute("js",  webapp + "/js");
         getServletContext().setAttribute("css",  webapp + "/css");
 
         getServletContext().setAttribute("server",  Config.getServerUrl());
-        System.out.println("Attributes set in InitServlet");
+        log.finer("Attributes set in InitServlet");
 
-        System.out.println("Server Name in Config " + Config.getServerUrl());
+        log.finer("Server Name in Config " + Config.getServerUrl());
 
         /* set up repositories */
         try{

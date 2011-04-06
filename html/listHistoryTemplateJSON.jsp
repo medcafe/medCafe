@@ -1,12 +1,16 @@
 <%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
 <%@ page import="org.mitre.medcafe.util.*" %>
 <%@ page import="org.mitre.medcafe.model.*" %>
+<%@ page import="java.util.logging.*" %>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %><%!
+    public final static String KEY = "/listHistoryTemplateJSON.jsp";
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}%>
 <%
 
-	System.out.println("listHistoryTemplateJSON: url start");
+	log.finer("listHistoryTemplateJSON: url start");
 	String jspUrl =  "/history/templates";
 
 	String repositoryName = "local";
@@ -23,7 +27,7 @@
 	    }
 	    repositoryIds = cache.getRepositories();
 
-		System.out.println("listHistoryTemplateJSON: got repository ID  " + repositoryIds.toString() );
+		//System.out.println("listHistoryTemplateJSON: got repository ID  " + repositoryIds.toString() );
 		JSONArray repArray = repositoryIds.getJSONArray("repositories");
 		if (repArray != null)
 		{
@@ -43,12 +47,12 @@
 
 	}
 
-	System.out.println("listHistoryTemplateJSON: got patient rep Id " + patientRepId );
+	log.finer("listHistoryTemplateJSON: got patient rep Id " + patientRepId );
 
 	String patientId = null;
 
 	Object patientObj = session.getAttribute("patient");
-	System.out.println("listHistoryTemplateJSON: got patient from session object " + patientObj );
+	log.finer("listHistoryTemplateJSON: got patient from session object " + patientObj );
 
 	if (patientObj != null)
 		 	patientId = patientObj.toString();
@@ -59,7 +63,7 @@
 	String user =  request.getRemoteUser();
 	jspUrl = jspUrl + "?user=" + user;
 
-	System.out.println("listHistoryTemplateJSON: url " + jspUrl);
+	log.finer("listHistoryTemplateJSON: url " + jspUrl);
 %>
 
 <tags:IncludeRestlet relurl="<%=jspUrl%>" mediatype="json"/>

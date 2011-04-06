@@ -71,7 +71,7 @@ public class PatientHistoryResource extends ServerResource {
         String endDateStr = form.getFirstValue("end_date");
 
 
-        System.out.println("PatientHistoryResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
+        log.finer("PatientHistoryResource JSON init startDate " +  startDateStr + " endDate " + endDateStr + " category " + category );
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try {
         	if (startDateStr != null)
@@ -90,7 +90,7 @@ public class PatientHistoryResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found PatientHistoryResource html ");
+    	log.finer("Found PatientHistoryResource html ");
 
     	StringBuffer stringBuf = new StringBuffer("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"tableBookmarks" + id + "\">" +
     											"<thead><tr><th></th><th></th><th></th></tr></thead><tbody>");
@@ -112,8 +112,8 @@ public class PatientHistoryResource extends ServerResource {
 
             JSONObject obj = r.getHistory(id, category, startDate, endDate);
 
-            log.finer( obj.toString());
-            System.out.println("PatientHistoryResource JSON " +  obj.toString());
+
+            log.finer("PatientHistoryResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)

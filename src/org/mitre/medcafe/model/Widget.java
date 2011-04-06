@@ -197,7 +197,7 @@ public class Widget
 
 	public static JSONObject saveWidgets( String userName, JSONObject widgetJSON) throws SQLException
 	{
-		System.out.println("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
+		log.finer("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
 
 		JSONObject ret = new JSONObject();
 		DbConnection dbConn = null;
@@ -243,8 +243,7 @@ public class Widget
 				if (key.equals(Widget.WIDGET_ID) || key.equals(Widget.ID) )
 					continue;
 				String value = widgetJSON.getString(key);
-				//System.out.println("Widget : About to update id " + id + " patient_id " + patient_id + " userName " + userName + " key " + key + " value " + value);
-				//dbConn.psExecuteUpdate(updateQuery, err_mess , id, patient_id, userName, key, value);
+				
 				prep.setInt(1, id);
 				prep.setInt(2, patient_id);
 				prep.setString(3, userName);
@@ -253,7 +252,7 @@ public class Widget
 				prep.addBatch();
 
 			}
-			System.out.println("Widget : saveWidgets about to execute batch " + prep.toString());
+			log.finer("Widget : saveWidgets about to execute batch " + prep.toString());
 
 			prep.executeBatch();
 		}
@@ -261,7 +260,7 @@ public class Widget
 
 
 			// TODO Auto-generated catch block
-			System.out.println("Widget : saveWidgets Problem on updating widget data from database ." + e.getMessage());
+			log.severe("Widget : saveWidgets Problem on updating widget data from database ." + e.getMessage());
 
 			return WebUtils.buildErrorJson( "Problem on updating widget data from database ." + e.getMessage());
 
@@ -339,14 +338,14 @@ public class Widget
 		 PreparedStatement prep = null;
 		 try
 		 {
-		   log.severe("Connection being set . . .  waiting");
+		   log.finer("Connection being set . . .  waiting");
 		   dbConn = setConnection();
-		   log.severe("Connection is set, preparing statement");
+		   log.finer("Connection is set, preparing statement");
 			prep= dbConn.prepareStatement(Widget.SELECT_WIDGETS);
 			prep.setString(1, userName);
 			prep.setInt(2, patId);
 
-			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
+			log.finer("Widget : retrieveWidgets : query " + prep.toString());
 
 			rs =  prep.executeQuery();
 			int lastId = 0;
@@ -374,7 +373,7 @@ public class Widget
 				String param = rs.getString("param");
 				String value = rs.getString("value");
 				
-				//System.out.println("Widget ID: " + widgetId + " param: " + param + " value: " + value);
+				log.finer("Widget ID: " + widgetId + " param: " + param + " value: " + value);
 				
 				if (param.equals(Widget.TAB_ORDER))
 				{

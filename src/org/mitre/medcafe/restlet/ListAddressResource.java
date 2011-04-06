@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +61,7 @@ public class ListAddressResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found ListAddressResource html ");
+    	log.finer("Found ListAddressResource html ");
 
     	StringBuffer startBuf = new StringBuffer();
 
@@ -73,12 +74,12 @@ public class ListAddressResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-        	System.out.println("Found ListAddressResource json ");
+        	log.finer("Found ListAddressResource json ");
 
        	  	JSONObject obj = Address.getAddress(patientId);
 
             log.finer( obj.toString());
-            // System.out.println("ListWidgetResource JSON " +  obj.toString());
+            
             return new JsonRepresentation(obj);
 
         }

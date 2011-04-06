@@ -115,7 +115,7 @@ public class ListDatesResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found ListDatesResource html ");
+    	log.finer("Found ListDatesResource html ");
 
     	StringBuffer startBuf1 = new StringBuffer();
     	StringBuffer startBuf2 = new StringBuffer();
@@ -123,7 +123,7 @@ public class ListDatesResource extends ServerResource {
     	StringBuffer endBuf = new StringBuffer();
     	try
         {
-        	System.out.println("ListDatesResource JSON start");
+        	log.finer("ListDatesResource JSON start");
 
 
         	GregorianCalendar start = new GregorianCalendar();
@@ -215,7 +215,7 @@ public class ListDatesResource extends ServerResource {
     public JsonRepresentation toJson(){
         try
         {
-        	System.out.println("ListDatesResource JSON start");
+        	log.finer("ListDatesResource JSON start");
 
 
         	GregorianCalendar start = new GregorianCalendar();
@@ -303,7 +303,7 @@ public class ListDatesResource extends ServerResource {
 
                     	 for (Integer day: sortDays)
                          {
-                    		 System.out.println("Days " + day);
+                    		 log.finer("Days " + day);
                     		 inner_inner_inner_obj.put(day);
 
                          }
@@ -320,8 +320,8 @@ public class ListDatesResource extends ServerResource {
         	}
 
 
-            //log.finer( obj.toString());
-           // System.out.println("ListDatesResource JSON " +  obj.toString());
+
+            log.finer("ListDatesResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }
         catch(Exception e)

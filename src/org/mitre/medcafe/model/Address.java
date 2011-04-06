@@ -48,7 +48,7 @@ public class Address
 {
 	public final static String KEY = Address.class.getName();
 	public final static Logger log = Logger.getLogger( KEY );
-	static{log.setLevel(Level.FINER);}
+	//static{log.setLevel(Level.FINER);}
 
 	//Parameters that are common to all Widgets
 	private int patientId =0;
@@ -186,7 +186,7 @@ public class Address
 				 prep = dbConn.prepareStatement(sql);				
 				 prep.setInt(1, patient_id);
 				
-				 System.out.println("ListAddressResource: getAddress : query " + prep.toString());
+				 log.finer("Address: getAddress : query " + prep.toString());
 					
 				 rs = prep.executeQuery();
 				 boolean rtnResults = false;
@@ -280,7 +280,7 @@ public class Address
 				 }
 					
 				 if (addresses == null)
-					 System.out.println("Address: saveAddress : address is null ");
+					 log.finer("Address: saveAddress : address is null ");
 					
 				 if (addresses != null)
 				 {
@@ -352,7 +352,7 @@ public class Address
 					// TODO Auto-generated catch block
 				// TODO Auto-generated catch block
 				 
-				System.out.println("Address: saveAddress : problem on SQL  " + e.getMessage());		
+				log.severe("Address: saveAddress : problem on SQL  " + e.getMessage());		
 				return WebUtils.buildErrorJson( "Problem on selecting data from database for address ." + e.getMessage());
 		      
 			} catch (JSONException e) {

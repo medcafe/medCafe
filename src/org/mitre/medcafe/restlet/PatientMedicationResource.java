@@ -18,6 +18,9 @@ package org.mitre.medcafe.restlet;
 import com.google.gson.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
 import org.projecthdata.hdata.schemas._2009._06.medication.*;
@@ -28,7 +31,10 @@ import org.restlet.resource.*;
 
 
 public class PatientMedicationResource extends ServerResource {
-
+    
+    public final static String KEY = PatientMedicationResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
     /** The sequence of characters that identifies the resource. */
     String id;
     String repository;
@@ -61,14 +67,15 @@ public class PatientMedicationResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "There are no medications currently listed for patient " + id + " in repository " + repository ));
         }
-        //convert to JSON
-     /*   try{
-        System.out.println(WebUtils.bundleJsonResponse("medications",medications,repository,id).getText());
-        }
-        catch (IOException IOe)
-        {
-        	System.out.println("Couldn't print");
-        } */
+      try{
+ 	       log.finer("PatientMedicationResource: " + WebUtils.bundleJsonResponse("medications",medications,repository,id).getText());
+ 	       }
+ 	       catch (IOException IOe)
+ 	       {
+ 	       	
+ 	       }
+        
+
         return WebUtils.bundleJsonResponse( "medications", medications, repository, id );
     }
     //output

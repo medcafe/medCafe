@@ -54,7 +54,7 @@ public class ListWidgetResource extends ServerResource {
     @Get("html")
     public Representation toHtml(){
 
-    	System.out.println("Found ListWidgetResource html ");
+    	log.finer("Found ListWidgetResource html ");
 
     	StringBuffer startBuf = new StringBuffer();
     	StringBuffer patientImages = new StringBuffer();
@@ -94,7 +94,7 @@ public class ListWidgetResource extends ServerResource {
 				var method = $(this).find('img').attr("custom:method");
 				var patientId = $(this).find('img').attr("custom:Id");
 			*/
-        	System.out.println("ListWidgetResource JSON start");
+        	log.finer("ListWidgetResource JSON start");
         	String server = "http://" + Config.getServerUrl() + "/";
         	String[] widgetName = new String[]{"OpenVISTA", "hData", "Charts", "Slider",  "Dates","Editor","Categories"};
         	String[] type = new String[]{"Repository","Repository", "Chart", "Slider", "Date","Editor","Category"};
@@ -110,7 +110,7 @@ public class ListWidgetResource extends ServerResource {
 
         	String tempDir = "images/";
             JSONObject obj = new JSONObject();
-            //System.out.println("ListWidgetResource JSON start 1");
+            log.finer("ListWidgetResource JSON start 1");
             for(String widget: widgetName)
             {
 
@@ -127,8 +127,8 @@ public class ListWidgetResource extends ServerResource {
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                 i++;
             }
-            log.finer( obj.toString());
-            //System.out.println("ListWidgetResource JSON " +  obj.toString());
+            log.finer("ListWidgetResource: " +  obj.toString());
+
             return new JsonRepresentation(obj);
         }
         catch(Exception e)
@@ -150,7 +150,7 @@ public class ListWidgetResource extends ServerResource {
 				var method = $(this).find('img').attr("custom:method");
 				var patientId = $(this).find('img').attr("custom:Id");
 			*/
-        	System.out.println("ListWidgetResource JSON start");
+        	log.finer("ListWidgetResource JSON start");
 
 
             String tempDir = "images/";
@@ -159,7 +159,7 @@ public class ListWidgetResource extends ServerResource {
         	int i=0;
 
             JSONObject obj = new JSONObject();
-            System.out.println("ListWidgetResource JSON general widgets number of components " + compList.size());
+            log.finer("ListWidgetResource JSON general widgets number of components " + compList.size());
             for(MedCafeComponent component: compList)
             {
 
@@ -169,8 +169,8 @@ public class ListWidgetResource extends ServerResource {
             	 obj.append("widgets", inner_obj);  //append creates an array for you
                  i++;
             }
-            log.finer( obj.toString());
-           // System.out.println("ListWidgetResource JSON " +  obj.toString());
+            log.finer( "ListWidgetResource: " + obj.toString());
+  
             return new JsonRepresentation(obj);
 
         }

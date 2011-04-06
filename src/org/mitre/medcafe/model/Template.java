@@ -146,7 +146,7 @@ public class Template extends Widget
 	public static JSONObject copyToTemplate(String patientId, String userName, String templateName, String description) throws SQLException 
 	{
 		//Copy the template table data into widget table 
-		System.out.println("Template : copyTemplate about to execute copy  " );
+		log.finer("Template : copyTemplate about to execute copy  " );
 
 		JSONObject o = new JSONObject();
 		DbConnection dbConn = null;
@@ -180,7 +180,7 @@ public class Template extends Widget
 			int rtn = prep.executeUpdate();
 			if (rtn < 0 )
 			{
-				System.out.println("Template : copyToTemplate " + err_mess);
+				log.finer("Template : copyToTemplate " + err_mess);
 
 				closeConnections(dbConn, null, null);
 				dbConn = null;
@@ -194,12 +194,12 @@ public class Template extends Widget
 			prep.setString(2, userName);
 			prep.setInt(3, patient_id);
 			
-			System.out.println("Template : copyToTemplate about to execute batch copy " + prep.toString());
+			log.finer("Template : copyToTemplate about to execute batch copy " + prep.toString());
 
 			rtn = prep.executeUpdate();
 			if (rtn < 0 )
 			{
-				System.out.println("Template : copyToTemplate template widgets " + err_mess);
+				log.severe("Template : copyToTemplate template widgets " + err_mess);
 
 				closeConnections(dbConn, null, null);
 				dbConn = null;
@@ -223,7 +223,7 @@ public class Template extends Widget
 	public static JSONObject copyTemplate(String templateId, String patientId, String userName) throws SQLException 
 	{
 		//Copy the template table data into widget table 
-		System.out.println("Template : copyTemplate about to execute copy  " );
+		log.finer("Template : copyTemplate about to execute copy  " );
 
 		JSONObject o = new JSONObject();
 		DbConnection dbConn = null;
@@ -254,7 +254,7 @@ public class Template extends Widget
 			prep.setString(2, userName);
 			prep.setInt(3, template_id);
 			
-			System.out.println("Template : copyTemplate about to execute batch copy " + prep.toString());
+			log.finer("Template : copyTemplate about to execute batch copy " + prep.toString());
 
 			int rtn = prep.executeUpdate();
 			if (rtn < 0 )
@@ -357,7 +357,7 @@ public class Template extends Widget
 
 	public static JSONObject saveTemplateWidgets( String userName, JSONObject widgetJSON) throws SQLException
 	{
-		System.out.println("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
+		log.finer("Widget : saveWidgets about to execute for JSONObject  " + widgetJSON.toString());
 
 		JSONObject ret = new JSONObject();
 		DbConnection dbConn = null;
@@ -403,8 +403,7 @@ public class Template extends Widget
 				if (key.equals(Template.WIDGET_ID) || key.equals(Template.ID) )
 					continue;
 				String value = widgetJSON.getString(key);
-				//System.out.println("Widget : About to update id " + id + " patient_id " + patient_id + " userName " + userName + " key " + key + " value " + value);
-				//dbConn.psExecuteUpdate(updateQuery, err_mess , id, patient_id, userName, key, value);
+				
 				prep.setInt(1, id);
 				prep.setInt(2, patient_id);
 				prep.setString(3, userName);
@@ -413,7 +412,7 @@ public class Template extends Widget
 				prep.addBatch();
 
 			}
-			System.out.println("Widget : saveWidgets about to execute batch " + prep.toString());
+			log.finer("Template : saveTemplateWidgets about to execute batch " + prep.toString());
 
 			prep.executeBatch();
 		}
@@ -421,9 +420,9 @@ public class Template extends Widget
 
 
 			// TODO Auto-generated catch block
-			System.out.println("Widget : saveWidgets Problem on updating widget data from database ." + e.getMessage());
+			log.severe("Template : saveTemplateWidgets Problem on updating template data from database ." + e.getMessage());
 
-			return WebUtils.buildErrorJson( "Problem on updating widget data from database ." + e.getMessage());
+			return WebUtils.buildErrorJson( "Problem on updating template data from database ." + e.getMessage());
 
 		}
 		finally
@@ -451,9 +450,9 @@ public class Template extends Widget
 		 PreparedStatement prep = null;
 		 try
 		 {
-		   log.severe("Connection being set . . .  waiting");
+		   log.finer("Connection being set . . .  waiting");
 		   dbConn = setConnection();
-		   log.severe("Connection is set, preparing statement");
+		   log.finer("Connection is set, preparing statement");
 			
 		   int tempId = getTemplateId(dbConn, prep, templateId);
 			
@@ -461,7 +460,7 @@ public class Template extends Widget
 			//prep.setString(1, userName);
 			prep.setInt(1, tempId);
 
-			System.out.println("Widget : retrieveWidgets : query " + prep.toString());
+			log.finer("Template : retrieveWidgets : query " + prep.toString());
 
 			rs =  prep.executeQuery();
 			int lastId = 0;
@@ -489,7 +488,7 @@ public class Template extends Widget
 				String param = rs.getString("param");
 				String value = rs.getString("value");
 				
-				//System.out.println("Widget ID: " + widgetId + " param: " + param + " value: " + value);
+				
 				
 				if (param.equals(Template.TAB_ORDER))
 				{
@@ -533,7 +532,7 @@ public class Template extends Widget
 		 }
 		 catch (SQLException e)
 		 {
-		   log.severe("Databse Connection ERROR: Can't make connection " + e.getMessage());
+		   log.severe("Template: Database Connection ERROR: Can't make connection " + e.getMessage());
 
 			throw e;
 		 }

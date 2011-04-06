@@ -86,12 +86,12 @@ public class RepositoryListResource extends ServerResource {
 
     //public Representation handle()
     /*{
-        System.out.println(getClientInfo().getAgent());
-        System.out.println(getClientInfo().getAgentName());
+        log.finer(getClientInfo().getAgent());
+        log.finer(getClientInfo().getAgentName());
         List<Preference<MediaType>> mediaTypes = getClientInfo().getAcceptedMediaTypes();
         for(Preference<MediaType> pref : mediaTypes)
-            System.out.println( String.valueOf(pref) );
-        System.out.println(getPreferredVariant(getVariants()));
+            log.finer( String.valueOf(pref) );
+        log.finer(getPreferredVariant(getVariants()));
         return super.handle();
     }*/
 }

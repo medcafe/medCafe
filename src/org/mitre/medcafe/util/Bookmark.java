@@ -36,6 +36,10 @@ import java.util.*;
  */
 public class Bookmark
 {
+
+    public final static String KEY = Bookmark.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    //static{log.setLevel(Level.FINER);}
 	private String name = "";
 	private String description = "";
 	private String notes = "";
@@ -116,13 +120,13 @@ public class Bookmark
 		try 
 		{
 		   dbConn= new DbConnection();
-		   System.out.println("BookmarK: getBookmarks : got connection " );
+		   log.finer("BookmarK: getBookmarks : got connection " );
            
 		   prep = dbConn.prepareStatement(Bookmark.SELECT_BOOKMARK_ALL);
 		   prep.setString(1, userid);
 		   prep.setString(2, patientId);
 		   
-		   System.out.println("BookmarK: getBookmarks : query " + prep.toString());
+		   log.finer("BookmarK: getBookmarks : query " + prep.toString());
            
 		   rs = prep.executeQuery();
 		   Bookmark bookmark = new Bookmark();
@@ -161,13 +165,13 @@ public class Bookmark
 		int rtnVal = -1;
 		try {
 			dbConn = new DbConnection();
-			System.out.println("Bookmark: deleteBookmarks : got connection " );
+			log.finer("Bookmark: deleteBookmarks : got connection " );
 		  
 			prep = dbConn.prepareStatement(Bookmark.DELETE_BOOKMARK);
 			prep.setString(1, userid);
 			prep.setString(2, patientId);
 			rtnVal = prep.executeUpdate();
-			System.out.println("Bookmark: deleteBookmarks : rtnVal " + rtnVal );
+			log.finer("Bookmark: deleteBookmarks : rtnVal " + rtnVal );
 		}
 		catch (SQLException e)
 		{
@@ -189,7 +193,7 @@ public class Bookmark
 		try 
 		{
 		   dbConn= new DbConnection();
-		   System.out.println("Bookmark: updateBookmarks : got connection " );
+		   log.finer("Bookmark: updateBookmarks : got connection " );
 		   boolean deleteSuccess = deleteBookmarks(userid, patientId);
 		   if (!deleteSuccess)
 		   {
@@ -227,13 +231,13 @@ public class Bookmark
 			   prep.setString(5, desc);
 			   prep.setString(6, note);
 				 
-			   System.out.println("Bookmark: updateBookmarks : query  " + prep.toString() );
+			   log.finer("Bookmark: updateBookmarks : query  " + prep.toString() );
 				
 			   prep.addBatch();
 		   }
 		   int[] res = prep.executeBatch();
 		   	
-		   System.out.println("Bookmark: update Bookmarks - Results for update " + res.toString()); 
+		   log.finer("Bookmark: update Bookmarks - Results for update " + res.toString()); 
 			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -18,6 +18,9 @@ package org.mitre.medcafe.restlet;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
 
@@ -30,7 +33,9 @@ import org.restlet.resource.*;
 
 public class PatientVitalsResource extends ServerResource {
 
-
+    public final static String KEY = PatientVitalsResource.class.getName();
+    public final static Logger log = Logger.getLogger( KEY );
+    // static{log.setLevel(Level.FINER);}
 
     /** The sequence of characters that identifies the resource. */
     String id;
@@ -40,7 +45,7 @@ public class PatientVitalsResource extends ServerResource {
     @Override
     protected void doInit() throws ResourceException {
         this.id = (String) getRequest().getAttributes().get("id");
-       // System.out.println("id = " + id);
+      
         this.repository = (String) getRequest().getAttributes().get("repository");
         this.choice = (String) getRequest().getAttributes().get("choice");
     }

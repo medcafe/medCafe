@@ -60,7 +60,7 @@ public class PatientListResource extends ServerResource {
         lastName = form.getFirstValue(LAST_NAME);
         middleInitial = form.getFirstValue(MIDDLE_INITIAL);
 
-        System.out.println("Found Repository: " + this.repository);
+        log.finer("Found Repository: " + this.repository);
     }
 
     @Get("json")
@@ -156,7 +156,7 @@ public class PatientListResource extends ServerResource {
         }
         for( String patid : patids.keySet())
         {
-        	System.out.println("PatientListResource: toHtml : paient id " + patid);
+        	log.finer("PatientListResource: toHtml : paient id " + patid);
 
         	patients.append("<tr class=\"gradeX\"><td><span class=\"summary\"><a href=\"#\" class=\"details\">"+ patid+ "</a></span></td><td>"+patids.get(patid) + "</td></tr>" );
         	//patients.append("<tr class=\"gradeX\"><td>"+ patid+ "</td></tr>" );

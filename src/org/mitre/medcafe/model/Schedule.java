@@ -120,35 +120,10 @@ public class Schedule
 
 	}
 
-	/* public static JSONObject addAppointment( String username, String patientId, String date, String dateTime, String endTime) throws SQLException
-	{
-		JSONObject ret = new JSONObject();
-		setConnection();
-
-		//Get the patient Name
-		try
-		{
-			String insertQuery = Schedule.INSERT_APPOINTMENT;
-			int rtn = 0;
-			int patient_id = Integer.parseInt(patientId);
-			String err_mess = "Could not insert appointment for patient  " + patient_id;
-
-			rtn = dbConn.psExecuteUpdate(insertQuery, err_mess , patient_id, dateTime);
-
-			if (rtn < 0 )
-				return WebUtils.buildErrorJson( "Problem on deleting widget data from database ." );
-
-		}
-		finally
-		{
-
-		}
-		return ret;
-	} */
 
 	public static JSONObject addAppointment( JSONObject appointment) throws SQLException
 	{
-		System.out.println("Schedule addAppointment start");
+		log.finer("Schedule addAppointment start");
 		JSONObject ret = new JSONObject();
 		DbConnection dbConn = setConnection();
 
@@ -158,7 +133,7 @@ public class Schedule
 			//"INSERT INTO schedule  ( patient_id, first_name, last_name, appoint_date, appoint_time, end_time ) values (?,?,?,?,?,?) ";
 
 			String insertQuery = Schedule.INSERT_APPOINTMENT;
-			// System.out.println("Schedule addAppointment insert query " + insertQuery);
+			log.finer("Schedule addAppointment insert query " + insertQuery);
 
             String username = appointment.getString( Schedule.USER );
 			String patientIdStr= appointment.getString(Patient.ID);
@@ -215,26 +190,26 @@ public class Schedule
 				date = Schedule.parseDate(dateStr, DATE_ONLY_FORMAT_TYPE);
 				prevApptEnd = Schedule.parseDate(dateStr + " " + DEFAULT_TIME, DATE_TIME_FORMAT_TYPE);
 
-				//System.out.println("Schedule: getNextAvailAppointment : prevAppt initialize  " + prevApptEnd.toString());
+				log.finer("Schedule: getNextAvailAppointment : prevAppt initialize  " + prevApptEnd.toString());
 
 				//time = Schedule.parseDate(timeStr, TIME_ONLY_FORMAT_TYPE);
 				java.sql.Date sqlDate = Schedule.convertSQLDate(date);
 
 				prep.setDate(1, sqlDate);
 				//prep.setDate(2, sqlTime);
-				//System.out.println("Schedule: getNextAvailAppointment : query " + prep.toString());
+				log.finer("Schedule: getNextAvailAppointment : query " + prep.toString());
 				rs = prep.executeQuery();
 				boolean hasAppoint = false;
 				while (rs.next())
 				{
 					 hasAppoint = true;
 					 Calendar cal = new GregorianCalendar();
-					 //System.out.println("Schedule: getNextAvailAppointment : prevAppt  " + prevApptEnd.toString());
+					 log.finer("Schedule: getNextAvailAppointment : prevAppt  " + prevApptEnd.toString());
 
 					 cal.setTime(prevApptEnd);
 					 cal.add(Calendar.MINUTE, Schedule.APPT_DURATION );
 					 possApptEndTime = getFullDate(date, cal.getTime());
-					 //System.out.println("Schedule: getNextAvailAppointment : Appointment end time " + possApptEndTime.toString());
+					 log.finer("Schedule: getNextAvailAppointment : Appointment end time " + possApptEndTime.toString());
 
 					 //check to see if the prev end Time + 30 mins is available
 					 apptTime = rs.getTime(Schedule.APPT_TIME);
@@ -248,11 +223,11 @@ public class Schedule
 					 //Take a minute off
 					 Date testDate = getFullDate(date, cal.getTime());
 
-					// System.out.println("Schedule: getNextAvailAppointment : new Appointment  " + newAppt);
+					log.finer("Schedule: getNextAvailAppointment : new Appointment  " + newAppt);
 
 					 if (possApptEndTime.before(testDate))
 					 {
-						 //System.out.println("Schedule: getNextAvailAppointment : found a time  " + possApptEndTime.toString());
+						 log.finer("Schedule: getNextAvailAppointment : found a time  " + possApptEndTime.toString());
 
 						 o.put( Patient.ID, patientId );
 						 o.put( Schedule.APPT_DATE, dateStr );
@@ -269,7 +244,7 @@ public class Schedule
 				//If there is no scheduled appointments - just use the first one
 				if (!hasAppoint)
 				{
-					//System.out.println("Schedule: getNextAvailAppointment : first appt of the day  ");
+					log.finer("Schedule: getNextAvailAppointment : first appt of the day  ");
 
 					 o.put( Patient.ID, patientId );
 					 o.put( Schedule.APPT_DATE, dateStr );

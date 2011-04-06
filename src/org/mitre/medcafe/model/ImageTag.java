@@ -152,7 +152,7 @@ public class ImageTag
 		
 		String err_mess = "Could not get a file Id based on the filename  " + fileName;
 
-		System.out.println("ImageTag getFileId patientId " + patId + " fileName " + fileName);
+		log.finer("ImageTag getFileId patientId " + patId + " fileName " + fileName);
 		 
 		rs = dbConn.psExecuteQuery(selectFileIDQuery, err_mess , patId, fileName);
 
@@ -298,7 +298,7 @@ public class ImageTag
 			prep.setString(12, type);
 			prep.setString(13, note);
 			//
-			System.out.println("ImageTag saveAnnotations sql " + prep.toString() );
+			log.finer("ImageTag saveAnnotations sql " + prep.toString() );
 			
 			int rtn = prep.executeUpdate();
 			if (rtn < 0)
@@ -311,7 +311,7 @@ public class ImageTag
 		}
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ImageTag saveAnnotations Problem on updating annotation data to database ." + e.getMessage() );
+			log.severe("ImageTag saveAnnotations Problem on updating annotation data to database ." + e.getMessage() );
 			
 			return WebUtils.buildErrorJson( "Problem on updating annotation data from database ." + e.getMessage());
 
@@ -355,7 +355,7 @@ public class ImageTag
 			prep.setString(2, userName);
 			prep.setInt(3, fileId);
 			
-			System.out.println("ImageTag : retrieveImageTags : query " + prep.toString());
+			log.finer("ImageTag : retrieveImageTags : query " + prep.toString());
 
 			rs =  prep.executeQuery();
 			//This lists all the paramaters - gather together into a HashMap - keyed on id
