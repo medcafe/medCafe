@@ -94,7 +94,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 	 					{
 	 					$("#searchPatients").spinner("remove");
 	 					});
-	 					//populate(indexSrv, src);
+	 					
 	 				});
 
 	    		});
@@ -220,7 +220,6 @@ function populate(url, patient_id)
 {
 
 	 var server = url + "?patient_id=" + patient_id;
-//	alert ("URL " + url + " id " + patient_id);
 	populateTabs(server,"tabs");
 
 }
@@ -236,7 +235,7 @@ function populateTemplate(patient_id, template_id)
 function populateTabs(server, tab_set)
 {
 	 var focusedTab = 1;
-	 $.getJSON(server, function(data)
+	  $.getJSON(server, function(data)
 	 {
 	 		if (tab_set === undefined) tab_set="tabs";
 

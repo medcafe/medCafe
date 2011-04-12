@@ -33,8 +33,7 @@
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-	<title>Droppable Between Panes</title>
-<!-- link type="text/css" href="${css}/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" /-->
+	<title>Patient Search</title>
 <link type="text/css" href="${css_theme}" rel="stylesheet" />
 
    	<link type="text/css" href="${css}/custom.css" rel="stylesheet" />

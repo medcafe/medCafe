@@ -238,20 +238,9 @@ function saveWidgets(oldPatient)
 	   beforeSend: function() { $("#saveStatus").html("Saving").show(); },
 	   success: function(result) {
 	      
-					
-					//Cycle through each to save
-	//				$.each (ids, function(i, val)
-	//				{
-	//				 if (val != "intro")
-	//				 {
-	//					medCafeWidget.saveWidget("saveWidget.jsp", val);
-	//				}
-	//				});
-		var widgetSettings;
-	//	var widgetIDs = medCafeWidget.getAllIds();
-	//	if (widgetIDs.length > 0)
-	//	{
-            			//url = url + "?";
+	
+	 var widgetSettings;
+
       order = 1;
       tab = 1;
 		$('.tabs').parent().find(".tabHeader").each(function(i)
@@ -273,14 +262,7 @@ function saveWidgets(oldPatient)
 				inFocus = 'false';
 			}
 
-			//var widgetSettings = medCafeWidget.getExtWidgetSettings($(this).attr(widgetIDs[0]));
-    /*		if (widgetSettings == "")
-    		{
-    			alert("medcafe.widget.js widgetSettings no widgets for " + id + " " + widgetSettings.id);
-    		
-    			return;
-    		} */
-					//alert(widgetSettings.tab_num);
+	
     		tabName = $(this).find('span').text();
     				//alert (tabName);
     			
