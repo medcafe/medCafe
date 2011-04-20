@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 import java.util.*;
 
 import javax.xml.bind.*;
-import org.mitre.medj.jaxb.*;
+
+import org.mitre.medj.jaxb.ContinuityOfCareRecord;
+
 import com.google.gson.*;
 
 

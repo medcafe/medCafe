@@ -15,12 +15,33 @@
  */
 package org.mitre.medj;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.google.gson.*;
+
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.mitre.medj.jaxb.ContinuityOfCareRecord;
 
 
 /**
@@ -35,6 +56,9 @@ public class WebUtils
 
     public final static String KEY = WebUtils.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
+    
+    public static String BASE_DIR = "";
+    public final static String CCR_DIR = "ccrFiles";
     // static{log.setLevel(Level.FINER);}
     /**
      *  Retrieves a parameter from a passed request. If the parameter is not
@@ -209,5 +233,193 @@ public class WebUtils
         return ret.toString();
     }
 
+
+    public  static List<FileItem> getFileItems( HttpServletRequest request) throws FileUploadException 
+	{
+    	/*
+		 *  parse the request
+		 */
+    	FileItemFactory factory = new DiskFileItemFactory();
+		System.out.println("WebUtils uploadFile : got factory ");
+		
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		System.out.println("WebUtils uploadFile : got upload object ");
+		
+		List<FileItem> items;
+	
+		items = upload.parseRequest(request);
+		return items;
+	}
+    
+    public  static List<ContinuityOfCareRecord> translateFiles( List<FileItem> items, String pathName) 
+	{
+	
+    	try {
+    		ArrayList<ContinuityOfCareRecord> ccrs = new ArrayList<ContinuityOfCareRecord>();
+			System.out.println("WebUtils uploadFile : got items " + items);			
+			boolean writeToFile = true;
+			System.out.println("WebUtils uploadFile : got items " + items.size());
+			
+			for (FileItem fileSetItem: items)
+			{
+				String itemName = fileSetItem.getFieldName();
+				System.out.println("WebUtils: first file item  " + itemName);
+				
+				String fileName ="";
+				if (!fileSetItem.isFormField()) {
+				    String fieldName = fileSetItem.getFieldName();
+				    fileName = fileSetItem.getName();
+				    
+				    String contentType = fileSetItem.getContentType();
+				    boolean isInMemory = fileSetItem.isInMemory();
+				    long sizeInBytes = fileSetItem.getSize();
+	
+				    ContinuityOfCareRecord ccr = translate(fileSetItem.getString());
+				    String patientId = getPatientId(ccr);
+		        	
+				    uploadFile(fileSetItem, pathName, fileName, patientId);
+				    if (ccr != null)
+				    	ccrs.add(ccr);
+									
+				    
+					
+			    }
+		
+			}
+			return ccrs;
+			
+    	} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}	
+
+    public static boolean uploadFile(FileItem uploadFileItem, String pathName, String fileName, String patientId) throws Exception
+    {
+    	File ccrFile =  createFile(pathName,  fileName, patientId);
+		uploadFileItem.write(ccrFile);
+		
+		return true;
+    }
+    
+    public static boolean uploadFileFromCCR(ContinuityOfCareRecord ccr, String pathName, String fileName,String patientId) throws JAXBException, IOException
+    {
+    	
+		File ccrFile =  createFile(pathName,  fileName, patientId);
+    	FileWriter fileWrite = new FileWriter(ccrFile);
+		//This won't work, need to have way to translate to string
+    	fileWrite.write(ccr.toString());
+		fileWrite.flush();
+		fileWrite.close();
+		
+		return true;
+    }
+    
+    public static boolean uploadFileFromString(String ccr, String pathName, String fileName, String patientId) throws JAXBException, IOException
+    {
+    	File ccrFile =  createFile( pathName,  fileName, patientId);
+    	FileWriter fileWrite = new FileWriter(ccrFile);
+		fileWrite.write(ccr);
+		fileWrite.flush();
+		fileWrite.close();
+		return true;
+    }
+    
+    public static File createFile( String pathName, String fileName, String patientId) throws JAXBException, IOException
+    {
+    	File path = new File(pathName + "/" +CCR_DIR + "/" + patientId ); 
+		if (!path.exists())
+		{
+			boolean status = path.mkdirs();
+			if (!status) return null;
+		}
+		File uploadedFile = new File(path + "/" + patientId);
+		return uploadedFile;
+		
+    }
+    
+    private static ContinuityOfCareRecord loadCCRFromFile(String fileName) throws FileNotFoundException, JAXBException
+    {
+    	 JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
+         Unmarshaller u = jc.createUnmarshaller();
+         ContinuityOfCareRecord ccr = (ContinuityOfCareRecord)u.unmarshal(new StreamSource( new FileReader(fileName)  ) );
+         return ccr;
+    }
+	
+    
+    public static ContinuityOfCareRecord convert(HttpServletRequest req, String pathName)
+		 throws  FileUploadException, IOException, Exception
+	{
+		if ( !ServletFileUpload.isMultipartContent(req) )
+		{
+			String sourceXml = WebUtils.getRequiredParameter( req, "source_xml" );
+	         
+		    return translate(sourceXml);
+		}
+		else
+		{
+			System.out.println("WebUtils convert : this is a multipart doc");
+			List<FileItem> items = getFileItems(req);
+			List<ContinuityOfCareRecord> ccrs = translateFiles(items, pathName);
+			
+			if (ccrs != null)
+			{
+				if (ccrs.size() > 0)
+					return ccrs.get(0);
+			}
+				
+			return null;
+			/*if (!success)
+				return "Error in File Upload";
+			else
+				return "File uploaded successfully";*/
+		}
+	
+	}	
+
+
+	public  static ContinuityOfCareRecord translate(String sourceXml) throws JAXBException
+	{
+	
+       JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
+       Unmarshaller u = jc.createUnmarshaller();
+       // URL url = new URL( "simple.ccr.xml" );
+       // URLConnection conn = url.openConnection();
+       ContinuityOfCareRecord p = (ContinuityOfCareRecord)u.unmarshal(new StreamSource( new StringReader( sourceXml ) ) );
+       return p;
+      
+   
+	}	
+
+	public static String getPatientId(ContinuityOfCareRecord ccr)
+	{
+		String patientId = "";
+		patientId = ccr.getPatient().get(0).getActorID();
+		System.out.println("WebUtils getPatientId : " + patientId);
+		
+		return patientId;
+	}
+	public static JSONObject buildErrorJson(String errorMsg)
+    {
+        JSONObject ret = new JSONObject();
+        try
+        {
+            JSONObject error = new JSONObject();
+            error.put("message", errorMsg);
+            error.put("type", "error");
+            ret.put("announce", error);
+        }
+        catch (JSONException e)
+        {
+            return null;
+        }
+        return ret;
+    }
+	
+	public static ContinuityOfCareRecord loadCCR(String patientId) throws FileNotFoundException, JAXBException
+	{
+		return WebUtils.loadCCRFromFile(CCR_DIR+ "/" + patientId + "/" + patientId + ".xml");
+	}
 }
 

@@ -350,7 +350,7 @@ public class ContinuityOfCareRecord {
     @XmlElement(name = "Purpose")
     protected List<PurposeType> purpose;
     @XmlElement(name = "Body", required = true)
-    protected ContinuityOfCareRecord.Body body;
+    public ContinuityOfCareRecord.Body body;
     @XmlElement(name = "Actors", required = true)
     protected ContinuityOfCareRecord.Actors actors;
     @XmlElement(name = "References")
@@ -1951,6 +1951,11 @@ public class ContinuityOfCareRecord {
                 return this.medication;
             }
 
+            public void setMedication(List<StructuredProductType> medication) {
+               
+                    this.medication = medication;
+                }
+            
         }
 
 

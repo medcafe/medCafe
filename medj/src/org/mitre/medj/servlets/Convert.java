@@ -5,12 +5,15 @@
 package org.mitre.medj.servlets;
 
 import com.google.gson.*;
+
 import java.io.*;
 import java.util.logging.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.*;
+
+import org.json.JSONObject;
 import org.mitre.medj.*;
 import org.mitre.medj.jaxb.*;
 
@@ -55,19 +58,26 @@ public class Convert extends HttpServlet
     public void doPost( HttpServletRequest request, HttpServletResponse response )
         throws IOException, ServletException
     {
+    	
+		String dirPath = getServletContext().getRealPath("/");
         PrintWriter out = response.getWriter();
-        String sourceXml = WebUtils.getRequiredParameter( request, "source_xml" );
         try
         {
-            JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
-            Unmarshaller u = jc.createUnmarshaller();
-            // URL url = new URL( "simple.ccr.xml" );
-            // URLConnection conn = url.openConnection();
-            ContinuityOfCareRecord p = (ContinuityOfCareRecord)u.unmarshal(new StreamSource( new StringReader( sourceXml ) ) );
-            Gson gson = new Gson();
+        	ContinuityOfCareRecord p = WebUtils.convert(request, dirPath);
+        	Gson gson = new Gson();
             // Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String jsonString = gson.toJson(p);
-            out.write(jsonString);
+            if ( p!= null)
+            {
+            	String jsonString = gson.toJson(p);
+            	//Makes it consistent with the JSONRepresentation on Restlet side of things
+            	JSONObject obj = new JSONObject(jsonString);
+                out.write(obj.toString());
+            }
+            else
+            {
+            	out.write("There was an error parsing your XML or creating the JSON.  Please double check your input and ensure it is a valid CCR document.");
+                
+            }
         }
         catch (Exception e) {
             out.write("There was an error parsing your XML or creating the JSON.  Please double check your input and ensure it is a valid CCR document.");

@@ -256,6 +256,13 @@ public class StructuredProductType
         return this.product;
     }
 
+    /*public void addProduct(StructuredProductType.Product newProduct) {
+        if (product == null) {
+            product = new ArrayList<StructuredProductType.Product>();
+        }
+        product.add(newProduct);
+    }*/
+
     /**
      * Gets the value of the quantity property.
      * 

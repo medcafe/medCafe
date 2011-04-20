@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.mitre.medj.jaxb.StructuredProductType;
+
 
 /**
  * <p>Java class for anonymous complex type.
@@ -75,4 +77,9 @@ public class Medications {
         return this.medication;
     }
 
+   public void setMedication( ArrayList<StructuredProductType> medList)
+   {
+	   this.medication = medList;
+   }
+   
 }
