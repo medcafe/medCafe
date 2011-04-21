@@ -82,12 +82,21 @@ public class InitServlet extends HttpServlet
         String base_path = config.getServletContext().getRealPath( "/" );
         WebUtils.BASE_DIR = base_path;
 
+        String tempdir = String.valueOf(getServletContext() .getAttribute("javax.servlet.context.tempdir"));
+        String serverName = String.valueOf(getServletContext() .getInitParameter("server.host"));
+        String webapp = new File(tempdir).getName();  //could this be replaced by ServletContext.getServletContextName() ???
+        if( webapp.equals("ROOT") )
+        {
+            webapp = "";
+        }
+        else webapp = "/" + webapp;
+        getServletContext().setAttribute("js",  webapp + "/js");
+        getServletContext().setAttribute("css",  webapp + "/css");
       /*
          *  Grab the name for the currently deployed webapp.  It's possible this could be in error if the webapp is deployed
          *  as a subdirectory (i.e., The docbase is http://localhost:8080/first/sub).  If this ever gets deployed that way it will
          *  have to be fixed.
          */
-        String tempdir = String.valueOf(getServletContext() .getAttribute("javax.servlet.context.tempdir"));
        
         log.finer("Attributes set in InitServlet");
 

@@ -16,15 +16,15 @@
 package org.mitre.medj;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.google.gson.*;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -334,7 +334,7 @@ public class WebUtils
 			boolean status = path.mkdirs();
 			if (!status) return null;
 		}
-		File uploadedFile = new File(path + "/" + patientId);
+		File uploadedFile = new File(path + "/" + patientId + ".xml");
 		return uploadedFile;
 		
     }
@@ -419,7 +419,56 @@ public class WebUtils
 	
 	public static ContinuityOfCareRecord loadCCR(String patientId) throws FileNotFoundException, JAXBException
 	{
-		return WebUtils.loadCCRFromFile(CCR_DIR+ "/" + patientId + "/" + patientId + ".xml");
+		return WebUtils.loadCCRFromFile(WebUtils.BASE_DIR  + "/" + CCR_DIR+ "/" + patientId + "/" + patientId + ".xml");
+	}
+	
+	public static ArrayList<String> listPatients(File dir)
+	{
+		  
+		ArrayList<String> patientFiles = new ArrayList<String>();
+		
+		FileFilter fileFilter = new FileFilter() {
+			public boolean accept(File file) 
+			{
+	   	        return file.isDirectory();
+	   	    }
+	   	};
+   	
+	   	FilenameFilter filter = new FilenameFilter() {
+	   	    public boolean accept(File dir, String name) {
+	   	        return name.endsWith("xml");
+	   	      
+	   	    }
+	   	};
+	   	
+	   	File[] subDirs = dir.listFiles(fileFilter);
+
+		System.out.println("TextProcesses getCSSFiles no of files " + subDirs.length);
+	   	if (subDirs == null) {
+	   	    // Either dir does not exist or is not a directory
+	   	} 
+	   	else 
+	   	{
+   	    
+	   		for (File subDir: subDirs)
+	   	    {
+	   			System.out.println("WebUtils getPatients subDir " + subDir.getName());
+	   		   	
+	   	        // Get filename of file or directory
+	   	    	String[] subFiles = subDir.list(filter);
+	   	    	System.out.println("WebUtils getPatients files # " + subFiles.length);
+	   		   	
+	   	    	for (String subFile: subFiles)
+	   	    	{
+	   	    		System.out.println("WebUtils getPatients files  " + subFile);
+	   	    		String patientId = subFile.substring(0, subFile.lastIndexOf("."));
+	   	    		patientFiles.add(patientId);
+	   	    	}
+	   	    	
+	   	       
+	   	    }
+	   	}
+	   	return patientFiles;
 	}
 }
 
