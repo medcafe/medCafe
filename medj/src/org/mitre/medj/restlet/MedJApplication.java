@@ -33,7 +33,8 @@ public class MedJApplication extends Application {
         // register the data Restlets
         router.attach("/patients", org.mitre.medj.restlet.PatientsListResource.class);
         router.attach("/patients/{id}",org.mitre.medj.restlet.PatientListResource.class);
-    
+        router.attach("/patients/{id}/medications",org.mitre.medj.restlet.PatientMedicationResource.class);
+        
         return router;
     }
 

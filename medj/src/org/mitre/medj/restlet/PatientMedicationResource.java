@@ -15,6 +15,7 @@
  */
 package org.mitre.medj.restlet;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +23,11 @@ import java.util.*;
 
 import javax.xml.bind.JAXBException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medj.jaxb.ContinuityOfCareRecord;
+import org.mitre.medj.jaxb.ContinuityOfCareRecord.Body.Medications;
 import org.mitre.medj.util.Patients;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
@@ -35,28 +38,27 @@ import org.mitre.medj.WebUtils;
 import com.google.gson.Gson;
 
 
-public class PatientListResource extends MedJResource {
+public class PatientMedicationResource extends MedJResource {
 
-    public final static String KEY = PatientListResource.class.getName();
+    public final static String KEY = PatientMedicationResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
 
-    private final static String ID = "id";
-    private final static String FIRST_NAME = "first_name";
-    private final static String LAST_NAME = "last_name";
-    private final static String MIDDLE_INITIAL = "middle_initial";
+    /** The sequence of characters that identifies the resource. */
 
    /**
      *  Grab the information from the url
      */
     @Override
     protected void doInit() throws ResourceException {
+
     	super.doInit();
+
     }
 
     @Get("json")
     public JsonRepresentation toJson(){
-      
+        
     	JsonRepresentation rtn = super.toJson();
     	//If anything here then there is an issue
     	if (rtn != null)
@@ -65,10 +67,12 @@ public class PatientListResource extends MedJResource {
     	try {
     		ContinuityOfCareRecord ccr =  getCCR();
 	        
-	        Gson gson = new Gson();
+    		Medications meds = ccr.getBody().getMedications();
+	        
+    		Gson gson = new Gson();
 	        if ( ccr!= null)
             {
-            	String jsonString = gson.toJson(ccr);
+            	String jsonString = gson.toJson(meds);
                 JSONObject obj = new JSONObject(jsonString);
                 return new JsonRepresentation(obj);
             }
