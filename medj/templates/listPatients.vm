@@ -1,0 +1,3 @@
+#foreach( $patient in $patients )
+    <div id="patient_$patient.id"><a href="ccr/patients/$patient.id">$patient.id</a></div>
+#end   	
