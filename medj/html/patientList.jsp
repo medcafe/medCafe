@@ -13,18 +13,13 @@
 			
 			$.getJSON(url, function(data)
 			{	
-				//var patientHtml = v2js_listPatients( data );  
+				var patientHtml = v2js_listPatients( data );  
 	  			var patientList = data.patients;
 	 
 	 			$("#patientList").html("");
-				var patientHtml;
+				
 				var len = patientList.length;
-				for (i=0;i<len;i++)
-	  			{
-	  			   patientHtml = "<a href=\"ccr/patients/" + patientList[i] + "\">" + patientList[i] + "</a><br/>";
-	  				$("#patientList").append(patientHtml);
-	  			}
-	  			
+	  			$("#patientList").append(patientHtml);
 	  		});
 	  	});
 	 </script>

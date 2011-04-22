@@ -73,8 +73,14 @@ public class PatientsListResource extends ServerResource {
 
 	    		
 	    	ArrayList<String> patientFileList = WebUtils.listPatients(dir);
-	    	
-	    	patientList.put("patients", patientFileList);
+	    	JSONArray patientIdList = new JSONArray();
+	    	for (String patient: patientFileList)
+	    	{
+	    		JSONObject patientId = new JSONObject();
+	    		patientId.put("id", patient);
+	    		patientIdList.put(patientId);
+	    		patientList.put("patients", patientIdList);
+	    	}
 	    	return new JsonRepresentation(patientList);
     	} 
     	 catch (JSONException e) {
