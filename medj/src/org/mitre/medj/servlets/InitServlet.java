@@ -30,6 +30,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.mitre.medj.WebUtils;
+import org.mitre.medj.util.VelocityUtil;
 
 /**
  *  This allows for initial MedCafe setup, inlcuding
@@ -82,6 +83,12 @@ public class InitServlet extends HttpServlet
         String base_path = config.getServletContext().getRealPath( "/" );
         WebUtils.BASE_DIR = base_path;
 
+        /* Configure velocity */
+        Properties p = new Properties();
+        p.setProperty("file.resource.loader.path", base_path + "WEBINF/templates" );
+        p.setProperty("runtime.log", base_path + "../../logs/velocity_example.log");
+        VelocityUtil.init(p);
+
         String tempdir = String.valueOf(getServletContext() .getAttribute("javax.servlet.context.tempdir"));
         String serverName = String.valueOf(getServletContext() .getInitParameter("server.host"));
         String webapp = new File(tempdir).getName();  //could this be replaced by ServletContext.getServletContextName() ???
@@ -92,22 +99,21 @@ public class InitServlet extends HttpServlet
         else webapp = "/" + webapp;
         getServletContext().setAttribute("js",  webapp + "/js");
         getServletContext().setAttribute("css",  webapp + "/css");
-      /*
+       /*
          *  Grab the name for the currently deployed webapp.  It's possible this could be in error if the webapp is deployed
          *  as a subdirectory (i.e., The docbase is http://localhost:8080/first/sub).  If this ever gets deployed that way it will
          *  have to be fixed.
          */
-       
         log.finer("Attributes set in InitServlet");
 
-        
+
         /* Any other set up */
         try{
-       
+
         }
         catch (Exception e)
         {
-        		log.severe("Error reading Repositories.xml file: " + e.getMessage());
+            log.severe("Error reading Repositories.xml file: " + e.getMessage());
         }
         log.exiting(KEY, "init()");
     }
