@@ -1,0 +1,231 @@
+  <ContinuityOfCareRecord xmlns='urn:astm-org:CCR'>
+    <CCRDocumentObjectID>Doc</CCRDocumentObjectID>
+    <Language><Text>English</Text></Language>
+    <Version>V1.0</Version>
+    <DateTime><ExactDateTime>2008</ExactDateTime></DateTime>
+    <Patient><ActorID>Patient</ActorID></Patient>
+    <Body>
+      <Problems>
+        <Problem>
+          <DateTime>
+            <Type>
+              <Text>Start date</Text>
+            </Type>
+            <ExactDateTime>2007-04-04T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <DateTime>
+            <Type>
+              <Text>Stop date</Text>
+            </Type>
+            <ExactDateTime>2008-07-20T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <Description>
+            <Code>
+              <Value>346.80</Value>
+              <CodingSystem>ICD9</CodingSystem>
+              <Version>2004</Version>
+            </Code>
+          </Description>
+          <Status><Text>Active</Text></Status>
+          <Source>
+            <Actor>
+              <ActorID>Harris Smith</ActorID>
+              <ActorRole>
+                <Text>Treating clinician</Text>
+              </ActorRole>
+            </Actor>
+          </Source>
+        </Problem>
+      </Problems>
+      <Medications>
+        <Medication>
+          <Product>
+            <ProductName>
+              <Code>
+                <Value>49884058401</Value>
+                <CodingSystem>NDC</CodingSystem>
+              </Code>
+            </ProductName>
+            <Strength><Value>160</Value><Units><Unit>MG</Unit></Units></Strength>
+            <Form><Text>Tablet</Text></Form>
+          </Product>
+          <Directions>
+            <Direction><Route><Text>Oral</Text></Route><Dose><Value>2</Value></Dose><Frequency><Value>1 time per day</Value></Frequency></Direction>
+          </Directions>
+          <Refills>
+            <Refill><Number>2</Number></Refill>
+          </Refills>
+          <FulfillmentHistory>
+            <Fulfillment>
+              <Quantity><Value>30</Value></Quantity>
+              <DateTime>
+                <Type>
+                  <Text>Dispense date</Text>
+                </Type>
+                <ExactDateTime>2008-06-22T07:00:00Z</ExactDateTime>
+              </DateTime>
+              <IDs>
+                <Type>
+                  <Text>Prescription ID</Text>
+                </Type>
+                <ID>#92033859</ID>
+              </IDs>
+            </Fulfillment>
+          </FulfillmentHistory>
+          <DateTime>
+            <Type>
+              <Text>Prescription date</Text>
+            </Type>
+            <ExactDateTime>2008-06-21T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <DateTime>
+            <Type>
+              <Text>Start date</Text>
+            </Type>
+            <ExactDateTime>2008-06-22T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <DateTime>
+            <Type>
+              <Text>Stop date</Text>
+            </Type>
+            <ExactDateTime>2008-07-10T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <Status><Text>ACTIVE</Text></Status>
+          <Source>
+            <Actor>
+              <ActorID>Emily Smith</ActorID>
+              <ActorRole>
+                <Text>Prescribing clinician</Text>
+              </ActorRole>
+            </Actor>
+          </Source>
+        </Medication>
+      </Medications>
+      <Alerts>
+        <Alert>
+          <DateTime>
+            <Type>
+              <Text>Start date</Text>
+            </Type>
+            <ExactDateTime>2007-02-21T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <DateTime>
+            <Type>
+              <Text>Stop date</Text>
+            </Type>
+            <ExactDateTime>2008-02-21T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <Type><Text>Allergy</Text></Type>
+          <Status>
+            <Text>Active</Text>
+          </Status>
+          <Description>
+            <Code>
+              <Value>7101-6</Value>
+              <CodingSystem>FDB</CodingSystem>
+            </Code>
+          </Description>
+          <Source>
+            <Actor>
+              <ActorID>Bob Smith</ActorID>
+              <ActorRole>
+                <Text>Treating clinician</Text>
+              </ActorRole>
+            </Actor>
+          </Source>
+        </Alert>
+      </Alerts>
+      <Procedures>
+        <Procedure>
+          <DateTime>
+            <Type><Text>Start date</Text></Type>
+            <ExactDateTime>2007-04-04T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <DateTime>
+            <Type><Text>Stop date</Text></Type>
+            <ExactDateTime>2007-04-05T07:00:00Z</ExactDateTime>
+          </DateTime>
+          <Description>
+            <Code>
+              <Value>41135</Value>
+              <CodingSystem>CPT</CodingSystem>
+            </Code>
+          </Description>
+          <Source>
+            <Actor>
+              <ActorID>Tom Smith</ActorID>
+              <ActorRole>
+                <Text>Treating clinician</Text>
+              </ActorRole>
+            </Actor>
+          </Source>
+        </Procedure>
+      </Procedures>
+      <Results>
+        <Result>
+          <Test>
+            <DateTime>
+              <Type>
+                <Text>Collection start date</Text>
+              </Type>
+              <ExactDateTime>2007-02-21T07:00:00Z</ExactDateTime>
+            </DateTime>
+            <Description>
+              <Code>
+                <Value>2339-0</Value>
+                <CodingSystem>LOINC</CodingSystem>
+              </Code>
+            </Description>
+            <TestResult>
+              <Value>98</Value>
+              <Units>
+                <Unit>K/uL</Unit>
+              </Units>
+            </TestResult>
+            <NormalResult>
+              <Normal>
+                <Description>
+                  <Text>90 - 100</Text>
+                </Description>
+              </Normal>
+            </NormalResult>
+            <Source>
+              <Actor>
+                <ActorID>Jane Smith</ActorID>
+                <ActorRole>
+                  <Text>Ordering clinician</Text>
+                </ActorRole>
+              </Actor>
+            </Source>
+          </Test>
+        </Result>
+      </Results>
+      <Immunizations>
+        <Immunization>
+          <CCRDataObjectID>BB0022</CCRDataObjectID>
+          <DateTime>
+            <Type>
+              <Text>Start date</Text>
+            </Type>
+            <ExactDateTime>1998-06-13T05:00:00Z</ExactDateTime>
+          </DateTime>
+          <Source>
+            <Actor>
+              <ActorID>Jane Smith</ActorID>
+              <ActorRole>
+                <Text>Ordering clinician</Text>
+              </ActorRole>
+            </Actor>
+          </Source>
+          <Product>
+            <ProductName>
+              <Code>
+                <Value>90296</Value>
+                <CodingSystem>CPT</CodingSystem>
+              </Code>
+            </ProductName>
+          </Product>
+        </Immunization>
+      </Immunizations>
+    </Body>
+  </ContinuityOfCareRecord>

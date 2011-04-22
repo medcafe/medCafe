@@ -21,7 +21,7 @@
 				var len = patientList.length;
 				for (i=0;i<len;i++)
 	  			{
-	  			   patientHtml = "<a href=\"ccr/patients/" + patientList[i] + "\">" + patientList[0] + "</a><br/>";
+	  			   patientHtml = "<a href=\"ccr/patients/" + patientList[i] + "\">" + patientList[i] + "</a><br/>";
 	  				$("#patientList").append(patientHtml);
 	  			}
 	  			

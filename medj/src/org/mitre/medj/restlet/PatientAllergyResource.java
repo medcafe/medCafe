@@ -27,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medj.jaxb.ContinuityOfCareRecord;
+import org.mitre.medj.jaxb.ContinuityOfCareRecord.Body.Alerts;
+import org.mitre.medj.jaxb.ContinuityOfCareRecord.Body.Medications;
 import org.mitre.medj.util.Patients;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
@@ -37,47 +39,47 @@ import org.mitre.medj.WebUtils;
 import com.google.gson.Gson;
 
 
-public class MedJResource extends ServerResource {
+public class PatientAllergyResource extends MedJResource {
 
-    public final static String KEY = MedJResource.class.getName();
+    public final static String KEY = PatientAllergyResource.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
 
-    public final static String ID = "id";
+    /** The sequence of characters that identifies the resource. */
 
-    /* If any info given on name of patient - use these attributes for searching for patient Ids*/
-
-    private String id;
-    private ContinuityOfCareRecord ccr;
-    
-
-/**
+   /**
      *  Grab the information from the url
      */
     @Override
     protected void doInit() throws ResourceException {
-    	this.id = (String) getRequest().getAttributes().get("id");
+
+    	super.doInit();
+
     }
 
     @Get("json")
     public JsonRepresentation toJson(){
-      
+        
+    	JsonRepresentation rtn = super.toJson();
+    	//If anything here then there is an issue
+    	if (rtn != null)
+    		return rtn;
+    	
     	try {
-	    	ccr = Patients.getCCR(id);
-	      	if (ccr == null)
-	        {	
-				ccr = WebUtils.loadCCR(id);
-				if (ccr == null)
-				{
-					return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for CCR:Could not find file" ) );				  
-				}
-				
+    		ContinuityOfCareRecord ccr =  getCCR();
+	        
+    		Alerts alerts = ccr.getBody().getAlerts();
+    		System.out.println("PatientAllergyResource: alerts " + alerts);
+	        if (alerts == null)
+	        {
+	        	return new JsonRepresentation(WebUtils.buildErrorJson( "No alerts found" ) );  
 	        }
-	        Gson gson = new Gson();
-	        //This is to indidate that there is no problem
+    		Gson gson = new Gson();
 	        if ( ccr!= null)
             {
-            	return null;
+            	String jsonString = gson.toJson(alerts);
+                JSONObject obj = new JSONObject(jsonString);
+                return new JsonRepresentation(obj);
             }
             else
             {
@@ -85,27 +87,13 @@ public class MedJResource extends ServerResource {
   
             }
     	} 
-    	catch (FileNotFoundException e) 
-    	{
+    	catch (JSONException e) {
 			// TODO Auto-generated catch block
-    		return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for CCR: Error " + e.getMessage() ));
+			return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for CCR: Error " + e.getMessage() ));
 
-		} 
-    	catch (JAXBException e) {
-			// TODO Auto-generated catch block
-    		return new JsonRepresentation(WebUtils.buildErrorJson( "Problem oncreation of JSON for CCR: Error " + e.getMessage() ));
-
-		} 
+		}
     }
 
 
-    protected String getId()
-    {
-    	return this.id;
-    }
    
-    protected ContinuityOfCareRecord getCCR()
-    {
-    	return this.ccr;
-    }
 }
