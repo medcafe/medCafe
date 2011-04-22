@@ -71,7 +71,7 @@ public class Convert extends HttpServlet
             	String jsonString = gson.toJson(p);
             	//Makes it consistent with the JSONRepresentation on Restlet side of things
             	JSONObject obj = new JSONObject(jsonString);
-                out.write(obj.toString());
+                response.sendRedirect("patientList.jsp");
             }
             else
             {

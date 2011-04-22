@@ -328,6 +328,8 @@ public class WebUtils
     
     public static File createFile( String pathName, String fileName, String patientId) throws JAXBException, IOException
     {
+    	patientId = patientId.replace(" ", "");
+		
     	File path = new File(pathName + "/" +CCR_DIR + "/" + patientId ); 
 		if (!path.exists())
 		{
@@ -419,6 +421,8 @@ public class WebUtils
 	
 	public static ContinuityOfCareRecord loadCCR(String patientId) throws FileNotFoundException, JAXBException
 	{
+		patientId = patientId.replace(" ", "");
+		
 		return WebUtils.loadCCRFromFile(WebUtils.BASE_DIR  + "/" + CCR_DIR+ "/" + patientId + "/" + patientId + ".xml");
 	}
 	
