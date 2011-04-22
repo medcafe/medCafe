@@ -35,10 +35,14 @@ public class MedJApplication extends Application {
         router.attach("/patients/{id}",org.mitre.medj.restlet.PatientListResource.class);
         router.attach("/patients/{id}/medications",org.mitre.medj.restlet.PatientMedicationResource.class);
         router.attach("/patients/{id}/alerts",org.mitre.medj.restlet.PatientAllergyResource.class);
-        router.attach("/patients/{id}/immunizations",org.mitre.medj.restlet.PatientImmunizationResourse.class);
+        router.attach("/patients/{id}/immunizations",org.mitre.medj.restlet.PatientImmunizationResource.class);
         router.attach("/patients/{id}/family",org.mitre.medj.restlet.PatientFamilyHistoryResource.class);
         router.attach("/patients/{id}/procedure",org.mitre.medj.restlet.PatientProcedureResource.class);
+        router.attach("/patients/{id}/vitalSigns",org.mitre.medj.restlet.PatientVitalSignsResource.class);
+        router.attach("/patients/{id}/problems",org.mitre.medj.restlet.PatientProblemsResource.class);
+        router.attach("/patients/{id}/socialHistory",org.mitre.medj.restlet.PatientSocialHistoryResource.class);
          
+        
         return router;
     }
 
