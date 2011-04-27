@@ -54,9 +54,12 @@ public class PatientCache extends TimerTask {
     protected String photo = null;
     protected boolean[] finished = {false, false, false};
     private String primaryRepos = "";
+    private String primaryReposId = "";
     protected HashMap<String, JSONObject> vitalsMap = null;
     protected HashMap<String, JSONObject> patientDataHash = null;
     protected HashMap<String, Integer> dataSourcePriorityMap = null;
+    protected HashMap<String, MedCafeDataSource> dataSourceLookup = null;
+
     //}}}
     //{{{ Constuctors
 
@@ -119,7 +122,7 @@ public class PatientCache extends TimerTask {
                 String repositoryName = repository.getString("repository");
                 
                 if (repositoryName.equals(primaryRepos)) {
-
+                	  primaryReposId = repository.getString("id");
                     repos.add(0, repository);
                 } else {
                     repos.add(repository);
@@ -140,7 +143,7 @@ public class PatientCache extends TimerTask {
     public void run() {
         log.entering(KEY, "run()");
         dataSourcePriorityMap = new HashMap<String, Integer>();
-
+			dataSourceLookup = new HashMap<String, MedCafeDataSource>();
         //get access point
         MedcafeApplication app = (MedcafeApplication) application.getAttribute("org.restlet.ext.servlet.ServerServlet.application");
         if (app == null) {
@@ -170,6 +173,7 @@ public class PatientCache extends TimerTask {
                 while (dataSourceQueue.size() > 0) {
 
                     MedCafeDataSource currentSource = dataSourceQueue.poll();
+                    dataSourceLookup.put(currentSource.getCacheKey(), currentSource);
                     log.finer("Starting retrieval of " + currentSource.getCacheKey());
                     while (prevPriority < currentSource.getPriority()) {
                         finished[prevPriority] = true;
@@ -316,6 +320,9 @@ public class PatientCache extends TimerTask {
 
 
     }
+    public String getPrimaryReposId() {
+    	return primaryReposId;
+    }
 
     public void setDatabasePatientId(String databasePatientId) {
         this.databasePatientId = databasePatientId;
@@ -385,6 +392,10 @@ public class PatientCache extends TimerTask {
 
     public void setRepoPatientId(String repositoryName, String repositoryId) {
         //this.repoPatientId = repoPatientId;
+    }
+    public String getDataSourceRestlet(String cacheKey)
+    {
+    	return dataSourceLookup.get(cacheKey).getRestlet();
     }
 
     public String getLastName() {

@@ -497,8 +497,7 @@ var t = new StringCat();
 var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.repositoryList) {
-t.p('	<a onclick="alert(\'Method to add a new allergy goes here\')" href="');
-t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>	<div class="repository-content">	');
+t.p('		<div class="repository-content">	');
 var firstRepository = true;
 var loopCount = 0;
 t.p('	');
@@ -513,6 +512,15 @@ t.p('			');
 firstRepository = false;
 loopCount = ( loopCount + 1 );
 t.p('		');
+}
+t.p('		');
+if (firstRepository == true) {
+t.p('		<a onclick="insertDialog(\'');
+t.p( context.cacheKey);
+t.p('\', \'');
+t.p( repos.repository);
+t.p('\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>		');
 }
 t.p('		');
 if (repos.allergies) {

@@ -1,5 +1,5 @@
 #if ($repositoryList)
-	<a onclick="alert('Method to add a new allergy goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+	
 
 	<div class="repository-content">
 	#set ($firstRepository = true)
@@ -11,6 +11,9 @@
 			$repos.announce.message
 			#set ($firstRepository = false)
 			#set ($loopCount = $loopCount + 1)
+		#end
+		#if ($firstRepository== true)
+		<a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 		#end
 		#if ($repos.allergies)
 			#if ($firstRepository != true)

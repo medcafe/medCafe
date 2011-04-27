@@ -526,6 +526,7 @@ $(document).ready( function() {
 			//		alert(data);
 					var dataObject = JSON.parse(  data);
 					dataObject.widget_id = widgetInfo.id;
+					dataObject.cacheKey = widgetInfo.cacheKey;
 					//dataObject.tabNum = widgetInfo.tab_num
 					processScripts(callObj, widgetInfo, dataObject, tab_set);
 				}

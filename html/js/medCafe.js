@@ -1,6 +1,7 @@
 var addListeners = true;
 var nextWidgetNum = 1;
 
+
 $(document).ready( function() {
 		var tabSelectedId;
 
@@ -93,13 +94,13 @@ $(document).ready( function() {
     	);
 
 		$.get('menuContent.html', function(data){
-			$('#flat').menu({
+			$('#flat').fgMenu({
 				content: data
 			});
 		});
 
 		$.get('templateMenuContent.jsp', function(data){
-			$('#template').menu({
+			$('#template').fgMenu({
 				content: data
 			});
 		});
@@ -107,6 +108,10 @@ $(document).ready( function() {
 		$('#prefs').click(function () {
 			
 			processMenuClick("Preferences",1);
+        });
+        $('#refreshCache').click(function () {
+			
+			processMenuClick("Refresh Patient Cache");
         });
             
 		

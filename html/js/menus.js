@@ -145,6 +145,11 @@ function processMenuClick(menuLabel, patientId)
 		
 		showPreferences();
 	}
+	else if (menuLabel.indexOf("Refresh Patient Cache") > -1)
+	{
+		 refreshCache();
+		 
+	}
 	else
 	{
 		copyAndRetrieve("",patientId, menuLabel);	

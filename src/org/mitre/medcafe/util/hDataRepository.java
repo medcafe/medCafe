@@ -207,12 +207,12 @@ public class hDataRepository extends Repository
 		hDataUrl = credMap.get(Repository.HOST_URL) + ":" + credMap.get(Repository.PORT);
     	credentials = credMap;
     }
-    public Collection<Reaction> generateAllergyReactionList()
+    public TreeSet<Reaction> generateAllergyReactionList()
     {
         return null;
     }
 
-    public Collection<Product> generateAllergyReactantList()
+    public TreeSet<Product> generateAllergyReactantList()
     {
         return null;
     }

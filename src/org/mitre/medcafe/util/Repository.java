@@ -48,8 +48,10 @@ public abstract class Repository {
     public static final String REPOSITORY_NAME = "name";
     public static final String REPOSITORY_ITEM = "repository";
     public static final String REPOSITORIES = "repositories";
-    protected JSONObject allergyReactantObject = null;
-    protected JSONObject allergyReactionObject = null;
+
+
+    protected TreeSet<Product> prodSet;
+    protected TreeSet<Reaction> reactionSet;
     private ReentrantReadWriteLock allergyReactantLock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock allergyReactionLock = new ReentrantReadWriteLock(true);
     private Timer updateTableTimer;
@@ -201,62 +203,102 @@ public abstract class Repository {
         return History.getHistory(local_id, category, startDate, endDate);
     }
 
-    public JSONObject getAllergyReactantObject() {
+    public JSONObject getAllergyReactantObject(String search) {
         try {
             allergyReactantLock.readLock().lock();
-            return allergyReactantObject;
+            Product first = new Product();
+            Product last = new Product();
+            first.setDisplayName(search);
+            first.setValue(search);
+            
+            last.setDisplayName(search.substring(0,search.length()-1) + String.valueOf((char)(search.charAt(search.length()-1) + 1)));
+            last.setValue(last.getDisplayName());
+             ArrayList<Product> products = new ArrayList<Product>();
+             products.addAll(prodSet.subSet(first, true, last, false));
+            JSONObject retObj = WebUtils.bundleJsonResponseObject("allergenList", products);
+            return retObj;
         } finally {
             allergyReactantLock.readLock().unlock();
         }
     }
-
-    public JSONObject getAllergyReactionObject() {
+ public JSONObject getAllergyReactionObject(String search) {
         try {
+        		ArrayList<Reaction> reactions = new ArrayList<Reaction>();
             allergyReactionLock.readLock().lock();
-            return allergyReactionObject;
+            if (search == null ||search.equals(""))
+            {
+            	reactions.addAll(reactionSet);
+            }
+            else
+            {
+           		Reaction first = new Reaction();
+            	Reaction last = new Reaction();
+            first.setDisplayName(search);
+            first.setValue(search);
+            
+            last.setDisplayName(search.substring(0,search.length()-1) + String.valueOf((char)(search.charAt(search.length()-1) + 1)));
+            last.setValue(last.getDisplayName());
+             reactions.addAll(reactionSet.subSet(first, true, last, false));
+             }
+            JSONObject retObj = WebUtils.bundleJsonResponseObject("reactionList", reactions);
+            return retObj;
         } finally {
             allergyReactionLock.readLock().unlock();
         }
     }
 
+
     public synchronized void createAllergyReactionObject() {
-        Collection<Reaction> reactList = generateAllergyReactionList();
+        TreeSet<Reaction> reactList = generateAllergyReactionList();
         try {
             allergyReactionLock.writeLock().lock();
-            if (reactList != null && reactList.size() > 0) {
-                allergyReactionObject = WebUtils.bundleJsonResponseObject("allergy reaction list", reactList);
-            } else {
-                allergyReactionObject = WebUtils.buildErrorJson("Error creating reaction list");
-            }
+            reactionSet = reactList;
         } finally {
             allergyReactionLock.writeLock().unlock();
         }
     }
 
     public synchronized void createAllergyReactantObject() {
-        Collection<Product> prodList = generateAllergyReactantList();
+        TreeSet<Product> prodList = generateAllergyReactantList();
         try {
             allergyReactantLock.writeLock().lock();
-            if (prodList != null && prodList.size() > 0) {
-
-                allergyReactantObject = WebUtils.bundleJsonResponseObject("allergy reactants list", prodList);
-            } else {
-                allergyReactantObject = WebUtils.buildErrorJson("Error getting list of allergy reactants");
-            }
+				prodSet = prodList;
         } finally {
             allergyReactantLock.writeLock().unlock();
         }
 
     }
 
-    public abstract Collection<Reaction> generateAllergyReactionList();
+    public abstract TreeSet<Reaction> generateAllergyReactionList();
 
-    public abstract Collection<Product> generateAllergyReactantList();
+    public abstract TreeSet<Product> generateAllergyReactantList();
 
     public void updateLookupTables()
     {
         createAllergyReactantObject();
         createAllergyReactionObject();
+    }
+            public class ProductComparator implements Comparator<Product>
+    {
+    	public ProductComparator()
+    	{
+    		super();
+    	}
+    	public int compare(Product a, Product b)
+    	{
+    		return (a.getDisplayName().compareToIgnoreCase(b.getDisplayName()));
+    	}
+    }
+    public class ReactionComparator implements Comparator<Reaction>
+    {
+    	public ReactionComparator()
+    	{
+    		super();
+    	}
+    	public int compare(Reaction a, Reaction b)
+    	{
+    		return (a.getDisplayName().compareToIgnoreCase(b.getDisplayName()));
+    	}
     }
 
 }

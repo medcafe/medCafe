@@ -90,8 +90,8 @@ public class VistaRepository extends Repository {
     public final static Logger log = Logger.getLogger(KEY);
     private TreeSet<AllergyAgent> vistaAgents;
     private TreeSet<FMSignSymptom> vistaReactions;
-    private ReentrantReadWriteLock vistaAgentLock = null;
-    private ReentrantReadWriteLock vistaReactionLock = null;
+    private ReentrantReadWriteLock vistaAgentLock;
+    private ReentrantReadWriteLock vistaReactionLock;
     // static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
@@ -575,7 +575,7 @@ public class VistaRepository extends Repository {
                     String symptoms = "";
                     for (FMPatientAllergyReaction react : a.getReactions().values()) {
                         if (!symptoms.equals("")) {
-                            symptoms = symptoms + "; ";
+                            symptoms = symptoms + ", ";
                         }
                         symptoms = symptoms + react.getReactionValue();
                     }
@@ -583,10 +583,11 @@ public class VistaRepository extends Repository {
                     allergy.setReaction(re);
                     String code = "";
                     String val = "";
-                    if (a.getAllergy().equals(FMPatient_Allergies.FOOD_ALLERGY)) {
+                    log.severe(a.getAllergyType());
+                    if (a.getAllergyType().equals(FMPatient_Allergies.FOOD_ALLERGY)) {
                         code = "414285001";
                         val = "food allergy";
-                    } else if (a.getAllergy().equals(FMPatient_Allergies.DRUG_ALLERGY)) {
+                    } else if (a.getAllergyType().equals(FMPatient_Allergies.DRUG_ALLERGY)) {
                         code = "416098002";
                         val = "drug allergy";
                     } else {
@@ -597,6 +598,7 @@ public class VistaRepository extends Repository {
 
                     advEventType.setCode(code);
                     advEventType.setDisplayName(val);
+                    advEventType.setValue(val);
                     advEventType.setCodeSystem("2.16.840.1.113883.6.96");
                     advEventType.setCodeSystemName("SNOMED CT");
                     allergy.setAdverseEventType(advEventType);
@@ -661,7 +663,7 @@ public class VistaRepository extends Repository {
 
                     String reactionList = allergy.getReaction().getValue();
 
-                    String[] reacts = reactionList.split(";");
+                    String[] reacts = reactionList.split(",");
                     for (int i = 0; i< reacts.length; i++) {
                       
          
@@ -731,7 +733,7 @@ public class VistaRepository extends Repository {
                 success = insertAllergies(patientId, insertList);
             }
         } catch (OvidDomainException ovidE) {
-            log.severe("Error inserting patient allergies.");
+            log.severe("Error modifiying patient allergies.");
             success = false;
         } finally {
             closeConnection(conn);
@@ -743,12 +745,13 @@ public class VistaRepository extends Repository {
     public boolean insertAllergies(String patientId, Collection<Allergy> allergies) {
         boolean success = true;
         RPCConnection conn = null;
+        FMPatient_Allergies fmAllergy = null;
         try {
             conn = setConnection();
             PatientAllergyRepository patAllergyRepo = new PatientAllergyRepository(conn);
             for (Allergy allergy : allergies) {
                 try {
-                    FMPatient_Allergies fmAllergy = new FMPatient_Allergies();
+                    fmAllergy = new FMPatient_Allergies();
                     fmAllergy.setPatient(Integer.parseInt(patientId));
 
 
@@ -757,7 +760,7 @@ public class VistaRepository extends Repository {
                     vistaAgentLock.readLock().lock();
                     AllergyAgent returnAgent = vistaAgents.floor(lookupAgent);
                     // if the specified allergy exists in the table, proceed to build allergy record;
-                    if (returnAgent.getDisplayName().compareToIgnoreCase(lookupAgent.getDisplayName())==0) {
+                    if (returnAgent != null && returnAgent.getDisplayName().compareToIgnoreCase(lookupAgent.getDisplayName())==0) {
         
                         fmAllergy.setAllergy(returnAgent.getLookupFile().getFilenum(), returnAgent.getAllergenRecord().getIEN());
                         fmAllergy.setReactant(returnAgent.getDisplayName().toUpperCase());
@@ -769,7 +772,7 @@ public class VistaRepository extends Repository {
                         comment.setComments(allergy.getNarrative());
                         fmAllergy.addComments(comment);
                         String reactionList = allergy.getReaction().getValue();
-                        String[] reacts = reactionList.split(";");
+                        String[] reacts = reactionList.split(",");
                         for (String react : reacts) {
                             FMPatientAllergyReaction fmReact = new FMPatientAllergyReaction();
                             fmReact.setDateEntered(allergy.getAdverseEventDate().getLow().toGregorianCalendar().getTime());
@@ -808,11 +811,12 @@ public class VistaRepository extends Repository {
                         } else if (allergy.getAdverseEventType().getCode().equals("419199007")) {
                             fmAllergy.setAllergyType(FMPatient_Allergies.OTHER_ALLERGY);
                         }
+
                         patAllergyRepo.addAllergy(fmAllergy);
       
 
                     } else {
-                        log.severe("Can't insert allergy to " + allergy.getProduct().getDisplayName()
+                        log.severe("Can't insert allergy to " + allergy.getProduct().getValue()
                                 + " no match found.");
                         success = false;
                     }
@@ -825,6 +829,14 @@ public class VistaRepository extends Repository {
                 } catch (InsertFileManRecordException insertE) {
                     log.severe(insertE.getMessage() + " for patient id: " + patientId + ", allergen: " + allergy.getProduct().getDisplayName());
                     success = false;
+                }
+                catch(Exception e)
+                {
+                	log.severe(e.getMessage());
+                	success = false;
+                	e.printStackTrace();
+                	if (fmAllergy!= null)
+                		log.severe(fmAllergy.toString());
                 }
                 finally{
                     vistaAgentLock.readLock().unlock();
@@ -1794,7 +1806,7 @@ public class VistaRepository extends Repository {
         }
     }
 
-    public Collection<Reaction> generateAllergyReactionList() {
+    public TreeSet<Reaction> generateAllergyReactionList() {
         if (vistaReactionLock == null)
         {
         		vistaReactionLock = new ReentrantReadWriteLock();
@@ -1814,15 +1826,15 @@ public class VistaRepository extends Repository {
                 vistaReactionLock.writeLock().unlock();
                 }
                 vistaReactionLock.readLock().lock();
-                Collection<Reaction> reactColl;
+                TreeSet<Reaction> reactColl;
                 try{
                 String message = "Number of reactions is " + vistaReactions.size();
                 log.finer(message);
-                reactColl = new ArrayList<Reaction>();
+                reactColl = new TreeSet<Reaction>(new ReactionComparator());
 
                 for (FMSignSymptom symptom : vistaReactions) {
                     Reaction react = new Reaction();
-                    react.setDisplayName(symptom.getName());
+                    react.setDisplayName(capitalizeString(symptom.getName()));
                     reactColl.add(react);
 
                 }
@@ -1845,7 +1857,7 @@ public class VistaRepository extends Repository {
         return null;
     }
 
-    public Collection<Product> generateAllergyReactantList() {
+    public TreeSet<Product> generateAllergyReactantList() {
         RPCConnection conn = null;
         if (vistaAgentLock == null)
         {
@@ -1865,16 +1877,16 @@ public class VistaRepository extends Repository {
                 vistaAgentLock.writeLock().unlock();
                 }
                 vistaAgentLock.readLock().lock();
-                Collection<Product> prodColl;
+                TreeSet<Product> prodColl;
                 try{
                 String message = "Number of allergy agents is " + vistaAgents.size();
                 log.finer(message);
-                prodColl = new ArrayList<Product>();
+                prodColl = new TreeSet<Product>(new ProductComparator());
 
                 for (AllergyAgent agent : vistaAgents) {
                     Product prod = new Product();
-                    prod.setDisplayName(agent.getDisplayName());
-                    prod.setValue(agent.getAllergen().getName());
+                    prod.setDisplayName(capitalizeString(agent.getDisplayName()));
+                    prod.setValue(capitalizeString(agent.getAllergen().getName()));
                     prodColl.add(prod);
 
                 }
@@ -1896,4 +1908,5 @@ public class VistaRepository extends Repository {
 
         return null;
     }
+
 }

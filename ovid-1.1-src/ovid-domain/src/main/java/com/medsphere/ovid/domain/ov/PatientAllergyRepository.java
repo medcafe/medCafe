@@ -56,6 +56,9 @@ import com.medsphere.fmdomain.InsertFileManRecordException;
 import com.medsphere.fmdomain.InvalidFileManFieldValueException;
 import com.medsphere.fmdomain.ModifiedKeyFileManFieldException;
 
+import com.medsphere.ovid.model.domain.AllergyAgent;
+import com.medsphere.ovid.model.domain.Allergen;
+
 
 import com.medsphere.resource.ResAdapter;
 import com.medsphere.resource.ResException;
@@ -316,6 +319,10 @@ public class PatientAllergyRepository extends OvidSecureRepository {
         {
             throw insertE;
         }
+    }
+    public void setReactant(FMPatient_Allergies allergy, AllergyAgent agent) throws ModifiedKeyFileManFieldException
+    {
+    	allergy.setAllergy(agent.getLookupFile().getFilenum(), agent.getAllergen().getIen());
     }
 
     public void addAllergy(FMPatient_Allergies allergy, Date reactDate, Integer severityCode) throws OvidDomainException, InsertFileManRecordException {

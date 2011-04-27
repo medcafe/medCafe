@@ -11,33 +11,33 @@ Dual licensed under the MIT (filamentgroup.com/examples/mit-license.txt) and GPL
 --------------------------------------------------------------------*/
 
 
-var allUIMenus = [];
+var allUIFGMenus = [];
 
-$.fn.menu = function(options){
+$.fn.fgMenu = function(options){
 	var caller = this;
 	var options = options;
-	var m = new Menu(caller, options);	
-	allUIMenus.push(m);
+	var m = new FGMenu(caller, options);	
+	allUIFGMenus.push(m);
 	$(this)
 	.mousedown(function(){
-		if (!m.menuOpen) { m.showLoading(); };
+		if (!m.fgMenuOpen) { m.showLoading(); };
 	})	
 	.click(function(){
 	
-		if (m.menuOpen == false) { m.showMenu(); }
+		if (m.fgMenuOpen == false) { m.showFGMenu(); }
 		else { m.kill(); };
 		
 		return false;
 	});	
 };
 
-function Menu(caller, options){
-	var menu = this;
+function FGMenu(caller, options){
+	var fgMenu = this;
 	var caller = $(caller);
 	var container = $('<div class="fg-menu-container ui-widget ui-widget-content ui-corner-all">'+options.content+'</div>');
 	
-	this.menuOpen = false;
-	this.menuExists = false;
+	this.fgMenuOpen = false;
+	this.fgMenuExists = false;
 	
 	var options = jQuery.extend({
 		content: null,
@@ -66,14 +66,14 @@ function Menu(caller, options){
 		backLinkText: 'Back',
 		flyOut: false, // multi-level menus are ipod-style by default; this parameter overrides to make a flyout instead
 		flyOutOnState: 'ui-state-default',
-		nextMenuLink: 'ui-icon-triangle-1-e', // class to style the link (specifically, a span within the link) used in the multi-level menu to show the next level
+		nextFGMenuLink: 'ui-icon-triangle-1-e', // class to style the link (specifically, a span within the link) used in the multi-level menu to show the next level
 		topLinkText: 'All',
 		nextCrumbLink: 'ui-icon-carat-1-e'	
 	}, options);
 	
-	var killAllMenus = function(){
-		$.each(allUIMenus, function(i){
-			if (allUIMenus[i].menuOpen) { allUIMenus[i].kill(); };	
+	var killAllFGMenus = function(){
+		$.each(allUIFGMenus, function(i){
+			if (allUIFGMenus[i].fgMenuOpen) { allUIFGMenus[i].kill(); };	
 		});
 	};
 	
@@ -85,11 +85,11 @@ function Menu(caller, options){
 		container.find('li').removeClass(options.linkHoverSecondary).find('a').removeClass(options.linkHover);		
 		if (options.flyOutOnState) { container.find('li a').removeClass(options.flyOutOnState); };	
 		if (options.callerOnState) { 	caller.removeClass(options.callerOnState); };			
-		if (container.is('.fg-menu-ipod')) { menu.resetDrilldownMenu(); };
-		if (container.is('.fg-menu-flyout')) { menu.resetFlyoutMenu(); };	
+		if (container.is('.fg-menu-ipod')) { fgMenu.resetDrilldownFGMenu(); };
+		if (container.is('.fg-menu-flyout')) { fgMenu.resetFlyoutFGMenu(); };	
 		container.parent().hide();	
-		menu.menuOpen = false;
-		$(document).unbind('click', killAllMenus);
+		fgMenu.fgMenuOpen = false;
+		$(document).unbind('click', killAllFGMenus);
 		$(document).unbind('keydown');
 	};
 	
@@ -97,17 +97,17 @@ function Menu(caller, options){
 		caller.addClass(options.loadingState);
 	};
 
-	this.showMenu = function(){
-		killAllMenus();
-		if (!menu.menuExists) { menu.create() };
+	this.showFGMenu = function(){
+		killAllFGMenus();
+		if (!fgMenu.fgMenuExists) { fgMenu.create() };
 		caller
 			.addClass('fg-menu-open')
 			.addClass(options.callerOnState);
-		container.parent().show().click(function(){ menu.kill(); return false; });
+		container.parent().show().click(function(){ fgMenu.kill(); return false; });
 		container.hide().slideDown(options.showSpeed).find('.fg-menu:eq(0)');
-		menu.menuOpen = true;
+		fgMenu.fgMenuOpen = true;
 		caller.removeClass(options.loadingState);
-		$(document).click(killAllMenus);
+		$(document).click(killAllFGMenus);
 		
 		// assign key events
 		$(document).keydown(function(event){
@@ -116,16 +116,16 @@ function Menu(caller, options){
 			else if (event.charCode != "") { e = event.charCode; }
 			else if (event.keyCode != "") { e = event.keyCode; }
 			
-			var menuType = ($(event.target).parents('div').is('.fg-menu-flyout')) ? 'flyout' : 'ipod' ;
+			var fgMenuType = ($(event.target).parents('div').is('.fg-menu-flyout')) ? 'flyout' : 'ipod' ;
 			
 			switch(e) {
 				case 37: // left arrow 
-					if (menuType == 'flyout') {
+					if (fgMenuType == 'flyout') {
 						$(event.target).trigger('mouseout');
 						if ($('.'+options.flyOutOnState).size() > 0) { $('.'+options.flyOutOnState).trigger('mouseover'); };
 					};
 					
-					if (menuType == 'ipod') {
+					if (fgMenuType == 'ipod') {
 						$(event.target).trigger('mouseout');
 						if ($('.fg-menu-footer').find('a').size() > 0) { $('.fg-menu-footer').find('a').trigger('click'); };
 						if ($('.fg-menu-header').find('a').size() > 0) { $('.fg-menu-current-crumb').prev().find('a').trigger('click'); };
@@ -150,10 +150,10 @@ function Menu(caller, options){
 					
 				case 39: // right arrow 
 					if ($(event.target).is('.fg-menu-indicator')) {						
-						if (menuType == 'flyout') {
+						if (fgMenuType == 'flyout') {
 							$(event.target).next().find('a:eq(0)').trigger('mouseover');
 						}
-						else if (menuType == 'ipod') {
+						else if (fgMenuType == 'ipod') {
 							$(event.target).trigger('click');						
 							setTimeout(function(){
 								$(event.target).next().find('a:eq(0)').trigger('mouseover');
@@ -176,11 +176,11 @@ function Menu(caller, options){
 					break;
 					
 				case 27: // escape
-					killAllMenus();
+					killAllFGMenus();
 					break;
 					
 				case 13: // enter
-					if ($(event.target).is('.fg-menu-indicator') && menuType == 'ipod') {							
+					if ($(event.target).is('.fg-menu-indicator') && fgMenuType == 'ipod') {							
 						$(event.target).trigger('click');						
 						setTimeout(function(){
 							$(event.target).next().find('a:eq(0)').trigger('mouseover');
@@ -205,12 +205,12 @@ function Menu(caller, options){
 		
 		// when there are multiple levels of hierarchy, create flyout or drilldown menu
 		if (container.find('ul').size() > 1) {
-			if (options.flyOut) { menu.flyout(container, options); }
-			else { menu.drilldown(container, options); }	
+			if (options.flyOut) { fgMenu.flyout(container, options); }
+			else { fgMenu.drilldown(container, options); }	
 		}
 		else {
 			container.find('a').click(function(){
-				menu.chooseItem(this);
+				fgMenu.chooseItem(this);
 				return false;
 			});
 		};	
@@ -219,7 +219,7 @@ function Menu(caller, options){
 			var allLinks = container.find('.fg-menu li a');
 			allLinks.hover(
 				function(){
-					var menuitem = $(this);
+					var fgMenuitem = $(this);
 					$('.'+options.linkHover).removeClass(options.linkHover).blur().parent().removeAttr('id');
 					$(this).addClass(options.linkHover).focus().parent().attr('id','active-menuitem');
 				},
@@ -240,13 +240,13 @@ function Menu(caller, options){
 			);
 		};	
 		
-		menu.setPosition(container, caller, options);
-		menu.menuExists = true;
+		fgMenu.setPosition(container, caller, options);
+		fgMenu.fgMenuExists = true;
 	};
 	
 	this.chooseItem = function(item){
 	
-		menu.kill();
+		fgMenu.kill();
 		// edit this for your own custom function/callback:
 		//$('#menuSelection').text($(item).text());
 			
@@ -256,10 +256,10 @@ function Menu(caller, options){
 	};
 };
 
-Menu.prototype.flyout = function(container, options) {
-	var menu = this;
+FGMenu.prototype.flyout = function(container, options) {
+	var fgMenu = this;
 	
-	this.resetFlyoutMenu = function(){
+	this.resetFlyoutFGMenu = function(){
 		var allLists = container.find('ul ul');
 		allLists.removeClass('ui-widget-content').hide();	
 	};
@@ -271,7 +271,7 @@ Menu.prototype.flyout = function(container, options) {
 		
 		allSubLists.css({ left: linkWidth, width: linkWidth }).hide();
 			
-		$(this).find('a:eq(0)').addClass('fg-menu-indicator').html('<span>' + $(this).find('a:eq(0)').text() + '</span><span class="ui-icon '+options.nextMenuLink+'"></span>').hover(
+		$(this).find('a:eq(0)').addClass('fg-menu-indicator').html('<span>' + $(this).find('a:eq(0)').text() + '</span><span class="ui-icon '+options.nextFGMenuLink+'"></span>').hover(
 			function(){
 				clearTimeout(hideTimer);
 				var subList = $(this).next();
@@ -307,14 +307,14 @@ Menu.prototype.flyout = function(container, options) {
 	});
 	
 	container.find('a').click(function(){
-		menu.chooseItem(this);
+		fgMenu.chooseItem(this);
 		return false;
 	});
 };
 
 
-Menu.prototype.drilldown = function(container, options) {
-	var menu = this;	
+FGMenu.prototype.drilldown = function(container, options) {
+	var fgMenu = this;	
 	var topList = container.find('.fg-menu');	
 	var breadcrumb = $('<ul class="fg-menu-breadcrumb ui-widget-header ui-corner-all ui-helper-clearfix"></ul>');
 	var crumbDefaultHeader = $('<li class="fg-menu-breadcrumb-text">'+options.crumbDefaultText+'</li>');
@@ -330,26 +330,26 @@ Menu.prototype.drilldown = function(container, options) {
 	else { breadcrumb.addClass('fg-menu-header').prependTo(container); };
 	breadcrumb.append(crumbDefaultHeader);
 	
-	var checkMenuHeight = function(el){
+	var checkFGMenuHeight = function(el){
 		if (el.height() > options.maxHeight) { el.addClass('fg-menu-scroll') };	
 		el.css({ height: options.maxHeight });
 	};
 	
-	var resetChildMenu = function(el){ el.removeClass('fg-menu-scroll').removeClass('fg-menu-current').height('auto'); };
+	var resetChildFGMenu = function(el){ el.removeClass('fg-menu-scroll').removeClass('fg-menu-current').height('auto'); };
 	
-	this.resetDrilldownMenu = function(){
+	this.resetDrilldownFGMenu = function(){
 		$('.fg-menu-current').removeClass('fg-menu-current');
 		topList.animate({ left: 0 }, options.crossSpeed, function(){
 			$(this).find('ul').each(function(){
 				$(this).hide();
-				resetChildMenu($(this));				
+				resetChildFGMenu($(this));				
 			});
 			topList.addClass('fg-menu-current');			
 		});		
 		$('.fg-menu-all-lists').find('span').remove();	
 		breadcrumb.empty().append(crumbDefaultHeader);		
 		$('.fg-menu-footer').empty().hide();	
-		checkMenuHeight(topList);		
+		checkFGMenuHeight(topList);		
 	};
 	
 	topList
@@ -359,14 +359,14 @@ Menu.prototype.drilldown = function(container, options) {
 			.css({ width: container.width(), left: container.width() })
 			.addClass('ui-widget-content')
 			.hide();		
-	checkMenuHeight(topList);	
+	checkFGMenuHeight(topList);	
 	
 	topList.find('a').each(function(){
 		// if the link opens a child menu:
 		if ($(this).next().is('ul')) {
 			$(this)
 				.addClass('fg-menu-indicator')
-				.each(function(){ $(this).html('<span>' + $(this).text() + '</span><span class="ui-icon '+options.nextMenuLink+'"></span>'); })
+				.each(function(){ $(this).html('<span>' + $(this).text() + '</span><span class="ui-icon '+options.nextFGMenuLink+'"></span>'); })
 				.click(function(){ // ----- show the next menu			
 					var nextList = $(this).next();
 		    		var parentUl = $(this).parents('ul:eq(0)');   		
@@ -375,18 +375,18 @@ Menu.prototype.drilldown = function(container, options) {
 		    		var footer = $('.fg-menu-footer');
 		    		
 		    		// show next menu   		
-		    		resetChildMenu(parentUl);
-		    		checkMenuHeight(nextList);
+		    		resetChildFGMenu(parentUl);
+		    		checkFGMenuHeight(nextList);
 					topList.animate({ left: nextLeftVal }, options.crossSpeed);						
 		    		nextList.show().addClass('fg-menu-current').attr('aria-expanded', 'true');    
 		    		
-		    		var setPrevMenu = function(backlink){
+		    		var setPrevFGMenu = function(backlink){
 		    			var b = backlink;
 		    			var c = $('.fg-menu-current');
 			    		var prevList = c.parents('ul:eq(0)');
 			    		c.hide().attr('aria-expanded', 'false');
-		    			resetChildMenu(c);
-		    			checkMenuHeight(prevList);
+		    			resetChildFGMenu(c);
+		    			checkFGMenuHeight(prevList);
 			    		prevList.addClass('fg-menu-current').attr('aria-expanded', 'true');
 			    		if (prevList.hasClass('fg-menu-content')) { b.remove(); footer.hide(); };
 		    		};		
@@ -401,7 +401,7 @@ Menu.prototype.drilldown = function(container, options) {
 									var b = $(this);
 						    		var prevLeftVal = parseFloat(topList.css('left')) + container.width();		    						    		
 						    		topList.animate({ left: prevLeftVal },  options.crossSpeed, function(){
-						    			setPrevMenu(b);
+						    			setPrevFGMenu(b);
 						    		});			
 									return false;
 								});
@@ -412,7 +412,7 @@ Menu.prototype.drilldown = function(container, options) {
 		    			if (breadcrumb.find('li').size() == 1){				
 							breadcrumb.empty().append(firstCrumb);
 							firstCrumb.find('a').click(function(){
-								menu.resetDrilldownMenu();
+								fgMenu.resetDrilldownFGMenu();
 								return false;
 							});
 						}
@@ -423,12 +423,12 @@ Menu.prototype.drilldown = function(container, options) {
 							.appendTo(breadcrumb)
 							.find('a').click(function(){
 								if ($(this).parent().is('.fg-menu-current-crumb')){
-									menu.chooseItem(this);
+									fgMenu.chooseItem(this);
 								}
 								else {
 									var newLeftVal = - ($('.fg-menu-current').parents('ul').size() - 1) * 180;
 									topList.animate({ left: newLeftVal }, options.crossSpeed, function(){
-										setPrevMenu();
+										setPrevFGMenu();
 									});
 								
 									// make this the current crumb, delete all breadcrumbs after this one, and navigate to the relevant menu
@@ -445,7 +445,7 @@ Menu.prototype.drilldown = function(container, options) {
 		// if the link is a leaf node (doesn't open a child menu)
 		else {
 			$(this).click(function(){
-				menu.chooseItem(this);
+				fgMenu.chooseItem(this);
 				return false;
 			});
 		};
@@ -453,7 +453,7 @@ Menu.prototype.drilldown = function(container, options) {
 };
 
 
-/* Menu.prototype.setPosition parameters (defaults noted with *):
+/* FGMenu.prototype.setPosition parameters (defaults noted with *):
 	referrer = the link (or other element) used to show the overlaid object 
 	settings = can override the defaults:
 		- posX/Y: where the top left corner of the object should be positioned in relation to its referrer.
@@ -466,7 +466,7 @@ Menu.prototype.drilldown = function(container, options) {
 		- detectH/V: detect the viewport horizontally / vertically
 		- linkToFront: copy the menu link and place it on top of the menu (visual effect to make it look like it overlaps the object) */
 
-Menu.prototype.setPosition = function(widget, caller, options) { 
+FGMenu.prototype.setPosition = function(widget, caller, options) { 
 	var el = widget;
 	var referrer = caller;
 	var dims = {

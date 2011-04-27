@@ -57,9 +57,9 @@
 
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
 	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
-	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
+
 	<link href="css/inettuts.js.css" rel="stylesheet" type="text/css"/>
-	<script type="text/javascript" src="js/widgets/inettuts.js"></script>
+
     <link href="css/inettuts.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript" src="${js}/medCafe.js"></script>
@@ -71,14 +71,18 @@
 	<!--[if IE]><script type="text/javascript" src="${js}/excanvas.js"></script><![endif]-->
 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
- 	<script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
+
  	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
  	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
-	<script type="text/javascript" src="${js}/menu/fg.menu.js"></script>
-	<script type="text/javascript" src="${js}/menus.js"></script>
+	 	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
 	<script type="text/javascript" src="${js}/vel2jstools.js"></script>
 	<script type="text/javascript" src="${js}/vel2js.js"></script>
 	<script type="text/javascript" src="${js}/jquery.jeditable.js"></script>
+	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
+	<script type="text/javascript" src="${js}/jquery.spinner.js"></script>
+	<script type="text/javascript" src="js/widgets/inettuts.js"></script>
+	<script type="text/javascript" src="${js}/menu/fg.menu.js"></script>
+	<script type="text/javascript" src="${js}/menus.js"></script>
 	<script type="text/javascript" src="${js}/fullcalendar.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.widget.js"></script>
 	<script type="text/javascript" src="${js}/medCafe.calendar.js"></script>
@@ -89,8 +93,11 @@
  	<script type="text/javascript" src="${js}/medCafe.images.js"></script>
  	<script type="text/javascript" src="${js}/medCafe.templates.js"></script>
  	<script type="text/javascript" src="${js}/medCafe.preferences.js"></script>
- 	<script type="text/javascript" src="${js}/jScrollTouch.js"></script>
+ 	<script type="text/javascript" src="${js}/jquery.ui.autocomplete.js"></script>
+ 	<script type="text/javascript" src="${js}/medCafe.insert.js"></script>
+
  	<script type="text/javascript" src="${js}/selectToUISlider.jQuery.js"></script>
+
  	<script language="JavaScript" type="text/javascript" src="contentflow/contentflow_src.js" load="white medCafe"></script>
     <script type="text/javascript" src="${js}/jquery.iviewer.js" ></script>
 
@@ -188,7 +195,7 @@
     <div id="head"></div>
     <div id="dialog" >Are you sure you want to close?</div>
 	<div id="dialogTemplate" ></div>
-
+   <div id="dialogInsert"></div>
 	<div id="saveDialog" style="visibility:hidden;" >You are about to close all tabs for this patient. Would you like to save changes?</div>
     <div id="preferencesDialog" ></div>
 
@@ -238,7 +245,7 @@
       <h6><center><a href="#" >Schedule</a></center></h6>
       <div id="calendar"  class="widget-content"></div>
       <h6 id="#"><center><a href="#">Options</a></center></h6>
-      <div>
+		<div id="OptionWindow">
 			<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">
          <span class="ui-icon ui-icon-triangle-1-s"></span>Tabs
          </a>
@@ -251,6 +258,8 @@
          <div id="template_list" class="hidden"></div>
        	<a tabindex="2" href="logout.jsp" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat">Logout</a>
 		<a tabindex="3" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="prefs">Preferences</a>
+		<a tabindex="4" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="refreshCache">Refresh Patient Cache</a>
+		</div>
 		</div>
 	</div>
 </div>

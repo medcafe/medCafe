@@ -87,6 +87,7 @@ function setOnSelect(isIntro, server, oldPatient, repository)
 		    		var src = $("option:selected", this).val();
 		    		//Get details for this patient
 		    		var cacheServer = server + "/cachePatient.jsp?patient_id=" + src+"&repository=" + repository + "&isIntro=" + isIntro;
+
 		    		$.get(cacheServer, function(data)
 	 				{
 	 					var indexSrv = server + "/index.jsp";
@@ -128,10 +129,89 @@ function refresh(patient)
 		//addCreateAssocButton(patient,"physician");
 
 }
+function refreshCache()
+{
+	var url = "retrievePatient.jsp";
+	var server = ""
+	var oldPatient;
+		//var url = "index.jsp";
+		//alert(server + " " + patient + " " + oldPatient);
+		parent.$("#saveDialog").css("visibility", "visible");
+		parent.$("#saveDialog").dialog({
+				autoOpen: false,
+				modal:true,
+				resizable: true,
+				title: "Close Tab",
+				buttons : {
+					"Yes" : function() {
+							//Have to Destroy as otherwise
+							//the Dialog will not be reinitialized on open
+							parent.$("#saveDialog").dialog("destroy");
+							parent.$("#saveDialog").css("visibility", "hidden");
+							//Cannot use the cached Patient as this may have been already reset
+							parent.saveWidgets(oldPatient);
+								$("#OptionWindow").spinner(
+					{
+						img: 'images/ajax-loader.gif',
+						position: 'center',
+						height: 100,
+						width: 100,
+						hide: true });
+							//
+							var cacheServer = "refreshPatient.jsp";
+							
+		    				$.get(cacheServer, function(data)
+	 						{
+								parent.window.location.replace("index.jsp", function()
+								{
+									$("#OptionWindow").spinner("remove");
+								});
+
+								//addScheduleButton(patient);
+								//addCreateAssocButton(patient,"physician");
+							});
+
+					},
+					"No" : function() {
+						parent.$("#saveDialog").dialog("destroy");
+                        parent.$("#saveDialog").css("visibility", "hidden");
+						parent.closeAllTabs("tabs");
+							$("#OptionWindow").spinner(
+					{
+						img: 'images/ajax-loader.gif',
+						position: 'center',
+						height: 100,
+						width: 100,
+						hide: true });
+						//populate(url, patient);
+						var cacheServer = "refreshPatient.jsp";
+		    			$.get(cacheServer, function(data)
+	 					{
+								parent.window.location.replace("index.jsp", function()
+								{
+									$("#OptionWindow").spinner("remove");
+								});
+								//addScheduleButton(patient);
+								//addCreateAssocButton(patient,"physician");
+						});
+
+					}
+					,
+					"Cancel" : function() {
+						parent.$("#saveDialog").dialog("destroy");
+                        parent.$("#saveDialog").css("visibility", "hidden");
+					}
+				}
+		});
+		parent.$("#saveDialog").dialog("open");
+
+}
+
 
 function retrieve(server, patient, oldPatient, repository)
 {
 		var url = "retrievePatient.jsp";
+
 		//var url = "index.jsp";
 		//alert(server + " " + patient + " " + oldPatient);
 		parent.$("#saveDialog").css("visibility", "visible");
@@ -157,6 +237,7 @@ function retrieve(server, patient, oldPatient, repository)
 						hide: true });
 							//
 							var cacheServer = "cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
+
 		    				$.get(cacheServer, function(data)
 	 						{
 								parent.window.location.replace("index.jsp", function()
@@ -182,6 +263,7 @@ function retrieve(server, patient, oldPatient, repository)
 						hide: true });
 						//populate(url, patient);
 						var cacheServer = server + "/cachePatient.jsp?patient_id=" + patient+"&repository=" + repository;
+
 		    			$.get(cacheServer, function(data)
 	 					{
 								parent.window.location.replace("index.jsp", function()
@@ -201,6 +283,7 @@ function retrieve(server, patient, oldPatient, repository)
 				}
 		});
 		parent.$("#saveDialog").dialog("open");
+	
 }
 
 function addAssociatePatient(isIntro)
