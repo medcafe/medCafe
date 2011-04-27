@@ -508,7 +508,12 @@ t.p('					');
 if (repos.announce && firstRepository == true) {
 t.p('			');
 t.p( repos.announce.message);
-t.p('			');
+t.p('			<br>			<br>			Add a new allergy			<a onclick="insertDialog(\'');
+t.p( context.cacheKey);
+t.p('\', \'');
+t.p( repos.repository);
+t.p('\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>			');
 firstRepository = false;
 loopCount = ( loopCount + 1 );
 t.p('		');

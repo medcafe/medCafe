@@ -9,6 +9,10 @@
 			
 		#if ($repos.announce && $firstRepository == true)
 			$repos.announce.message
+			<br>
+			<br>
+			Add a new allergy
+			<a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
 			#set ($firstRepository = false)
 			#set ($loopCount = $loopCount + 1)
 		#end
