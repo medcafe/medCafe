@@ -43,6 +43,16 @@
 	  			$("#kibbe").append(patientHtml);
 	  		});
 	  	}
+	  	function showResults(pid)
+	  		{
+            $("#kibbe").html("");
+			var url = "ccr/patients/" + pid + "/results";
+			$.getJSON(url, function(data)
+			{
+				var patientHtml = v2js_listPatientResults( data );
+	  			$("#kibbe").append(patientHtml);
+	  		});
+	  	}
 
     </script>
 

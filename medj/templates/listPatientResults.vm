@@ -1,0 +1,407 @@
+<div class="repository-content">
+#if ($result)
+	#set ($oparen = "(")
+	#set ($cparen = ")")
+	#set ($space = " ")
+
+	#foreach( $res in $result )
+		<b>Result Record</b><br/>	
+		#if($res.dateTime)
+			#foreach( $dateType in $res.dateTime)
+				#if($dateType.type)
+					$dateType.type.text:
+				#else
+					Time:
+				#end
+				#if($dateType.exactDateTime)
+					$dateType.exactDateTime
+				#else
+					#if($dateType.approximateDateTime)
+						#set ($codedDesc = $dateType.approximateDateTime)
+						#if ($codedDesc.text)
+							$codedDesc.text
+						#end
+						#if($codedDesc.objectAttribute)
+							#foreach ($objAtt in $codedDesc.objectAttribute)
+								$objAtt.attribute:
+								#foreach ($attVal in $objAtt.attributeValue)
+									${space}${attVal.value}${space}
+									#if ($attVal.code)
+										#foreach($code in $attVal.code)
+											<br/> 
+											Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+										#end
+									#end
+								#end
+		
+							#end
+							#if ($codedDesc.code)
+								#foreach($code in $objAtt.code) 
+									Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+								#end
+							#end
+						#end
+					#else
+						#if ($dateType.age)
+							#set ($measurement = $dateType.age)
+							$measurement.value
+							#if ($measurement.units)
+								$space
+								#if($measurement.units.unit)
+									$measurement.units.unit
+								#end
+								#if($measurement.units.code)
+									$space
+									#foreach( $code in $measurement.units.code )
+										Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>
+									#end
+								#end
+							#end
+						#else
+							#if ($dateType.dateTimeRange)
+
+								#if ($dateType.dateTimeRange.beginRange)
+									${space}Range Begin:$space
+									#if($dateType.dateTimeRange.beginRange.exactDateTime)
+										$dateType.dateTimeRange.beginRange.exactDateTime<br clear="all"/>
+									#else
+										#if($dateType.dateTimeRange.beginRange.approximateDateTime)
+											#set ($codedDesc = $dateType.dateTimeRange.beginRange.approximateDateTime)
+											#if ($codedDesc.text)
+												$codedDesc.text
+											#end
+											#if($codedDesc.objectAttribute)
+												#foreach ($objAtt in $codedDesc.objectAttribute)
+													$objAtt.attribute:
+													#foreach ($attVal in $objAtt.attributeValue)
+														${space}${attVal.value}${space}
+														#if ($attVal.code)
+															#foreach($code in $attVal.code)
+																<br/> 
+																Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+															#end
+														#end
+													#end
+						
+												#end
+												#if ($codedDesc.code)
+													#foreach($code in $objAtt.code) 
+														Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+													#end
+												#end
+											#end
+										#else
+											#if ($dateType.dateTimeRange.beginRange.age)
+												#set ($measurement = $dateType.dateTimeRange.beginRange.age)
+												$measurement.value
+												#if ($measurement.units)
+													$space
+													#if($measurement.units.unit)
+														$measurement.units.unit
+													#end
+													#if($measurement.units.code)
+														$space
+														#foreach( $code in $measurement.units.code )
+															Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>
+														#end
+													#end
+												#end
+											#end
+										#end
+									#end
+								#end
+								#if ($dateType.dateTimeRange.endRange)
+									${space}Range End:$space
+																		#if($dateType.dateTimeRange.endRange.exactDateTime)
+										$dateType.dateTimeRange.endRange.exactDateTime<br clear="all"/>
+									#else
+										#if($dateType.dateTimeRange.endRange.approximateDateTime)
+											#set ($codedDesc = $dateType.dateTimeRange.endRange.approximateDateTime)
+											#if ($codedDesc.text)
+												$codedDesc.text
+											#end
+											#if($codedDesc.objectAttribute)
+												#foreach ($objAtt in $codedDesc.objectAttribute)
+													$objAtt.attribute:
+													#foreach ($attVal in $objAtt.attributeValue)
+														${space}${attVal.value}${space}
+														#if ($attVal.code)
+															#foreach($code in $attVal.code)
+																<br/> 
+																Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+															#end
+														#end
+													#end
+						
+												#end
+												#if ($codedDesc.code)
+													#foreach($code in $objAtt.code) 
+														Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+													#end
+												#end
+											#end
+										#else
+											#if ($dateType.dateTimeRange.endRange.age)
+												#set ($measurement = $dateType.dateTimeRange.endRange.age)
+												$measurement.value
+												#if ($measurement.units)
+													$space
+													#if($measurement.units.unit)
+														$measurement.units.unit
+													#end
+													#if($measurement.units.code)
+														$space
+														#foreach( $code in $measurement.units.code )
+															Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>
+														#end
+													#end
+												#end
+											#end
+										#end
+									#end
+								#end
+								
+								
+							#end
+						#end
+					#end
+				#end
+			#end
+		
+		#else
+			<b>No dates associated with this test</b>
+		#end
+		<br clear="all"/>
+		#if($res.source)
+			#foreach( $source in $res.source)
+				#if($source.actor)
+					#foreach( $actor in $source.actor)
+						#if($actor.actorID)
+							Actor ID: $actor.actorID
+						#end
+						#if($actor.actorRole)
+							#foreach( $role in $actor.actorRole)
+								( $role.text )
+							#end
+						#end
+						<br clear="all"/>
+					#end
+				#end
+			#end
+		#end
+		#if($res.ccrDataObjectID)
+			CCR DataObjectID: $$res.ccrDataObjectID<br/>
+		#end
+
+		#if($res.test)
+		Tests:
+			<div style="padding-left: 2em">
+			#foreach( $testInst in $res.test )
+				#if( $testInst.description.text )
+					<b>$testInst.description.text</b><br/>
+				#end
+				#foreach( $code in $testInst.description.code )
+					Test Code: $code.value ( $code.codingSystem of $code.version )<br/>
+				#end
+
+
+				Results:  $testInst.testResult.value
+				#if ($testInst.testResult.units)
+					$space
+					#if($testInst.testResult.units.unit)
+						$testInst.testResult.units.unit
+					#end
+					#if($testInst.testResult.units.code)
+						#foreach( $code in $testInst.testResult.units.code )
+							Unit Code: $code.value ( $code.codingSystem of $code.version )
+						#end
+					#end
+				#end
+				<br/>
+				#foreach( $source in $testInst.source)
+					#if($source.actor)
+						#foreach( $actor in $source.actor)
+							#if($actor.actorID)
+								Actor ID: $actor.actorID
+							#end
+							#if($actor.actorRole)
+								#foreach( $role in $actor.actorRole)
+									( $role.text )
+								#end
+							#end
+							<br clear="all"/>
+						#end
+					#end
+				#end
+				#if($testInst.dateTime)
+					#foreach( $dateType in $testInst.dateTime)
+						#if($dateType.type)
+							$dateType.type.text:
+						#else
+							Time:
+						#end
+						#if($dateType.exactDateTime)
+							$dateType.exactDateTime
+						#elseif($dateType.approximateDateTime)
+							#set ($codedDesc = $dateType.approximateDateTime)
+							#if ($codedDesc.text)
+								$codedDesc.text
+							#end
+							#if($codedDesc.objectAttribute)
+								#foreach ($objAtt in $codedDesc.objectAttribute)
+									$objAtt.attribute:
+									#foreach ($attVal in $objAtt.attributeValue)
+										${space}${attVal.value}${space}
+										#if ($attVal.code)
+											#foreach($code in $attVal.code)
+												<br/> 
+												Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+											#end
+										#end
+									#end
+								#end
+								#if ($codedDesc.code)
+									#foreach($code in $objAtt.code) 
+										Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+									#end
+								#end
+							#end
+						#elseif ($dateType.age)
+							#set ($measurement = $dateType.age)
+							$measurement.value
+							#if ($measurement.units)
+								$space
+								#if($measurement.units.unit)
+									$measurement.units.unit
+								#end
+								#if($measurement.units.code)
+									$space
+									#foreach( $code in $measurement.units.code )
+										Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>
+									#end
+								#end
+							#end
+						#elseif ($dateType.dateTimeRange)
+							#if ($dateType.dateTimeRange.beginRange)
+								${space}Range Begin:$space
+								#if($dateType.dateTimeRange.beginRange.exactDateTime)
+									$dateType.dateTimeRange.beginRange.exactDateTime<br clear="all"/>
+								#elseif($dateType.dateTimeRange.beginRange.approximateDateTime)
+									#set ($codedDesc = $dateType.dateTimeRange.beginRange.approximateDateTime)
+									#if ($codedDesc.text)
+										$codedDesc.text
+									#end
+									#if($codedDesc.objectAttribute)
+										#foreach ($objAtt in $codedDesc.objectAttribute)
+											$objAtt.attribute:
+											#foreach ($attVal in $objAtt.attributeValue)
+												${space}${attVal.value}${space}
+												#if ($attVal.code)
+													#foreach($code in $attVal.code)
+														<br/> 
+														Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+													#end
+												#end
+											#end
+										#end
+										#if ($codedDesc.code)
+											#foreach($code in $objAtt.code) 
+												Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+											#end
+										#end
+									#end
+								#elseif ($dateType.dateTimeRange.beginRange.age)
+									#set ($measurement = $dateType.dateTimeRange.beginRange.age)
+									$measurement.value
+									#if ($measurement.units)
+										$space
+										#if($measurement.units.unit)
+											$measurement.units.unit
+										#end
+										#if($measurement.units.code)
+											$space
+											#foreach( $code in $measurement.units.code )
+												Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>
+											#end
+										#end
+									#end
+								#end
+							#end
+							#if ($dateType.dateTimeRange.endRange)
+								${space}Range End:$space
+								#if($dateType.dateTimeRange.endRange.exactDateTime)
+									$dateType.dateTimeRange.endRange.exactDateTime<br clear="all"/>
+								#elseif($dateType.dateTimeRange.endRange.approximateDateTime)
+									#set ($codedDesc = $dateType.dateTimeRange.endRange.approximateDateTime)
+									#if ($codedDesc.text)
+										$codedDesc.text
+									#end
+									#if($codedDesc.objectAttribute)
+										#foreach ($objAtt in $codedDesc.objectAttribute)
+											$objAtt.attribute:
+											#foreach ($attVal in $objAtt.attributeValue)
+												${space}${attVal.value}${space}
+												#if ($attVal.code)
+													#foreach($code in $attVal.code)
+														<br/> 
+														Attribute Code: $code.value ( $code.codingSystem of $code.version )<br/>
+													#end
+												#end
+											#end
+										#end
+										#if ($codedDesc.code)
+											#foreach($code in $objAtt.code) 
+												Coded Description Code: $code.value ( $code.codingSystem of $code.version )<br/>
+											#end
+										#end
+									#end
+								#elseif ($dateType.dateTimeRange.endRange.age)
+									#set ($measurement = $dateType.dateTimeRange.endRange.age)
+									$measurement.value
+									#if ($measurement.units)
+										$space
+										#if($measurement.units.unit)
+											$measurement.units.unit
+										#end
+										#if($measurement.units.code)
+											$space
+											#foreach( $code in $measurement.units.code )
+												Unit Code: $code.value ( $code.codingSystem of $code.version )<br/>	
+											#end
+										#end
+									#end
+								#end
+							#end	
+						#end
+					#end		
+					<br clear="all"/>
+				#end
+				#if($testInst.normalResult)
+					#if($testInst.normalResult.normal)
+						#foreach ($norm in $testInst.normalResult.normal)
+							#if($norm.description)
+								#if($norm.description.text)
+									<i>Normal Values: $norm.description.text</i><br/>
+								#end
+							#end
+						#end
+					#end
+				#end
+				#if($testInst.ccrDataObjectID)
+					CCR DataObjectID: $$testInst.ccrDataObjectID<br/>
+				#end
+
+			#end
+			</div>
+		#else
+			<b>No test code provided</b><br/>
+		#end
+
+		<hr/>
+	#end
+
+#else
+	<b>No test results provided</b>
+#end
+</div>
+
