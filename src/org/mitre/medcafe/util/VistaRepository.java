@@ -575,7 +575,7 @@ public class VistaRepository extends Repository {
                     String symptoms = "";
                     for (FMPatientAllergyReaction react : a.getReactions().values()) {
                         if (!symptoms.equals("")) {
-                            symptoms = symptoms + ", ";
+                            symptoms = symptoms + "; ";
                         }
                         symptoms = symptoms + react.getReactionValue();
                     }
@@ -663,7 +663,7 @@ public class VistaRepository extends Repository {
 
                     String reactionList = allergy.getReaction().getValue();
 
-                    String[] reacts = reactionList.split(",");
+                    String[] reacts = reactionList.split(";");
                     for (int i = 0; i< reacts.length; i++) {
                       
          
@@ -772,7 +772,7 @@ public class VistaRepository extends Repository {
                         comment.setComments(allergy.getNarrative());
                         fmAllergy.addComments(comment);
                         String reactionList = allergy.getReaction().getValue();
-                        String[] reacts = reactionList.split(",");
+                        String[] reacts = reactionList.split(";");
                         for (String react : reacts) {
                             FMPatientAllergyReaction fmReact = new FMPatientAllergyReaction();
                             fmReact.setDateEntered(allergy.getAdverseEventDate().getLow().toGregorianCalendar().getTime());

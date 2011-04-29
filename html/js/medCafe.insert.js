@@ -1,6 +1,6 @@
 
 		function split( val ) {
-			return val.split( /,\s*/ );
+			return val.split( /;\s*/ );
 		}
 		function extractLast( term ) {
 			return split( term ).pop();
@@ -82,7 +82,7 @@ function insertDialog(cacheKey, repository)
 					terms.push( ui.item.value );
 					// add placeholder to get the comma-and-space at the end
 					terms.push( "" );
-					this.value = terms.join( ", " );
+					this.value = terms.join( "; " );
 					return false;
 
 			} 
@@ -111,6 +111,10 @@ function insertDialog(cacheKey, repository)
 						 	 	dataType: "json",
 						 	 	success: function(data, status){
 						 	 		alert(data.announce.message);
+						 	 		
+						 	 	},
+						 	 	error: function(jqXHR, textStatus, errorThrown) {
+						 	 		alert("Error performing insert: " + textStatus);
 						 	 	}
 						 	 });
 						 	 $(this).dialog("destroy");
