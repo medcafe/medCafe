@@ -22,6 +22,17 @@
 	  		});
 	  	});
 
+	  	function showVitals( pid )
+	  	{
+            $("#kibbe").html("");
+			var url = "ccr/patients/" + pid + "/vitalSigns";
+			$.getJSON(url, function(data)
+			{
+				var patientHtml = v2js_ccrVitalSigns( data );
+	  			$("#kibbe").append(patientHtml);
+	  		});
+	  	}
+
 	  	function showMeds( pid )
 	  	{
             $("#kibbe").html("");

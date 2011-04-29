@@ -56,7 +56,7 @@ public class WebUtils
 
     public final static String KEY = WebUtils.class.getName();
     public final static Logger log = Logger.getLogger( KEY );
-    
+
     public static String BASE_DIR = "";
     public final static String CCR_DIR = "ccrFiles";
     // static{log.setLevel(Level.FINER);}
@@ -234,88 +234,88 @@ public class WebUtils
     }
 
 
-    public  static List<FileItem> getFileItems( HttpServletRequest request) throws FileUploadException 
+    public  static List<FileItem> getFileItems( HttpServletRequest request) throws FileUploadException
 	{
     	/*
 		 *  parse the request
 		 */
     	FileItemFactory factory = new DiskFileItemFactory();
 		System.out.println("WebUtils uploadFile : got factory ");
-		
+
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		System.out.println("WebUtils uploadFile : got upload object ");
-		
+
 		List<FileItem> items;
-	
+
 		items = upload.parseRequest(request);
 		return items;
 	}
-    
-    public  static List<ContinuityOfCareRecord> translateFiles( List<FileItem> items, String pathName) 
+
+    public  static List<ContinuityOfCareRecord> translateFiles( List<FileItem> items, String pathName)
 	{
-	
+
     	try {
     		ArrayList<ContinuityOfCareRecord> ccrs = new ArrayList<ContinuityOfCareRecord>();
-			System.out.println("WebUtils uploadFile : got items " + items);			
+			System.out.println("WebUtils uploadFile : got items " + items);
 			boolean writeToFile = true;
 			System.out.println("WebUtils uploadFile : got items " + items.size());
-			
+
 			for (FileItem fileSetItem: items)
 			{
 				String itemName = fileSetItem.getFieldName();
 				System.out.println("WebUtils: first file item  " + itemName);
-				
+
 				String fileName ="";
 				if (!fileSetItem.isFormField()) {
 				    String fieldName = fileSetItem.getFieldName();
 				    fileName = fileSetItem.getName();
-				    
+
 				    String contentType = fileSetItem.getContentType();
 				    boolean isInMemory = fileSetItem.isInMemory();
 				    long sizeInBytes = fileSetItem.getSize();
-	
+
 				    ContinuityOfCareRecord ccr = translate(fileSetItem.getString());
 				    String patientId = getPatientId(ccr);
-		        	
+
 				    uploadFile(fileSetItem, pathName, fileName, patientId);
 				    if (ccr != null)
 				    	ccrs.add(ccr);
-									
-				    
-					
+
+
+
 			    }
-		
+
 			}
 			return ccrs;
-			
+
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-	}	
+	}
 
     public static boolean uploadFile(FileItem uploadFileItem, String pathName, String fileName, String patientId) throws Exception
     {
     	File ccrFile =  createFile(pathName,  fileName, patientId);
 		uploadFileItem.write(ccrFile);
-		
+
 		return true;
     }
-    
+
     public static boolean uploadFileFromCCR(ContinuityOfCareRecord ccr, String pathName, String fileName,String patientId) throws JAXBException, IOException
     {
-    	
+
 		File ccrFile =  createFile(pathName,  fileName, patientId);
     	FileWriter fileWrite = new FileWriter(ccrFile);
 		//This won't work, need to have way to translate to string
     	fileWrite.write(ccr.toString());
 		fileWrite.flush();
 		fileWrite.close();
-		
+
 		return true;
     }
-    
+
     public static boolean uploadFileFromString(String ccr, String pathName, String fileName, String patientId) throws JAXBException, IOException
     {
     	File ccrFile =  createFile( pathName,  fileName, patientId);
@@ -325,12 +325,12 @@ public class WebUtils
 		fileWrite.close();
 		return true;
     }
-    
+
     public static File createFile( String pathName, String fileName, String patientId) throws JAXBException, IOException
     {
     	patientId = patientId.replace(" ", "");
-		
-    	File path = new File(pathName + "/" +CCR_DIR + "/" + patientId ); 
+
+    	File path = new File(pathName + "/" +CCR_DIR + "/" + patientId );
 		if (!path.exists())
 		{
 			boolean status = path.mkdirs();
@@ -338,9 +338,9 @@ public class WebUtils
 		}
 		File uploadedFile = new File(path + "/" + patientId + ".xml");
 		return uploadedFile;
-		
+
     }
-    
+
     private static ContinuityOfCareRecord loadCCRFromFile(String fileName) throws FileNotFoundException, JAXBException
     {
     	 JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
@@ -348,15 +348,15 @@ public class WebUtils
          ContinuityOfCareRecord ccr = (ContinuityOfCareRecord)u.unmarshal(new StreamSource( new FileReader(fileName)  ) );
          return ccr;
     }
-	
-    
+
+
     public static ContinuityOfCareRecord convert(HttpServletRequest req, String pathName)
 		 throws  FileUploadException, IOException, Exception
 	{
 		if ( !ServletFileUpload.isMultipartContent(req) )
 		{
 			String sourceXml = WebUtils.getRequiredParameter( req, "source_xml" );
-	         
+
 		    return translate(sourceXml);
 		}
 		else
@@ -364,42 +364,42 @@ public class WebUtils
 			System.out.println("WebUtils convert : this is a multipart doc");
 			List<FileItem> items = getFileItems(req);
 			List<ContinuityOfCareRecord> ccrs = translateFiles(items, pathName);
-			
+
 			if (ccrs != null)
 			{
 				if (ccrs.size() > 0)
 					return ccrs.get(0);
 			}
-				
+
 			return null;
 			/*if (!success)
 				return "Error in File Upload";
 			else
 				return "File uploaded successfully";*/
 		}
-	
-	}	
+
+	}
 
 
 	public  static ContinuityOfCareRecord translate(String sourceXml) throws JAXBException
 	{
-	
+
        JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
        Unmarshaller u = jc.createUnmarshaller();
        // URL url = new URL( "simple.ccr.xml" );
        // URLConnection conn = url.openConnection();
        ContinuityOfCareRecord p = (ContinuityOfCareRecord)u.unmarshal(new StreamSource( new StringReader( sourceXml ) ) );
        return p;
-      
-   
-	}	
+
+
+	}
 
 	public static String getPatientId(ContinuityOfCareRecord ccr)
 	{
 		String patientId = "";
 		patientId = ccr.getPatient().get(0).getActorID();
 		System.out.println("WebUtils getPatientId : " + patientId);
-		
+
 		return patientId;
 	}
 	public static JSONObject buildErrorJson(String errorMsg)
@@ -418,58 +418,58 @@ public class WebUtils
         }
         return ret;
     }
-	
+
 	public static ContinuityOfCareRecord loadCCR(String patientId) throws FileNotFoundException, JAXBException
 	{
 		patientId = patientId.replace(" ", "");
-		
+
 		return WebUtils.loadCCRFromFile(WebUtils.BASE_DIR  + "/" + CCR_DIR+ "/" + patientId + "/" + patientId + ".xml");
 	}
-	
+
 	public static ArrayList<String> listPatients(File dir)
 	{
-		  
+
 		ArrayList<String> patientFiles = new ArrayList<String>();
-		
+
 		FileFilter fileFilter = new FileFilter() {
-			public boolean accept(File file) 
+			public boolean accept(File file)
 			{
 	   	        return file.isDirectory();
 	   	    }
 	   	};
-   	
+
 	   	FilenameFilter filter = new FilenameFilter() {
 	   	    public boolean accept(File dir, String name) {
 	   	        return name.endsWith("xml");
-	   	      
+
 	   	    }
 	   	};
-	   	
+
 	   	File[] subDirs = dir.listFiles(fileFilter);
 
 		System.out.println("TextProcesses getCSSFiles no of files " + subDirs.length);
 	   	if (subDirs == null) {
 	   	    // Either dir does not exist or is not a directory
-	   	} 
-	   	else 
+	   	}
+	   	else
 	   	{
-   	    
+
 	   		for (File subDir: subDirs)
 	   	    {
 	   			System.out.println("WebUtils getPatients subDir " + subDir.getName());
-	   		   	
+
 	   	        // Get filename of file or directory
 	   	    	String[] subFiles = subDir.list(filter);
 	   	    	System.out.println("WebUtils getPatients files # " + subFiles.length);
-	   		   	
+
 	   	    	for (String subFile: subFiles)
 	   	    	{
 	   	    		System.out.println("WebUtils getPatients files  " + subFile);
 	   	    		String patientId = subFile.substring(0, subFile.lastIndexOf("."));
 	   	    		patientFiles.add(patientId);
 	   	    	}
-	   	    	
-	   	       
+
+
 	   	    }
 	   	}
 	   	return patientFiles;

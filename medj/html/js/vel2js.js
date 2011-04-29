@@ -1,3 +1,90 @@
+function v2js_ccrVitalSigns(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+t.p('<div class="repository-content">    ');
+if (context.result) {
+var oparen = "(";
+var cparen = ")";
+t.p('        ');
+for (var i2=0;  i2<context.result.length; i2++) {
+var vsign = context.result[i2];
+velocityCount = i2;
+t.p('            ');
+if (vsign.description) {
+t.p('                <b>');
+t.p( vsign.description.text);
+t.p('</b><br/>            ');
+}
+t.p('            ');
+if (vsign.dateTime) {
+t.p('                ');
+for (var i4=0;  i4<vsign.dateTime.length; i4++) {
+var dateType = vsign.dateTime[i4];
+velocityCount = i4;
+t.p('                    ');
+if (dateType.exactDateTime) {
+t.p('                        ');
+if (dateType.type) {
+t.p('                            ');
+t.p( dateType.type.text);
+t.p(':                        ');
+}
+else {
+t.p('                            Time:                        ');
+}
+t.p('                        ');
+t.p( dateType.exactDateTime);
+t.p('<br clear="all"/>                    ');
+}
+t.p('                ');
+}
+velocityCount = i2;
+t.p('            ');
+}
+else {
+t.p('                <b>Test date unknown</b>            ');
+}
+t.p('            ');
+if (vsign.test) {
+t.p('                ');
+for (var i4=0;  i4<vsign.test.length; i4++) {
+var result = vsign.test[i4];
+velocityCount = i4;
+t.p('                    <span style="padding-left:2em;">                    ');
+if (result.description) {
+t.p('                        ');
+t.p( result.description.text);
+t.p('                    ');
+}
+t.p('                    ');
+if (result.testResult) {
+t.p('                        ');
+if (result.testResult.value) {
+t.p('                            ');
+t.p( result.testResult.value);
+t.p(' ');
+t.p( result.testResult.units.unit);
+t.p('                        ');
+}
+t.p('                    ');
+}
+t.p('                    </span><br/>                ');
+}
+velocityCount = i2;
+t.p('            ');
+}
+t.p('            <hr/>        ');
+}
+
+t.p('    ');
+}
+else {
+t.p('        <b>No vital signs provided</b>    ');
+}
+t.p('</div>');
+return t.toString();
+}
 function v2js_listPatientAlerts(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -1250,7 +1337,22 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;
-t.p('    <div id="patient_');
+t.p('<<<<<<< .mine    <div id="patient_');
+t.p( patient.id);
+t.p('"><a href="ccr/patients/');
+t.p( patient.id);
+t.p('">');
+t.p( patient.id);
+t.p('</a> <a href="');
+t.p('#" onclick="showMeds(\'');
+t.p( patient.id);
+t.p('\')">Show medications</a> <a href="');
+t.p('#" onclick="showAlerts(\'');
+t.p( patient.id);
+t.p('\')">Show alerts</a> <a href="');
+t.p('#" onclick="showVitals(\'');
+t.p( patient.id);
+t.p('\')">Show vitals</a> </div>=======    <div id="patient_');
 t.p( patient.id);
 t.p('"><a href="ccr/patients/');
 t.p( patient.id);
@@ -1265,7 +1367,7 @@ t.p( patient.id);
 t.p('\')">Show alerts</a>    <a href="');
 t.p('#" onclick="showResults(\'');
 t.p( patient.id);
-t.p('\')">Show results</a></div>');
+t.p('\')">Show results</a></div>>>>>>>> .r618');
 }
 velocityCount = 0;
 return t.toString();

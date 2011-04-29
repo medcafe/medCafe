@@ -28,9 +28,10 @@ public class JaxbTest
         {
             JAXBContext jc = JAXBContext.newInstance("org.mitre.medj.jaxb");
             Unmarshaller u = jc.createUnmarshaller();
+            u.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
             // URL url = new URL( "simple.ccr.xml" );
             // URLConnection conn = url.openConnection();
-            ContinuityOfCareRecord p = (ContinuityOfCareRecord)u.unmarshal(new File("test.ccr.xml") );
+            ContinuityOfCareRecord p = (ContinuityOfCareRecord)u.unmarshal(new File(args[0]) );
             Gson gson = new Gson();
             // Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonString = gson.toJson(p);

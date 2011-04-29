@@ -448,9 +448,8 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="Site" type="SiteType" minOccurs="0" maxOccurs="unbounded"/>
-				<!--				
-				<xs:group ref="FreqDurGroup"/>
--->
+				<!--
+				<xs:group ref="FreqDurGroup"/>-->
 				<xs:element name="AdministrationTiming" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:complexContent>
