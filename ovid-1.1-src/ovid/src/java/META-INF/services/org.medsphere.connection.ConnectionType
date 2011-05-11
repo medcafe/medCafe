@@ -1,4 +1,0 @@
-org.medsphere.connection.RPCBrokerConnectionType
-org.medsphere.connection.CIABrokerConnectionType
-org.medsphere.connection.MockConnectionType
-org.medsphere.connection.ProfiledConnectionType
