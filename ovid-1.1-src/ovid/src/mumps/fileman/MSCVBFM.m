@@ -1,0 +1,11 @@
+MSCVBFM	; MSC/JDA - RPC for FileMan requests ; SEP 28, 2010 22:00:00
+ ;;1.0;OpenVista Interface Domain;**1500**;May 14, 2009
+ENTRY(RETVAL,ARGBYTES)	;
+ ; Entry point for RPC that handles FileMan requests
+ ;  both parameters are in byte format
+ N RES,REPLYRES S RES="",REPLYRES="",RETVAL=""
+ D FROMBYTE^MSCVRES(.RES,.ARGBYTES)
+ D PROCESS^MSCV(.REPLYRES,.RES)
+ D TOGLOBAL^MSCVRES(.RETVAL,.REPLYRES)
+ D DISPOSE^MSCVRES(.RES),DISPOSE^MSCVRES(.REPLYRES)
+ Q

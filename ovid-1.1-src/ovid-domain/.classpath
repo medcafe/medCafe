@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="contrib/sun/javaee.jar"/>
+	<classpathentry kind="lib" path="contrib/vistalink/vljConnector-1.5.0.026.jar"/>
+	<classpathentry kind="lib" path="contrib/vistalink/vljFoundationsLib-1.5.0.026.jar"/>
+	<classpathentry kind="lib" path="contrib/vistalink/vljSecurity-1.5.0.026.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/commons-configuration-1.4.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/jaxen-1.1.1.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry kind="lib" path="contrib/medsphere/ovid.jar"/>
+	<classpathentry kind="lib" path="contrib/lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="contrib/testng/testng-5.10-jdk15.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

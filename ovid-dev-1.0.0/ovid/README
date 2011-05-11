@@ -1,0 +1,93 @@
+
+Medsphere OVID
+
+Copyright (c) 2004-2009 Medsphere Systems Corporation
+
+----
+
+OVID is an OpenVista Interface Domain layer.  Its purpose is to make it
+easier to take advantage of the rich data available in the OpenVista server.
+
+OVID does this by facilitating the calling of OpenVista Remote Procedure Calls
+(RPCs).  OVID also supplies RPCs that can invoke the fileman "silent-mode" (e.g.
+DBS) calls.  So, if a suitable RPC does not exist, fileman access will always
+be available.
+
+OVID currently does not access mumps globals directly.  I doubt it ever would
+try.  Our intent is to leverage the existing mumps server APIs already
+available in the form of fileman and existing RPCs.  These APIs are rich and
+mature and, after an "assimilation" period, easy to navigate and discover.
+
+By allowing access to this data in java, we can then leverage other
+technologies outside of OpenVista to complement OpenVista's data.  For example,
+an OpenVista drug could be easily cross referenced with an external drug
+database to provide third-party drug information.
+
+Further, we are hoping to build a domain layer that describes useful OpenVista
+objects -- things like Patient, Drug, Order, PatientMovement, etc.  These
+objects could then be incorporated into other software projects such as
+console reporting tools, web based applications, web services, etc.
+
+
+The hopeful benefits are:
+o the ability to write reusable domain software.
+o the ability to incorporate the same domain software into multiple projects.
+o the ability to more easily bridge a path between OpenVista data and other
+  complementary sources.  For example, retrieving an OpenVista Drug object
+  and navigating from its NDC or GCNSequenceNumber to a third party drug
+  database.
+
+OVID consists of several collaborating projects (e.g. fmdomain, fileman).
+
+Architecture
+------------
+
+http://medsphere.org/docs/DOC-1395
+
+Licensing
+---------
+
+Various pieces of Medsphere OVID are licensed differently.  The details of all 
+the pieces are laid out in the LICENSES file.
+
+Collaboration
+-------------
+
+Medsphere OVID is part of a larger open source project. Aspects of the design, 
+requirements definition, development, and testing are done in the community.
+Medsphere.org is the central location for this collaborative development
+process.
+
+Medsphere.org provides all participants access to the solution development 
+process and a voice in how the system evolves.  You can download open source 
+software, start discussions, host projects, build clinical content/best 
+practices, ask questions, make suggestions and blog about progress.
+
+ * Collaborate 24 x 7
+ * Share in the improvement of healthcare
+ * Influence the OpenVista roadmap
+ * Get answers to your questions from experts, peers, colleagues and others
+
+For a tour of the community or to register go here: http://medsphere.org/tour/
+
+Requirements
+------------
+
+
+
+Building & Running
+------------------
+
+Please review the INSTALL document for information on building and running the 
+application.
+
+
+Release Notes
+-------------
+
+The accompanying NEWS file lists defect corrections and enhancements included in 
+each release.
+
+
+
+

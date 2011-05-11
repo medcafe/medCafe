@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	 android:orientation="vertical" android:background="@color/White" android:layout_width="match_parent" android:layout_height="match_parent" > 
+
+	
+			<TextView android:layout_width="fill_parent" 
+			 	 android:layout_height="wrap_content" android:id="@+id/medication" android:textSize="14sp" 
+				android:padding="5dp"   android:textColor="@color/Black" android:textStyle="bold"/> 
+		<LinearLayout android:id="@+id/effectiveTimeLayout" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">	
+		  <ImageView android:id="@+id/effectiveTimeBullet" android:src="@drawable/bullet" android:layout_width="15dip" android:layout_height="15dip" android:layout_gravity="center_vertical|left"></ImageView> 	
+		  <TextView android:layout_width="match_parent" layout_weight="1"
+		 	 android:id="@+id/effectiveTime" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black"  android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+
+		  
+			</LinearLayout>	
+					<LinearLayout android:id="@+id/deliveryMethodLayout" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">	
+		  <ImageView android:id="@+id/deliveryMethodBullet" android:src="@drawable/bullet" android:layout_width="15dip" android:layout_height="15dip" android:layout_gravity="center_vertical|left"></ImageView> 	
+		  <TextView android:layout_width="match_parent" layout_weight="1"
+		 	 android:id="@+id/deliveryMethod" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black"  android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+
+		  
+			</LinearLayout>			
+			<LinearLayout android:id="@+id/patientInstructionsLayout" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">	
+		  <ImageView android:id="@+id/patientInstructionsBullet" android:src="@drawable/bullet" android:layout_width="15dip" android:layout_height="15dip" android:layout_gravity="center_vertical|left"></ImageView> 	
+		  <TextView android:layout_width="match_parent" layout_weight="1"
+		 	 android:id="@+id/patientInstructions" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black"  android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+
+		  
+			</LinearLayout>	
+					<LinearLayout android:id="@+id/narrativeLayout" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">	
+		  <ImageView android:id="@+id/narrativeBullet" android:src="@drawable/bullet" android:layout_width="15dip" android:layout_height="15dip" android:layout_gravity="center_vertical|left"></ImageView> 	
+		  <TextView android:layout_width="match_parent" layout_weight="1"
+		 	 android:id="@+id/narrative" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black"  android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+
+		  
+			</LinearLayout>		 
+								<LinearLayout android:id="@+id/doseLayout" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">	
+		  <ImageView android:id="@+id/doseBullet" android:src="@drawable/bullet" android:layout_width="15dip" android:layout_height="15dip" android:layout_gravity="center_vertical|left"></ImageView> 	
+		  <TextView android:layout_width="match_parent" layout_weight="1"
+		 	 android:id="@+id/dose" android:textSize="14sp" 
+			android:padding="5dp" android:textColor="@color/Black"  android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+
+		  
+			</LinearLayout>		
+
+</LinearLayout> 
+
+

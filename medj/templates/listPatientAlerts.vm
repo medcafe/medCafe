@@ -1,0 +1,55 @@
+<div class="repository-content">
+    #if ($alert)
+        #set ($oparen = "(")
+        #set ($cparen = ")")
+
+        #foreach( $item in $alert )
+            #if($item.type)
+                <b>$item.type.text</b><br/>
+            #end
+
+            #if($item.status)
+                $item.status.text <br/>
+            #end
+
+            #if($item.dateTime)
+                #foreach( $dateType in $item.dateTime)
+                    #if($dateType.exactDateTime)
+                        #if($dateType.type)
+                            $dateType.type.text:
+                        #else
+                            Time:
+                        #end
+                        $dateType.exactDateTime<br clear="all"/>
+                    #end
+                #end
+            #else
+                <b>No dates associated with this alert</b>
+            #end
+
+            #if($item.source)
+                #foreach( $source in $item.source)
+                    #if($source.actor)
+                        #foreach( $actor in $source.actor)
+                            #if($actor.actorID)
+                                Actor ID: $actor.actorID
+                            #end
+                            #if($actor.actorRole)
+                                #foreach( $role in $actor.actorRole)
+                                    ( $role.text )
+                                #end
+                            #end
+                            <br clear="all"/>
+                        #end
+                    #end
+                #end
+            #end
+
+
+            <hr/>
+        #end
+    #else
+        <b>No alerts provided</b>
+    #end
+</div>
+

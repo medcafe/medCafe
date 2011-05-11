@@ -1,0 +1,17 @@
+Building
+--------
+
+- install Java v6 JDK and apache ant.
+- type: ant
+  from the top-level.  You should end up with a dist/fileman.jar.
+- likely, you'll want to include it for use in another project (such as
+  Ovid).  To do so, simply copy the fileman.jar into <ovid>/contrib/medsphere.
+
+Running
+-------
+
+Please refer to the following document to prepare OpenVista.
+
+http://medsphere.org/docs/DOC-1421
+
+

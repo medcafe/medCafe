@@ -1,0 +1,7 @@
+#foreach( $patient in $patients )
+    <div id="patient_$patient.id"><a href="ccr/patients/$patient.id">$patient.id</a>
+    <a href="#" onclick="showMeds('$patient.id')">Show medications</a>
+    <a href="#" onclick="showAlerts('$patient.id')">Show alerts</a>
+    <a href="#" onclick="showVitals('$patient.id')">Show vitals</a>
+    <a href="#" onclick="showResults('$patient.id')">Show results</a></div>
+#end

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+    <display-name>medj-web</display-name>
+
+<!-- Restlet configuration -->
+    <context-param>
+       <param-name>org.restlet.application</param-name>
+       <param-value>
+          org.mitre.medj.restlet.MedJApplication
+       </param-value>
+    </context-param>
+    
+    <!-- List of supported client protocols -->
+    <context-param>
+         <param-name>org.restlet.clients</param-name>
+         <param-value>HTTP HTTPS FILE</param-value>
+    </context-param>
+    
+    <servlet>
+        <servlet-name>Convert</servlet-name>
+        <servlet-class>org.mitre.medj.servlets.Convert</servlet-class>
+    </servlet>
+
+	<servlet>
+        <servlet-name>ConvertBB</servlet-name>
+        <servlet-class>org.mitre.medj.servlets.ConvertBB</servlet-class>
+    </servlet>
+
+	 <servlet>
+	       <servlet-name>RestletServlet</servlet-name>
+	       <servlet-class>
+	          org.restlet.ext.servlet.ServerServlet
+	       </servlet-class>
+	        <load-on-startup>10</load-on-startup>
+	   </servlet>
+	   
+	    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>org.mitre.medj.servlets.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    	</servlet>
+    	
+	   <!-- Catch all requests from /c/* as a Restlet-->
+	    <servlet-mapping>
+	       <servlet-name>RestletServlet</servlet-name>
+	       <url-pattern>/ccr/*</url-pattern>
+	    </servlet-mapping>
+		   
+    <!-- Catch all requests from /c/* as a Restlet-->
+    <servlet-mapping>
+       <servlet-name>Convert</servlet-name>
+       <url-pattern>/convert</url-pattern>
+    </servlet-mapping>
+
+	 <servlet-mapping>
+       <servlet-name>ConvertBB</servlet-name>
+       <url-pattern>/convertbb</url-pattern>
+    </servlet-mapping>
+	
+
+    <!-- Handling stuff -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+         <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/huh.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/ErrorHandler.jsp</location>
+    </error-page>
+
+</web-app>

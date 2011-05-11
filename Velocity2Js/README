@@ -1,0 +1,22 @@
+In order to fix a problem with nested loops, Velocity2Js was recompiled with
+Velocity 1.6.4, and changes were made to the JSRendererFast class to fix the
+bug.
+
+In upgrading to Velocity 1.6.4, an unusual bug occurred where some of the 
+visit methods in the VelocityVisitor class of the Velocity2Js application
+ were being improperly called.
+
+Instead of going to the function where the signature matched:  for example,
+if visit(astAddNode, object) was how it was called, instead of going to the
+visit(ASTAddNode, Object), it would instead go to the visit(SimpleNode, Object)
+method, where ASTAddNode is the grandchild of SimpleNode.  Most of the
+methods are correctly called, but not any of the method which inherit
+from ASTMathNode which is an abstract class inheriting from SimpleNode
+which was added between release 1.5 and 1.6 of Velocity.
+
+To fix this, code has been added to visit(SimpleNode, Object) in the
+VelocityVisitor class of Velocity2Js which
+correctly calls the proper method.
+
+If changes are made to the code or Velocity is updated, this needs
+to be revisited. 
