@@ -1,0 +1,16 @@
+Run the xjc process using:
+
+xjc -d src ADJE2369.xsd -b anyTypeMapping2.xjb
+
+to map the CCR XML to Java.  This fixes the Java code (but not the annotations) for the elements that do not have a type specified in the xsd.  These are Signature in the SignatureType element, Value in the AttributeValue element in the ObjectAttribute element in the CodedDescriptionType and NickName in the PersonNameType.
+
+It also fixes a problem with OrderRxHistoryType where it extends a base type that already has an element IDs and adds anoter element of the same name.  
+
+
+
+After you are done generating the classes, modify the XmlElement annotation on signature in the SignatureType class by removing the ", type=Object.class"
+
+Do the same for Value in AttributeValue in ObjectAttribute in CodedDescriptionType and NickName in PersonNameType.
+
+Then compile the classes.  This avoids the circular reference problem caused by these fields not havng a specified type and being mapped to Object.
+

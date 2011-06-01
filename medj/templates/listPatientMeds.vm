@@ -9,8 +9,10 @@
                     #if( $product.productName.text )
                         <b>$product.productName.text</b><br/>
                     #end
+                    #if ($product.productName.code)
                     #foreach( $code in $product.productName.code )
                         Medicine Code: $code.value ( $code.codingSystem of $code.version )<br/>
+                    #end
                     #end
                 #end
             #else

@@ -1,0 +1,31 @@
+<jxb:bindings version="1.0" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com.fnf="http://www.fnf.com/xes">
+    <jxb:bindings schemaLocation="ADJE2369.xsd" node="/xs:schema">
+
+            <!-- Customize the package name that is generated for each schema -->
+
+        <jxb:schemaBindings>
+            <jxb:package name="org.mitre.medj.jaxb"/>
+        </jxb:schemaBindings>
+
+       	<jxb:bindings node="//xs:element[@name='NickName']">
+	   <jxb:property>
+	      <jxb:baseType name="java.lang.String"/>
+	   </jxb:property>
+	</jxb:bindings>
+	<jxb:bindings node="//xs:element[@name='AttributeValue']//xs:element[@name='Value']">
+	   <jxb:property>
+	      <jxb:baseType name="java.lang.String"/>
+	   </jxb:property>
+	</jxb:bindings>
+	<jxb:bindings node="//xs:complexType[@name='SignatureType']//xs:element[@name='Signature']">
+	   <jxb:property>
+	      <jxb:baseType name="java.lang.String"/>
+	   </jxb:property>
+	</jxb:bindings>
+	<jxb:bindings node="//xs:complexType[@name='OrderRxHistoryType']//xs:element[@name='IDs']">
+
+	      <jxb:property name="OrderRxID"/>
+
+	</jxb:bindings>
+ </jxb:bindings>
+</jxb:bindings>

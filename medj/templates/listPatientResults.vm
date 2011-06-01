@@ -197,14 +197,16 @@
 		Tests:
 			<div style="padding-left: 2em">
 			#foreach( $testInst in $res.test )
-				#if( $testInst.description.text )
+				#if( $testInst.description && $testInst.description.text )
 					<b>$testInst.description.text</b><br/>
 				#end
+				#if ($testInst.description && $testInst.description.code)
 				#foreach( $code in $testInst.description.code )
 					Test Code: $code.value ( $code.codingSystem of $code.version )<br/>
 				#end
+				#end
 
-
+				#if ($testInst.testResult)
 				Results:  $testInst.testResult.value
 				#if ($testInst.testResult.units)
 					$space
@@ -217,7 +219,9 @@
 						#end
 					#end
 				#end
+				#end
 				<br/>
+				#if ($testInst.sourc)
 				#foreach( $source in $testInst.source)
 					#if($source.actor)
 						#foreach( $actor in $source.actor)
@@ -232,6 +236,7 @@
 							<br clear="all"/>
 						#end
 					#end
+				#end
 				#end
 				#if($testInst.dateTime)
 					#foreach( $dateType in $testInst.dateTime)

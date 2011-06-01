@@ -215,9 +215,11 @@ t.p( product.productName.text);
 t.p('</b><br/>                    ');
 }
 t.p('                    ');
-for (var i5=0;  i5<product.productName.code.length; i5++) {
-var code = product.productName.code[i5];
-velocityCount = i5;
+if (product.productName.code) {
+t.p('                    ');
+for (var i6=0;  i6<product.productName.code.length; i6++) {
+var code = product.productName.code[i6];
+velocityCount = i6;
 t.p('                        Medicine Code: ');
 t.p( code.value);
 t.p(' ( ');
@@ -227,6 +229,8 @@ t.p( code.version);
 t.p(' )<br/>                    ');
 }
 velocityCount = i4;
+t.p('                    ');
+}
 t.p('                ');
 }
 velocityCount = i2;
@@ -809,15 +813,17 @@ for (var i4=0;  i4<res.test.length; i4++) {
 var testInst = res.test[i4];
 velocityCount = i4;
 t.p('				');
-if (testInst.description.text) {
+if (testInst.description && testInst.description.text) {
 t.p('					<b>');
 t.p( testInst.description.text);
 t.p('</b><br/>				');
 }
 t.p('				');
-for (var i5=0;  i5<testInst.description.code.length; i5++) {
-var code = testInst.description.code[i5];
-velocityCount = i5;
+if (testInst.description && testInst.description.code) {
+t.p('				');
+for (var i6=0;  i6<testInst.description.code.length; i6++) {
+var code = testInst.description.code[i6];
+velocityCount = i6;
 t.p('					Test Code: ');
 t.p( code.value);
 t.p(' ( ');
@@ -827,6 +833,10 @@ t.p( code.version);
 t.p(' )<br/>				');
 }
 velocityCount = i4;
+t.p('				');
+}
+t.p('				');
+if (testInst.testResult) {
 t.p('				Results:  ');
 t.p( testInst.testResult.value);
 t.p('				');
@@ -842,9 +852,9 @@ t.p('					');
 t.p('					');
 if (testInst.testResult.units.code) {
 t.p('						');
-for (var i7=0;  i7<testInst.testResult.units.code.length; i7++) {
-var code = testInst.testResult.units.code[i7];
-velocityCount = i7;
+for (var i8=0;  i8<testInst.testResult.units.code.length; i8++) {
+var code = testInst.testResult.units.code[i8];
+velocityCount = i8;
 t.p('							Unit Code: ');
 t.p( code.value);
 t.p(' ( ');
@@ -858,16 +868,20 @@ t.p('					');
 }
 t.p('				');
 }
+t.p('				');
+}
 t.p('				<br/>				');
-for (var i5=0;  i5<testInst.source.length; i5++) {
-var source = testInst.source[i5];
-velocityCount = i5;
+if (testInst.sourc) {
+t.p('				');
+for (var i6=0;  i6<testInst.source.length; i6++) {
+var source = testInst.source[i6];
+velocityCount = i6;
 t.p('					');
 if (source.actor) {
 t.p('						');
-for (var i7=0;  i7<source.actor.length; i7++) {
-var actor = source.actor[i7];
-velocityCount = i7;
+for (var i8=0;  i8<source.actor.length; i8++) {
+var actor = source.actor[i8];
+velocityCount = i8;
 t.p('							');
 if (actor.actorID) {
 t.p('								Actor ID: ');
@@ -877,24 +891,26 @@ t.p('							');
 t.p('							');
 if (actor.actorRole) {
 t.p('								');
-for (var i9=0;  i9<actor.actorRole.length; i9++) {
-var role = actor.actorRole[i9];
-velocityCount = i9;
+for (var i10=0;  i10<actor.actorRole.length; i10++) {
+var role = actor.actorRole[i10];
+velocityCount = i10;
 t.p('									( ');
 t.p( role.text);
 t.p(' )								');
 }
-velocityCount = i7;
+velocityCount = i8;
 t.p('							');
 }
 t.p('							<br clear="all"/>						');
 }
-velocityCount = i5;
+velocityCount = i6;
 t.p('					');
 }
 t.p('				');
 }
 velocityCount = i4;
+t.p('				');
+}
 t.p('				');
 if (testInst.dateTime) {
 t.p('					');
@@ -1337,37 +1353,25 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 for (var i1=0;  i1<context.patients.length; i1++) {
 var patient = context.patients[i1];
 velocityCount = i1;
-t.p('<<<<<<< .mine    <div id="patient_');
+t.p('    <div id="patient_');
 t.p( patient.id);
 t.p('"><a href="ccr/patients/');
 t.p( patient.id);
 t.p('">');
 t.p( patient.id);
-t.p('</a> <a href="');
+t.p('</a>    <a href="');
 t.p('#" onclick="showMeds(\'');
 t.p( patient.id);
-t.p('\')">Show medications</a> <a href="');
-t.p('#" onclick="showAlerts(\'');
-t.p( patient.id);
-t.p('\')">Show alerts</a> <a href="');
-t.p('#" onclick="showVitals(\'');
-t.p( patient.id);
-t.p('\')">Show vitals</a> </div>=======    <div id="patient_');
-t.p( patient.id);
-t.p('"><a href="ccr/patients/');
-t.p( patient.id);
-t.p('">');
-t.p( patient.id);
-t.p('</a> <a href="');
-t.p('#" onclick="showMeds(\'');
-t.p( patient.id);
-t.p('\')">Show medications</a> <a href="');
+t.p('\')">Show medications</a>    <a href="');
 t.p('#" onclick="showAlerts(\'');
 t.p( patient.id);
 t.p('\')">Show alerts</a>    <a href="');
+t.p('#" onclick="showVitals(\'');
+t.p( patient.id);
+t.p('\')">Show vitals</a>    <a href="');
 t.p('#" onclick="showResults(\'');
 t.p( patient.id);
-t.p('\')">Show results</a></div>>>>>>>> .r618');
+t.p('\')">Show results</a></div>');
 }
 velocityCount = 0;
 return t.toString();
