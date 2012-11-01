@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Canvas Painter</title>
+
+
+    <link rel="stylesheet" media="screen" type="text/css" href="../../css/vader/jquery-ui-1.8.9.custom.css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="css/ui.jqgrid.css" />
+    <script src="js/ui.multiselect.js" type="text/javascript"></script>
+	<script src="js/jquery.tablednd.js" type="text/javascript"></script>
+	<script src="js/jquery.contextmenu.js" type="text/javascript"></script>
+	<script src="js/grid.locale-en.js" type="text/javascript"></script>
+    <script src="../../js/jquery-1.4.4.js" type="text/javascript"></script>
+    <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <title>Data Grid - jQuery plugin</title>
+	
+<script type="text/javascript">
+   jQuery(document).ready(function(){ 
+	
+	jQuery("#list").jqGrid({
+	datatype: "local",
+	height: 250,
+   	colNames:['Problem ID','Problem','Type', 'Date'],
+   	colModel:[
+   		{name:'ProblemId',index:'id', width:60, sorttype:"int"},
+   		{name:'Problem',index:'Problem', width:100},
+   		{name:'Type',index:'Type', width:150, sortable:true},	
+   		{name:'ProblemDate',index:'ProblemDate', width:90, sorttype:"date"}	
+   	],
+   	multiselect: true,
+   	caption: "Manipulating Array Data"
+});
+
+
+var mydata = [
+    {
+        "id": "1",
+        "Problem": "Congestive Heart Failure",
+        "Type": "Onset",
+        "ProblemDate": "2011-04-01"
+    },
+    {
+        "id": "2",
+        "Problem": "Diabetes Mellitus",
+        "Type": "Onset",
+        "ProblemDate": "2010-03-01"
+    },
+    {
+        "id": "3",
+        "Problem": "Hypertension",
+        "Type": "Onset",
+        "ProblemDate": "2009-08-08"
+    },
+    {
+        "id": "4",
+        "Problem": "Myocardial Infarction",
+        "Type": "Onset",
+        "ProblemDate": "2009-01-25"
+    },
+    {
+        "id": "5",
+        "Problem": "Kidney stones",
+        "Type": "Stop date",
+        "ProblemDate": "2010-06"
+    }
+];
+for(var i=0;i<=mydata.length;i++)
+	jQuery("#list").jqGrid('addRowData',i+1,mydata[i]);
+   }); 
+</script>
+</head><body>
+
+<h2>My Grid Data</h2>
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<div id="pager" class="scroll" style="text-align:center;"></div>
+
+
+</body></html>
