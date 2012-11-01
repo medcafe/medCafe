@@ -15,30 +15,17 @@
  */
 package org.mitre.medcafe.model;
 
-import java.io.*;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex .*;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.DatabaseUtility;
+import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.WebUtils;
-import org.projecthdata.hdata.schemas._2009._06.condition.Condition;
 
 /**
  *  Representation of the Problem List Item
@@ -198,7 +185,6 @@ public class Address
 					 
 					  rtnResults = true;
 			            
-					  JSONObject o = new JSONObject();
 					  String street = rs.getString(Address.STREET);
 				      String street2 = rs.getString(Address.STREET2);
 				      String city = rs.getString(Address.CITY);
@@ -342,9 +328,9 @@ public class Address
 						prep.setString(6, zip);
 						prep.setString(7, country);
 						
-						String query = prep.toString();
-						 
-						int rtnRes = prep.executeUpdate();
+					//	String query = prep.toString();
+						//TODO: get the return code! 
+						prep.executeUpdate();
 						
 				}
 					
