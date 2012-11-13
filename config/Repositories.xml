@@ -1,47 +1,13 @@
 <repositories>
-	<repository>
-		<name>OurVista</name>
-		<type>org.mitre.medcafe.util.VistaRepository</type>
-		<host>medcafe.mitre.org</host>
-		<credentials>
-			<hostURL>medcafe.mitre.org</hostURL>
-			<port>9201</port>
-			<accessCode>OV1234</accessCode>
-			<verifyCode>OV1234!!</verifyCode>
-		</credentials>
-	</repository>
-
-	<repository>
-		<name>MainVista</name>
-		<type>org.mitre.medcafe.util.VistaRepository</type>
-		<host>192.168.56.101</host>
-		<credentials>
-			<hostURL>192.168.56.101</hostURL>
-			<port>9201</port>
-			<accessCode>SM1234</accessCode>
-			<verifyCode>SM1234!!</verifyCode>
-		</credentials>
-	</repository>
-
-	<repository>
-		<name>AltVista</name>
-		<type>org.mitre.medcafe.util.VistaRepository</type>
-		<host>192.168.56.102</host>
-		<credentials>
-			<hostURL>192.168.56.102</hostURL>
-			<port>9201</port>
-			<accessCode>SM1234</accessCode>
-			<verifyCode>SM1234!!</verifyCode>
-		</credentials>
-	</repository>
-
-	<repository>
-		<name>OurHdata</name>
-		<type>org.mitre.medcafe.util.hDataRepository</type>
-		<host>medcafe-hdata.mitre.org</host>
-		<credentials>
-			<hostURL>http://medcafe-hdata.mitre.org</hostURL>
-			<port>8080</port>
-		</credentials>
-	</repository>
+<repository>
+    <name>OurVista</name>
+    <type>org.mitre.medcafe.util.VistaRepository</type>
+    <host>medcafe.mitre.org</host>
+    <credentials>
+        <hostURL>medcafe.mitre.org</hostURL>
+        <port>9201</port>
+        <accessCode>OV1234</accessCode>
+        <verifyCode>OV1234!!</verifyCode>
+    </credentials>
+</repository>
 </repositories>
