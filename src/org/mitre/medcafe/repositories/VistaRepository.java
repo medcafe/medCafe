@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mitre.medcafe.util;
+package org.mitre.medcafe.repositories;
 
 
 // import org.mitre.hdata.hrf.core.*;
@@ -56,6 +56,9 @@ import org.mitre.medcafe.hdatabased.procedure.Procedure;
 import org.mitre.medcafe.hdatabased.procedure.ProcedureCode;
 import org.mitre.medcafe.hdatabased.treatment.Treatment;
 import org.mitre.medcafe.hdatabased.treatment.TreatmentType;
+import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.Repository.ProductComparator;
+import org.mitre.medcafe.util.Repository.ReactionComparator;
 
 //import com.medsphere.vistarpc.RPCBrokerConnection;
 //import com.medsphere.vistarpc.factory.RPCPooledConnection;

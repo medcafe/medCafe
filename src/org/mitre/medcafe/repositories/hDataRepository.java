@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mitre.medcafe.util;
+package org.mitre.medcafe.repositories;
 
 
 import java.net.*;
@@ -33,6 +33,9 @@ import org.projecthdata.hdata.schemas._2009._06.result.*;
 
 
 import org.mitre.medcafe.hdatabased.encounter.*;
+import org.mitre.medcafe.util.NotImplementedException;
+import org.mitre.medcafe.util.Repository;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;

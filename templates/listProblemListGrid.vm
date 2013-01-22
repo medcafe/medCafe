@@ -1,0 +1,58 @@
+#if ($repositoryList)
+#set ($printFirst = 0)
+#set ($patcnt = 0)
+	#foreach ($repos in $repositoryList)
+		#if ($printFirst == 0)
+			#set ($printFirst = 1)	
+			#if ($repos.problems.problem)
+				{ "titleLabels": ["Problem","Type","Problem Date"],
+				 "modelNames": ["Problem","Type","ProblemDate"],
+				"patientData":[
+				#foreach(  $problemDetail in $repos.problems.problem )
+		   	    #if ($patcnt > 0)
+		   	    ,
+		   	    #end
+		   	    #set ($patcnt = $patcnt+1)
+		   	    {"id":"$patcnt"
+		   		#if ($problemDetail.description.text)
+		  		    ,"Problem": "$problemDetail.description.text" 
+		  			#elseif ($problemDetail.description.code)
+		  			
+		  				#set ($codecnt = 0)
+		  				#foreach ($code in $problemDetail.description.code)
+		  					#if ($codecnt >0)
+		  						;
+		  					#end
+		  					,"code": "$code.value"
+		  					#if ($code.codingSystem)
+		  						($code.codingSystem)
+		  					#end
+		  					#set ($codecnt = $codecnt+1)
+		  				#end
+		  				
+		  				#else
+		  				
+		  				#end
+				
+					#if($problemDetail.dateTime)
+		                #foreach( $dateElem in $problemDetail.dateTime)
+		                	#if($dateElem.type.text)
+		                		,"Type": "$dateElem.type.text"
+		                	#end
+		                	#if ($dateElem.exactDateTime.length()>10)
+			                , "ProblemDate":"$dateElem.exactDateTime.substring(0,10)"
+			                #else
+			                ,"ProblemDate":"$dateElem.exactDateTime"
+			                #end
+		                #end
+		            #end
+		            }
+	   			#end
+	   			]}
+	   		#end
+		#end
+	#end
+#end
+
+
+

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.junit.*;
+import org.mitre.medcafe.repositories.hDataRepository;
 import org.mitre.medcafe.restlet.*;
 import org.mitre.medcafe.util.*;
 import org.projecthdata.hdata.schemas._2009._06.allergy.*;

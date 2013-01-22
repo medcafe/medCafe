@@ -108,6 +108,13 @@
 	<cacheKey>Familyhistory</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+	<name>ProblemGridTest</name>
+	<type>Problem</type>
+	<image>problem.png</image>
+	<template>listProblemListGrid</template>
+	<cacheKey>problemListGrid</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Problem</name>
 	<type>Problem</type>
 	<image>problem.png</image>
