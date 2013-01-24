@@ -1,22 +1,8 @@
-<%-- Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.  Licensed under the Apache License, Version 2.0 (the "License").  --%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%@
-    taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <title>Repository List</title>
-        <link type="text/css" href="${css}/ui.tabs.css" rel="stylesheet" />
-        <link type="text/css" href="${css}/ui.theme.css" rel="stylesheet" />
-        <link type="text/css" href="${css}/droppable-tabs.css" rel="stylesheet" />
+<%@ page import="org.mitre.medcafe.util.*" %>    
+<%
+	GreenCDAFeedParser parser = new GreenCDAFeedParser();
+	//parser.parseAtom("http://1.1.22.110:3000/records");
+	parser.parseDom("http://1.1.22.110:3000/records/1");
+	
+%>    
 
-        <script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
-        <script type="text/javascript" src="${js}/jquery.layout.js"></script>
-        <script type="text/javascript" src="${js}/custom.js"></script>
-        <script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
-    </head>
-    <body>
-        <%-- <c:import url="http://127.0.0.1:8080/medcafe/c/repositories"/> --%>
-        <div class="ui-widget"><tags:IncludeRestlet relurl="/patients/7/history/Personal" mediatype="json" restVerb="GET"/></div>
-
-    </body>
-</html>
