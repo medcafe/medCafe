@@ -1,14 +1,14 @@
 <repositories>
-<repository>
-    <name>LocalH</name>
-    <type>org.mitre.medcafe.respositories.MedcafeRepository</type>
-    <host>localhost</host>
-    <protocol>HTTP</protocol>
-    <credentials>
-        <hostURL>localhost</hostURL>
-        <port>8000</port>
-        <accessCode>OV1234</accessCode>
-        <verifyCode>OV1234!!</verifyCode>
-    </credentials>
-</repository>
+	<repository>
+	    <name>LocalH</name>
+	    <type>org.mitre.medcafe.respositories.MedcafeRepository</type>
+	    <host>localhost</host>
+	    <protocol>HTTP</protocol>
+	    <credentials>
+	        <hostURL>localhost</hostURL>
+	        <port>8000</port>
+	        <accessCode>OV1234</accessCode>
+	        <verifyCode>OV1234!!</verifyCode>
+	    </credentials>
+	</repository>
 </repositories>

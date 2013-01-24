@@ -16,18 +16,20 @@
 package org.mitre.medcafe.util;
 
 
+import org.hl7.greencda.c32.Allergy;
+import org.hl7.greencda.c32.Condition;
+import org.hl7.greencda.c32.Encounter;
+import org.hl7.greencda.c32.Immunization;
+import org.hl7.greencda.c32.Medication;
+import org.hl7.greencda.c32.Person;
+import org.hl7.greencda.c32.Procedure;
+import org.hl7.greencda.c32.Result;
+import org.hl7.greencda.c32.Support;
 import org.json.JSONObject;
 import org.mitre.medcafe.model.*;
+
 import java.util.*;
 
-import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
-import org.projecthdata.hdata.schemas._2009._06.allergy.*;
-import org.projecthdata.hdata.schemas._2009._06.medication.*;
-import org.projecthdata.hdata.schemas._2009._06.immunization.*;
-import org.projecthdata.hdata.schemas._2009._06.condition.*;
-import org.projecthdata.hdata.schemas._2009._06.support.*;
-import org.projecthdata.hdata.schemas._2009._06.result.*;
-import org.mitre.medcafe.hdatabased.encounter.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.Timer;
 import com.medsphere.fileman.FMRecord;
@@ -50,16 +52,16 @@ public abstract class Repository {
     public static final String REPOSITORIES = "repositories";
 
 
-    protected TreeSet<Product> prodSet;
-    protected TreeSet<Reaction> reactionSet;
-    private ReentrantReadWriteLock allergyReactantLock = new ReentrantReadWriteLock(true);
-    private ReentrantReadWriteLock allergyReactionLock = new ReentrantReadWriteLock(true);
+   // protected TreeSet<Product> prodSet;
+   // protected TreeSet<Reaction> reactionSet;
+   // private ReentrantReadWriteLock allergyReactantLock = new ReentrantReadWriteLock(true);
+   // private ReentrantReadWriteLock allergyReactionLock = new ReentrantReadWriteLock(true);
     private Timer updateTableTimer;
 
     public Repository(HashMap<String, String> credMap) {
         setCredentials(credMap);
-        createAllergyReactionObject();
-        createAllergyReactantObject();
+        //createAllergyReactionObject();
+        //createAllergyReactantObject();
         updateTableTimer = new Timer();
         GregorianCalendar cal = new GregorianCalendar();
         cal.add(Calendar.DATE, 1);
@@ -73,7 +75,7 @@ public abstract class Repository {
     /**
      *  Given a patient id, get the patient info
      */
-    public abstract org.projecthdata.hdata.schemas._2009._06.patient_information.Patient getPatient(String patientId);
+    public abstract Patient getPatient(String patientId);
 
     /**
      *  Given a patient name, get the patient id
@@ -99,7 +101,7 @@ public abstract class Repository {
     /**
      *  Get a problem list for a patient.
      */
-    public abstract List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> getProblems(String patientId) throws NotImplementedException;
+    public abstract List<Condition> getProblems(String patientId) throws NotImplementedException;
 
     /**
      *  Get a support (contact) list for a patient.
@@ -110,6 +112,20 @@ public abstract class Repository {
      * Get a list of immunizations for a patient.
      */
     public abstract List<Immunization> getImmunizations(String id) throws NotImplementedException;
+    
+    
+    public abstract List<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
+
+    public abstract List<Encounter> getPatientEncounters(String id) throws NotImplementedException;
+
+    public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
+
+    public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
+
+    public  abstract List<Procedure> getProcedures(String patientId)  throws NotImplementedException;
+		  
+    public  abstract String getPatientID(String family, String given) throws NotImplementedException;;
+    	
     /**
      * Type property.
      */
@@ -187,14 +203,7 @@ public abstract class Repository {
         }
     }
 
-    public abstract Collection<FMRecord> getTimeLineInfo(String ien) throws NotImplementedException;
-
-    public abstract Collection<EncounterDetail> getPatientEncounters(String id) throws NotImplementedException;
-
-    public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
-
-    public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
-
+   
     /* don't currently have history in OpenVista or hData; this refers back to data on the local database system
     on a live system, this would need to be rewritten for each repository class in order to access that repository   */
     public JSONObject getHistory(String patientId, String category, Date startDate, Date endDate) {
@@ -203,102 +212,30 @@ public abstract class Repository {
         return History.getHistory(local_id, category, startDate, endDate);
     }
 
-    public JSONObject getAllergyReactantObject(String search) {
-        try {
-            allergyReactantLock.readLock().lock();
-            Product first = new Product();
-            Product last = new Product();
-            first.setDisplayName(search);
-            first.setValue(search);
-            
-            last.setDisplayName(search.substring(0,search.length()-1) + String.valueOf((char)(search.charAt(search.length()-1) + 1)));
-            last.setValue(last.getDisplayName());
-             ArrayList<Product> products = new ArrayList<Product>();
-             products.addAll(prodSet.subSet(first, true, last, false));
-            JSONObject retObj = WebUtils.bundleJsonResponseObject("allergenList", products);
-            return retObj;
-        } finally {
-            allergyReactantLock.readLock().unlock();
-        }
-    }
- public JSONObject getAllergyReactionObject(String search) {
-        try {
-        		ArrayList<Reaction> reactions = new ArrayList<Reaction>();
-            allergyReactionLock.readLock().lock();
-            if (search == null ||search.equals(""))
-            {
-            	reactions.addAll(reactionSet);
-            }
-            else
-            {
-           		Reaction first = new Reaction();
-            	Reaction last = new Reaction();
-            first.setDisplayName(search);
-            first.setValue(search);
-            
-            last.setDisplayName(search.substring(0,search.length()-1) + String.valueOf((char)(search.charAt(search.length()-1) + 1)));
-            last.setValue(last.getDisplayName());
-             reactions.addAll(reactionSet.subSet(first, true, last, false));
-             }
-            JSONObject retObj = WebUtils.bundleJsonResponseObject("reactionList", reactions);
-            return retObj;
-        } finally {
-            allergyReactionLock.readLock().unlock();
-        }
-    }
 
+    //public abstract TreeSet<Reaction> generateAllergyReactionList();
 
-    public synchronized void createAllergyReactionObject() {
-        TreeSet<Reaction> reactList = generateAllergyReactionList();
-        try {
-            allergyReactionLock.writeLock().lock();
-            reactionSet = reactList;
-        } finally {
-            allergyReactionLock.writeLock().unlock();
-        }
-    }
-
-    public synchronized void createAllergyReactantObject() {
-        TreeSet<Product> prodList = generateAllergyReactantList();
-        try {
-            allergyReactantLock.writeLock().lock();
-				prodSet = prodList;
-        } finally {
-            allergyReactantLock.writeLock().unlock();
-        }
-
-    }
-
-    public abstract TreeSet<Reaction> generateAllergyReactionList();
-
-    public abstract TreeSet<Product> generateAllergyReactantList();
+    //public abstract TreeSet<Product> generateAllergyReactantList();
 
     public void updateLookupTables()
     {
-        createAllergyReactantObject();
-        createAllergyReactionObject();
-    }
-            public class ProductComparator implements Comparator<Product>
-    {
-    	public ProductComparator()
-    	{
-    		super();
-    	}
-    	public int compare(Product a, Product b)
-    	{
-    		return (a.getDisplayName().compareToIgnoreCase(b.getDisplayName()));
-    	}
-    }
-    public class ReactionComparator implements Comparator<Reaction>
-    {
-    	public ReactionComparator()
-    	{
-    		super();
-    	}
-    	public int compare(Reaction a, Reaction b)
-    	{
-    		return (a.getDisplayName().compareToIgnoreCase(b.getDisplayName()));
-    	}
+        //createAllergyReactantObject();
+        //createAllergyReactionObject();
     }
 
+	public Person getPatient(String userName, String patientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Result> getResults(String patientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+	 
+   
 }

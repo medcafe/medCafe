@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import org.hl7.greencda.c32.Allergy;
+import org.hl7.greencda.c32.Condition;
+import org.hl7.greencda.c32.Encounter;
+import org.hl7.greencda.c32.Immunization;
+import org.hl7.greencda.c32.Medication;
+import org.hl7.greencda.c32.Procedure;
+import org.hl7.greencda.c32.Result;
+import org.hl7.greencda.c32.Support;
 import org.mitre.medcafe.hdatabased.encounter.EncounterDetail;
+import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
-import org.projecthdata.hdata.schemas._2009._06.allergy.Allergy;
-import org.projecthdata.hdata.schemas._2009._06.allergy.Product;
-import org.projecthdata.hdata.schemas._2009._06.allergy.Reaction;
-import org.projecthdata.hdata.schemas._2009._06.condition.Condition;
-import org.projecthdata.hdata.schemas._2009._06.immunization.Immunization;
-import org.projecthdata.hdata.schemas._2009._06.medication.Medication;
-import org.projecthdata.hdata.schemas._2009._06.patient_information.Patient;
-import org.projecthdata.hdata.schemas._2009._06.result.Result;
-import org.projecthdata.hdata.schemas._2009._06.support.Support;
 
 import com.medsphere.fileman.FMRecord;
 
@@ -88,14 +88,14 @@ public class MedcafeRepository extends Repository {
 	}
 
 	@Override
-	public Collection<FMRecord> getTimeLineInfo(String ien)
+	public List<FMRecord> getTimeLineInfo(String ien)
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<EncounterDetail> getPatientEncounters(String id)
+	public List<Encounter> getPatientEncounters(String id)
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
@@ -115,15 +115,19 @@ public class MedcafeRepository extends Repository {
 	}
 
 	@Override
-	public TreeSet<Reaction> generateAllergyReactionList() {
+	public List<Procedure> getProcedures(String patientId)
+			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public TreeSet<Product> generateAllergyReactantList() {
+	public String getPatientID(String family, String given)
+			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

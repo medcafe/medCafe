@@ -117,6 +117,7 @@ public class VistaRepositoryTest {
         assertFalse( "Patient was not found.", pat == null );
         // JSONObject p = new JSONObject(pat);
         Gson gson = new Gson();
+      
         String p = gson.toJson(pat);
         log.finer(p.toString());
         assertFalse( p == null );

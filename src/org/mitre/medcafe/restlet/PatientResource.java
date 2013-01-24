@@ -17,12 +17,12 @@ package org.mitre.medcafe.restlet;
 
 import org.json.JSONObject ;
 import org.json.JSONException;
+import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import com.google.gson.*;
-import org.projecthdata.hdata.schemas._2009._06.patient_information.Patient;
 import java.io.IOException;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;

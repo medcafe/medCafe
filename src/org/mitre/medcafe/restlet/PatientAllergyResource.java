@@ -21,11 +21,10 @@ import java.io.IOException;
 import java.util.*;
 import javax.xml.datatype.*;
 import java.text.SimpleDateFormat;
+
+import org.hl7.greencda.c32.Allergy;
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
-import org.projecthdata.hdata.schemas._2009._06.allergy.*;
-import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
-import org.projecthdata.hdata.schemas._2009._06.core.DateRange;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
@@ -90,7 +89,7 @@ public class PatientAllergyResource extends ServerResource {
         // "name=value" tokens.
         Allergy allergy = new Allergy();
         Form form = new Form(entity);
-        org.projecthdata.hdata.schemas._2009._06.allergy.Product product = new org.projecthdata.hdata.schemas._2009._06.allergy.Product();
+        /*Product product = new Product();
         product.setValue(form.getFirstValue("allergens"));
         allergy.setProduct(product);
         Reaction reaction = new Reaction();
@@ -169,7 +168,7 @@ public class PatientAllergyResource extends ServerResource {
 
         // See http://stackoverflow.com/questions/996819/restlet-how-to-process-multipart-form-data-requests for more info
 
-     
+      */
 
         return ret;
     }

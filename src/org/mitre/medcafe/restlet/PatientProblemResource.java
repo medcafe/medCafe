@@ -21,10 +21,9 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import org.hl7.greencda.c32.Condition;
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
-import org.projecthdata.hdata.schemas._2009._06.condition.*;
-import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
@@ -55,7 +54,7 @@ public class PatientProblemResource extends ServerResource {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
 			try{
-        List<org.projecthdata.hdata.schemas._2009._06.condition.Condition> problems = r.getProblems( id );
+        List<Condition> problems = r.getProblems( id );
 
         if( problems == null )
         {

@@ -21,13 +21,10 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import org.hl7.greencda.c32.Encounter;
 import org.json.JSONObject;
 import org.mitre.medcafe.util.*;
 
-
-
-
-import org.mitre.medcafe.hdatabased.encounter.EncounterDetail;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
@@ -56,7 +53,7 @@ public class PatientEncounterResource extends ServerResource {
         }
 
         try {
-            Collection<EncounterDetail> encounters = r.getPatientEncounters(id);
+            List<Encounter> encounters = r.getPatientEncounters(id);
 
             if (encounters == null) {
                 return new JsonRepresentation(WebUtils.buildErrorJson("Could not establish a connection to the repository " + repository + " at this time."));

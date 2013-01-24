@@ -21,9 +21,9 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import org.hl7.greencda.c32.Support;
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
-import org.projecthdata.hdata.schemas._2009._06.support.*;
 
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
