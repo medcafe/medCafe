@@ -62,11 +62,11 @@ public class RepositoryLookupResource extends ServerResource {
      
         if (type.equals("allergens"))
         {
-        	 retObj = r.getAllergyReactantObject(lookupString);
+        	 //retObj = r.getAllergyReactantObject(lookupString);
         	}
         	else if (type.equals("reactions"))
         	{
-        		retObj = r.getAllergyReactionObject(lookupString);
+        		//retObj = r.getAllergyReactionObject(lookupString);
         	}
 			
 			

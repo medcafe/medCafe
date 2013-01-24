@@ -21,11 +21,10 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import org.hl7.greencda.c32.Result;
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
 
-import org.projecthdata.hdata.schemas._2009._06.result.*;
-import org.projecthdata.hdata.schemas._2009._06.patient_information.*;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
