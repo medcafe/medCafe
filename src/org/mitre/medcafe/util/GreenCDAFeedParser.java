@@ -105,6 +105,7 @@ public class GreenCDAFeedParser
                  // Get the Contents
                  for (SyndContentImpl content : (List<SyndContentImpl>) entry.getContents()) {
                      System.out.println("Content: " + content.getValue());
+                     
                  }
                  
                  // Get the Categories

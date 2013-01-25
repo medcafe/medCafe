@@ -15,6 +15,15 @@
  */
 package org.mitre.medcafe.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -400,5 +409,59 @@ public class WebUtils
             return null;
         }
     }
+    
+    
+    public static String callServer(String server, String action, String format, String... params) throws IOException
+	{
+		 URL u;
+		 URLConnection uc = null;
+		 HttpURLConnection connection = null;
+			
+		try {
+			u = new URL(server);
+		
+			
+			uc = u.openConnection();
+			connection = (HttpURLConnection) uc;
+			connection.setDoOutput(true);
+			connection.setDoInput(true); 
+			connection.setRequestMethod(action);
+			connection.setRequestProperty("Accept", format);
+			//conn.setRequestProperty("Accept", "application/json");
+	
+			InputStreamReader in = new InputStreamReader((InputStream) connection.getContent());
+			BufferedReader buff = new BufferedReader(in);      
+			StringBuffer xacmlBuffer = new StringBuffer();
+			String line = buff.readLine();
+			      
+			while (line != null) {
+			        xacmlBuffer.append(line);
+			        line = buff.readLine();
+			      } 
+			      
+		  System.out.println(xacmlBuffer.toString());
+		  		
+		  String xacml =xacmlBuffer.toString();
+		  return xacml;
+					
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+		finally
+		{
+			
+			connection.disconnect();
+		}
+	}
 }
 

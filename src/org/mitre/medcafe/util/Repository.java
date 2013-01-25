@@ -58,6 +58,8 @@ public abstract class Repository {
    // private ReentrantReadWriteLock allergyReactionLock = new ReentrantReadWriteLock(true);
     private Timer updateTableTimer;
 
+    public Repository(){};
+    
     public Repository(HashMap<String, String> credMap) {
         setCredentials(credMap);
         //createAllergyReactionObject();
