@@ -18,6 +18,8 @@ package org.mitre.medcafe.util;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,11 +32,13 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+import com.sun.syndication.feed.WireFeed;
 import com.sun.syndication.feed.synd.SyndCategoryImpl;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndLinkImpl;
+import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
  
@@ -50,7 +54,7 @@ public class GreenCDAFeedParser
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
     
-    
+    private final static String ATOM_LINK_TYPE = "application/atom+xml";
     public static void parseDom(String url)
     {
     	try {
@@ -72,23 +76,207 @@ public class GreenCDAFeedParser
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	 
-
-    	
     	
     }
-    public static void parseAtom(String url)
+    
+    public static List<String> findPatientDetails(String firstName, String lastName, String type, String fileName)
+    {
+    	List<String> results = new ArrayList<String>();
+    	
+    	List<SyndLinkImpl> foundEntries=  findPatient( firstName,  lastName,  type,  fileName);
+    	List<SyndLinkImpl> returnEntries=  findHealthData(foundEntries, type);
+    	List<String> urls = findHealthDetail(returnEntries, type);
+    	StringBuffer strBuf = new StringBuffer();
+    	
+    	for (String url: urls)
+    	{
+    		results.add(getServerOutput(url));
+    	}
+    	return results;
+    }
+    
+    public static List<SyndLinkImpl> findPatient(String firstName, String lastName, String type, String fileName)
+    {
+    	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
+        
+    	 try {
+    		  
+             SyndFeedInput input = new SyndFeedInput();
+             fileName = Constants.CONFIG_DIR + fileName;
+             System.out.println("GreenCDAFeedParser : FileName : " + fileName );
+    		 
+             XmlReader xmlRead = new XmlReader(new File(fileName));
+            
+             SyndFeed feed = input.build(xmlRead);
+    
+             List<SyndEntry> synEntries =  (List<SyndEntry>) feed.getEntries();
+             
+             // Get the entry items...
+             for (SyndEntry entry : synEntries) { 
+            	 
+            	 if ( entry.getTitle().contains(firstName)   && 
+            			 entry.getTitle().contains(lastName) )
+	                {
+            		 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+	            	
+		 				for (SyndLinkImpl link : links) 
+		 				{
+		                      System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
+		                      if (link.getType().equals(ATOM_LINK_TYPE))
+		                      {
+					               foundEntries.add(link);
+
+		                      }
+		 				}
+	                }
+             }
+             
+            
+         } catch (Exception ex) {
+        	 ex.printStackTrace();
+             System.out.println("Error: " + ex.getMessage());
+         }
+    	 finally
+    	 {
+    		
+    	 }
+    	 
+    	 return  foundEntries;
+         
+    }
+    
+    public static List<SyndLinkImpl> findHealthData(List<SyndLinkImpl> foundEntries, String type)
+    {
+    	List<SyndLinkImpl> returnEntries = new ArrayList<SyndLinkImpl>();
+    	try {
+			
+	    	 SyndFeedInput input = new SyndFeedInput();
+	    	 SyndFeed feed = null;     	 
+	    	 for (SyndLinkImpl foundLink: foundEntries)
+	         {
+	        	 //URL feedUrl = new URL(foundLink.getHref());
+				
+	        	 String patientFileName = "TestPatientAtom.xml";
+	        	 XmlReader xmlReadPatient = new XmlReader(new File( Constants.CONFIG_DIR +  patientFileName));
+	        	 //XmlReader xmlReadPatient = new XmlReader(feedUrl);
+	        	 feed = input.build(xmlReadPatient);
+	        	 List<SyndEntry> patientEntries =  (List<SyndEntry>) feed.getEntries();
+	        	 {
+	        		 for (SyndEntry entry : patientEntries) 
+	        		 {     
+	        			 if (entry.getTitle() == null)
+	         			 	continue;
+	         			
+	            		 if ( entry.getTitle().contains(type)   )
+	    	             {
+	            			
+	            			 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+	            			 	for (SyndLinkImpl link : links) 
+	    		 				{
+		            			 	if (link.getType().equals(ATOM_LINK_TYPE))
+				                      {
+							               returnEntries.add(link);
+	
+				                      }
+	    		 				}
+	    	              }
+	        		 }
+	        	 }
+	         }
+	    	 return returnEntries;
+	    	 
+    	} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FeedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnEntries;
+    }
+    
+    public static List<String> findHealthDetail(List<SyndLinkImpl> foundEntries, String type)
+    {
+    	List<String> returnEntries = new ArrayList<String>();
+    	try 
+    	{
+			
+	    	 SyndFeedInput input = new SyndFeedInput();
+	    	 SyndFeed feed = null;     	 
+	    	 for (SyndLinkImpl foundLink: foundEntries)
+	         {
+	        	 //URL feedUrl = new URL(foundLink.getHref());
+				
+	        	 String healthFileName = "TestMedsAtom.xml";
+	        	 XmlReader xmlReadPatient = new XmlReader(new File( Constants.CONFIG_DIR +  healthFileName));
+	        	 feed = input.build(xmlReadPatient);
+	        	 List<SyndEntry> healthEntries =  (List<SyndEntry>) feed.getEntries();
+	        	 {
+	        		 for (SyndEntry entry : healthEntries) 
+	        		 { 
+	        			 returnEntries.add(entry.getLink());
+	        		 }
+	        	 }
+	         }
+	    	 
+	    } catch (MalformedURLException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	    } catch (IOException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 	} catch (IllegalArgumentException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 	} catch (FeedException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 	}
+	 	return returnEntries;
+	    	 
+    }
+    
+    public static String getServerOutput(String url)
+    {
+    	String server = "http://1.1.22.110:3000" ;
+    	String tempResults = null;
+    	
+    	server = server + url;
+		System.out.println("Get results from server " + server);
+    	try {
+			tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tempResults;
+		
+    }
+    public static void parseAtom(String url, String fileName)
     {
     	 try {
     		 System.out.println("GreenCDAFeedParser : Start: " );
     		  
-    		 URL feedUrl = new URL(url);
-    		 // URL feedUrl = new URL("http://feeds.bbci.co.uk/news/scotland/rss.xml");
-     		
+    		 //URL feedUrl = new URL(url);
+    		 
+    		 //URL feedUrl = new URL("http://feeds.bbci.co.uk/news/scotland/rss.xml");
+    		 //URLConnection urlCon = feedUrl.openConnection();
+    		 //InputStream io = urlCon.getInputStream();
+             
              SyndFeedInput input = new SyndFeedInput();
-             SyndFeed feed = input.build(new XmlReader(feedUrl));
-  
+             fileName = Constants.CONFIG_DIR + fileName;
+             System.out.println("GreenCDAFeedParser : FileName : " + fileName );
+    		 
+             XmlReader xmlRead = new XmlReader(new File(fileName));
             
+             SyndFeed feed = input.build(xmlRead);
+    
              List<SyndEntry> synEntries =  (List<SyndEntry>) feed.getEntries();
              // Get the entry items...
              for (SyndEntry entry : synEntries) {              
@@ -99,7 +287,11 @@ public class GreenCDAFeedParser
                  // Get the Links
                  List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
 				for (SyndLinkImpl link : links) {
-                     System.out.println("Link: " + link.getHref());
+                     System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
+                     if (link.getType().equals(ATOM_LINK_TYPE))
+                     {
+                    	 System.out.println("Link: " + link.getHref() + " Type: " + link.getType() + " is the one we want");
+                     }
                  }            
   
                  // Get the Contents
