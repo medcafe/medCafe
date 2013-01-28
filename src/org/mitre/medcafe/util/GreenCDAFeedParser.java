@@ -27,10 +27,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.hl7.greencda.c32.Code;
+import org.hl7.greencda.c32.HealthObject;
+import org.hl7.greencda.c32.Medication;
+import org.mitre.medcafe.repositories.GreenCDARepository;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import com.sun.syndication.feed.WireFeed;
 import com.sun.syndication.feed.synd.SyndCategoryImpl;
@@ -81,16 +88,24 @@ public class GreenCDAFeedParser
     
     public static List<String> findPatientDetails(String firstName, String lastName, String type, String fileName)
     {
+    	List<String> urls = new ArrayList<String>();
     	List<String> results = new ArrayList<String>();
-    	
+    	GreenCDARepository gcda = new GreenCDARepository();
     	List<SyndLinkImpl> foundEntries=  findPatient( firstName,  lastName,  type,  fileName);
-    	List<SyndLinkImpl> returnEntries=  findHealthData(foundEntries, type);
-    	List<String> urls = findHealthDetail(returnEntries, type);
-    	StringBuffer strBuf = new StringBuffer();
-    	
-    	for (String url: urls)
+    	if (foundEntries.size() > 0)
     	{
-    		results.add(getServerOutput(url));
+    		List<SyndLinkImpl> returnEntries=  findHealthData(foundEntries, type);
+    		if (returnEntries.size() > 0)
+    		{
+    			urls = findHealthDetail(returnEntries, type);
+    		
+		    	for (String url: urls)
+		    	{
+		    		results.add(url);
+		    		//testGetMedications(url);
+		    		//results.add(getServerOutput(url));
+		    	}
+    		}
     	}
     	return results;
     }
@@ -103,7 +118,7 @@ public class GreenCDAFeedParser
     		  
              SyndFeedInput input = new SyndFeedInput();
              fileName = Constants.CONFIG_DIR + fileName;
-             System.out.println("GreenCDAFeedParser : FileName : " + fileName );
+             System.out.println("GreenCDAFeedParser : FileName is : " + fileName );
     		 
              XmlReader xmlRead = new XmlReader(new File(fileName));
             
@@ -149,7 +164,8 @@ public class GreenCDAFeedParser
     {
     	List<SyndLinkImpl> returnEntries = new ArrayList<SyndLinkImpl>();
     	try {
-			
+    		System.out.println("GreenCDAFeedParser : findHealthData " + foundEntries.size());
+    				
 	    	 SyndFeedInput input = new SyndFeedInput();
 	    	 SyndFeed feed = null;     	 
 	    	 for (SyndLinkImpl foundLink: foundEntries)
@@ -242,6 +258,55 @@ public class GreenCDAFeedParser
 	    	 
     }
     
+    
+    private static List<Medication> testGetMedications(String url) {
+		
+    	String server = "http://1.1.22.110:3000" ;
+    	
+    	server = server + url;
+		List<Medication> meds = new ArrayList<Medication>();
+		
+		try {
+			String results = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+			Gson gson = new Gson();
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(results).getAsJsonObject();
+			Medication med = gson.fromJson(o,  Medication.class);
+			HealthObject ho = gson.fromJson(o, HealthObject.class);
+			String testJsonHo = gson.toJson(ho);
+	           
+			   
+			System.out.println("GreenCDARepository Health Object " + testJsonHo );
+			meds.add(med);
+		
+            Medication testMed = new Medication();
+            testMed.setId("TestMed");
+            testMed.setStatus("Active");
+            Code delivMeth = new Code();
+            delivMeth.setCode("By Mouth");
+            testMed.setDeliveryMethod(delivMeth);
+            
+            Code code = new Code();
+            code.setCode("Oral");
+            testMed.setRoute(code);
+            testMed.setFreeText("Free Text Value");
+            
+            String testJson = gson.toJson(testMed);
+            Medication returnMed = gson.fromJson(testJson, Medication.class);
+            meds.add(returnMed);
+            
+		/*} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			*/
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return meds;
+
+	}
     public static String getServerOutput(String url)
     {
     	String server = "http://1.1.22.110:3000" ;
@@ -263,7 +328,7 @@ public class GreenCDAFeedParser
     	 try {
     		 System.out.println("GreenCDAFeedParser : Start: " );
     		  
-    		 //URL feedUrl = new URL(url);
+    		 URL feedUrl = new URL(url);
     		 
     		 //URL feedUrl = new URL("http://feeds.bbci.co.uk/news/scotland/rss.xml");
     		 //URLConnection urlCon = feedUrl.openConnection();
@@ -273,8 +338,9 @@ public class GreenCDAFeedParser
              fileName = Constants.CONFIG_DIR + fileName;
              System.out.println("GreenCDAFeedParser : FileName : " + fileName );
     		 
-             XmlReader xmlRead = new XmlReader(new File(fileName));
-            
+             //XmlReader xmlRead = new XmlReader(new File(fileName));
+             XmlReader xmlRead = new XmlReader(feedUrl);
+             
              SyndFeed feed = input.build(xmlRead);
     
              List<SyndEntry> synEntries =  (List<SyndEntry>) feed.getEntries();
