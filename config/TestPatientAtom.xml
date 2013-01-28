@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:1.1.22.110,2005:/records/4</id>
+  <link rel="alternate" type="text/html" href="http://1.1.22.110:3000"/>
+  <link rel="self" type="application/atom+xml" href="http://1.1.22.110:3000/records/4"/>
+  <entry>
+    <id>/c32</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4"/>
+  </entry>
+  <entry>
+    <id>/allergies</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/allergies"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/allergies"/>
+    <title>Allergies</title>
+  </entry>
+  <entry>
+    <id>/care_goals</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/care_goals"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/care_goals"/>
+    <title>Care Goals</title>
+  </entry>
+  <entry>
+    <id>/conditions</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/conditions"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/conditions"/>
+    <title>Conditions</title>
+  </entry>
+  <entry>
+    <id>/encounters</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/encounters"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/encounters"/>
+    <title>Encounters</title>
+  </entry>
+  <entry>
+    <id>/immunizations</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/immunizations"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/immunizations"/>
+    <title>Immunizations</title>
+  </entry>
+  <entry>
+    <id>/medical_equipment</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/medical_equipment"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/medical_equipment"/>
+    <title>Medical Equipment</title>
+  </entry>
+  <entry>
+    <id>/medications</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/medications"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/medications"/>
+    <title>Medications</title>
+  </entry>
+  <entry>
+    <id>/procedures</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/procedures"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/procedures"/>
+    <title>Procedures</title>
+  </entry>
+  <entry>
+    <id>/results</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/results"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/results"/>
+    <title>Lab Results</title>
+  </entry>
+  <entry>
+    <id>/social_history</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/social_history"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/social_history"/>
+    <title>Social History</title>
+  </entry>
+  <entry>
+    <id>/vital_signs</id>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4/vital_signs"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4/vital_signs"/>
+    <title>Vital Signs</title>
+  </entry>
+</feed>
