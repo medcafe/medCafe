@@ -15,10 +15,13 @@
  */
 package org.mitre.medcafe.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -27,19 +30,18 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import junit.framework.Assert;
+
 import org.hl7.greencda.c32.Code;
 import org.hl7.greencda.c32.HealthObject;
 import org.hl7.greencda.c32.Medication;
 import org.mitre.medcafe.repositories.GreenCDARepository;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import com.sun.syndication.feed.WireFeed;
 import com.sun.syndication.feed.synd.SyndCategoryImpl;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -117,7 +119,7 @@ public class GreenCDAFeedParser
     	 try {
     		  
              SyndFeedInput input = new SyndFeedInput();
-             fileName = Constants.CONFIG_DIR + fileName;
+           //  fileName = Constants.CONFIG_DIR + fileName;
              System.out.println("GreenCDAFeedParser : FileName is : " + fileName );
     		 
              XmlReader xmlRead = new XmlReader(new File(fileName));
@@ -323,27 +325,25 @@ public class GreenCDAFeedParser
 		return tempResults;
 		
     }
-    public static void parseAtom(String url, String fileName)
+    public static void parseAtom(String url)
     {
     	 try {
-    		 System.out.println("GreenCDAFeedParser : Start: " );
-    		  
-    		 URL feedUrl = new URL(url);
+    		 System.out.println("GreenCDAFeedParser : url " + url );
     		 
-    		 //URL feedUrl = new URL("http://feeds.bbci.co.uk/news/scotland/rss.xml");
-    		 //URLConnection urlCon = feedUrl.openConnection();
-    		 //InputStream io = urlCon.getInputStream();
+             URL data_server = new URL(url);
              
+             HttpURLConnection connection = (HttpURLConnection)data_server.openConnection();
+             connection.setRequestProperty("Accept","*/*");
+             connection.setRequestMethod("GET");
+             connection.connect();
+                          
              SyndFeedInput input = new SyndFeedInput();
-             fileName = Constants.CONFIG_DIR + fileName;
-             System.out.println("GreenCDAFeedParser : FileName : " + fileName );
-    		 
-             //XmlReader xmlRead = new XmlReader(new File(fileName));
-             XmlReader xmlRead = new XmlReader(feedUrl);
-             
-             SyndFeed feed = input.build(xmlRead);
+             SyndFeed feed = input.build(
+            		 new InputStreamReader(
+            				 connection.getInputStream()));
     
              List<SyndEntry> synEntries =  (List<SyndEntry>) feed.getEntries();
+             
              // Get the entry items...
              for (SyndEntry entry : synEntries) {              
                  System.out.println("Title: " + entry.getTitle());

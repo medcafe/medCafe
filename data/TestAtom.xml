@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:1.1.22.110,2005:/records</id>
+  <link rel="alternate" type="text/html" href="http://1.1.22.110:3000"/>
+  <link rel="self" type="application/atom+xml" href="http://1.1.22.110:3000/records"/>
+  <title>all records</title>
+  <updated>2012-12-19T16:09:01Z</updated>
+  <entry>
+    <id>tag:1.1.22.110,2005:Record/50d1e69cbd8009e351000001</id>
+    <published>2012-12-19T16:09:00Z</published>
+    <updated>2012-12-19T16:09:00Z</updated>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/1"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/1"/>
+    <link rel="root" type="application/xml" href="http://localhost:3000/records/1/root.xml"/>
+    <title>Smith75, Sarah</title>
+    <author>
+      <name>unknown</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:1.1.22.110,2005:Record/50d1e69cbd8009e3510000c7</id>
+    <published>2012-12-19T16:09:00Z</published>
+    <updated>2012-12-19T16:09:00Z</updated>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/2"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/2"/>
+    <link rel="root" type="application/xml" href="http://localhost:3000/records/2/root.xml"/>
+    <title>Smith96, Johnny</title>
+    <author>
+      <name>unknown</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:1.1.22.110,2005:Record/50d1e69cbd8009e351000139</id>
+    <published>2012-12-19T16:09:00Z</published>
+    <updated>2012-12-19T16:09:00Z</updated>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/3"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/3"/>
+    <link rel="root" type="application/xml" href="http://localhost:3000/records/3/root.xml"/>
+    <title>Smith59, Tom</title>
+    <author>
+      <name>unknown</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:1.1.22.110,2005:Record/50d1e69dbd8009e351000235</id>
+    <published>2012-12-19T16:09:01Z</published>
+    <updated>2012-12-19T16:09:01Z</updated>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/4"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/4"/>
+    <link rel="root" type="application/xml" href="http://localhost:3000/records/4/root.xml"/>
+    <title>Smith44, Henry</title>
+    <author>
+      <name>unknown</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:1.1.22.110,2005:Record/50d1e69dbd8009e35100030e</id>
+    <published>2012-12-19T16:09:01Z</published>
+    <updated>2012-12-19T16:09:01Z</updated>
+    <link rel="alternate" type="text/html" href="http://localhost:3000/records/5"/>
+    <link rel="alternate" type="application/atom+xml" href="http://localhost:3000/records/5"/>
+    <link rel="root" type="application/xml" href="http://localhost:3000/records/5/root.xml"/>
+    <title>Smith169, Molly</title>
+    <author>
+      <name>unknown</name>
+    </author>
+  </entry>
+</feed>
