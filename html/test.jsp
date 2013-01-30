@@ -1,6 +1,7 @@
 <%@ page import="org.mitre.medcafe.util.*"%>
 <%@ page import="org.mitre.medcafe.repositories.*" %>    
-<%@ page import="com.google.gson.Gson" %>   
+<%@ page import="com.google.gson.Gson" %> 
+<%@ page import="java.net.URL" %> 
 <%@ page import="org.hl7.greencda.c32.*, java.util.*;"%>
 <%
 	GreenCDAFeedParser parser = new GreenCDAFeedParser();
@@ -14,12 +15,13 @@
     if (type == null)
     	type = "medications";
     	
-	String fileName =  "TestAtom.xml";
-	//parser.parseAtom("http://1.1.22.110:3000/records", fileName);
-	
-	List<String> foundList = parser.findPatientDetails(firstName, lastName, type, fileName);
-    
     StringBuffer strBuf = new StringBuffer();
+    String url = "http://1.1.22.110:3000/records";
+	//GreenCDAFeedParser.parseAtom("http://localhost:3000/records");
+
+	List<String> foundList = GreenCDAFeedParser.findPatientDetails(firstName, lastName,
+				type, url, true);
+		
     for (String foundVals: foundList)
     {
     	strBuf.append("<p>" + foundVals + "</p>" );
