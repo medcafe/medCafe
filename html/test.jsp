@@ -23,7 +23,7 @@
 	List<String> foundList = GreenCDAFeedParser.findPatientDetails(firstName, lastName,
 				type, url, true);
 		
-	GreenCDARepository gcda = new GreenCDARepository();
+	GreenCDARepository gcda = new GreenCDARepository("http://127.0.0.1:3000/");
         
     for (String foundVals: foundList)
     {

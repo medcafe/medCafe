@@ -93,7 +93,7 @@ public class GreenCDAFeedParser
     {
     	List<String> urls = new ArrayList<String>();
     	List<String> results = new ArrayList<String>();
-    	GreenCDARepository gcda = new GreenCDARepository();
+    	GreenCDARepository gcda = new GreenCDARepository("http://127.0.0.1:3000/");
     	List<SyndLinkImpl> foundEntries=  findPatient( firstName,  lastName,  type,  fileName);
     	if (foundEntries.size() > 0)
     	{
@@ -117,7 +117,7 @@ public class GreenCDAFeedParser
     {
     	List<String> urls = new ArrayList<String>();
     	List<String> results = new ArrayList<String>();
-    	GreenCDARepository gcda = new GreenCDARepository();
+    	GreenCDARepository gcda = new GreenCDARepository("http://127.0.0.1:3000/");
     	List<SyndLinkImpl> foundEntries=  findPatient( firstName,  lastName,  type,  feedUrl, net);
     	if (foundEntries.size() > 0)
     	{
@@ -188,7 +188,48 @@ public class GreenCDAFeedParser
     }
     
     
+    
     public static  List<SyndLinkImpl>  findPatient(String firstName, String lastName, String type, String url, boolean net)
+    {
+    	List<SyndEntry> synEntries = null;
+    	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
+    	try
+    	{
+    		 synEntries = parseAtom(url);
+    	
+    		 for (SyndEntry entry : synEntries) { 
+            	 
+            	 if ( entry.getTitle().contains(firstName)   && 
+            			 entry.getTitle().contains(lastName) )
+	                {
+            		 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+	            	
+		 				for (SyndLinkImpl link : links) 
+		 				{
+		                      System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
+		                      if (link.getType().equals(ATOM_LINK_TYPE))
+		                      {
+					               foundEntries.add(link);
+
+		                      }
+		 				}
+	                }
+             }
+             
+         } catch (Exception ex) {
+        	 ex.printStackTrace();
+             System.out.println("Error: " + ex.getMessage());
+         }
+    	 finally
+    	 {
+    		
+    	 }
+    	 
+    	 return  foundEntries;
+         
+    }
+    
+    public static  List<SyndLinkImpl>  findPatient(String firstName, String lastName, String url)
     {
     	List<SyndEntry> synEntries = null;
     	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
@@ -436,7 +477,7 @@ public class GreenCDAFeedParser
 	    			
 	    	 List<SyndEntry> healthEntries =   new ArrayList<SyndEntry>();
         	 for (SyndEntry foundEntry : patientEntries)
-        	 {
+        	 { 
         		System.out.println("GreenCDAParser findHealthDetail title " + foundEntry.getTitle());
 	        			
 	        	 //URL feedUrl = new URL(foundLink.getHref());

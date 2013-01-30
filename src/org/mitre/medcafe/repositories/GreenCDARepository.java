@@ -76,19 +76,21 @@ public class GreenCDARepository extends Repository {
     public final static Logger log = Logger.getLogger(KEY);
     private GreenCDARepository cda;
     private TreeMap<Date, Result> vitalTree = null;
-    public final static String CCR_DIR = "ccrFiles";
-
+    
 
     private String userName ="guest";
     private GreenCDAFeedParser gcda = new GreenCDAFeedParser();
+    private String greenCDADataUrl= "";
     
-    public GreenCDARepository() {
-    	
+    //For test purposes
+    public GreenCDARepository(String baseUrl) {
+    	greenCDADataUrl = baseUrl;
 	}
     
     public GreenCDARepository(HashMap<String, String> credMap) {
 		super(credMap);
 		// TODO Auto-generated constructor stub
+		type = "greenCDA";
 	}
     
 	@Override
@@ -141,7 +143,6 @@ public class GreenCDARepository extends Repository {
 		//String results ="{\"id\":\"50d1e69dbd8009e351000244\",\"codes\":{\"RxNorm\":[\"314076\"]},\"mood_code\":\"EVN\",\"version\":1,\"_type\":\"Medication\",\"time\":null,\"start_time\":1277438400,\"end_time\":null,\"description\":\"ACE inhibitors\",\"free_text\":\"ACE inhibitors\",\"route\":null,\"dose\":null,\"site\":null,\"productForm\":null,\"deliveryMethod\":null,\"typeOfMedication\":null,\"indication\":null,\"vehicle\":null}";
 		String results ="{\"id\":\"50d1e69dbd8009e351000244\",\"codes\": [{\"RxNorm\":\"314076\"}],\"mood_code\":\"EVN\",\"version\":1,\"_type\":\"Medication\",\"time\":null,\"start_time\":1277438400,\"end_time\":null,\"description\":\"ACE inhibitors\",\"freeText\":\"ACE inhibitors\",\"route\":{\"code\":\"Oral\"},\"dose\":null,\"site\":null,\"productForm\":null,\"deliveryMethod\":null,\"typeOfMedication\":null,\"indication\":null,\"vehicle\":null}";
 
-		String baseUrl = "http://127.0.0.1:3000/";
 		List<Medication> meds = new ArrayList<Medication>();
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -149,11 +150,11 @@ public class GreenCDARepository extends Repository {
 			List<String> medResults = gcda.findHealthDetail(patientId, "medications");
 			for (String medUrl: medResults)
 			{
-				server = baseUrl + medUrl;
+				server = greenCDADataUrl + medUrl;
 				String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
 				System.out.println("GreenCDARepository getMedications results from json " + tempResults);
 
-				JsonObject o = parser.parse(results).getAsJsonObject();
+				JsonObject o = parser.parse(tempResults).getAsJsonObject();
 				Medication med = gson.fromJson(o,  Medication.class);
 				HealthObject ho = gson.fromJson(o, HealthObject.class);
 				String testJsonHo = gson.toJson(ho);
@@ -195,7 +196,13 @@ public class GreenCDARepository extends Repository {
 	public Person getPatient(String userName, String patientId) {
 		// TODO Auto-generated method stub
 		this.userName = userName;
-		
+		try {
+			//List<String> patientResults = gcda.findPatient(firstName, lastName, url);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		Person patient = null;
 		return patient;
 	}
@@ -208,7 +215,13 @@ public class GreenCDARepository extends Repository {
 		Map<String, String> ret = new HashMap<String, String>();
 		this.userName = userName;
 		//Lookup patient id in DB
-		
+		try {
+			//List<String> patientResults = gcda.findPatient(firstName, lastName, url);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return ret;
 	}
 	
@@ -296,6 +309,20 @@ public class GreenCDARepository extends Repository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void setCredentials(HashMap<String, String> credMap)
+    {
+    	    if (credMap.get(Repository.HOST_URL)== null || credMap.get(Repository.HOST_URL).equals(""))
+    		{
+    			throw new RuntimeException("Must include hostURL for hData");
+    		}
+    		if (credMap.get(Repository.PORT)== null || credMap.get(Repository.PORT).equals(""))
+    		{
+    			throw new RuntimeException("Must include port for hData database");
+    		}
+		greenCDADataUrl = credMap.get(Repository.HOST_URL) + ":" + credMap.get(Repository.PORT);
+    	credentials = credMap;
+    }
 
 }
 

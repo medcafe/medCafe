@@ -133,7 +133,7 @@ public class HealthObject
     protected List<Code> codes;
     protected String mood_code;
     protected String version;
-    protected String type;
+    protected String _type;
     protected String time;
     protected String start_time;
     protected String end_time;
@@ -187,12 +187,12 @@ public class HealthObject
 		this.version = version;
 	}
 
-	public String getType() {
-		return type;
+	public String get_type() {
+		return _type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void set_type(String _type) {
+		this._type = _type;
 	}
 
 	public String getTime() {
