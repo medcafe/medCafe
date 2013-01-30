@@ -16,17 +16,18 @@
 package org.mitre.medcafe.restlet;
 
 
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
-import org.hl7.greencda.c32.Result;
-import org.json.JSONObject ;
-import org.mitre.medcafe.util.*;
-
+import org.mitre.medcafe.util.NotImplementedException;
+import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.WebUtils;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ResourceException;
+import org.restlet.resource.ServerResource;
+
+import com.medsphere.ovid.domain.ov.VitalSign;
 
 
 
@@ -58,7 +59,7 @@ public class PatientVitalsResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-        List<Result> vitals = null;
+        List<VitalSign> vitals = null;
         try{
         		if (choice.equals("all"))
         			vitals = r.getAllVitals( id );

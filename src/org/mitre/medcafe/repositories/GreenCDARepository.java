@@ -17,18 +17,16 @@ package org.mitre.medcafe.repositories;
 
 // import org.mitre.hdata.hrf.core.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Level;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.*;
-import javax.xml.transform.stream.StreamSource;
 
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
@@ -42,28 +40,17 @@ import org.hl7.greencda.c32.Procedure;
 import org.hl7.greencda.c32.Result;
 import org.hl7.greencda.c32.SocialHistory;
 import org.hl7.greencda.c32.Support;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.mitre.medcafe.model.Patient;
-import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.GreenCDAFeedParser;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.medsphere.fileman.FMRecord;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import java.util.HashMap;
+import com.medsphere.ovid.domain.ov.VitalSign;
 
 /**
  *  This class implements an interface to a back-end Vista repository.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
@@ -94,36 +81,69 @@ public class GreenCDARepository extends Repository {
 	}
     
 	@Override
-	public List<Result> getAllVitals(String id)
-			throws NotImplementedException {
-		// TODO Auto-generated method stub
-		List<Result> vitals = new ArrayList<Result>();
+	public List<VitalSign> getAllVitals(String patientId) {
 		
+		String server = "http://localhost:3000/records/" + patientId;
+
+		List<VitalSign> vitals = new ArrayList<VitalSign>();
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> medResults = gcda.findHealthDetail(patientId, "vital_signs");
+			for (String medUrl: medResults)
+			{
+				server = greenCDADataUrl + medUrl;
+				String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				System.out.println("GreenCDARepository getMedications results from json " + tempResults);
+
+				JsonObject o = parser.parse(tempResults).getAsJsonObject();
+				VitalSign record = gson.fromJson(o,  VitalSign.class);
+				HealthObject ho = gson.fromJson(o, HealthObject.class);
+				String testJsonHo = gson.toJson(ho);
+
+				System.out.println("GreenCDARepository Health Object " + testJsonHo );
+				vitals.add(record);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return vitals;
 	}
+	
+	// this 'lil nested class is a cheat to cheapen the complexity of the code for
+	// getting the "latest" vitals. Simply sort, then split the list. 
+	public class NewVitalsComparable implements Comparator<VitalSign>{
+	    @Override
+	    public int compare(VitalSign o1, VitalSign o2) {
+	        return o1.getDateTaken().compareTo(o2.getDateTaken());
+	    }
+	}
+
+	@Override
+	public List<VitalSign> getLatestVitals(String id) {
+		List<VitalSign> vitals = this.getAllVitals(id);
+		Collections.sort(vitals, new NewVitalsComparable());
+		vitals.subList(0, 4);
+        return vitals;
+	}
+	
 	@Override
 	public List<Allergy> getAllergies(String patientId) {
 		// TODO Auto-generated method stub
 		List<Allergy> allergies = new ArrayList<Allergy>();	
 		return allergies;
 	}
+	
 	@Override
 	public List<Immunization> getImmunizations(String id)
 			throws NotImplementedException {
-		List<Result> vitals = new ArrayList<Result>();
+		List<Immunization> vax = new ArrayList<Immunization>();
 		   
-		return null;
+		return vax;
 	}
-	@Override
-	public List<Result> getLatestVitals(String id)
-			throws NotImplementedException {
-		// TODO Auto-generated method stub
-	   	
-		//Sort Vitals by date and return most recent
-		List<Result> vitals = null;
-		
-        return vitals;
-	}
+
+
 	
 	@Override
 	public List<Result> getResults(String patientId) {
