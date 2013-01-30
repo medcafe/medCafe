@@ -112,6 +112,30 @@ public class GreenCDAFeedParser
     	return results;
     }
     
+    public static List<String> findPatientDetails(String firstName, String lastName, String type, String feedUrl, boolean net)
+    {
+    	List<String> urls = new ArrayList<String>();
+    	List<String> results = new ArrayList<String>();
+    	GreenCDARepository gcda = new GreenCDARepository();
+    	List<SyndLinkImpl> foundEntries=  findPatient( firstName,  lastName,  type,  feedUrl, net);
+    	if (foundEntries.size() > 0)
+    	{
+    		List<SyndLinkImpl> returnEntries=  findHealthData(foundEntries, type, net);
+    		if (returnEntries.size() > 0)
+    		{
+    			urls = findHealthDetail(returnEntries, type);
+    		
+		    	for (String url: urls)
+		    	{
+		    		results.add(url);
+		    		//testGetMedications(url);
+		    		//results.add(getServerOutput(url));
+		    	}
+    		}
+    	}
+    	return results;
+    }
+    
     public static List<SyndLinkImpl> findPatient(String firstName, String lastName, String type, String fileName)
     {
     	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
@@ -149,6 +173,47 @@ public class GreenCDAFeedParser
              }
              
             
+         } catch (Exception ex) {
+        	 ex.printStackTrace();
+             System.out.println("Error: " + ex.getMessage());
+         }
+    	 finally
+    	 {
+    		
+    	 }
+    	 
+    	 return  foundEntries;
+         
+    }
+    
+    
+    public static  List<SyndLinkImpl>  findPatient(String firstName, String lastName, String type, String url, boolean net)
+    {
+    	List<SyndEntry> synEntries = null;
+    	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
+    	try
+    	{
+    		 synEntries = parseAtom(url);
+    	
+    		 for (SyndEntry entry : synEntries) { 
+            	 
+            	 if ( entry.getTitle().contains(firstName)   && 
+            			 entry.getTitle().contains(lastName) )
+	                {
+            		 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+	            	
+		 				for (SyndLinkImpl link : links) 
+		 				{
+		                      System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
+		                      if (link.getType().equals(ATOM_LINK_TYPE))
+		                      {
+					               foundEntries.add(link);
+
+		                      }
+		 				}
+	                }
+             }
+             
          } catch (Exception ex) {
         	 ex.printStackTrace();
              System.out.println("Error: " + ex.getMessage());
@@ -219,6 +284,50 @@ public class GreenCDAFeedParser
 		return returnEntries;
     }
     
+    public static List<SyndLinkImpl> findHealthData(List<SyndLinkImpl> foundEntries, String type, boolean net)
+    {
+    	List<SyndLinkImpl> returnEntries = new ArrayList<SyndLinkImpl>();
+    	try {
+    		System.out.println("GreenCDAFeedParser : findHealthData " + foundEntries.size());
+    				
+	    	 SyndFeedInput input = new SyndFeedInput();
+	    	 SyndFeed feed = null;     	 
+	    	 for (SyndLinkImpl foundLink: foundEntries)
+	         {
+	        	 //URL feedUrl = new URL(foundLink.getHref());
+				
+	        	 System.out.println("GreenCDAParser findHealthData feedUrl " + foundLink.getHref());
+	        	 List<SyndEntry> patientEntries =  parseAtom(foundLink.getHref());
+	        	 {
+	        		 for (SyndEntry entry : patientEntries) 
+	        		 {     
+	        			 if (entry.getTitle() == null)
+	         			 	continue;
+	         			
+	            		 if ( entry.getTitle().contains(type)   )
+	    	             {
+	            			
+	            			 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+	            			 	for (SyndLinkImpl link : links) 
+	    		 				{
+		            			 	if (link.getType().equals(ATOM_LINK_TYPE))
+				                      {
+							               returnEntries.add(link);
+	
+				                      }
+	    		 				}
+	    	              }
+	        		 }
+	        	 }
+	         }
+	    	 return returnEntries;
+	    	 
+    	}  catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return returnEntries;
+    }
     public static List<String> findHealthDetail(List<SyndLinkImpl> foundEntries, String type)
     {
     	List<String> returnEntries = new ArrayList<String>();
@@ -325,8 +434,9 @@ public class GreenCDAFeedParser
 		return tempResults;
 		
     }
-    public static void parseAtom(String url)
+    public static List<SyndEntry>  parseAtom(String url)
     {
+    	 List<SyndEntry> synEntries = null;
     	 try {
     		 System.out.println("GreenCDAFeedParser : url " + url );
     		 
@@ -342,7 +452,7 @@ public class GreenCDAFeedParser
             		 new InputStreamReader(
             				 connection.getInputStream()));
     
-             List<SyndEntry> synEntries =  (List<SyndEntry>) feed.getEntries();
+             synEntries =  (List<SyndEntry>) feed.getEntries();
              
              // Get the entry items...
              for (SyndEntry entry : synEntries) {              
@@ -370,10 +480,13 @@ public class GreenCDAFeedParser
                  for (SyndCategoryImpl category : (List<SyndCategoryImpl>) entry.getCategories()) {
                      System.out.println("Category: " + category.getName());
                  }
+                 
+                 return synEntries;
              }
          } catch (Exception ex) {
         	 ex.printStackTrace();
              System.out.println("Error: " + ex.getMessage());
          }
+		return synEntries;
     }
 }
