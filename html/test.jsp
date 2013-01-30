@@ -16,27 +16,31 @@
     	type = "medications";
     	
     StringBuffer strBuf = new StringBuffer();
-    String url = "http://1.1.22.110:3000/records";
+    String url = "http://127.0.0.1:3000/records";
+	String baseUrl = "http://localhost:3000/";
 	//GreenCDAFeedParser.parseAtom("http://localhost:3000/records");
 
 	List<String> foundList = GreenCDAFeedParser.findPatientDetails(firstName, lastName,
 				type, url, true);
 		
+	GreenCDARepository gcda = new GreenCDARepository();
+        
     for (String foundVals: foundList)
     {
-    	strBuf.append("<p>" + foundVals + "</p>" );
-    }
-	/*GreenCDARepository gcda = new GreenCDARepository();
+    	//strBuf.append("<p>" + foundVals + "</p>" );
+   
+    	
+	}
+	
 	List<Medication> meds = gcda.getMedications("1");
-	StringBuffer strBuf = new StringBuffer();
-	Gson gson = new Gson();
-	for (Medication med: meds)
-	{
-		if (med == null)
-			strBuf.append("is null ");
-			
-		strBuf.append(gson.toJson(med));
-	}*/
+     Gson gson = new Gson();
+     for (Medication med: meds)
+     {
+          if (med == null)
+              strBuf.append("is null ");
+                
+          strBuf.append(gson.toJson(med));
+      }
 %>    
 <%=strBuf.toString()%>
 

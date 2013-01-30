@@ -124,9 +124,8 @@ import javax.xml.bind.annotation.XmlType;
     "type",
     "time"
 })
-@XmlRootElement(name = "medication")
+@XmlRootElement(name = "healthObject")
 public class HealthObject
-    extends Entry
 {
 
     @XmlElement(required = true)

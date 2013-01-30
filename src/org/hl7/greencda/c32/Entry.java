@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     Result.class
 })
-public class Entry {
+public class Entry extends HealthObject{
 
     @XmlElement(required = true)
     protected String id;

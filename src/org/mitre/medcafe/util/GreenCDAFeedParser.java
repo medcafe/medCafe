@@ -64,6 +64,7 @@ public class GreenCDAFeedParser
     // static{log.setLevel(Level.FINER);}
     
     private final static String ATOM_LINK_TYPE = "application/atom+xml";
+    private final static String JSON_LINK_TYPE ="application/json";
     public static void parseDom(String url)
     {
     	try {
@@ -123,7 +124,7 @@ public class GreenCDAFeedParser
     		List<SyndLinkImpl> returnEntries=  findHealthData(foundEntries, type, net);
     		if (returnEntries.size() > 0)
     		{
-    			urls = findHealthDetail(returnEntries, type);
+    			urls = findHealthDetail(returnEntries, type, net);
     		
 		    	for (String url: urls)
 		    	{
@@ -288,7 +289,7 @@ public class GreenCDAFeedParser
     {
     	List<SyndLinkImpl> returnEntries = new ArrayList<SyndLinkImpl>();
     	try {
-    		System.out.println("GreenCDAFeedParser : findHealthData " + foundEntries.size());
+    		System.out.println("GreenCDAFeedParser : findHealthData size " + foundEntries.size());
     				
 	    	 SyndFeedInput input = new SyndFeedInput();
 	    	 SyndFeed feed = null;     	 
@@ -299,12 +300,23 @@ public class GreenCDAFeedParser
 	        	 System.out.println("GreenCDAParser findHealthData feedUrl " + foundLink.getHref());
 	        	 List<SyndEntry> patientEntries =  parseAtom(foundLink.getHref());
 	        	 {
+	        		 
 	        		 for (SyndEntry entry : patientEntries) 
 	        		 {     
+	        			 System.out.println("GreenCDAParser findHealthData patient entry " + entry.getTitle());
+	        			 
 	        			 if (entry.getTitle() == null)
 	         			 	continue;
 	         			
-	            		 if ( entry.getTitle().contains(type)   )
+	        			 System.out.println("GreenCDAParser findHealthData type " + type);
+	        			 
+	        			 List<SyndLinkImpl> links1 = (List<SyndLinkImpl>) entry.getLinks();
+         			 	for (SyndLinkImpl link : links1) 
+ 		 				{
+         			 		System.out.println("GreenCDAParser findHealthData link " + link.getHref());
+   	        			 
+ 		 				}
+	            		 if ( entry.getTitle().toLowerCase().contains(type.toLowerCase())   )
 	    	             {
 	            			
 	            			 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
@@ -315,6 +327,10 @@ public class GreenCDAFeedParser
 							               returnEntries.add(link);
 	
 				                      }
+		            			 	else if (link.getType().equals(JSON_LINK_TYPE))
+		            			 	{ 
+		            			 		returnEntries.add(link);
+		            			 	}
 	    		 				}
 	    	              }
 	        		 }
@@ -369,7 +385,89 @@ public class GreenCDAFeedParser
 	    	 
     }
     
+    public static List<String> findHealthDetail(List<SyndLinkImpl> foundEntries, String type, boolean net)
+    {
+    	List<String> returnEntries = new ArrayList<String>();
+    	try 
+    	{
+			
+	    	 SyndFeedInput input = new SyndFeedInput();
+	    	 SyndFeed feed = null;  
+	    	 List<SyndEntry> healthEntries = new ArrayList<SyndEntry>();
+	    	 for (SyndLinkImpl foundLink: foundEntries)
+	         {
+	        	 //URL feedUrl = new URL(foundLink.getHref());
+				
+	        	 if (foundLink.getType().equals(ATOM_LINK_TYPE))
+	        	 {
+	        		 healthEntries.addAll(parseAtom(foundLink.getHref()) );
+	        		 
+	        	 }
+	        	 else if (foundLink.getType().equals(JSON_LINK_TYPE) )
+	        	 {
+	        		 returnEntries.add(foundLink.getHref());
+	        	 }
+	        	 
+	        	 for (SyndEntry entry : healthEntries) 
+        		 { 
+        			 returnEntries.add(entry.getLink());
+        		 }
+	         }
+	    	 
+	    } catch (IllegalArgumentException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 	} 
+	 	return returnEntries;
+	    	 
+    }
     
+    public static List<String> findHealthDetail(String patientId, String type)
+    {
+    	List<String> returnEntries = new ArrayList<String>();
+    	//href="/records/1/medications/
+    	String heathDataUrl = "http://127.0.0.1:3000/records/" + patientId + "/" + type;
+    	try 
+    	{
+			
+	    	 SyndFeedInput input = new SyndFeedInput();
+	    	 SyndFeed feed = null;  
+	    	 List<SyndEntry> patientEntries = parseAtom(heathDataUrl);
+	    			
+	    	 List<SyndEntry> healthEntries =   new ArrayList<SyndEntry>();
+        	 for (SyndEntry foundEntry : patientEntries)
+        	 {
+        		System.out.println("GreenCDAParser findHealthDetail title " + foundEntry.getTitle());
+	        			
+	        	 //URL feedUrl = new URL(foundLink.getHref());
+        		 List<SyndLinkImpl> links = (List<SyndLinkImpl>) foundEntry.getLinks();
+        		 for (SyndLinkImpl foundLink : links)
+            	 {
+        			 System.out.println("GreenCDAParser findHealthDetail found link " + foundLink.getHref());
+     	        	
+		        	 if (foundLink.getType().equals(ATOM_LINK_TYPE))
+		        	 {
+		        		 healthEntries.addAll(parseAtom(foundLink.getHref()) );       		 
+		        	 }
+		        	 else if (foundLink.getType().equals(JSON_LINK_TYPE) )
+		        	 {
+		        		 returnEntries.add(foundLink.getHref());
+		        	 }
+		        	 
+		        	 for (SyndEntry entry : healthEntries) 
+	        		 { 
+	        			 returnEntries.add(entry.getLink());
+	        		 }
+            	 }
+	         }
+	    	 
+	    } catch (IllegalArgumentException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 	} 
+	 	return returnEntries;
+	    	 
+    }
     private static List<Medication> testGetMedications(String url) {
 		
     	String server = "http://1.1.22.110:3000" ;
@@ -453,7 +551,8 @@ public class GreenCDAFeedParser
             				 connection.getInputStream()));
     
              synEntries =  (List<SyndEntry>) feed.getEntries();
-             
+             System.out.println("GreenCDAParser parseAtom feedUrl size " + synEntries.size());
+	        	
              // Get the entry items...
              for (SyndEntry entry : synEntries) {              
                  System.out.println("Title: " + entry.getTitle());
@@ -469,18 +568,9 @@ public class GreenCDAFeedParser
                     	 System.out.println("Link: " + link.getHref() + " Type: " + link.getType() + " is the one we want");
                      }
                  }            
-  
-                 // Get the Contents
-                 for (SyndContentImpl content : (List<SyndContentImpl>) entry.getContents()) {
-                     System.out.println("Content: " + content.getValue());
-                     
-                 }
-                 
-                 // Get the Categories
-                 for (SyndCategoryImpl category : (List<SyndCategoryImpl>) entry.getCategories()) {
-                     System.out.println("Category: " + category.getName());
-                 }
-                 
+				System.out.println("GreenCDAParser parseAtom now in here ");
+		        
+                
                  return synEntries;
              }
          } catch (Exception ex) {

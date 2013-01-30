@@ -46,6 +46,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.Constants;
+import org.mitre.medcafe.util.GreenCDAFeedParser;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
@@ -79,9 +80,10 @@ public class GreenCDARepository extends Repository {
 
 
     private String userName ="guest";
-    
+    private GreenCDAFeedParser gcda = new GreenCDAFeedParser();
     
     public GreenCDARepository() {
+    	
 	}
     
     public GreenCDARepository(HashMap<String, String> credMap) {
@@ -138,23 +140,28 @@ public class GreenCDARepository extends Repository {
 		String server = "http://1.1.22.110:3000/records/4/medications/50d1e69dbd8009e351000244";
 		//String results ="{\"id\":\"50d1e69dbd8009e351000244\",\"codes\":{\"RxNorm\":[\"314076\"]},\"mood_code\":\"EVN\",\"version\":1,\"_type\":\"Medication\",\"time\":null,\"start_time\":1277438400,\"end_time\":null,\"description\":\"ACE inhibitors\",\"free_text\":\"ACE inhibitors\",\"route\":null,\"dose\":null,\"site\":null,\"productForm\":null,\"deliveryMethod\":null,\"typeOfMedication\":null,\"indication\":null,\"vehicle\":null}";
 		String results ="{\"id\":\"50d1e69dbd8009e351000244\",\"codes\": [{\"RxNorm\":\"314076\"}],\"mood_code\":\"EVN\",\"version\":1,\"_type\":\"Medication\",\"time\":null,\"start_time\":1277438400,\"end_time\":null,\"description\":\"ACE inhibitors\",\"freeText\":\"ACE inhibitors\",\"route\":{\"code\":\"Oral\"},\"dose\":null,\"site\":null,\"productForm\":null,\"deliveryMethod\":null,\"typeOfMedication\":null,\"indication\":null,\"vehicle\":null}";
-		
+
+		String baseUrl = "http://127.0.0.1:3000/";
 		List<Medication> meds = new ArrayList<Medication>();
-		
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
 		try {
-			//String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
-			System.out.println("GreenCDARepository getMedications " + results);
-			Gson gson = new Gson();
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(results).getAsJsonObject();
-			Medication med = gson.fromJson(o,  Medication.class);
-			HealthObject ho = gson.fromJson(o, HealthObject.class);
-			String testJsonHo = gson.toJson(ho);
-	           
-			   
-			System.out.println("GreenCDARepository Health Object " + testJsonHo );
-			meds.add(med);
-		
+			List<String> medResults = gcda.findHealthDetail(patientId, "medications");
+			for (String medUrl: medResults)
+			{
+				server = baseUrl + medUrl;
+				String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				System.out.println("GreenCDARepository getMedications results from json " + tempResults);
+
+				JsonObject o = parser.parse(results).getAsJsonObject();
+				Medication med = gson.fromJson(o,  Medication.class);
+				HealthObject ho = gson.fromJson(o, HealthObject.class);
+				String testJsonHo = gson.toJson(ho);
+
+				System.out.println("GreenCDARepository Health Object " + testJsonHo );
+				meds.add(med);
+			}
+			
             Medication testMed = new Medication();
             testMed.setId("TestMed");
             testMed.setStatus("Active");
@@ -169,7 +176,7 @@ public class GreenCDARepository extends Repository {
             
             String testJson = gson.toJson(testMed);
             Medication returnMed = gson.fromJson(testJson, Medication.class);
-            meds.add(returnMed);
+            //meds.add(returnMed);
             
 		/*} catch (IOException e) {
 			// TODO Auto-generated catch block
