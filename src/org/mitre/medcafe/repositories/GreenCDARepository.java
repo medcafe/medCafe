@@ -36,6 +36,7 @@ import org.hl7.greencda.c32.HealthObject;
 import org.hl7.greencda.c32.Immunization;
 import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Person;
+import org.hl7.greencda.c32.PersonalName;
 import org.hl7.greencda.c32.Procedure;
 import org.hl7.greencda.c32.Result;
 import org.hl7.greencda.c32.SocialHistory;
@@ -233,10 +234,28 @@ public class GreenCDARepository extends Repository {
 		
 			Gson gson = new Gson();
 			JsonParser parser = new JsonParser();
-		
-			List<String> patientUrls = gcda.findHealthDetail( patientId, "person");
+			String url = greenCDADataUrl + "/records/" + patientId + "/c32";
+			List<String> patientUrls = null;
+			
+			List<SyndEntry> patientEntries = gcda.parseAtom(url);
 				
-			String patientUrl ="";
+			for (SyndEntry patientEntry: patientEntries)
+			{
+				/*<entry>
+				    <id>3</id>
+				    <title>Smith59, Tom</title>
+				    <link href="http://localhost:3000/records/3/c32/3"/>
+				  </entry>*/
+				
+				name = patientEntry.getTitle();
+				PersonalName personName= new PersonalName();
+				String[] nameParts = name.split(",");
+				personName.setGivenName(nameParts[0]);
+				personName.setFamilyName(nameParts[1]);
+				patient.setName(personName);
+			}
+			//If need to get demographics
+			/*String patientUrl ="";
 			if (patientUrls.size() > 0)
 			{
 				patientUrl = patientUrls.get(0);
@@ -244,7 +263,7 @@ public class GreenCDARepository extends Repository {
 				String patientResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
 				JsonObject o = parser.parse(patientResults).getAsJsonObject();
 				patient = gson.fromJson(o,  Person.class);
-			}
+			}*/
 			return patient;
 		}
 		catch(Exception e)
@@ -311,7 +330,9 @@ public class GreenCDARepository extends Repository {
 		this.userName = userName;
 		//Lookup patient id in DB
 		try {
-			String url = greenCDADataUrl + "/records";
+			String url =greenCDADataUrl + "/records";
+			System.out.println("GreenCDARepository : url " + url);
+	    	
 			List<SyndEntry> patientEntries = gcda.findAllPatientEntries(url);
 
 			System.out.println("GreenCDARepository : getPatientByName size " + patientEntries.size());
@@ -329,7 +350,7 @@ public class GreenCDARepository extends Repository {
 			        {
 			        	 String patientLinkUrl = patientLink.getHref();
 			        	 //href="http://localhost:3000/records/5"
-			        	 String id = patientLinkUrl.substring(patientLinkUrl.lastIndexOf("/"));
+			        	 String id = patientLinkUrl.substring(patientLinkUrl.lastIndexOf("/") + 1);
 			        	 ret.put(id, name);
 			        }
 			    }

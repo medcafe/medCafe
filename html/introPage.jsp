@@ -26,7 +26,7 @@ $(function(){
 
 	listRepositories("true");
 	listRecentPatients();
-	var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"/searchRepositoryPatient.jsp\"></iframe>";
+	var associatePatient = "<iframe frameborder=\"0\" height=\"400\" width=\"280\" name=\"patientAssociateFrame\" id=\"patientAssociateFrame\" src=\"searchRepositoryPatient.jsp\"></iframe>";
 
 	var $dialog = $("#associatePatientDialog")
 		.html(associatePatient)
@@ -128,7 +128,7 @@ function popUpAssociatePatient()
                 <p>
                 	<div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
                 	<center>
-                    <iframe frameborder="0" height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="/searchPatients.jsp?intro=true"></iframe>
+                    <iframe frameborder="0" height="200" width="1000" name="patientSearchframe" id="patient_searchFrame" src="searchPatients.jsp?intro=true"></iframe>
                 	</center>
                 	</div>
                 </p>
