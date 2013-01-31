@@ -63,8 +63,8 @@ public class GreenCDAFeedParser
     public final static Logger log = Logger.getLogger( KEY );
     // static{log.setLevel(Level.FINER);}
     
-    private final static String ATOM_LINK_TYPE = "application/atom+xml";
-    private final static String JSON_LINK_TYPE ="application/json";
+    public final static String ATOM_LINK_TYPE = "application/atom+xml";
+    public final static String JSON_LINK_TYPE ="application/json";
     public static void parseDom(String url)
     {
     	try {
@@ -229,32 +229,22 @@ public class GreenCDAFeedParser
          
     }
     
-    public static  List<SyndLinkImpl>  findPatient(String firstName, String lastName, String url)
+    public  List<SyndLinkImpl>  findPatientLinks(SyndEntry synEntry)
     {
-    	List<SyndEntry> synEntries = null;
     	List<SyndLinkImpl> foundEntries =  new ArrayList<SyndLinkImpl>();
     	try
-    	{
-    		 synEntries = parseAtom(url);
-    	
-    		 for (SyndEntry entry : synEntries) { 
-            	 
-            	 if ( entry.getTitle().contains(firstName)   && 
-            			 entry.getTitle().contains(lastName) )
-	                {
-            		 	List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
+    	{ 
+            	List<SyndLinkImpl> links = (List<SyndLinkImpl>) synEntry.getLinks();
 	            	
-		 				for (SyndLinkImpl link : links) 
-		 				{
-		                      System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
-		                      if (link.getType().equals(ATOM_LINK_TYPE))
-		                      {
-					               foundEntries.add(link);
+		 		for (SyndLinkImpl link : links) 
+		 		{
+		             System.out.println("Link: " + link.getHref() + " Type: " + link.getType());
+		             if (link.getType().equals(ATOM_LINK_TYPE))
+		             {
+					      foundEntries.add(link);
 
-		                      }
-		 				}
-	                }
-             }
+		             }
+		 		}
              
          } catch (Exception ex) {
         	 ex.printStackTrace();
@@ -269,6 +259,54 @@ public class GreenCDAFeedParser
          
     }
     
+    public  List<SyndEntry>  findPatientEntries(String firstName, String lastName, String url)
+    {
+    	List<SyndEntry> synEntries = null;
+    	try
+    	{
+    		 synEntries = parseAtom(url);
+    	
+    		 for (SyndEntry entry : synEntries) { 
+            	 
+            	 if ( entry.getTitle().contains(firstName)   && 
+            			 entry.getTitle().contains(lastName) )
+	                {
+            		 	synEntries.add(entry);
+	                }
+             }
+             
+         } catch (Exception ex) {
+        	 ex.printStackTrace();
+             System.out.println("Error: " + ex.getMessage());
+         }
+    	 finally
+    	 {
+    		
+    	 }
+    	 
+    	 return  synEntries;
+         
+    }
+    
+    public  List<SyndEntry>  findAllPatientEntries( String url)
+    {
+    	List<SyndEntry> synEntries = null;
+    	try
+    	{
+    		 synEntries = parseAtom(url);
+             
+         } catch (Exception ex) {
+        	 ex.printStackTrace();
+             System.out.println("Error: " + ex.getMessage());
+         }
+    	 finally
+    	 {
+    		
+    	 }
+    	 
+    	 return  synEntries;
+         
+    }
     public static List<SyndLinkImpl> findHealthData(List<SyndLinkImpl> foundEntries, String type)
     {
     	List<SyndLinkImpl> returnEntries = new ArrayList<SyndLinkImpl>();
@@ -463,11 +501,11 @@ public class GreenCDAFeedParser
 	    	 
     }
     
-    public static List<String> findHealthDetail(String patientId, String type)
+    public static List<String> findHealthDetail(String url, String patientId, String type)
     {
     	List<String> returnEntries = new ArrayList<String>();
     	//href="/records/1/medications/
-    	String heathDataUrl = "http://127.0.0.1:3000/records/" + patientId + "/" + type;
+    	String heathDataUrl = url + "/records/" + patientId + "/" + type;
     	try 
     	{
 			

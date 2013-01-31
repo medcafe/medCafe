@@ -58,6 +58,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.medsphere.fileman.FMRecord;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,10 @@ import java.util.TreeMap;
 
 import java.util.HashMap;
 
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.feed.synd.SyndLinkImpl;
+import com.sun.syndication.io.SyndFeedInput;
 /**
  *  This class implements an interface to a back-end Vista repository.  The Medsphere (http://www.medsphere.com/) version of VistA, named OpenVista, is
  *  used via the medsphere ovid library
@@ -147,7 +152,7 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> medResults = gcda.findHealthDetail(patientId, "medications");
+			List<String> medResults = gcda.findHealthDetail(greenCDADataUrl, patientId, "medications");
 			for (String medUrl: medResults)
 			{
 				server = greenCDADataUrl + medUrl;
@@ -196,14 +201,31 @@ public class GreenCDARepository extends Repository {
 	public Person getPatient(String userName, String patientId) {
 		// TODO Auto-generated method stub
 		this.userName = userName;
+		Person patient = new Person();
 		try {
 			//List<String> patientResults = gcda.findPatient(firstName, lastName, url);
+		
+			Gson gson = new Gson();
+			JsonParser parser = new JsonParser();
+		
+			List<String> patientUrls = gcda.findHealthDetail(greenCDADataUrl, patientId, "person");
+				
+			String patientUrl ="";
+			if (patientUrls.size() > 0)
+			{
+				patientUrl = patientUrls.get(0);
+				String server = greenCDADataUrl + patientUrl;
+				String patientResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				JsonObject o = parser.parse(patientResults).getAsJsonObject();
+				patient = gson.fromJson(o,  Person.class);
+			}
+			return patient;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		Person patient = null;
+		
 		return patient;
 	}
 	
@@ -216,7 +238,31 @@ public class GreenCDARepository extends Repository {
 		this.userName = userName;
 		//Lookup patient id in DB
 		try {
-			//List<String> patientResults = gcda.findPatient(firstName, lastName, url);
+			String url = greenCDADataUrl + "/records";
+			List<SyndEntry> patientEntries = gcda.findPatientEntries(given, family, url);
+
+			System.out.println("GreenCDARepository : getPatientByName size " + patientEntries.size());
+	    				
+			SyndFeedInput input = new SyndFeedInput();
+		    SyndFeed feed = null;     	 
+		    for (SyndEntry patientEntry: patientEntries)
+		    {
+		    	String name = patientEntry.getTitle();
+		    	
+		    	List<SyndLinkImpl> patientLinks = gcda.findPatientLinks(patientEntry);
+		    	for (SyndLinkImpl patientLink: patientLinks)
+			    {
+			    	if (patientLink.getType().equalsIgnoreCase(gcda.ATOM_LINK_TYPE))
+			        {
+			        	 String patientLinkUrl = patientLink.getHref();
+			        	 //href="http://localhost:3000/records/5"
+			        	 String id = patientLinkUrl.substring(patientLinkUrl.lastIndexOf("/"));
+			        	 ret.put(id, name);
+			        }
+			    }
+		    }
+	    	
+		
 		}
 		catch(Exception e)
 		{
@@ -236,7 +282,39 @@ public class GreenCDARepository extends Repository {
 	public Map<String, String> getPatients() {
 		
 		Map<String, String> ret = new HashMap<String, String>();
+		this.userName = userName;
+		//Lookup patient id in DB
+		try {
+			String url = greenCDADataUrl + "/records";
+			List<SyndEntry> patientEntries = gcda.findAllPatientEntries(url);
+
+			System.out.println("GreenCDARepository : getPatientByName size " + patientEntries.size());
+	    				
+			SyndFeedInput input = new SyndFeedInput();
+		    SyndFeed feed = null;     	 
+		    for (SyndEntry patientEntry: patientEntries)
+		    {
+		    	String name = patientEntry.getTitle();
+		    	
+		    	List<SyndLinkImpl> patientLinks = gcda.findPatientLinks(patientEntry);
+		    	for (SyndLinkImpl patientLink: patientLinks)
+			    {
+			    	if (patientLink.getType().equalsIgnoreCase(gcda.ATOM_LINK_TYPE))
+			        {
+			        	 String patientLinkUrl = patientLink.getHref();
+			        	 //href="http://localhost:3000/records/5"
+			        	 String id = patientLinkUrl.substring(patientLinkUrl.lastIndexOf("/"));
+			        	 ret.put(id, name);
+			        }
+			    }
+		    }
+	    	
 		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return ret;
 	}
 	@Override
