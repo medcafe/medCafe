@@ -501,11 +501,11 @@ public class GreenCDAFeedParser
 	    	 
     }
     
-    public static List<String> findHealthDetail(String url, String patientId, String type)
+    public static List<String> findHealthDetail( String patientId, String type)
     {
     	List<String> returnEntries = new ArrayList<String>();
     	//href="/records/1/medications/
-    	String heathDataUrl = url + "/records/" + patientId + "/" + type;
+    	String heathDataUrl = GreenCDARepository.greenCDADataUrl + "/records/" + patientId + "/" + type;
     	try 
     	{
 			

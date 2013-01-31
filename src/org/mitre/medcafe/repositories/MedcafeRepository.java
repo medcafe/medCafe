@@ -11,13 +11,13 @@ import org.hl7.greencda.c32.Encounter;
 import org.hl7.greencda.c32.Immunization;
 import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Procedure;
+import org.hl7.greencda.c32.Result;
 import org.hl7.greencda.c32.Support;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
 
 import com.medsphere.fileman.FMRecord;
-import com.medsphere.ovid.domain.ov.VitalSign;
 
 public class MedcafeRepository extends Repository {
 
@@ -100,14 +100,14 @@ public class MedcafeRepository extends Repository {
 	}
 
 	@Override
-	public List<VitalSign> getLatestVitals(String id)
+	public List<Result> getLatestVitals(String id)
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VitalSign> getAllVitals(String id) throws NotImplementedException {
+	public List<Result> getAllVitals(String id) throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

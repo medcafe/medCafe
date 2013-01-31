@@ -77,7 +77,7 @@ public class GreenCDARepository extends Repository {
 
     private String userName ="guest";
     private GreenCDAFeedParser gcda = new GreenCDAFeedParser();
-    private String greenCDADataUrl= "";
+    public static String greenCDADataUrl= "";
     
     //For test purposes
     public GreenCDARepository(String baseUrl) {
@@ -99,14 +99,14 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> medResults = gcda.findHealthDetail(server, patientId, "vital_signs");
+			List<String> medResults = gcda.findHealthDetail( patientId, "vital_signs");
 			for (String medUrl: medResults)
 			{
 				server = greenCDADataUrl + medUrl;
-				String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
-				System.out.println("GreenCDARepository getMedications results from json " + tempResults);
+				String vitalSignsResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				System.out.println("GreenCDARepository getVital Signs results from json " + vitalSignsResults);
 
-				JsonObject o = parser.parse(tempResults).getAsJsonObject();
+				JsonObject o = parser.parse(vitalSignsResults).getAsJsonObject();
 				Result record = gson.fromJson(o,  Result.class);
 				HealthObject ho = gson.fromJson(o, HealthObject.class);
 				String testJsonHo = gson.toJson(ho);
@@ -178,7 +178,7 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> medResults = gcda.findHealthDetail(greenCDADataUrl, patientId, "medications");
+			List<String> medResults = gcda.findHealthDetail( patientId, "medications");
 			for (String medUrl: medResults)
 			{
 				server = greenCDADataUrl + medUrl;
@@ -234,7 +234,7 @@ public class GreenCDARepository extends Repository {
 			Gson gson = new Gson();
 			JsonParser parser = new JsonParser();
 		
-			List<String> patientUrls = gcda.findHealthDetail(greenCDADataUrl, patientId, "person");
+			List<String> patientUrls = gcda.findHealthDetail( patientId, "person");
 				
 			String patientUrl ="";
 			if (patientUrls.size() > 0)

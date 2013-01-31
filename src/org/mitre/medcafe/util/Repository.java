@@ -39,7 +39,6 @@ import org.mitre.medcafe.model.History;
 import org.mitre.medcafe.model.Patient;
 
 import com.medsphere.fileman.FMRecord;
-import com.medsphere.ovid.domain.ov.VitalSign;
 
 /**
  *  This class represents a data Repository for MedCafe.  This allows for common functionality no matter if the underlying repository is VistA or hData or C32
@@ -127,9 +126,9 @@ public abstract class Repository {
 
     public abstract List<Encounter> getPatientEncounters(String id) throws NotImplementedException;
 
-    public abstract List<VitalSign> getLatestVitals(String id) throws NotImplementedException;
+    public abstract List<Result> getLatestVitals(String id) throws NotImplementedException;
 
-    public abstract List<VitalSign> getAllVitals(String id) throws NotImplementedException;
+    public abstract List<Result> getAllVitals(String id) throws NotImplementedException;
 
     public  abstract List<Procedure> getProcedures(String patientId)  throws NotImplementedException;
 		  
