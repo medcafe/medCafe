@@ -19,6 +19,7 @@ package org.mitre.medcafe.restlet;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.hl7.greencda.c32.Result;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
 import org.mitre.medcafe.util.WebUtils;
@@ -27,7 +28,6 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import com.medsphere.ovid.domain.ov.VitalSign;
 
 
 
@@ -59,12 +59,12 @@ public class PatientVitalsResource extends ServerResource {
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-        List<VitalSign> vitals = null;
+        List<Result> vitals = null;
         try{
-        		if (choice.equals("all"))
+        		/*if (choice.equals("all"))
         			vitals = r.getAllVitals( id );
         		else
-        			vitals = r.getLatestVitals(id);
+        			vitals = r.getLatestVitals(id);*/
         		if( vitals == null )
         		{
         		    return new JsonRepresentation(WebUtils.buildErrorJson( "Could not establish a connection to the repository " + repository + " at this time."));
@@ -78,7 +78,7 @@ public class PatientVitalsResource extends ServerResource {
         		return WebUtils.bundleJsonResponse( "vitals", vitals, repository, id );
 
  		}
-  		catch(NotImplementedException notImplE)
+  		catch(Exception notImplE)
       {
         		return new JsonRepresentation(WebUtils.buildErrorJson(notImplE.getMessage()));
       }

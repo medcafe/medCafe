@@ -57,7 +57,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.HashMap;
-import com.medsphere.ovid.domain.ov.VitalSign;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -92,15 +91,15 @@ public class GreenCDARepository extends Repository {
 	}
     
 	@Override
-	public List<VitalSign> getAllVitals(String patientId) {
+	public List<Result> getAllVitals(String patientId) {
 		
-		String server = "http://localhost:3000/records/" + patientId;
+		String server = greenCDADataUrl + "records/" + patientId;
 
-		List<VitalSign> vitals = new ArrayList<VitalSign>();
+		List<Result> vitals = new ArrayList<Result>();
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> medResults = gcda.findHealthDetail(patientId, "vital_signs");
+			List<String> medResults = gcda.findHealthDetail(server, patientId, "vital_signs");
 			for (String medUrl: medResults)
 			{
 				server = greenCDADataUrl + medUrl;
@@ -108,7 +107,7 @@ public class GreenCDARepository extends Repository {
 				System.out.println("GreenCDARepository getMedications results from json " + tempResults);
 
 				JsonObject o = parser.parse(tempResults).getAsJsonObject();
-				VitalSign record = gson.fromJson(o,  VitalSign.class);
+				Result record = gson.fromJson(o,  Result.class);
 				HealthObject ho = gson.fromJson(o, HealthObject.class);
 				String testJsonHo = gson.toJson(ho);
 
@@ -124,16 +123,17 @@ public class GreenCDARepository extends Repository {
 	
 	// this 'lil nested class is a cheat to cheapen the complexity of the code for
 	// getting the "latest" vitals. Simply sort, then split the list. 
-	public class NewVitalsComparable implements Comparator<VitalSign>{
+	public class NewVitalsComparable implements Comparator<Result>{
 	    @Override
-	    public int compare(VitalSign o1, VitalSign o2) {
-	        return o1.getDateTaken().compareTo(o2.getDateTaken());
+	    public int compare(Result o1, Result o2) {
+	    	// return Double.compare(o1.getEffectiveTime(),o2.getEffectiveTime());
+	    	 return 0;
 	    }
 	}
 
 	@Override
-	public List<VitalSign> getLatestVitals(String id) {
-		List<VitalSign> vitals = this.getAllVitals(id);
+	public List<Result> getLatestVitals(String id) {
+		List<Result> vitals = this.getAllVitals(id);
 		Collections.sort(vitals, new NewVitalsComparable());
 		vitals.subList(0, 4);
         return vitals;
