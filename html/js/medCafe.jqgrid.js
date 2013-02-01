@@ -5,9 +5,11 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
 	{
 		tab_set ="tabs";
 	}
+	var htmlAdd = "<table id=\"list\" class=\"scroll\" cellpadding=\"0\" cellspacing=\"0\"></table>";
+    
 	var tab_key = tab_set + "-";
-	
-	var html = v2js_inettutsHead(widgetInfo) +window["v2js_" + widgetInfo.template](data) + v2js_inettutsTail(widgetInfo);
+	var gridData =  window["v2js_" + widgetInfo.template](data);
+	var html = v2js_inettutsHead(widgetInfo) + htmlAdd + v2js_inettutsTail(widgetInfo);
 	
 // check for invalid tab and column numbers and use defaults if they don't exist;
 	if (!widgetInfo.tab_num)
@@ -17,14 +19,13 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
 	// attach widget to page at correct tab and column location
 	$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 	
-	var htmlAdd = "<table id=\"list\" class=\"scroll\" cellpadding=\"0\" cellspacing=\"0\"></table>";
 	
 	$("#aaa" + widgetInfo.id).append(htmlAdd);	
-	
-	createJQGrid("list", data);
+	 var jsonData = $.parseJSON(gridData)
+	createJQGrid("list", jsonData);
 	$(callObj).delay(500, function ()    
 	{ 
-	  populateGrid("list", data.patientData);
+	  populateGrid("list", jsonData.patientData);
 	});
 }
 

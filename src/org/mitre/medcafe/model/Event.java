@@ -114,10 +114,16 @@ public class Event
 	public static final String ENCOUNTER_TYPE = "Encounters";
 	public final static String NA = "Resource not available";
 
+	
+	public static final String ENCOUNTER_TYPE_STRING = "reasonForVisit";
+	public static final String FREE_TEXT_VALUE = "freeText";
+	public static final String EVENT_DATE = "time";
+	public static final String CODE_STRING ="codes";
+	public static final String ICD9_CODE ="ICD-9-CM";
+	public static final String PROBLEM_NAME = "problemName";
 	public Event()
 	{
 		super();
-
 	}
 
 	public static DbConnection setConnection() throws SQLException
@@ -175,14 +181,14 @@ public class Event
 	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, Application application, JSONObject repositories) throws SQLException, ParseException
 	{
 		ArrayList<Event> eventList = new ArrayList<Event>();
-		log.finer("Event : retrieveEvents: getIcons start " );
+		System.out.println("Event : retrieveEvents: getIcons start " );
 
 			HashMap<String,String> icons = getIcons();
-			log.finer("Event : retrieveEvents: getIcons " + icons.size());
+			System.out.println("Event : retrieveEvents: getIcons " + icons.size());
 
 			for (String type: eventTypes)
 			{
-				log.finer("Event : retrieveEvents: event type " + type);
+				System.out.println("Event : retrieveEvents: event type " + type);
 
 				String icon = icons.get(type);
 
@@ -350,7 +356,8 @@ public class Event
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		try
 		{
-
+			System.out.println("Event retrieveEventsFromRepositories type start");
+    		
 			JSONArray reps = repositories.getJSONArray("repositories");
 			MedcafeApplication medApp = (MedcafeApplication)app;
 			if (repositories.has("repositories"))
@@ -368,7 +375,7 @@ public class Event
 		    		url = url.replaceAll("<:patientId:>", repPatientId);
 		    		String results = getJsonContent( medApp, url );
 		    		JSONObject jsonResults = new JSONObject(results);
-		    		log.finer("Event retrieveEventsFromRepositories type " +  type + " jsonObject " + jsonResults.toString());
+		    		System.out.println("Event retrieveEventsFromRepositories type " +  type + " jsonObject " + jsonResults.toString());
 		    		ArrayList<Event> eventsFromRestlet = getEventObject(jsonResults, userName, patientId, repPatientId, repository, type, icon);
 		    		eventList.addAll(eventsFromRestlet);
 		    	}
@@ -510,46 +517,41 @@ public class Event
 				 JSONObject probObj;
 				 probObj = (JSONObject) jsonProbs.get(i);
 
-				 String probTitle = probObj.getString("problemName");
+				 String probTitle = probObj.getString(PROBLEM_NAME);
 				 String active = "A";
 				 try {
-				 active = probObj.getString("narrative");
+					 if (probObj.has(FREE_TEXT_VALUE))
+					 {
+						 active = probObj.getString(FREE_TEXT_VALUE);
+					 }
 				 }
 				 catch (JSONException jsonE)
 				 {
 				 	log.finer("No narrative for patient " + repPatientId + " for problem " + probTitle);
 				 }
-				 if (active.equals("A"))
 				 	probTitle = probTitle + " - ACTIVE";
-				 else
-				 	probTitle = probTitle + " - INACTIVE";
 				 	try
 				 	{
-				 event.setDescription("ICD9 Code: " + probObj.getJSONObject("problemCode").getString("code"));
-					}
+				 
+				 		//event.setDescription("ICD9 Code: " + probObj.getJSONObject("problemCode").getString("code"));
+				 		JSONObject codes = probObj.getJSONObject("codes");
+				 		if (codes.has(ICD9_CODE))
+				 		{
+				 			JSONObject jsonCode = codes.getJSONObject("ICD-9-CM:");
+				 			event.setDescription("ICD9 Code: " + jsonCode.toString());
+				 		}
+				 	}
 					catch (JSONException jsonE)
 					{
 						log.finer("No problem code for " + repPatientId + " and problem " + probTitle);
 					}
 
-				 JSONObject dateObj = probObj.getJSONObject("problemDate").getJSONObject("low");
-				 log.finer("Event getEventObject dateObj " + dateObj.toString());
-				 /* 	"administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":6,"year":2010,"day":30,"hour":0},*/
-				 String month = dateObj.getString("month");
-				 int monthVal = Integer.parseInt(month) -1;
-				 String day = dateObj.getString("day");
-				 String year = dateObj.getString("year");
-				 String dateStr = monthVal + "/" + day + "/" + year;
-				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				 try
-				 {
-					Date probDate = df.parse(dateStr);
-					event.setEventDate(probDate);
-				 }
-				 catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				 }
+				 String timeStr = (String)probObj.get(EVENT_DATE);
+				 long time = Long.parseLong(timeStr);
+	             Date probDate = new Date(time *1000);
+
+				 event.setEventDate(probDate);
+				
 				 event.setIcon(icon);
 				 event.setTitle(probTitle);
 				 event.setType(type);
@@ -577,27 +579,35 @@ public class Event
 				 event.setRepository(repository);
 				 JSONObject encObj;
 				 encObj = (JSONObject) jsonEncs.get(i);
-				 JSONObject typeObj = encObj.getJSONObject("encounterType");
-				 String encTitle = typeObj.getString("value");
-
-				 JSONObject dateObj = encObj.getJSONObject("encounterDate");
-                                 dateObj = dateObj.getJSONObject("low");
-				 
-				 String month = dateObj.getString("month");
-				 int monthVal = Integer.parseInt(month) -1;
-				 String day = dateObj.getString("day");
-				 String year = dateObj.getString("year");
-				 String dateStr = monthVal + "/" + day + "/" + year;
-				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				 try
+				 System.out.println("Event getEventObject line 586 json output " + encObj );
+				// JSONObject typeObj = encObj.getJSONObject("encounterType");
+				 JSONObject typeObj = null;
+				 if (encObj.has(ENCOUNTER_TYPE_STRING))
 				 {
-					Date encDate = df.parse(dateStr);
-					event.setEventDate(encDate);
+					 typeObj = encObj.getJSONObject(ENCOUNTER_TYPE_STRING);
 				 }
-				 catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				 else
+				 {
+					 //Default to one of codes
+					 typeObj = encObj.getJSONObject(CODE_STRING);
 				 }
+				 //String encTitle = typeObj.getString("value");
+				 String encTitle = null;
+				 if (typeObj.has(FREE_TEXT_VALUE))
+				 {
+					 encTitle = typeObj.getString(FREE_TEXT_VALUE);
+				 }
+				 else
+				 {
+					 encTitle = "No entered description - see codes";
+				 }
+				 String timeStr = (String)encObj.get(EVENT_DATE);
+				 long time = Long.parseLong(timeStr);
+	             Date encounterDate = new Date(time *1000);
+	             	
+				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				 event.setEventDate(encounterDate);
+				 
 				 String desc = "";
 
 

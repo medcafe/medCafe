@@ -36,6 +36,7 @@ import javax.imageio.ImageIO;
 
 import org.json.JSONObject;
 import org.mitre.medcafe.model.MedCafeFile;
+import org.mitre.medcafe.repositories.GreenCDARepository;
 import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.Constants;
 import org.mitre.medcafe.util.ImageProcesses;
@@ -129,12 +130,12 @@ public class PatientImagesResource extends ServerResource {
     	String[] imageTitles = new String[]{"Assessment","Blood Stats","Cardio Report", "Chest XRay", "Chest XRay","MRI" };
     	int i=0;
 
-    	String dir = "patients/" + this.patientId;
+    	String url = Config.getServerUrl() +   "/images/patients/" + this.patientId;
 
     	for (String image: images)
     	{
 
-    		patientImages.append("<img src=\"../" + dir +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );
+    		patientImages.append("<img src=\"http://" + url +"/" + image + "\" alt=\"" + imageTitles[i] + "\"/>" );
     		i++;
     	}
     	return new StringRepresentation( startBuf.toString() + patientImages.toString()

@@ -9,6 +9,15 @@
 	<cacheKey>patientList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+    <name>VitalGrid</name>
+    <type>Vital</type>
+    <image>vital.png</image>
+    <template>listVitalsListGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
 	<name>DefaultPatient</name>
 	<type>DefaultPatient</type>
 	<image>defaultPatient.png</image>
@@ -89,6 +98,13 @@
     <image>socialHistory.jpg</image>
     <template>basicDataView</template>
     <cacheKey>socialHistoryList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultEncounter</name>
+    <type>DefaultEncounter</type>
+    <image>socialHistory.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>encounterList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>DefaultResults</name>

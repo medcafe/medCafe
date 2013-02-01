@@ -1,4 +1,10 @@
-<%@ page import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.json.*, java.io.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*, org.mitre.medcafe.model.*, java.util.*, java.text.*" %><%
+<%@ page import="org.restlet.*, org.restlet.data.*, org.restlet.representation.*, org.restlet.resource.*,org.json.*, java.io.*,org.mitre.medcafe.util.*,org.mitre.medcafe.restlet.*, org.mitre.medcafe.model.*, java.util.*, java.text.*" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="org.mitre.medcafe.model.Image" %>
+<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="com.google.gson.JsonParser" %>
+
+<%
 
 	
     MedCafeFilter filter = null;
@@ -33,102 +39,38 @@
     String user =  request.getRemoteUser();
 
     JSONObject obj = cache.retrieveObjectList("images");
-
-    JSONObject retObj;
+   
+    StringWriter imageDivs = new StringWriter();
+    System.out.println("coverFeed get object " +  obj.toString() );
     
-    if ((startDate == null ||startDate.equals(""))&&(endDate == null ||
-            endDate.equals(""))&&(filterCat == null ||filterCat.equals("")))
-        retObj = obj;
-    else
+     StringBuffer strBuf = new StringBuffer();
+     Gson gson = new Gson();
+     JsonParser parser = new JsonParser();
+    ArrayList<Image> arrayImageList = new ArrayList<Image>();
+    
+    JSONArray objArray = obj.getJSONArray("repositoryList");
+    for (int i = 0; i < objArray.length(); i++)
     {
-        if (startDate == null)
-            startDate = "01/01/1950";
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        if (endDate == null)
-        {
-            Date today = new Date();
-
-                //	endDate = "01/01/2012";
-            endDate = df.format(today);
-        }
-        Date startDt, endDt;
-        try {
-            startDt = df.parse(startDate);
-            endDt = df.parse(endDate);
-        }
-        catch (ParseException parseE)
-        {
-            System.out.println("Error parsing filter dates, using default dates");
-            endDt = new Date();
-            GregorianCalendar cal = new GregorianCalendar(1950, 1, 1);
-            startDt = cal.getTime();
-        }
-        boolean categories = false;
-        String[] catFilters = new String[0];
-        if (filterCat != null && !filterCat.equals(""))
-        {
-            catFilters = filterCat.split(",");
-            categories = true;
-        }
-        retObj = new JSONObject();
-        SimpleDateFormat fileDateFormat = new SimpleDateFormat(MedCafeFile.DATE_FORMAT);
-        try{
-            JSONArray objArray = obj.getJSONArray("repositoryList");
-            for (int i = 0; i < objArray.length(); i++)
-            {
                 JSONObject reposObject = objArray.getJSONObject(i);
-                String repos = reposObject.getString("repository");
+                System.out.println("coverFeed reposObject " +  reposObject.toString() );
+ 
+               if (!reposObject.has("images"))
+                continue;
+                
                 JSONArray imageArray = reposObject.getJSONArray("images");
-                JSONObject newImages = new JSONObject();
                 for (int j = 0; j < imageArray.length(); j++)
                 {
-                    JSONObject imageObj = imageArray.getJSONObject(j);
-                    String dateStr = imageObj.getString(MedCafeFile.DATE);
-                    Date imageDate = null;
-                    try {
-                        imageDate = fileDateFormat.parse(dateStr);
-                    }
-                    catch (ParseException parseE)
-                    {
-                        System.out.println("Error parsing date of image " + imageObj.getString("name"));
-                        break;
-                    }
-                    if (imageDate.compareTo(endDt)<= 0 && imageDate.compareTo(startDt)>=0)
-                    {
-                        if (categories)
-                        {
-                            for (String cat : catFilters)
-                            {
-                                if (cat.equals(imageObj.getString("category")))
-                                {
-                                    newImages.append("images", imageObj);
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            newImages.append("images", imageObj);
-                        }
-                    }
+                    JSONObject singleimageObject = imageArray.getJSONObject(j);
+                              
+                    String strImageObject = singleimageObject.toString();
+                    JsonObject o = parser.parse(strImageObject).getAsJsonObject();
+                    Image image = gson.fromJson(o,  Image.class);
+                    arrayImageList.add(image);
+                    strBuf.append(Image.getDivs(image));    
                 }
-                newImages.put("repository", repos);
-                retObj.append("repositoryList", newImages);
-            }
-        }
-			
-        catch (JSONException e) {
-            System.out.println(e.getMessage());
-            retObj = WebUtils.buildErrorJson("Problem creating filtered image list." + e.getMessage());
-        }
-        finally{  
-          obj = retObj;
-        }
-    }
-    StringWriter imageDivs = new StringWriter();
-    VelocityUtil.applyTemplate( obj, "listImages.vm", imageDivs);
-        
-    out.write( imageDivs.toString().replaceAll("<:prefix:>", "http://" + Config.getServerUrl() + "/images/patients/" + patientId + "/" ) );
+                
+     }           
+     out.write( strBuf.toString() );
 
 %>
 

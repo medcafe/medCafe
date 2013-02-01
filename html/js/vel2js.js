@@ -1524,6 +1524,110 @@ t.p('	');
 t.p('</table>');
 return t.toString();
 }
+function v2js_listProblemListGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.problems.problem) {
+t.p('				{ "titleLabels": ["Problem","Type","Problem Date"],				 "modelNames": ["Problem","Type","ProblemDate"],				"patientData":[				');
+for (var i5=0;  i5<repos.problems.problem.length; i5++) {
+var problemDetail = repos.problems.problem[i5];
+velocityCount = i5;
+t.p('		   	    ');
+if (patcnt > 0) {
+t.p('		   	    ,		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('		   	    {"id":"');
+t.p( patcnt);
+t.p('"		   		');
+if (problemDetail.description.text) {
+t.p('		  		    ,"Problem": "');
+t.p( problemDetail.description.text);
+t.p('" 		  			');
+}
+else {
+if (problemDetail.description.code) {
+t.p('		  					  				');
+var codecnt = 0;
+t.p('		  				');
+for (var i7=0;  i7<problemDetail.description.code.length; i7++) {
+var code = problemDetail.description.code[i7];
+velocityCount = i7;
+t.p('		  					');
+if (codecnt > 0) {
+t.p('		  						;		  					');
+}
+t.p('		  					,"code": "');
+t.p( code.value);
+t.p('"		  					');
+if (code.codingSystem) {
+t.p('		  						(');
+t.p( code.codingSystem);
+t.p(')		  					');
+}
+codecnt = ( codecnt + 1 );
+t.p('		  				');
+}
+velocityCount = i5;
+t.p('		  						  				');
+}
+else {
+t.p('		  						  				');
+}
+}
+t.p('									');
+if (problemDetail.dateTime) {
+t.p('		                ');
+for (var i7=0;  i7<problemDetail.dateTime.length; i7++) {
+var dateElem = problemDetail.dateTime[i7];
+velocityCount = i7;
+t.p('		                	');
+if (dateElem.type.text) {
+t.p('		                		,"Type": "');
+t.p( dateElem.type.text);
+t.p('"		                	');
+}
+t.p('		                	');
+if (dateElem.exactDateTime.length() > 10) {
+t.p('			                , "ProblemDate":"');
+t.p( dateElem.exactDateTime.substring(0, 10));
+t.p('"			                ');
+}
+else {
+t.p('			                ,"ProblemDate":"');
+t.p( dateElem.exactDateTime);
+t.p('"			                ');
+}
+t.p('		                ');
+}
+velocityCount = i5;
+t.p('		            ');
+}
+t.p('		            }	   			');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
+}
+return t.toString();
+}
 function v2js_listProblemListTable(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -1862,6 +1966,64 @@ if (loopCount >= 2) {
 t.p('			</div>		</div>	');
 }
 t.p('	</div>');
+}
+return t.toString();
+}
+function v2js_listVitalsListGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.vitals) {
+t.p('				{ "titleLabels": ["Type","Description","VitalDate"],				 "modelNames": ["Type","Description","VitalDate"],				"patientData":[				');
+for (var i5=0;  i5<repos.vitals.length; i5++) {
+var vitalDetail = repos.vitals[i5];
+velocityCount = i5;
+t.p('    		   	    ');
+if (patcnt > 0) {
+t.p('    		   	    ,    		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('    		   	    {"id":"');
+t.p( patcnt);
+t.p('"    		   		');
+if (vitalDetail.mood_code) {
+t.p('    		   		     ,"Type": "');
+t.p( vitalDetail.mood_code);
+t.p('"                     ');
+}
+t.p('    		   		');
+if (vitalDetail.description) {
+t.p('    		  		    ,"Description": "');
+t.p( vitalDetail.description);
+t.p('"     		  			    					');
+if (vitalDetail.time) {
+t.p('    		               	    			          , "VitalDate":"');
+t.p( vitalDetail.time);
+t.p('"    			                   		            ');
+}
+t.p('    		            }    	   			');
+}
+t.p('    	   		');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
 }
 return t.toString();
 }

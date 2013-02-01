@@ -391,6 +391,7 @@ public class GreenCDARepository extends Repository {
 	public List<Encounter> getPatientEncounters(String id)
 			throws NotImplementedException {
 	
+		String type = "encounters";
 		List<Encounter> encounters =  new ArrayList<Encounter>();
 		   
 		String server = greenCDADataUrl + "/records/" + id;
@@ -398,7 +399,7 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> results = gcda.findHealthDetail( id, "immunizations");
+			List<String> results = gcda.findHealthDetail( id, type);
 			for (String url: results)
 			{
 				server = greenCDADataUrl + url;

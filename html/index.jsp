@@ -71,6 +71,7 @@
 	<!--[if IE]><script type="text/javascript" src="${js}/excanvas.js"></script><![endif]-->
 	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="${js}/jquery.flot.selection.js"></script>
+    <script language="javascript" type="text/javascript" src="${js}/datagrid/js/jquery.jqGrid.min.js"></script>
 
  	<script type="text/javascript" src="${js}/jquery.mousewheel.js" ></script>
  	<script src="${js}/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
@@ -106,7 +107,13 @@
  	<script type="text/javascript" src="${js}/jquery.qtip-1.0.0-rc3.min.js"></script>
  	<script type="text/javascript" src="js/jquery.annotate.js"></script>
 
-
+    <link rel="stylesheet" media="screen" type="text/css" href="js/datagrid/css/ui.jqgrid.css" />
+    <script src="js/datagrid/js/ui.multiselect.js" type="text/javascript"></script>
+    <script src="js/datagrid/js/jquery.tablednd.js" type="text/javascript"></script>
+    <script src="js/datagrid/js/jquery.contextmenu.js" type="text/javascript"></script>
+    <script src="js/datagrid/js/grid.locale-en.js" type="text/javascript"></script>
+    <script src="js/datagrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+   
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
  	<script language="javascript" type="text/javascript" src="js/jquery.flot.selection.js"></script>
 	<script type="text/javascript">

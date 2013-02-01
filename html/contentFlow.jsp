@@ -21,7 +21,7 @@
 	String startDate = request.getParameter("start_date");
 	String endDate = request.getParameter("end_date");
 	String filterCat = request.getParameter("filterCat");
-	log.finer("coverflow flash: index.jsp filterCat from params " +  filterCat );
+	//System.out.println("coverflow flash: index.jsp filterCat from params " +  filterCat );
 
 	if (filterObj != null)
 	{
@@ -40,8 +40,8 @@
 	if ( (filterCat != null) && (!filterCat.equals("")) )
 			coverflowFile +=  "~filterCat"+  delim  + filterCat;
 
-	log.finer("contentflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
-    log.finer("contentflow flash: index.jsp url " +  coverflowFile );
+	//System.out.println("contentflow flash: index.jsp startDate " +  startDate + " endDate " + endDate );
+    //System.out.println("contentflow flash: index.jsp url " +  coverflowFile );
 
 	//coverflowFile = "coverFeedGen.xml";
 	//coverflowFile = "http://127.0.0.1:8080/medcafe/c/repositories/medcafe/patients/1/images";
