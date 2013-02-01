@@ -175,6 +175,7 @@ public class GreenCDARepository extends Repository {
 		return allergies;
 	}
 	
+	
 	@Override
 	public List<Immunization> getImmunizations(String id)
 			throws NotImplementedException {
@@ -390,7 +391,29 @@ public class GreenCDARepository extends Repository {
 	public List<Encounter> getPatientEncounters(String id)
 			throws NotImplementedException {
 	
-		List<Encounter> encounters = null;
+		List<Encounter> encounters =  new ArrayList<Encounter>();
+		   
+		String server = greenCDADataUrl + "/records/" + id;
+
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> results = gcda.findHealthDetail( id, "immunizations");
+			for (String url: results)
+			{
+				server = greenCDADataUrl + url;
+				
+				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				
+				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				Encounter encounter = gson.fromJson(o,  Encounter.class);
+				
+				encounters.add(encounter);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return encounters;
 	}
 	@Override
