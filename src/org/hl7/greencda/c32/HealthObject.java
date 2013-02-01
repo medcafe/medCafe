@@ -130,7 +130,8 @@ public class HealthObject
 
     @XmlElement(required = true)
     protected String id;
-    protected List<Code> codes;
+    //protected List<Code> codes;
+    protected Codes codes;
     protected String mood_code;
     protected String version;
     protected String _type;
@@ -203,39 +204,15 @@ public class HealthObject
 		this.time = time;
 	}
 
-	public void setCodes(List<Code> codes) {
+	public Codes getCodes() {
+		return codes;
+	}
+
+	public void setCodes(Codes codes) {
 		this.codes = codes;
 	}
 
-	/**
-     * Gets the value of the fulfillmentHistory property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the fulfillmentHistory property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFulfillmentHistory().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link HealthObject.FulfillmentHistory }
-     * 
-     * 
-     */
-    public List<Code> getCodes() {
-        if (codes == null) {
-        	codes = new ArrayList<Code>();
-        }
-        return this.codes;
-    }
-
+	
    
 
 }

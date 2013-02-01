@@ -94,25 +94,24 @@ public class GreenCDARepository extends Repository {
 	@Override
 	public List<Result> getAllVitals(String patientId) {
 		
-		String server = greenCDADataUrl + "records/" + patientId;
+		String server = greenCDADataUrl + "/records/" + patientId;
 
 		List<Result> vitals = new ArrayList<Result>();
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> medResults = gcda.findHealthDetail( patientId, "vital_signs");
-			for (String medUrl: medResults)
+			List<String> results = gcda.findHealthDetail( patientId, "vital_signs");
+			for (String url: results)
 			{
-				server = greenCDADataUrl + medUrl;
+				server = greenCDADataUrl + url;
+				
 				String vitalSignsResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
-				System.out.println("GreenCDARepository getVital Signs results from json " + vitalSignsResults);
-
+				
 				JsonObject o = parser.parse(vitalSignsResults).getAsJsonObject();
 				Result record = gson.fromJson(o,  Result.class);
 				HealthObject ho = gson.fromJson(o, HealthObject.class);
 				String testJsonHo = gson.toJson(ho);
 
-				System.out.println("GreenCDARepository Health Object " + testJsonHo );
 				vitals.add(record);
 			}
 		}
@@ -127,8 +126,7 @@ public class GreenCDARepository extends Repository {
 	public class NewVitalsComparable implements Comparator<Result>{
 	    @Override
 	    public int compare(Result o1, Result o2) {
-	    	// return Double.compare(o1.getEffectiveTime(),o2.getEffectiveTime());
-	    	 return 0;
+	    	return o1.getEffectiveTime().getValue().compare(o2.getEffectiveTime().getValue());
 	    }
 	}
 
@@ -144,6 +142,36 @@ public class GreenCDARepository extends Repository {
 	public List<Allergy> getAllergies(String patientId) {
 		// TODO Auto-generated method stub
 		List<Allergy> allergies = new ArrayList<Allergy>();	
+		
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> allergyResults = gcda.findHealthDetail( patientId, "allergies");
+			for (String allergyUrl: allergyResults)
+			{
+				String server = greenCDADataUrl + allergyUrl;
+				String tempResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				System.out.println("GreenCDARepository getAllergies results from json " + tempResults);
+
+				JsonObject o = parser.parse(tempResults).getAsJsonObject();
+				Allergy allergy = gson.fromJson(o,  Allergy.class);
+				
+				allergies.add(allergy);
+			}
+			
+            
+            
+		/*} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			*/
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return allergies;
 	}
 	
@@ -152,6 +180,27 @@ public class GreenCDARepository extends Repository {
 			throws NotImplementedException {
 		List<Immunization> vax = new ArrayList<Immunization>();
 		   
+		String server = greenCDADataUrl + "/records/" + id;
+
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> results = gcda.findHealthDetail( id, "immunizations");
+			for (String url: results)
+			{
+				server = greenCDADataUrl + url;
+				
+				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				
+				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				Immunization immunization = gson.fromJson(o,  Immunization.class);
+				
+				vax.add(immunization);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return vax;
 	}
 
@@ -161,9 +210,30 @@ public class GreenCDARepository extends Repository {
 	public List<Result> getResults(String patientId) {
 		// TODO Auto-generated method stub
 		 
-		List<Result> results = null;
-		
-		return results;
+		List<Result> resultList = new ArrayList<Result>();
+		   
+		String server = greenCDADataUrl + "/records/" + patientId;
+
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> results = gcda.findHealthDetail( patientId, "results");
+			for (String url: results)
+			{
+				server = greenCDADataUrl + url;
+				
+				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				
+				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				Result result = gson.fromJson(o,  Result.class);
+				
+				resultList.add(result);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultList;
 	}
 	
 	@Override
@@ -369,7 +439,35 @@ public class GreenCDARepository extends Repository {
 			throws NotImplementedException 
 	{
 		// TODO Auto-generated method stub
-		 List<Condition> problems= null;
+		 List<Condition> problems= new ArrayList<Condition>();
+
+		 Gson gson = new Gson();
+			JsonParser parser = new JsonParser();
+			try {
+				List<String> results = gcda.findHealthDetail( patientId, "problems");
+				for (String url: results)
+				{
+					String server = greenCDADataUrl + url;
+					String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+					
+					JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+					Condition problem = gson.fromJson(o,  Condition.class);
+					
+					problems.add(problem);
+				}
+				
+	            
+	            
+			/*} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				*/
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		return problems;
 	}
 	@Override
@@ -377,23 +475,89 @@ public class GreenCDARepository extends Repository {
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		
-		List<Support> support = null;
-		return support;
+		List<Support> supportList = new ArrayList<Support>();
+		
+		String server = greenCDADataUrl + "/records/" + patientId;
+
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> results = gcda.findHealthDetail( patientId, "support");
+			for (String url: results)
+			{
+				server = greenCDADataUrl + url;
+				
+				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				
+				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				Support support = gson.fromJson(o,  Support.class);
+				
+				supportList.add(support);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return supportList;
 	}
         
 	@Override
 	public List<Procedure> getProcedures(String patientId)
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
-		List<Procedure> procedures = null;
+		List<Procedure> procedures = new ArrayList<Procedure>();
+		
+		String server = greenCDADataUrl + "/records/" + patientId;
+
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		try {
+			List<String> results = gcda.findHealthDetail( patientId, "procedures");
+			for (String url: results)
+			{
+				server = greenCDADataUrl + url;
+				
+				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+				
+				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				Procedure procedure = gson.fromJson(o,  Procedure.class);
+				
+				procedures.add(procedure);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return procedures;
 	}
 	
-	    
+	@Override
      public   List<SocialHistory> getSocialHistory(String patientId) throws NotImplementedException
      {
-    	 List<SocialHistory> socialHistory = null;
-         return socialHistory;
+    	 List<SocialHistory> socialHistoryList  = new ArrayList<SocialHistory>();
+ 		
+ 		String server = greenCDADataUrl + "/records/" + patientId;
+
+ 		Gson gson = new Gson();
+ 		JsonParser parser = new JsonParser();
+ 		try {
+ 			List<String> results = gcda.findHealthDetail( patientId, "social_history");
+ 			for (String url: results)
+ 			{
+ 				server = greenCDADataUrl + url;
+ 				
+ 				String jsonResults = WebUtils.callServer(server, "GET", "application/json", new String[]{});
+ 				
+ 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+ 				SocialHistory socialHistory = gson.fromJson(o,  SocialHistory.class);
+ 				
+ 				socialHistoryList.add(socialHistory);
+ 			}
+ 		}
+ 		catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
+        return socialHistoryList;
      }
                 
 	

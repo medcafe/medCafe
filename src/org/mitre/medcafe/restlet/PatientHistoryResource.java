@@ -112,7 +112,6 @@ public class PatientHistoryResource extends ServerResource {
 
             JSONObject obj = r.getHistory(id, category, startDate, endDate);
 
-
             log.finer("PatientHistoryResource JSON " +  obj.toString());
             return new JsonRepresentation(obj);
         }

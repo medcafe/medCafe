@@ -12,6 +12,7 @@ import org.hl7.greencda.c32.Immunization;
 import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Procedure;
 import org.hl7.greencda.c32.Result;
+import org.hl7.greencda.c32.SocialHistory;
 import org.hl7.greencda.c32.Support;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.util.NotImplementedException;
@@ -66,6 +67,13 @@ public class MedcafeRepository extends Repository {
 
 	@Override
 	public List<Condition> getProblems(String patientId)
+			throws NotImplementedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+ 
+	@Override
+	public List<SocialHistory> getSocialHistory(String patientId)
 			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;

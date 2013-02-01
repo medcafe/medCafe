@@ -33,6 +33,7 @@ import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Person;
 import org.hl7.greencda.c32.Procedure;
 import org.hl7.greencda.c32.Result;
+import org.hl7.greencda.c32.SocialHistory;
 import org.hl7.greencda.c32.Support;
 import org.json.JSONObject;
 import org.mitre.medcafe.model.History;
@@ -110,6 +111,11 @@ public abstract class Repository {
      *  Get a problem list for a patient.
      */
     public abstract List<Condition> getProblems(String patientId) throws NotImplementedException;
+
+    /**
+     *  Get a problem list for a patient.
+     */
+    public abstract List<SocialHistory> getSocialHistory(String patientId) throws NotImplementedException;
 
     /**
      *  Get a support (contact) list for a patient.

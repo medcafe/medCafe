@@ -44,7 +44,10 @@ public class MedcafeApplication extends Application {
         router.attach("/repositories/{repository}/patients/{id}/problems", org.mitre.medcafe.restlet.PatientProblemResource.class);
         router.attach("/repositories/{repository}/patients/{id}/bookmarks", org.mitre.medcafe.restlet.PatientBookmarkResource.class);
         router.attach("/repositories/{repository}/patients/{id}/immunizations", org.mitre.medcafe.restlet.PatientImmunizationResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/encounters", org.mitre.medcafe.restlet.PatientEncounterResource.class);
+        router.attach("/repositories/{repository}/patients/{id}/procedures", org.mitre.medcafe.restlet.PatientProcedureResource.class);
+        router.attach("/repositories/{repository}/patients/{id}/socialhistory", org.mitre.medcafe.restlet.PatientSocialHistoryResource.class);
+        router.attach("/repositories/{repository}/patients/{id}/results", org.mitre.medcafe.restlet.PatientResultsResource.class);
+         router.attach("/repositories/{repository}/patients/{id}/encounters", org.mitre.medcafe.restlet.PatientEncounterResource.class);
 		  router.attach("/repositories/{repository}/patients/{id}/supportList", org.mitre.medcafe.restlet.PatientSupportResource.class);
 		  router.attach("/repositories/{repository}/patients/{id}/vitals/{choice}", org.mitre.medcafe.restlet.PatientVitalsResource.class);
 		  router.attach("/repositories/{repository}/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);

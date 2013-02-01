@@ -77,6 +77,34 @@
 	<cacheKey>alertList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+    <name>DefaultAllergies</name>
+    <type>DefaultAllergies</type>
+    <image>allergy.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>alertList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultSocialHistory</name>
+    <type>DefaultSocialHistory</type>
+    <image>socialHistory.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>socialHistoryList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultResults</name>
+    <type>DefaultResults</type>
+    <image>labResults.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultProcedures</name>
+    <type>DefaultProcedures</type>
+    <image>proc.png</image>
+    <template>basicDataView</template>
+    <cacheKey>procedures</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Symptoms</name>
 	<type>Symptoms</type>
 	<image>clipboard-checkbox.jpg</image>
@@ -120,6 +148,13 @@
 	<image>problem.png</image>
 	<template>listProblemListTable</template>
 	<cacheKey>problemList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultVitals</name>
+    <type>DefaultVitals</type>
+    <image>defaultPrescription.png</image>
+    <template>basicDataView</template>
+    <cacheKey>allVitalsList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Chart</name>

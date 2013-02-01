@@ -11,6 +11,21 @@
 	<priority>high</priority>
 </DataSource>
 <DataSource>
+    <restlet>/repositories/{repository}/patients/{id}/procedures</restlet>
+    <cacheKey>procedures</cacheKey>
+    <priority>high</priority>
+</DataSource>
+<DataSource>
+    <restlet>/repositories/{repository}/patients/{id}/socialhistory</restlet>
+    <cacheKey>socialHistoryList</cacheKey>
+    <priority>high</priority>
+</DataSource>
+<DataSource>
+    <restlet>/repositories/{repository}/patients/{id}/results</restlet>
+    <cacheKey>resultList</cacheKey>
+    <priority>high</priority>
+</DataSource>
+<DataSource>
 	<restlet>/repositories/{repository}/patients/{id}/allergies</restlet>
 	<cacheKey>alertList</cacheKey>
 	<priority>high</priority>
