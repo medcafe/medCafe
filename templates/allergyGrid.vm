@@ -1,0 +1,32 @@
+#if ($repositoryList)
+
+
+#foreach ($repos in $repositoryList)
+	#if ($repos.allergies)
+		{
+			"titleLabels": [ "type", "code system", "code"],
+			"modelNames": [ "type", "code_type", "code"],
+			"patientData": [
+				#set ($i = 0)
+				#foreach ( $allergy in $repos.allergies) 
+					#if ($i > 0)
+						,
+					#end
+					#set ($i = $i + 1)
+					{ 
+						"type":
+							"Allergy", 
+						"code_type":
+							"$allergy.type.codeSystem", 
+						"code": 
+							"$allergy.type.code" 
+					}
+				#end
+			]
+		}
+	#end
+#end
+#end
+
+
+
