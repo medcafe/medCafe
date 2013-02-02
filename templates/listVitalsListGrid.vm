@@ -1,0 +1,38 @@
+#if ($repositoryList)
+#set ($printFirst = 0)
+#set ($patcnt = 0)
+	#foreach ($repos in $repositoryList)
+		#if ($printFirst == 0)
+			#set ($printFirst = 1)	
+			#if ($repos.vitals)
+				{ "titleLabels": ["Type","Description","VitalDate"],
+				 "modelNames": ["Type","Description","VitalDate"],
+				"patientData":[
+				#foreach(  $vitalDetail in $repos.vitals)
+    		   	    #if ($patcnt > 0)
+    		   	    ,
+    		   	    #end
+    		   	    #set ($patcnt = $patcnt+1)
+    		   	    {"id":"$patcnt"
+    		   		#if ($vitalDetail.mood_code)
+    		   		     ,"Type": "$vitalDetail.mood_code" 
+                    #end
+    		   		#if ($vitalDetail.description)
+    		  		    ,"Description": "$vitalDetail.description" 
+    		  			
+    					#if($vitalDetail.time)
+    		               	
+    			          , "VitalDate":"$vitalDetail.time"
+    			               
+    		            #end
+    		            }
+    	   			#end
+    	   		#end
+	   			]}
+	   		#end
+		#end
+	#end
+#end
+
+
+
