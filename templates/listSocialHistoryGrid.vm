@@ -1,0 +1,37 @@
+#if ($repositoryList)
+#set ($printFirst = 0)
+#set ($patcnt = 0)
+	#foreach ($repos in $repositoryList)
+		#if ($printFirst == 0)
+			#set ($printFirst = 1)	
+			#if ($repos.socialhistory)
+				{ "titleLabels": ["Type","Description","Date"],
+				 "modelNames": ["Type","Description","Date"],
+				"patientData":[
+				#foreach(  $socialDetail in $repos.socialhistory)
+    		   	    #if ($patcnt > 0)
+    		   	    ,
+    		   	    #end
+    		   	    #set ($patcnt = $patcnt+1)
+    		   	    {"id":"$patcnt"
+    		   		#if ($socialDetail.mood_code)
+    		   		     ,"Type": "$socialDetail.mood_code" 
+                    #end
+    		   		#if ($socialDetail.version)
+    		  		    ,"Description": "$socialDetail.version" 
+    		  		#end	
+    				#if($socialDetail.time)
+    		               	
+    			          , "Date":"$socialDetail.time"       
+    		        #end
+    		        }
+    	   		
+    	   	    #end
+	   			]}
+	   		#end
+		#end
+	#end
+#end
+
+
+
