@@ -23,7 +23,7 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
     
 	$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 	
-	alert("widget list " + listName);
+//	alert("widget list " + listName);
 	//$("#aaa" + widgetInfo.id).append(htmlAdd);	
 	 var jsonData = $.parseJSON(gridData)
 	createJQGrid(listName, jsonData);
@@ -78,7 +78,7 @@ function populateGrid(placeholder, data)
 {
 	//alert("about to populate grid");
 
-	for(var i=1;i<=data.length;i++)
+	for(var i=0;i<data.length;i++)
 	   $("#" +placeholder ).jqGrid('addRowData',i+1,data[i]);
  	
 }
