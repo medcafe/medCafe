@@ -17,6 +17,8 @@ package org.mitre.medcafe.repositories;
 
 // import org.mitre.hdata.hrf.core.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -109,9 +111,9 @@ public class GreenCDARepository extends Repository {
 				
 				JsonObject o = parser.parse(vitalSignsResults).getAsJsonObject();
 				Result record = gson.fromJson(o,  Result.class);
-				HealthObject ho = gson.fromJson(o, HealthObject.class);
-				String testJsonHo = gson.toJson(ho);
-
+				String time = record.getTime();	
+				record.setTime(parseDate(time));
+ 				
 				vitals.add(record);
 			}
 		}
@@ -155,7 +157,9 @@ public class GreenCDARepository extends Repository {
 
 				JsonObject o = parser.parse(tempResults).getAsJsonObject();
 				Allergy allergy = gson.fromJson(o,  Allergy.class);
-				
+				String time = allergy.getTime();	
+				allergy.setTime(parseDate(time));
+ 				
 				allergies.add(allergy);
 			}
 			
@@ -195,7 +199,9 @@ public class GreenCDARepository extends Repository {
 				
 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
 				Immunization immunization = gson.fromJson(o,  Immunization.class);
-				
+				String time = immunization.getTime();	
+				immunization.setTime(parseDate(time));
+ 				
 				vax.add(immunization);
 			}
 		}
@@ -227,7 +233,9 @@ public class GreenCDARepository extends Repository {
 				
 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
 				Result result = gson.fromJson(o,  Result.class);
-				
+				String time = result.getTime();	
+				result.setTime(parseDate(time));
+ 				
 				resultList.add(result);
 			}
 		}
@@ -261,7 +269,9 @@ public class GreenCDARepository extends Repository {
 				Medication med = gson.fromJson(o,  Medication.class);
 				HealthObject ho = gson.fromJson(o, HealthObject.class);
 				String testJsonHo = gson.toJson(ho);
-
+				String time = med.getTime();	
+				med.setTime(parseDate(time));
+				
 				System.out.println("GreenCDARepository Health Object " + testJsonHo );
 				meds.add(med);
 			}
@@ -408,7 +418,9 @@ public class GreenCDARepository extends Repository {
 				
 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
 				Encounter encounter = gson.fromJson(o,  Encounter.class);
-				
+				String time = encounter.getTime();	
+				encounter.setTime(parseDate(time));
+ 				
 				encounters.add(encounter);
 			}
 		}
@@ -476,7 +488,9 @@ public class GreenCDARepository extends Repository {
 					
 					JsonObject o = parser.parse(jsonResults).getAsJsonObject();
 					Condition problem = gson.fromJson(o,  Condition.class);
-					
+					String time = problem.getTime();	
+					problem.setTime(parseDate(time));
+	 				
 					problems.add(problem);
 				}
 				
@@ -545,6 +559,8 @@ public class GreenCDARepository extends Repository {
 				
 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
 				Procedure procedure = gson.fromJson(o,  Procedure.class);
+				String time = procedure.getTime();	
+				procedure.setTime(parseDate(time));
 				
 				procedures.add(procedure);
 			}
@@ -574,7 +590,8 @@ public class GreenCDARepository extends Repository {
  				
  				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
  				SocialHistory socialHistory = gson.fromJson(o,  SocialHistory.class);
- 				
+ 				String time = socialHistory.getTime();	
+ 				socialHistory.setTime(parseDate(time));
  				socialHistoryList.add(socialHistory);
  			}
  		}
@@ -637,6 +654,20 @@ public class GreenCDARepository extends Repository {
     	credentials = credMap;
     }
 
+	//Date formatter especially for the PDS output
+	public static String parseDate(String inDate)
+	{
+		if (inDate == null)
+			return inDate;
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		Long localTime = Long.parseLong(inDate);
+		Date dateTime = new Date(localTime * 1000 );
+		
+		String formattedDate = df.format(dateTime);
+		
+		return formattedDate;
+		
+	}
 }
 
     

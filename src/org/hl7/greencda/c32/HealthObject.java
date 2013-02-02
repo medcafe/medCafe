@@ -10,6 +10,7 @@ package org.hl7.greencda.c32;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -202,6 +203,7 @@ public class HealthObject
 
 	public void setTime(String time) {
 		this.time = time;
+		
 	}
 
 	public Codes getCodes() {

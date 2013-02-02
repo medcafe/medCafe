@@ -18,11 +18,31 @@
     <cacheKey>allVitalsList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
-	<name>DefaultPatient</name>
-	<type>DefaultPatient</type>
-	<image>defaultPatient.png</image>
-	<template>basicDataView</template>
-	<cacheKey>patientList</cacheKey>
+    <name>ResultsGrid</name>
+    <type>Results</type>
+    <image>lab-results.png</image>
+    <template>listResultsGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>SocialHistGrid</name>
+    <type>SocialHistory</type>
+    <image>socialHistory.png</image>
+    <template>listSocialHistoryGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>socialHistoryList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>ProcedureGrid</name>
+    <type>Procedures</type>
+    <image>proc.png</image>
+    <template>listProceduresGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>procedures</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Images</name>
@@ -33,6 +53,16 @@
 	<script_file>medCafe.images.js</script_file>
 	<cacheKey>images</cacheKey>
 	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+    <name>Timeline</name>
+    <type>Timeline</type>
+    <image>timeline.png</image>
+    <clickUrl>timelineJSON.jsp</clickUrl>
+    <script>processTimeline</script>
+    <script_file>medCafe.timeline.js</script_file>
+    <jsonProcess>false</jsonProcess>
+    <isINettuts>false</isINettuts>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Filter</name>
@@ -51,25 +81,6 @@
 	<script>processEditor</script>
 	<script_file>medCafe.editor.js</script_file>
 	<jsonProcess>false</jsonProcess>
-</medCafeWidget>
-<medCafeWidget>
-	<name>Timeline</name>
-	<type>Timeline</type>
-	<image>timeline.png</image>
-	<clickUrl>timelineJSON.jsp</clickUrl>
-	<script>processTimeline</script>
-	<script_file>medCafe.timeline.js</script_file>
-	<jsonProcess>false</jsonProcess>
-	<isINettuts>false</isINettuts>
-</medCafeWidget>
-<medCafeWidget>
-	<name>Bookmarks</name>
-	<type>Bookmarks</type>
-	<image>bookmark.png</image>
-	<clickUrl>bookmarksJSON.jsp</clickUrl>
-	<template>listPatientsBookmarksTable</template>
-	<script>addBookmarks</script>
-	<script_file>medCafe.bookmarks.js</script_file>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Medications</name>

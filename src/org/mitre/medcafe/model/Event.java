@@ -470,7 +470,7 @@ public class Event
 				 event.setDescription(desc);
 		
 
-				 JSONObject dateObj = immObj.getJSONObject("administeredDate");
+				 JSONObject dateObj = immObj.getJSONObject("time");
 				 log.finer("Event getEventObject dateObj " + dateObj.toString());
 				 /* 	"administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":6,"year":2010,"day":30,"hour":0},*/
 				 String month = dateObj.getString("month");
@@ -602,11 +602,18 @@ public class Event
 					 encTitle = "No entered description - see codes";
 				 }
 				 String timeStr = (String)encObj.get(EVENT_DATE);
-				 long time = Long.parseLong(timeStr);
-	             Date encounterDate = new Date(time *1000);
-	             	
+				 	
 				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				 event.setEventDate(encounterDate);
+				 
+				 try
+				 {
+					Date encDate = df.parse(timeStr);
+					event.setEventDate(encDate);
+				 }
+				 catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				 }
 				 
 				 String desc = "";
 

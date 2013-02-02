@@ -258,12 +258,12 @@ public class PatientImagesResource extends ServerResource {
 
                 JSONObject inner_obj = new JSONObject ();
                 inner_obj.put("id", file.getTitle());
-                inner_obj.put("source",file.getFileUrl());
+                inner_obj.put("source",server + "/" + imageDir + file.getFileUrl());
                 inner_obj.put("name", file.getTitle());
                 inner_obj.put("param", server + "/" + imageDir +  file.getFileUrl());
-                inner_obj.put("thumb",  file.getThumbnail());
-					 inner_obj.put("file_date", file.getFileDate());
-					 inner_obj.put("category", file.getCategory());
+                inner_obj.put("thumb",  server + "/" + imageDir + file.getThumbnail());
+                inner_obj.put("file_date", file.getFileDate());
+				inner_obj.put("category", file.getCategory());
                 obj.append("images", inner_obj);  //append creates an array for you
                 log.finer("PatientImagesResource: toJSON : image directory " + imageFileDir);
 

@@ -5,11 +5,9 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
 	{
 		tab_set ="tabs";
 	}
-	var htmlAdd = "<table id=\"list\" class=\"scroll\" cellpadding=\"0\" cellspacing=\"0\"></table>";
-    
+	 
 	var tab_key = tab_set + "-";
 	var gridData =  window["v2js_" + widgetInfo.template](data);
-	var html = v2js_inettutsHead(widgetInfo) + htmlAdd + v2js_inettutsTail(widgetInfo);
 	
 // check for invalid tab and column numbers and use defaults if they don't exist;
 	if (!widgetInfo.tab_num)
@@ -17,15 +15,21 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
 	if (!widgetInfo.column)
 		widgetInfo.column = "1";
 	// attach widget to page at correct tab and column location
+	
+	var listName = "list" + widgetInfo.id;
+    var htmlAdd = "<table id=\"" + listName + "\" class=\"scroll\" cellpadding=\"0\" cellspacing=\"0\"></table>";
+   
+    var html = v2js_inettutsHead(widgetInfo) + htmlAdd + v2js_inettutsTail(widgetInfo);
+    
 	$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 	
-	
-	$("#aaa" + widgetInfo.id).append(htmlAdd);	
+	alert("widget list " + listName);
+	//$("#aaa" + widgetInfo.id).append(htmlAdd);	
 	 var jsonData = $.parseJSON(gridData)
-	createJQGrid("list", jsonData);
+	createJQGrid(listName, jsonData);
 	$(callObj).delay(500, function ()    
 	{ 
-	  populateGrid("list", jsonData.patientData);
+	  populateGrid(listName, jsonData.patientData);
 	});
 }
 
@@ -34,11 +38,12 @@ function createJQGrid (placeholder, data )
 	
 	var modelVals = "colModel:[";
 	var comma = "";
-	for(var i=0;i<=data.modelNames.length;i++)
+	for(var i=0;i<=(data.modelNames.length-1);i++)
 	{
 		//alert("data.modelNames[i]" + data.modelNames[i]);
 		modelVals = modelVals + comma +  "{name:'" + data.modelNames[i] + "',index:'" + data.modelNames[i]+ "', width:100}";
 		comma = ",";
+		
 		
 		/*	modelVals = modelVals + comma +  "{name:'" + data.modelNames[i] + "',index:'" + data.modelNames[i]+ "', width:100, sorttype:'date'}";
 		}*/

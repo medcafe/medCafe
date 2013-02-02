@@ -1712,6 +1712,64 @@ t.p('	</div>');
 }
 return t.toString();
 }
+function v2js_listProceduresGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.procedures) {
+t.p('				{ "titleLabels": ["Type","Description","Date"],				 "modelNames": ["Type","Description","Date"],				"patientData":[				');
+for (var i5=0;  i5<repos.procedures.length; i5++) {
+var procDetail = repos.procedures[i5];
+velocityCount = i5;
+t.p('    		   	    ');
+if (patcnt > 0) {
+t.p('    		   	    ,    		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('    		   	    {"id":"');
+t.p( patcnt);
+t.p('"                        		   		');
+if (procDetail.mood_code) {
+t.p('    		   		     ,"Type": "');
+t.p( procDetail.mood_code);
+t.p('"                     ');
+}
+t.p('    		   		');
+if (procDetail.description) {
+t.p('    		  		    ,"Description": "');
+t.p( procDetail.description);
+t.p('"     		  			    					');
+if (procDetail.time) {
+t.p('    			          , "Date":"');
+t.p( procDetail.time);
+t.p('"    			                   		            ');
+}
+t.p('    		            }    	   			');
+}
+t.p('    	   		');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
+}
+return t.toString();
+}
 function v2js_listRepositorySelect(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -1728,6 +1786,64 @@ t.p('</option>');
 }
 velocityCount = 0;
 t.p('</search>');
+return t.toString();
+}
+function v2js_listResultsGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.results) {
+t.p('				{ "titleLabels": ["Type","Description","Date"],				 "modelNames": ["Type","Description","Date"],				"patientData":[				');
+for (var i5=0;  i5<repos.results.length; i5++) {
+var resultDetail = repos.results[i5];
+velocityCount = i5;
+t.p('    		   	    ');
+if (patcnt > 0) {
+t.p('    		   	    ,    		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('    		   	    {"id":"');
+t.p( patcnt);
+t.p('"    		   		');
+if (resultDetail.mood_code) {
+t.p('    		   		     ,"Type": "');
+t.p( resultDetail.mood_code);
+t.p('"                     ');
+}
+t.p('    		   		');
+if (resultDetail.description) {
+t.p('    		  		    ,"Description": "');
+t.p( resultDetail.description);
+t.p('"     		  			    					');
+if (resultDetail.time) {
+t.p('    		               	    			          , "Date":"');
+t.p( resultDetail.time);
+t.p('"    			                   		            ');
+}
+t.p('    		            }    	   			');
+}
+t.p('    	   		');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
+}
 return t.toString();
 }
 function v2js_listSearchPatientsSelect(context) { 
@@ -1748,6 +1864,64 @@ t.p('</option>');
 }
 velocityCount = 0;
 t.p('</select>');
+return t.toString();
+}
+function v2js_listSocialHistoryGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.socialhistory) {
+t.p('				{ "titleLabels": ["Type","Description","Date"],				 "modelNames": ["Type","Description","Date"],				"patientData":[				');
+for (var i5=0;  i5<repos.socialhistory.length; i5++) {
+var socialDetail = repos.socialhistory[i5];
+velocityCount = i5;
+t.p('    		   	    ');
+if (patcnt > 0) {
+t.p('    		   	    ,    		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('    		   	    {"id":"');
+t.p( patcnt);
+t.p('"    		   		');
+if (socialDetail.mood_code) {
+t.p('    		   		     ,"Type": "');
+t.p( socialDetail.mood_code);
+t.p('"                     ');
+}
+t.p('    		   		');
+if (socialDetail.version) {
+t.p('    		  		    ,"Description": "');
+t.p( socialDetail.version);
+t.p('"     		  		');
+}
+t.p('    				');
+if (socialDetail.time) {
+t.p('    		               	    			          , "Date":"');
+t.p( socialDetail.time);
+t.p('"           		        ');
+}
+t.p('    		        }    	   		    	   	    ');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
+}
 return t.toString();
 }
 function v2js_listStartDates(context) { 

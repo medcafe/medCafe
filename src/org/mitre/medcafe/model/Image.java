@@ -27,6 +27,7 @@ import java.util.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.mitre.medcafe.util.Config;
 import org.mitre.medcafe.util.DbConnection;
 import org.mitre.medcafe.util.DatabaseUtility;
 import org.mitre.medcafe.util.WebUtils;
@@ -92,12 +93,16 @@ public class Image
 	
 	public static String getDivs(Image image)
 	{
-
 		StringBuffer strBuf = new StringBuffer();
+		/*
+		 * <img class="content" href="<:prefix:>${image.source}"
+		 * 	 src="<:prefix:>${image.thumb}"/>
+		 * <div class="caption">${image.name}</div>
+    	 *  </div>
+		 */
 		strBuf.append("<div class=\"item\">");
-        strBuf.append("<a class=\"item\" href=\" "+ image.getParam() + " \"><img class=\"content\" src=\"" + image.getThumb() +  "\" /></a>");
-        strBuf.append("<img class=\"content\" href=\"" + image.getSource()+ "\" src=\"" + image.getThumb()+"\"/>");
-        strBuf.append("<div class=\"caption\">" + image.getName()+"</div> </div>");
+        strBuf.append("<img class=\"content\" href=\"http://" +image.getSource()+ "\" src=\"http://"+  image.getThumb()+"\"/>");
+		strBuf.append("<div class=\"caption\">" + image.getName()+"</div></div>");
         
         return strBuf.toString();
 	}
