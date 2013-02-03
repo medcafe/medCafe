@@ -17,14 +17,26 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class Codes
 {
 	public Codes()
 	{
 		
 	}
+
 	
+	@SerializedName("RxNorm")
+    protected List<String> RxNorm =new ArrayList<String>();
+
+	public List<String> getRxNorm() {
+		return RxNorm;
+	}
+
+	public void setRxNorm(List<String> rxNorm) {
+		RxNorm = rxNorm;
+	}
+
+
 	@SerializedName("SNOMED-CT")
     protected List<String> SNOMED_CT =new ArrayList<String>();
 

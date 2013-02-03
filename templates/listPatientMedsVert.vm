@@ -33,25 +33,25 @@
 
 
 			#foreach( $medication in $repos.medications )
-				#if($medication.medicationInformation.manufacturedMaterial.freeTextBrandName)
-    				<b>$medication.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
+				#if($medication.description)
+    				<b>$medication.description</b><br/>
     			#else
-    				<b>$medication.narrative</b><br/>
+    				<b>$medication.free_text</b><br/>
     			#end
         		## <li>Manufacturer Info: $medication.medicationInformation.manufacturedMaterial.freeTextBrandName
-        		#if($medication.effectiveTime.value)
-            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  $medication.effectiveTime.value<br clear="all"/>
+        		#if($medication.start_time)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  $medication.start_time<br clear="all"/>
         		#end
-        		#if($medication.dose.value)
-            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: $medication.dose.value<br clear="all"/>
-            	#if($medication.deliveryMethod.value)
-                	$oparen $medication.deliveryMethod.value $cparen
+        		#if($medication.dose)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: $medication.dose<br clear="all"/>
+            	#if( $medication.deliveryMethod.displayName)
+                	$oparen $medication.deliveryMethod.displayName $cparen
             	#end
         		#end
         		#if($medication.patientInstructions)
             	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Instructions: $medication.patientInstructions<br clear="all"/>
         		#end
-    			## Narrative: $medication.narrative
+    			## Narrative: $medication.free_text
     			<br/>
 			#end
 		#end

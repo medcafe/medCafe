@@ -16,6 +16,8 @@
 package org.mitre.medcafe.util;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -247,9 +249,30 @@ public abstract class Repository {
 		return null;
 	}
 
-	
-	
+	//Date formatter especially for the PDS output
+		public static String parseDate(String inDate, boolean isMillis)
+		{
+			if (inDate == null)
+				return inDate;
+			Long localTime = Long.parseLong(inDate);
+			return parseDate(localTime, isMillis);
+			
+		}
 
+		//Date formatter especially for the PDS output
+		public static String parseDate(Long inDate, boolean isMillis)
+		{
+			DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			int multiFactor = 1;
+			if (!isMillis)
+				multiFactor = 1000;
+			Date dateTime = new Date(inDate * multiFactor );
+					
+			String formattedDate = df.format(dateTime);
+					
+			return formattedDate;
+					
+		}
 	 
    
 }

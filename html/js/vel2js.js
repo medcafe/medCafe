@@ -447,6 +447,82 @@ t.p('\');    <br/>  ');
 velocityCount = 0;
 return t.toString();
 }
+function v2js_listMedicationsGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+var printFirst = 0;
+var patcnt = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('		');
+if (printFirst == 0) {
+printFirst = 1;
+t.p('			');
+if (repos.medications) {
+t.p('				{ "titleLabels": ["Name","Description","Start Date"],				 "modelNames": ["Type","Description","Date"],				"patientData":[				');
+for (var i5=0;  i5<repos.medications.length; i5++) {
+var medDetail = repos.medications[i5];
+velocityCount = i5;
+t.p('    		   	    ');
+if (patcnt > 0) {
+t.p('    		   	    ,    		   	    ');
+}
+patcnt = ( patcnt + 1 );
+t.p('    		   	    {"id":"');
+t.p( patcnt);
+t.p('"                        		   		');
+if (medDetail.codes) {
+t.p('    		   		     ');
+for (var i7=0;  i7<medDetail.codes.RxNorm.length; i7++) {
+var rxCode = medDetail.codes.RxNorm[i7];
+velocityCount = i7;
+t.p('                    		   		         ,"Type": "RxNorm: ');
+t.p( rxCode);
+t.p('"     		   		     ');
+}
+velocityCount = i5;
+t.p('                                        ');
+}
+else {
+if (medDetail.type) {
+t.p('                            ');
+if (medDetail.type.displayName) {
+t.p('                             ,"Type": "');
+t.p( medDetail.type.displayName);
+t.p('"                              ');
+}
+t.p('                    ');
+}
+}
+t.p('    		   		');
+if (medDetail.description) {
+t.p('    		  		    ,"Description": "');
+t.p( medDetail.description);
+t.p('"     		  			    					');
+if (medDetail.start_time) {
+t.p('    			          , "Date":"');
+t.p( medDetail.start_time);
+t.p('"    			                   		            ');
+}
+t.p('    		            }    	   			');
+}
+t.p('    	   		');
+}
+velocityCount = i2;
+t.p('	   			]}	   		');
+}
+t.p('		');
+}
+t.p('	');
+}
+
+}
+return t.toString();
+}
 function v2js_listMedicineList(context) { 
 var t = new StringCat();
 var velocityCount = 0;
@@ -936,33 +1012,33 @@ for (var i4=0;  i4<repos.medications.length; i4++) {
 var medication = repos.medications[i4];
 velocityCount = i4;
 t.p('				');
-if (medication.medicationInformation.manufacturedMaterial.freeTextBrandName) {
+if (medication.description) {
 t.p('    				<b>');
-t.p( medication.medicationInformation.manufacturedMaterial.freeTextBrandName);
+t.p( medication.description);
 t.p('</b><br/>    			');
 }
 else {
 t.p('    				<b>');
-t.p( medication.narrative);
+t.p( medication.free_text);
 t.p('</b><br/>    			');
 }
 t.p('        		');
 t.p('        		');
-if (medication.effectiveTime.value) {
+if (medication.start_time) {
 t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started  ');
-t.p( medication.effectiveTime.value);
+t.p( medication.start_time);
 t.p('<br clear="all"/>        		');
 }
 t.p('        		');
-if (medication.dose.value) {
+if (medication.dose) {
 t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Dosage: ');
-t.p( medication.dose.value);
+t.p( medication.dose);
 t.p('<br clear="all"/>            	');
-if (medication.deliveryMethod.value) {
+if (medication.deliveryMethod.displayName) {
 t.p('                	');
 t.p( oparen);
 t.p(' ');
-t.p( medication.deliveryMethod.value);
+t.p( medication.deliveryMethod.displayName);
 t.p(' ');
 t.p( cparen);
 t.p('            	');
@@ -976,6 +1052,115 @@ t.p( medication.patientInstructions);
 t.p('<br clear="all"/>        		');
 }
 t.p('    			');
+t.p('    			<br/>			');
+}
+velocityCount = i2;
+t.p('		');
+}
+t.p('	');
+}
+
+t.p('	');
+if (loopCount >= 2) {
+t.p('			</div>		</div>	');
+}
+t.p('	</div>');
+}
+return t.toString();
+}
+function v2js_listPatientResultsVert(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+t.p('<a onclick="alert(\'Method to add a new lab result goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">	');
+var firstRepository = true;
+var loopCount = 0;
+t.p('	');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('					');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('		');
+}
+t.p('		');
+if (repos.results) {
+t.p('			');
+if (firstRepository != true) {
+t.p('				');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>				');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>			');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+var space = " ";
+t.p('    ');
+t.p('			');
+var oparen = "(";
+var cparen = ")";
+t.p('			');
+for (var i4=0;  i4<repos.results.length; i4++) {
+var result = repos.results[i4];
+velocityCount = i4;
+t.p('				');
+if (result.description) {
+t.p('    				<b>');
+t.p( result.description);
+t.p('</b><br/>    			');
+}
+else {
+t.p('    				<b>');
+t.p( result.free_text);
+t.p('</b><br/>    			');
+}
+t.p('        		');
+if (result.time) {
+t.p('            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Taken  ');
+t.p( result.time);
+t.p('<br clear="all"/>        		');
+}
+t.p('        		');
+if (result.codes) {
+t.p('                         ');
+for (var i6=0;  i6<result.codes.LOINC.length; i6++) {
+var snomed = result.codes.LOINC[i6];
+velocityCount = i6;
+t.p('                                            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>LOINC Code: ');
+t.p( result.codes.LOINC);
+t.p('<br clear="all"/>                                                   ');
+}
+velocityCount = i4;
+t.p('                ');
+}
+t.p('                                ');
+if (result.values) {
+t.p('                    ');
+for (var i6=0;  i6<result.values.length; i6++) {
+var resultVal = result.values[i6];
+velocityCount = i6;
+t.p('                                                    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Result: <b>');
+t.p( resultVal.scalar);
+t.p(' </b><br clear="all"/>                                                  ');
+}
+velocityCount = i4;
+t.p('        		');
+}
 t.p('    			<br/>			');
 }
 velocityCount = i2;

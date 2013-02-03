@@ -1,0 +1,69 @@
+#if ($repositoryList)
+<a onclick="alert('Method to add a new lab result goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+
+<div class="repository-content">
+	#set ($firstRepository = true)
+	#set ($loopCount = 0)
+	#foreach ($repos in $repositoryList)
+
+			
+		#if ($repos.announce && $firstRepository == true)
+			$repos.announce.message
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+		#end
+		#if ($repos.results)
+			#if ($firstRepository != true)
+				#if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
+				#end
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+			#end
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+			#set ($space = " ")    #* This is necessary because velocity removes the spaces between different objects *#
+			#set ($oparen = "(")
+			#set ($cparen = ")")
+
+
+			#foreach( $result in $repos.results )
+				#if($result.description)
+    				<b>$result.description</b><br/>
+    			#else
+    				<b>$result.free_text</b><br/>
+    			#end
+        		#if($result.time)
+            	<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Taken  $result.time<br clear="all"/>
+        		#end
+        		#if ($result.codes)
+                         #foreach(  $snomed in $result.codes.LOINC)
+                
+                            <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>LOINC Code: $result.codes.LOINC<br clear="all"/>
+                          
+                         #end 
+                #end
+                
+                #if ( $result.values)
+                    #foreach( $resultVal in $result.values )
+                             
+                       <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Result: <b>$resultVal.scalar </b><br clear="all"/>
+                              
+                    #end
+        		#end
+    			<br/>
+			#end
+		#end
+	#end
+	#if ($loopCount >= 2)
+			</div>
+		</div>
+	#end
+	</div>
+#end
+

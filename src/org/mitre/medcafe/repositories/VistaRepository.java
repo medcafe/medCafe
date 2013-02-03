@@ -368,7 +368,9 @@ public class VistaRepository extends Repository {
                         cal.setTime(a.getOriginationDateTime());
                         DatatypeFactory factory = DatatypeFactory.newInstance();
                         Interval inter = new Interval();
-                        allergy.setTime(cal.toString());
+                        inter.setValue(factory.newXMLGregorianCalendar(cal));
+                        allergy.setEffectiveTime(inter);
+                        allergy.setTime(inter.getValue().toString());
                     }
 
                     
@@ -490,13 +492,21 @@ public class VistaRepository extends Repository {
                     //populate
                     //message -> narrative
                     String patientInstructions = capitalizeString(pa.getMessage(), true);
-                    
+                    String medName = capitalizeString(pa.getMedName(), true);
                     //set time for adverse reaction
                     if (pa.getDateTime() != null) {
                         GregorianCalendar cal = new GregorianCalendar();
+                       
                         cal.setTime(pa.getDateTime());
                         DatatypeFactory factory = DatatypeFactory.newInstance();
-                        medication.setTime(factory.newXMLGregorianCalendar(cal).toString());
+                        Interval inter = new Interval();
+                        inter.setValue(factory.newXMLGregorianCalendar(cal));
+                        
+                        String displayDate = parseDate(cal.getTime().getTime(), true);
+                        medication.setTime(displayDate);
+                        medication.setStart_time(displayDate);
+                        
+                        medication.setEffectiveTime(inter);
                     }
 
                 
@@ -512,6 +522,12 @@ public class VistaRepository extends Repository {
 
                     medication.setPatientInstructions(patientInstructions + " " + pa.getFrequency());
                     //add to the list
+                    String fullText = medName + ":" + patientInstructions + ": Delivery : " + delivery.getDisplayName() ;
+                    medication.setDescription(fullText);
+                    Code typeCode = new Code();
+                    typeCode.setDisplayName(medName);
+                    typeCode.setCodeSystem("None");
+                    medication.setType(typeCode);
                     list.add(medication);
                 }
                 log.finer("Number of medications for patient " + id + " is " + list.size());
@@ -603,7 +619,11 @@ public class VistaRepository extends Repository {
                         Collection<VitalSignDetail> details = vital.getDetails();
                         for (VitalSignDetail detail : details) {
                             Result result = new Result();
-                            result.setTime(cal.toString());
+                            Interval inter = new Interval();
+                            inter.setValue(factory.newXMLGregorianCalendar(cal));
+                            result.setTime(inter.toString());
+                            result.setEffectiveTime(inter);
+                            
                             Code resultType = new Code();
                             
                             resultType.setDisplayName(detail.getName());

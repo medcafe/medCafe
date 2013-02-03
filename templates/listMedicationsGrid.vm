@@ -1,0 +1,46 @@
+#if ($repositoryList)
+#set ($printFirst = 0)
+#set ($patcnt = 0)
+	#foreach ($repos in $repositoryList)
+		#if ($printFirst == 0)
+			#set ($printFirst = 1)	
+			#if ($repos.medications)
+				{ "titleLabels": ["Name","Description","Start Date"],
+				 "modelNames": ["Type","Description","Date"],
+				"patientData":[
+				#foreach(  $medDetail in $repos.medications)
+    		   	    #if ($patcnt > 0)
+    		   	    ,
+    		   	    #end
+    		   	    #set ($patcnt = $patcnt+1)
+    		   	    {"id":"$patcnt"
+                    
+    		   		#if ($medDetail.codes)
+    		   		     #foreach(  $rxCode in $medDetail.codes.RxNorm)
+                
+    		   		         ,"Type": "RxNorm: $rxCode" 
+    		   		     #end
+                    
+                    #elseif ($medDetail.type)
+                            #if ($medDetail.type.displayName)
+                             ,"Type": "$medDetail.type.displayName" 
+                             #end
+                    #end
+    		   		#if ($medDetail.description)
+    		  		    ,"Description": "$medDetail.description" 
+    		  			
+    					#if($medDetail.start_time)   
+    			          , "Date":"$medDetail.start_time"
+    			               
+    		            #end
+    		            }
+    	   			#end
+    	   		#end
+	   			]}
+	   		#end
+		#end
+	#end
+#end
+
+
+

@@ -18,6 +18,13 @@
     <cacheKey>allVitalsList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+    <name>Results</name>
+    <type>Results</type>
+    <image>lab-results.png</image>
+    <template>listPatientResultsVert</template>
+    <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
     <name>ResultsGrid</name>
     <type>Results</type>
     <image>lab-results.png</image>
@@ -43,6 +50,22 @@
     <script>processJQGrid</script>
     <script_file>medCafe.jqgrid.js</script_file>
     <cacheKey>procedures</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>MedicationGrid</name>
+    <type>Medications</type>
+    <image>prescription.png</image>
+    <template>listMedicationsGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>medicineList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>Medications</name>
+    <type>Medications</type>
+    <image>prescription.png</image>
+    <template>listPatientMedsVert</template>
+    <cacheKey>medicineList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
 	<name>Images</name>
