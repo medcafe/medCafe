@@ -39,7 +39,7 @@ import org.w3c.dom.NodeList;
 public class Repositories {
 
 	protected static Map<String, Repository>	repos				= new HashMap<String, Repository>();
-	protected static final int				TIMEOUT				= 8000;								
+	protected static final int				TIMEOUT				= 12000;								
 	protected static final String				REPOSITORY_SETUP	= "Repositories.xml";
 	public final static String				KEY					= Repositories.class.getName();
 	public final static Logger				log					= Logger.getLogger(KEY);
@@ -88,12 +88,12 @@ public class Repositories {
 		repositoryNodes = repositoryElmnt
 				.getElementsByTagName(Repository.REPOSITORY_ITEM);
 
-		log.finer("Repositories setDefaultRepositories number of components "
+		System.out.println("Repositories setDefaultRepositories number of components "
 				+ repositoryNodes.getLength());
 		repos = new HashMap<String, Repository>();
 		Repository r = null;
 
-		log.config("Number of repositories: " + repositoryNodes.getLength());
+		System.out.println("Number of repositories: " + repositoryNodes.getLength());
 		for (int i = 0; i < repositoryNodes.getLength(); i++) {
 			String reposType = "";
 			String reposName = "";
@@ -103,6 +103,7 @@ public class Repositories {
 			Node node = repositoryNodes.item(i);
 			if (node.getNodeType() != Node.ELEMENT_NODE) {
 				log.config("improper repository element");
+				System.out.println("improper repository element");
 				continue;
 			}
 			repositoryElmnt = (Element) node;
@@ -117,18 +118,26 @@ public class Repositories {
 					.getElementsByTagName(Repository.CREDENTIALS);
 
 			if (hostList.getLength() == 0) {
+				System.out.println("improper repository element, specify host(s)");
+				
 				log.config("improper repository element, specify host(s)");
 				continue;
 			}
 			if (nameList.getLength() == 0) {
+				System.out.println("improper repository element, specify name(s)");
+				
 				log.config("improper repository element, specify name(s)");
 				continue;
 			}
 			if (typeList.getLength() == 0) {
-				log.config("improper repository element, specify type");
+				System.out.println("improper repository element, specify name(s)");
+				
+				log.config("improper repository element, specify name(s)");
 				continue;
 			}
 			if (creds.getLength() == 0) {
+				System.out.println("improper repository element, specify credentials");
+				
 				log.config("improper repository element, specify credentials");
 				continue;
 			}
@@ -174,6 +183,7 @@ public class Repositories {
 				log.config("Got " + reposName + " connection");
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.severe(e.getStackTrace().toString());
 			}
 		}

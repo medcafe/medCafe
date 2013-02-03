@@ -11,7 +11,7 @@
 <medCafeWidget>
     <name>VitalGrid</name>
     <type>Vital</type>
-    <image>vital.png</image>
+    <image>vitals.png</image>
     <template>listVitalsListGrid</template>
     <script>processJQGrid</script>
     <script_file>medCafe.jqgrid.js</script_file>
@@ -29,7 +29,7 @@
 <medCafeWidget>
     <name>SocialHistGrid</name>
     <type>SocialHistory</type>
-    <image>socialHistory.png</image>
+    <image>familyhistory.png</image>
     <template>listSocialHistoryGrid</template>
     <script>processJQGrid</script>
     <script_file>medCafe.jqgrid.js</script_file>
@@ -83,51 +83,37 @@
 	<jsonProcess>false</jsonProcess>
 </medCafeWidget>
 <medCafeWidget>
-	<name>Medications</name>
-	<type>Medications</type>
-	<image>prescription.png</image>
-	<template>listPatientMedsVert</template>
-	<cacheKey>medicineList</cacheKey>
-</medCafeWidget>
-<medCafeWidget>
-	<name>Allergies</name>
-	<type>Allergies</type>
-	<image>allergy.jpg</image>
-	<template>listPatientAllergies</template>
-	<cacheKey>alertList</cacheKey>
-</medCafeWidget>
-<medCafeWidget>
     <name>DefaultAllergies</name>
     <type>DefaultAllergies</type>
-    <image>allergy.jpg</image>
+    <image>allergy-grey.jpg</image>
     <template>basicDataView</template>
     <cacheKey>alertList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>DefaultSocialHistory</name>
     <type>DefaultSocialHistory</type>
-    <image>socialHistory.jpg</image>
+    <image>familyhistory-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>socialHistoryList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>DefaultEncounter</name>
     <type>DefaultEncounter</type>
-    <image>socialHistory.jpg</image>
+    <image>encounters-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>encounterList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>DefaultResults</name>
     <type>DefaultResults</type>
-    <image>labResults.jpg</image>
+    <image>lab-results-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>resultList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>DefaultProcedures</name>
     <type>DefaultProcedures</type>
-    <image>proc.png</image>
+    <image>proc-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>procedures</cacheKey>
 </medCafeWidget>
@@ -149,13 +135,6 @@
 	<cacheKey>medicineList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
-	<name>History</name>
-	<type>History</type>
-	<image>history.png</image>
-	<template>listPatientHistoryTable</template>
-	<cacheKey>Personalhistory</cacheKey>
-</medCafeWidget>
-<medCafeWidget>
 	<name>FamilyHistory</name>
 	<type>History</type>
 	<image>familyhistory.png</image>
@@ -163,23 +142,9 @@
 	<cacheKey>Familyhistory</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
-	<name>ProblemGridTest</name>
-	<type>Problem</type>
-	<image>problem.png</image>
-	<template>listProblemListGrid</template>
-	<cacheKey>problemListGrid</cacheKey>
-</medCafeWidget>
-<medCafeWidget>
-	<name>Problem</name>
-	<type>Problem</type>
-	<image>problem.png</image>
-	<template>listProblemListTable</template>
-	<cacheKey>problemList</cacheKey>
-</medCafeWidget>
-<medCafeWidget>
     <name>DefaultVitals</name>
     <type>DefaultVitals</type>
-    <image>defaultPrescription.png</image>
+    <image>vitals-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>allVitalsList</cacheKey>
 </medCafeWidget>

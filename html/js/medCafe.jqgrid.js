@@ -23,7 +23,6 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
     
 	$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 	
-	alert("widget list " + listName);
 	//$("#aaa" + widgetInfo.id).append(htmlAdd);	
 	 var jsonData = $.parseJSON(gridData)
 	createJQGrid(listName, jsonData);

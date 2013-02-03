@@ -122,8 +122,11 @@ import javax.xml.bind.annotation.XmlType;
     "codes",
     "mood_code",
     "version",
-    "type",
-    "time"
+    "_type",
+    "time",
+    "start_time",
+    "end_time",
+    "description"
 })
 @XmlRootElement(name = "healthObject")
 public class HealthObject
@@ -139,6 +142,8 @@ public class HealthObject
     protected String time;
     protected String start_time;
     protected String end_time;
+    protected String description;
+    
     public String getMood_code() {
 		return mood_code;
 	}
@@ -171,8 +176,7 @@ public class HealthObject
 		this.description = description;
 	}
 
-	protected String description;
-    
+	 
     public String getId() {
 		return id;
 	}

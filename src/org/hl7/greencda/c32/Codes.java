@@ -25,10 +25,14 @@ public class Codes
 		
 	}
 	
-	@SerializedName("SNOWMED-CT")
-    protected String[] SNOMED_CT = new String[]{};
-  
-    public void setSNOMED_CT(String[] sNOMED_CT) {
+	@SerializedName("SNOMED-CT")
+    protected List<String> SNOMED_CT =new ArrayList<String>();
+
+	public List<String> getSNOMED_CT() {
+		return SNOMED_CT;
+	}
+
+	public void setSNOMED_CT(List<String> sNOMED_CT) {
 		SNOMED_CT = sNOMED_CT;
 	}
 

@@ -8,10 +8,16 @@
 
 package org.hl7.greencda.c32;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.mitre.medcafe.model.Values;
 
 
 /**
@@ -49,8 +55,17 @@ public class Result
     protected Quantity value;
     protected SimpleCode interpretation;
     protected Object referenceRange;
+    protected List<Values> values;
+    
+	public List<Values> getValues() {
+		return values;
+	}
 
-    /**
+	public void setValues(List<Values> values) {
+		this.values = values;
+	}
+
+	/**
      * Gets the value of the value property.
      * 
      * @return

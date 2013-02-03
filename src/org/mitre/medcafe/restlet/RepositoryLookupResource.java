@@ -59,19 +59,8 @@ public class RepositoryLookupResource extends ServerResource {
         }
 		 
         JSONObject retObj= new JSONObject();
-     
-        if (type.equals("allergens"))
-        {
-        	 //retObj = r.getAllergyReactantObject(lookupString);
-        	}
-        	else if (type.equals("reactions"))
-        	{
-        		//retObj = r.getAllergyReactionObject(lookupString);
-        	}
-			
-			
-			
-            return new JsonRepresentation( retObj );
+	
+        return new JsonRepresentation( retObj );
        
 
     }
