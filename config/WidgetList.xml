@@ -8,6 +8,15 @@
 	<template>listPatientTable</template>
 	<cacheKey>patientList</cacheKey>
 </medCafeWidget>
+i<medCafeWidget>
+    <name>AllergiesGrid</name>
+    <type>AllergiesGrid</type>
+    <image>allergy.jpg</image>
+    <template>allergyGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>alertList</cacheKey>
+</medCafeWidget>
 <medCafeWidget>
     <name>VitalGrid</name>
     <type>Vital</type>

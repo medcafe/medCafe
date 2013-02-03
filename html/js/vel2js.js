@@ -1,3 +1,38 @@
+function v2js_allergyGrid(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('	');
+if (repos.allergies) {
+t.p('		{			"titleLabels": [ "type", "code system", "code"],			"modelNames": [ "type", "code_type", "code"],			"patientData": [				');
+var i = 0;
+t.p('				');
+for (var i4=0;  i4<repos.allergies.length; i4++) {
+var allergy = repos.allergies[i4];
+velocityCount = i4;
+t.p('					');
+if (i > 0) {
+t.p('						,					');
+}
+i = ( i + 1 );
+t.p('					{ 						"type":							"Allergy", 						"code_type":							"');
+t.p( allergy.type.codeSystem);
+t.p('", 						"code": 							"');
+t.p( allergy.type.code);
+t.p('" 					}				');
+}
+velocityCount = i2;
+t.p('			]		}	');
+}
+}
+
+}
+return t.toString();
+}
 function v2js_announcements(context) { 
 var t = new StringCat();
 var velocityCount = 0;

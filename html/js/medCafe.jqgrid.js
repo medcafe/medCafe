@@ -77,7 +77,7 @@ function populateGrid(placeholder, data)
 {
 	//alert("about to populate grid");
 
-	for(var i=0;i<=(data.length-1);i++)
+	for(var i=0;i<data.length;i++)
 	   $("#" +placeholder ).jqGrid('addRowData',i+1,data[i]);
  	
 }
