@@ -32,14 +32,24 @@
     	
 	}
 	
-	List<Medication> meds = gcda.getMedications("1");
+	List<Result> vitals = gcda.getAllVitals("3");
      Gson gson = new Gson();
-     for (Medication med: meds)
+     for (Result vital: vitals)
      {
-          if (med == null)
+          if (vital == null)
               strBuf.append("is null ");
                 
-          strBuf.append(gson.toJson(med));
+          strBuf.append(gson.toJson(vital));
+      }
+      
+      List<Allergy> allergies = gcda.getAllergies("3");
+     gson = new Gson();
+     for (Allergy allergy: allergies)
+     {
+          if (allergy == null)
+              strBuf.append("is null ");
+                
+          //strBuf.append(gson.toJson(allergy));
       }
 %>    
 <%=strBuf.toString()%>
