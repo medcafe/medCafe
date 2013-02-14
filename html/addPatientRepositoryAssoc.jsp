@@ -17,7 +17,7 @@
     	//String lastName = request.getParameter(Patient.LAST_NAME);
     	System.out.println("addPatientRepositoryAssoc.jsp patient id " + patientId + " repository " + patientRepId);
 
-		Patient patient = new Patient();
+		Patient patient = new Patient(repository);
 		//Set the name parts
 		patient.parseFullName(fullName);
 
