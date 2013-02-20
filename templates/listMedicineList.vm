@@ -1,17 +1,28 @@
 #if ($repositoryList)
 #set ($printFirst = 0)
-</p><br/><p>
+</p><p>
 	#foreach ($repos in $repositoryList)
 		#if ($printFirst == 0)
 			#set ($printFirst = 1)	
 			#if ($repos.medications)
-				#foreach(  $medicationDetail in $repos.medications )
-				 *
-	   			#if ($medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName)
-	  				   ${medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName}<br/>
-	  				#elseif ($medicationDetail.narrative)
-	  					${medicationDetail.narrative}<br/>
-	  				#end
+				#foreach( $medication in $repos.medications )
+				     <br/>
+	   			     #if ($medication.description)
+	  				   <b>$medication.description</b><br/>
+	  				 #elseif ($medication.free_text)
+	  					<b>$medication.free_text</b><br/>
+	  				 #end
+	  				 
+	  				 #if ($medication.start_time)
+	  				   $medication.start_time
+	  				 #end
+	  				 
+	  				 #if  ($medication.end_time)
+	  				   to $medication.end_time
+	  				  #else
+	  				   to present.
+	  				 #end
+	  				 <br/>
 				#end
 	   	#end
 	   #end

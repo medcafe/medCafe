@@ -5,10 +5,11 @@
 		#if ($printFirst == 0)
 			#set ($printFirst = 1)	
 			#if ($repos.allergies)
-				#foreach(  $allergyDetail in $repos.allergies )
-	   			${allergyDetail.product.value}<br/>
-			
-	   		#end
+				
+				    #foreach(  $allergy in $repos.allergies )
+                        
+                        $allergy.type.codeSystem : $allergy.type.code  <br/>
+			        #end
 	   	#end
 		#end
 	#end

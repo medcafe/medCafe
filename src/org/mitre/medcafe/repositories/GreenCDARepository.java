@@ -24,17 +24,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import javax.xml.datatype.DatatypeFactory;
+
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
 import org.hl7.greencda.c32.Condition;
 import org.hl7.greencda.c32.Encounter;
 import org.hl7.greencda.c32.Immunization;
+import org.hl7.greencda.c32.Interval;
 import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Person;
 import org.hl7.greencda.c32.PersonalName;
@@ -100,6 +104,8 @@ public class GreenCDARepository extends Repository {
 		try {
 			List<String> results = gcda.findHealthDetail(patientId,
 					"vital_signs");
+			DatatypeFactory factory = DatatypeFactory.newInstance();
+            
 			for (String url : results) {
 				server = greenCDADataUrl + url;
 
@@ -111,7 +117,10 @@ public class GreenCDARepository extends Repository {
 				Result record = gson.fromJson(o, Result.class);
 				String time = record.getTime();
 				record.setTime(parseDate(time, isMillis));
-
+				
+				//Set up the interval time
+				Interval inter = getInterval(factory, time);
+				record.setEffectiveTime(inter);
 				vitals.add(record);
 			}
 		} catch (Exception e) {
@@ -120,14 +129,23 @@ public class GreenCDARepository extends Repository {
 		return vitals;
 	}
 
+	private Interval getInterval(DatatypeFactory factory, String time)
+	{
+		Interval inter = new Interval();
+		Date setTime = getDateObj(time, isMillis);
+		GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(setTime);
+        inter.setValue(factory.newXMLGregorianCalendar(cal));
+        return inter;
+	}
 	// this 'lil nested class is a cheat to cheapen the complexity of the code
 	// for
 	// getting the "latest" vitals. Simply sort, then split the list.
 	public class NewVitalsComparable implements Comparator<Result> {
 		@Override
 		public int compare(Result o1, Result o2) {
-			return o1.getEffectiveTime().getValue()
-					.compare(o2.getEffectiveTime().getValue());
+			return o2.getEffectiveTime().getValue()
+					.compare(o1.getEffectiveTime().getValue());
 		}
 	}
 

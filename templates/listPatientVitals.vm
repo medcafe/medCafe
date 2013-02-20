@@ -6,34 +6,38 @@
 
 			#set ($print = 0)
 			#set ($printFirst = 1)
-			#foreach(  $vitalDetail in $repos.vitals )
-				#if ($print == 0)
-					<tr><td>
-					Vitals on</td>
-					<td>${vitalDetail.resultDateTime.low.month}/${vitalDetail.resultDateTime.low.day}/
-					${vitalDetail.resultDateTime.low.year}@${vitalDetail.resultDateTime.low.hour}:
-					#if ($vitalDetail.resultDateTime.low.minute <10)
-						0${vitalDetail.resultDateTime.low.minute}
-					#else
-						${vitalDetail.resultDateTime.low.minute}
-					#end
-					</td></tr>
+			#foreach ( $vitalDetail in $repos.vitals)
+				<tr>
+					<td>$vitalDetail.time
+					</td>
 					#set ($print = 1)
-				#end
-				<tr><td>$vitalDetail.resultType.value</td>
 				<td>
 				#set ($alert = 0)
-	   		#if ($vitalDetail.narrative != "")
-	   			#if ($vitalDetail.narrative.substring(0,1) == "*")
-	   				#set ($alert = 1)
-	   				<font color = "red">
-					#end
-				#end
-				$vitalDetail.resultValue
+	   		    #if ($vitalDetail.description != "")
+    	   			#if ($vitalDetail.description.substring(0,1) == "*")
+    	   				#set ($alert = 1)
+    	   				<font color = "red">
+    					#end
+    				#end
+				    $vitalDetail.description
 				#if ($alert==1)
 					</font>
 				#end
-				</td></tr>
+				</td>
+				<td>
+				#foreach ( $value in $vitalDetail.values)
+				    #if ($value.scalar.length() > 10)
+				        $value.scalar.substring(0,6)
+				    #else
+				        $value.scalar
+				    #end
+				    
+				    #if ($value.units)  
+				    ($value.units)
+				    #end
+				#end
+				</td>
+				</tr>
 		
 	   	#end
 	   #end

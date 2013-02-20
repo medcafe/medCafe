@@ -32,34 +32,40 @@
 
                 <table border="0">
                  <%VelocityUtil.applyTemplate(cache.retrieveObjectList("patientList"), "listPatientBio.vm", out); %>
-                 <%VelocityUtil.applyTemplate(cache.retrieveObjectList("vitalsList"), "listPatientVitals.vm", out); %>
-                </table>
+                 </table>
 
         </div>
     </div>
-<!--    <div class="ui-widget top-panel" id="patient_history">
-        <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
-            <p><strong>Past Medical History</strong>
-            <div id="listPatientHistory"></div>
-            </p>
-        	</div>
+    
+     <div class="ui-widget top-panel" style="width:200px" id="patient_vitals">
+        <div id="patientVitalsTable" class="ui-state-highlight ui-corner-all" style="padding: .7em;">
+                <p><strong>Latest Vitals</strong>
+                <div style="padding: .2em; font-size:10px">
+                <table border="0">
+                 <%VelocityUtil.applyTemplate(cache.retrieveObjectList("vitalsList"), "listPatientVitals.vm", out); %>
+                </table>
+                </div>
+
+        </div>
     </div>
--->
+
     <div class="ui-widget top-panel" id="meds_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Medicine List</strong>
+            <div style="padding: .2em; font-size:10px">
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("medicineList"), "listMedicineList.vm", out); %>
            <!-- <br/>Repaglinide<br/>Ibuprofin<br/>Hydrochlorothiazide -->
              </p>
+             </div>
         </div>
     </div>
 
      <div class="ui-widget top-panel">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
            <strong>Problem List</strong>
-
+            <div style="padding: .2em; font-size:10px">
             <%VelocityUtil.applyTemplate(cache.retrieveObjectList("problemList"), "listProblemList.vm", out);%>
-
+            </div>
 
         </div>
     </div>
@@ -75,7 +81,10 @@
     <div class="ui-widget top-panel" id="allergies_list">
         <div class="ui-state-highlight ui-corner-all" style="padding: .7em;">
             <p><strong>Allergies/Alerts</strong>
+             <div style="padding: .2em; font-size:10px">
+           
             	<%VelocityUtil.applyTemplate(cache.retrieveObjectList("alertList"), "listAlertList.vm", out); %>
+             </div>
             </p>
         </div>
     </div>

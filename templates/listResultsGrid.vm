@@ -1,37 +1,41 @@
 #if ($repositoryList)
 #set ($printFirst = 0)
 #set ($patcnt = 0)
-	#foreach ($repos in $repositoryList)
-		#if ($printFirst == 0)
-			#set ($printFirst = 1)	
-			#if ($repos.results)
-				{ "titleLabels": ["Type","Description","Date"],
-				 "modelNames": ["Type","Description","Date"],
-				"patientData":[
-				#foreach(  $resultDetail in $repos.results)
-    		   	    #if ($patcnt > 0)
-    		   	    ,
-    		   	    #end
-    		   	    #set ($patcnt = $patcnt+1)
-    		   	    {"id":"$patcnt"
-    		   		#if ($resultDetail.mood_code)
-    		   		     ,"Type": "$resultDetail.mood_code" 
+    #foreach ($repos in $repositoryList)
+        #if ($printFirst == 0)
+            #set ($printFirst = 1)  
+            #if ($repos.results)
+                { "titleLabels": ["Type","Value","Date"],
+                 "modelNames": ["Type","Value","ResultDate"],
+                "patientData":[
+                #foreach(  $resultDetail in $repos.results)
+                    #if ($patcnt > 0)
+                    ,
                     #end
-    		   		#if ($resultDetail.description)
-    		  		    ,"Description": "$resultDetail.description" 
-    		  			
-    					#if($resultDetail.time)
-    		               	
-    			          , "Date":"$resultDetail.time"
-    			               
-    		            #end
-    		            }
-    	   			#end
-    	   		#end
-	   			]}
-	   		#end
-		#end
-	#end
+                    #set ($patcnt = $patcnt+1)
+                    {"id":"$patcnt"
+                    #if ($resultDetail.description)
+                         ,"Type": "$resultDetail.description" 
+                    #end
+                    
+                    #foreach ( $value in $resultDetail.values)
+                        
+                        #if ($value.scalar) 
+                                ,"Value": "$value.scalar"
+                        #end
+                    #end
+                    
+                    #if($resultDetail.time)
+                            
+                         , "ResultDate":"$resultDetail.time"
+                               
+                    #end
+                    }
+                #end
+                ]}
+            #end
+        #end
+    #end
 #end
 
 

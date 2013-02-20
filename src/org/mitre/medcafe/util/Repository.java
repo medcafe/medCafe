@@ -278,6 +278,16 @@ public abstract class Repository {
 	}
 
 	// Date formatter especially for the PDS output
+	public static Date getDateObj(String inDate, boolean isMillis) {
+			if (inDate == null) return null;
+			Long localTime = Long.parseLong(inDate);
+			int multiFactor = 1;
+			if (!isMillis) multiFactor = 1000;
+			Date dateTime = new Date(localTime * multiFactor);
+			return dateTime;
+
+	}
+	// Date formatter especially for the PDS output
 	public static String parseDate(Long inDate, boolean isMillis) {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		int multiFactor = 1;

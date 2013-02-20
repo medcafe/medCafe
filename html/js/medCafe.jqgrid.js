@@ -18,8 +18,9 @@ function processJQGrid(callObj, widgetInfo, data, tab_set)
 	
 	var listName = "list" + widgetInfo.id;
     var htmlAdd = "<table id=\"" + listName + "\" class=\"scroll\" cellpadding=\"0\" cellspacing=\"0\"></table>";
+    var htmlExtraAdd = "<div id=\"p" + listName + "\"></div>";
    
-    var html = v2js_inettutsHead(widgetInfo) + htmlAdd + v2js_inettutsTail(widgetInfo);
+    var html = v2js_inettutsHead(widgetInfo) + htmlAdd + htmlExtraAdd + v2js_inettutsTail(widgetInfo);
     
 	$("#" + tab_key + widgetInfo.tab_num + " #column" + widgetInfo.column).append(html);	
 	
@@ -66,11 +67,20 @@ function createJQGrid (placeholder, data )
 	   		{name:data.modelNames[1],index:data.modelNames[1], width:150, sortable:true},	
 	   		{name:data.modelNames[2],index:data.modelNames[2], width:90, sorttype:"date"}	
 	   	],
-	   	/*colModel : modelVals,*/
-	   	multiselect: true,
-	   	caption: "Table Data"
+	   	caption: "Table Data",
+	   	rowNum:50,
+	   	rowTotal: 2000, 
+	   	rowList : [20,30,50],
+	   	loadonce:true,
+	   	gridview: true, 
+	   	pager: '#p' + placeholder,
+	   	sortname: 'item_id',
+	   	viewrecords: true,
+	   	sortorder: "asc"
 	});
-	
+	jQuery("#" + placeholder).jqGrid('navGrid','#p'+ placeholder,{del:false,add:false,edit:false});
+    jQuery("#" + placeholder).jqGrid('filterToolbar',{stringResult: true,searchOnEnter : false});
+    jQuery("#" + placeholder).jqGrid('gridResize',{minWidth:350,maxWidth:800,minHeight:80, maxHeight:350});
 }
 
 function populateGrid(placeholder, data)

@@ -243,13 +243,15 @@ if (printFirst == 0) {
 printFirst = 1;
 t.p('			');
 if (repos.allergies) {
-t.p('				');
+t.p('								    ');
 for (var i5=0;  i5<repos.allergies.length; i5++) {
-var allergyDetail = repos.allergies[i5];
+var allergy = repos.allergies[i5];
 velocityCount = i5;
-t.p('	   			');
-t.p( allergyDetail.product.value);
-t.p('<br/>				   		');
+t.p('                                                ');
+t.p( allergy.type.codeSystem);
+t.p(' : ');
+t.p( allergy.type.code);
+t.p('  <br/>			        ');
 }
 velocityCount = i2;
 t.p('	   	');
@@ -575,22 +577,37 @@ t.p('			');
 if (repos.medications) {
 t.p('				');
 for (var i5=0;  i5<repos.medications.length; i5++) {
-var medicationDetail = repos.medications[i5];
+var medication = repos.medications[i5];
 velocityCount = i5;
-t.p('				 *	   			');
-if (medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName) {
-t.p('	  				   ');
-t.p( medicationDetail.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('<br/>	  				');
+t.p('				     <br/>	   			     ');
+if (medication.description) {
+t.p('	  				   <b>');
+t.p( medication.description);
+t.p('</b><br/>	  				 ');
 }
 else {
-if (medicationDetail.narrative) {
-t.p('	  					');
-t.p( medicationDetail.narrative);
-t.p('<br/>	  				');
+if (medication.free_text) {
+t.p('	  					<b>');
+t.p( medication.free_text);
+t.p('</b><br/>	  				 ');
 }
 }
-t.p('				');
+t.p('	  				 	  				 ');
+if (medication.start_time) {
+t.p('	  				   ');
+t.p( medication.start_time);
+t.p('	  				 ');
+}
+t.p('	  				 	  				 ');
+if (medication.end_time) {
+t.p('	  				   to ');
+t.p( medication.end_time);
+t.p('	  				  ');
+}
+else {
+t.p('	  				   to present.	  				 ');
+}
+t.p('	  				 <br/>				');
 }
 velocityCount = i2;
 t.p('	   	');
@@ -1558,51 +1575,52 @@ t.p('			');
 for (var i4=0;  i4<repos.vitals.length; i4++) {
 var vitalDetail = repos.vitals[i4];
 velocityCount = i4;
-t.p('				');
-if (print == 0) {
-t.p('					<tr><td>					Vitals on</td>					<td>');
-t.p( vitalDetail.resultDateTime.low.month);
-t.p('/');
-t.p( vitalDetail.resultDateTime.low.day);
-t.p('/					');
-t.p( vitalDetail.resultDateTime.low.year);
-t.p('@');
-t.p( vitalDetail.resultDateTime.low.hour);
-t.p(':					');
-if (vitalDetail.resultDateTime.low.minute < 10) {
-t.p('						0');
-t.p( vitalDetail.resultDateTime.low.minute);
-t.p('					');
-}
-else {
-t.p('						');
-t.p( vitalDetail.resultDateTime.low.minute);
-t.p('					');
-}
-t.p('					</td></tr>					');
+t.p('				<tr>					<td>');
+t.p( vitalDetail.time);
+t.p('					</td>					');
 print = 1;
-t.p('				');
-}
-t.p('				<tr><td>');
-t.p( vitalDetail.resultType.value);
-t.p('</td>				<td>				');
+t.p('				<td>				');
 var alert = 0;
-t.p('	   		');
-if (vitalDetail.narrative != "") {
-t.p('	   			');
-if (vitalDetail.narrative.substring(0, 1) == "*") {
+t.p('	   		    ');
+if (vitalDetail.description != "") {
+t.p('    	   			');
+if (vitalDetail.description.substring(0, 1) == "*") {
 alert = 1;
-t.p('	   				<font color = "red">					');
+t.p('    	   				<font color = "red">    					');
 }
-t.p('				');
+t.p('    				');
 }
-t.p('				');
-t.p( vitalDetail.resultValue);
+t.p('				    ');
+t.p( vitalDetail.description);
 t.p('				');
 if (alert == 1) {
 t.p('					</font>				');
 }
-t.p('				</td></tr>			   	');
+t.p('				</td>				<td>				');
+for (var i5=0;  i5<vitalDetail.values.length; i5++) {
+var value = vitalDetail.values[i5];
+velocityCount = i5;
+t.p('				    ');
+if (value.scalar.length() > 10) {
+t.p('				        ');
+t.p( value.scalar.substring(0, 6));
+t.p('				    ');
+}
+else {
+t.p('				        ');
+t.p( value.scalar);
+t.p('				    ');
+}
+t.p('				    				    ');
+if (value.units) {
+t.p('				    (');
+t.p( value.units);
+t.p(')				    ');
+}
+t.p('				');
+}
+velocityCount = i4;
+t.p('				</td>				</tr>			   	');
 }
 velocityCount = i2;
 t.p('	   ');
@@ -2015,52 +2033,59 @@ if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.repositoryList) {
 var printFirst = 0;
 var patcnt = 0;
-t.p('	');
+t.p('    ');
 for (var i2=0;  i2<context.repositoryList.length; i2++) {
 var repos = context.repositoryList[i2];
 velocityCount = i2;
-t.p('		');
+t.p('        ');
 if (printFirst == 0) {
 printFirst = 1;
-t.p('			');
+t.p('            ');
 if (repos.results) {
-t.p('				{ "titleLabels": ["Type","Description","Date"],				 "modelNames": ["Type","Description","Date"],				"patientData":[				');
+t.p('                { "titleLabels": ["Type","Value","Date"],                 "modelNames": ["Type","Value","ResultDate"],                "patientData":[                ');
 for (var i5=0;  i5<repos.results.length; i5++) {
 var resultDetail = repos.results[i5];
 velocityCount = i5;
-t.p('    		   	    ');
+t.p('                    ');
 if (patcnt > 0) {
-t.p('    		   	    ,    		   	    ');
+t.p('                    ,                    ');
 }
 patcnt = ( patcnt + 1 );
-t.p('    		   	    {"id":"');
+t.p('                    {"id":"');
 t.p( patcnt);
-t.p('"    		   		');
-if (resultDetail.mood_code) {
-t.p('    		   		     ,"Type": "');
-t.p( resultDetail.mood_code);
+t.p('"                    ');
+if (resultDetail.description) {
+t.p('                         ,"Type": "');
+t.p( resultDetail.description);
 t.p('"                     ');
 }
-t.p('    		   		');
-if (resultDetail.description) {
-t.p('    		  		    ,"Description": "');
-t.p( resultDetail.description);
-t.p('"     		  			    					');
+t.p('                                        ');
+for (var i6=0;  i6<resultDetail.values.length; i6++) {
+var value = resultDetail.values[i6];
+velocityCount = i6;
+t.p('                                                ');
+if (value.scalar) {
+t.p('                                ,"Value": "');
+t.p( value.scalar);
+t.p('"                        ');
+}
+t.p('                    ');
+}
+velocityCount = i5;
+t.p('                                        ');
 if (resultDetail.time) {
-t.p('    		               	    			          , "Date":"');
+t.p('                                                     , "ResultDate":"');
 t.p( resultDetail.time);
-t.p('"    			                   		            ');
+t.p('"                                                   ');
 }
-t.p('    		            }    	   			');
-}
-t.p('    	   		');
+t.p('                    }                ');
 }
 velocityCount = i2;
-t.p('	   			]}	   		');
+t.p('                ]}            ');
 }
-t.p('		');
+t.p('        ');
 }
-t.p('	');
+t.p('    ');
 }
 
 }
@@ -2379,7 +2404,7 @@ if (printFirst == 0) {
 printFirst = 1;
 t.p('			');
 if (repos.vitals) {
-t.p('				{ "titleLabels": ["Type","Description","VitalDate"],				 "modelNames": ["Type","Description","VitalDate"],				"patientData":[				');
+t.p('				{ "titleLabels": ["Type","Value","Date"],				 "modelNames": ["Type","Value","VitalDate"],				"patientData":[				');
 for (var i5=0;  i5<repos.vitals.length; i5++) {
 var vitalDetail = repos.vitals[i5];
 velocityCount = i5;
@@ -2391,24 +2416,40 @@ patcnt = ( patcnt + 1 );
 t.p('    		   	    {"id":"');
 t.p( patcnt);
 t.p('"    		   		');
-if (vitalDetail.mood_code) {
+if (vitalDetail.description) {
 t.p('    		   		     ,"Type": "');
-t.p( vitalDetail.mood_code);
+t.p( vitalDetail.description);
 t.p('"                     ');
 }
-t.p('    		   		');
-if (vitalDetail.description) {
-t.p('    		  		    ,"Description": "');
-t.p( vitalDetail.description);
-t.p('"     		  			    					');
+t.p('                                        ');
+for (var i6=0;  i6<vitalDetail.values.length; i6++) {
+var value = vitalDetail.values[i6];
+velocityCount = i6;
+t.p('                                                ');
+if (value.scalar) {
+t.p('                            ');
+if (value.scalar.length > 10) {
+t.p('                                 ,"Value": "');
+t.p( value.scalar.substring(0, 6));
+t.p('"                            ');
+}
+else {
+t.p('                                ,"Value": "');
+t.p( value.scalar);
+t.p('"                            ');
+}
+t.p('                        ');
+}
+t.p('                    ');
+}
+velocityCount = i5;
+t.p('    		   		    				');
 if (vitalDetail.time) {
-t.p('    		               	    			          , "VitalDate":"');
+t.p('    		               	    			         , "VitalDate":"');
 t.p( vitalDetail.time);
-t.p('"    			                   		            ');
+t.p('"    			                   		        ');
 }
-t.p('    		            }    	   			');
-}
-t.p('    	   		');
+t.p('    	   			}    	   		');
 }
 velocityCount = i2;
 t.p('	   			]}	   		');

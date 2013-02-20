@@ -122,6 +122,13 @@ i<medCafeWidget>
     <cacheKey>alertList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+    <name>DefaultProblems</name>
+    <type>DefaultProblems</type>
+    <image>problem-grey.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>problemList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
     <name>DefaultSocialHistory</name>
     <type>DefaultSocialHistory</type>
     <image>familyhistory-grey.png</image>
