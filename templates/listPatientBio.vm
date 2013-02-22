@@ -5,19 +5,12 @@
    	#if ($repos.patient_data)
    		#if ($printed == 0)
    			<tr><th colspan="2" style="text-align:left;">
-   			#foreach ($givenName in $repos.patient_data.name.given)
-   				${givenName}${space}
-   			#end
-   			$repos.patient_data.name.lastname</th></tr>
+   			<b>$repos.patient_data.lastName</b>
+   			$repos.patient_data.firstName </th></tr>
    			#set ($printed = 1)
-   			<tr><td colspan="2">
-   			#if ($repos.age)
-					${repos.age}${space}
-				#end
-				#if ($repos.patient_data.gender)
-					$repos.patient_data.gender.displayName
-				#end
-     			</td></tr>
+   			  <tr><td colspan="2">
+				$repos.patient_data.demographic_info
+     			  </td></tr>
      		#end
      	#end
 	#end

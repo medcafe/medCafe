@@ -637,7 +637,7 @@ public class GreenCDAFeedParser
                  System.out.println("Title: " + entry.getTitle());
                  System.out.println("Unique Identifier: " + entry.getUri());
                  System.out.println("Updated Date: " + entry.getUpdatedDate());
-  
+     
                  // Get the Links
                  List<SyndLinkImpl> links = (List<SyndLinkImpl>) entry.getLinks();
 				for (SyndLinkImpl link : links) {

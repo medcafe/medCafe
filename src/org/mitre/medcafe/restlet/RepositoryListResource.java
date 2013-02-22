@@ -15,17 +15,16 @@
  */
 package org.mitre.medcafe.restlet;
 
-import org.restlet.data .*;
-import java.util.*;
-import org.mitre.medcafe.util.*;
-
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.mitre.medcafe.util.Repository;
+import org.mitre.medcafe.util.WebUtils;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
-import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -45,7 +44,15 @@ public class RepositoryListResource extends ServerResource {
             ret.append( "<a href=\"browseRepository.jsp?repo=" + name + "\">" + name + "</a>" );
             ret.append( "</li>\n" );
         }
+        ret.append( "</ul> <br/><br/>Offline repositories: <br/><ul>" );
+        
+        for( String name : Repositories.getOfflineRepositoryNames()){
+            ret.append( "<li>" );
+            ret.append( name );
+            ret.append( "</li>\n" );    
+        }
         ret.append( "</ul>" );
+
         return new StringRepresentation( ret.toString() );
     }
 

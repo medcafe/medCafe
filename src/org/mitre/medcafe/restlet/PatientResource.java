@@ -113,15 +113,7 @@ public class PatientResource extends ServerResource {
         	 return new JsonRepresentation(WebUtils.buildErrorJson( "Could not find the repository " + repository ));
         }
         Patient pat = r.getPatient( id );
-    //convert to JSON
-       try{
-         log.finer("PatientResource: " + WebUtils.bundleJsonResponse("patient_data",pat,repository,id).getText());
-        }
-        catch (IOException IOe)
-        {
-
-        }   
-
+ 
         //convert to JSON
         if (pat != null)
         {
