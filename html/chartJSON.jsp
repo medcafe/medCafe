@@ -12,9 +12,9 @@
         return;
     }
 
+        System.out.println("chartJson type " + type);
 
-
-		out.print(cache.getVitalDataForChart(type));
+		out.print(cache.getDataForChart(type));
 
 
 %>

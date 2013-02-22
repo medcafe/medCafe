@@ -23,6 +23,7 @@ import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -56,6 +57,7 @@ public class PatientCache extends TimerTask {
     private String primaryRepos = "";
     private String primaryReposId = "";
     protected HashMap<String, JSONObject> vitalsMap = null;
+    protected HashMap<String, JSONObject> labsMap = null;
     protected HashMap<String, JSONObject> patientDataHash = null;
     protected HashMap<String, Integer> dataSourcePriorityMap = null;
     protected HashMap<String, MedCafeDataSource> dataSourceLookup = null;
@@ -520,16 +522,30 @@ public class PatientCache extends TimerTask {
         }
         return age;
 
-
-
     }
 
+    public JSONObject getDataForChart(String type) {
+    	
+    	   System.out.println("PatientCache getDataForChart resultType "  + type );
+           
+    	 ArrayList<String> labTypes = new ArrayList<String>();
+    	 labTypes.add("Triglycerides");
+         synchronized (this) {
+            	 
+        	 if (labTypes.contains(type))
+        	 {
+        		 return getLabDataForChart(type);
+        	 }
+        	 else
+        	 {
+        		 return getVitalDataForChart(type);
+        	 }
+         }
+             
+    }
+    	   
     public JSONObject getVitalDataForChart(String vitalType) {
         JSONObject dataObj;
-
-
-
-
         try {
             synchronized (this) {
                 if (vitalsMap == null) {
@@ -554,59 +570,56 @@ public class PatientCache extends TimerTask {
                             for (int j = 0; j
                                     < vitalArray.length(); j++) {
                                 noVitals = false;
-                                String resultType = vitalArray.getJSONObject(j).getJSONObject("resultType").getString("value");
-
-                                JSONObject result = new JSONObject();
+                                String resultType = vitalArray.getJSONObject(j).getString("description");
+                                System.out.println("PatientCache getVitalDataForChart resultType "  + resultType );
                                 JSONArray arrayObj = new JSONArray();
-                                JSONObject dateRange = vitalArray.getJSONObject(j).getJSONObject("resultDateTime");
-                                JSONObject dateObj = dateRange.getJSONObject("low");
-
-
-                                int mon, day, year, hour, minute;
-                                mon = dateObj.getInt("month");
-                                day = dateObj.getInt("day");
-                                year = dateObj.getInt("year");
-                                hour = dateObj.getInt("hour");
-                                minute = dateObj.getInt("minute");
-                                GregorianCalendar cal = new GregorianCalendar(year, mon - 1, day, hour, minute);
+                                String dateTimeStr = vitalArray.getJSONObject(j).getString("time");
+                                
+                                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                                Date setTime = df.parse(dateTimeStr);
+                                
+                                GregorianCalendar cal = new GregorianCalendar();                        
+                                cal.setTime(setTime);
+                        		
                                 arrayObj.put(cal.getTimeInMillis());
-                                String resultString = vitalArray.getJSONObject(j).getString("resultValue");
-                                String unit = "";
-
-
-                                if (!resultType.equals("B/P")) {
-                                    String[] splitResults = resultString.split(" ");
-
-
-                                    double resultVal = Double.parseDouble(splitResults[0]);
-                                    arrayObj.put(resultVal);
-
-
-                                    if (splitResults.length > 1) {
-                                        unit = splitResults[1];
-
-
-                                    }
-                                    addVitalsToMap(resultType, unit, arrayObj);
-
+                                JSONArray resultArray = vitalArray.getJSONObject(j).getJSONArray("values");
+                                		
+                                String scalar= "0";
+                                String unit= "";
+                                 
+                                if (resultArray.length() > 0)
+                                {
+                                	scalar = resultArray.getJSONObject(0).getString("scalar");
+                                	if (resultArray.getJSONObject(0).has("units"))
+                                		unit = resultArray.getJSONObject(0).getString("units");
+                                }                             
+                               
+                                if (resultType.equals("B/P") || (resultType.contains("Blood Pressure"))) {
+                                  
+                                	 if  (resultType.contains("Systolic"))
+                                	 {
+                                		 arrayObj.put(scalar);
+                                		 addVitalsToMap(
+                                                 "Systolic", unit, arrayObj);
+                                        
+                                	 }
+                                	 else if (resultType.contains("Diastolic"))
+                                	 {
+                                		 arrayObj.put(scalar);
+                                         addVitalsToMap(
+                                                 "Diastolic", unit, arrayObj);
+                                	 }
+                                     
+                                     arrayObj = new JSONArray();
+                                     arrayObj.put(cal.getTimeInMillis());
+                                    
 
                                 } else {
-                                    String[] splitResults = resultString.split("/");
+                                	
+                                	  double resultVal = Double.parseDouble(scalar);
+                                      arrayObj.put(resultVal);
 
-
-                                    double systolic = Double.parseDouble(splitResults[0]);
-
-
-                                    double diastolic = Double.parseDouble(splitResults[1]);
-                                    arrayObj.put(systolic);
-                                    addVitalsToMap(
-                                            "Systolic", unit, arrayObj);
-                                    arrayObj = new JSONArray();
-                                    arrayObj.put(cal.getTimeInMillis());
-                                    arrayObj.put(diastolic);
-                                    addVitalsToMap(
-                                            "Diastolic", unit, arrayObj);
-
+                                      addVitalsToMap(resultType, unit, arrayObj);
 
                                 }
 
@@ -616,7 +629,6 @@ public class PatientCache extends TimerTask {
                     }
                     if (noVitals) {
                         vitalsMap.put("Error", WebUtils.buildErrorJson("There are no vitals currently listed for this patient"));
-
 
                     }
 
@@ -628,15 +640,110 @@ public class PatientCache extends TimerTask {
 
             if (dataObj == null) {
                 dataObj = vitalsMap.get("Error");
-
-
             }
         } catch (JSONException jsonE) {
             vitalsMap = null;
             dataObj = WebUtils.buildErrorJson("Error retrieving JSON for vitals: " + jsonE.getMessage());
 
 
-        }
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+        	 vitalsMap = null;
+             dataObj = WebUtils.buildErrorJson("Error retrieving JSON for vitals: " + e.getMessage());
+
+		}
+        return dataObj;
+
+
+    }
+
+    public JSONObject getLabDataForChart(String labType) {
+        JSONObject dataObj;
+        try {
+            synchronized (this) {
+                if (labsMap == null) {
+
+                	labsMap = new HashMap<String, JSONObject>();
+                    JSONArray repositoryArray = retrieveObjectList("resultList").getJSONArray("repositoryList");
+
+                    System.out.println("PatientCache getLabDataForChart number of results "  + repositoryArray.length() );
+                    
+                    boolean noLabs = true;
+
+                    for (int i = 0; i
+                            < repositoryArray.length(); i++) {
+                        String repos = repositoryArray.getJSONObject(i).getString("repository");
+
+                        if (repos.equals(primaryRepos) && repositoryArray.getJSONObject(i).has("results")) {
+                            JSONArray labArray = repositoryArray.getJSONObject(i).getJSONArray("results");
+
+                            for (int j = 0; j
+                                    < labArray.length(); j++) {
+                            	noLabs = false;
+                                String resultType = labArray.getJSONObject(j).getString("description");
+                                System.out.println("PatientCache getLabDataForChart resultType "  + resultType );
+                                JSONArray arrayObj = new JSONArray();
+                                String dateTimeStr = labArray.getJSONObject(j).getString("time");
+                                
+                                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                                Date setTime = df.parse(dateTimeStr);
+                                
+                                GregorianCalendar cal = new GregorianCalendar();                        
+                                cal.setTime(setTime);
+                        		
+                                arrayObj.put(cal.getTimeInMillis());
+                                JSONArray resultArray = labArray.getJSONObject(j).getJSONArray("values");
+                                		
+                                String scalar= "0";
+                                String unit= "";
+                                 
+                                if (resultArray.length() > 0)
+                                {
+                                	scalar = resultArray.getJSONObject(0).getString("scalar");
+                                	if (resultArray.getJSONObject(0).has("units"))
+                                		unit = resultArray.getJSONObject(0).getString("units");
+                                }                             
+                                double resultVal;
+                                
+                                try
+                                {
+                                	resultVal = Double.parseDouble(scalar);
+                                	arrayObj.put(resultVal);
+                                }
+                                catch (NumberFormatException e) {
+                                	  // not an integer! do nothing
+                                }
+
+                                addLabsToMap(resultType, unit, arrayObj);
+
+                            }
+                        }
+                    }
+                    if (noLabs) {
+                       labsMap.put("Error", WebUtils.buildErrorJson("There are no Lab results currently listed for this patient"));
+
+                    }
+
+                }
+
+            }
+            dataObj = labsMap.get(labType);
+
+
+            if (dataObj == null) {
+                dataObj = labsMap.get("Error");
+            }
+        } catch (JSONException jsonE) {
+        	labsMap = null;
+            dataObj = WebUtils.buildErrorJson("Error retrieving JSON for results: " + jsonE.getMessage());
+
+
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+        	labsMap = null;
+            dataObj = WebUtils.buildErrorJson("Error retrieving JSON for vitals: " + e.getMessage());
+
+		}
         return dataObj;
 
 
@@ -646,21 +753,15 @@ public class PatientCache extends TimerTask {
         try {
             JSONObject obj = vitalsMap.get(resultType);
 
-
-
             if (obj == null) {
                 obj = new JSONObject();
                 obj.put("label", resultType);
 
-
                 if (!unit.equals("")) {
                     obj.put("unit", unit);
 
-
                 }
                 vitalsMap.put(resultType, obj);
-
-
 
             }
             obj.append("data", arrayObj);
@@ -674,6 +775,30 @@ public class PatientCache extends TimerTask {
         }
     }
 
+    private void addLabsToMap(String resultType, String unit, JSONArray arrayObj) throws JSONException {
+        try {
+            JSONObject obj = labsMap.get(resultType);
+
+            if (obj == null) {
+                obj = new JSONObject();
+                obj.put("label", resultType);
+
+                if (!unit.equals("")) {
+                    obj.put("unit", unit);
+
+                }
+                labsMap.put(resultType, obj);
+
+            }
+            obj.append("data", arrayObj);
+            log.finer("Patient Cache: addLabsToMap " + obj.toString());
+
+        } catch (JSONException jsonE) {
+            throw jsonE;
+
+
+        }
+    }
     private void putJSONListObject(MedcafeApplication app, String restlet, JSONArray reps, String cacheKey) {
         JSONObject objectList = null;
 

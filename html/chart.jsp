@@ -20,6 +20,7 @@
 	String displayValue = "none";
 	boolean htwt = false;
 	boolean temp = false;
+	boolean triglyc = false;
 	boolean basic = false;
 	String buttonText = "Reset Graph";
 	if (type==null || type.equals("none"))
@@ -39,6 +40,11 @@
 		typeString ="Temperature ";
 		temp = true;
 	}
+	else if (type.equals("triglyc"))
+    {
+        typeString ="Triglycerides ";
+        triglyc = true;
+    }
 	else if (type.equals("basic"))
 	{
 		typeString = "Blood Pressure and Pulse ";
@@ -76,6 +82,15 @@
 	 checked="true"
 	 <%} %>
        value="Temp."> Temperature<br>
+	
+	<input type="checkbox" name="vitalType"
+      <% if (triglyc)
+
+    {%>
+     checked="true"
+     <%} %>
+       value="Triglycerides"> Triglycerides<br>
+       
 	<input type="checkbox" name="vitalType"
 	<% if (basic)
 	{%>

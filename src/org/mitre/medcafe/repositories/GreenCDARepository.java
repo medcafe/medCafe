@@ -123,6 +123,8 @@ public class GreenCDARepository extends Repository {
 				record.setEffectiveTime(inter);
 				vitals.add(record);
 			}
+			Collections.sort(vitals, new NewVitalsComparable());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -238,6 +240,8 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
+			DatatypeFactory factory = DatatypeFactory.newInstance();
+	          
 			List<String> results = gcda.findHealthDetail(patientId, "results");
 			for (String url : results) {
 				server = greenCDADataUrl + url;
@@ -250,8 +254,13 @@ public class GreenCDARepository extends Repository {
 				String time = result.getTime();
 				result.setTime(parseDate(time, isMillis));
 
+				Interval inter = getInterval(factory, time);
+				result.setEffectiveTime(inter);
+				
 				resultList.add(result);
 			}
+			Collections.sort(resultList, new NewVitalsComparable());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
