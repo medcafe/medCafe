@@ -44,6 +44,7 @@
 		listEvents += "&event=" + eventVal;
 	}
 
+    System.out.println("timelineJSON.jsp listEvents " + listEvents);
 %>
 
 
@@ -67,7 +68,7 @@
             <p>
             	<form name="eventListingForm" id="eventForm" action="#">
             		<% for (String eventListVal: eventList) {
-            				if (eventListVal == "Problems"  || eventListVal == "Immunizations" || eventListVal == "Encounters")
+            				if (eventListVal == "LabResults"  || eventListVal == "Problems"  || eventListVal == "Immunizations" || eventListVal == "Encounters")
             				{
             		%>
             			<input type="checkbox" class="eventChkBox" value=<%=eventListVal%> name="event"

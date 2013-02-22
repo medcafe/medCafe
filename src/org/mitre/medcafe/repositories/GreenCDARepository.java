@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import org.hl7.greencda.c32.Allergy;
@@ -166,7 +167,10 @@ public class GreenCDARepository extends Repository {
 
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
+		DatatypeFactory factory;
+		
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> allergyResults = gcda.findHealthDetail(patientId,
 					"allergies");
 			for (String allergyUrl : allergyResults) {
@@ -181,7 +185,8 @@ public class GreenCDARepository extends Repository {
 				Allergy allergy = gson.fromJson(o, Allergy.class);
 				String time = allergy.getTime();
 				allergy.setTime(parseDate(time, isMillis));
-
+				Interval inter = getInterval(factory, time);
+				allergy.setEffectiveTime(inter);
 				allergies.add(allergy);
 			}
 

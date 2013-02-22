@@ -112,6 +112,7 @@ public class Event
 	public static final String HOSPITAL_TYPE = "Hospital";
 	public static final String IMMUNIZATION_TYPE = "Immunizations";
 	public static final String ENCOUNTER_TYPE = "Encounters";
+	public static final String LAB_TYPE = "LabResults";
 	public final static String NA = "Resource not available";
 
 	
@@ -120,7 +121,11 @@ public class Event
 	public static final String EVENT_DATE = "time";
 	public static final String CODE_STRING ="codes";
 	public static final String ICD9_CODE ="ICD-9-CM";
+	public static final String CPT = "CPT";
+	public static final String RXNORM ="RxNorm"; 
+	public static final String LOINC = "LOINC";
 	public static final String PROBLEM_NAME = "problemName";
+	public static final String DESCRIPTION = "description";
 	public Event()
 	{
 		super();
@@ -171,11 +176,11 @@ public class Event
 
 	public static String[] getEventList()
 	{
-		return new String[]{Event.SYMPTOMS_TYPE,Event.PROBLEMS_TYPE,Event.APPT_TYPE,Event.HOSPITAL_TYPE,Event.FILE_TYPE,Event.NOTE_TYPE, Event.IMMUNIZATION_TYPE, Event.ENCOUNTER_TYPE};
+		return new String[]{Event.SYMPTOMS_TYPE, Event.LAB_TYPE, Event.PROBLEMS_TYPE,Event.APPT_TYPE,Event.HOSPITAL_TYPE,Event.FILE_TYPE,Event.NOTE_TYPE, Event.IMMUNIZATION_TYPE, Event.ENCOUNTER_TYPE};
 	}
 	public static String[] getPatientCacheObjectList()
 	{
-		return new String[] {null, "problemList", null, null, null, null, "immuneList", "encounterList"};
+		return new String[] {null, "resultList", "problemList", null, null, null, null, "immuneList", "encounterList"};
 	}
 
 	public static ArrayList<Event> retrieveEvents(String userName, String patientId, String startDateStr, String endDateStr, String[] eventTypes, Application application, JSONObject repositories) throws SQLException, ParseException
@@ -226,6 +231,13 @@ public class Event
 				else if (type.equals(Event.SYMPTOMS_TYPE))
 				{
 
+				}
+				else if (type.equals(Event.LAB_TYPE))
+				{
+					String url = "/repositories/<:repository:>/patients/<:patientId:>/results";
+					ArrayList<Event> newEventList = retrieveEventsFromRepositories(url, userName, patientId, startDateStr, endDateStr, eventTypes, icon, type, application, repositories);
+					eventList.addAll(newEventList);
+				
 				}
 				else if (type.equals(Event.IMMUNIZATION_TYPE))
 				{
@@ -496,7 +508,7 @@ public class Event
 
 
 		}
-	else		if (type.equals(Event.PROBLEMS_TYPE))
+		else		if (type.equals(Event.PROBLEMS_TYPE))
 		{
 			/*{"repository":"OurVista","problem":[{"narrative":"A","problemCode":{"code":"250.00"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":4,"year":2010,"hour":0,"day":1}},"problemName":"Diabetes"},{"narrative":"A","problemCode":{"code":"819.0"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2008,"hour":0,"day":9}},"problemName":"Multiple fractures involving both upper limbs, and upper limb with rib(s) and st"}],"patient_id":"3"}
 
@@ -560,7 +572,85 @@ public class Event
 
 
 		}
- else		if (type.equals(Event.ENCOUNTER_TYPE))
+		else if (type.equals(Event.LAB_TYPE))
+		{
+			/*{"repository":"OurVista","problem":[{"narrative":"A","problemCode":{"code":"250.00"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":4,"year":2010,"hour":0,"day":1}},"problemName":"Diabetes"},{"narrative":"A","problemCode":{"code":"819.0"},"problemDate":{"low":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":9,"year":2008,"hour":0,"day":9}},"problemName":"Multiple fractures involving both upper limbs, and upper limb with rib(s) and st"}],"patient_id":"3"}
+
+			 * */
+			if (!jsonResults.has("results"))
+			{
+				return eventList;
+			}
+
+			 JSONArray jsonLabs = jsonResults.getJSONArray("results");
+
+			 for (int i=0; i < jsonLabs.length(); i++ )
+		     {
+				 Event event = new Event();
+				 event.setId(Integer.parseInt(patientId));
+				 event.setRepPatientId(repPatientId);
+				 event.setRepository(repository);
+				 JSONObject labObj;
+				 labObj = (JSONObject) jsonLabs.get(i);
+					
+				 String labTitle = labObj.getString(DESCRIPTION);
+				 event.setTitle(labTitle);
+				
+				 	try
+				 	{
+				 		String descText = "";
+				 		if (labObj.has(FREE_TEXT_VALUE))
+						 {
+							descText = labObj.getString(FREE_TEXT_VALUE);
+						 }
+				 		
+				 		String eventDesc = labTitle + "<br/>" + getCodeDescriptions(labObj);
+				 		
+				 		if (labObj.has("values"))
+				 		{
+				 			String scalar = "";
+				 			String unit = "";
+				 			JSONArray values = labObj.getJSONArray("values");
+				 			if (values.length() > 0)
+				 			{
+				 				for (int j =0; j < values.length(); j++)
+				 				{
+					 				JSONObject valObj = values.getJSONObject(j);
+					 				if (valObj.has("scalar"))
+					 					scalar = valObj.getString("scalar");
+					 				if (valObj.has("units"))
+					 					unit = "(" + valObj.getString("units") + ")";
+					 				eventDesc = eventDesc + "<br/><b>" + scalar + "</b>" + unit + "<br/>";				 				}
+				 			}
+				 		}
+				 		event.setDescription(eventDesc);
+				 		
+				 	}
+					catch (JSONException jsonE)
+					{
+						log.finer("No problem code for " + repPatientId + " and problem " + labTitle);
+					}
+
+				 String labDateStr = labObj.getString("time");
+				 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+				 Date labDate;
+				try {
+					labDate = dateFormat.parse(labDateStr);
+					event.setEventDate(labDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					labDate = null;
+				}
+				
+				 event.setIcon(icon);
+				 event.setTitle(labTitle);
+				 event.setType(type);
+				 eventList.add(event);
+		     }
+
+
+		}
+		else if (type.equals(Event.ENCOUNTER_TYPE))
 		{
 			log.finer(jsonResults.toString());
 
@@ -593,7 +683,11 @@ public class Event
 				 }
 				 //String encTitle = typeObj.getString("value");
 				 String encTitle = null;
-				 if (typeObj.has(FREE_TEXT_VALUE))
+				 if (typeObj.has(DESCRIPTION))
+				 {
+					 encTitle = typeObj.getString(DESCRIPTION);
+				 }
+				 else if (typeObj.has(FREE_TEXT_VALUE))
 				 {
 					 encTitle = typeObj.getString(FREE_TEXT_VALUE);
 				 }
@@ -616,7 +710,8 @@ public class Event
 				 }
 				 
 				 String desc = "";
-
+				 String eventDesc = getCodeDescriptions(encObj);
+			 		
 
 				 try{
 				 	JSONArray condArray = encObj.getJSONArray("conditions");
@@ -764,7 +859,7 @@ public class Event
 				 {
 				 }
 				
-				 event.setDescription(desc);
+				 event.setDescription(desc + "<br>" + eventDesc);
 				 event.setTitle(encTitle);
 				 event.setIcon(icon);
 				 event.setType(type);
@@ -906,6 +1001,7 @@ public class Event
 	    	HashMap<String,String> icons = new HashMap<String,String>();
 	    	String icon = "green-circle.png";
 	    	icons.put(Event.NOTE_TYPE, icon);
+	    	icons.put(Event.LAB_TYPE, icon);
 	    	icon = "gray-circle.png";
 	    	icons.put(Event.FILE_TYPE, icon);
 	    	icon = "dull-blue-circle.png";
@@ -1049,4 +1145,42 @@ public class Event
     	return jsonStr;
     }
 
+	  
+	  private static String getCodeDescriptions(JSONObject jsonObj) throws JSONException
+	  {
+		  	StringBuffer strBuf = new StringBuffer();
+		  
+		  	JSONObject codes = jsonObj.getJSONObject("codes");
+	 		if (codes.has(ICD9_CODE))
+	 		{
+	 			String jsonCode = codes.getString("ICD-9-CM");
+	 			strBuf.append( "ICD9 Code: " + jsonCode.toString() + "<br/>");
+	 		
+	 		}
+	 		if (codes.has(ICD9_CODE))
+	 		{
+	 			String jsonCode = codes.getString("SNOMED-CT");
+	 			strBuf.append("Snomed Code: " + jsonCode.toString() + "<br/>");
+	 		}
+	 		
+	 		if (codes.has(CPT))
+	 		{
+	 			String jsonCode = codes.getString("CPT");
+	 			strBuf.append("CPT Code: " + jsonCode.toString() + "<br/>");
+	 		}
+	 		
+	 		if (codes.has(RXNORM))
+	 		{
+	 			String jsonCode = codes.getString("RxNorm");
+	 			strBuf.append("RxNorm: " + jsonCode.toString() + "<br/>");
+	 		}
+	 		
+	 		if (codes.has(LOINC))
+	 		{
+	 			String jsonCode = codes.getString("LOINC");
+	 			strBuf.append("LOINC : " + jsonCode.toString() + "<br/>");
+	 		}
+	 		return strBuf.toString();
+	 	
+	  }
 }
