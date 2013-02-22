@@ -1,12 +1,9 @@
 /*
- *  Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
- *
+ * Copyright 2010 The MITRE Corporation (http://www.mitre.org/). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,56 +18,62 @@ import org.restlet.routing.Router;
 
 public class MedcafeApplication extends Application {
 
-    /**
-     * Creates a root Restlet that will receive all incoming calls.
-     */
-    @Override
-    public synchronized Restlet createInboundRoot() {
-        // Create a router Restlet that routes each call to a
-        // new instance of HelloWorldResource.
-        Router router = new Router(getContext());
+	/**
+	 * receives all incoming calls.
+	 */
+	@Override
+	public synchronized Restlet createInboundRoot() {
+		Router router = new Router(getContext());
+	
+		// register the data Restlets
+		router.attach("/repositories", RepositoryListResource.class);
+		router.attach("/repositories/{repository}", RepositoryResource.class);
 
-        // register the data Restlets
-        router.attach("/repositories", org.mitre.medcafe.restlet.RepositoryListResource.class);
-        router.attach("/repositories/{repository}", org.mitre.medcafe.restlet.RepositoryResource.class);
-        router.attach("/repositories/{repository}/patients", org.mitre.medcafe.restlet.PatientListResource.class);
-        router.attach("/repositories/{repository}/patients/{id}", org.mitre.medcafe.restlet.PatientResource.class);
-         router.attach("/repositories/{repository}/patients/{id}/singleRep/{isSingle}", org.mitre.medcafe.restlet.PatientResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/images", org.mitre.medcafe.restlet.PatientImagesResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/charts/{chartType}", org.mitre.medcafe.restlet.PatientChartResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/events", org.mitre.medcafe.restlet.PatientListEventResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/allergies", org.mitre.medcafe.restlet.PatientAllergyResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/medications", org.mitre.medcafe.restlet.PatientMedicationResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/problems", org.mitre.medcafe.restlet.PatientProblemResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/bookmarks", org.mitre.medcafe.restlet.PatientBookmarkResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/immunizations", org.mitre.medcafe.restlet.PatientImmunizationResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/procedures", org.mitre.medcafe.restlet.PatientProcedureResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/socialhistory", org.mitre.medcafe.restlet.PatientSocialHistoryResource.class);
-        router.attach("/repositories/{repository}/patients/{id}/results", org.mitre.medcafe.restlet.PatientResultsResource.class);
-         router.attach("/repositories/{repository}/patients/{id}/encounters", org.mitre.medcafe.restlet.PatientEncounterResource.class);
-		  router.attach("/repositories/{repository}/patients/{id}/supportList", org.mitre.medcafe.restlet.PatientSupportResource.class);
-		  router.attach("/repositories/{repository}/patients/{id}/vitals/{choice}", org.mitre.medcafe.restlet.PatientVitalsResource.class);
-		  router.attach("/repositories/{repository}/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
-		  		  router.attach("/repositories/{repository}/lookup/{type}",
-		  org.mitre.medcafe.restlet.RepositoryLookupResource.class);
-		  router.attach("/repositories/{repository}/lookup/{type}/{lookupString}",
-		  org.mitre.medcafe.restlet.RepositoryLookupResource.class);
-        //router.attach("/repositories/{repository}/patients/{id}/history/{category}", org.mitre.medcafe.restlet.PatientHistoryResource.class);
+		// Repository lookups
+		router.attach("/repositories/{repository}/lookup/{type}", RepositoryLookupResource.class);
+		router.attach("/repositories/{repository}/lookup/{type}/{lookupString}", RepositoryLookupResource.class);
+		
+		//individual patients
+		router.attach("/repositories/{repository}/patients", PatientListResource.class);
+		router.attach("/repositories/{repository}/patients/{id}", PatientResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/singleRep/{isSingle}", PatientResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/images", PatientImagesResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/charts/{chartType}", PatientChartResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/events", PatientListEventResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/allergies", PatientAllergyResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/medications", PatientMedicationResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/problems", PatientProblemResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/bookmarks", PatientBookmarkResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/immunizations", PatientImmunizationResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/procedures", PatientProcedureResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/socialhistory", PatientSocialHistoryResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/results", PatientResultsResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/encounters", PatientEncounterResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/supportList", PatientSupportResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/vitals/{choice}", PatientVitalsResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/history/{category}", PatientHistoryResource.class);
 
-        //List the available Widgets
-        router.attach("/widgets",org.mitre.medcafe.restlet.ListWidgetResource.class);
-        router.attach("/widgets/patients",org.mitre.medcafe.restlet.ListPatientWidgetResource.class);
-        router.attach("`",org.mitre.medcafe.restlet.ListPatientWidgetResource.class);
-        router.attach("/history/templates",org.mitre.medcafe.restlet.ListHistoryTemplateResource.class);
-        router.attach("/history/templates/patients/{id}",org.mitre.medcafe.restlet.ListHistoryTemplateResource.class);
-        //List the available Widgets
-        router.attach("/dates",org.mitre.medcafe.restlet.ListDatesResource.class);
+		// List the available Widgets
+		router.attach("/widgets", ListWidgetResource.class);
+		router.attach("/widgets/patients", ListPatientWidgetResource.class);
+		
+		//history info
+		router.attach("/history/templates", ListHistoryTemplateResource.class);
+		router.attach("/history/templates/patients/{id}", ListHistoryTemplateResource.class);
+		
+		router.attach("/dates", ListDatesResource.class);
 
-        router.attach("/patients/{id}/address", org.mitre.medcafe.restlet.ListAddressResource.class);
-        // register the view restlets
-        //router.attach("/treenode", org.mitre.medcafe.restlet.TreeNodeResource.class);
+		//this patient resource is outside the individual repository information
+		router.attach("/patients/{id}/address", ListAddressResource.class);
 
-        return router;
-    }
+
+		// some unused items
+		/* 
+		 router.attach("/treenode", TreeNodeResource.class);
+		 router.attach("/repositories/{repository}/patients/{id}/history/{category}", PatientHistoryResource.class);
+		*/
+		
+		return router;
+	}
 
 }

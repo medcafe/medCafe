@@ -57,6 +57,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.medsphere.fileman.FMRecord;
+import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndLinkImpl;
@@ -395,8 +396,7 @@ public class GreenCDARepository extends Repository {
 	@Override
 	public Map<String, String> getPatientByName(String family, String given,
 			String middle) {
-		// TODO Auto-generated method stub
-
+	
 		Map<String, String> ret = new HashMap<String, String>();
 		this.userName = userName;
 		// Lookup patient id in DB
@@ -651,8 +651,34 @@ public class GreenCDARepository extends Repository {
 
 	@Override
 	public Patient getPatient(String patientId) {
-		// TODO Auto-generated method stub
-		return null;
+		Patient ret = new Patient();
+		
+		try {
+			String url = greenCDADataUrl + "/records/" + patientId;
+			List<SyndEntry> patientEntries = gcda.parseAtom(url);
+
+			System.out.println("GreenCDARepository : getPatientByName size "
+					+ patientEntries.size());
+
+			SyndFeedInput input = new SyndFeedInput();
+			SyndFeed feed = null;
+			for (SyndEntry patientEntry : patientEntries) {
+				String name = patientEntry.getTitle();
+				ret.setFirstName(name.split(" ")[0]);
+				ret.setLastName(name.split(" ")[1]);
+				String demographics = "";
+				for(Object o : patientEntry.getContents()){
+					SyndContentImpl  content = (SyndContentImpl ) o;
+					demographics.concat(content.getValue());
+				}
+				ret.setDemographics(demographics);
+				break; //it's the first one.. for some reason I can't get the entry id...
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 	@Override

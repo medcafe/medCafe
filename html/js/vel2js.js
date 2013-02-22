@@ -566,7 +566,7 @@ var velocityCount = 0;
 if (context.velocityCount) velocityCount=context.velocityCount;
 if (context.repositoryList) {
 var printFirst = 0;
-t.p('</p><br/><p>	');
+t.p('</p><p>	');
 for (var i2=0;  i2<context.repositoryList.length; i2++) {
 var repos = context.repositoryList[i2];
 velocityCount = i2;
@@ -713,34 +713,19 @@ t.p('   	');
 if (repos.patient_data) {
 t.p('   		');
 if (printed == 0) {
-t.p('   			<tr><th colspan="2" style="text-align:left;">   			');
-for (var i5=0;  i5<repos.patient_data.name.given.length; i5++) {
-var givenName = repos.patient_data.name.given[i5];
-velocityCount = i5;
-t.p('   				');
-t.p( givenName);
-t.p( space);
-t.p('   			');
-}
-velocityCount = i2;
-t.p('   			');
-t.p( repos.patient_data.name.lastname);
-t.p('</th></tr>   			');
+t.p('   			<tr><th colspan="2" style="text-align:left;">   			<b>');
+t.p( repos.patient_data.lastName);
+t.p('</b>   			');
+t.p( repos.patient_data.firstName);
+t.p(' </th></tr>   			');
 printed = 1;
-t.p('   			<tr><td colspan="2">   			');
-if (repos.age) {
-t.p('					');
-t.p( repos.age);
-t.p( space);
-t.p('				');
+t.p('   			');
+if (repos.patient_data.info) {
+t.p('   			  <tr><td colspan="2">				');
+t.p( repos.patient_data.demographic_info);
+t.p('     			  </td></tr>			');
 }
-t.p('				');
-if (repos.patient_data.gender) {
-t.p('					');
-t.p( repos.patient_data.gender.displayName);
-t.p('				');
-}
-t.p('     			</td></tr>     		');
+t.p('     		');
 }
 t.p('     	');
 }

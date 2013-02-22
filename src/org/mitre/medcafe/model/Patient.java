@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -51,6 +52,7 @@ public class Patient {
 	private Repository			primaryRepos;
 
 	private ArrayList<String>	repositories						= null;
+	private String	demographic_info;
 
 	public static final String	SEARCH_USER_PATIENTS_BY_ID			= "SELECT patient.id, first_name, last_name, role from patient , patient_user_assoc, patient_repository_assoc "
 																			+ " where patient_user_assoc.patient_id = patient.id and patient_repository_assoc.patient_id = patient.id and  patient_user_assoc.patient_id = ? and patient_user_assoc.username = ? ";
@@ -1083,6 +1085,9 @@ public class Patient {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	public void setDemographics(String demos){
+		this.demographic_info = demos;
+	}
 
 	public ArrayList<String> getRepositories() {
 		return repositories;
@@ -1109,6 +1114,7 @@ public class Patient {
 		ret.put(Patient.ID, id);
 		ret.put(Patient.FIRST_NAME, firstName);
 		ret.put(Patient.LAST_NAME, lastName);
+		ret.put("info", demographic_info);
 		return ret;
 
 	}
