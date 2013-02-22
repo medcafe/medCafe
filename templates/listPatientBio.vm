@@ -8,11 +8,9 @@
    			<b>$repos.patient_data.lastName</b>
    			$repos.patient_data.firstName </th></tr>
    			#set ($printed = 1)
-   			#if ($repos.patient_data.info)
    			  <tr><td colspan="2">
 				$repos.patient_data.demographic_info
      			  </td></tr>
-			#end
      		#end
      	#end
 	#end

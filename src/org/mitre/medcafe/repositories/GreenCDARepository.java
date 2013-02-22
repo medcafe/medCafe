@@ -669,7 +669,7 @@ public class GreenCDARepository extends Repository {
 				String demographics = "";
 				for(Object o : patientEntry.getContents()){
 					SyndContentImpl  content = (SyndContentImpl ) o;
-					demographics.concat(content.getValue());
+					demographics = demographics.concat(content.getValue());
 				}
 				ret.setDemographics(demographics);
 				break; //it's the first one.. for some reason I can't get the entry id...
