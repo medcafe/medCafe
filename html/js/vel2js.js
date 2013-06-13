@@ -8,7 +8,7 @@ var repos = context.repositoryList[i2];
 velocityCount = i2;
 t.p('	');
 if (repos.allergies) {
-t.p('		{			"titleLabels": [ "type", "code system", "code"],			"modelNames": [ "type", "code_type", "code"],			"patientData": [				');
+t.p('		{			"titleLabels": [ "type", "substance", "reaction"],			"modelNames": [ "type", "substance", "reaction"],			"patientData": [				');
 var i = 0;
 t.p('				');
 for (var i4=0;  i4<repos.allergies.length; i4++) {
@@ -19,10 +19,10 @@ if (i > 0) {
 t.p('						,					');
 }
 i = ( i + 1 );
-t.p('					{ 						"type":							"Allergy", 						"code_type":							"');
-t.p( allergy.type.codeSystem);
-t.p('", 						"code": 							"');
-t.p( allergy.type.code);
+t.p('					{ 						"type":							"Allergy", 						"substance":							"');
+t.p( allergy.description);
+t.p('", 						"reaction": 							"');
+t.p( allergy.reaction.originalText);
 t.p('" 					}				');
 }
 velocityCount = i2;
@@ -248,9 +248,9 @@ for (var i5=0;  i5<repos.allergies.length; i5++) {
 var allergy = repos.allergies[i5];
 velocityCount = i5;
 t.p('                                                ');
-t.p( allergy.type.codeSystem);
+t.p( allergy.description);
 t.p(' : ');
-t.p( allergy.type.code);
+t.p( allergy.reaction.originalText);
 t.p('  <br/>			        ');
 }
 velocityCount = i2;
@@ -306,6 +306,142 @@ velocityCount = i1;
 t.p('    </optgroup>');
 }
 velocityCount = 0;
+return t.toString();
+}
+function v2js_listEncounters(context) { 
+var t = new StringCat();
+var velocityCount = 0;
+if (context.velocityCount) velocityCount=context.velocityCount;
+if (context.repositoryList) {
+t.p('<a onclick="alert(\'Method to add a new encounter goes here\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a><div class="repository-content">   ');
+var firstRepository = true;
+var loopCount = 0;
+t.p('   ');
+for (var i2=0;  i2<context.repositoryList.length; i2++) {
+var repos = context.repositoryList[i2];
+velocityCount = i2;
+t.p('			      ');
+if (repos.announce && firstRepository == true) {
+t.p('			');
+t.p( repos.announce.message);
+t.p('			');
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('      ');
+}
+t.p('      ');
+if (repos.encounters) {
+t.p('         ');
+if (firstRepository != true) {
+t.p('            ');
+if (loopCount == 1) {
+t.p('					<div id="collapseInfo');
+t.p( context.widget_id);
+t.p('">								<a href="');
+t.p('#" class="collapse">More</a>					<div style="height: 25px"></div>					<div id="add_repos');
+t.p( context.widget_id);
+t.p('" style= "display: none">					<p></p>            ');
+}
+t.p('				<br/>				<b><u>Repository: <i>');
+t.p( repos.repository);
+t.p('</i></u></b><br/><br/>         ');
+}
+firstRepository = false;
+loopCount = ( loopCount + 1 );
+t.p('         ');
+for (var i4=0;  i4<repos.encounters.length; i4++) {
+var encounterDetail = repos.encounters[i4];
+velocityCount = i4;
+t.p('			    <p ><b>            ');
+if (encounterDetail.description) {
+t.p('					');
+t.p( encounterDetail.description);
+t.p('            ');
+}
+else {
+t.p('               ');
+if (encounterDetail.codes) {
+t.p('					    Encounter:                   ');
+if (encounterDetail.codes["ICD-9-CM"] && encounterDetail.codes["ICD-9-CM"].length > 0) {
+t.p('                                                ICD-9-CM:                     ');
+for (var i7=0;  i7<encounterDetail.codes["ICD-9-CM"].length; i7++) {
+var code = encounterDetail.codes["ICD-9-CM"][i7];
+velocityCount = i7;
+t.p('						   ');
+t.p( code);
+t.p(';                     ');
+}
+velocityCount = i4;
+t.p('                  ');
+}
+else {
+t.p('                     ');
+if (encounterDetail.codes.CPT && encounterDetail.codes.CPT.length > 0) {
+t.p('                                                    CPT:                          ');
+for (var i7=0;  i7<encounterDetail.codes.CPT.length; i7++) {
+var code = encounterDetail.codes.CPT[i7];
+velocityCount = i7;
+t.p('						   ');
+t.p( code);
+t.p(';                         ');
+}
+velocityCount = i4;
+t.p('                     ');
+}
+else {
+t.p('                        ');
+if (encounterDetail.codes.HPCS && encounterDetail.codes.HPCS.length > 0) {
+t.p('                                                       HPCS:                            ');
+for (var i7=0;  i7<encounterDetail.codes.HPCS.length; i7++) {
+var code = encounterDetail.codes.HPCS[i7];
+velocityCount = i7;
+t.p('						   ');
+t.p( code);
+t.p(';                           ');
+}
+velocityCount = i4;
+t.p('                        ');
+}
+else {
+t.p('                           ');
+if (encounterDetail.codes["SNOMED-CT"] && encounterDetail.codes["SNOMED-CT"].length > 0) {
+t.p('                                                          SNOMED-CT:                                 ');
+for (var i7=0;  i7<encounterDetail.codes["SNOMED-CT"].length; i7++) {
+var code = encounterDetail.codes["SNOMED-CT"][i7];
+velocityCount = i7;
+t.p('						   ');
+t.p( code);
+t.p(';                              ');
+}
+velocityCount = i4;
+t.p('                           ');
+}
+t.p('                        ');
+}
+t.p('                     ');
+}
+t.p('                  ');
+}
+t.p('	       ');
+}
+t.p('            ');
+}
+t.p('	</b><br/>			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
+t.p( encounterDetail.time);
+t.p('<br clear="all"/>			    </p>         ');
+}
+velocityCount = i2;
+t.p('      ');
+}
+t.p('      ');
+if (loopCount >= 2) {
+t.p('			</div>		</div>      ');
+}
+t.p('	</div>   ');
+}
+
+}
 return t.toString();
 }
 function v2js_listEndDates(context) { 
@@ -679,9 +815,9 @@ for (var i4=0;  i4<repos.allergies.length; i4++) {
 var allergy = repos.allergies[i4];
 velocityCount = i4;
 t.p('		    <b>');
-t.p( allergy.product.value);
+t.p( allergy.description);
 t.p('</b><br/>    			<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: ');
-t.p( allergy.reaction.value);
+t.p( allergy.reaction.originalText);
 t.p('<br clear="all"/>			');
 }
 velocityCount = i2;
@@ -719,13 +855,9 @@ t.p('</b>   			');
 t.p( repos.patient_data.firstName);
 t.p(' </th></tr>   			');
 printed = 1;
-t.p('   			');
-if (repos.patient_data.info) {
 t.p('   			  <tr><td colspan="2">				');
 t.p( repos.patient_data.demographic_info);
-t.p('     			  </td></tr>			');
-}
-t.p('     		');
+t.p('     			  </td></tr>     		');
 }
 t.p('     	');
 }
@@ -898,46 +1030,11 @@ for (var i4=0;  i4<repos.immunizations.length; i4++) {
 var immunization = repos.immunizations[i4];
 velocityCount = i4;
 t.p('				<b>');
-t.p( immunization.medicationInformation.manufacturedMaterial.freeTextBrandName);
-t.p('</b><br/>				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:');
-t.p( space);
-t.p('				');
-t.p('				');
-if (immunization.performer.person.name.given) {
-t.p('					');
-for (var i6=0;  i6<immunization.performer.person.name.given.length; i6++) {
-var givenNameDetail = immunization.performer.person.name.given[i6];
-velocityCount = i6;
-t.p('						');
-t.p( givenNameDetail);
-t.p( space);
-t.p(' 					');
-}
-velocityCount = i4;
-t.p('				');
-}
-t.p('				');
-t.p( immunization.performer.person.name.lastname);
-t.p(' on');
-t.p( space);
-t.p('				');
-t.p( immunization.administeredDate.month);
-t.p('/');
-t.p( immunization.administeredDate.day);
-t.p('/');
-t.p( immunization.administeredDate.year);
-t.p('<br clear="all"/>				');
-var comments = immunization.narrative.split('^');
-t.p('				');
-for (var i5=0;  i5<comments.length; i5++) {
-var comment = comments[i5];
-velocityCount = i5;
-t.p('					<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>');
-t.p( comment);
-t.p('<br clear="all"/>				');
-}
-velocityCount = i4;
-t.p('				<br/>			');
+t.p( immunization.description);
+t.p('</b><br/>				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>				');
+t.p('								');
+t.p( immunization.time);
+t.p('<br clear="all"/>								<br/>			');
 }
 velocityCount = i2;
 t.p('		');
@@ -1261,23 +1358,11 @@ var oparen = "(";
 var cparen = ")";
 t.p('			');
 t.p('			');
-t.p('			<p>			');
-if (repos.patient_data.name.given) {
-t.p('				<b>				');
-for (var i5=0;  i5<repos.patient_data.name.given.length; i5++) {
-var givenNameDetail = repos.patient_data.name.given[i5];
-velocityCount = i5;
-t.p('					');
-t.p( givenNameDetail);
-t.p( space);
-t.p('				');
-}
-velocityCount = i2;
-t.p('			');
-}
-t.p('			');
-t.p( repos.patient_data.name.lastname);
-t.p('</b></p>			<div style="float:left; margin-right:2em;">			');
+t.p('			<p>						');
+t.p( repos.patient_data.firstName);
+t.p(' ');
+t.p( repos.patient_data.lastName);
+t.p('</b></p>					<div style="float:left; margin-right:2em;">			');
 t.p('			');
 if (repos.patient_data.address) {
 t.p('			    <i><u>Address(es)</u></i><br/>				');
@@ -1598,9 +1683,13 @@ t.p('				    ');
 }
 t.p('				    				    ');
 if (value.units) {
+t.p('                                    ');
+if (value.units != "") {
 t.p('				    (');
 t.p( value.units);
 t.p(')				    ');
+}
+t.p('				    ');
 }
 t.p('				');
 }
@@ -1726,13 +1815,9 @@ for (var i5=0;  i5<repos.problem.length; i5++) {
 var problemDetail = repos.problem[i5];
 velocityCount = i5;
 t.p('	   	<tr>	  		<td> ');
-t.p( problemDetail.problemName);
+t.p( problemDetail.description);
 t.p(' </td>			<td class="ui-corner-all">				');
-t.p( problemDetail.problemDate.low.month);
-t.p('/');
-t.p( problemDetail.problemDate.low.day);
-t.p('/');
-t.p( problemDetail.problemDate.low.year);
+t.p( problemDetail.start_time);
 t.p('			</td> 	   		</tr>	   		');
 }
 velocityCount = i2;
@@ -1775,9 +1860,9 @@ patcnt = ( patcnt + 1 );
 t.p('		   	    {"id":"');
 t.p( patcnt);
 t.p('"		   		');
-if (problemDetail.description.text) {
+if (problemDetail.description) {
 t.p('		  		    ,"Problem": "');
-t.p( problemDetail.description.text);
+t.p( problemDetail.description);
 t.p('" 		  			');
 }
 else {
@@ -1811,31 +1896,9 @@ t.p('		  						  				');
 }
 }
 t.p('									');
-if (problemDetail.dateTime) {
-t.p('		                ');
-for (var i7=0;  i7<problemDetail.dateTime.length; i7++) {
-var dateElem = problemDetail.dateTime[i7];
-velocityCount = i7;
-t.p('		                	');
-if (dateElem.type.text) {
-t.p('		                		,"Type": "');
-t.p( dateElem.type.text);
-t.p('"		                	');
-}
-t.p('		                	');
-if (dateElem.exactDateTime.length() > 10) {
-t.p('			                , "ProblemDate":"');
-t.p( dateElem.exactDateTime.substring(0, 10));
-t.p('"			                ');
-}
-else {
-t.p('			                ,"ProblemDate":"');
-t.p( dateElem.exactDateTime);
-t.p('"			                ');
-}
-t.p('		                ');
-}
-velocityCount = i5;
+if (problemDetail.start_time) {
+t.p('		                	 ');
+t.p( problemDetail.start_time);
 t.p('		            ');
 }
 t.p('		            }	   			');
@@ -1896,30 +1959,11 @@ t.p('			');
 for (var i4=0;  i4<repos.problem.length; i4++) {
 var problemDetail = repos.problem[i4];
 velocityCount = i4;
-t.p('   			 ');
-if (problemDetail.narrative == "A") {
-var status = "Active";
-t.p('   			 ');
-}
-else {
-var status = "Inactive";
-t.p('			    ');
-}
-t.p('			    <p class="');
-t.p( status);
-t.p('"><b>');
-t.p( problemDetail.problemName);
-t.p('</b><br/>			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code ');
-t.p( problemDetail.problemCode.code);
-t.p('<br clear="all"/>			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started ');
-t.p( problemDetail.problemDate.low.month);
-t.p('/');
-t.p( problemDetail.problemDate.low.day);
-t.p('/');
-t.p( problemDetail.problemDate.low.year);
-t.p(' (');
-t.p( status);
-t.p(')<br clear="all"/>			    </p>			');
+t.p('   			 			    <p ><b>');
+t.p( problemDetail.description);
+t.p('</b><br/>			  			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started ');
+t.p( problemDetail.start_time);
+t.p('<br clear="all"/>			    </p>			');
 }
 velocityCount = i2;
 t.p('		');

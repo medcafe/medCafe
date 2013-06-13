@@ -59,7 +59,7 @@ public class RepositoryLookupResource extends ServerResource {
         }
 		 
         JSONObject retObj= new JSONObject();
-	
+
         return new JsonRepresentation( retObj );
        
 

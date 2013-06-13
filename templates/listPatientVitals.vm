@@ -32,8 +32,10 @@
 				        $value.scalar
 				    #end
 				    
-				    #if ($value.units)  
+				    #if ($value.units)
+                                    #if ($value.units != "")  
 				    ($value.units)
+				    #end
 				    #end
 				#end
 				</td>

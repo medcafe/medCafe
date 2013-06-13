@@ -62,7 +62,7 @@ public class PatientResultsResource extends ServerResource {
 
  	       if( results.size() == 0)
  	       {
- 	           return new JsonRepresentation(WebUtils.buildErrorJson( "There are no immunizations currently listed for patient " + id + " in repository " + repository ));
+ 	           return new JsonRepresentation(WebUtils.buildErrorJson( "There are no lab results currently listed for patient " + id + " in repository " + repository ));
  	       }
  	       //convert to JSON
  	      try{

@@ -29,10 +29,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+
 
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
@@ -74,6 +76,9 @@ public class GreenCDARepository extends Repository {
 	public final static String		KEY				= GreenCDARepository.class
 															.getName();
 	public final static Logger		log				= Logger.getLogger(KEY);
+	static{
+        log.setLevel(Level.FINER);
+	}
 	private GreenCDARepository		cda;
 	private TreeMap<Date, Result>	vitalTree		= null;
 
@@ -136,10 +141,18 @@ public class GreenCDARepository extends Repository {
 	private Interval getInterval(DatatypeFactory factory, String time)
 	{
 		Interval inter = new Interval();
-		Date setTime = getDateObj(time, isMillis);
+		Date setTime;
+		try {
+		setTime = getDateObj(time, isMillis);
 		GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(setTime);
         inter.setValue(factory.newXMLGregorianCalendar(cal));
+		}
+		catch (NumberFormatException e)
+		{
+			inter.setValue(factory.newXMLGregorianCalendar(time));
+		}
+
         return inter;
 	}
 	// this 'lil nested class is a cheat to cheapen the complexity of the code
@@ -169,17 +182,17 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		DatatypeFactory factory;
-		
+		log.finer("getting allergies");
 		try {
 			factory = DatatypeFactory.newInstance();
 			List<String> allergyResults = gcda.findHealthDetail(patientId,
 					"allergies");
 			for (String allergyUrl : allergyResults) {
+				log.finer(allergyUrl);
 				String server = greenCDADataUrl + allergyUrl;
 				String tempResults = WebUtils.callServer(server, "GET",
 						"application/json", new String[] {});
-				System.out
-						.println("GreenCDARepository getAllergies results from json "
+				log.finer("GreenCDARepository getAllergies results from json "
 								+ tempResults);
 
 				JsonObject o = parser.parse(tempResults).getAsJsonObject();
@@ -188,6 +201,7 @@ public class GreenCDARepository extends Repository {
 				allergy.setTime(parseDate(time, isMillis));
 				Interval inter = getInterval(factory, time);
 				allergy.setEffectiveTime(inter);
+				System.out.println(o.toString());
 				allergies.add(allergy);
 			}
 
@@ -198,7 +212,12 @@ public class GreenCDARepository extends Repository {
 			 */
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.finer(e.getMessage());
+			for (StackTraceElement elem: e.getStackTrace())
+			{
+				log.severe(elem.toString());
+			}
+	
 		}
 
 		return allergies;
@@ -347,7 +366,7 @@ public class GreenCDARepository extends Repository {
 	}
 
 	@Override
-	public Person getPatient(String userName, String patientId) {
+	public Person getPerson(String userName, String patientId) {
 		this.userName = userName;
 		Person patient = new Person();
 		try {
@@ -378,18 +397,19 @@ public class GreenCDARepository extends Repository {
 				patient.setName(personName);
 			}
 			// If need to get demographics
-			/*
-			 * String patientUrl ="";
-			 * if (patientUrls.size() > 0)
-			 * {
-			 * patientUrl = patientUrls.get(0);
-			 * String server = greenCDADataUrl + patientUrl;
-			 * String patientResults = WebUtils.callServer(server, "GET",
-			 * "application/json", new String[]{});
-			 * JsonObject o = parser.parse(patientResults).getAsJsonObject();
-			 * patient = gson.fromJson(o, Person.class);
-			 * }
-			 */
+		
+			 String patientUrl ="";
+		
+			 if (patientUrls.size() > 0)
+			 {
+			 patientUrl = patientUrls.get(0);
+			 String server = greenCDADataUrl + patientUrl;
+			  String patientResults = WebUtils.callServer(server, "GET",
+			"application/json", new String[]{});
+			  JsonObject o = parser.parse(patientResults).getAsJsonObject();
+			  patient = gson.fromJson(o, Person.class);
+			 }
+			
 			return patient;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -519,7 +539,7 @@ public class GreenCDARepository extends Repository {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
-			List<String> results = gcda.findHealthDetail(patientId, "problems");
+			List<String> results = gcda.findHealthDetail(patientId, "conditions");
 			for (String url : results) {
 				String server = greenCDADataUrl + url;
 				String jsonResults = WebUtils.callServer(server, "GET",
@@ -529,7 +549,9 @@ public class GreenCDARepository extends Repository {
 				Condition problem = gson.fromJson(o, Condition.class);
 				String time = problem.getTime();
 				problem.setTime(parseDate(time, isMillis));
-
+				time = problem.getStart_time();
+				problem.setStart_time(parseDate(time, isMillis));
+				log.finer(problem.getStart_time());
 				problems.add(problem);
 			}
 

@@ -36,20 +36,12 @@
 
 
 			#foreach( $immunization in $repos.immunizations )
-				<b>$immunization.medicationInformation.manufacturedMaterial.freeTextBrandName</b><br/>
-				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Administered by:$space
+				<b>$immunization.description</b><br/>
+				<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>
 				#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
-				#if ($immunization.performer.person.name.given)
-					#foreach ($givenNameDetail in $immunization.performer.person.name.given)
-						$givenNameDetail$space 
-					#end
-				#end
-				$immunization.performer.person.name.lastname on${space}
-				$immunization.administeredDate.month/$immunization.administeredDate.day/$immunization.administeredDate.year<br clear="all"/>
-				#set ($comments = $immunization.narrative.split('^'))
-				#foreach($comment in $comments)
-					<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>$comment<br clear="all"/>
-				#end
+				
+				$immunization.time<br clear="all"/>
+				
 				<br/>
 			#end
 		#end

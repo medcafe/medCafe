@@ -23,15 +23,20 @@ import com.medsphere.ovid.domain.ov.*;
 import com.medsphere.ovid.model.domain.*;
 import com.medsphere.ovid.model.domain.patient.*;
 
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 
 import org.mitre.medcafe.model.Patient;
+import org.mitre.medcafe.model.Values;
 import org.mitre.medcafe.util.NotImplementedException;
 import org.mitre.medcafe.util.Repository;
 
@@ -50,6 +55,7 @@ import org.medsphere.auth.SubjectCache;
 import org.hl7.greencda.c32.Address;
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
+import org.hl7.greencda.c32.Codes;
 import org.hl7.greencda.c32.Condition;
 import org.hl7.greencda.c32.Encounter;
 import org.hl7.greencda.c32.Immunization;
@@ -57,13 +63,17 @@ import org.hl7.greencda.c32.Interval;
 import org.hl7.greencda.c32.Medication;
 import org.hl7.greencda.c32.Medication.DoseRestriction;
 import org.hl7.greencda.c32.Medication.OrderInformation;
+import org.hl7.greencda.c32.ObjectFactory;
 import org.hl7.greencda.c32.Person;
 import org.hl7.greencda.c32.PersonalName;
 import org.hl7.greencda.c32.Procedure;
+import org.hl7.greencda.c32.Quantity;
 import org.hl7.greencda.c32.Result;
+import org.hl7.greencda.c32.SimpleCode;
 import org.hl7.greencda.c32.SocialHistory;
 import org.hl7.greencda.c32.Support;
 import org.hl7.greencda.c32.Telecom;
+
 import org.json.JSONObject;
 import org.json.JSONString;
 import org.json.JSONArray;
@@ -84,11 +94,21 @@ public class VistaRepository extends Repository {
 
     public final static String KEY = VistaRepository.class.getName();
     public final static Logger log = Logger.getLogger(KEY);
-    private TreeSet<AllergyAgent> vistaAgents;
-    private TreeSet<FMSignSymptom> vistaReactions;
-    private ReentrantReadWriteLock vistaAgentLock;
-    private ReentrantReadWriteLock vistaReactionLock;
-    // static{log.setLevel(Level.FINER);}
+    public final static String PHYS_QUANTITY = "PhysicalQuantityResultValue";
+    public final static String LAB_RESULT = "LabResult";
+    public final static String EVENT_MOOD_CODE = "EVN";
+    public final static SimpleDateFormat longDf = new SimpleDateFormat("dd-MMM-yyyy");
+    public final static SimpleDateFormat shortDf = new SimpleDateFormat("MM/dd/yyyy");
+    private static TreeMap<String, AllergyAgent> vistaAgents;
+    private static TreeMap<String, FMSignSymptom> vistaReactions;
+    private static ReentrantReadWriteLock vistaAgentLock = new ReentrantReadWriteLock();
+    private static ReentrantReadWriteLock vistaReactionLock = new ReentrantReadWriteLock();
+    private static DisplayGroupType[] resultTypes = {DisplayGroupType.ANATOMIC_PATHOLOGY, DisplayGroupType.AUTOPSY, DisplayGroupType.CARDIOLOGY_STUDIES_NUC_MED, DisplayGroupType.CHEMISTRY,
+    	DisplayGroupType.CT_SCAN, DisplayGroupType.CYTOLOGY, DisplayGroupType.GENERAL_RADIOLOGY, DisplayGroupType.IMAGING,
+    	DisplayGroupType.LABORATORY, DisplayGroupType.MAGNETIC_RESONANCE_IMAGING, DisplayGroupType.MAMMOGRAPHY,
+    	DisplayGroupType.SURGICAL_PATHOLOGY, DisplayGroupType.ULTRASOUND};
+    private static OrderStatusType[] resultStatuses = {OrderStatusType.COMPLETE};
+    static{log.setLevel(Level.FINER);}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
     // protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
@@ -96,6 +116,7 @@ public class VistaRepository extends Repository {
 
     public VistaRepository(HashMap<String, String> credMap) {
         super(credMap);
+
         type = "VistA";
     }
 
@@ -160,9 +181,10 @@ public class VistaRepository extends Repository {
             if (stringExists(filemanPat.getPrefix())) {
                 title = capitalizeString(filemanPat.getPrefix());
             }
-            
-            ret.setFirstName(title + " " + suffix + " " + strBuff.toString());
+            ret.setDemographics(filemanPat.getSex() + ", " + longDf.format(filemanPat.getDob()) + " ("  + filemanPat.getDisplayAge()+ " years old)");
 
+            ret.setFirstName(title + " " + suffix + " " + strBuff.toString());
+            
             //phone numbers
            /* List<Telecom> teleList = ret.getTelecom();
 
@@ -343,7 +365,117 @@ public class VistaRepository extends Repository {
 
         credentials = credMap;
     }
+    private  TreeMap<String, AllergyAgent> getAllergens()
+    {
+    	RPCConnection conn = null;
+    	if (vistaAgents!= null)
+    	{
+    		return vistaAgents;
+    	}
+    	WriteLock lock = vistaAgentLock.writeLock();
+    	if (vistaAgents == null)
+    	{
 
+    		try {
+                conn = setConnection();
+
+                if (conn != null) {
+
+                    AllergyAgentRepository r = new AllergyAgentRepository(conn);
+                    vistaAgents = new TreeMap<String, AllergyAgent>();
+                    TreeSet<AllergyAgent> allergyAgents = r.getAllAllergyAgents();
+                    for (AllergyAgent agent: allergyAgents)
+                    {
+                    	vistaAgents.put(agent.getDisplayName(), agent);
+                    }
+                   
+        	}
+    	}
+    		catch (OvidDomainException ovidE) {
+                log.severe("Error making connection");
+            }  finally {
+                closeConnection(conn);
+                
+
+            }
+    	}
+    	lock.unlock();
+    	return vistaAgents;
+    }
+    private  TreeMap<String, FMSignSymptom> getReactions()
+    {
+    	RPCConnection conn = null;
+    	if (vistaReactions!= null)
+    	{
+    		return vistaReactions;
+    	}
+    	WriteLock lock = vistaReactionLock.writeLock();
+    	if (vistaReactions == null)
+    	{
+
+    		try {
+                conn = setConnection();
+
+                if (conn != null) {
+
+                    SignSymptomRepository r = new SignSymptomRepository(conn);
+                    TreeSet<FMSignSymptom> reactions = r.getAllSignsSymptoms(true);
+                    vistaReactions = new TreeMap<String, FMSignSymptom>();
+                    for (FMSignSymptom reaction : reactions)
+                    {
+                    	vistaReactions.put(reaction.getName(), reaction);
+                    	if (reaction.getSynonyms()!= null && reaction.getSynonyms().size()>0)
+                    	{
+                    		for (String syn : reaction.getSynonyms())
+                    		{
+                    			vistaReactions.put(syn, reaction);
+                    		}
+                    	}
+                    }
+
+        	}
+    	}
+    		catch (OvidDomainException ovidE) {
+                log.severe("Error making connection");
+            }  finally {
+                closeConnection(conn);
+                
+
+            }
+    	}
+    	lock.unlock();
+    	return vistaReactions;
+    }
+    public Set<String> lookup(String lookupType, String lookupChars)
+    {
+
+    	String endLookup = lookupChars;
+    	int lLength = lookupChars.length();
+    	if (lLength>0)
+    	{
+    		char nextChar = (char) (lookupChars.charAt(lLength-1)+1);
+    		endLookup = lookupChars.substring(0,lLength-1) + nextChar;
+    	}
+    	if (lookupType.equals("reactions"))
+    	{
+    		getReactions();
+    		if (lLength == 0)
+    		{
+    			return vistaReactions.keySet();
+    		}
+    		return vistaReactions.subMap(lookupChars, true, endLookup, false).keySet();
+    	}else if (lookupType.equals("allergens"))
+    	{
+    		getAllergens();
+    		if (lLength == 0)
+    		{
+    			return vistaAgents.keySet();
+    		}
+    		return vistaAgents.subMap(lookupChars, true, endLookup, false).keySet();
+    	}
+    	return null;
+    }
+    @Override
     public List<Allergy> getAllergies(String id) {
         List<Allergy> list = new ArrayList<Allergy>();
         RPCConnection conn = null;
@@ -371,8 +503,9 @@ public class VistaRepository extends Repository {
                         inter.setValue(factory.newXMLGregorianCalendar(cal));
                         allergy.setEffectiveTime(inter);
                         allergy.setTime(inter.getValue().toString());
+                     
                     }
-
+                    allergy.setDescription(capitalizeString(a.getReactant()));
                     
                     String symptoms = "";
                     for (FMPatientAllergyReaction react : a.getReactions().values()) {
@@ -380,10 +513,14 @@ public class VistaRepository extends Repository {
                             symptoms = symptoms + "; ";
                         }
                         symptoms = symptoms + react.getReactionValue();
+              
+                  
                     }
                     Code reaction = new Code();
                     reaction.setDisplayName(capitalizeString(symptoms));
+                    reaction.setOriginalText(capitalizeString(symptoms));
                     allergy.setReaction(reaction);
+
                     String code = "";
                     String val = "";
                     log.severe(a.getAllergyType());
@@ -449,7 +586,9 @@ public class VistaRepository extends Repository {
                 for (FMPatientContact fmPatient : fmPatientList) {
                     Collection<FMPatientContact.ContactInfo> contactList = fmPatient.getContacts();
                     for (FMPatientContact.ContactInfo contact : contactList) {
-                        FMPatientContact.ContactType cType = contact.getType();
+                       
+                    	
+                    	FMPatientContact.ContactType cType = contact.getType();
                         switch (cType) {
                             case NEXT_OF_KIN:
                             case EMERGENCY:
@@ -487,19 +626,22 @@ public class VistaRepository extends Repository {
                 Collection<IsAPatientItem> vista_list = r.getMedications(id);
                 // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
                 for (IsAPatientItem a : vista_list) {
-                    Medication medication = new Medication();  //hData type
+                	ObjectFactory oFact = new ObjectFactory();
+                    Medication medication = new Medication();  //GreenCDA type
                     PatientMedication pa = (PatientMedication) a;  //vista (ovid) type
                     //populate
                     //message -> narrative
                     String patientInstructions = capitalizeString(pa.getMessage(), true);
+
                     String medName = capitalizeString(pa.getMedName(), true);
+
                     //set time for adverse reaction
                     if (pa.getDateTime() != null) {
                         GregorianCalendar cal = new GregorianCalendar();
                        
                         cal.setTime(pa.getDateTime());
                         DatatypeFactory factory = DatatypeFactory.newInstance();
-                        Interval inter = new Interval();
+                        Interval inter = oFact.createInterval();
                         inter.setValue(factory.newXMLGregorianCalendar(cal));
                         
                         String displayDate = parseDate(cal.getTime().getTime(), true);
@@ -509,22 +651,22 @@ public class VistaRepository extends Repository {
                         medication.setEffectiveTime(inter);
                     }
 
-                
+                    
                     OrderInformation orderInfo = new OrderInformation();
                   
                     String doseStr = capitalizeString(pa.getDose(), true);
-                    Code dose = new Code();
+                    Code dose = oFact.createCode();
                     dose.setDisplayName(doseStr);
                     
-                    Code delivery = new Code();
+                    Code delivery = oFact.createCode();
                     delivery.setDisplayName(capitalizeString(pa.getDelivery(), true));
                     medication.setDeliveryMethod(delivery);
-
+  
                     medication.setPatientInstructions(patientInstructions + " " + pa.getFrequency());
                     //add to the list
                     String fullText = medName + ":" + patientInstructions + ": Delivery : " + delivery.getDisplayName() ;
                     medication.setDescription(fullText);
-                    Code typeCode = new Code();
+                    Code typeCode = oFact.createCode();
                     typeCode.setDisplayName(medName);
                     typeCode.setCodeSystem("None");
                     medication.setType(typeCode);
@@ -552,10 +694,9 @@ public class VistaRepository extends Repository {
             if (conn != null) {
                 PatientItemRepository r = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD");
                 Collection<PatientImmunization> vista_list = r.getImmunizations(id);
-                // an ArrayList of PatientAllergies objects is returned -  converty to hData Medication type
+
                 for (PatientImmunization imm : vista_list) {
-                    Immunization immunization = new Immunization();
-                    //immunization = fillInImmunizationInfo(imm);
+                    Immunization immunization = fillInImmunizationInfo(imm);
                     list.add(immunization);
                 }
                 log.finer("Number of immunizations for patient " + id + " is " + list.size());
@@ -609,54 +750,39 @@ public class VistaRepository extends Repository {
                         }
                     }
                 }
+                ObjectFactory oFact = new ObjectFactory();
                 for (PatientVitalEvent vital : vitals) {
 
                     if (vital.getDateTime() != null) {
                         GregorianCalendar cal = new GregorianCalendar();
                         cal.setTime(vital.getDateTime());
+                        
                         DatatypeFactory factory = DatatypeFactory.newInstance();
                        
                         Collection<VitalSignDetail> details = vital.getDetails();
                         for (VitalSignDetail detail : details) {
-                            Result result = new Result();
-                            Interval inter = new Interval();
-                            inter.setValue(factory.newXMLGregorianCalendar(cal));
-                            result.setTime(inter.toString());
-                            result.setEffectiveTime(inter);
+                        	if (detail.getName().equals("B/P"))
+                        	{
+                        		results.add(createVital("systolic blood pressure", detail.getValue().split("\\/")[0], detail.getUnits(), detail, cal, factory, oFact));
+                        		results.add(createVital("diastolic blood pressure", detail.getValue().split("\\/")[1], detail.getUnits(), detail, cal, factory, oFact));
+                        	}
+                        	else
+                        	{
+                        		results.add(createVital(detail.getName(), detail.getValue(), detail.getUnits(), detail, cal, factory, oFact));
+                        		if (detail.getBmi() != null && !detail.getBmi().equals(""))
+                        		{
+                        			results.add(createVital("BMI", detail.getBmi(), "", detail, cal, factory, oFact));
+                        		}
+                        	}
+                        	
                             
-                            Code resultType = new Code();
-                            
-                            resultType.setDisplayName(detail.getName());
-                            
-                            String value = detail.getValue();
-                            result.setDescription(value);
-                            
-                          
-                            String indicator = detail.getIndicator();
-                            if (stringExists(detail.getSo2())) {
-                                indicator = indicator + " " + detail.getSo2();
-                            }
-                            
-                          
-                            result.setDescription(indicator);
-                            results.add(result);
-                            if (stringExists(detail.getBmi())) {
-                                result = new Result();
-                                /*result.setResultValue(detail.getBmi());
-                                resultType = new ResultType();
-                                resultType.setValue("BMI");
-                                result.setResultType(resultType);
-                                result.setResultDateTime(d);
-                                result.setNarrative(indicator);*/
-                                results.add(result);
-                            }
                         }
                     }
                 }
             }
             //conn.close();
         } catch (Throwable e) {
-            log.severe("VistaRepository: Error retrieving patient vitals.");
+            log.severe("VistaRepository: Error retrieving patient vitals. " + e.getMessage());
 
         } finally {
             closeConnection(conn);
@@ -698,6 +824,7 @@ public class VistaRepository extends Repository {
                         inter.setValue(factory.newXMLGregorianCalendar(cal));
                         problem.setEffectiveTime(inter);
                         problem.setTime(cal.toString());
+                        problem.setStart_time(shortDf.format(cal.getTime()));
                     }
                     Code pcode = new Code();
                     pcode.setCode(p.getIcd());
@@ -737,38 +864,79 @@ public class VistaRepository extends Repository {
     }
 
     private void fillInContactInfo(List<Support> list, FMPatientContact.ContactInfo contact) {
-        Support support = new Support();
-        Person person = new Person();
-        PersonalName personName = new PersonalName();
-        String[] nameParts = contact.getName().split(",");
-        personName.setFamilyName(nameParts[0]);
-        String given = personName.getGivenName();
-       
+    	Support support = new Support();
+    	
+    	PersonalName personName = new PersonalName();
+    	String[] nameParts = contact.getName().split(",");
+    	personName.setFamilyName(nameParts[0]);
+    	String given = personName.getGivenName();
 
-        person.setName(personName);
-       
 
-        List<Telecom> teleList = person.getTelecom();
-        setPhoneNumber(teleList, contact.getPhoneNumber(), "phone-landline", "home");
-        setPhoneNumber(teleList, contact.getAltPhoneNumber(), "phone-landline", "work");
-        support.setName(personName);
-        
-        String relationship = contact.getRelationshipToPatient();
-         support.setRelationship(relationship);
 
-        switch (contact.getType()) {
-            case NEXT_OF_KIN:
-                support.setType("NOK");
-                break;
-            case GUARDIAN:
-            case DESIGNEE:
-                support.setType("AGNT");
-                break;
-            case EMERGENCY:
-                support.setType("ECON");
-                break;
+    	support.setName(personName);
+    	support.setMothersMaidenName("");
+    	support.setId("");
+    	ObjectFactory factory = new ObjectFactory();
 
-        }
+    	Address address = factory.createAddress();
+    	String temp = contact.getStreet1();
+    	if (temp != null && !temp.equals(""))
+    	{
+    		address.getContent().add(factory.createAddressStreet(temp));
+    	}
+    	temp = contact.getStreet2();
+    	if (temp != null && !temp.equals(""))
+    	{
+    		address.getContent().add(factory.createAddressStreet(temp));
+    	}
+    	temp = contact.getCity();
+    	if (temp != null && !temp.equals(""))
+    	{
+    		address.getContent().add(factory.createAddressCity(temp));
+    	}
+    	temp = contact.getState();
+    	if (temp != null && !temp.equals(""))
+    	{
+    		address.getContent().add(factory.createAddressState(temp));
+    	}
+    	temp = contact.getZip();
+    	if (temp != null && !temp.equals(""))
+    	{
+    		address.getContent().add(factory.createAddressPostalCode(temp));
+    	}
+    	if (address.getContent().size()>0)
+    	{
+    		support.getAddress().add(address);
+    	}
+    	List<Telecom> teleList =support.getTelecom();
+    	setPhoneNumber(teleList, contact.getPhoneNumber(), "phone-landline", "home");
+    	setPhoneNumber(teleList, contact.getAltPhoneNumber(), "phone-landline", "work");
+
+    	String relationship = contact.getRelationshipToPatient();
+
+
+    	if (relationship != null && !relationship.equals(""))
+    	{
+    		support.setRelationship(relationship);
+    	}
+    	else
+    	{
+    		support.setRelationship("");
+    	}
+    	switch (contact.getType()) {
+    		case NEXT_OF_KIN:
+    			support.setType("Next of Kin");
+    			break;
+    		case GUARDIAN:
+    			support.setType("Guardian");
+    		case DESIGNEE:
+    			support.setType("Emergency Contact");
+    			break;
+    		case EMERGENCY:
+    			support.setType("Emergency Contact");
+    			break;
+
+    	}
         list.add(support);
     }
 
@@ -798,7 +966,33 @@ public class VistaRepository extends Repository {
 
 
             for (PatientVisit visit : ret) {
+            	
                 Encounter encounter = new Encounter();
+                Codes codes = new Codes();
+                encounter.setCodes(codes);
+                ArrayList<String> icd9List = new ArrayList<String>();
+                codes.setICD_9_CM(icd9List);
+                encounter.set_type("Encounter");
+                visit.getPOVs();
+                String description;
+                if (visit.getVisit().getPatientInOut().equalsIgnoreCase("in"))
+                {
+                	description = "Hospitalization: ";
+                }
+                else
+                {
+                	description = "Outpatient: ";
+                }
+                for (FMV_POV pov : visit.getPOVs())
+                {
+                	FMICD_Diagnosis diag = pov.getDiagnosis();
+                	
+                	icd9List.add(diag.getIcd9());
+                	description += diag.getDescription().toLowerCase() + "; ";
+                }
+                encounter.setMood_code("EVN");
+                encounter.setDescription(description);
+                encounter.setTime(shortDf.format(visit.getVisit().getVisitDate()));
                 visits.add(encounter);
 
             }
@@ -843,6 +1037,66 @@ public class VistaRepository extends Repository {
         }
         return toBeFixed;
     }
+    private Immunization fillInImmunizationInfo(PatientImmunization imm)
+    {
+    	Immunization gcImm = new Immunization();
+    	ObjectFactory oFact = new ObjectFactory();
+
+    	gcImm.set_type("Immunization");
+    	gcImm.setDescription(imm.getImmunizationName());
+    	gcImm.setRefused(false);
+    	if (imm.getSeries()!= null && !imm.getSeries().equals(""))
+    	try {
+    		gcImm.setSeriesNumber(BigInteger.valueOf(Long.parseLong(imm.getSeries())));
+
+    	}
+    	catch(Exception e)
+    	{
+    		// not an integer doesn't translate, so no entry
+    	}
+    	gcImm.setStatus(imm.getStatus());
+    	try {
+        if (imm.getImmunizationDate() != null) {
+            GregorianCalendar cal = new GregorianCalendar();
+           
+            cal.setTime(imm.getDateTime());
+            DatatypeFactory factory = DatatypeFactory.newInstance();
+           
+        
+            
+            String displayDate = parseDate(cal.getTime().getTime(), true);
+           gcImm.setTime(displayDate);
+         
+        }
+    	}
+    	catch(DatatypeConfigurationException dE)
+    	{
+    		log.log(Level.SEVERE, dE.getMessage());
+    	}
+        gcImm.setFreeText(imm.getImmunizationName() + " given by " + imm.getEncounterProvider());
+        gcImm.set_type("Immunization");
+        gcImm.setMood_code("EVN");
+        try {
+        if (imm.getSeries() != null)
+        {
+        gcImm.setSeriesNumber(BigInteger.valueOf(Long.parseLong(imm.getSeries())));
+        }
+        }
+        catch(NumberFormatException e)
+        {
+        	// don't do anything doesn't convert to a number
+        }
+        if (imm.getContraindicated()!= null && !imm.getContraindicated().equals(""))
+        {
+        	Code refusal = new Code();
+        	refusal.setOriginalText(imm.getContraindicated());
+        	refusal.setDisplayName(imm.getContraindicated());
+        	gcImm.setRefusalReason(refusal);
+        	gcImm.setRefused(true);
+        }
+        return gcImm;
+
+    }
 
 	@Override
 	public boolean insertAllergies(String patientId,
@@ -864,12 +1118,210 @@ public class VistaRepository extends Repository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+@Override
+public List<Result> getResults(String patientId){
+	  Collection<IsAPatientItem> ret;
+	    RPCConnection conn = null;
+	    try {
+	    DatatypeFactory factory = DatatypeFactory.newInstance();
+	    List<DisplayGroupType> groupTypes = Arrays.asList(resultTypes);
+	    List<OrderStatusType> statusTypes = Arrays.asList(resultStatuses);
+	    GregorianCalendar calendar = new GregorianCalendar();
+	    calendar.set(1876, 0,1);
+	    Date afterDate = calendar.getTime();
+	    try {
+	        conn = setConnection();
+	        if (conn != null) {
+	            ret = new PatientItemRepository(conn, conn, "MSC PATIENT DASHBOARD").getResults(patientId, conn.getDUZ(), afterDate, new Date(), true);
 
+
+	        } else {
+	            return null;
+	        }
+	        List<Result> results = new ArrayList<Result>();
+
+
+	        for (IsAPatientItem order : ret) {
+	        	log.finer(order.toString());
+	        	PatientResult res = (PatientResult) order;
+	        	GregorianCalendar cal = new GregorianCalendar();
+                
+                cal.setTime(res.getDateTime());
+                Interval interval = new Interval();
+                interval.setValue(factory.newXMLGregorianCalendar(cal));
+                 
+              
+	        	for (ResultDetail det : res.getDetails())
+	        	{
+		        	Result result = new Result();
+	        		result.setDescription(det.getTestName());
+	        		result.setEffectiveTime(interval);
+	        		result.setMood_code("EVN");
+	        		result.setTime(shortDf.format(res.getDateTime()));
+	        		result.setReferenceRange(det.getReferenceRange());
+	        		try{
+	        		Quantity quantity = new Quantity();
+	        		quantity.setAmount(Float.parseFloat(det.getValue()));
+	        		quantity.setUnit(det.getUnits());
+	        		result.setValue(quantity);
+	        		}
+	        		catch (Exception e)
+	        		{
+	        			//can't evaluate the value as a float
+	        		}
+	        		Values values = new Values();
+	        		values.set_type("PhysicalQuantityResultValue");
+	        		values.setScalar(det.getValue());
+	        		values.setUnits(det.getUnits());
+	        		ArrayList<Values>valueList = new ArrayList<Values>();
+	        		valueList.add(values);
+	        		result.setValues(valueList);
+	        		Codes codes = new Codes();
+	        		ArrayList<String> loincList = new ArrayList<String>();
+	        		loincList.add(det.getLoincCode());
+	        		codes.setLOINC(loincList);
+	        		result.setCodes(codes);
+	        		SimpleCode interpretationCode = new SimpleCode();
+	        		interpretationCode.setDisplayName(det.getIndicator());
+	        		result.setInterpretation(interpretationCode);
+	        		results.add(result);
+
+	        	}
+	        	
+	        }
+	        return results;
+	        
+	    } catch (OvidDomainException e) {
+	        log.log(Level.SEVERE, "Error retrieving patient visits", e);
+	        return null;
+	    } catch (Throwable e) {
+	        log.log(Level.SEVERE, "Error retreiving PatientItems", e);
+	        return null;
+	    } finally {
+	        closeConnection(conn);
+
+	    }
+	    }
+catch(DatatypeConfigurationException dE)
+{
+	log.log(Level.SEVERE, dE.getMessage());
+	return null;
+}
+}
 	@Override
-	public List<Procedure> getProcedures(String patientId)
-			throws NotImplementedException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Procedure> getProcedures(String patientId) {
+	  Collection<PatientVisit> ret;
+    RPCConnection conn = null;
+    try {
+        conn = setConnection();
+        if (conn != null) {
+            ret = new PatientVisitRepository(conn, "MSC PATIENT DASHBOARD").getVisitsByPatientDFN(patientId);
+
+
+        } else {
+            return null;
+        }
+        List<Procedure> procedures = new ArrayList<Procedure>();
+
+
+        for (PatientVisit visit : ret) {
+        	log.finer(visit.toString());
+      
+            for (FMV_PatientEd pEd : visit.getPatientEd())
+            {
+                Procedure procedure = new Procedure();
+                procedure.set_type("_Procedure");
+                procedure.setMood_code("EVN");
+                procedure.setDescription(capitalizeString(pEd.getTopicValue()));
+                if (pEd.getEventDate()!= null)
+                {
+                	procedure.setTime(shortDf.format(pEd.getEventDate()));
+                }
+                else
+                {
+                	procedure.setTime(shortDf.format(visit.getVisit().getVisitDate()));
+                }
+                procedures.add(procedure);
+                
+            }
+            for (FMV_SkinTest test :visit.getSkinTests())
+            {
+            	Procedure procedure = new Procedure();
+            	 procedure.set_type("_Procedure");
+                 procedure.setMood_code("EVN");
+                 procedure.setDescription(capitalizeString(test.getSkinTestValue() + " " + test.getResults() + " " + test.getComments()));
+                 procedure.setTime(shortDf.format(test.getEventDate()));
+                 procedures.add(procedure);
+            	
+            }
+            for (FMV_Treatment trmt: visit.getTreatments())
+            {
+            	Procedure procedure = new Procedure();
+           	 	procedure.set_type("_Procedure");
+                procedure.setMood_code("EVN");
+                procedure.setDescription(capitalizeString(trmt.getTreatmentValue()));
+                procedure.setTime(shortDf.format(trmt.getEventDate()));
+                procedures.add(procedure);
+            }
+            
+           
+
+        }
+
+        return procedures;
+    } catch (OvidDomainException e) {
+        log.log(Level.SEVERE, "Error retrieving patient visits", e);
+        return null;
+    } catch (Throwable e) {
+        log.log(Level.SEVERE, "Error retreiving PatientItems", e);
+        return null;
+    } finally {
+        closeConnection(conn);
+
+    }
+	}
+	private Result createVital(String vitalName, String vitalQuantity, String vitalUnit, VitalSignDetail vital, GregorianCalendar cal, DatatypeFactory factory, ObjectFactory oFact)
+	{
+		  Result result = oFact.createResult();
+          Values values = new Values();
+          
+          values.set_type(PHYS_QUANTITY);
+         
+          values.setScalar(vitalQuantity);
+          values.setUnits(vitalUnit);
+          ArrayList<Values> valList = new ArrayList<Values>();
+          valList.add(values);
+          result.setValues(valList);
+          
+          Interval inter = new Interval();
+
+          inter.setValue(factory.newXMLGregorianCalendar(cal));
+          result.setTime(shortDf.format(cal.getTime()));
+          result.setEffectiveTime(inter);
+          result.set_type(LAB_RESULT);
+          result.setDescription(vitalName);
+          result.setMood_code(EVENT_MOOD_CODE);
+
+          Code resultType = oFact.createCode();
+          Quantity quantity = oFact.createQuantity();
+          quantity.setUnit(vitalUnit);
+          quantity.setAmount(Float.parseFloat(vitalQuantity));
+          result.setValue(quantity);
+       
+          resultType.setDisplayName(vitalName);
+          
+         
+          result.setCode(resultType);
+
+          String indicator = vital.getIndicator();
+          if (stringExists(vital.getSo2())) {
+              indicator = indicator + " " + vital.getSo2();
+          }
+          if (indicator != null && ! indicator.equals(""))
+          {
+        	  resultType.setDisplayName(vitalName + " - " + indicator);
+          }
+          return result;
 	}
 
 	 private class MostRecentVitalComparator implements Comparator<PatientVitalEvent> {
@@ -893,4 +1345,72 @@ public class VistaRepository extends Repository {
 	            return -(two.getDateTime().compareTo(one.getDateTime()));
 	        }
 	    }
+
+		@Override
+		public Person getPerson(String userName, String patientId) {
+			    Person person = new Person();
+				ObjectFactory factory = new ObjectFactory();
+		        RPCConnection conn = null;
+		        try {
+		            conn = setConnection();
+		            if (conn != null) {
+		                PatientRepository patRepository = new PatientRepository(conn);
+		                Collection<String> ids = new ArrayList<String>();
+		                ids.add(patientId);
+		                Collection<FMPatientContact> fmPatientList = patRepository.getContacts(ids);
+		          
+		                for (FMPatientContact fmPatient : fmPatientList) {
+		                    PersonalName name = new PersonalName();
+		                    name.setGivenName(fmPatient.getGivenName());
+		                    name.setFamilyName(fmPatient.getFamilyName());
+		                    name.setTitle(fmPatient.getPrefix());
+		                    person.setName(name);
+		                    List<Address> addresses = person.getAddress();
+		                    Address address = new Address();
+		                    List<Serializable>  content = address.getContent();
+		                    content.add(factory.createAddressStreet(fmPatient.getStreetAddressLine1()));
+		                    content.add(factory.createAddressStreet(fmPatient.getStreetAddressLine2()));
+		                    content.add(factory.createAddressCity(fmPatient.getCity()));
+		                    content.add(factory.createAddressState(fmPatient.getStateValue()));
+		                    content.add(factory.createAddressPostalCode(fmPatient.getZipCode()));
+		                    addresses.add(address);
+		                    List<Telecom> telecoms = person.getTelecom();
+		                    Telecom telecom = new Telecom();
+		                    telecom.setPreferred(false);
+		                    telecom.setUse("Home");
+		                    telecom.setValue(fmPatient.getPhoneNumberResidence());
+		                    telecoms.add(telecom);
+		                    telecom = new Telecom();
+		                    telecom.setPreferred(false);
+		                    telecom.setUse("Cell");
+		                    telecom.setValue(fmPatient.getPhoneNumberCellular());
+		                    telecoms.add(telecom);
+		                    telecom = new Telecom();
+		                    telecom.setPreferred(false);
+		                    telecom.setUse("Work");
+		                    telecom.setValue(fmPatient.getPhoneNumberWork());
+		                    telecoms.add(telecom);
+		                    telecom = new Telecom();
+		                    telecom.setPreferred(false);
+		                    telecom.setUse("Pager");
+		                    telecom.setValue(fmPatient.getPagerNumber());
+		                    telecoms.add(telecom);
+		                    
+		                    
+		                    
+		                }
+		               
+		            } else {
+		                log.warning("BAD CONNECTION");
+		            }
+
+		        } catch (Throwable e) {
+		            log.throwing(KEY, "Error retreiving PatientItems", e);
+		        } finally {
+		            closeConnection(conn);
+
+		        }
+		        return person;
+		}
+	    
 }

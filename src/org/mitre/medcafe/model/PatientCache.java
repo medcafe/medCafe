@@ -176,7 +176,7 @@ public class PatientCache extends TimerTask {
 
                     MedCafeDataSource currentSource = dataSourceQueue.poll();
                     dataSourceLookup.put(currentSource.getCacheKey(), currentSource);
-                    log.finer("Starting retrieval of " + currentSource.getCacheKey());
+                    log.severe("Starting retrieval of " + currentSource.getCacheKey());
                     while (prevPriority < currentSource.getPriority()) {
                         finished[prevPriority] = true;
                         prevPriority++;
@@ -443,6 +443,8 @@ public class PatientCache extends TimerTask {
         try {
             JSONObject patientData = patient.getJSONObject("patient_data");
             JSONObject birthtime = patientData.getJSONObject("birthtime");
+            if (birthtime != null)
+            {
             GregorianCalendar cal = new GregorianCalendar();
             GregorianCalendar birthday = new GregorianCalendar(birthtime.getInt("year"), birthtime.getInt("month"), birthtime.getInt("day"));
 
@@ -512,15 +514,18 @@ public class PatientCache extends TimerTask {
                     }
                 }
             }
+            return age;
+            }
+            return null;
         } catch (JSONException jsonE) {
             log.severe("Error getting birthdate in Patient Cache");
 
 
-            return "";
+            return null;
 
 
         }
-        return age;
+
 
     }
 
@@ -823,10 +828,12 @@ public class PatientCache extends TimerTask {
 
                 if (dataObject.has("patient_data")) {
                     String age = computeAge(dataObject);
+                    if (age!= null)
+                    {
                     dataObject.put("age", age);
+                    }
 
-
-                }
+                } 
                 dataObject.put("repository", repository);
                 objectList.append("repositoryList", dataObject);
 

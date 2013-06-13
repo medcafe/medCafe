@@ -53,7 +53,7 @@ public class PatientAllergyResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson()
     {
-        org.mitre.medcafe.util.Repository r = Repositories.getRepository( repository );
+        Repository r = Repositories.getRepository( repository );
         if( r == null )
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
