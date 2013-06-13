@@ -1,0 +1,78 @@
+#if ($repositoryList)
+<a onclick="alert('Method to add a new encounter goes here')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+
+<div class="repository-content">
+   #set ($firstRepository = true)
+   #set ($loopCount = 0)
+   #foreach ($repos in $repositoryList)
+
+			
+      #if ($repos.announce && $firstRepository == true)
+			$repos.announce.message
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+      #end
+      #if ($repos.encounters)
+         #if ($firstRepository != true)
+            #if ($loopCount == 1)
+					<div id="collapseInfo$widget_id">
+			
+					<a href="#" class="collapse">More</a>
+					<div style="height: 25px"></div>
+					<div id="add_repos$widget_id" style= "display: none">
+					<p></p>
+            #end
+				<br/>
+				<b><u>Repository: <i>$repos.repository</i></u></b><br/><br/>
+         #end
+			#set ($firstRepository = false)
+			#set ($loopCount = $loopCount + 1)
+         #foreach(  $encounterDetail in $repos.encounters )	 
+			    <p ><b>
+            #if ($encounterDetail.description)
+					$encounterDetail.description
+            #else
+               #if ($encounterDetail.codes)
+					    Encounter: 
+                  #if ($encounterDetail.codes.ICD-9-CM && $encounterDetail.codes.ICD-9-CM.length>0)
+                                                ICD-9-CM:
+                     #foreach ($code in $encounterDetail.codes.ICD-9-CM)
+						   $code;
+                     #end
+                  #else
+                     #if ($encounterDetail.codes.CPT && $encounterDetail.codes.CPT.length>0)
+                                                    CPT: 
+                         #foreach ($code in $encounterDetail.codes.CPT)
+						   $code;
+                         #end
+                     #else
+                        #if ($encounterDetail.codes.HPCS && $encounterDetail.codes.HPCS.length>0)
+                                                       HPCS: 
+                           #foreach ($code in $encounterDetail.codes.HPCS )
+						   $code;
+                           #end
+                        #else
+                           #if ($encounterDetail.codes.SNOMED-CT && $encounterDetail.codes.SNOMED-CT.length>0)
+                                                          SNOMED-CT:   
+                              #foreach ($code in $encounterDetail.codes.SNOMED-CT)
+						   $code;
+                              #end
+                           #end
+                        #end
+                     #end
+                  #end               
+	       #end
+            #end
+	</b><br/>
+			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>$encounterDetail.time<br clear="all"/>
+			    </p>
+         #end
+
+      #end
+      #if ($loopCount >= 2)
+			</div>
+		</div>
+      #end
+	</div>
+   #end
+#end
