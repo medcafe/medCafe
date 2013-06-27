@@ -4,12 +4,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Condition;
 import org.hl7.greencda.c32.Encounter;
 import org.hl7.greencda.c32.Immunization;
 import org.hl7.greencda.c32.Medication;
+import org.hl7.greencda.c32.Person;
 import org.hl7.greencda.c32.Procedure;
 import org.hl7.greencda.c32.Result;
 import org.hl7.greencda.c32.SocialHistory;
@@ -130,6 +132,18 @@ public class MedcafeRepository extends Repository {
 	@Override
 	public String getPatientID(String family, String given)
 			throws NotImplementedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Person getPerson(String userName, String patientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> lookup(String lookupType, String lookupChars) {
 		// TODO Auto-generated method stub
 		return null;
 	}

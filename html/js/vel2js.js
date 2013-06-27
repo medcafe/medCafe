@@ -363,10 +363,10 @@ else {
 t.p('               ');
 if (encounterDetail.codes) {
 t.p('					    Encounter:                   ');
-if (encounterDetail.codes["ICD-9-CM"] && encounterDetail.codes["ICD-9-CM"].length > 0) {
+if (encounterDetail.codes.ICD-9-CM && encounterDetail.codes.ICD-9-CM.length > 0) {
 t.p('                                                ICD-9-CM:                     ');
-for (var i7=0;  i7<encounterDetail.codes["ICD-9-CM"].length; i7++) {
-var code = encounterDetail.codes["ICD-9-CM"][i7];
+for (var i7=0;  i7<encounterDetail.codes.ICD-9-CM.length; i7++) {
+var code = encounterDetail.codes.ICD-9-CM[i7];
 velocityCount = i7;
 t.p('						   ');
 t.p( code);
@@ -405,10 +405,10 @@ t.p('                        ');
 }
 else {
 t.p('                           ');
-if (encounterDetail.codes["SNOMED-CT"] && encounterDetail.codes["SNOMED-CT"].length > 0) {
+if (encounterDetail.codes.SNOMED-CT && encounterDetail.codes.SNOMED-CT.length > 0) {
 t.p('                                                          SNOMED-CT:                                 ');
-for (var i7=0;  i7<encounterDetail.codes["SNOMED-CT"].length; i7++) {
-var code = encounterDetail.codes["SNOMED-CT"][i7];
+for (var i7=0;  i7<encounterDetail.codes.SNOMED-CT.length; i7++) {
+var code = encounterDetail.codes.SNOMED-CT[i7];
 velocityCount = i7;
 t.p('						   ');
 t.p( code);
@@ -772,24 +772,39 @@ t.p('					');
 if (repos.announce && firstRepository == true) {
 t.p('			');
 t.p( repos.announce.message);
-t.p('			<br>			<br>			Add a new allergy			<a onclick="insertDialog(\'');
+t.p('			<br>			<br>			Add a new allergy			');
+if (repos.can_insert == "false") {
+t.p('			   <a onclick="alert(\'Cannot insert to primary repository. Not enabled\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>			');
+}
+else {
+t.p('			   <a onclick="insertDialog(\'');
 t.p( context.cacheKey);
 t.p('\', \'');
 t.p( repos.repository);
 t.p('\')" href="');
 t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>			');
+}
 firstRepository = false;
 loopCount = ( loopCount + 1 );
 t.p('		');
 }
 t.p('		');
 if (firstRepository == true) {
-t.p('		<a onclick="insertDialog(\'');
+t.p('                    ');
+if (repos.can_insert == "false") {
+t.p('			   <a onclick="alert(\'Cannot insert to primary repository. Not enabled\')" href="');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>	            ');
+}
+else {
+t.p('		         <a onclick="insertDialog(\'');
 t.p( context.cacheKey);
 t.p('\', \'');
 t.p( repos.repository);
 t.p('\')" href="');
-t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>		');
+t.p('#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>		    ');
+}
+t.p('                ');
 }
 t.p('		');
 if (repos.allergies) {

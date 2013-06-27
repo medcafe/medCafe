@@ -108,7 +108,8 @@ public class VistaRepository extends Repository {
     	DisplayGroupType.LABORATORY, DisplayGroupType.MAGNETIC_RESONANCE_IMAGING, DisplayGroupType.MAMMOGRAPHY,
     	DisplayGroupType.SURGICAL_PATHOLOGY, DisplayGroupType.ULTRASOUND};
     private static OrderStatusType[] resultStatuses = {OrderStatusType.COMPLETE};
-    static{log.setLevel(Level.FINER);}
+    static{log.setLevel(Level.FINER);
+}
     //protected static VistaLinkPooledConnectionFactory factory = null;
     // protected RPCBrokerConnection conn = null;
     // protected RPCBrokerPooledConnectionFactory rpcConnFactory = null;
@@ -118,6 +119,8 @@ public class VistaRepository extends Repository {
         super(credMap);
 
         type = "VistA";
+        getAllergens();
+        getReactions();
     }
 
     /**
@@ -205,7 +208,31 @@ public class VistaRepository extends Repository {
         }
 
     }
-
+	public static void main(String[] args)
+	{
+		HashMap<String, String> creds = new HashMap<String,String>();
+		creds.put(HOST_URL, "medcafe.mitre.org");
+		creds.put(ACCESS_CODE, "OV1234");
+		creds.put(VERIFY_CODE, "OV1234!!");
+		creds.put(PORT,"9201");
+		VistaRepository repo = new VistaRepository(creds);
+		Set<String> lookupAll = repo.lookup("allergens", "pen");
+		for (String lookupString: lookupAll)
+		{
+			System.out.println(lookupString);
+		}
+		Set<String> lookupReact = repo.lookup("reactions", "ras");
+		for (String lookupString: lookupReact)
+		{
+			System.out.println(lookupString);
+		}
+		
+	}
+	@Override
+	public boolean canInsertAllergies()
+	{
+		return true;
+	}
     @Override
 	public String getPatientID(String family, String given)
 			throws NotImplementedException {
@@ -382,7 +409,7 @@ public class VistaRepository extends Repository {
                 if (conn != null) {
 
                     AllergyAgentRepository r = new AllergyAgentRepository(conn);
-                    vistaAgents = new TreeMap<String, AllergyAgent>();
+                    vistaAgents = new TreeMap<String, AllergyAgent>(new CaseInsensitiveComparator());
                     TreeSet<AllergyAgent> allergyAgents = r.getAllAllergyAgents();
                     for (AllergyAgent agent: allergyAgents)
                     {
@@ -399,7 +426,10 @@ public class VistaRepository extends Repository {
 
             }
     	}
-    	lock.unlock();
+    	if (lock.isHeldByCurrentThread())
+    	{
+    		lock.unlock();
+    	}
     	return vistaAgents;
     }
     private  TreeMap<String, FMSignSymptom> getReactions()
@@ -420,7 +450,8 @@ public class VistaRepository extends Repository {
 
                     SignSymptomRepository r = new SignSymptomRepository(conn);
                     TreeSet<FMSignSymptom> reactions = r.getAllSignsSymptoms(true);
-                    vistaReactions = new TreeMap<String, FMSignSymptom>();
+                    vistaReactions = new TreeMap<String, FMSignSymptom>(new CaseInsensitiveComparator());
+                  
                     for (FMSignSymptom reaction : reactions)
                     {
                     	vistaReactions.put(reaction.getName(), reaction);
@@ -443,12 +474,15 @@ public class VistaRepository extends Repository {
 
             }
     	}
-    	lock.unlock();
+    	if (lock.isHeldByCurrentThread())
+    	{
+    		lock.unlock();
+    	}
     	return vistaReactions;
     }
     public Set<String> lookup(String lookupType, String lookupChars)
     {
-
+    	lookupChars = lookupChars.toLowerCase();
     	String endLookup = lookupChars;
     	int lLength = lookupChars.length();
     	if (lLength>0)
@@ -459,6 +493,7 @@ public class VistaRepository extends Repository {
     	if (lookupType.equals("reactions"))
     	{
     		getReactions();
+
     		if (lLength == 0)
     		{
     			return vistaReactions.keySet();
@@ -643,7 +678,7 @@ public class VistaRepository extends Repository {
                         DatatypeFactory factory = DatatypeFactory.newInstance();
                         Interval inter = oFact.createInterval();
                         inter.setValue(factory.newXMLGregorianCalendar(cal));
-                        
+                    
                         String displayDate = parseDate(cal.getTime().getTime(), true);
                         medication.setTime(displayDate);
                         medication.setStart_time(displayDate);
@@ -822,6 +857,7 @@ public class VistaRepository extends Repository {
                        
                         Interval inter = new Interval();
                         inter.setValue(factory.newXMLGregorianCalendar(cal));
+             
                         problem.setEffectiveTime(inter);
                         problem.setTime(cal.toString());
                         problem.setStart_time(shortDf.format(cal.getTime()));
@@ -952,8 +988,10 @@ public class VistaRepository extends Repository {
 
     public List<Encounter> getPatientEncounters(String id) {
         Collection<PatientVisit> ret;
+
         RPCConnection conn = null;
         try {
+            DatatypeFactory factory = DatatypeFactory.newInstance();
             conn = setConnection();
             if (conn != null) {
                 ret = new PatientVisitRepository(conn, "MSC PATIENT DASHBOARD").getVisitsByPatientDFN(id);
@@ -993,6 +1031,11 @@ public class VistaRepository extends Repository {
                 encounter.setMood_code("EVN");
                 encounter.setDescription(description);
                 encounter.setTime(shortDf.format(visit.getVisit().getVisitDate()));
+                Interval time = new Interval();
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTime(visit.getVisit().getVisitDate());
+                time.setValue(factory.newXMLGregorianCalendar(cal));
+                encounter.setEffectiveTime(time);
                 visits.add(encounter);
 
             }
@@ -1062,7 +1105,9 @@ public class VistaRepository extends Repository {
             cal.setTime(imm.getDateTime());
             DatatypeFactory factory = DatatypeFactory.newInstance();
            
-        
+            Interval interval = new Interval();
+            interval.setValue(factory.newXMLGregorianCalendar(cal));
+            gcImm.setEffectiveTime(interval);
             
             String displayDate = parseDate(cal.getTime().getTime(), true);
            gcImm.setTime(displayDate);
@@ -1101,9 +1146,117 @@ public class VistaRepository extends Repository {
 	@Override
 	public boolean insertAllergies(String patientId,
 			Collection<Allergy> allergies) throws NotImplementedException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
+		if (allergies==null ||allergies.size()==0)
+		{
+			return false;
+		}
+		boolean success =true;
+		RPCConnection conn = null;
+		try {
+			conn = setConnection();
+
+			if (conn != null) {
+
+				PatientAllergyRepository r = new PatientAllergyRepository(conn);
+				for (Allergy allergy : allergies)
+				{
+					FMPatient_Allergies fmAllergy = new FMPatient_Allergies();
+
+					fmAllergy.setPatient(Integer.parseInt(patientId)); 
+					vistaAgentLock.readLock().lock(); 
+
+					AllergyAgent returnAgent = vistaAgents.floorEntry(allergy.getDescription()).getValue(); 
+					// if the specified allergy exists in the table, proceed to build allergy record;
+					if (returnAgent != null && returnAgent.getDisplayName().compareToIgnoreCase(allergy.getDescription())==0) { 
+						fmAllergy.setAllergy(returnAgent.getLookupFile().getFilenum(), returnAgent.getAllergenRecord().getIEN()); 
+						fmAllergy.setReactant(returnAgent.getDisplayName().toUpperCase()); 
+						// Originator has to be in the new person file, and since we aren't currently using that value 
+						// the originator is hard coded in
+						fmAllergy.setOriginator(42); 
+						FMPatientAllergyComment comment = new FMPatientAllergyComment(); 
+						comment.setComments(allergy.getFreeText());
+						FMPatientAllergyComment severity = new FMPatientAllergyComment();
+						severity.setComments(allergy.getSeverity().getDisplayName());
+
+						fmAllergy.addComments(comment);
+						fmAllergy.addComments(severity);
+						String reactionList = allergy.getReaction().getDisplayName(); 
+						String[] reacts = reactionList.split(";");
+						for (String react : reacts) { 
+							FMPatientAllergyReaction fmReact = new FMPatientAllergyReaction(); 
+							fmReact.setDateEntered(allergy.getEffectiveTime().getValue().toGregorianCalendar().getTime());   
+							vistaReactionLock.readLock().lock(); 
+							try {
+								FMSignSymptom returnSign = vistaReactions.get(react);
+								if (returnSign != null ) { 
+									fmReact.setReactionIEN(returnSign);
+									fmAllergy.addReactions(fmReact);
+								} 
+							}
+							finally 
+							{ 
+								vistaReactionLock.readLock().unlock(); 
+							}
+						} 
+						// Origination date must be set, if not returned default to current day 
+						if (allergy.getEffectiveTime()!= null && allergy.getEffectiveTime().getValue() != null)
+						{ 
+							fmAllergy.setOriginationDateTime(allergy.getEffectiveTime().getValue().toGregorianCalendar().getTime());
+						} 
+						else 
+						{
+							GregorianCalendar cal = new GregorianCalendar();
+							fmAllergy.setOriginationDateTime(cal.getTime());
+						} 
+						//Observed or historical field must be set; hData doesn't pass that information so default to historical 
+						fmAllergy.setObservedOrHist("h");
+						if (allergy.getType().getCode().equals("414285001")) //food allergy 
+						{
+							fmAllergy.setAllergyType(FMPatient_Allergies.FOOD_ALLERGY); 
+						} else if (allergy.getType().getCode().equals("416098002")) { 
+							fmAllergy.setAllergyType(FMPatient_Allergies.DRUG_ALLERGY);
+						} else if (allergy.getType().getCode().equals("419199007")) {
+							fmAllergy.setAllergyType(FMPatient_Allergies.OTHER_ALLERGY);
+						} 
+						try {
+							r.addAllergy(fmAllergy); 
+						}
+						catch (InsertFileManRecordException insertE) { 
+							log.severe(insertE.getMessage() + " for patient id: " + patientId + ", allergen: " + allergy.getDescription()); 
+							success = false; 
+						}
+						catch(Exception e) 
+						{ 
+							log.severe(e.getMessage());
+							success = false;
+							e.printStackTrace();
+							if (fmAllergy!= null)
+								log.severe(fmAllergy.toString()); 
+						}
+						finally{ 
+							vistaAgentLock.readLock().unlock(); 
+						} 
+					} else { 
+						log.severe("Can't insert allergy to " + allergy.getDescription()
+								+ " no match found.");
+						success = false;
+					} 
+				}
+			}
+		} 
+		catch (OvidDomainException e) {
+			log.log(Level.SEVERE, "Error inserting patient allergies", e);
+			return false;
+		} catch (Throwable e) {
+			log.log(Level.SEVERE, "Error inserting patient allergies", e);
+			return false;
+		} finally {
+			closeConnection(conn);
+
+		}
+		return true;
+}
 
 	@Override
 	public List<SocialHistory> getSocialHistory(String patientId)
@@ -1149,6 +1302,8 @@ public List<Result> getResults(String patientId){
                 cal.setTime(res.getDateTime());
                 Interval interval = new Interval();
                 interval.setValue(factory.newXMLGregorianCalendar(cal));
+                
+        
                  
               
 	        	for (ResultDetail det : res.getDetails())
@@ -1226,7 +1381,13 @@ catch(DatatypeConfigurationException dE)
 
         for (PatientVisit visit : ret) {
         	log.finer(visit.toString());
+        	Interval visitInterval = new Interval();
+        	DatatypeFactory dtFactory = DatatypeFactory.newInstance();
+        	GregorianCalendar cal = new GregorianCalendar();
+        	cal.setTime(visit.getVisit().getVisitDate());
+        	visitInterval.setValue(dtFactory.newXMLGregorianCalendar(cal));
       
+        	
             for (FMV_PatientEd pEd : visit.getPatientEd())
             {
                 Procedure procedure = new Procedure();
@@ -1235,11 +1396,18 @@ catch(DatatypeConfigurationException dE)
                 procedure.setDescription(capitalizeString(pEd.getTopicValue()));
                 if (pEd.getEventDate()!= null)
                 {
+                	Interval interval = new Interval();
+                	GregorianCalendar tempCal = new GregorianCalendar();
+                	tempCal.setTime(pEd.getEventDate());
+                	interval.setValue(dtFactory.newXMLGregorianCalendar(tempCal));
+                	procedure.setEffectiveTime(interval);
                 	procedure.setTime(shortDf.format(pEd.getEventDate()));
+
                 }
                 else
                 {
                 	procedure.setTime(shortDf.format(visit.getVisit().getVisitDate()));
+                	procedure.setEffectiveTime(visitInterval);
                 }
                 procedures.add(procedure);
                 
@@ -1251,6 +1419,11 @@ catch(DatatypeConfigurationException dE)
                  procedure.setMood_code("EVN");
                  procedure.setDescription(capitalizeString(test.getSkinTestValue() + " " + test.getResults() + " " + test.getComments()));
                  procedure.setTime(shortDf.format(test.getEventDate()));
+                 Interval interval = new Interval();
+             	GregorianCalendar tempCal = new GregorianCalendar();
+             	tempCal.setTime(test.getEventDate());
+             	interval.setValue(dtFactory.newXMLGregorianCalendar(tempCal));
+             	procedure.setEffectiveTime(interval);
                  procedures.add(procedure);
             	
             }
@@ -1261,6 +1434,11 @@ catch(DatatypeConfigurationException dE)
                 procedure.setMood_code("EVN");
                 procedure.setDescription(capitalizeString(trmt.getTreatmentValue()));
                 procedure.setTime(shortDf.format(trmt.getEventDate()));
+                Interval interval = new Interval();
+            	GregorianCalendar tempCal = new GregorianCalendar();
+            	tempCal.setTime(trmt.getEventDate());
+            	interval.setValue(dtFactory.newXMLGregorianCalendar(tempCal));
+            	procedure.setEffectiveTime(interval);
                 procedures.add(procedure);
             }
             
@@ -1412,5 +1590,14 @@ catch(DatatypeConfigurationException dE)
 		        }
 		        return person;
 		}
-	    
+
+	    private class CaseInsensitiveComparator implements Comparator<String>
+	    {
+
+			@Override
+			public int compare(String arg0, String arg1) {
+				return arg0.compareToIgnoreCase(arg1);
+			}
+	    	
+	    }
 }

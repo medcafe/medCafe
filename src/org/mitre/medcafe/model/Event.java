@@ -36,10 +36,21 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
 
 import javax.servlet.ServletContext;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.hl7.greencda.c32.Codes;
+import org.hl7.greencda.c32.Condition;
+import org.hl7.greencda.c32.Encounter;
+import org.hl7.greencda.c32.Immunization;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +77,9 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 /**
  *  Representation of the text data
@@ -255,7 +269,8 @@ public class Event
 			}
 			log.finer("Event : retrieveEvents: finished ");
 
-	
+
+		System.out.println("# of events returned: " + eventList.size());
 
 		 return eventList;
 
@@ -409,7 +424,7 @@ public class Event
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		if (jsonResults.has("announce"))
 			return eventList;
-
+		DatatypeFactory factory;
 		if (type.equals(Event.IMMUNIZATION_TYPE))
 		{
 			/*{"repository":"OurVista","immunizations":
@@ -419,29 +434,37 @@ public class Event
 			 *  "medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"TETANUS DIPTHERIA (TD-ADULT)"}},"refusal":false},
 			 *
 			 * */
+			
+			
 			if (!jsonResults.has("immunizations"))
 			{
 				return eventList;
 			}
-
+            try {
+            	factory = DatatypeFactory.newInstance();
+            
 			 JSONArray jsonImms = jsonResults.getJSONArray("immunizations");
 
 			 for (int i=0; i < jsonImms.length(); i++ )
 		     {
 				 Event event = new Event();
+				 
 				 event.setId(Integer.parseInt(patientId));
 				 event.setRepPatientId(repPatientId);
 				 event.setRepository(repository);
 				 JSONObject immObj;
 				 immObj = (JSONObject) jsonImms.get(i);
+
 				 /*  "medicationInformation":{"manufacturedMaterial":{"freeTextBrandName":"TETANUS DIPTHERIA (TD-ADULT)"}},"refusal":false}*/
 
-				 JSONObject infoObj = immObj.getJSONObject("medicationInformation");
-				 infoObj = infoObj.getJSONObject("manufacturedMaterial");
-				 String immTitle = infoObj.getString("freeTextBrandName");
+			/*	 JSONObject infoObj = immObj.getJSONObject("medicationInformation");
+				 infoObj = infoObj.getJSONObject("manufacturedMaterial");*/
+			//	 String immTitle = immObj.getString("description");
+				 String immTitle = immObj.getString("description");
 				 String desc = "";
-				 try {
-				 String descTemp = immObj.getString("narrative");
+				
+			/*	 try {
+				/*String descTemp = immObj.getString("narrative");
 				 int index = 0;
 				 while (index != -1)
 				 {
@@ -456,55 +479,34 @@ public class Event
 				 		desc = desc + descTemp.substring(index);
 				 		index = newIndex;
 				 	}
-				 }
-				 }
+				 }*/
+			/*	 }
 				 catch (JSONException jsonE)
 				 {
 				 	log.finer("No narrative in immunization record of patient # " + repPatientId + " for " + immTitle);
+				 }*/
+			//	 try {
+				 if (immObj.has("isRefused")){
+				 boolean isRefused = Boolean.parseBoolean( immObj.getString("isRefused"));
+					if (isRefused) {
+				 	desc = desc+ "<br>Refused:  " + immObj.getJSONObject("refusalReason").getString("displayName");
+					}
 				 }
-				 try {
-				 	desc = desc+ "<br>Refused:  " + immObj.getBoolean("refusal");
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 	log.finer("No refusal information in immunization record of patient # " + repPatientId + " for " + immTitle);
-				 }
-				 try {
-				 	desc = desc + "<br>Administered by: ";
-				 	JSONObject perfObj = immObj.getJSONObject("performer");
-				 	JSONObject personObj = perfObj.getJSONObject("person");
-					desc = desc + getPersonName(personObj);
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 	log.finer("No provider information in immunization record of patient # " + repPatientId + " for " + immTitle);
-				 }
+			
 				 event.setDescription(desc);
+				
+				 event.setEventDate(getDateFromInterval(immObj));
 		
-
-				 JSONObject dateObj = immObj.getJSONObject("time");
-				 log.finer("Event getEventObject dateObj " + dateObj.toString());
-				 /* 	"administeredDate":{"minute":0,"fractionalSecond":0,"timezone":-240,"second":0,"month":6,"year":2010,"day":30,"hour":0},*/
-				 String month = dateObj.getString("month");
-				 int monthVal = Integer.parseInt(month) -1;
-				 String day = dateObj.getString("day");
-				 String year = dateObj.getString("year");
-				 String dateStr = monthVal + "/" + day + "/" + year;
-				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				 try
-				 {
-					Date immDate = df.parse(dateStr);
-					event.setEventDate(immDate);
-				 }
-				 catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				 }
 				 event.setIcon(icon);
 				 event.setTitle(immTitle);
 				 event.setType(type);
 				 eventList.add(event);
 		     }
+            }
+            catch(Exception e)
+            {
+            	log.log(Level.SEVERE, "Error getting immunization events {0}",e.getMessage());
+            }
 
 
 		}
@@ -529,9 +531,9 @@ public class Event
 				 JSONObject probObj;
 				 probObj = (JSONObject) jsonProbs.get(i);
 
-				 String probTitle = probObj.getString(PROBLEM_NAME);
-				 String active = "A";
-				 try {
+				 String probTitle = probObj.getString("description");
+
+		/*		 try {
 					 if (probObj.has(FREE_TEXT_VALUE))
 					 {
 						 active = probObj.getString(FREE_TEXT_VALUE);
@@ -540,34 +542,22 @@ public class Event
 				 catch (JSONException jsonE)
 				 {
 				 	log.finer("No narrative for patient " + repPatientId + " for problem " + probTitle);
-				 }
-				 	probTitle = probTitle + " - ACTIVE";
-				 	try
-				 	{
+				 }*/
 				 
-				 		//event.setDescription("ICD9 Code: " + probObj.getJSONObject("problemCode").getString("code"));
-				 		JSONObject codes = probObj.getJSONObject("codes");
-				 		if (codes.has(ICD9_CODE))
-				 		{
-				 			JSONObject jsonCode = codes.getJSONObject("ICD-9-CM:");
-				 			event.setDescription("ICD9 Code: " + jsonCode.toString());
-				 		}
-				 	}
-					catch (JSONException jsonE)
-					{
-						log.finer("No problem code for " + repPatientId + " and problem " + probTitle);
-					}
-
-				 String timeStr = (String)probObj.get(EVENT_DATE);
-				 long time = Long.parseLong(timeStr);
-	             Date probDate = new Date(time *1000);
-
-				 event.setEventDate(probDate);
+				 	probTitle = probTitle + " - ACTIVE";
+				 	String desc = getCodeDescriptions(probObj);
+				 	
+				 	
 				
+				 		
+				 event.setDescription(desc);
+				 event.setEventDate(getDateFromInterval(probObj));
+	
 				 event.setIcon(icon);
 				 event.setTitle(probTitle);
 				 event.setType(type);
 				 eventList.add(event);
+				 System.out.println(event.getEventDate());
 		     }
 
 
@@ -669,20 +659,76 @@ public class Event
 				 event.setRepository(repository);
 				 JSONObject encObj;
 				 encObj = (JSONObject) jsonEncs.get(i);
-				 System.out.println("Event getEventObject line 586 json output " + encObj );
-				// JSONObject typeObj = encObj.getJSONObject("encounterType");
-				 JSONObject typeObj = null;
-				 if (encObj.has(ENCOUNTER_TYPE_STRING))
+				 System.out.println("Event getEventObject line 702 json output " + encObj );
+				
+				
+				 Gson gson = new Gson();
+
+				 Encounter enc = gson.fromJson(encObj.toString(),Encounter.class);
+				 String encTitle;
+				 String desc = "";
+				 if (enc.getDescription()!= null && !enc.getDescription().equals(""))
 				 {
-					 typeObj = encObj.getJSONObject(ENCOUNTER_TYPE_STRING);
+					 encTitle = enc.getDescription();
 				 }
 				 else
 				 {
-					 //Default to one of codes
-					 typeObj = encObj.getJSONObject(CODE_STRING);
+					 if (enc.getFreeText()!= null && !enc.getFreeText().equals(""))
+					 {
+						 encTitle = enc.getFreeText();
+					 }
+					 else
+					 {
+						 encTitle = "No entered description - see codes";
+						
+					 }
+					 
+				 }
+				 Codes codes = enc.getCodes();
+				 if (codes.getCPT()!= null)
+				 {
+					 for (String code : codes.getCPT())
+					 {
+						 desc+="CPT: "+ code + "\n";
+					 }
+				 }
+				 if (codes.getICD_9_CM()!= null)
+				 {
+					 for (String code : codes.getICD_9_CM())
+					 {
+						 desc+="ICD9 CM: "+ code + "\n";
+					 }
+				 }
+				 if (codes.getHCPCS()!= null)
+				 {
+					 for (String code : codes.getHCPCS())
+					 {
+						 desc+="HCPCS: "+ code + "\n";
+					 }
+				 }
+				 if (codes.getLOINC()!= null)
+				 {
+					 for (String code : codes.getLOINC())
+					 {
+						 desc+="LOINC: "+ code + "\n";
+					 }
+				 }
+				 if (codes.getSNOMED_CT()!= null)
+				 {
+					 for (String code : codes.getSNOMED_CT())
+					 {
+						 desc+="SNOMED-CT "+ code + "\n";
+					 }
+				 }
+				 if (codes.getRxNorm()!= null)
+				 {
+					 for (String code : codes.getRxNorm())
+					 {
+						 desc+="RxNorm: "+ code + "\n";
+					 }
 				 }
 				 //String encTitle = typeObj.getString("value");
-				 String encTitle = null;
+		/*		 String encTitle = null;
 				 if (typeObj.has(DESCRIPTION))
 				 {
 					 encTitle = typeObj.getString(DESCRIPTION);
@@ -694,8 +740,8 @@ public class Event
 				 else
 				 {
 					 encTitle = "No entered description - see codes";
-				 }
-				 String timeStr = (String)encObj.get(EVENT_DATE);
+				 }*/
+			/*	 String timeStr = (String)encObj.get(EVENT_DATE);
 				 	
 				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 				 
@@ -708,8 +754,10 @@ public class Event
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				 }
-				 
-				 String desc = "";
+				 */
+				 event.setEventDate(enc.getEffectiveTime().getValue().toGregorianCalendar().getTime());
+				 event.setTitle(encTitle);
+		/*		 String desc = "";
 				 String eventDesc = getCodeDescriptions(encObj);
 			 		
 
@@ -858,8 +906,8 @@ public class Event
 				 catch (JSONException jsonE)
 				 {
 				 }
-				
-				 event.setDescription(desc + "<br>" + eventDesc);
+				*/
+				 event.setDescription(desc);
 				 event.setTitle(encTitle);
 				 event.setIcon(icon);
 				 event.setType(type);
@@ -1182,5 +1230,55 @@ public class Event
 	 		}
 	 		return strBuf.toString();
 	 	
+	  }
+	  private static Date getDateFromInterval(JSONObject obj) throws JSONException
+	  {
+		 
+		  if (obj.getJSONObject("effectiveTime") == null)
+		  {
+			  return null;
+		  } 
+		  JSONObject intervalObject = obj.getJSONObject("effectiveTime");
+		  JSONObject dateObj = null; 
+		  if (intervalObject.has("value"))
+		  {
+			  dateObj = intervalObject.getJSONObject("value");
+		  }
+		  else{
+			  
+			  
+			  if (intervalObject.has("start"))
+			  {
+				  dateObj = intervalObject.getJSONObject("start"); 
+			  }
+			  else
+			  {
+				  if (intervalObject.has("end"))
+				  {
+					  dateObj = intervalObject.getJSONObject("end");
+				  }
+				  else
+				  {
+					  return null;
+				  }
+			  }
+		  }
+		  String month = dateObj.getString("month");
+				 int monthVal = Integer.parseInt(month) -1;
+				 String day = dateObj.getString("day");
+				 String year = dateObj.getString("year");
+				 String dateStr = monthVal + "/" + day + "/" + year;
+				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				 try
+				 {
+					return df.parse(dateStr);
+			
+				 }
+				 catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return null;
+					
+				 }
 	  }
 }

@@ -28,6 +28,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -227,12 +228,13 @@ public class GreenCDARepository extends Repository {
 	public List<Immunization> getImmunizations(String id)
 			throws NotImplementedException {
 		List<Immunization> vax = new ArrayList<Immunization>();
-
+		DatatypeFactory factory;
 		String server = greenCDADataUrl + "/records/" + id;
 
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> results = gcda.findHealthDetail(id, "immunizations");
 			for (String url : results) {
 				server = greenCDADataUrl + url;
@@ -245,7 +247,8 @@ public class GreenCDARepository extends Repository {
 						.fromJson(o, Immunization.class);
 				String time = immunization.getTime();
 				immunization.setTime(parseDate(time, isMillis));
-
+				Interval inter = getInterval(factory, time);
+				immunization.setEffectiveTime(inter);
 				vax.add(immunization);
 			}
 		} catch (Exception e) {
@@ -300,7 +303,9 @@ public class GreenCDARepository extends Repository {
 		List<Medication> meds = new ArrayList<Medication>();
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
+		DatatypeFactory factory;
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> medResults = gcda.findHealthDetail(patientId,
 					"medications");
 			for (String medUrl : medResults) {
@@ -318,6 +323,22 @@ public class GreenCDARepository extends Repository {
 
 				med.setTime(parseDate(time, isMillis));
 				med.setStart_time(parseDate(startTime, isMillis));
+				Interval interval = new Interval();
+				Date setTime;
+				try {
+				setTime = getDateObj(startTime, isMillis);
+				GregorianCalendar cal = new GregorianCalendar();
+		        cal.setTime(setTime);
+		        interval.setValue(factory.newXMLGregorianCalendar(cal));
+				}
+				catch (NumberFormatException e)
+				{
+					interval.setValue(factory.newXMLGregorianCalendar(startTime));
+				}
+
+				
+				med.setEffectiveTime(interval);
+				
 				meds.add(med);
 			}
 
@@ -466,10 +487,11 @@ public class GreenCDARepository extends Repository {
 		List<Encounter> encounters = new ArrayList<Encounter>();
 
 		String server = greenCDADataUrl + "/records/" + id;
-
+		DatatypeFactory factory;
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> results = gcda.findHealthDetail(id, type);
 			for (String url : results) {
 				server = greenCDADataUrl + url;
@@ -481,7 +503,8 @@ public class GreenCDARepository extends Repository {
 				Encounter encounter = gson.fromJson(o, Encounter.class);
 				String time = encounter.getTime();
 				encounter.setTime(parseDate(time, isMillis));
-
+				Interval inter = getInterval(factory, time);
+				encounter.setEffectiveTime(inter);
 				encounters.add(encounter);
 			}
 		} catch (Exception e) {
@@ -538,7 +561,9 @@ public class GreenCDARepository extends Repository {
 
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
+		DatatypeFactory factory;
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> results = gcda.findHealthDetail(patientId, "conditions");
 			for (String url : results) {
 				String server = greenCDADataUrl + url;
@@ -546,13 +571,30 @@ public class GreenCDARepository extends Repository {
 						"application/json", new String[] {});
 
 				JsonObject o = parser.parse(jsonResults).getAsJsonObject();
+				System.out.println(o.toString());
+				
 				Condition problem = gson.fromJson(o, Condition.class);
-				String time = problem.getTime();
-				problem.setTime(parseDate(time, isMillis));
-				time = problem.getStart_time();
-				problem.setStart_time(parseDate(time, isMillis));
+			/*	String time = problem.getTime();
+				problem.setTime(parseDate(time, isMillis));*/
+				String startTime = problem.getStart_time();
+
+				problem.setStart_time(parseDate(startTime, isMillis));
 				log.finer(problem.getStart_time());
+				Interval interval = new Interval();
+				Date setTime;
+				try {
+				setTime = getDateObj(startTime, isMillis);
+				GregorianCalendar cal = new GregorianCalendar();
+		        cal.setTime(setTime);
+		        interval.setValue(factory.newXMLGregorianCalendar(cal));
+				}
+				catch (NumberFormatException e)
+				{
+					interval.setValue(factory.newXMLGregorianCalendar(startTime));
+				}
+				problem.setEffectiveTime(interval);
 				problems.add(problem);
+				
 			}
 
 			/*
@@ -605,10 +647,11 @@ public class GreenCDARepository extends Repository {
 		List<Procedure> procedures = new ArrayList<Procedure>();
 
 		String server = greenCDADataUrl + "/records/" + patientId;
-
+		DatatypeFactory factory;
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		try {
+			factory = DatatypeFactory.newInstance();
 			List<String> results = gcda.findHealthDetail(patientId,
 					"procedures");
 			for (String url : results) {
@@ -621,7 +664,8 @@ public class GreenCDARepository extends Repository {
 				Procedure procedure = gson.fromJson(o, Procedure.class);
 				String time = procedure.getTime();
 				procedure.setTime(parseDate(time, isMillis));
-
+				Interval interval = getInterval(factory, time);
+				procedure.setEffectiveTime(interval);
 				procedures.add(procedure);
 			}
 		} catch (Exception e) {
@@ -732,6 +776,13 @@ public class GreenCDARepository extends Repository {
 		greenCDADataUrl = credMap.get(Repository.HOST_URL) + ":"
 				+ credMap.get(Repository.PORT);
 		credentials = credMap;
+	}
+
+	@Override
+	public Set<String> lookup(String lookupType, String lookupChars) {
+		// TODO Auto-generated method stub
+	    
+		return null;
 	}
 
 }

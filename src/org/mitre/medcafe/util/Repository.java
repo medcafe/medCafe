@@ -293,6 +293,10 @@ public abstract class Repository {
 			return dateTime;
 
 	}
+	public boolean canInsertAllergies()
+	{
+		return false;
+	}
 	// Date formatter especially for the PDS output
 	public static String parseDate(Long inDate, boolean isMillis) {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");

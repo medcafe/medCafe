@@ -27,7 +27,7 @@
 	GregorianCalendar cal = new GregorianCalendar();
 	Date endDate = cal.getTime();
 
-	cal.roll(Calendar.YEAR, -3);
+	cal.roll(Calendar.YEAR, -4);
 	Date startDate= cal.getTime();
 
 	Object filterObj = session.getAttribute("filter");

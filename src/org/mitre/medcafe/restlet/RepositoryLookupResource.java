@@ -16,9 +16,11 @@
 
 package org.mitre.medcafe.restlet;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import  org.mitre.medcafe.util.*;
+
 import java.io.IOException;
 import org.json.*;
 import org.restlet.ext.json.*;
@@ -51,16 +53,21 @@ public class RepositoryLookupResource extends ServerResource {
     }
 
     @Get("json")
-    public Representation toJson(){
+    public JsonRepresentation toJson(){
         Repository r = Repositories.getRepository( repository );
         if( r == null )
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
         }
-		 
-        JSONObject retObj= new JSONObject();
+        String typeName = type+"List";
+		Collection<String> objects =  r.lookup(type, lookupString); 
+		if (r==null)
+		{
+			return new JsonRepresentation(WebUtils.bundleJsonResponseObject(typeName, "null"));
+		}
+		return  new JsonRepresentation(WebUtils.bundleJsonResponseObject( typeName, objects ));
 
-        return new JsonRepresentation( retObj );
+ 
        
 
     }

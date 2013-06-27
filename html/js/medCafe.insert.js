@@ -28,10 +28,10 @@ function insertDialog(cacheKey, repository)
 				url:"/medcafe/c/repositories/"+repository+"/lookup/allergens/"+request.term,
 				dataType:"json",
 				success: function(data) {
-													response($.map(data.allergenList, function(item) 
+													response($.map(data.allergensList, function(item) 
 													{
-													return { label: item.displayName,
-																value: item.displayName
+													return { label: item,
+																value: item
 															  }
 													}));
 												}
@@ -56,10 +56,10 @@ function insertDialog(cacheKey, repository)
 				url:"/medcafe/c/repositories/"+repository+"/lookup/reactions/"+extractLast(request.term),
 				dataType:"json",
 				success: function(data) {
-													response($.map(data.reactionList, function(item) 
+													response($.map(data.reactionsList, function(item) 
 													{
-													return { label: item.displayName,
-																value: item.displayName
+													return { label: item,
+																value: item
 															  }
 													}));
 												}

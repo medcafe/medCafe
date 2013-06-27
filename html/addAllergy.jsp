@@ -75,6 +75,8 @@
 	<br/>
 	<label for ="allergyType">Type of Allergy: </label><br> <input type="radio" name="allergyType" value="food allergy"> Food Allergy<br><input type="radio" name="allergyType" value="drug allergy"> Drug Allergy<br><input type="radio" name="allergyType" value="allergy to substance"> Allergy to Substance<br>
 	<br/>
+	<label for ="severity">Severity of Allergy: </label><br> <input type="radio" name="severity" value="Mild,255604002"> Mild<br><input type="radio" name="severity" value="Mild to moderate,371923003"> Mild to moderate<br><input type="radio" name="severity" value="Moderate,6736007"> Moderate<br><input type="radio" name="severity" value="Moderate to severe,371924009"> Moderate to severe<br><input type="radio" name="severity" value="Severe,24484000"> Severe<br><input type="radio" name="severity" value="Fatal,399166001"> Fatal<br>
+	<br/>
 	Comments: <input id="comments" name="comments" style = "position:relative" type ="text" size = "80"/>
 	<br/>
 
