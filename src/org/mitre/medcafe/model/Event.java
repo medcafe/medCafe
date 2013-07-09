@@ -135,6 +135,7 @@ public class Event
 	public static final String EVENT_DATE = "time";
 	public static final String CODE_STRING ="codes";
 	public static final String ICD9_CODE ="ICD-9-CM";
+	public static final String SNOMED_CODE="SNOMED-CT";
 	public static final String CPT = "CPT";
 	public static final String RXNORM ="RxNorm"; 
 	public static final String LOINC = "LOINC";
@@ -664,18 +665,18 @@ public class Event
 				
 				 Gson gson = new Gson();
 
-				 Encounter enc = gson.fromJson(encObj.toString(),Encounter.class);
+				
 				 String encTitle;
 				 String desc = "";
-				 if (enc.getDescription()!= null && !enc.getDescription().equals(""))
+				 if (encObj.has("description") && !encObj.getString("description").equals(""))
 				 {
-					 encTitle = enc.getDescription();
+					 encTitle = encObj.getString("description");
 				 }
 				 else
 				 {
-					 if (enc.getFreeText()!= null && !enc.getFreeText().equals(""))
+					 if (encObj.has("freeText") && !encObj.getString("freeText").equals(""))
 					 {
-						 encTitle = enc.getFreeText();
+						 encTitle = encObj.getString("freeText");
 					 }
 					 else
 					 {
@@ -684,64 +685,9 @@ public class Event
 					 }
 					 
 				 }
-				 Codes codes = enc.getCodes();
-				 if (codes.getCPT()!= null)
-				 {
-					 for (String code : codes.getCPT())
-					 {
-						 desc+="CPT: "+ code + "\n";
-					 }
-				 }
-				 if (codes.getICD_9_CM()!= null)
-				 {
-					 for (String code : codes.getICD_9_CM())
-					 {
-						 desc+="ICD9 CM: "+ code + "\n";
-					 }
-				 }
-				 if (codes.getHCPCS()!= null)
-				 {
-					 for (String code : codes.getHCPCS())
-					 {
-						 desc+="HCPCS: "+ code + "\n";
-					 }
-				 }
-				 if (codes.getLOINC()!= null)
-				 {
-					 for (String code : codes.getLOINC())
-					 {
-						 desc+="LOINC: "+ code + "\n";
-					 }
-				 }
-				 if (codes.getSNOMED_CT()!= null)
-				 {
-					 for (String code : codes.getSNOMED_CT())
-					 {
-						 desc+="SNOMED-CT "+ code + "\n";
-					 }
-				 }
-				 if (codes.getRxNorm()!= null)
-				 {
-					 for (String code : codes.getRxNorm())
-					 {
-						 desc+="RxNorm: "+ code + "\n";
-					 }
-				 }
-				 //String encTitle = typeObj.getString("value");
-		/*		 String encTitle = null;
-				 if (typeObj.has(DESCRIPTION))
-				 {
-					 encTitle = typeObj.getString(DESCRIPTION);
-				 }
-				 else if (typeObj.has(FREE_TEXT_VALUE))
-				 {
-					 encTitle = typeObj.getString(FREE_TEXT_VALUE);
-				 }
-				 else
-				 {
-					 encTitle = "No entered description - see codes";
-				 }*/
-			/*	 String timeStr = (String)encObj.get(EVENT_DATE);
+				 desc = getCodeDescriptions(encObj);
+						
+			     String timeStr = (String)encObj.get(EVENT_DATE);
 				 	
 				 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 				 
@@ -754,159 +700,8 @@ public class Event
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				 }
-				 */
-				 event.setEventDate(enc.getEffectiveTime().getValue().toGregorianCalendar().getTime());
-				 event.setTitle(encTitle);
-		/*		 String desc = "";
-				 String eventDesc = getCodeDescriptions(encObj);
-			 		
-
-				 try{
-				 	JSONArray condArray = encObj.getJSONArray("conditions");
-				 	for (int j = 0; j < condArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = "Conditions: ";
-				 		JSONObject condObj = (JSONObject) condArray.get(j);
-				 		JSONObject probObj = condObj.getJSONObject("problemCode");
-				 		desc = desc + condObj.getString("narrative") + " -  " + probObj.getString("codeSystemName") + ": " + probObj.getString("code") + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray examArray = encObj.getJSONArray("exams");
-				 	for (int j = 0; j < examArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Exams: ";
-				 		JSONObject examObj = (JSONObject) examArray.get(j);
-				 		JSONObject examTypeObj = examObj.getJSONObject("examType");
-				 		JSONObject resultObj = examObj.getJSONObject("result");
-				 		desc = desc + examTypeObj.getString("value") + " -  Result: " + resultObj.getString("value") + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray procedureArray = encObj.getJSONArray("procedures");
-				 	for (int j = 0; j < procedureArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Procedures: ";
-				 		JSONObject procObj = (JSONObject) procedureArray.get(j);
-				 		JSONObject codeObj = procObj.getJSONObject("procedureCode");
-				 		desc = desc + procObj.getString("narrative") + " - " + codeObj.getString("codeSystemName")+ ": " + codeObj.getString("code") + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray factorsArray = encObj.getJSONArray("healthFactors");
-				 	for (int j = 0; j < factorsArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Health Factors: ";
-				 		JSONObject healthFactorObj = (JSONObject) factorsArray.get(j);
-				 		JSONObject factorObj = healthFactorObj.getJSONObject("factor");
-				 		JSONObject severityObj = healthFactorObj.getJSONObject("severity");
-				 		desc = desc + factorObj.getString("value") + " - Severity: " + severityObj.getString("value");
-				 		try{
-				 		   desc = desc +  "; Comments: " + healthFactorObj.getString("comment");
-				 		}
-				 		catch (JSONException jsonE2)
-				 		{
-				 		}
-				 		desc = desc + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray resultsArray = encObj.getJSONArray("results");
-				 	for (int j = 0; j < resultsArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Test Results: ";
-				 		JSONObject resultsObj = (JSONObject) resultsArray.get(j);
-				 		desc = desc + resultsObj.getJSONObject("resultType").getString("value") + ": " + resultsObj.getJSONObject("resultInterpretation").getString("value")+ " Value: " + resultsObj.getString("resultValue") + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray immArray = encObj.getJSONArray("immunizations");
-				 	for (int j = 0; j < immArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Immunizations: ";
-				 		JSONObject immObj = (JSONObject) immArray.get(j);
-				 		desc = desc + immObj.getJSONObject("medicationInformation").getJSONObject("manufacturedMaterial").getString("freeTextBrandName");
-				 		String[] descArray = immObj.getString("narrative").split("^");
-				 		for (int k = 0; k< descArray.length; k++)
-				 		{
-				 			desc = desc + " - " + descArray[k];
-				 		}
-				 		desc = desc + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray topicsArray = encObj.getJSONArray("education");
-				 	for (int j = 0; j < topicsArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Topics Discussed: ";
-				 		JSONObject topicsObj = (JSONObject) topicsArray.get(j);
-				 		desc = desc + topicsObj.getJSONObject("topic").getString("value") + "- Patient Understanding: " + topicsObj.getJSONObject("patientUnderstanding").getString("value") + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray treatmentsArray = encObj.getJSONArray("treatments");
-				 	for (int j = 0; j < treatmentsArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Treatments: ";
-				 		JSONObject treatmentObj = (JSONObject) treatmentsArray.get(j);
-				 		desc = desc + treatmentObj.getJSONObject("treatmentType").getString("value");
-				 		try {
-				 			desc = desc + ": " + treatmentObj.getString("comment");
-				 		}
-				 		catch (JSONException jsonE2)
-				 		{
-				 		}
-				 		desc = desc + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				 try{
-				 	JSONArray providerArray = encObj.getJSONArray("encounterProvider");
-				 	for (int j = 0; j < providerArray.length(); j++)
-				 	{
-				 		if (j == 0)
-				 			desc = desc + "Providers: ";
-				 		JSONObject providerObj = (JSONObject) providerArray.get(j);
 				
-				 		JSONObject personObj = providerObj.getJSONObject("person");
-				 		desc = desc + getPersonName(personObj) + "<br>";
-				 	}
-				 }
-				 catch (JSONException jsonE)
-				 {
-				 }
-				*/
+			
 				 event.setDescription(desc);
 				 event.setTitle(encTitle);
 				 event.setIcon(icon);
@@ -1197,7 +992,10 @@ public class Event
 	  private static String getCodeDescriptions(JSONObject jsonObj) throws JSONException
 	  {
 		  	StringBuffer strBuf = new StringBuffer();
-		  
+		    if (!jsonObj.has("codes"))
+		    {
+		    	return "";
+		    }
 		  	JSONObject codes = jsonObj.getJSONObject("codes");
 	 		if (codes.has(ICD9_CODE))
 	 		{
@@ -1205,9 +1003,9 @@ public class Event
 	 			strBuf.append( "ICD9 Code: " + jsonCode.toString() + "<br/>");
 	 		
 	 		}
-	 		if (codes.has(ICD9_CODE))
+	 		if (codes.has(SNOMED_CODE))
 	 		{
-	 			String jsonCode = codes.getString("SNOMED-CT");
+	 			String jsonCode = codes.getString(SNOMED_CODE);
 	 			strBuf.append("Snomed Code: " + jsonCode.toString() + "<br/>");
 	 		}
 	 		
