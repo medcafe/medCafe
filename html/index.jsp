@@ -56,7 +56,7 @@
 	<link type="text/css" rel="stylesheet" href="css/editor/jquery.rte.css" />
 
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
-	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
+	<script type="text/javascript" src="${js}/jquery.layout-latest.js"></script>
 
 	<link href="css/inettuts.js.css" rel="stylesheet" type="text/css"/>
 
