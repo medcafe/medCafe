@@ -798,8 +798,8 @@ public class VistaRepository extends Repository {
                         for (VitalSignDetail detail : details) {
                         	if (detail.getName().equals("B/P"))
                         	{
-                        		results.add(createVital("systolic blood pressure", detail.getValue().split("\\/")[0], detail.getUnits(), detail, cal, factory, oFact));
-                        		results.add(createVital("diastolic blood pressure", detail.getValue().split("\\/")[1], detail.getUnits(), detail, cal, factory, oFact));
+                        		results.add(createVital("Systolic Blood Pressure", detail.getValue().split("\\/")[0], detail.getUnits(), detail, cal, factory, oFact));
+                        		results.add(createVital("Diastolic Blood Pressure", detail.getValue().split("\\/")[1], detail.getUnits(), detail, cal, factory, oFact));
                         	}
                         	else
                         	{
@@ -1462,6 +1462,10 @@ catch(DatatypeConfigurationException dE)
 	{
 		  Result result = oFact.createResult();
           Values values = new Values();
+          if (vitalName.equalsIgnoreCase("pulse"))
+          {
+        	  vitalName = "Heart Rate";
+          }
           
           values.set_type(PHYS_QUANTITY);
          

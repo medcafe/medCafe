@@ -360,70 +360,32 @@ t.p( encounterDetail.description);
 t.p('            ');
 }
 else {
-t.p('               ');
+t.p('	    	               ');
 if (encounterDetail.codes) {
-t.p('					    Encounter:                   ');
-if (encounterDetail.codes.ICD-9-CM && encounterDetail.codes.ICD-9-CM.length > 0) {
-t.p('                                                ICD-9-CM:                     ');
-for (var i7=0;  i7<encounterDetail.codes.ICD-9-CM.length; i7++) {
-var code = encounterDetail.codes.ICD-9-CM[i7];
-velocityCount = i7;
-t.p('						   ');
+t.p('			Encounter: 		                   ');
+i6=0;
+for (code in encounterDetail.codes) {
+velocityCount = i6;
+i6++;
+t.p('                        			');
+if (encounterDetail.codes[code].length > 0) {
+t.p('				');
 t.p( code);
-t.p(';                     ');
-}
-velocityCount = i4;
-t.p('                  ');
-}
-else {
-t.p('                     ');
-if (encounterDetail.codes.CPT && encounterDetail.codes.CPT.length > 0) {
-t.p('                                                    CPT:                          ');
-for (var i7=0;  i7<encounterDetail.codes.CPT.length; i7++) {
-var code = encounterDetail.codes.CPT[i7];
-velocityCount = i7;
+t.p(':				');
+for (var i8=0;  i8<encounterDetail.codes[code].length; i8++) {
+var subcode = encounterDetail.codes[code][i8];
+velocityCount = i8;
 t.p('						   ');
-t.p( code);
-t.p(';                         ');
+t.p( subcode);
+t.p(';                     		');
 }
-velocityCount = i4;
-t.p('                     ');
-}
-else {
-t.p('                        ');
-if (encounterDetail.codes.HPCS && encounterDetail.codes.HPCS.length > 0) {
-t.p('                                                       HPCS:                            ');
-for (var i7=0;  i7<encounterDetail.codes.HPCS.length; i7++) {
-var code = encounterDetail.codes.HPCS[i7];
-velocityCount = i7;
-t.p('						   ');
-t.p( code);
-t.p(';                           ');
-}
-velocityCount = i4;
+velocityCount = i6;
 t.p('                        ');
 }
-else {
-t.p('                           ');
-if (encounterDetail.codes.SNOMED-CT && encounterDetail.codes.SNOMED-CT.length > 0) {
-t.p('                                                          SNOMED-CT:                                 ');
-for (var i7=0;  i7<encounterDetail.codes.SNOMED-CT.length; i7++) {
-var code = encounterDetail.codes.SNOMED-CT[i7];
-velocityCount = i7;
-t.p('						   ');
-t.p( code);
-t.p(';                              ');
+t.p('                   ');
 }
 velocityCount = i4;
-t.p('                           ');
-}
-t.p('                        ');
-}
-t.p('                     ');
-}
-t.p('                  ');
-}
-t.p('	       ');
+t.p('		       ');
 }
 t.p('            ');
 }

@@ -640,6 +640,10 @@ public class PatientCache extends TimerTask {
                 }
 
             }
+            if (vitalType.equalsIgnoreCase("pulse"))
+            {
+            	vitalType="Heart Rate";
+            }
             dataObj = vitalsMap.get(vitalType);
 
 
