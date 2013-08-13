@@ -146,7 +146,144 @@ mongodbServer.all( '/*', function( req, res, next ) {
 
 
 */
-var searchSubjects = function(req, res, next) {
+
+var searchObservationParams = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+
+  var url =require('url');
+  var url_parts = url.parse(req.url, true);
+
+  var name       = url_parts.query.name;
+  var subject    = url_parts.query.subject;
+  var performer  = url_parts.query.performer;
+
+  query = {};
+ 
+  if(subject){
+    query["message.content.Observation.subject.reference.value"] = 'patient/@' + subject ;
+  }
+  if(performer){
+    query["message.content.Observation.performer.reference.value"] = 'practitioner/@' + performer ;
+  }
+
+//  if(name){
+//    query["message.content.Observation.name.coding"] = new RegExp('.*' + subject+ '.*') ;
+//  }
+
+  MessageMongooseModel.find(query).execFind(function (arr,data) {
+    res.send(data);
+  });
+ 
+}
+
+
+
+
+var searchPractitionerName = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+
+  var url =require('url');
+  var url_parts = url.parse(req.url, true);
+  var search_name = url_parts.query.name;
+  var family_name = url_parts.query.family;
+  var given_name  = url_parts.query.given;
+
+  if(search_name){
+      console.log("search name : " + search_name);
+      query = { $or : [ {"message.content.Practitioner.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Practitioner.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
+      };
+  }
+  else{
+    if(family_name && given_name){
+      query = {  "message.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') , 
+                  "message.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
+      };
+    }
+    else if(family_name){
+      query = {  "message.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') 
+      };
+    }
+    else if(given_name){
+      query = {  "message.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
+      };
+    }
+    else {
+      query = {};
+    }
+  }
+
+  MessageMongooseModel.find(query).execFind(function (arr,data) {
+    res.send(data);
+  });
+ 
+}
+
+
+
+var searchPatientName = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+
+  var url =require('url');
+  var url_parts = url.parse(req.url, true);
+  var search_name = url_parts.query.name;
+  var family_name = url_parts.query.family;
+  var given_name  = url_parts.query.given;
+
+  if(search_name){
+      console.log("search name : " + search_name);
+      query = { $or : [ {"message.content.Patient.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Patient.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
+      };
+  }
+  else{
+    if(family_name && given_name){
+      query = {  "message.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') , 
+                  "message.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
+      };
+    }
+    else if(family_name){
+      query = {  "message.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') 
+      };
+    }
+    else if(given_name){
+      query = {  "message.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
+      };
+    }
+    else {
+      query = {};
+    }
+  }
+
+  MessageMongooseModel.find(query).execFind(function (arr,data) {
+    res.send(data);
+  });
+ 
+}
+
+var searchPatients = function(req, res, next) {
   // Resitify currently has a bug which doesn't allow you to set default headers
   // This headers comply with CORS and allow us to mongodbServer our response to any origin
   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -159,12 +296,12 @@ var searchSubjects = function(req, res, next) {
   
   console.log("mongodbServer searchSubjects: " + req.params.id);
 
-  MessageMongooseModel.find({ "message.content.Observation.subject.reference.value" : "patient/@" + req.params.id}).execFind(function (arr,data) {
+    MessageMongooseModel.find({"message.title": new RegExp('^Patient.*' + req.params.refid) }).execFind(function (arr,data) {
     res.send(data);
   });
 }
 
-var searchProviders = function(req, res, next) {
+var searchPractitioners = function(req, res, next) {
   // Resitify currently has a bug which doesn't allow you to set default headers
   // This headers comply with CORS and allow us to mongodbServer our response to any origin
   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -175,18 +312,76 @@ var searchProviders = function(req, res, next) {
     res.send( 203, 'OK' );
   }
   
-  console.log("mongodbServer searchProviders: " + req.params.id);
+  console.log("mongodbServer searchProviders: " + req.params.refid);
 
-  MessageMongooseModel.find({ "message.content.Observation.performer.reference.value" : "practitioner/@" + req.params.id}).execFind(function (arr,data) {
+  //MessageMongooseModel.find({ "message.content.Observation.performer.reference.value" : "practitioner/@" + req.params.refid}).execFind(function (arr,data) {
+  
+    MessageMongooseModel.find({"message.title": new RegExp('^Practitioner.*' + req.params.refid) }).execFind(function (arr,data) {
+        res.send(data);
+    });
+}
+
+// This function is responsible for returning all entries for the Message model
+var getPatients = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  console.log("mongodbServer getPatient");
+
+  MessageMongooseModel.find({"message.title": new RegExp('^Patient') }).execFind(function (arr,data) {
+    res.send(data);
+  });
+}
+
+// This function is responsible for returning all entries for the Message model
+var getPractitioners = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  console.log("mongodbServer getPractitioner");
+
+  MessageMongooseModel.find({"message.title": new RegExp('^Practitioner') }).execFind(function (arr,data) {
     res.send(data);
   });
 }
 
 
+// This function is responsible for returning all entries for the Message model
+var searchObservations = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  console.log("mongodbServer searchObs: " + req.params.refid);
+
+  MessageMongooseModel.find({"message.title": new RegExp('^Observation.*' + req.params.refid) }).execFind(function (arr,data) {
+    res.send(data);
+  });
+}
 
 
 // This function is responsible for returning all entries for the Message model
-var getMessages = function(req, res, next) {
+var getObservations = function(req, res, next) {
   // Resitify currently has a bug which doesn't allow you to set default headers
   // This headers comply with CORS and allow us to mongodbServer our response to any origin
   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -199,7 +394,7 @@ var getMessages = function(req, res, next) {
   
   console.log("mongodbServer getMessages");
 
-  MessageMongooseModel.find().limit(20).sort('date', -1).execFind(function (arr,data) {
+  MessageMongooseModel.find({"message.title": /^Observation/}).execFind(function (arr,data) {
     res.send(data);
   });
 }
@@ -236,9 +431,25 @@ mongodbServer.listen(mongodbPort, function() {
 
 });
 
-mongodbServer.get('/entries', getMessages);
-mongodbServer.post('/entries', postMessage);
 
-mongodbServer.get('/subjects/:id', searchSubjects);
-mongodbServer.get('/providers/:id', searchProviders);
+/////   All records
+mongodbServer.get('/observation/history', getObservations);
+mongodbServer.get('/patient/history', getPatients);
+mongodbServer.get('/practitioner/history', getPractitioners);
+
+/////   Write new records...
+mongodbServer.post('/observation', postMessage);
+mongodbServer.post('/patient', postMessage);
+mongodbServer.post('/practitioner', postMessage);
+
+/////   Searches!
+mongodbServer.get('/patient/search', searchPatientName);
+mongodbServer.get('/practitioner/search', searchPractitionerName);
+mongodbServer.get('/observation/search', searchObservationParams);
+
+/////   finding specific records
+mongodbServer.get('/observation/:refid', searchObservations);
+mongodbServer.get('/patient/:refid', searchPatients);
+mongodbServer.get('/practitioner/:refid', searchPractitioners);
+
 

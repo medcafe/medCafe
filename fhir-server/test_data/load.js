@@ -1,6 +1,10 @@
 var http = require('http');
 require('./'+ process.argv[2]);
 
+if(!list.entry){
+   process.exit(1);
+}
+
 for(i=0;i<list.entry.length;i++){
     if( list.entry[i] != undefined ){
         json_string = JSON.stringify(list.entry[i]);
@@ -16,7 +20,7 @@ var headers = {
 var options = {
   host: 'localhost',
   port: 8888,
-  path: '/entries',
+  path: '/observation',
   method: 'POST',
   headers: headers
 };
