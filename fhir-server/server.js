@@ -1,43 +1,17 @@
-
-//http server
 var fs = require('fs');
 var httpServer = require('http');
 var path = require('path');
 var connect = require('connect');
-//mongo server
 var mongoose = require('mongoose/');
 var restify = require('restify');  
 
 var config = require('./config');
 
-// localhost
+var local_port = 8888;
 
-var mongodbPort = 8888;
-
-var sendHTML = function( filePath, contentType, response ){
-
-  console.log('sendHTML: ' + filePath) ;
-
-  path.exists(filePath, function( exists ) {
-     
-        if (exists) {
-            fs.readFile(filePath, function(error, content) {
-                if (error) {
-                    response.writeHead(500);
-                    response.end();
-                }
-                else {
-                    response.writeHead(200, { 'Content-Type': contentType });
-                    response.end(content, 'utf-8');
-                }
-            });
-        }
-        else {
-            response.writeHead(404);
-            response.end();
-        }
-    });
-}
+//Hopefully this is never used in production, but (god forbid) you can change this.... walk with god.
+var root_url = 'http://localhost:' + local_port;
+var replace_url = "http://hl7connect.healthintersections.com.au/svc/fhir";
 
 var getFilePath = function(url) {
 
@@ -66,35 +40,6 @@ var getContentType = function(filePath) {
     return contentType;
 }
 
-var onHtmlRequestHandler = function(request, response) {
-
-  console.log('onHtmlRequestHandler... request.url: ' + request.url) ;
-
-  /*
-   when this is live, nodjitsu only listens on 1 port(80) so the httpServer will hear it first but
-   we need to pass the request to the mongodbServer
-   */
-  if ( process.env.PORT && url === '/messages') {
-    
-    // pass the request to mongodbServer
-   
-
-    return; 
-  } 
-
-  var filePath = getFilePath(request.url);
-  var contentType = getContentType(filePath);
-
-  console.log('onHtmlRequestHandler... getting: ' + filePath) ;
-
-  sendHTML(filePath, contentType, response); 
-
-}
-
-//httpServer.createServer(onHtmlRequestHandler).listen(httpPort); 
-
-/// MONGODB - saves data in the database and posts data to the browser
-
 var mongoURI = ( process.env.PORT ) ? config.creds.mongoose_auth_jitsu : config.creds.mongoose_auth_local;
 
 db = mongoose.connect(mongoURI),
@@ -120,32 +65,25 @@ mongodbServer.use(restify.bodyParser());
 
 // Create a schema for our data
 var MessageSchema = new Schema({
-    message: {}
+    entry : {}
 });
 
 // Use the schema to register a model
 mongoose.model('Message', MessageSchema); 
 var MessageMongooseModel = mongoose.model('Message'); // just to emphasize this isn't a Backbone Model
 
-
-/*
-
-this approach was recommended to remove the CORS restrictions instead of adding them to each request
-but its not working right now?! Something is wrong with adding it to mongodbServer
-
-// Enable CORS
-mongodbServer.all( '/*', function( req, res, next ) {
-  res.header( 'Access-Control-Allow-Origin', '*' );
-  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
-  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
-  if( 'OPTIONS' == req.method ) {
-  res.send( 203, 'OK' );
-  }
-  next();
-});
-
-
-*/
+var format_fhir = function(entries) {
+    //TODO put JSON definition of the document junk here
+    var entry_array = new Array();
+    for(i=0;i<entries.length;i++){
+        entry_array.push(entries[i].entry);
+    }
+    var finished_doc = {
+        'title' : "document",
+        'entries' : entry_array
+    };
+    return finished_doc;
+}
 
 var searchObservationParams = function(req, res, next) {
   // Resitify currently has a bug which doesn't allow you to set default headers
@@ -168,21 +106,21 @@ var searchObservationParams = function(req, res, next) {
   query = {};
  
   if(subject){
-    query["message.content.Observation.subject.reference.value"] = 'patient/@' + subject ;
+    query["entry.content.Observation.subject.reference.value"] = 'patient/@' + subject ;
   }
   if(performer){
-    query["message.content.Observation.performer.reference.value"] = 'practitioner/@' + performer ;
+    query["entry.content.Observation.performer.reference.value"] = 'practitioner/@' + performer ;
   }
 
   if(name){
     query['$or'] = [
-	{ "message.content.Observation.name.coding.code.value" : name  },
-    	{ "message.content.Observation.name.coding.display.value" : new RegExp( '.*' + name + '.*' ) }
+	{ "entry.content.Observation.name.coding.code.value" : name  },
+    	{ "entry.content.Observation.name.coding.display.value" : new RegExp( '.*' + name + '.*' ) }
     ];
   }
 
   MessageMongooseModel.find(query).execFind(function (arr,data) {
-    res.send(data);
+    res.send(format_fhir(data));
   });
  
 }
@@ -209,21 +147,21 @@ var searchPractitionerName = function(req, res, next) {
 
   if(search_name){
       console.log("search name : " + search_name);
-      query = { $or : [ {"message.content.Practitioner.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Practitioner.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
+      query = { $or : [ {"entry.content.Practitioner.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Practitioner.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
       };
   }
   else{
     if(family_name && given_name){
-      query = {  "message.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') , 
-                  "message.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
+      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') , 
+                  "entry.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
       };
     }
     else if(family_name){
-      query = {  "message.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') 
+      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') 
       };
     }
     else if(given_name){
-      query = {  "message.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
+      query = {  "entry.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
       };
     }
     else {
@@ -232,7 +170,7 @@ var searchPractitionerName = function(req, res, next) {
   }
 
   MessageMongooseModel.find(query).execFind(function (arr,data) {
-    res.send(data);
+    res.send(format_fhir(data));
   });
  
 }
@@ -258,21 +196,21 @@ var searchPatientName = function(req, res, next) {
 
   if(search_name){
       console.log("search name : " + search_name);
-      query = { $or : [ {"message.content.Patient.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Patient.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
+      query = { $or : [ {"entry.content.Patient.name.family.value": new RegExp('^' + search_name + '.*') }, {"entry.content.Patient.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
       };
   }
   else{
     if(family_name && given_name){
-      query = {  "message.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') , 
-                  "message.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
+      query = {  "entry.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') , 
+                  "entry.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
       };
     }
     else if(family_name){
-      query = {  "message.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') 
+      query = {  "entry.content.Patient.name.family.value": new RegExp('^' + family_name + '.*') 
       };
     }
     else if(given_name){
-      query = {  "message.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
+      query = {  "entry.content.Patient.name.given.value": new RegExp('^' + given_name + '.*') 
       };
     }
     else {
@@ -281,7 +219,7 @@ var searchPatientName = function(req, res, next) {
   }
 
   MessageMongooseModel.find(query).execFind(function (arr,data) {
-    res.send(data);
+    res.send(format_fhir(data));
   });
  
 }
@@ -299,8 +237,8 @@ var searchPatients = function(req, res, next) {
   
   console.log("mongodbServer searchSubjects: " + req.params.id);
 
-    MessageMongooseModel.find({"message.title": new RegExp('^Patient.*' + req.params.refid) }).execFind(function (arr,data) {
-    res.send(data);
+    MessageMongooseModel.find({"entry.title": new RegExp('^Patient.*' + req.params.refid) }).execFind(function (arr,data) {
+    res.send(format_fhir(data));
   });
 }
 
@@ -317,10 +255,8 @@ var searchPractitioners = function(req, res, next) {
   
   console.log("mongodbServer searchProviders: " + req.params.refid);
 
-  //MessageMongooseModel.find({ "message.content.Observation.performer.reference.value" : "practitioner/@" + req.params.refid}).execFind(function (arr,data) {
-  
-    MessageMongooseModel.find({"message.title": new RegExp('^Practitioner.*' + req.params.refid) }).execFind(function (arr,data) {
-        res.send(data);
+    MessageMongooseModel.find({"entry.title": new RegExp('^Practitioner.*' + req.params.refid) }).execFind(function (arr,data) {
+        res.send(format_fhir(data));
     });
 }
 
@@ -338,8 +274,8 @@ var getPatients = function(req, res, next) {
   
   console.log("mongodbServer getPatient");
 
-  MessageMongooseModel.find({"message.title": new RegExp('^Patient') }).execFind(function (arr,data) {
-    res.send(data);
+  MessageMongooseModel.find({"entry.title": new RegExp('^Patient') }).execFind(function (arr,data) {
+    res.send(format_fhir(data));
   });
 }
 
@@ -357,8 +293,8 @@ var getPractitioners = function(req, res, next) {
   
   console.log("mongodbServer getPractitioner");
 
-  MessageMongooseModel.find({"message.title": new RegExp('^Practitioner') }).execFind(function (arr,data) {
-    res.send(data);
+  MessageMongooseModel.find({"entry.title": new RegExp('^Practitioner') }).execFind(function (arr,data) {
+    res.send(format_fhir(data));
   });
 }
 
@@ -377,8 +313,8 @@ var searchObservations = function(req, res, next) {
   
   console.log("mongodbServer searchObs: " + req.params.refid);
 
-  MessageMongooseModel.find({"message.title": new RegExp('^Observation.*' + req.params.refid) }).execFind(function (arr,data) {
-    res.send(data);
+  MessageMongooseModel.find({"entry.title": new RegExp('^Observation.*' + req.params.refid) }).execFind(function (arr,data) {
+    res.send(format_fhir(data));
   });
 }
 
@@ -397,8 +333,8 @@ var getObservations = function(req, res, next) {
   
   console.log("mongodbServer getMessages");
 
-  MessageMongooseModel.find({"message.title": /^Observation/}).execFind(function (arr,data) {
-    res.send(data);
+  MessageMongooseModel.find({"entry.title": /^Observation/}).execFind(function (arr,data) {
+    res.send(format_fhir(data));
   });
 }
 
@@ -415,17 +351,17 @@ var postMessage = function(req, res, next) {
   var message = new MessageMongooseModel(); 
   
   console.log("mongodbServer postMessage: " + req.body);
-
-  message.message = JSON.parse(req.body);
+  var entry = req.body.replace(new RegExp(replace_url, 'g'), root_url); //TODO: lol!
+  message.entry = JSON.parse(entry);
   message.save(function () {
-    res.send(req.body);
+    res.send(entry); //TODO, actual response code? How about validation?
   });
 }
 
-mongodbServer.listen(mongodbPort, function() {
+mongodbServer.listen(local_port, function() {
   
-  var consoleMessage = '\n Fhir server api:\n';
-      consoleMessage += ' - /observation/history \n';
+  var consoleMessage = '\n Simple Fhir server api: port ' + local_port;
+      consoleMessage += '\n - /observation/history \n';
       consoleMessage += ' - /observation/search \n';
       consoleMessage += ' - /observation/:refid \n';
 
