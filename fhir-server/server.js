@@ -15,14 +15,6 @@ var config = require('./config');
 var httpPort = process.env.PORT || 8080;
 var mongodbPort = 8888;
 
-/* 
- 
- see README.md for a more detailed write up 
-
-*/
-
-//////////////////////////////////////////////////////// HTTP - sends html/js/css to the browswer 
-
 var sendHTML = function( filePath, contentType, response ){
 
   console.log('sendHTML: ' + filePath) ;
@@ -102,7 +94,7 @@ var onHtmlRequestHandler = function(request, response) {
 
 httpServer.createServer(onHtmlRequestHandler).listen(httpPort); 
 
-////////////////////////////////////////////////////// MONGODB - saves data in the database and posts data to the browser
+/// MONGODB - saves data in the database and posts data to the browser
 
 var mongoURI = ( process.env.PORT ) ? config.creds.mongoose_auth_jitsu : config.creds.mongoose_auth_local;
 
@@ -155,7 +147,7 @@ mongodbServer.all( '/*', function( req, res, next ) {
 
 
 */
-var searchMessages = function(req, res, next) {
+var searchSubjects = function(req, res, next) {
   // Resitify currently has a bug which doesn't allow you to set default headers
   // This headers comply with CORS and allow us to mongodbServer our response to any origin
   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -166,12 +158,31 @@ var searchMessages = function(req, res, next) {
     res.send( 203, 'OK' );
   }
   
-  console.log("mongodbServer searchMessages: " + req.params.id);
+  console.log("mongodbServer searchSubjects: " + req.params.id);
 
   MessageMongooseModel.find({ "message.content.Observation.subject.reference.value" : "patient/@" + req.params.id}).execFind(function (arr,data) {
     res.send(data);
   });
 }
+
+var searchProviders = function(req, res, next) {
+  // Resitify currently has a bug which doesn't allow you to set default headers
+  // This headers comply with CORS and allow us to mongodbServer our response to any origin
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  console.log("mongodbServer searchProviders: " + req.params.id);
+
+  MessageMongooseModel.find({ "message.content.Observation.performer.reference.value" : "practitioner/@" + req.params.id}).execFind(function (arr,data) {
+    res.send(data);
+  });
+}
+
 
 
 
@@ -228,9 +239,9 @@ mongodbServer.listen(mongodbPort, function() {
 
 });
 
-mongodbServer.get('/messages', getMessages);
-mongodbServer.post('/messages', postMessage);
+mongodbServer.get('/entries', getMessages);
+mongodbServer.post('/entries', postMessage);
 
-
-mongodbServer.get('/messages/search/:id', searchMessages);
+mongodbServer.get('/subjects/:id', searchSubjects);
+mongodbServer.get('/providers/:id', searchProviders);
 
