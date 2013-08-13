@@ -460,6 +460,10 @@ public class XhtmlParser {
       s.append((char) 0xA7);
     else if (c.charAt(0) == '#' && isInteger(c.substring(1)))
       s.append((char) Integer.parseInt(c.substring(1)));
+    else if (c.charAt(0)=='#' && isHex(c.substring(1)))
+	{
+    	s.append((char) Integer.parseInt(c.substring(2),16));
+	}
     else if (c.equals("fnof"))
       s.append((char)402); // latin small f with hook = function = florin, U+0192 ISOtech -->
     else if (c.equals("Alpha"))
@@ -720,6 +724,17 @@ public class XhtmlParser {
       return false;
     }
   }
+  private boolean isHex(String s) {
+		try {
+			if (s.charAt(0) == 'x') {
+				Integer.parseInt(s.substring(1), 16);
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 
   public XhtmlNode parseFragment(String source) throws Exception {
     rdr = new StringReader(source);

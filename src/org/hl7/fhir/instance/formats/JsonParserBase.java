@@ -59,7 +59,7 @@ public abstract class JsonParserBase extends ParserBase {
     JSONObject json = loadJson(input);
     ResourceOrFeed r = new ResourceOrFeed();
     
-    if (json.has("entries"))
+    if (json.has("entries") || json.has("entry"))
       r.feed = new AtomParser().parse(json);
     else  
       r.resource = parseResource(json);

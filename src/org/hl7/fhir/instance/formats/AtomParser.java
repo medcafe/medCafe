@@ -148,7 +148,14 @@ public class AtomParser extends XmlBase {
         parseLink(res.getLinks(), array.getJSONObject(i));
       }
     }
-    JSONArray array = json.getJSONArray("entries");
+    JSONArray array;
+    if (json.has("entries")){
+    	array = json.getJSONArray("entries");
+    }
+    else
+    {
+    	array = json.getJSONArray("entry");
+    }
     for (int i = 0; i < array.length(); i++) {
       res.getEntryList().add(parseEntry(array.getJSONObject(i)));
     }
