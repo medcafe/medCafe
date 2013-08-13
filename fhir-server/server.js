@@ -174,9 +174,12 @@ var searchObservationParams = function(req, res, next) {
     query["message.content.Observation.performer.reference.value"] = 'practitioner/@' + performer ;
   }
 
-//  if(name){
-//    query["message.content.Observation.name.coding"] = new RegExp('.*' + subject+ '.*') ;
-//  }
+  if(name){
+    query['$or'] = [
+	{ "message.content.Observation.name.coding.code.value" : name  },
+    	{ "message.content.Observation.name.coding.display.value" : new RegExp( '.*' + name + '.*' ) }
+    ];
+  }
 
   MessageMongooseModel.find(query).execFind(function (arr,data) {
     res.send(data);
@@ -422,9 +425,18 @@ var postMessage = function(req, res, next) {
 mongodbServer.listen(mongodbPort, function() {
   
   var consoleMessage = '\n Fhir server api:\n';
-      consoleMessage += ' - /entries  post or get records\n';
-      consoleMessage += ' - /subjects/:id  search on subject id\n';
-      consoleMessage += ' - /providers/:id  search on provider id\n';
+      consoleMessage += ' - /observation/history \n';
+      consoleMessage += ' - /observation/search \n';
+      consoleMessage += ' - /observation/:refid \n';
+
+      consoleMessage += ' - /patient/history \n';
+      consoleMessage += ' - /patient/search \n';
+      consoleMessage += ' - /patient/:refid \n';
+
+      consoleMessage += ' - /practitioner/history \n';
+      consoleMessage += ' - /practitioner/search \n';
+      consoleMessage += ' - /practitioner/:refid \n';
+ 
       consoleMessage += '++++++++++++++++++++++++++++++++++++++++++ \n\n'  
  
   console.log(consoleMessage, mongodbServer.name, mongodbServer.url);
