@@ -8,13 +8,28 @@
 	<template>listPatientTable</template>
 	<cacheKey>patientList</cacheKey>
 </medCafeWidget>
-i<medCafeWidget>
+<medCafeWidget>
+	<name>Encounters</name>
+	<type>Encounter</type>
+	<image>encounters.png</image>
+	<template>listEncounters</template>
+	<cacheKey>encounterList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
     <name>AllergiesGrid</name>
     <type>AllergiesGrid</type>
     <image>allergy.jpg</image>
     <template>allergyGrid</template>
     <script>processJQGrid</script>
     <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>alertList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>Allergies</name>
+    <type>Allergies</type>
+    <image>allergy.jpg</image>
+    <template>listPatientAllergies</template>
+
     <cacheKey>alertList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
@@ -32,6 +47,13 @@ i<medCafeWidget>
     <image>lab-results.png</image>
     <template>listPatientResultsVert</template>
     <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>Problems</name>
+    <type>Problems</type>
+    <image>problem.png</image>
+    <template>listProblemListTable</template>
+    <cacheKey>problemList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
     <name>ResultsGrid</name>
@@ -124,7 +146,7 @@ i<medCafeWidget>
 <medCafeWidget>
     <name>DefaultProblems</name>
     <type>DefaultProblems</type>
-    <image>problem-grey.jpg</image>
+    <image>problem-grey.png</image>
     <template>basicDataView</template>
     <cacheKey>problemList</cacheKey>
 </medCafeWidget>

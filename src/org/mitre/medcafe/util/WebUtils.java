@@ -276,6 +276,10 @@ public class WebUtils
 
     public static JsonRepresentation bundleJsonResponse(  String name, Object o, String repository, String patid )
     {
+     	return bundleJsonResponse(name, o, repository, patid, false);
+    }
+    public static JsonRepresentation bundleJsonResponse(  String name, Object o, String repository, String patid, boolean canInsert)
+    {
         try
         {
             Gson gson = new Gson();
@@ -285,6 +289,7 @@ public class WebUtils
             JSONObject obj = new JSONObject();
             obj.put("patient_id", patid);
             obj.put("repository", repository);
+            obj.put("can_insert", Boolean.toString(canInsert));
             if(o instanceof Collection)
             {
                 JSONArray arr = new JSONArray(jsonString);
@@ -371,6 +376,23 @@ public class WebUtils
             error.put("message", errorMsg);
             error.put("type", "error");
             ret.put("announce", error);
+        }
+        catch (JSONException e)
+        {
+            return null;
+        }
+        return ret;
+    }
+    public static JSONObject buildErrorJson(String errorMsg, boolean canInsert)
+    {
+        JSONObject ret = new JSONObject();
+        try
+        {
+            JSONObject error = new JSONObject();
+            error.put("message", errorMsg);
+            error.put("type", "error");
+            ret.put("announce", error);
+            ret.put("can_insert", Boolean.toString(canInsert));
         }
         catch (JSONException e)
         {

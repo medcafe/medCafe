@@ -23,6 +23,8 @@ import javax.xml.datatype.*;
 import java.text.SimpleDateFormat;
 
 import org.hl7.greencda.c32.Allergy;
+import org.hl7.greencda.c32.Code;
+import org.hl7.greencda.c32.Interval;
 import org.json.JSONObject ;
 import org.mitre.medcafe.util.*;
 import org.restlet.ext.json.JsonRepresentation;
@@ -53,7 +55,7 @@ public class PatientAllergyResource extends ServerResource {
     @Get("json")
     public JsonRepresentation toJson()
     {
-        org.mitre.medcafe.util.Repository r = Repositories.getRepository( repository );
+        Repository r = Repositories.getRepository( repository );
         if( r == null )
         {
             return new JsonRepresentation(WebUtils.buildErrorJson( "A repository named " + repository + " does not exist."));
@@ -68,10 +70,10 @@ public class PatientAllergyResource extends ServerResource {
 
         if( allergies.size() == 0)
         {
-            return new JsonRepresentation(WebUtils.buildErrorJson( "There are no allergies currently listed for patient " + id + " in repository " + repository ));
+            return new JsonRepresentation(WebUtils.buildErrorJson( "There are no allergies currently listed for patient " + id + " in repository " + repository, r.canInsertAllergies()));
         }
         //convert to JSON
-        return WebUtils.bundleJsonResponse( "allergies", allergies, repository, id );
+        return WebUtils.bundleJsonResponse( "allergies", allergies, repository, id, r.canInsertAllergies() );
     }
 
     @Put("form")
@@ -89,13 +91,13 @@ public class PatientAllergyResource extends ServerResource {
         // "name=value" tokens.
         Allergy allergy = new Allergy();
         Form form = new Form(entity);
-        /*Product product = new Product();
-        product.setValue(form.getFirstValue("allergens"));
-        allergy.setProduct(product);
-        Reaction reaction = new Reaction();
-        reaction.setValue(form.getFirstValue("reactions"));
-        allergy.setReaction(reaction);
-        DateRange dateRange = new DateRange();
+        allergy.setDescription(form.getFirstValue("allergens"));
+        Code code = new Code();
+        code.setDisplayName(form.getFirstValue("reactions"));
+        code.setOriginalText(form.getFirstValue("reactions"));
+        allergy.setReaction(code);
+
+        Interval dateRange = new Interval();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try{
         Date eventDate = df.parse(form.getFirstValue("reactiondate"));
@@ -103,33 +105,87 @@ public class PatientAllergyResource extends ServerResource {
         cal.setTime(eventDate);
         DatatypeFactory factory = DatatypeFactory.newInstance();
         XMLGregorianCalendar xCal = factory.newXMLGregorianCalendar(cal);
-        dateRange.setLow(xCal);
-        allergy.setAdverseEventDate(dateRange);
+       dateRange.setStart(xCal);
+       dateRange.setValue(xCal);
+        allergy.setEffectiveTime(dateRange);
+        allergy.setStart_time(xCal.toXMLFormat());
+        allergy.set_type("Allergy");
         }
                 catch (Exception e)
         {
             log.severe("Error converting date");
         }
 
-        String code = "";
+        allergy.setMood_code("EVN");
+        Code allergyType = new Code();
         String val = form.getFirstValue("allergyType");
-                    if (val.equals("food allergy")) {
-                        code = "414285001";
+        String smCode;
+        if (val.equals("food allergy")) {
+            smCode = "414285001";
 
-                    } else if (val.equals("drug allergy")) {
-                        code = "416098002";
+        } else if (val.equals("drug allergy")) {
+            smCode = "416098002";
 
-                    } else {
-                        code = "419199007";
-                    }
-                    AdverseEventType advEventType = new AdverseEventType();
+        } else {
+            smCode = "419199007";
+        }
+      
 
-                    advEventType.setCode(code);
-                    advEventType.setDisplayName(val);
-                    advEventType.setValue(val);
-                    advEventType.setCodeSystem("2.16.840.1.113883.6.96");
-                    advEventType.setCodeSystemName("SNOMED CT");
-                    allergy.setAdverseEventType(advEventType);
+        allergyType.setCode(smCode);
+        allergyType.setDisplayName(val);
+        allergyType.setOriginalText(val);
+        allergyType.setCodeSystem("2.16.840.1.113883.6.96");
+        allergyType.setCodeSystemName("SNOMED-CT");
+        allergy.setType(allergyType);
+        String[] severityParts = form.getFirstValue("severity").split(",");
+        Code severity = new Code();
+        severity.setCode(severityParts[1]);
+        severity.setCodeSystem("2.16.840.1.113883.6.96");
+        severity.setCodeSystemName("SNOMED-CT");
+        severity.setDisplayName(severityParts[0]);
+        severity.setOriginalText(severityParts[1]);
+        allergy.setSeverity(severity);
+        allergy.setId(UUID.randomUUID().toString());
+		String comm;
+		if ((comm = form.getFirstValue("comments")) == null) {
+			allergy.setFreeText("");
+		}
+		else {
+			allergy.setFreeText(comm);
+		}
+		Repository repo = Repositories.getRepository(repository);
+		log.severe(repository);
+		log.severe(repo.getType());
+		Collection<Allergy> allergyColl = new ArrayList<Allergy>();
+		allergyColl.add(allergy);
+		try {
+			boolean success = repo.insertAllergies(id, allergyColl);
+			if (success) {
+				ret = new JsonRepresentation(WebUtils.buildErrorJson("Allergy to "
+						+ allergy.getDescription()
+						+ " was inserted for patient id "
+						+ id
+						+ " into repository "
+						+ repository
+						+ ".  Choose Refresh Patient Cache from the Options to see updated information"));
+			}
+			else {
+				ret = new JsonRepresentation(WebUtils.buildErrorJson("Error inserting "
+						+ allergy.getDescription() + " into repository."));
+			}
+		} catch (NotImplementedException implE) {
+			ret = new JsonRepresentation(WebUtils.buildErrorJson("Allergy insert not supported for repository: "
+					+ repository));
+		}
+   /*Product product = new Product();
+        product.setValue(form.getFirstValue("allergens"));
+        allergy.setProduct(product);
+        Reaction reaction = new Reaction();
+        reaction.setValue(form.getFirstValue("reactions"));
+        allergy.setReaction(reaction);
+      
+        String code = "";
+       
                     String comm;
                     if ((comm=form.getFirstValue("comments"))== null)
                     {

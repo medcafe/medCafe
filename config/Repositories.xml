@@ -1,7 +1,7 @@
 <repositories>
 	<repository>
 	    <name>PDS</name>
-	    <type>org.mitre.medcafe.repositories.GreenCDARepository</type>
+	     <type>org.mitre.medcafe.repositories.GreenCDARepository</type>
 	    <host>localhost</host>
 	    <protocol>HTTP</protocol>
 	    <credentials>
@@ -9,4 +9,15 @@
 	        <port>3000</port>
 	    </credentials>
 	</repository>
+       <repository>
+            <name>OurVista</name>
+            <type>org.mitre.medcafe.repositories.VistaRepository</type>
+            <host>medcafe.org</host>
+            <credentials>
+                <hostURL>medcafe.org</hostURL>
+                <port>9201</port>
+                <accessCode>OV1234</accessCode>
+                <verifyCode>OV1234!!</verifyCode>
+            </credentials>
+       </repository>
 </repositories>

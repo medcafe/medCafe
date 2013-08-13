@@ -22,6 +22,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 
 import org.hl7.greencda.c32.Allergy;
@@ -259,10 +260,7 @@ public abstract class Repository {
 		// createAllergyReactionObject();
 	}
 
-	public Person getPatient(String userName, String patientId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Person getPerson(String userName, String patientId);
 
 	public List<Result> getResults(String patientId) {
 		// TODO Auto-generated method stub
@@ -271,12 +269,20 @@ public abstract class Repository {
 
 	// Date formatter especially for the PDS output
 	public static String parseDate(String inDate, boolean isMillis) {
+		Long localTime;
 		if (inDate == null) return inDate;
-		Long localTime = Long.parseLong(inDate);
+		try{
+			localTime = Long.parseLong(inDate);
+		}
+		catch(NumberFormatException numE)
+		{
+			return inDate;
+		}
 		return parseDate(localTime, isMillis);
 
 	}
-
+    public abstract Set<String> lookup(String lookupType, String lookupChars);
+    
 	// Date formatter especially for the PDS output
 	public static Date getDateObj(String inDate, boolean isMillis) {
 			if (inDate == null) return null;
@@ -286,6 +292,10 @@ public abstract class Repository {
 			Date dateTime = new Date(localTime * multiFactor);
 			return dateTime;
 
+	}
+	public boolean canInsertAllergies()
+	{
+		return false;
 	}
 	// Date formatter especially for the PDS output
 	public static String parseDate(Long inDate, boolean isMillis) {

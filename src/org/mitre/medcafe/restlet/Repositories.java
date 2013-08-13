@@ -150,7 +150,10 @@ public class Repositories {
 			try {
 				Repositories.addRepository((Element) node);
 			} catch (Exception e) {
-				log.severe(e.getStackTrace().toString());
+				for (StackTraceElement elem : e.getStackTrace())
+				{
+					log.severe(elem.toString());
+				}
 			}
 		}
 	}

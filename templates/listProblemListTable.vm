@@ -30,14 +30,10 @@
 
 			#foreach(  $problemDetail in $repos.problem )
 
-   			 #if ( $problemDetail.narrative == "A")
-   			     #set($status = "Active")
-   			 #else
-			        #set($status = "Inactive")
-			    #end
-			    <p class="$status"><b>$problemDetail.problemName</b><br/>
-			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Code $problemDetail.problemCode.code<br clear="all"/>
-			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started $problemDetail.problemDate.low.month/$problemDetail.problemDate.low.day/$problemDetail.problemDate.low.year ($status)<br clear="all"/>
+   			 
+			    <p ><b>$problemDetail.description</b><br/>
+			  
+			    <span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Started $problemDetail.start_time<br clear="all"/>
 			    </p>
 			#end
 		#end

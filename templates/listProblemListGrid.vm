@@ -14,8 +14,8 @@
 		   	    #end
 		   	    #set ($patcnt = $patcnt+1)
 		   	    {"id":"$patcnt"
-		   		#if ($problemDetail.description.text)
-		  		    ,"Problem": "$problemDetail.description.text" 
+		   		#if ($problemDetail.description)
+		  		    ,"Problem": "$problemDetail.description" 
 		  			#elseif ($problemDetail.description.code)
 		  			
 		  				#set ($codecnt = 0)
@@ -34,17 +34,8 @@
 		  				
 		  				#end
 				
-					#if($problemDetail.dateTime)
-		                #foreach( $dateElem in $problemDetail.dateTime)
-		                	#if($dateElem.type.text)
-		                		,"Type": "$dateElem.type.text"
-		                	#end
-		                	#if ($dateElem.exactDateTime.length()>10)
-			                , "ProblemDate":"$dateElem.exactDateTime.substring(0,10)"
-			                #else
-			                ,"ProblemDate":"$dateElem.exactDateTime"
-			                #end
-		                #end
+					#if($problemDetail.start_time)
+		                	 $problemDetail.start_time
 		            #end
 		            }
 	   			#end

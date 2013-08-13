@@ -12,13 +12,21 @@
 			<br>
 			<br>
 			Add a new allergy
-			<a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+			#if ($repos.can_insert=="false")
+			   <a onclick="alert('Cannot insert to primary repository. Not enabled')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+			#else
+			   <a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+			#end
 			#set ($firstRepository = false)
 			#set ($loopCount = $loopCount + 1)
 		#end
 		#if ($firstRepository== true)
-		<a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
-		#end
+                    #if ($repos.can_insert=="false")
+			   <a onclick="alert('Cannot insert to primary repository. Not enabled')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+	            #else
+		         <a onclick="insertDialog('$cacheKey', '$repos.repository')" href="#" class="ui-icon ui-icon-circle-plus" style="float: right; margin-left: .3em;"></a>
+		    #end
+                #end
 		#if ($repos.allergies)
 			#if ($firstRepository != true)
 				#if ($loopCount == 1)
@@ -35,8 +43,8 @@
 			#set ($firstRepository = false)
 			#set ($loopCount = $loopCount + 1)
 			#foreach( $allergy in $repos.allergies)
-		    <b>$allergy.product.value</b><br/>
-    			<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: $allergy.reaction.value<br clear="all"/>
+		    <b>$allergy.description</b><br/>
+    			<span class="ui-icon ui-icon-triangle-1-e"  style="float: left; margin-right: .3em;"></span>Reaction: $allergy.reaction.originalText<br clear="all"/>
 			#end
 			<br/>
 		#end

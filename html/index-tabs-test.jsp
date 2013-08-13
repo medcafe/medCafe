@@ -24,7 +24,7 @@
 	<link type="text/css" rel="stylesheet" href="${css}/jquery.iviewer.css" />
 
 	<script type="text/javascript" src="${js}/jquery-1.4.4.js"></script>
-	<script type="text/javascript" src="${js}/jquery.layout.js"></script>
+	<script type="text/javascript" src="${js}/jquery.layout-latest.js"></script>
 	<script type="text/javascript" src="${js}/jquery-ui-1.8.6.custom.min.js"></script>
 	<script type="text/javascript" src="${js}/custom.js"></script>
 	<script type="text/javascript" src="${js}/jquery.highlight.js"></script>

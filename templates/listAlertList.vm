@@ -8,7 +8,7 @@
 				
 				    #foreach(  $allergy in $repos.allergies )
                         
-                        $allergy.type.codeSystem : $allergy.type.code  <br/>
+                        $allergy.description : $allergy.reaction.originalText  <br/>
 			        #end
 	   	#end
 		#end

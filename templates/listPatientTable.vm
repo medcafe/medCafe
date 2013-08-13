@@ -32,13 +32,9 @@
 			#*   Patient name and id  *#
 			#* Since the given name is an array of an unbounded number of elements, we need to build the given name  *#
 			<p>
-			#if ($repos.patient_data.name.given)
-				<b>
-				#foreach ($givenNameDetail in $repos.patient_data.name.given)
-					$givenNameDetail$space
-				#end
-			#end
-			$repos.patient_data.name.lastname</b></p>
+			
+			$repos.patient_data.firstName $repos.patient_data.lastName</b></p>
+		
 			<div style="float:left; margin-right:2em;">
 
 

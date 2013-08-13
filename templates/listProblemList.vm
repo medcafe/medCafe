@@ -8,10 +8,10 @@
 			#if ($repos.problem)
 				#foreach(  $problemDetail in $repos.problem )
 	   	<tr>
-	  		<td> $problemDetail.problemName </td>
+	  		<td> $problemDetail.description </td>
 			<td class="ui-corner-all">
 
-				${problemDetail.problemDate.low.month}/${problemDetail.problemDate.low.day}/${problemDetail.problemDate.low.year}
+				${problemDetail.start_time}
 			</td> 
 	   		</tr>
 	   		#end

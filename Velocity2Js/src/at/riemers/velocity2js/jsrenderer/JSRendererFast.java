@@ -35,6 +35,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  *
  * @author tobias
@@ -45,14 +47,17 @@ public class JSRendererFast implements JSRenderer {
     private final static String VARIABLE = "Variable";
     private final static String IDENTIFIER = "Identifier";
     private final static String FUNCTION = "Function";
-    
+    private static Pattern getPattern = Pattern.compile("^.*([.]get[\\(]([A-Za-z][_A-Za-z0-9]*)[\\)])$");
     private int cnt=0;
     private Stack<String> contextStack = new Stack<String>();
     private StringBuffer buf = new StringBuffer();
     private StringBuffer buf2 = null;
     private final static String contextVar = "context";
     private Set<Variable> localVars = new HashSet<Variable>();
+    private Set<Variable> keyVars = new HashSet<Variable>();
     private int level = 0;
+    private boolean isGetFunction= false;
+    private boolean isKeyReference = false;
     private ArrayList<Boolean> isForeach = new ArrayList<Boolean>();
     
     private boolean velocityCount = true;
@@ -149,11 +154,21 @@ public class JSRendererFast implements JSRenderer {
             if (!localVars.contains(new Variable(string))) {
                 append(contextVar + ".");
             }
+	    if (keyVars.contains(new Variable(string)) && isGetFunction)
+            {
+                buf2 = null;
+                isKeyReference = true;
+                append("[");
+		string = string+"]";
+            }
         }
         if (string.equals("CONTEXT")) {
             append(contextVar);
         } else {
+	
             append(string);
+
+            
         }
         
         contextStack.push(REFERENCE);
@@ -168,15 +183,30 @@ public class JSRendererFast implements JSRenderer {
     }
     
     public void renderMethodStart(String string) {
+        if (string.equals("get"))
+	{
+           isGetFunction=true;
+           appendBuffered(".");
+           appendBuffered(string);
+           appendBuffered("(");
+         }
+	else {
         append(".");
         append(string);
         append("(");
+        }
         contextStack.push(VARIABLE);
     }
     
     public void renderMethodEnd() {
         contextStack.pop();
-        append(")");
+        if (!isGetFunction || !isKeyReference)
+	{
+    		append(")");
+	}
+	isGetFunction=false;
+        isKeyReference=false;
+
         //newLine();
     }
     
@@ -197,7 +227,29 @@ public class JSRendererFast implements JSRenderer {
     
     public void renderForStart(String var, String list) {
         increaseLevel();
-        isForeach.add(true);       //levels are indexed starting at 1, isForeach index starts at 0
+        isForeach.add(true);       //levels are indexed starting at 1, isForeach index starts at 0.
+        Matcher matcher = getPattern.matcher(list);
+ 
+        if (matcher.matches()&& keyVars.contains(new Variable(matcher.group(2))))
+        {
+            list =list.replace(matcher.group(1),"["+ matcher.group(2)+"]");
+        }
+	if (list.endsWith(".keySet()"))
+{
+     String v = "i" + level;
+     append(v + "=0;");
+     newLine();
+     addKey(var);
+     append("for (" + var + " in " +list.replace(".keySet()","") + ")");
+append(" {");
+     newLine();
+     append("velocityCount = " +v+";");
+     newLine();
+     append(v + "++;");
+     newLine();
+}
+else
+{
         String v = "i" + level;
         //append(" alert('for: " + v + "');");
         append("for (var " + v + "=0;  " + v + "<" + list + ".length; " + v + "++)");
@@ -208,6 +260,7 @@ public class JSRendererFast implements JSRenderer {
         newLine();
         append("velocityCount = " + v + ";");
         newLine();
+}
     }
     
     public void renderForEnd() {
@@ -247,6 +300,7 @@ public class JSRendererFast implements JSRenderer {
     public void removeLocalVar(String var) {
         Variable v = new Variable(var, level);
         localVars.remove(v);
+        keyVars.remove(v);
     }
     
     public Variable addLocalVar(Variable var) {
@@ -254,6 +308,14 @@ public class JSRendererFast implements JSRenderer {
         localVars.add(var);
         return var;
     }
+    public Variable addKey(String var) {
+	Variable v = new Variable(var,level);
+	keyVars.add(v);
+        return addLocalVar(v);
+        
+        
+    }
+
     
     public void renderSetVariableStart(String v) {
         Variable var = new Variable(v);
