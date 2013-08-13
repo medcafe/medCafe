@@ -12,7 +12,6 @@ var config = require('./config');
 
 // localhost
 
-var httpPort = process.env.PORT || 8080;
 var mongodbPort = 8888;
 
 var sendHTML = function( filePath, contentType, response ){
@@ -92,7 +91,7 @@ var onHtmlRequestHandler = function(request, response) {
 
 }
 
-httpServer.createServer(onHtmlRequestHandler).listen(httpPort); 
+//httpServer.createServer(onHtmlRequestHandler).listen(httpPort); 
 
 /// MONGODB - saves data in the database and posts data to the browser
 
@@ -227,13 +226,11 @@ var postMessage = function(req, res, next) {
 
 mongodbServer.listen(mongodbPort, function() {
   
-  var consoleMessage = '\n A Simple MongoDb, Mongoose, Restify, and Backbone Tutorial'
-  consoleMessage += '\n +++++++++++++++++++++++++++++++++++++++++++++++++++++' 
-  consoleMessage += '\n\n %s says your mongodbServer is listening at %s';
-  consoleMessage += '\n great! now open your browser to http://localhost:8080';
-  consoleMessage += '\n it will connect to your httpServer to get your static files';
-  consoleMessage += '\n and talk to your mongodbServer to get and post your messages. \n\n';
-  consoleMessage += '+++++++++++++++++++++++++++++++++++++++++++++++++++++ \n\n'  
+  var consoleMessage = '\n Fhir server api:\n';
+      consoleMessage += ' - /entries  post or get records\n';
+      consoleMessage += ' - /subjects/:id  search on subject id\n';
+      consoleMessage += ' - /providers/:id  search on provider id\n';
+      consoleMessage += '++++++++++++++++++++++++++++++++++++++++++ \n\n'  
  
   console.log(consoleMessage, mongodbServer.name, mongodbServer.url);
 
