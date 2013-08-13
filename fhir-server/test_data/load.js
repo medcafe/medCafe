@@ -1,5 +1,5 @@
 var http = require('http');
-require('./list.js');
+require('./'+ process.argv[2]);
 
 for(i=0;i<list.entry.length;i++){
     if( list.entry[i] != undefined ){
@@ -16,7 +16,7 @@ var headers = {
 var options = {
   host: 'localhost',
   port: 8888,
-  path: '/messages',
+  path: '/entries',
   method: 'POST',
   headers: headers
 };
