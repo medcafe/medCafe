@@ -2170,6 +2170,1850 @@
         }
       },
       "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">--No Summary for this resource--</div>"
+    },
+    {
+      "title" : "Observation \"example2\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example2",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example2/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 19, 2012: Blood pressure 125/85 (high)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "H"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-9-19"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "125"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "85"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 23, 2012: Blood pressure 120/80 (normal)</div>"
+    },    {
+      "title" : "Observation \"example3\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example3",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example3/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 17, 2012: Blood pressure 107/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-09-23"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "120"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "80"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 23, 2012: Blood pressure 120/80 (normal)</div>"
+    },    {
+      "title" : "Observation \"example4\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example4",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example4/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 30, 2012: Blood pressure 100/60 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-09-30"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "100"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "60"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 30, 2012: Blood pressure 100/60 (normal)</div>"
+    },    {
+      "title" : "Observation \"example5\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example5",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example5/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 17, 2012: Blood pressure 110/70 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-17"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "110"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "70"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 17, 2012: Blood pressure 110/70 (normal)</div>"
+    },    {
+      "title" : "Observation \"example6\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example6",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example6/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct21, 2012: Blood pressure 107/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-21"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "107"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "65"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 21, 2012: Blood pressure 107/65 (normal)</div>"
+    },    {
+      "title" : "Observation \"example7\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example7",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example7/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 23, 2012: Blood pressure 100/60 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-23"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "100"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "60"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 23, 2012: Blood pressure 100/60 (normal)</div>"
+    },    {
+      "title" : "Observation \"example8\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example8",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example8/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 25, 2012: Blood pressure 110/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-25"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "110"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "65"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 25, 2012: Blood pressure 110/65 (normal)</div>"
+    },    {
+      "title" : "Observation \"example9\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example9",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example9/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 27, 2012: Blood pressure 100/60 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-27"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "100"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "60"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 27, 2012: Blood pressure 100/60 (normal)</div>"
+    },    {
+      "title" : "Observation \"example10\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example10",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example10/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 29, 2012: Blood pressure 120/75 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-29"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "120"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "75"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 29, 2012: Blood pressure 120/75 (normal)</div>"
+    },    {
+      "title" : "Observation \"example11\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example11",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example11/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 31, 2012: Blood pressure 110/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-10-31"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "110"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "65"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 31, 2012: Blood pressure 110/65 (normal)</div>"
+    },    {
+      "title" : "Observation \"example13\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example13",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example13/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Nov 2, 2012: Blood pressure 115/70 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-11-02"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "115"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "70"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Nov 10, 2012: Blood pressure 100/60 (normal)</div>"
+    },    {
+      "title" : "Observation \"example14\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example14",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example14/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 17, 2012: Blood pressure 107/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-11-10"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "100"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "60"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Nov 10, 2012: Blood pressure 100/60 (normal)</div>"
+    },    {
+      "title" : "Observation \"example15\" Version \"1\"",
+      "id" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example15",
+      "link" : [
+        {
+          "href" : "http://hl7connect.healthintersections.com.au/svc/fhir/observation/@example15/history/@1",
+          "rel" : "self"
+        }
+      ],
+      "updated" : "2013-08-09T10:47:11Z",
+      "published" : "2013-08-12T19:29:31Z",
+      "author" : [
+        {
+          "name" : "110.143.187.242"
+        }
+      ],
+      "content" : {
+        "Observation" : {
+          "text" : {
+            "status" : {
+              "value" : "generated"
+            },
+            "div" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Nov 17, 2012: Blood pressure 107/65 (normal)</div>"
+          },
+          "name" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://loinc.org"
+                },
+                "code" : {
+                  "value" : "55284-4"
+                },
+                "display" : {
+                  "value" : "Blood pressure systolic and diastolic"
+                }
+              }
+            ]
+          },
+          "interpretation" : {
+            "coding" : [
+              {
+                "system" : {
+                  "value" : "http://hl7.org/fhir/v2/0078"
+                },
+                "code" : {
+                  "value" : "N"
+                },
+                "display" : {
+                  "value" : "Normal (applies to non-numeric results)"
+                }
+              }
+            ]
+          },
+          "appliesDateTime" : {
+            "value" : "2012-11-17"
+          },
+          "status" : {
+            "value" : "final"
+          },
+          "reliability" : {
+            "value" : "ok"
+          },
+          "identifier" : {
+            "system" : {
+              "value" : "urn:ietf:rfc:3986"
+            },
+            "key" : {
+              "value" : "187e0c12-8dd2-67e2-99b2-bf273c878281"
+            }
+          },
+          "subject" : {
+            "type" : {
+              "value" : "Patient"
+            },
+            "reference" : {
+              "value" : "patient/@example"
+            }
+          },
+          "performer" : {
+            "type" : {
+              "value" : "Practitioner"
+            },
+            "reference" : {
+              "value" : "practitioner/@example"
+            }
+          },
+          "component" : [
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8480-6"
+                    },
+                    "display" : {
+                      "value" : "Systolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "107"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            },
+            {
+              "name" : {
+                "coding" : [
+                  {
+                    "system" : {
+                      "value" : "http://loinc.org"
+                    },
+                    "code" : {
+                      "value" : "8462-4"
+                    },
+                    "display" : {
+                      "value" : "Diastolic blood pressure"
+                    }
+                  }
+                ]
+              },
+              "valueQuantity" : {
+                "value" : {
+                  "value" : "65"
+                },
+                "units" : {
+                  "value" : "mm[Hg]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "summary" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<div xmlns=\"http://www.w3.org/1999/xhtml\">Oct 31, 2012: Blood pressure 120/80 (normal)</div>"
     }
   ]
 }
