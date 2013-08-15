@@ -75,6 +75,8 @@ public class InitServlet extends HttpServlet {
     Properties p = new Properties();
     p.setProperty("file.resource.loader.path", Constants.CONFIG_DIR
         + "templates");
+    System.out.println("InitServlet: Init Velocity Properties " + Constants.CONFIG_DIR
+        + "templates");
     p.setProperty("runtime.log", base_path + "../../logs/velocity_example.log");
     VelocityUtil.init(p);
     /*

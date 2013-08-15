@@ -37,6 +37,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 
+import org.hl7.fhir.instance.model.Observation;
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
 import org.hl7.greencda.c32.Condition;
@@ -783,6 +784,14 @@ public class GreenCDARepository extends Repository {
 		// TODO Auto-generated method stub
 	    
 		return null;
+	}
+
+	@Override
+	public List<Observation> getObservationVitals(String patientId)
+			throws NotImplementedException {
+		// TODO Auto-generated method stub
+		List<Observation> observations = new ArrayList<Observation>();
+		return observations;
 	}
 
 }

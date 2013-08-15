@@ -6,6 +6,11 @@
 	<priority>high</priority>
 </DataSource>
 <DataSource>
+    <restlet>/repositories/{repository}/patients/{id}/observationsvitals/{type}</restlet>
+    <cacheKey>observationVitals</cacheKey>
+    <priority>high</priority>
+</DataSource>
+<DataSource>
 	<restlet>/repositories/{repository}/patients/{id}/images</restlet>
 	<cacheKey>images</cacheKey>
 	<priority>high</priority>

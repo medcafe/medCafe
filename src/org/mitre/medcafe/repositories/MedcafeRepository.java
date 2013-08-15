@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hl7.fhir.instance.model.Observation;
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Condition;
 import org.hl7.greencda.c32.Encounter;
@@ -144,6 +145,13 @@ public class MedcafeRepository extends Repository {
 
 	@Override
 	public Set<String> lookup(String lookupType, String lookupChars) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Observation> getObservationVitals(String patientId)
+			throws NotImplementedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

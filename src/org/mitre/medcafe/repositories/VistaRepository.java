@@ -23,6 +23,7 @@ import com.medsphere.ovid.domain.ov.*;
 import com.medsphere.ovid.model.domain.*;
 import com.medsphere.ovid.model.domain.patient.*;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Time;
@@ -35,6 +36,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 
+import org.mitre.medcafe.hl7utils.ParseBP;
 import org.mitre.medcafe.model.Patient;
 import org.mitre.medcafe.model.Values;
 import org.mitre.medcafe.util.NotImplementedException;
@@ -52,6 +54,7 @@ import org.medsphere.datasource.ServiceLocator;
 import org.medsphere.lifecycle.LifecycleManager;
 import org.medsphere.lifecycle.LifecycleListener;
 import org.medsphere.auth.SubjectCache;
+import org.hl7.fhir.instance.model.Observation;
 import org.hl7.greencda.c32.Address;
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Code;
@@ -1604,4 +1607,23 @@ catch(DatatypeConfigurationException dE)
 			}
 	    	
 	    }
+	    
+	    @Override
+		public List<Observation> getObservationVitals(String patientId)
+				throws NotImplementedException {
+			// TODO Auto-generated method stub
+	    	ParseBP parseBP = new ParseBP();
+	    	List<Observation> listObs = new ArrayList<Observation>();
+			try {
+				listObs = parseBP.getObservations();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listObs;
+		}
 }

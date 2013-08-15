@@ -12,9 +12,9 @@
        <repository>
             <name>OurVista</name>
             <type>org.mitre.medcafe.repositories.VistaRepository</type>
-            <host>medcafe.org</host>
+            <host>medcafe.mitre.org</host>
             <credentials>
-                <hostURL>medcafe.org</hostURL>
+                <hostURL>medcafe.mitre.org</hostURL>
                 <port>9201</port>
                 <accessCode>OV1234</accessCode>
                 <verifyCode>OV1234!!</verifyCode>

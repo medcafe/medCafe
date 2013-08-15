@@ -826,15 +826,26 @@ t.p('   	');
 if (repos.patient_data) {
 t.p('   		');
 if (printed == 0) {
-t.p('   			<tr><th colspan="2" style="text-align:left;">   			<b>');
+t.p('   			<tr><th colspan="2" style="text-align:left;">   			');
+if (repos.patient_data.lastName) {
+t.p('   			<b>');
 t.p( repos.patient_data.lastName);
 t.p('</b>   			');
+}
+t.p('   			');
+if (repos.patient_data.firstName) {
+t.p('   			');
 t.p( repos.patient_data.firstName);
 t.p(' </th></tr>   			');
+}
 printed = 1;
-t.p('   			  <tr><td colspan="2">				');
+t.p('   			  ');
+if (repos.patient_data.demographic_info) {
+t.p('               			  <tr><td colspan="2">				');
 t.p( repos.patient_data.demographic_info);
-t.p('     			  </td></tr>     		');
+t.p('     		  </td></tr>     		  ');
+}
+t.p('     		');
 }
 t.p('     	');
 }

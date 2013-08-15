@@ -1,0 +1,340 @@
+<medCafeWidgets>
+<patientSpecific>
+<medCafeWidget>
+	<name>Details</name>
+	<type>Detail</type>
+	<image>patient.png</image>
+	<clickUrl>repository-listJSON.jsp</clickUrl>
+	<template>listPatientTable</template>
+	<cacheKey>patientList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>VitalGrid</name>
+    <type>Vital</type>
+    <image>vital.png</image>
+    <template>listVitalsListGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>ResultsGrid</name>
+    <type>Results</type>
+    <image>lab-results.png</image>
+    <template>listResultsGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>SocialHistGrid</name>
+    <type>SocialHistory</type>
+    <image>socialHistory.png</image>
+    <template>listSocialHistoryGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>socialHistoryList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>ProcedureGrid</name>
+    <type>Procedures</type>
+    <image>proc.png</image>
+    <template>listProceduresGrid</template>
+    <script>processJQGrid</script>
+    <script_file>medCafe.jqgrid.js</script_file>
+    <cacheKey>procedures</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>DefaultPatient</name>
+	<type>DefaultPatient</type>
+	<image>defaultPatient.png</image>
+	<template>basicDataView</template>
+	<cacheKey>patientList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Images</name>
+	<type>Image</type>
+	<image>coverflow.png</image>
+   <clickUrl>contentFlow.jsp</clickUrl>
+	<script>processImages</script>
+	<script_file>medCafe.images.js</script_file>
+	<cacheKey>images</cacheKey>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Filter</name>
+	<type>Filter</type>
+	<image>slider-small.png</image>
+	<clickUrl>filterTools.jsp</clickUrl>
+	<script>processFilter</script>
+	<script_file>medCafe.filter.js</script_file>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Editor</name>
+	<type>EditorNonIFrame</type>
+	<image>pages-icon.png</image>
+	<clickUrl>editor.jsp</clickUrl>
+	<script>processEditor</script>
+	<script_file>medCafe.editor.js</script_file>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Timeline</name>
+	<type>Timeline</type>
+	<image>timeline.png</image>
+	<clickUrl>timelineJSON.jsp</clickUrl>
+	<script>processTimeline</script>
+	<script_file>medCafe.timeline.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<isINettuts>false</isINettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Bookmarks</name>
+	<type>Bookmarks</type>
+	<image>bookmark.png</image>
+	<clickUrl>bookmarksJSON.jsp</clickUrl>
+	<template>listPatientsBookmarksTable</template>
+	<script>addBookmarks</script>
+	<script_file>medCafe.bookmarks.js</script_file>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Medications</name>
+	<type>Medications</type>
+	<image>prescription.png</image>
+	<template>listPatientMedsVert</template>
+	<cacheKey>medicineList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Allergies</name>
+	<type>Allergies</type>
+	<image>allergy.jpg</image>
+	<template>listPatientAllergies</template>
+	<cacheKey>alertList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultAllergies</name>
+    <type>DefaultAllergies</type>
+    <image>allergy.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>alertList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultSocialHistory</name>
+    <type>DefaultSocialHistory</type>
+    <image>socialHistory.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>socialHistoryList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultEncounter</name>
+    <type>DefaultEncounter</type>
+    <image>socialHistory.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>encounterList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultResults</name>
+    <type>DefaultResults</type>
+    <image>labResults.jpg</image>
+    <template>basicDataView</template>
+    <cacheKey>resultList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultProcedures</name>
+    <type>DefaultProcedures</type>
+    <image>proc.png</image>
+    <template>basicDataView</template>
+    <cacheKey>procedures</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Symptoms</name>
+	<type>Symptoms</type>
+	<image>clipboard-checkbox.jpg</image>
+	<clickUrl>listHistoryTemplate.jsp</clickUrl>
+	<script>processSymptoms</script>
+	<script_file>medCafe.symptoms.js</script_file>
+	<template>listHistoryTemplate</template>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>DefaultMedications</name>
+	<type>DefaultMedications</type>
+	<image>defaultPrescription.png</image>
+	<template>basicDataView</template>
+	<cacheKey>medicineList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>History</name>
+	<type>History</type>
+	<image>history.png</image>
+	<template>listPatientHistoryTable</template>
+	<cacheKey>Personalhistory</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>FamilyHistory</name>
+	<type>History</type>
+	<image>familyhistory.png</image>
+	<template>listPatientHistoryTable</template>
+	<cacheKey>Familyhistory</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>ProblemGridTest</name>
+	<type>Problem</type>
+	<image>problem.png</image>
+	<template>listProblemListGrid</template>
+	<cacheKey>problemListGrid</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Problem</name>
+	<type>Problem</type>
+	<image>problem.png</image>
+	<template>listProblemListTable</template>
+	<cacheKey>problemList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+    <name>DefaultVitals</name>
+    <type>DefaultVitals</type>
+    <image>defaultPrescription.png</image>
+    <template>basicDataView</template>
+    <cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Chart</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<clickUrl>chart.jsp</clickUrl>
+	<params>type:none</params>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<cacheKey>allVitalsList</cacheKey>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>BP/PulseChart</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<clickUrl>chart.jsp</clickUrl>
+	<params>type:basic</params>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>HeightWeightChart</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<clickUrl>chart.jsp</clickUrl>
+	<params>type:ht/wt</params>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>TemperatureChart</name>
+	<type>Chart</type>
+	<image>chart.png</image>
+	<clickUrl>chart.jsp</clickUrl>
+	<params>type:temp</params>
+	<script>processChart</script>
+	<script_file>medCafe.chart.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<cacheKey>allVitalsList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>SupportInfo</name>
+	<type>Support</type>
+	<image>Address_Book.png</image>
+	<template>listSupportInfo</template>
+	<cacheKey>supportList</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Immunizations</name>
+	<type>Immunizations</type>
+	<image>hypo.png</image>
+	<template>listPatientImmunizations</template>
+	<cacheKey>immuneList</cacheKey>
+</medCafeWidget>
+</patientSpecific>
+<general>
+<medCafeWidget>
+	<name>OpenVISTA</name>
+	<type>Repository</type>
+	<image>openvista.gif</image>
+	<clickUrl>repository-listJSON.jsp</clickUrl>
+	<params>repository:OurVista</params>
+	<script>addRepository</script>
+	<script_file>medCafe.repository.js</script_file>
+	<template>listPatientsTable</template>
+</medCafeWidget>
+<medCafeWidget>
+	<name>hData</name>
+	<type>Repository</type>
+	<image>hData.png</image>
+	<clickUrl>repository-listJSON.jsp</clickUrl>
+	<params>repository:OurHdata</params>
+	<script>addRepository</script>
+	<script_file>medCafe.repository.js</script_file>
+	<template>listPatientsTable</template>
+</medCafeWidget>
+<medCafeWidget>
+	<name>AddHistory</name>
+	<type>AddHistory</type>
+	<image>clipboard-checkbox.jpg</image>
+	<clickUrl>listHistoryTemplate.jsp</clickUrl>
+	<script>processSymptoms</script>
+	<script_file>medCafe.symptoms.js</script_file>
+	<template>listHistoryTemplate</template>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Editor</name>
+	<type>EditorNonIFrame</type>
+	<image>pages-icon.png</image>
+	<clickUrl>editor.jsp</clickUrl>
+	<script>processEditor</script>
+	<script_file>medCafe.editor.js</script_file>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Filter</name>
+	<type>Filter</type>
+	<image>slider-small.png</image>
+	<clickUrl>filterTools.jsp</clickUrl>
+	<script>processFilter</script>
+	<script_file>medCafe.filter.js</script_file>
+	<jsonProcess>false</jsonProcess>
+</medCafeWidget>
+</general>
+<internal>
+<medCafeWidget>
+	<name>Viewer</name>
+	<type>Viewer</type>
+	<clickUrl>viewer.jsp</clickUrl>
+	<script>processViewerImages</script>
+	<script_file>medCafe.viewer.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<isINettuts>false</isINettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Image</name>
+	<type>SingleImage</type>
+	<clickUrl>singleImage.jsp</clickUrl>
+	<script>displayImage</script>
+	<script_file>medCafe.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<isINettuts>false</isINettuts>
+</medCafeWidget>
+<medCafeWidget>
+	<name>Annotate</name>
+	<type>Annotate</type>
+	<clickUrl>viewerDrawFrame.jsp</clickUrl>
+	<script>addChart</script>
+	<script_file>medCafe.js</script_file>
+	<jsonProcess>false</jsonProcess>
+	<isINettuts>false</isINettuts>
+</medCafeWidget>
+</internal>
+</medCafeWidgets>

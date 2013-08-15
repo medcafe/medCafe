@@ -16,6 +16,7 @@
 package org.mitre.medcafe.util;
 
 import org.apache.velocity.app .*;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.*;
 import java.io.*;
 import java.util.*;
@@ -110,6 +111,8 @@ public class VelocityUtil
      */
     public static void applyTemplate( JSONObject o, String template, Writer writer ) throws Exception
     {
+    	try
+    	{
         /*  convert the JSONObject to a Map */
         Map converted = json2Map( o );
         /*  add that to a VelocityContext  */
@@ -119,7 +122,13 @@ public class VelocityUtil
         // Template t = ve.getTemplate( template );
         /*  now render the template into a Writer  */
         // t.merge( context, writer );
+         
         Velocity.mergeTemplate( template, "UTF-8", context, writer );
+    	}
+    	catch( ResourceNotFoundException rnfe )
+    	{
+    		 System.out.println("Velocity Util Could not find resource  " + template);
+    	}
     }
 
 

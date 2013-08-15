@@ -2,8 +2,11 @@ package test.org.mitre.medcafe.fhir.parse;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import org.hl7.fhir.instance.formats.JsonParser;
@@ -25,10 +28,19 @@ public class ParseBP {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
+	
+		ParseBP parseBP = new ParseBP();
+		parseBP.getObservations();
+	}
+	
+	public List<Observation> getObservations() throws FileNotFoundException, Exception
+	{
 		// TODO Auto-generated method stub
 		JsonParser jsonParser = new JsonParser();
 		File file = new File("/home/dev/mmrc/data/bp.json");
 
+		List<Observation> obsList = new ArrayList<Observation>();
+		
 	    ResourceOrFeed rf =jsonParser.parseGeneral(new FileInputStream(file));
 	    if (rf.getResource() != null)
 	    {
@@ -44,6 +56,8 @@ public class ParseBP {
 	    		if (resource instanceof Observation)
 	    		{
 	    			Observation obs = (Observation) resource;
+	    			obsList.add(obs);
+	    			
 	    			for (Coding code : obs.getName().getCoding())
 	    			{
 	    				if (code.getSystem()!= null)
@@ -188,6 +202,8 @@ public class ParseBP {
 	    		if (resource instanceof Observation)
 	    		{
 	    			Observation obs = (Observation) resource;
+	    			obsList.add(obs);
+	    			
 	    			for (Coding code : obs.getName().getCoding())
 	    			{
 	    				if (code.getSystem()!= null)
@@ -306,6 +322,8 @@ public class ParseBP {
 	    		}
 	    	}
 	    }
+		return obsList;
 	}
-	}
+	
+}
 

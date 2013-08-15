@@ -52,6 +52,7 @@ public class MedcafeApplication extends Application {
 		router.attach("/repositories/{repository}/patients/{id}/supportList", PatientSupportResource.class);
 		router.attach("/repositories/{repository}/patients/{id}/vitals/{choice}", PatientVitalsResource.class);
 		router.attach("/repositories/{repository}/patients/{id}/history/{category}", PatientHistoryResource.class);
+		router.attach("/repositories/{repository}/patients/{id}/observationsvitals/{type}", PatientObservationVitalsResource.class);
 
 		// List the available Widgets
 		router.attach("/widgets", ListWidgetResource.class);

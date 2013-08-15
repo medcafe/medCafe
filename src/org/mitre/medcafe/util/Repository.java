@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 
+import org.hl7.fhir.instance.model.Observation;
 import org.hl7.greencda.c32.Allergy;
 import org.hl7.greencda.c32.Condition;
 import org.hl7.greencda.c32.Encounter;
@@ -130,6 +131,12 @@ public abstract class Repository {
 	 * Get a support (contact) list for a patient.
 	 */
 	public abstract List<Support> getSupportInfo(String patientId)
+			throws NotImplementedException;
+
+	/**
+	 * Get a observation vitals (contact) list for a patient.
+	 */
+	public abstract List<Observation> getObservationVitals(String patientId)
 			throws NotImplementedException;
 
 	/**

@@ -5,12 +5,19 @@
    	#if ($repos.patient_data)
    		#if ($printed == 0)
    			<tr><th colspan="2" style="text-align:left;">
+   			#if ($repos.patient_data.lastName)
    			<b>$repos.patient_data.lastName</b>
+   			#end
+   			#if ($repos.patient_data.firstName)
    			$repos.patient_data.firstName </th></tr>
+   			#end
    			#set ($printed = 1)
+   			  #if ($repos.patient_data.demographic_info)
+            
    			  <tr><td colspan="2">
 				$repos.patient_data.demographic_info
-     			  </td></tr>
+     		  </td></tr>
+     		  #end
      		#end
      	#end
 	#end

@@ -9,6 +9,13 @@
 	<cacheKey>patientList</cacheKey>
 </medCafeWidget>
 <medCafeWidget>
+    <name>Observations</name>
+    <type>Observations</type>
+    <image>sean.png</image>
+    <template>basicDataView</template>
+    <cacheKey>observationVitals</cacheKey>
+</medCafeWidget>
+<medCafeWidget>
 	<name>Encounters</name>
 	<type>Encounter</type>
 	<image>encounters.png</image>

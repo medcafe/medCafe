@@ -217,5 +217,6 @@
 	<classpathentry kind="lib" path="Velocity2Js/dist/Velocity2Js.jar"/>
 	<classpathentry kind="lib" path="Velocity2Js/lib/ant.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/rome-1.0.jar"/>
 	<classpathentry kind="output" path="ovid-dev-1.0.0/ovid-domain/bin"/>
 </classpath>

@@ -41,6 +41,7 @@ public class PatientCache extends TimerTask {
     public final static String KEY = PatientCache.class.getName();
     public final static Logger log = Logger.getLogger(KEY);
 
+    public final static String ID ="id";
     static {
          log.setLevel(Level.SEVERE);
     }
@@ -112,6 +113,7 @@ public class PatientCache extends TimerTask {
         Patient patient = new Patient();
         JSONObject repositoryList = patient.listRepositories(databasePatientId);
         ArrayList<JSONObject> repos = new ArrayList<JSONObject>();
+        repositories = new JSONObject();
         try {
             JSONArray reps = new JSONArray();
             reps = repositoryList.getJSONArray("repositories");
@@ -124,7 +126,7 @@ public class PatientCache extends TimerTask {
                 String repositoryName = repository.getString("repository");
                 
                 if (repositoryName.equals(primaryRepos)) {
-                	  primaryReposId = repository.getString("id");
+                	  primaryReposId = repository.getInt(ID) + "";
                     repos.add(0, repository);
                 } else {
                     repos.add(repository);
@@ -136,7 +138,7 @@ public class PatientCache extends TimerTask {
             }
             log.finer(repositories.toString());
         } catch (JSONException jsonE) {
-            log.severe("PatientCache: Error accessing JSON Array to order repository");
+            log.severe("PatientCache: Error accessing JSON Array to order repository " + jsonE.getMessage());
         }
         log.finer("PatientCache loadRepositoryInfo JSONObject " + repositories.toString());
 
@@ -300,6 +302,7 @@ public class PatientCache extends TimerTask {
 
         }
 
+        System.out.println("PatientCache trying to retrieve " + cacheKey );
         JSONObject ret = patientDataHash.get(cacheKey);
 
 
@@ -373,7 +376,7 @@ public class PatientCache extends TimerTask {
 
 
                         if (repName.equals(repositoryName)) {
-                            patientRepId = rep.getString("id");
+                            patientRepId = rep.getInt(ID) + "";
                             ;
 
 
@@ -821,7 +824,7 @@ public class PatientCache extends TimerTask {
                     < reps.length(); i++) {
                 JSONObject repObj = (JSONObject) reps.get(i);
                 String repository = repObj.getString("repository");
-                String repoPatientId = repObj.getString("id");
+                String repoPatientId = repObj.getInt(ID) + "";
                 String restletString = new String(restlet);
                 restletString = restletString.replaceAll("\\{repository\\}", repository);
                 restletString = restletString.replaceAll("\\{id\\}", repoPatientId);
