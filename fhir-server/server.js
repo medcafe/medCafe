@@ -55,6 +55,14 @@ var mongodbServer = restify.createServer({
                 return JSON.stringify(body);
             }
         },
+        'application/json+fhir': function(req, res, body){
+            if(req.params.callback){
+                var callbackFunctionName = req.params.callback.replace(/[^A-Za-z0-9_\.]/g, '');
+                return callbackFunctionName + "(" + JSON.stringify(body) + ");";
+            } else {
+                return JSON.stringify(body);
+            }
+        },
         'text/html': function(req, res, body){
             return body;
         }
@@ -75,11 +83,18 @@ var MessageMongooseModel = mongoose.model('Message'); // just to emphasize this 
 var format_fhir = function(entries) {
     //TODO put JSON definition of the document junk here
     var entry_array = new Array();
+    var date = new Date();
+    var dateString = date.toISOString();
     for(i=0;i<entries.length;i++){
+        entries[i].entry.updated=dateString;
         entry_array.push(entries[i].entry);
     }
+    var date = new Date();
     var finished_doc = {
-        'title' : "document",
+        'totalResults' : entries.length,
+	'link':[
+	],
+	'updated': dateString,
         'entries' : entry_array
     };
     return finished_doc;
@@ -235,10 +250,16 @@ var searchPatients = function(req, res, next) {
     res.send( 203, 'OK' );
   }
   
-  console.log("mongodbServer searchSubjects: " + req.params.id);
+  console.log("mongodbServer searchPatients: " + req.params[0]);
 
-    MessageMongooseModel.find({"entry.title": new RegExp('^Patient.*' + req.params.refid) }).execFind(function (arr,data) {
-    res.send(format_fhir(data));
+    MessageMongooseModel.find({"entry.title": new RegExp('^Patient.*' + req.params[0]) }).execFind(function (arr,data) {
+  if (data.length>0) {
+  data[0].entry.published= new Date().toISOString();
+   res.send(data[0]);
+  }
+   else {
+	res.send(404,'Not found');
+	}
   });
 }
 
@@ -253,10 +274,16 @@ var searchPractitioners = function(req, res, next) {
     res.send( 203, 'OK' );
   }
   
-  console.log("mongodbServer searchProviders: " + req.params.refid);
+  console.log("mongodbServer searchProviders: " + req.params[0]);
 
-    MessageMongooseModel.find({"entry.title": new RegExp('^Practitioner.*' + req.params.refid) }).execFind(function (arr,data) {
-        res.send(format_fhir(data));
+    MessageMongooseModel.find({"entry.title": new RegExp('^Practitioner.*' + req.params[0]) }).execFind(function (arr,data) {
+  if (data.length>0) {
+  data[0].entry.published= new Date().toISOString();
+   res.send(data[0]);
+  }
+   else {
+	res.send(404,'Not found');
+	}
     });
 }
 
@@ -311,10 +338,15 @@ var searchObservations = function(req, res, next) {
     res.send( 203, 'OK' );
   }
   
-  console.log("mongodbServer searchObs: " + req.params.refid);
-
-  MessageMongooseModel.find({"entry.title": new RegExp('^Observation.*' + req.params.refid) }).execFind(function (arr,data) {
-    res.send(format_fhir(data));
+  console.log("mongodbServer searchObs: " + req.params[0]);
+  MessageMongooseModel.find({"entry.title": new RegExp('^Observation.*' + req.params[0]) }).execFind(function (arr,data) {
+  if (data.length>0) {
+  data[0].entry.published= new Date().toISOString();
+   res.send(data[0]);
+  }
+   else {
+	res.send(404,'Not found');
+	}
   });
 }
 
@@ -357,22 +389,187 @@ var postMessage = function(req, res, next) {
     res.send(entry); //TODO, actual response code? How about validation?
   });
 }
+var updateData = function(uuid, data, message, remoteAddress,res)
+{
+        console.log("updating data");
+        var type="";
+	for (var key in data)
+        {
+           type=key;
+         }
+        var newMsg = new MessageMongooseModel();
+        newMsg.entry = message.entry;
+
+        MessageMongooseModel.remove({"entry.title": new RegExp('^'+type+'.*' + uuid) }, function(err) {
+        console.log(err);
+        var lowercase = type.toLowerCase();
+ 	newMsg.entry.updated=new Date().toISOString();
+        newMsg.entry.published= new Date().toISOString();
+	newMsg.entry.content= data;
+        newMsg.entry.author=[{'name':remoteAddress}];
+        newMsg.entry.summary="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"+data[type].text.div
+  	
+  
+  	newMsg.save(function () {
+    	res.send(newMsg); //TODO, actual response code? How about validation?
+  });
+});
+}
+var newData = function(uuid, data, remoteAddress,res)
+{
+        var type="";
+	for (var key in data)
+        {
+           type=key;
+         }
+        var lowercase = type.toLowerCase();
+ 	var message = new MessageMongooseModel(); 
+  	var entry={
+	'title':key+' \"' +uuid +'\" Version \"1\"',
+	'id' : 'http://localhost:8888/'+lowercase+'/@' + uuid,
+	'link':[{"href":"http://localhost:8888/" +lowercase +"/@"+uuid+"/@1","rel":"self"}],
+	'updated':new Date().toISOString(),
+	'published':new Date().toISOString(),
+	'author':[{'name':remoteAddress}],
+	'content':data,
+	'summary':"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"+data[type].text.div
+
+
+  	}
+  message.entry = entry;
+  message.save(function () {
+    res.send(message); //TODO, actual response code? How about validation?
+  });
+}
+var createUUID = function()
+{
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+    });
+ return uuid;
+}
+var putObservation = function(req, res, next) {
+ res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+ 
+  }
+  
+  // Create a new message model, fill it up and save it to Mongodb
+ 
+      var observation = JSON.parse(req.body);
+ if (req.params && req.params[0])
+ {
+     MessageMongooseModel.find({"entry.title": new RegExp('^Observation.*' + req.params[0]) }).execFind(function (arr,data) {
+     console.log(data); 
+    if (data.length>0)
+     {
+        console.log(data);
+  	updateData(req.params[0], observation, data[0], req.connection.remoteAddress, res);
+     }
+     else
+     {  
+	  newData(req.params[0],observation,req.connection.remoteAddress, res);
+     }
+   });
+ }
+ else{
+  
+
+   newData(createUUID(),observation,req.connection.remoteAddress,res);
+ }
+}
+var putPatient = function(req, res, next) {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  // Create a new message model, fill it up and save it to Mongodb
+
+      var patient = JSON.parse(req.body);
+ if (req.params && req.params[0])
+ {
+     MessageMongooseModel.find({"entry.title": new RegExp('^Patient.*' + req.params[0]) }).execFind(function (arr,data) {
+     console.log(data); 
+    if (data.length>0)
+     {
+        console.log(data);
+  	updateData(req.params[0], patient, data[0], req.connection.remoteAddress, res);
+     }
+     else
+     {  
+	  newData(req.params[0],patient,req.connection.remoteAddress, res);
+     }
+   });
+ }
+ else{
+  
+
+   newData(createUUID(),patient,req.connection.remoteAddress,res);
+ }
+}
+
+var putPractitioner = function(req, res, next) {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+  
+  if( 'OPTIONS' == req.method ) {
+    res.send( 203, 'OK' );
+  }
+  
+  // Create a new message model, fill it up and save it to Mongodb
+  // Create a new message model, fill it up and save it to Mongodb
+ 	console.log("request received from: " + req.connection.remoteAddress); 
+	console.log(req.body); 
+      var practitioner = JSON.parse(req.body);
+ if (req.params && req.params[0])
+ {
+     MessageMongooseModel.find({"entry.title": new RegExp('^Practitioner.*' + req.params[0]) }).execFind(function (arr,data) {
+     console.log(data); 
+    if (data.length>0)
+     {
+        console.log(data);
+  	updateData(req.params[0], practitioner, data[0], req.connection.remoteAddress, res);
+     }
+     else
+     {  
+	  newData(req.params[0],practitioner,req.connection.remoteAddress, res);
+     }
+   });
+ }
+ else{
+  
+
+   newData(createUUID(),practitioner,req.connection.remoteAddress,res);
+ }
+}
 
 mongodbServer.listen(local_port, function() {
   
   var consoleMessage = '\n Simple Fhir server api: port ' + local_port;
       consoleMessage += '\n - /observation/history \n';
       consoleMessage += ' - /observation/search \n';
-      consoleMessage += ' - /observation/:refid \n';
+      consoleMessage += ' - /observation/@:refid \n';
 
       consoleMessage += ' - /patient/history \n';
       consoleMessage += ' - /patient/search \n';
-      consoleMessage += ' - /patient/:refid \n';
+      consoleMessage += ' - /patient/@:refid \n';
 
       consoleMessage += ' - /practitioner/history \n';
       consoleMessage += ' - /practitioner/search \n';
-      consoleMessage += ' - /practitioner/:refid \n';
- 
+      consoleMessage += ' - /practitioner/@:refid \n';
+
       consoleMessage += '++++++++++++++++++++++++++++++++++++++++++ \n\n'  
  
   console.log(consoleMessage, mongodbServer.name, mongodbServer.url);
@@ -386,9 +583,16 @@ mongodbServer.get('/patient/history', getPatients);
 mongodbServer.get('/practitioner/history', getPractitioners);
 
 /////   Write new records...
-mongodbServer.post('/observation', postMessage);
-mongodbServer.post('/patient', postMessage);
-mongodbServer.post('/practitioner', postMessage);
+mongodbServer.put(/^\/patient\/@([a-zA-Z0-9_\.~-]+)/, putPatient);
+mongodbServer.put(/^\/practitioner\/@([a-zA-Z0-9_\.~-]+)/, putPractitioner);
+mongodbServer.put(/^\/observation\/@([a-zA-Z0-9_\.~-]+)/,putObservation);
+/*
+mongodbServer.put('/observation', putObservation);
+mongodbServer.put('/patient', putPatient);
+mongodbServer.put('/practitioner', putPractitioner);
+*/
+
+mongodbServer.post('/externalData', postMessage);
 
 /////   Searches!
 mongodbServer.get('/patient/search', searchPatientName);
@@ -396,8 +600,8 @@ mongodbServer.get('/practitioner/search', searchPractitionerName);
 mongodbServer.get('/observation/search', searchObservationParams);
 
 /////   finding specific records
-mongodbServer.get('/observation/:refid', searchObservations);
-mongodbServer.get('/patient/:refid', searchPatients);
-mongodbServer.get('/practitioner/:refid', searchPractitioners);
 
+mongodbServer.get(/^\/patient\/@([a-zA-Z0-9_\.~-]+)/, searchPatients);
+mongodbServer.get(/^\/practitioner\/@([a-zA-Z0-9_\.~-]+)/, searchPractitioners);
+mongodbServer.get(/^\/observation\/@([a-zA-Z0-9_\.~-]+)/,searchObservations);
 

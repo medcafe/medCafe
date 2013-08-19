@@ -20,7 +20,7 @@ var headers = {
 var options = {
   host: 'localhost',
   port: 8888,
-  path: '/observation',
+  path: '/externalData',
   method: 'POST',
   headers: headers
 };

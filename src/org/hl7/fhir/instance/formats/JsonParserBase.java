@@ -87,7 +87,14 @@ public abstract class JsonParserBase extends ParserBase {
   
   protected XhtmlNode parseXhtml(String value) throws Exception {
     XhtmlParser prsr = new XhtmlParser();
-    return prsr.parse(value, "div").getChildNodes().get(0);
+    List<XhtmlNode> list = prsr.parse(value,"div").getChildNodes();
+    for (XhtmlNode node : list)
+    {
+    	if (node.getName()!=null && node.getName().equals("div"))
+    		return node;
+    }
+    return null;
+ //   return prsr.parse(value, "div").getChildNodes().get(0);
   }
 
   protected Resource parseBinary(JSONObject json) throws Exception {

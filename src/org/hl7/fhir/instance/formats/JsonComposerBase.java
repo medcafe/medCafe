@@ -75,7 +75,9 @@ public abstract class JsonComposerBase extends XmlBase {
 
 	public void compose(JsonWriter writer, Resource resource) throws Exception {
 		json = writer;
+		json.object();
 		composeResource(resource);
+		close();
 	}
 
 	public void compose(JsonWriter writer, AtomFeed feed) throws Exception {
