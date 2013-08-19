@@ -130,7 +130,7 @@ var searchObservationParams = function(req, res, next) {
   if(name){
     query['$or'] = [
 	{ "entry.content.Observation.name.coding.code.value" : name  },
-    	{ "entry.content.Observation.name.coding.display.value" : new RegExp( '.*' + name + '.*' ) }
+    	{ "entry.content.Observation.name.coding.display.value" : new RegExp( '.*' + name + '.*',"i" ) }
     ];
   }
 
@@ -162,17 +162,17 @@ var searchPractitionerName = function(req, res, next) {
 
   if(search_name){
       console.log("search name : " + search_name);
-      query = { $or : [ {"entry.content.Practitioner.name.family.value": new RegExp('^' + search_name + '.*') }, {"message.content.Practitioner.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
+      query = { $or : [ {"entry.content.Practitioner.name.family.value": new RegExp('^' + search_name + '.*',"i") }, {"message.content.Practitioner.name.given.value": new RegExp('^' + search_name + '.*' ) } ]  
       };
   }
   else{
     if(family_name && given_name){
-      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') , 
-                  "entry.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*') 
+      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*',"i") , 
+                  "entry.content.Practitioner.name.given.value": new RegExp('^' + given_name + '.*',"i") 
       };
     }
     else if(family_name){
-      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*') 
+      query = {  "entry.content.Practitioner.name.family.value": new RegExp('^' + family_name + '.*',"i") 
       };
     }
     else if(given_name){
