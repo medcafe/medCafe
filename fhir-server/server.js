@@ -113,10 +113,26 @@ var searchObservationParams = function(req, res, next) {
 
   var url =require('url');
   var url_parts = url.parse(req.url, true);
+  for (key in url_parts.query)
+  {
+     var temp = url_parts.query[key];
+     var firstChar = temp.charAt(0);
+     var lastChar = temp.charAt(temp.length-1);
+     console.log(firstChar);
+     console.log(lastChar);
+     if (firstChar==lastChar && (firstChar=="'" || firstChar=='"'))
+     {
+         url_parts.query[key] = temp.substring(1,temp.length-1);
+      }
+
+  }
 
   var name       = url_parts.query.name;
+
   var subject    = url_parts.query.subject;
   var performer  = url_parts.query.performer;
+var subjectName= url_parts.query["subject.name"];
+ var performerName= url_parts.query["performer.name"];
 
   query = {};
  
@@ -124,8 +140,14 @@ var searchObservationParams = function(req, res, next) {
     query["entry.content.Observation.subject.reference.value"] = 'patient/@' + subject ;
   }
   if(performer){
-    query["entry.content.Observation.performer.reference.value"] = 'practitioner/@' + performer ;
+    query["entry.content.Observation.performer.reference.value"] = new RegExp('((practitioner)|(patient))/@' + performer );
   }
+ if(subjectName){
+   query["entry.content.Observation.subject.display.value"] = new RegExp(subjectName,"i") ;
+ }
+ if(performerName){
+   query["entry.content.Observation.performer.display.value"] = new RegExp( performerName,"i") ;
+ }
 
   if(name){
     query['$or'] = [
@@ -156,6 +178,19 @@ var searchPractitionerName = function(req, res, next) {
 
   var url =require('url');
   var url_parts = url.parse(req.url, true);
+
+  for (key in url_parts.query)
+  {
+     var temp = url_parts.query[key];
+     var firstChar = temp.charAt(0);
+     var lastChar = temp.charAt(temp.length-1);
+
+     if (firstChar==lastChar && (firstChar=="'" || firstChar=='"'))
+     {
+         url_parts.query[key] = temp.substring(1,temp.length-1);
+      }
+
+  }
   var search_name = url_parts.query.name;
   var family_name = url_parts.query.family;
   var given_name  = url_parts.query.given;
@@ -205,6 +240,18 @@ var searchPatientName = function(req, res, next) {
 
   var url =require('url');
   var url_parts = url.parse(req.url, true);
+  for (key in url_parts.query)
+  {
+     var temp = url_parts.query[key];
+     var firstChar = temp.charAt(0);
+     var lastChar = temp.charAt(temp.length-1);
+
+     if (firstChar==lastChar && (firstChar=="'" || firstChar=='"'))
+     {
+         url_parts.query[key] = temp.substring(1,temp.length-1);
+      }
+
+  }
   var search_name = url_parts.query.name;
   var family_name = url_parts.query.family;
   var given_name  = url_parts.query.given;
